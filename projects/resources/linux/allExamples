@@ -1,0 +1,56 @@
+set -x
+
+./menge -p ../examples/core/tradeshow.xml
+./menge -p ../examples/core/steerbench/surprise.xml
+./menge -p ../examples/core/steerbench/4wayconfusion.xml
+./menge -p ../examples/core/steerbench/curves.xml
+./menge -p ../examples/core/steerbench/doorwayTwoway.xml
+./menge -p ../examples/core/steerbench/doubleSqueeze.xml
+./menge -p ../examples/core/steerbench/frogger.xml
+./menge -p ../examples/core/steerbench/oncomingObstacle.xml
+./menge -p ../examples/core/steerbench/simple.xml
+./menge -p ../examples/core/steerbench/wallSqueeze.xml
+./menge -p ../examples/core/pedModelSwap.xml -m orca -t 0.1
+./menge -p ../examples/core/pedModelSwap.xml -m helbing -t 0.1 --subSteps 9
+./menge -p ../examples/core/pedModelSwap.xml -m karamouzas -t 0.1 --subSteps 9
+./menge -p ../examples/core/office.xml
+./menge -p ../examples/core/globalNavSwap-vectorfield.xml
+./menge -p ../examples/core/globalNavSwap-navmesh.xml
+./menge -p ../examples/core/globalNavSwap-roadmap.xml
+./menge -p ../examples/core/boolean.xml
+./menge -p ../examples/core/bottleneck.xml
+./menge -p ../examples/core/circle.xml
+./menge -p ../examples/core/concave.xml
+./menge -p ../examples/core/cross.xml
+./menge -p ../examples/core/4square.xml
+./menge -p ../examples/core/goalDistance.xml
+./menge -p ../examples/core/headon.xml
+./menge -p ../examples/core/maze-navmesh.xml
+./menge -p ../examples/core/maze-roadmap.xml
+./menge -p ../examples/core/maze-vectorfield.xml
+./menge -p ../examples/core/navMesh.xml
+./menge -p ../examples/core/obstacleSwitch.xml
+./menge -p ../examples/core/periodic.xml
+./menge -p ../examples/core/persistGoal.xml
+./menge -p ../examples/core/randomGoal.xml
+./menge -p ../examples/core/sharedGoal.xml
+./menge -p ../examples/core/soccer.xml
+./menge -p ../examples/core/stadium.xml
+./menge -p ../examples/core/swap.xml
+./menge -p ../examples/core/event.xml
+
+./menge -p ../examples/plugin/propertyX.xml
+./menge -p ../examples/plugin/terrain.xml
+./menge -p ../examples/plugin/aircraft/load/loadBack.xml
+./menge -p ../examples/plugin/aircraft/load/loadByZone.xml
+./menge -p ../examples/plugin/aircraft/load/loadFront.xml
+./menge -p ../examples/plugin/aircraft/load/loadRandom.xml
+./menge -p ../examples/plugin/aircraft/unload/simpleUnload.xml -t 0.1 --subSteps 9
+./menge -p ../examples/plugin/aircraft/unload/waitingAgent.xml
+./menge -p ../examples/plugin/formation.xml
+./menge -p ../examples/plugin/denseFormation.xml
+./menge -p ../examples/plugin/formationChange.xml
+./menge -p ../examples/plugin/formationNavigation.xml
+./menge -p ../examples/plugin/fundDiag.xml
+
+./menge -p ../examples/hold/timer.xml

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+
+<BFSM>
+	<GoalSet id="0">
+		<Goal type="point" id="0" x="15" y="0" />
+		<Goal type="point" id="1" x="-15" y="0" />
+	</GoalSet>
+	
+	<State name="Walk" final="0" >
+		<GoalSelector type="farthest" goal_set="0" />
+		<VelComponent type="goal" weight="1.0" />
+	</State>
+	<State name="Stop" final="1" />
+	
+	<Transition from="Walk" to="Stop"  >
+		<Condition type="goal_reached" distance=".25" />
+	</Transition>
+</BFSM>

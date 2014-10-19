@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<Project 
+	scene="headon/headonS.xml" 
+	behavior="headon/headonB.xml" 
+	view="headon/headonV.xml" 
+	model="orca"
+	dumpPath="images/test"
+/>

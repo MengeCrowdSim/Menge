@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<Project 
+	scene="maze/mazeS.xml" 
+	behavior="maze/mazeMapB.xml" 
+	view="maze/mazeV.xml" 
+	model="orca"
+	dumpPath="images/maze"
+/>

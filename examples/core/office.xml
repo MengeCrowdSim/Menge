@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<Project 
+	scene="office/officeS.xml" 
+	behavior="office/officeB.xml" 
+	view="office/officeV.xml" 
+	model="orca"
+	dumpPath="images/maze"
+/>

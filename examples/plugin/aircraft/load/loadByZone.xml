@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+
+<Project 
+	scene="loadByZone/loadZoneS.xml" 
+	behavior="loadByZone/loadZoneB.xml" 
+	view="../aircraftV.xml" 
+	model="pedvo"
+	dumpPath="images/zone"
+	duration="1000"
+	random="10"
+/>

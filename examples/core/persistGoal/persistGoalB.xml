@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+
+<BFSM>
+	<GoalSet id="0">
+		<Goal type="AABB" id="0" min_x="-1.75" max_x="-1.25" min_y="-0.5" max_y="0.5" capacity="2" />
+		<Goal type="AABB" id="1" min_x="-0.75" max_x="-0.25" min_y="-0.5" max_y="0.5" capacity="2" />
+		<Goal type="AABB" id="2" min_x="0.25" max_x="0.75" min_y="-0.5" max_y="0.5" capacity="2" />
+		<Goal type="AABB" id="3" min_x="1.25" max_x="1.75" min_y="-0.5" max_y="0.5" capacity="2" />
+	</GoalSet>
+	<GoalSet id="1">
+		<Goal type="circle" id="0" x="-1" y="-5" radius="0.5"/>
+		<Goal type="circle" id="1" x="1" y="-5" radius="0.5"/>
+	</GoalSet>
+	<GoalSet id="2">
+		<Goal type="circle" id="0" x="-1" y="5" radius="0.5"/>
+		<Goal type="circle" id="1" x="1" y="5" radius="0.5"/>
+	</GoalSet>
+
+	<State name="Box1" final="0" >
+		<GoalSelector type="nearest" goal_set="0" persistent="1"/>
+		<VelComponent type="goal" />
+	</State>
+	<State name="Circle1" final="0">
+		<GoalSelector type="random" goal_set="2"/>
+		<VelComponent type="goal" />
+	</State>
+
+	<Transition from="Box1" to="Circle1" >
+		<Condition type="goal_reached" distance="0.2" />
+	</Transition>
+	<Transition from="Circle1" to="Box1" >
+		<Condition type="goal_reached" distance="0.2" />
+	</Transition>
+
+	<State name="Box2" final="0" >
+		<GoalSelector type="nearest" goal_set="0" />
+		<VelComponent type="goal" />
+	</State>
+	<State name="Circle2" final="0">
+		<GoalSelector type="random" goal_set="1"/>
+		<VelComponent type="goal" />
+	</State>
+
+	<Transition from="Box2" to="Circle2" >
+		<Condition type="goal_reached" distance="0.2" />
+	</Transition>
+	<Transition from="Circle2" to="Box2" >
+		<Condition type="goal_reached" distance="0.2" />
+	</Transition>
+	
+</BFSM>

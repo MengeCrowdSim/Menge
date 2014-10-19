@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<BFSM>
+	<GoalSet id="0">
+		<Goal type="AABB" id="0" min_x="-20" min_y="6" max_x="-10" max_y="8" />
+	</GoalSet>
+	
+	<State name="Walk" final="0" >
+		<GoalSelector type="explicit" goal_set="0" goal="0"  />
+		<VelComponent type="road_map" file_name="bottleneckMap.txt" />
+	</State>
+	<State name="Wait" final="1">
+		<GoalSelector type="identity" />
+		<VelComponent type="zero" />
+	</State>
+
+	<Transition from="Walk" to="Wait" >
+		<Condition type="goal_reached" distance="0.25" />
+	</Transition>
+
+</BFSM>

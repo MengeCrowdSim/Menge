@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<Project 
+	scene="soccer/soccerS.xml" 
+	behavior="soccer/soccerB.xml" 
+	view="soccer/soccerV.xml" 
+	model="orca"
+	dumpPath="images/soccer"
+/>

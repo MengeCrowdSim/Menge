@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<Project 
+	scene="curves/curvesS.xml" 
+	behavior="curves/curvesB.xml" 
+	view="curves/curvesV.xml" 
+	model="orca"
+	dumpPath="images/curves"
+/>

@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+
+<BFSM>
+
+    <GoalSet id="0">
+		<Goal type="AABB" id="0" min_x="-20.1" max_x="-20" min_y="-2" max_y="2"/>
+        <Goal type="AABB" id="1" min_x="20" max_x="20.1" min_y="-2" max_y="2"/>
+	</GoalSet>
+    
+    <State name="WalkRight" final="0" >
+        <GoalSelector type="explicit" goal_set="0" goal="1" />
+        <VelComponent type="goal" />
+    </State>
+   
+    <State name="WalkLeft" final="0" >
+        <GoalSelector type="explicit" goal_set="0" goal="0" />
+        <VelComponent type="goal" />
+    </State>
+	
+    <State name="Stop" final="1" />
+    
+    <Transition from="WalkRight,WalkLeft" to="Stop" >
+        <Condition type="goal_reached"  distance=".2" />
+    </Transition>
+	
+</BFSM>

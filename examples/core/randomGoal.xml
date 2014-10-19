@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<Project 
+	scene="randomGoal/randomGoalS.xml" 
+	behavior="randomGoal/randomGoalB.xml" 
+	view="randomGoal/randomGoalV.xml" 
+	model="orca"
+	dumpPath="randomGoal/images"
+/>

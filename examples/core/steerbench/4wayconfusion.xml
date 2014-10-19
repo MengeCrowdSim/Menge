@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<Project 
+	scene="4wayconfusion/4wayconfusionS.xml" 
+	behavior="4wayconfusion/4wayconfusionB.xml" 
+	view="4wayconfusion/4wayconfusionV.xml" 
+	model="orca"
+	dumpPath="images/4wayconfusion"
+/>

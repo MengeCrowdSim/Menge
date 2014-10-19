@@ -1,0 +1,20 @@
+#!/bin/bash
+if [ $# -lt 2 ]; then
+    echo
+	echo "You must specify the example name and the model name"
+    echo "  You can optionall add arguments specifying duration and time step."
+    echo "  Example:"
+    echo "    ./runExample headon pedvo"
+    echo "    ./runExample headon pedvo 30"
+    echo "    ./runExample headon pedvo 30 0.01"
+else 
+	if [ $# = 2 ]; then
+		./menge -b ../examples/$1B.xml -s ../examples/$1S.xml --view ../examples/$1V.xml -m $2 
+	else
+		if [ $# = 3 ]; then
+			./menge -b ../examples/$1B.xml -s ../examples/$1S.xml --view ../examples/$1V.xml -m $2 -d $3
+		else
+			./menge -b ../examples/$1B.xml -s ../examples/$1S.xml --view ../examples/$1V.xml -m $2 -d $3 -t $4			
+		fi
+	fi
+fi

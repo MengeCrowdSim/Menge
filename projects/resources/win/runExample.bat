@@ -1,0 +1,1 @@
+menge -s ..\examples\%1S.xml -b ..\examples\%1B.xml --view ..\examples\%1V.xml -m %2 -d 100 

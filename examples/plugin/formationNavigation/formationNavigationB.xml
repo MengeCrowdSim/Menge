@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+
+<BFSM>
+	<GoalSet id="0">
+		<Goal type="point" id="0" x="-9" y="-10.0"/>
+        <Goal type="point" id="1" x="13" y="-10.0"/>
+	</GoalSet>
+
+    <VelModifier type="formation" file_name="bigSquare.txt" />
+	
+    <State name="GetInFormation" final="0" />
+    <State name="NavigateInFormation" final="0" >
+        <GoalSelector type="explicit" goal_set="0" goal="1" />
+        <VelComponent type="road_map" file_name="graph.txt" />
+    </State>
+	<State name="Stop" final="1" />
+
+    
+    <Transition from="GetInFormation" to="NavigateInFormation" >
+        <Condition type="timer"  dist="c" value="10" per_agent="0" />
+    </Transition>
+	<Transition from="NavigateInFormation" to="Stop">
+		<Condition type="AABB" min_x="10" min_y="-13" max_x="16" max_y="-7" inside="1" />
+	</Transition>
+    
+    
+	
+	
+</BFSM>

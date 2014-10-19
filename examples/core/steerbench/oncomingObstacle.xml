@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<Project 
+	scene="oncomingObstacle/oncomingObstacleS.xml" 
+	behavior="oncomingObstacle/oncomingObstacleB.xml" 
+	view="oncomingObstacle/oncomingObstacleV.xml" 
+	model="orca"
+	dumpPath="images/oncomingObstacle"
+/>

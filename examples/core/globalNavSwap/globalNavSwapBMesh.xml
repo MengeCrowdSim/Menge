@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+
+<BFSM>
+	<GoalSet id="0">
+		<Goal type="point" id="0" x=".1" y="13" />
+		<Goal type="point" id="1" x="-.1" y="13" />
+		<Goal type="point" id="2" x="0" y="25" />
+	</GoalSet>
+	
+	
+		<State name="Walk" speedPolicy="min" final="0" >
+			<GoalSelector type="nearest" goal_set="0" per_agent="1" />
+            <VelComponent type="nav_mesh" weight="1.0" file_name="navmesh.nav" heading_threshold="5" />
+			
+		</State>
+		<State name="Walk2" speedPolicy="min" final="0" >
+			<GoalSelector type="farthest" goal_set="0" per_agent="1" />
+			<VelComponent type="goal" />
+			
+		</State>
+		<State name="Stop" speedPolicy="min" final="1" >
+			<GoalSelector type="identity" />
+			<VelComponent type="zero" />
+			
+		</State>
+		<Transition from="Walk" to="Walk2">
+            <Condition type="goal_reached" distance="1" />
+        </Transition>
+		<Transition from="Walk2" to="Stop">
+            <Condition type="goal_reached" distance="2" />
+        </Transition>
+</BFSM>

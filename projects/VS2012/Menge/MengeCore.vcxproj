@@ -1,0 +1,550 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{F5B90B6A-8E12-496E-99EB-3CE9CBB79142}</ProjectGuid>
+    <RootNamespace>MengeCore</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(SolutionDir)..\userMacros.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(SolutionDir)..\userMacros.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>11.0.50727.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(BuildRoot)\lib\</OutDir>
+    <IntDir>$(BuildRoot)\$(ProjectName)\$(Configuration)\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+    <TargetName>$(ProjectName)_d</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(BuildRoot)\lib\</OutDir>
+    <IntDir>$(BuildRoot)\$(ProjectName)\$(Configuration)\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>$(SrcDir)\include;$(SrcDir)\MengeCore;$(SrcDir)\MengeCore\Agents;$(SrcDir)\MengeCore\Runtime;$(SrcDir)\MengeCore\PluginEngine;$(SrcDir)\MengeCore\SceneGraph;$(SrcDir)\MengeCore\viewer;$(SrcDir)\MengeCore\BFSM;$(SrcDir)\MengeCore\resources;$(SrcDir)\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;MENGECORE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <OpenMPSupport>false</OpenMPSupport>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>tinyxml_d.lib;OpenGL32.lib;Glu32.lib;SDL_ttf.lib;SDL_image.lib;SDL.lib;libpng.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)MengeCore_d.dll</OutputFile>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\resources\winlib;$(BuildRoot)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <PostBuildEvent>
+      <Message>Copy DLL to executable folder</Message>
+      <Command>if not exist $(ExeDir)  md $(ExeDir)
+xcopy /y $(TargetPath) $(ExeDir)
+</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SrcDir)\include;$(SrcDir)\MengeCore;$(SrcDir)\MengeCore\Agents;$(SrcDir)\MengeCore\Runtime;$(SrcDir)\MengeCore\PluginEngine;$(SrcDir)\MengeCore\SceneGraph;$(SrcDir)\MengeCore\viewer;$(SrcDir)\MengeCore\BFSM;$(SrcDir)\MengeCore\resources;$(SrcDir)\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;MENGECORE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <OpenMPSupport>true</OpenMPSupport>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ShowIncludes>false</ShowIncludes>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>tinyxml.lib;OpenGL32.lib;Glu32.lib;SDL_ttf.lib;SDL_image.lib;SDL.lib;libpng.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)MengeCore.dll</OutputFile>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\resources\winlib;$(BuildRoot)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <PostBuildEvent>
+      <Message>Copy DLL to executable folder</Message>
+      <Command>if not exist $(ExeDir)  md $(ExeDir)
+xcopy /y $(TargetPath) $(ExeDir)
+</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="$(SrcDir)\mengeCore\Core.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\AgentInitializer.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\AgentPropertyManipulator.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\BaseAgent.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\Obstacle.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\PrefVelocity.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\SCBWriter.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\SimulatorInterface.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\SimulatorState.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\SimXMLLoader.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\XMLSimulatorBase.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\Elevations\ElevationDatabase.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\Elevations\ElevationFlat.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\Elevations\ElevationNavMesh.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\SpatialQueries\AgentKDTree.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\SpatialQueries\KNearestQuery.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\SpatialQueries\ObstacleKDTree.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\SpatialQueries\SpatialQuery.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\SpatialQueries\SpatialQueryDatabase.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\SpatialQueries\SpatialQueryFactory.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\SpatialQueries\SpatialQueryNavMesh.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\AgentGenerators\AgentGenerator.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\AgentGenerators\AgentGeneratorDatabase.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\AgentGenerators\AgentGeneratorFactory.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\AgentGenerators\ExplicitAgentGenerator.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\AgentGenerators\HexLatticeGenerator.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\AgentGenerators\RectGridGenerator.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\ProfileSelectors\ConstProfileSelector.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\ProfileSelectors\ProfileSelector.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\ProfileSelectors\ProfileSelectorDatabase.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\StateSelectors\ConstStateSelector.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\StateSelectors\StateSelector.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\StateSelectors\StateSelectorDatabase.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\Events\AgentEventEffect.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\Events\Event.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\Events\EventEffectDB.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\Events\EventResponse.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\Events\EventSystem.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\Events\EventTarget.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\Events\EventTargetDB.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\Events\EventTrigger.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\Events\EventTriggerDB.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\Events\StateEvtTrigger.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\Events\StateMemberTarget.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\ObstacleSets\ExplicitObstacleSet.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\ObstacleSets\ListObstacleSet.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\ObstacleSets\NavMeshObstacleSet.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\ObstacleSets\ObstacleSet.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\ObstacleSets\ObstacleSetDatabase.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\ObstacleSets\ObstacleSetFactory.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Math\Geometry2D.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Math\geomQuery.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Math\Line.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Math\Matrix.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Math\RandGenerator.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Math\SimRandom.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\PluginEngine\Attribute.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\PluginEngine\AttributeSet.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\PluginEngine\Plugin.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\PluginEngine\PluginEngine.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\SceneGraph\Context.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\SceneGraph\ContextSwitcher.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\SceneGraph\GLCamera.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\SceneGraph\GLContextManager.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\SceneGraph\GLGroundPlane.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\SceneGraph\GLLight.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\SceneGraph\GLNode.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\SceneGraph\GLScene.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\SceneGraph\image.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\SceneGraph\Select.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\SceneGraph\shapes.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\SceneGraph\TextWriter.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\SceneGraph\Transform.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\SceneGraph\XformMatrix.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Runtime\BaseAgentContext.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Runtime\Logger.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Runtime\os.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Runtime\ReadersWriterLock.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Runtime\SimpleLock.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Runtime\SimSystem.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Runtime\SimulatorDB.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Runtime\SimulatorDBEntry.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Runtime\Utils.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Runtime\VisAgent.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Runtime\VisObstacle.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\viewer\GLViewer.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\viewer\NullViewer.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\viewer\Profiler.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\viewer\ScreenGrab.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\viewer\ViewConfig.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\viewer\Watermark.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\buildFSM.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\FSM.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\fsmCommon.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\FsmContext.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\FSMDescrip.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\FSMEnumeration.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\GoalSet.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\State.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\StateContext.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\StateDescrip.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Actions\Action.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Actions\ActionDatabase.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Actions\ActionFactory.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Actions\ObstacleAction.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Actions\TeleportAction.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Transitions\CondBoolean.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Transitions\CondGoal.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Transitions\ConditionDatabase.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Transitions\CondSpace.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Transitions\CondTimer.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Transitions\Target.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Transitions\TargetDatabase.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Transitions\TargetProb.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Transitions\TargetReturn.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Transitions\Transition.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\VelocityComponents\VelCompConst.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\VelocityComponents\VelCompContext.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\VelocityComponents\VelCompGoal.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\VelocityComponents\VelCompNavMesh.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\VelocityComponents\VelComponent.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\VelocityComponents\VelComponentDatabase.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\VelocityComponents\VelCompRoadMap.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\VelocityComponents\VelCompVF.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Tasks\NavMeshLocalizerTask.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)%(Filename)1.obj</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(Filename)1.obj</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Tasks\Task.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Tasks\TaskDatabase.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Goals\Goal.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Goals\GoalAABB.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Goals\GoalCircle.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Goals\GoalDatabase.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Goals\GoalFactory.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Goals\GoalOBB.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Goals\GoalPoint.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelector.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelectorDatabase.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelectorExplicit.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelectorFactory.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelectorFarthest.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelectorFarthestNM.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelectorIdentity.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelectorMirror.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelectorNearest.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelectorNearestNM.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelectorOffset.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelectorRandom.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelectorSet.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelectorShared.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelectorWeighted.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\VelocityModifiers\VelModContext.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\VelocityModifiers\VelModifier.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\VelocityModifiers\VelModifierDatabase.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\VelocityModifiers\VelModifierScale.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Orca\ORCAAgent.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Orca\ORCADBEntry.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Orca\ORCAInitializer.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Orca\ORCASimulator.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\PedVO\PedVOAgent.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\PedVO\PedVODBEntry.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\PedVO\PedVOInitializer.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\PedVO\PedVOSimulator.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\resources\Funnel.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\resources\Graph.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\resources\GraphEdge.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\resources\GraphVertex.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\resources\MinHeap.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\resources\NavMesh.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\resources\NavMeshEdge.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\resources\NavMeshLocalizer.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\resources\NavMeshNode.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\resources\NavMeshObstacle.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\resources\NavMeshPoly.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\resources\PathPlanner.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\resources\Portal.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\resources\PortalPath.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\resources\Resource.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\resources\ResourceManager.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)%(Filename)1.obj</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(Filename)1.obj</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\resources\RoadMapPath.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)%(Filename)1.obj</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(Filename)1.obj</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\resources\Route.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\resources\VectorField.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\resources\WayPortal.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)%(Filename)1.obj</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(Filename)1.obj</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(SrcDir)\mengeCore\Core.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\CoreConfig.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\mengeCommon.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\AgentInitializer.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\AgentPropertyManipulator.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\BaseAgent.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\MengeException.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\Obstacle.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\PrefVelocity.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\SCBWriter.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\SimulatorBase.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\SimulatorInterface.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\SimulatorState.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\SimXMLLoader.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\XMLSimulatorBase.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\Elevations\Elevation.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\Elevations\ElevationDatabase.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\Elevations\ElevationFactory.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\Elevations\ElevationFlat.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\Elevations\ElevationNavMesh.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\SpatialQueries\AgentKDTree.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\SpatialQueries\KNearestQuery.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\SpatialQueries\ObstacleKDTree.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\SpatialQueries\ProximityQuery.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\SpatialQueries\SpatialQuery.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\SpatialQueries\SpatialQueryDatabase.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\SpatialQueries\SpatialQueryFactory.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\SpatialQueries\SpatialQueryKDTree.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\SpatialQueries\SpatialQueryNavMesh.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\SpatialQueries\SpatialQueryStructs.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\AgentGenerators\AgentGenerator.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\AgentGenerators\AgentGeneratorDatabase.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\AgentGenerators\AgentGeneratorFactory.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\AgentGenerators\ExplicitAgentGenerator.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\AgentGenerators\HexLatticeGenerator.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\AgentGenerators\RectGridGenerator.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\ProfileSelectors\ConstProfileSelector.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\ProfileSelectors\ProfileSelector.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\ProfileSelectors\ProfileSelectorDatabase.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\ProfileSelectors\ProfileSelectorFactory.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\StateSelectors\ConstStateSelector.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\StateSelectors\StateSelector.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\StateSelectors\StateSelectorDatabase.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\StateSelectors\StateSelectorFactory.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\Events\AgentEventEffect.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\Events\AgentEventTarget.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\Events\AgentPropertyEffect.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\Events\Event.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\Events\EventEffect.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\Events\EventEffectDB.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\Events\EventEffectFactory.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\Events\EventException.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\Events\EventResponse.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\Events\EventSystem.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\Events\EventTarget.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\Events\EventTargetDB.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\Events\EventTargetFactory.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\Events\EventTrigger.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\Events\EventTriggerDB.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\Events\EventTriggerFactory.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\Events\StateEvtTrigger.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\Events\StateMemberTarget.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\ObstacleSets\ExplicitObstacleSet.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\ObstacleSets\ListObstacleSet.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\ObstacleSets\NavMeshObstacleSet.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\ObstacleSets\ObstacleSet.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\ObstacleSets\ObstacleSetDatabase.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\ObstacleSets\ObstacleSetFactory.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\ObstacleSets\ObstacleVertexList.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Math\consts.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Math\Geometry2D.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Math\geomQuery.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Math\Line.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Math\Matrix.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Math\RandGenerator.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Math\SimRandom.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Math\vector.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Math\Vector2.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Math\Vector3.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\PluginEngine\Attribute.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\PluginEngine\AttributeSet.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\PluginEngine\Element.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\PluginEngine\ElementDatabase.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\PluginEngine\ElementFactory.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\PluginEngine\Plugin.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\PluginEngine\PluginEngine.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\PluginEngine\SharedLibrary.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\SceneGraph\Context.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\SceneGraph\ContextSwitcher.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\SceneGraph\GLCamera.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\SceneGraph\GLContextManager.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\SceneGraph\GLGroundPlane.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\SceneGraph\GLLight.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\SceneGraph\GLNode.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\SceneGraph\GLScene.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\SceneGraph\graphCommon.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\SceneGraph\image.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\SceneGraph\ManagedData.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\SceneGraph\Select.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\SceneGraph\shapes.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\SceneGraph\System.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\SceneGraph\TextWriter.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\SceneGraph\Transform.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\SceneGraph\XformMatrix.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Runtime\BaseAgentContext.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Runtime\Logger.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Runtime\os.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Runtime\ReadersWriterLock.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Runtime\SimpleLock.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Runtime\SimSystem.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Runtime\SimulatorDB.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Runtime\SimulatorDBEntry.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Runtime\Utils.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Runtime\VisAgent.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Runtime\VisObstacle.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\viewer\GLViewer.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\viewer\NullViewer.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\viewer\Profiler.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\viewer\ScreenGrab.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\viewer\ViewConfig.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\viewer\Watermark.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\FSM.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\fsmCommon.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\FsmContext.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\FSMDescrip.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\FSMEnumeration.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\GoalSet.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\State.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\StateContext.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\StateDescrip.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Actions\Action.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Actions\ActionDatabase.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Actions\ActionFactory.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Actions\ObstacleAction.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Actions\PropertyAction.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Actions\TeleportAction.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Transitions\CondAuto.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Transitions\CondBoolean.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Transitions\CondGoal.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Transitions\Condition.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Transitions\ConditionDatabase.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Transitions\ConditionFactory.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Transitions\CondSpace.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Transitions\CondTimer.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Transitions\Target.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Transitions\TargetDatabase.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Transitions\TargetFactory.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Transitions\TargetProb.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Transitions\TargetReturn.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Transitions\Transition.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\VelocityComponents\VelCompConst.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\VelocityComponents\VelCompContext.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\VelocityComponents\VelCompGoal.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\VelocityComponents\VelCompNavMesh.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\VelocityComponents\VelComponent.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\VelocityComponents\VelComponentDatabase.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\VelocityComponents\VelComponentFactory.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\VelocityComponents\VelCompRoadMap.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\VelocityComponents\VelCompVF.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Tasks\NavMeshLocalizerTask.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Tasks\Task.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Tasks\TaskDatabase.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Tasks\TaskFactory.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Goals\Goal.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Goals\GoalAABB.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Goals\GoalCircle.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Goals\GoalDatabase.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Goals\GoalFactory.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Goals\GoalOBB.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Goals\GoalPoint.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelector.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelectorDatabase.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelectorExplicit.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelectorFactory.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelectorFarthest.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelectorFarthestNM.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelectorIdentity.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelectorMirror.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelectorNearest.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelectorNearestNM.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelectorOffset.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelectorRandom.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelectorSet.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelectorShared.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelectorWeighted.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\VelocityModifiers\VelModifier.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\VelocityModifiers\VelModifierContext.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\VelocityModifiers\VelModifierDatabase.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\VelocityModifiers\VelModifierFactory.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\VelocityModifiers\VelModifierScale.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Orca\ORCA.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Orca\ORCAAgent.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Orca\ORCAAgentContext.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Orca\ORCADBEntry.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Orca\ORCAInitializer.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Orca\ORCASimulator.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Orca\ORCATypeAgentContext.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\PedVO\PedVO.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\PedVO\PedVOAgent.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\PedVO\PedVOAgentContext.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\PedVO\PedVODBEntry.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\PedVO\PedVOInitializer.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\PedVO\PedVOSimSystem.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\PedVO\PedVOSimulator.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\resources\Funnel.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\resources\Graph.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\resources\GraphEdge.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\resources\GraphVertex.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\resources\MinHeap.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\resources\NavMesh.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\resources\NavMeshEdge.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\resources\NavMeshLocalizer.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\resources\NavMeshNode.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\resources\NavMeshObstacle.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\resources\NavMeshPoly.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\resources\PathPlanner.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\resources\Portal.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\resources\PortalPath.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\resources\Resource.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\resources\ResourceManager.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\resources\RoadMapPath.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\resources\Route.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\resources\VectorField.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\resources\WayPortal.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="tinyxml_lib.vcxproj">
+      <Project>{c406daec-0886-4771-8dea-9d7329b46cc1}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+
+<BFSM>
+	<GoalSet id="0">
+		<Goal type="AABB" id="0" min_x="-5" max_x="-4" min_y="-5.5" max_y="-5" capacity="1" />
+		<Goal type="AABB" id="1" min_x="-5" max_x="-4" min_y="-6.5" max_y="-7" capacity="1" />
+		<Goal type="AABB" id="2" min_x="-5" max_x="-4" min_y="-8.5" max_y="-9" capacity="1" />
+	</GoalSet>
+	<GoalSet id="1">
+		<Goal type="AABB" id="0" min_x="0.4" max_x="2.3" min_y="-0.37" max_y="0.37" />
+	</GoalSet>
+	
+
+	<State name="Home" final="0">
+		<GoalSelector type="explicit" goal_set="1" goal="0"/>
+		<VelComponent type="nav_mesh" heading_threshold="15" file_name="scene.nav" />
+	</State>
+
+	<State name="BoxSmall" final="0" >
+		<GoalSelector type="nearest" goal_set="0" />
+		<VelComponent type="nav_mesh" heading_threshold="15" file_name="scene.nav" />
+	</State>
+	
+	<State name="BoxMed" final="0" >
+		<Action type="scale_property" property="r" dist="c" value="3" exit_reset="1"/>
+		<Action type="scale_property" property="pref_speed" dist="c" value="0.75" exit_reset="1"/>
+		<GoalSelector type="shared" state_name="BoxSmall"/>
+		<VelComponent type="nav_mesh" heading_threshold="15" file_name="scene.nav" />
+	</State>
+	
+	<State name="BoxBig" final="0" >
+		<Action type="scale_property" property="r" dist="c" value="5" exit_reset="1"/>
+		<Action type="scale_property" property="pref_speed" dist="c" value="0.5" exit_reset="1"/>
+		<GoalSelector type="shared" state_name="BoxSmall"/>
+		<VelComponent type="nav_mesh" heading_threshold="15" file_name="scene.nav" />
+	</State>
+	
+	<Transition from="BoxSmall" to="Home" >
+		<Condition type="goal_reached" distance="0.2" />
+	</Transition>
+	<Transition from="BoxMed" to="Home" >
+		<Condition type="goal_reached" distance="0.2" />
+	</Transition>
+	<Transition from="BoxBig" to="Home" >
+		<Condition type="goal_reached" distance="0.2" />
+	</Transition>
+	<Transition from="Home" >
+		<Condition type="goal_reached" distance="0.2" />
+		<Target type="prob">
+			<State name="BoxSmall" weight="1.0" />
+			<State name="BoxMed" weight="1.0" />
+			<State name="BoxBig" weight="1.0" />
+		</Target>
+	</Transition>
+	
+</BFSM>

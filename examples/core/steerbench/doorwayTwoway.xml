@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<Project 
+	scene="doorwayTwoway/doorwayTwowayS.xml" 
+	behavior="doorwayTwoway/doorwayTwowayB.xml" 
+	view="doorwayTwoway/doorwayTwowayV.xml" 
+	model="orca"
+	dumpPath="images/doorwayTwoway"
+/>

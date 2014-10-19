@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<Project 
+	scene="simpleUnload/simpleUnloadS.xml" 
+	behavior="simpleUnload/simpleUnloadB.xml" 
+    view="unloadAircraftV.xml" 
+	timeStep=".01"
+	model="pedvo"
+	dumpPath="images"
+    duration="600"
+
+/>
+    view="../../airlineV.xml" 
+

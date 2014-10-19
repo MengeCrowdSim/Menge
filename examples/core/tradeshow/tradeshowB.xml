@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+
+<BFSM>
+	<GoalSet id="0">
+	    <Goal capacity="10000" id="0" type="AABB" weight="1.00" max_x="-19.90" min_x="-22.68" max_y="1.28" min_y="0.58"/>
+        <Goal capacity="10000" id="1" type="AABB" weight="1.00" max_x="-17.10" min_x="-19.92" max_y="1.28" min_y="0.57"/>
+        <Goal capacity="10000" id="2" type="AABB" weight="1.00" max_x="-15.00" min_x="-17.11" max_y="1.25" min_y="0.58"/>
+        <Goal capacity="10000" id="3" type="AABB" weight="1.00" max_x="-12.70" min_x="-14.99" max_y="1.28" min_y="0.63"/>
+        <Goal capacity="10000" id="4" type="AABB" weight="1.00" max_x="-21.44" min_x="-22.35" max_y="15.78" min_y="10.98"/>
+        <Goal capacity="10000" id="6" type="AABB" weight="1.00" max_x="-11.50" min_x="-14.63" max_y="-8.82" min_y="-9.57"/>
+        <Goal capacity="10000" id="7" type="AABB" weight="1.00" max_x="-16.70" min_x="-18.96" max_y="-18.27" min_y="-19.02"/>
+        <Goal capacity="10000" id="8" type="AABB" weight="1.00" max_x="-16.70" min_x="-18.77" max_y="-21.25" min_y="-21.74"/>
+        <Goal capacity="10000" id="9" type="AABB" weight="1.00" max_x="-19.10" min_x="-19.72" max_y="-18.83" min_y="-20.87"/>
+        <Goal capacity="10000" id="10" type="AABB" weight="1.00" max_x="-10.40" min_x="-14.15" max_y="-24.43" min_y="-24.98"/>
+        <Goal capacity="10000" id="11" type="AABB" weight="1.00" max_x="-17.20" min_x="-20.14" max_y="-29.16" min_y="-29.98"/>
+        <Goal capacity="10000" id="12" type="AABB" weight="1.00" max_x="-12.50" min_x="-14.48" max_y="-29.23" min_y="-29.98"/>
+        <Goal capacity="10000" id="13" type="AABB" weight="1.00" max_x="4.21" min_x="1.06" max_y="-27.13" min_y="-27.55"/>
+        <Goal capacity="10000" id="14" type="AABB" weight="1.00" max_x="18.10" min_x="15.99" max_y="-27.93" min_y="-28.62"/>
+        <Goal capacity="10000" id="15" type="AABB" weight="1.00" max_x="14.60" min_x="13.81" max_y="-24.41" min_y="-26.47"/>
+        <Goal capacity="10000" id="16" type="AABB" weight="1.00" max_x="20.30" min_x="19.48" max_y="-23.11" min_y="-24.99"/>
+        <Goal capacity="10000" id="17" type="AABB" weight="1.00" max_x="18.50" min_x="16.08" max_y="-22.01" min_y="-22.90"/>
+        <Goal capacity="10000" id="18" type="AABB" weight="1.00" max_x="8.97" min_x="6.64" max_y="-13.60" min_y="-14.41"/>
+        <Goal capacity="10000" id="19" type="AABB" weight="1.00" max_x="6.63" min_x="5.85" max_y="-11.45" min_y="-13.44"/>
+        <Goal capacity="10000" id="21" type="AABB" weight="1.00" max_x="-3.24" min_x="-5.63" max_y="-7.21" min_y="-7.96"/>
+        <Goal capacity="10000" id="22" type="AABB" weight="1.00" max_x="-6.82" min_x="-7.74" max_y="-8.45" min_y="-10.78"/>
+        <Goal capacity="10000" id="23" type="AABB" weight="1.00" max_x="4.68" min_x="-1.38" max_y="8.84" min_y="8.24"/>
+        <Goal capacity="10000" id="24" type="AABB" weight="1.00" max_x="18.20" min_x="15.80" max_y="16.89" min_y="15.96"/>
+        <Goal capacity="10000" id="25" type="AABB" weight="1.00" max_x="19.30" min_x="18.41" max_y="19.23" min_y="17.09"/>
+        <Goal capacity="10000" id="26" type="AABB" weight="1.00" max_x="18.10" min_x="15.87" max_y="20.24" min_y="19.52"/>
+        <Goal capacity="10000" id="27" type="AABB" weight="1.00" max_x="2.78" min_x="-0.67" max_y="28.33" min_y="27.36"/>
+        <Goal capacity="10000" id="28" type="AABB" weight="1.00" max_x="-6.06" min_x="-9.02" max_y="28.14" min_y="27.03"/>
+        <Goal capacity="10000" id="29" type="AABB" weight="1.00" max_x="-2.97" min_x="-6.01" max_y="28.14" min_y="27.09"/>
+        <Goal capacity="10000" id="30" type="AABB" weight="1.00" max_x="-19.30" min_x="-21.66" max_y="24.76" min_y="23.67"/>
+        <Goal capacity="10000" id="31" type="AABB" weight="1.00" max_x="-17.00" min_x="-19.56" max_y="28.54" min_y="27.68"/>
+        <Goal capacity="10000" id="32" type="AABB" weight="1.00" max_x="12.80" min_x="12.01" max_y="8.67" min_y="6.33"/>
+        <Goal capacity="10000" id="33" type="AABB" weight="1.00" max_x="12.80" min_x="12.03" max_y="6.20" min_y="3.67"/>
+        <Goal capacity="10000" id="34" type="AABB" weight="1.00" max_x="21.50" min_x="19.54" max_y="-3.46" min_y="-4.23"/>
+        <Goal capacity="10000" id="35" type="AABB" weight="1.00" max_x="-13.20" min_x="-15.25" max_y="18.47" min_y="17.79"/>
+        <Goal capacity="10000" id="36" type="AABB" weight="1.00" max_x="-10.70" min_x="-11.57" max_y="22.44" min_y="20.39"/>
+        <Goal capacity="10000" id="37" type="AABB" weight="1.00" max_x="2.86" min_x="0.04" max_y="17.34" min_y="16.36"/>
+        <Goal capacity="10000" id="38" type="AABB" weight="1.00" max_x="5.47" min_x="3.04" max_y="17.25" min_y="16.34"/>
+        <Goal capacity="10000" id="39" type="AABB" weight="1.00" max_x="21.40" min_x="20.51" max_y="-13.89" min_y="-15.81"/>
+        <Goal capacity="10000" id="40" type="AABB" weight="1.00" max_x="21.50" min_x="20.51" max_y="-15.91" min_y="-18.43"/>
+        <Goal capacity="10000" id="41" type="AABB" weight="1.00" max_x="19.60" min_x="18.75" max_y="7.24" min_y="4.45"/>
+	</GoalSet>
+	
+		<State name="Walk" final="0" >
+			<GoalSelector type="random" goal_set="0" per_agent="1" />
+			<VelComponent type="nav_mesh" file_name="tradeshow.nav" heading_threshold="5"/>
+			<Action type="offset_property" property="priority" dist="c" value="0.0" exit_reset="0"/>
+		</State>
+		<State name="Arrive" final="0">
+			<VelComponent type="zero"/>
+			<Action type="offset_property" property="priority" dist="c" value="1.0" exit_reset="0"/>
+		</State>
+		<State name="Decide" final="0">
+			<VelComponent type="zero"/>
+		</State>
+		<State name="Happy" final="0">
+			<VelComponent type="zero"/>
+		</State>
+		<State name="Angry" final="0">
+			<VelComponent type="zero"/>
+		</State>
+
+		<Transition from="Walk" to="Arrive" >
+			<Condition type="goal_reached" distance="0.4" />
+		</Transition>
+		<Transition from="Arrive" to="Decide" >
+			<Condition type="timer" dist="u" min="2" max="4" seed="5" per_agent="1" />
+		</Transition>
+		<Transition from="Decide" >
+			<Condition type="auto" />
+			<Target type="prob">
+				<State name="Happy" weight="1.0" />
+				<State name="Angry" weight="1.0" />
+			</Target>
+		</Transition>
+		<Transition from="Happy" to="Walk" >
+			<Condition type="timer" dist="u" min="4" max="6" seed="6" per_agent="1" />
+		</Transition>
+		<Transition from="Angry" to="Walk" >
+			<Condition type="timer" dist="u" min="1" max="2" seed="7" per_agent="1" />
+		</Transition>
+</BFSM>

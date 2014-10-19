@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<Project 
+	scene="waitingAgent/waitingAgentS.xml" 
+	behavior="waitingAgent/waitingAgentB.xml" 
+	view="unloadAircraftV.xml" 
+	model="pedvo"
+	dumpPath="images"
+/>

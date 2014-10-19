@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<Project 
+	scene="wallSqueeze/wallSqueezeS.xml" 
+	behavior="wallSqueeze/wallSqueezeB.xml" 
+	view="wallSqueeze/wallSqueezeV.xml" 
+	model="orca"
+	dumpPath="images/wallSqueeze"
+/>

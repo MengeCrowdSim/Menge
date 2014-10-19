@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<BFSM>
+	<GoalSet id="0">
+		<Goal type="point" id="0" x="0" y="-9" />
+	</GoalSet>
+	
+	<State name="Walk" final="0" >
+		<GoalSelector type="explicit" goal_set="0" goal="0" />
+		<VelComponent type="road_map" file_name="concaveRM.txt" />
+	</State>
+	<State name="Done" final="1">
+		<GoalSelector type="identity" />
+		<VelComponent type="zero" />
+	</State>
+
+	<Transition from="Walk" to="Done">
+		<Condition type="goal_reached" distance="0.25" />
+	</Transition>
+
+</BFSM>

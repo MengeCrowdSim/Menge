@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+
+<BFSM>
+	<GoalSet id="0">
+		<Goal type="point" id="0" x="-15" y="0.0"/>
+		<Goal type="point" id="1" x="15" y="0.0"/>
+	</GoalSet>
+	
+	<State name="Walk1" final="0" >
+		<GoalSelector type="explicit" goal_set="0" goal="0" />
+		<VelComponent type="goal" />
+	</State>
+	<State name="GoalReached1" final="0">
+		<GoalSelector type="identity" />
+		<VelComponent type="zero" />
+		<Action type="teleport" dist="u" min_x="13.5" max_x="14" min_y="-1.5" max_y="1.5" />
+	</State>
+
+	<Transition from="Walk1" to="GoalReached1" >
+		<Condition type="AABB" min_x="-40" max_x="-13.5" min_y="-2.0" max_y="2.0" inside="1" />
+	</Transition>
+	<Transition from="GoalReached1" to="Walk1" >
+		<Condition type="auto" />
+	</Transition>
+
+	
+	<State name="Walk2" final="0" >
+		<GoalSelector type="explicit" goal_set="0" goal="1" />
+		<VelComponent type="goal" />
+	</State>
+	<State name="GoalReached2" final="0">
+		<GoalSelector type="identity" />
+		<VelComponent type="zero" />
+		<Action type="teleport" dist="u" min_x="-14.0" max_x="-13.5" min_y="-1.5" max_y="1.5" />
+	</State>
+
+	<Transition from="Walk2" to="GoalReached2" >
+		<Condition type="AABB" min_x="13.5" max_x="40.0" min_y="-2.0" max_y="2.0" inside="1" />
+	</Transition>
+	<Transition from="GoalReached2" to="Walk2" >
+		<Condition type="auto" />
+	</Transition>
+		
+</BFSM>

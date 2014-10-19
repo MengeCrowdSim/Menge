@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+
+<BFSM>
+	<GoalSet id="0">
+		<Goal type="point" id="0" x="-3" y="5.0"/>
+		<Goal type="point" id="1" x="3" y="5.0"/>
+		<Goal type="AABB" id="2" min_x="-0.5" max_x="0.5" min_y="4.5" max_y="5.5" />
+		<Goal type="point" id="3" x="0.0" y="-0.5" />
+	</GoalSet>
+	
+	<State name="Walk1" final="0" >
+		<GoalSelector type="explicit" goal_set="0" goal="0" />
+		<VelComponent type="nav_mesh" heading_threshold="15" file_name="simple.nav" />
+	</State>
+	<State name="Stop1" final="1">
+		<GoalSelector type="identity" />
+		<VelComponent type="zero" />
+	</State>
+
+	<Transition from="Walk1" to="Stop1">
+		<Condition type="goal_reached" distance="0.25" />
+	</Transition>
+
+</BFSM>

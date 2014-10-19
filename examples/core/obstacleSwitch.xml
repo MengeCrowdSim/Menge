@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<Project 
+	scene="obstacleSwitch/obstacleSwitchS.xml" 
+	behavior="obstacleSwitch/obstacleSwitchB.xml" 
+	view="obstacleSwitch/obstacleSwitchV.xml" 
+	model="orca"
+	dumpPath="images/test"
+/>

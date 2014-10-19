@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<Project 
+	scene="swap/swapS.xml" 
+	behavior="swap/swapB.xml" 
+	view="swap/swapV.xml" 
+	model="orca"
+	dumpPath="images/test"
+/>

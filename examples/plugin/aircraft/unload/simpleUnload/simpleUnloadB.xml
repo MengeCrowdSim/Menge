@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+
+<BFSM>
+    <GoalSet id="0">
+		<Goal type="point" id="0" x=".5" y="-6"/>
+	</GoalSet>
+    
+    <!-- typical agents -->
+    
+    <State name="Start" final="0" >
+        <GoalSelector type="identity" />
+        <VelComponent type="goal" />
+        <Action type="set_xproperty" property="priority" scale="-4" exit_reset="0" origin="50" />
+        <Action type="offset_property" property="priority" dist="u" min=".65" max="1.2" exit_reset="0"/>
+    </State>
+    
+    <!--  lower to center isle -->
+    <State name="Lower" final="0" >
+        <VelComponent type="const_dir" x="0" y="1" />
+        <GoalSelector type="identity" />
+        <!--<Action type="offset_property" property="priority" dist="n" mean="0" stddev=".5" exit_reset="0" />-->
+    </State>
+    
+    <!--  u to cenperter isle -->
+    <State name="Upper" final="0" >
+        <VelComponent type="const_dir" x="0" y="-1" />
+        <GoalSelector type="identity" />
+        <!--<Action type="offset_property" property="priority" dist="n" mean="0" stddev=".5" exit_reset="0" />-->
+    </State>
+    
+    <!-- exit plane -->
+    <State name="ExitPlane" final="0">
+        <GoalSelector type="explicit" goal_set="0" goal="0" />
+        <VelComponent type="nav_mesh" heading_threshold="15.0" file_name="../../aircraft.nav" />
+        <Action type="offset_property" property="priority" dist="c" value="1.05" exit_reset="1"/>
+        <!--<Action type="offset_property" property="priority" dist="c" value=".5" exit_reset="1"/>-->
+    </State>
+    
+    <State name="OutsidePlane" final="1">
+       <GoalSelector type="explicit" goal_set="0" goal="0" />
+       <VelComponent type="nav_mesh" heading_threshold="15.0" file_name="../../aircraft.nav" />
+       <Action type="set_property" property="priority" dist="c" value="0" exit_reset="0"/>
+    </State>
+    
+    <State name="Done" final="1">
+       
+    </State>
+    <Transition from="Start" to="Lower" >
+        <Condition type="AABB" inside="1" min_x="0" min_y="-1.8" max_x="40" max_y="-.2" />
+    </Transition>
+    
+    <Transition from="Start" to="Upper" >
+        <Condition type="AABB" inside="1" min_x="0" min_y=".3" max_x="40" max_y="1.8" />
+    </Transition>
+    
+    <Transition from="Lower" to="ExitPlane" >
+        <Condition type="AABB" inside="1" min_x="0" min_y="-.2" max_x="38" max_y=".2" />
+    </Transition>
+    <Transition from="Upper" to="ExitPlane" >
+        <Condition type="AABB" inside="1" min_x="0" min_y="-.1" max_x="38" max_y=".2" />
+    </Transition>
+    
+    <Transition from="ExitPlane" to="OutsidePlane" >
+        <Condition type="AABB" min_x="0" max_x="10" max_y="-1.61" min_y="-10" inside="1" />
+    </Transition>
+    <Transition from="OutsidePlane" to="Done" >
+        <Condition type="goal_reached" distance=".1" />
+    </Transition>
+    
+</BFSM>

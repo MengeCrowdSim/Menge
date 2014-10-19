@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<Project 
+	scene="fundDiag/fundDiagS.xml" 
+	behavior="fundDiag/fundDiagB.xml" 
+	view="fundDiag/fundDiagV.xml" 
+	model="orca"
+	dumpPath="images/test"
+/>

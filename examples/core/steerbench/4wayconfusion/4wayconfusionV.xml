@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+
+<View width="640" height="480" >
+    <!-- Multiple cameras are mapped to a key from 1-9 in the order they are defined here -->
+	<Camera xpos="0.743752" ypos="19.1297" zpos="0.521797" xtgt="0.743752" ytgt="-0.0002676" ztgt="0.511797" far="500" near="0.01" fov="0.0" orthoScale="0.643286" />
+	
+	<!-- Comment out lights for a constant-illuminated visualization -->
+	<Light x="1" y="0" z="-1" type="directional" diffR="1.0" diffG="0.8" diffB="0.8" space="camera"/>
+	<Light x="-1" y="0" z="-1" type="directional" diffR="0.8" diffG="0.8" diffB="1.0" space="camera"/>
+	<Light x="0" y="1" z="0" type="directional" diffR="0.8" diffG="0.8" diffB="0.8" space="world"/> 
+</View>

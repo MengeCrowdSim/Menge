@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<Project 
+	scene="simple/simpleS.xml" 
+	behavior="simple/simpleB.xml" 
+	view="simple/simpleV.xml" 
+	model="orca"
+	dumpPath="images/simple"
+/>

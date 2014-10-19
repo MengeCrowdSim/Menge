@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+
+<BFSM>
+	<GoalSet id="0">
+		<Goal type="point" id="0" x="-10" y="0.0"/>
+        <Goal type="point" id="1" x="0" y="10.0"/>
+		<Goal type="point" id="2" x="10" y="0.0"/>
+        <Goal type="point" id="3" x="0" y="-10.0"/>
+	</GoalSet>
+
+    <VelModifier type="formation" file_name="squareForm.txt" />
+    <State name="WalkRight" final="0" >
+        <GoalSelector type="explicit" goal_set="0" goal="2" />
+        <VelComponent type="goal" />
+    </State>
+	
+    <State name="WalkDown" final="0" >
+        <GoalSelector type="explicit" goal_set="0" goal="3" />
+        <VelComponent type="goal" />
+    </State>
+	
+    <State name="WalkLeft" final="0" >
+        <GoalSelector type="explicit" goal_set="0" goal="0" />
+        <VelComponent type="goal" />
+    </State>
+
+    <State name="WalkUp" final="0" >
+        <GoalSelector type="explicit" goal_set="0" goal="1" />
+        <VelComponent type="goal" />
+    </State>
+    
+    <Transition from="WalkRight" to="WalkDown" >
+        <Condition type="timer"  dist="c" value="10" per_agent="0" />
+    </Transition>
+    <Transition from="WalkDown" to="WalkLeft" >
+        <Condition type="timer"  dist="c" value="10" per_agent="0" />
+    </Transition>
+    <Transition from="WalkLeft" to="WalkUp" >
+        <Condition type="timer"  dist="c" value="10" per_agent="0" />
+    </Transition>
+    <Transition from="WalkUp" to="WalkRight" >
+        <Condition type="timer"  dist="c" value="10" per_agent="0" />
+    </Transition>
+    
+	
+	
+</BFSM>

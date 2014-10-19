@@ -1,0 +1,8 @@
+<?xml verion="1.0"?>
+<HeightField file_name="battlefield.png" 
+			 cell_size="1.5"
+			 vert_scale="150"
+			 x="128.0"
+			 y="256.0"
+			 kernel="5"
+/>

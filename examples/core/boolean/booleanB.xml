@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+
+<BFSM>
+	<GoalSet id="0">
+		<Goal type="circle" id="0" x="0" y="0" radius="0.5" />
+		<Goal type="circle" id="1" x="10" y="0" radius="0.5" />
+		<Goal type="circle" id="2" x="10" y="5" radius="0.5" />
+		<Goal type="circle" id="3" x="10" y="-5" radius="0.5" />
+	</GoalSet>
+
+	<State name="Start" final="0">
+		Walk to the action box
+		<GoalSelector type="explicit" goal_set="0" goal="0" />
+		<VelComponent type="goal"/>
+	</State>
+	<State name="ChangeSpeed" final="0">
+		Walk to the action box
+		<Action type="set_property" property="pref_speed" dist="u" min="0.5" max="1.5" exit_reset="1" />
+		<GoalSelector type="explicit" goal_set="0" goal="1" />
+		<VelComponent type="goal" />
+	</State>
+	<State name="Slow" final="0">
+		Walk the slow direction
+		<GoalSelector type="explicit" goal_set="0" goal="2" />
+		<VelComponent type="goal"/>
+	</State>
+	<State name="Fast" final="0">
+		Walk the fast direction
+		<GoalSelector type="explicit" goal_set="0" goal="3" />
+		<VelComponent type="goal"/>
+	</State>
+	<State name="Done" final="1"/>
+	
+	<Transition from="Start" to="ChangeSpeed" >
+		<Condition type="goal_reached" distance="0.2" />
+	</Transition>
+	<Transition from="ChangeSpeed" to="Fast" >
+		First of two transitions out of ChangeSpeed
+			If I've reached the goal AND the timer has NOT reached at least 10 seconds, transition to fast
+		<Condition type="and">
+			<Condition type="goal_reached" distance="0.2" />
+			<Condition type="not">
+				<Condition type="timer" per_agent="0" dist="c" value="10" />
+			</Condition>
+		</Condition>
+	</Transition>
+	<Transition from="ChangeSpeed" to="Slow" >
+		Second transtion out of ChangeSpeed
+			- it is evaluated after the previous (because it is defined second).
+			- If the previous condition was NOT met, it is either because the goal wasn't reached, or it
+				wasn't reached fast enough.
+			- If it was a case of timing, this condition will be met (at goal), the agent will be filtered
+				in the slow direction.
+		<Condition type="goal_reached" distance="0.2" />
+	</Transition>
+	<Transition from="Fast" to="Done">
+		<Condition type="goal_reached" distance="0.2"/>
+	</Transition>
+	<Transition from="Slow" to="Done">
+		<Condition type="goal_reached" distance="0.2"/>
+	</Transition>
+</BFSM>

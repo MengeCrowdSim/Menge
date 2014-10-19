@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<BFSM>
+	<GoalSet id="0">
+		<Goal id="0" type="point" x="0.0" y="0.0" weight="1.0" />
+		<Goal id="1" type="AABB" min_x="-1.8" min_y="-1.8" max_x="1.8" max_y="1.8" />
+	</GoalSet>
+
+		<State name="MoveDown" speedPolicy="min" final="0" >
+            <GoalSelector type="identity" />
+			<VelComponent type="const_dir" weight="1.0" dist="c" x="0" y="-1"  />
+		</State>
+		<State name="GoalReachedDown" speedPolicy="min" final="1" >
+            <GoalSelector type="identity" />
+			<VelComponent type="const_dir" weight="1.0" dist="c" x="0" y="-1"  />
+		</State>
+		<State name="OutOfLaneDown" speedPolicy="min" final="0" >
+			<GoalSelector type="explicit" goal_set="0" goal="1" perAgent="0" />
+			<VelComponent type="goal" weight="1.0" />
+		</State>
+        
+		<Transition order="1" from="MoveDown" to="GoalReachedDown">
+            <Condition type="AABB" inside="1" min_x="-50" min_y="-15.0" max_x="50" max_y="-10.0" />
+        </Transition>
+		<Transition order="1" from="MoveDown" to="OutOfLaneDown">
+             <Condition type="AABB" inside="0" min_x="-1.8" min_y="-100" max_x="1.8" max_y="100" />
+        </Transition>
+        
+		<Transition order="1" from="OutOfLaneDown" to="MoveDown" >
+            <Condition type="AABB" inside="1" min_x="-1.8" min_y="-100" max_x="1.8" max_y="100" />
+        </Transition>
+
+    
+	
+		<State name="MoveLeft" speedPolicy="min" final="0" >
+            <GoalSelector type="identity" />
+			<VelComponent type="const_dir" weight="1.0" dist="c" x="-1" y="0"  />
+		</State>
+		<State name="GoalReachedLeft" speedPolicy="min" final="1" >
+            <GoalSelector type="identity" />
+			<VelComponent type="const_dir" weight="1.0" dist="c" x="-1" y="0"  />
+		</State>
+		<State name="OutOfLaneLeft" speedPolicy="min" final="0" >
+			<GoalSelector type="explicit" goal_set="0" goal="1" perAgent="0" />
+			<VelComponent type="goal" weight="1.0" />
+		</State>
+		<Transition order="1" from="MoveLeft" to="GoalReachedLeft">
+            <Condition type="AABB" inside="1" min_x="-50" min_y="-15.0" max_x="50" max_y="-10.0" />
+        </Transition>
+		<Transition order="1" from="MoveLeft" to="OutOfLaneLeft">
+             <Condition type="AABB" inside="0" min_x="-100" min_y="-2" max_x="100" max_y="2" />
+        </Transition>
+        
+		<Transition order="1" from="OutOfLaneLeft" to="MoveLeft" >
+            <Condition type="AABB" inside="1" min_x="-100" min_y="-2" max_x="100" max_y="2" />
+        </Transition>
+</BFSM>

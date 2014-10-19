@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<VisualStudioPropertySheet
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="pedMacros"
+	>
+	<UserMacro
+		Name="MengeSrc"
+		Value="$(SolutionDir)..\..\..\src\Menge\"
+	/>
+	<UserMacro
+		Name="MengeLib"
+		Value="$(SolutionDir)..\Menge\build\lib"
+	/>
+	<UserMacro
+		Name="PluginSrc"
+		Value="$(SolutionDir)..\..\..\src\Plugins"
+	/>
+</VisualStudioPropertySheet>

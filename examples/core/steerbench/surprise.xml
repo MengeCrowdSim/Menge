@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<Project 
+	scene="surprise/surpriseS.xml" 
+	behavior="surprise/surpriseB.xml" 
+	view="surprise/surpriseV.xml" 
+	model="orca"
+	dumpPath="images/surprise"
+/>

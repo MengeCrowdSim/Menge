@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<Project 
+	scene="periodic/periodicS.xml" 
+	behavior="periodic/periodicB.xml" 
+	view="periodic/periodicV.xml" 
+	model="orca"
+	dumpPath="periodic/images"
+/>

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<Project 
+	scene="frogger/froggerS.xml" 
+	behavior="frogger/froggerB.xml" 
+	view="frogger/froggerV.xml" 
+	model="orca"
+	dumpPath="images/frogger"
+/>

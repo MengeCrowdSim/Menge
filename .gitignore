@@ -1,0 +1,10 @@
+debug/
+Exe/
+release/
+COPY.txt
+*.scb
+*.suo
+build/
+*.sdf
+*.opensdf
+ipch/

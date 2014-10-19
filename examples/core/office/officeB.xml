@@ -1,0 +1,357 @@
+<?xml version="1.0"?>
+
+<BFSM>
+	<!-- doors to various activities -->
+	<GoalSet id="0">
+        <Goal capacity="1000000" id="0" type="point" weight="1.00" x="-0.98" y="20.07"/>
+        <Goal capacity="1000000" id="1" type="point" weight="1.00" x="-25.86" y="20.22"/>
+        <Goal capacity="1000000" id="2" type="point" weight="1.00" x="-29.41" y="20.33"/>
+    </GoalSet>
+	
+	<!--cubicles -->
+    <GoalSet id="1">
+		<!-- -->
+        <Goal capacity="1" id="0" type="point" weight="1.00" x="-21.75" y="14.31"/>
+        <Goal capacity="1" id="1" type="point" weight="1.00" x="-20.67" y="14.46"/>
+        <Goal capacity="1" id="2" type="point" weight="1.00" x="-18.10" y="14.31"/>
+        <Goal capacity="1" id="3" type="point" weight="1.00" x="-16.97" y="14.41"/>
+        <Goal capacity="1" id="4" type="point" weight="1.00" x="-17.02" y="11.38"/>
+        <Goal capacity="1" id="5" type="point" weight="1.00" x="-17.94" y="11.28"/>
+        <Goal capacity="1" id="6" type="point" weight="1.00" x="-20.62" y="11.33"/>
+        <Goal capacity="1" id="7" type="point" weight="1.00" x="-21.54" y="11.33"/>
+        <Goal capacity="1" id="8" type="point" weight="1.00" x="-21.80" y="8.96"/>
+        <Goal capacity="1" id="9" type="point" weight="1.00" x="-20.62" y="9.01"/>
+        <Goal capacity="1" id="10" type="point" weight="1.00" x="-18.10" y="8.96"/>
+        <Goal capacity="1" id="11" type="point" weight="1.00" x="-17.12" y="8.96"/>
+        <Goal capacity="1" id="12" type="point" weight="1.00" x="-17.02" y="5.88"/>
+        <Goal capacity="1" id="13" type="point" weight="1.00" x="-18.05" y="5.88"/>
+        <Goal capacity="1" id="14" type="point" weight="1.00" x="-20.62" y="5.93"/>
+        <Goal capacity="1" id="15" type="point" weight="1.00" x="-21.80" y="5.93"/>
+		<!-- -->
+		<!-- -->
+        <Goal capacity="1" id="16" type="point" weight="1.00" x="-9.72" y="5.88"/>
+        <Goal capacity="1" id="17" type="point" weight="1.00" x="-8.64" y="5.88"/>
+        <Goal capacity="1" id="18" type="point" weight="1.00" x="-6.12" y="5.88"/>
+        <Goal capacity="1" id="19" type="point" weight="1.00" x="-4.94" y="5.98"/>
+        <Goal capacity="1" id="20" type="point" weight="1.00" x="-4.99" y="8.91"/>
+        <Goal capacity="1" id="21" type="point" weight="1.00" x="-6.12" y="9.01"/>
+        <Goal capacity="1" id="46" type="point" weight="1.00" x="-8.48" y="8.91"/>
+        <Goal capacity="1" id="47" type="point" weight="1.00" x="-9.61" y="9.01"/>
+        <Goal capacity="1" id="22" type="point" weight="1.00" x="-4.99" y="11.43"/>
+        <Goal capacity="1" id="23" type="point" weight="1.00" x="-6.07" y="11.38"/>
+        <Goal capacity="1" id="24" type="point" weight="1.00" x="-5.09" y="14.26"/>
+        <Goal capacity="1" id="25" type="point" weight="1.00" x="-6.12" y="14.36"/>
+        <Goal capacity="1" id="26" type="point" weight="1.00" x="-8.48" y="14.36"/>
+        <Goal capacity="1" id="27" type="point" weight="1.00" x="-9.61" y="14.36"/>
+        <Goal capacity="1" id="28" type="point" weight="1.00" x="-9.56" y="11.33"/>
+        <Goal capacity="1" id="29" type="point" weight="1.00" x="-8.53" y="11.23"/>
+		<!-- -->
+		<!-- -->
+        <Goal capacity="1" id="30" type="point" weight="1.00" x="-33.57" y="5.98"/>
+        <Goal capacity="1" id="31" type="point" weight="1.00" x="-34.75" y="6.03"/>
+        <Goal capacity="1" id="32" type="point" weight="1.00" x="-37.22" y="5.98"/>
+        <Goal capacity="1" id="33" type="point" weight="1.00" x="-38.35" y="5.93"/>
+        <Goal capacity="1" id="34" type="point" weight="1.00" x="-38.20" y="8.91"/>
+        <Goal capacity="1" id="35" type="point" weight="1.00" x="-37.22" y="8.86"/>
+        <Goal capacity="1" id="36" type="point" weight="1.00" x="-34.65" y="9.01"/>
+        <Goal capacity="1" id="37" type="point" weight="1.00" x="-33.62" y="9.01"/>
+        <Goal capacity="1" id="38" type="point" weight="1.00" x="-33.52" y="11.43"/>
+        <Goal capacity="1" id="39" type="point" weight="1.00" x="-34.70" y="11.33"/>
+        <Goal capacity="1" id="40" type="point" weight="1.00" x="-37.27" y="11.38"/>
+        <Goal capacity="1" id="41" type="point" weight="1.00" x="-38.25" y="11.33"/>
+        <Goal capacity="1" id="42" type="point" weight="1.00" x="-38.20" y="14.31"/>
+        <Goal capacity="1" id="43" type="point" weight="1.00" x="-37.22" y="14.36"/>
+        <Goal capacity="1" id="44" type="point" weight="1.00" x="-34.65" y="14.36"/>
+        <Goal capacity="1" id="45" type="point" weight="1.00" x="-33.57" y="14.26"/>
+		<!-- -->
+    </GoalSet>
+	<!-- stalls -->
+    <GoalSet id="2">
+        <Goal capacity="1" id="0" type="point" weight="1.00" x="-4.68" y="17.96"/>
+        <Goal capacity="1" id="1" type="point" weight="1.00" x="-3.65" y="17.96"/>
+        <Goal capacity="1" id="2" type="point" weight="1.00" x="-2.52" y="17.91"/>
+        <Goal capacity="1" id="3" type="point" weight="1.00" x="-2.52" y="22.28"/>
+        <Goal capacity="1" id="4" type="point" weight="1.00" x="-3.60" y="22.23"/>
+        <Goal capacity="1" id="5" type="point" weight="1.00" x="-4.63" y="22.33"/>
+		<Goal capacity="1000000" id="6" type="point" weight="1.00" x="-0.98" y="20.07"/>
+    </GoalSet>
+	
+	<!-- fax-->
+    <GoalSet id="3">
+        <Goal capacity="1" id="0" type="point" weight="1.00" x="-23.96" y="18.58"/>
+        <Goal capacity="1" id="1" type="point" weight="1.00" x="-22.52" y="18.58"/>
+        <Goal capacity="1" id="2" type="point" weight="1.00" x="-21.18" y="18.58"/>
+        <Goal capacity="1" id="3" type="point" weight="1.00" x="-24.01" y="21.61"/>
+        <Goal capacity="1" id="4" type="point" weight="1.00" x="-22.57" y="21.66"/>
+        <Goal capacity="1" id="5" type="point" weight="1.00" x="-21.13" y="21.61"/>
+		<Goal capacity="1000000" id="6" type="point" weight="1.00" x="-25.86" y="20.22"/>
+	</GoalSet>
+	
+	<!-- kitchen -->
+    <GoalSet id="4">
+        <Goal capacity="1" id="6" type="point" weight="1.00" x="-31.00" y="18.83"/>
+        <Goal capacity="1" id="7" type="point" weight="1.00" x="-32.60" y="18.63"/>
+        <Goal capacity="1" id="8" type="point" weight="1.00" x="-32.65" y="20.07"/>
+        <Goal capacity="1" id="9" type="point" weight="1.00" x="-32.65" y="21.61"/>
+        <Goal capacity="1" id="10" type="point" weight="1.00" x="-31.05" y="21.41"/>
+        <Goal capacity="1000000" id="11" type="point" weight="1.00" x="-29.41" y="20.33"/>
+    </GoalSet>
+	
+	<!-- outside -->
+    <GoalSet id="5">
+        <Goal capacity="1000000" id="0" type="point" weight="1.00" x="3.13" y="12.72"/>
+		<Goal capacity="1000000" id="1" type="point" weight="1.00" x="2.23" y="12.72"/>
+    </GoalSet>
+	
+	<!-- Change behavior -->
+	<State name="BehaviorStart" final="0" >
+		<GoalSelector type="identity"/>
+		<VelComponent type="goal"/>
+	</State>
+	<!--
+	<Transition from="BehaviorStart">
+		<Condition type="auto" />
+		<Target type="prob">
+			<State name="GoToCubicle" weight="0.68"/>
+			<State name="GoToBathroom" weight="0.093"/>
+			<State name="GoOutside" weight="0.067"/>
+			<State name="GoToKitchen" weight="0.072"/>
+			<State name="GoToFax" weight="0.088"/>
+		</Target>
+	</Transition>
+	-->
+	<Transition from="BehaviorStart">
+		<Condition type="auto" />
+		<Target type="prob">
+			<State name="GoToCubicle" weight="1.25"/>
+			<State name="GoToBathroom" weight="0.0175"/>
+			<State name="GoOutside" weight="0.0375"/>
+			<State name="GoToKitchen" weight="0.0375"/>
+			<State name="GoToFax" weight="0.0375"/>
+		</Target>
+	</Transition>
+
+	<!-- Cubicle behavior -->
+	<State name="GoToCubicle" final="0" >
+		<GoalSelector type="nearest" goal_set="1" per_agent="1" persistent="1"/>
+		<VelComponent type="road_map" file_name="graph.txt" />
+	</State>	
+	<State name="InCubicle" final="0" >
+		<GoalSelector type="identity"/>
+		<VelComponent type="goal"/>
+	</State>
+	
+	<Transition from="GoToCubicle" to="InCubicle" >
+		<Condition type="goal_reached" distance=".3" />
+	</Transition>
+	<Transition from="InCubicle" to="BehaviorStart" >
+		<Condition type="timer" dist="u" min="15" max="20" per_agent="0"/>
+	</Transition>
+						
+	<!-- Bathroom behavior -->
+	<State name="GoToBathroom" final="0" >
+		<GoalSelector type="explicit" goal_set="0" goal="0" per_agent="1" />
+		<VelComponent type="road_map" file_name="graph.txt" />
+	</State>
+	<State name="ChooseAStall" final="0" >
+		<GoalSelector type="farthest" goal_set="2" per_agent="1" />
+		<VelComponent type="road_map" file_name="graph.txt" />
+	</State>
+	<State name="InStall" final="0" >
+		<GoalSelector type="identity"/>
+		<VelComponent type="goal"/>
+	</State>
+	
+	
+	<Transition from="GoToBathroom" to="ChooseAStall" >
+		<Condition type="goal_reached" distance=".3" />
+	</Transition>
+	<Transition from="ChooseAStall" to="InStall" >
+		<Condition type="goal_reached" distance=".3" />
+	</Transition>
+	<Transition from="InStall" to="BehaviorStart" >
+		<Condition type="timer" dist="u" min="5" max="10" per_agent="0"/>
+	</Transition>
+	
+	<!-- Outside behavior -->
+	<State name="GoOutside" final="0" >
+		<GoalSelector type="explicit" goal_set="5" goal="0" per_agent="1" />
+		<VelComponent type="road_map" file_name="graph.txt" />
+	</State>
+	<State name="Outside" final="0" >
+		<GoalSelector type="identity"/>
+		<VelComponent type="zero"/>
+		<Action type="teleport" dist="c" x_value="40.0" y_value="0" />
+	</State>
+	<State name="GoInside" final="0" >
+		<GoalSelector type="explicit" goal_set="5" goal="1" per_agent="1" />
+		<Action type="teleport" dist="c" x_value="5.0" y_value="12" />
+		<VelComponent type="road_map" file_name="graph.txt"/>
+	</State>
+
+	
+	<Transition from="GoOutside" to="Outside" >
+		<Condition type="goal_reached" distance=".3" />	
+	</Transition>
+	<Transition from="Outside" to="GoInside" >
+		<Condition type="timer" dist="u" min="15" max="30" per_agent="0"/>	
+	</Transition>
+	<Transition from="GoInside" to="BehaviorStart" >
+		<Condition type="goal_reached" distance=".3" />	
+	</Transition>
+					
+	<!-- Kitchen behavior -->
+	<State name="GoToKitchen" final="0" >
+		<GoalSelector type="explicit" goal_set="0" goal="2" per_agent="1" />
+		<VelComponent type="road_map" file_name="graph.txt" />
+	</State>
+	<State name="GoToKitchenActivity" final="0" >
+		<GoalSelector type="farthest" goal_set="4" per_agent="1" />
+		<VelComponent type="road_map" file_name="graph.txt" />
+	</State>
+	<State name="DoKitchenActivity" final="0" >
+		<GoalSelector type="identity"/>
+		<VelComponent type="goal"/>
+	</State>
+				
+	<Transition from="GoToKitchen" to="GoToKitchenActivity" >
+		<Condition type="goal_reached" distance=".3" />
+	</Transition>
+	<Transition from="GoToKitchenActivity" to="DoKitchenActivity" >
+		<Condition type="goal_reached" distance=".3" />
+	</Transition>
+	<Transition from="DoKitchenActivity" to="BehaviorStart" >
+		<Condition type="timer" dist="u" min="5" max="10" per_agent="0" />
+	</Transition>
+	
+	<!-- Fax behavior -->
+	<State name="GoToFax" final="0" >
+		<GoalSelector type="explicit" goal_set="0" goal="1" per_agent="1" />
+		<VelComponent type="road_map" file_name="graph.txt" />
+	</State>	
+	<State name="GoToFaxMachine" final="0" >
+		<GoalSelector type="farthest" goal_set="3" per_agent="1" />
+		<VelComponent type="road_map" file_name="graph.txt" />
+	</State>
+	<State name="SendFax" final="0" >
+		<GoalSelector type="identity"/>
+		<VelComponent type="goal"/>
+	</State>
+		
+	<Transition from="GoToFax" to="GoToFaxMachine" >
+		<Condition type="goal_reached" distance=".3" />
+	</Transition>
+	<Transition from="GoToFaxMachine" to="SendFax" >
+		<Condition type="goal_reached" distance=".3" />
+	</Transition>
+	<Transition from="SendFax" to="BehaviorStart" >
+		<Condition type="timer" dist="u" min="5" max="10" per_agent="0"/>
+	</Transition>
+					
+	<!-- Stairs 
+	There are 8 stairs pedestrians can travel on
+	
+		 ______    ________         ________
+		|XXXX  |  |  ____A2|       |_A1__   | 
+		|B2__  |  |  ____B1|       |XXXXX_   |
+	         | |  |  |                   |  |
+			...
+	         | |  |  |                   |  |
+		 ____| |  |  |_____         _____|  |
+		|D2__  |  |  ___D1_|       |XXXXX   | 
+		|XXXX__|  |_____C2_|       |_C1_____|
+		
+		The 8 physical stairs are connected into 4 logical stair cases: A, B, C, D
+			I1 and I2 are connected (for stairway I).
+	-->
+	<State name="A1" final="0">
+		<Action type="teleport" dist="u" min_x="-23" max_x="-22" min_y="0" max_y="1.25" />
+	</State>
+	<Transition from="GoToCubicle,GoToBathroom,GoOutside,GoToKitchen,GoToFax" to="A1">
+		<Condition type="AABB" inside="1" min_x="-7" max_x="-5.5" min_y="-1" max_y="1.25" />
+	</Transition>
+	<Transition from="A1" >
+		<Condition type="auto"/>
+		<Target type="return"/>
+	</Transition>
+	
+	<State name="A2" final="0">
+		<Action type="teleport" dist="u" min_x="-5" max_x="-4" min_y="0" max_y="1.25" />
+	</State>
+	<Transition from="GoToCubicle,GoToBathroom,GoOutside,GoToKitchen,GoToFax" to="A2">
+		<Condition type="AABB" inside="1" min_x="-21.5" max_x="-20" min_y="-1" max_y="1.25" />
+	</Transition>
+	<Transition from="A2" >
+		<Condition type="auto"/>
+		<Target type="return"/>
+	</Transition>
+	
+	<State name="C1" final="0">
+		<Action type="teleport" dist="u" min_x="-23" max_x="-22" min_y="24.5" max_y="25.5" />
+	</State>
+	<Transition from="GoToCubicle,GoToBathroom,GoOutside,GoToKitchen,GoToFax" to="C1">
+		<Condition type="AABB" inside="1" min_x="-7" max_x="-5.5" min_y="24.5" max_y="25.5" />
+	</Transition>
+	<Transition from="C1" >
+		<Condition type="auto"/>
+		<Target type="return"/>
+	</Transition>
+	
+	<State name="C2" final="0">
+		<Action type="teleport" dist="u" min_x="-5" max_x="-4" min_y="24.5" max_y="25.5" />
+	</State>
+	<Transition from="GoToCubicle,GoToBathroom,GoOutside,GoToKitchen,GoToFax" to="C2">
+		<Condition type="AABB" inside="1" min_x="-21.0" max_x="-20" min_y="24.5" max_y="25.5" />
+	</Transition>
+	<Transition from="C2" >
+		<Condition type="auto"/>
+		<Target type="return"/>
+	</Transition>
+
+	<State name="D1" final="0">
+		<Action type="teleport" dist="u" min_x="-34" max_x="-33" min_y="23" max_y="24" />
+	</State>
+	<Transition from="GoToCubicle,GoToBathroom,GoOutside,GoToKitchen,GoToFax" to="D1">
+		<Condition type="AABB" inside="1" min_x="-20.5" max_x="-19.5" min_y="23" max_y="24" />
+	</Transition>
+	<Transition from="D1" >
+		<Condition type="auto"/>
+		<Target type="return"/>
+	</Transition>
+
+	<State name="D2" final="0">
+		<Action type="teleport" dist="u" min_x="-22.5" max_x="-21.0" min_y="23" max_y="24" />
+	</State>
+	<Transition from="GoToCubicle,GoToBathroom,GoOutside,GoToKitchen,GoToFax" to="D2">
+		<Condition type="AABB" inside="1" min_x="-36" max_x="-34.5" min_y="23" max_y="24" />
+	</Transition>
+	<Transition from="D2" >
+		<Condition type="auto"/>
+		<Target type="return"/>
+	</Transition>
+
+	<State name="B1" final="0">
+		<Action type="teleport" dist="u" min_x="-34" max_x="-33" min_y="1.8" max_y="2.8" />
+	</State>
+	<Transition from="GoToCubicle,GoToBathroom,GoOutside,GoToKitchen,GoToFax" to="B1">
+		<Condition type="AABB" inside="1" min_x="-20.5" max_x="-19.5" min_y="1.8" max_y="2.8" />
+	</Transition>
+	<Transition from="B1" >
+		<Condition type="auto"/>
+		<Target type="return"/>
+	</Transition>
+
+	<State name="B2" final="0">
+		<Action type="teleport" dist="u" min_x="-22.5" max_x="-21.0" min_y="1.8" max_y="2.8" />
+	</State>
+	<Transition from="GoToCubicle,GoToBathroom,GoOutside,GoToKitchen,GoToFax" to="B2">
+		<Condition type="AABB" inside="1" min_x="-36" max_x="-34.5" min_y="1.8" max_y="2.8" />
+	</Transition>
+	<Transition from="B2" >
+		<Condition type="auto"/>
+		<Target type="return"/>
+	</Transition>
+	
+	
+			
+</BFSM>

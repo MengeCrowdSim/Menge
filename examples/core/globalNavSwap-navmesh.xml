@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<Project 
+	scene="globalNavSwap/globalNavSwapS.xml" 
+	behavior="globalNavSwap/globalNavSwapBMesh.xml" 
+	view="globalNavSwap/globalNavSwapV.xml" 
+	model="orca"
+	dumpPath="images/globalNavSwap"
+/>

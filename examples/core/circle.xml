@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<Project 
+	scene="circle/circleS.xml" 
+	behavior="circle/circleB.xml" 
+	view="circle/circleV.xml" 
+	model="orca"
+	dumpPath="images/test"
+/>

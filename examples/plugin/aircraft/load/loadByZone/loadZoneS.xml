@@ -1,0 +1,474 @@
+<?xml version="1.0"?>
+<Experiment version="2.0">
+    <SpatialQuery type="kd-tree" test_visibility="true" />
+	<Common time_step="0.1" />
+	<Helbing agent_scale="2000" obstacle_scale="4000" reaction_time="0.5" body_force="1200" friction="2400" force_distance="0.015" />
+    
+    <AgentProfile name="zone1">
+        <Common max_angle_vel="180" class="1" max_neighbors="10" obstacleSet="1" neighbor_dist="2.5" r="0.21" pref_speed="1.64" max_speed="2" max_accel="10" />
+		<PedVO factor="1.57" buffer="0.9" tau="3" tauObst="0.1" turningBias="1.0" />
+        <Helbing mass="80" />
+    </AgentProfile>
+	
+    <AgentGroup>
+        <ProfileSelector type="const" name="zone1" />
+		<StateSelector type="const" name="Enter1" />
+		<Generator type="explicit" >       
+            <Agent p_x="8.31" p_y="-51.00" />
+            <Agent p_x="8.31" p_y="-69.00" />
+            <Agent p_x="8.31" p_y="-87.00" />
+            <Agent p_x="8.31" p_y="-99.00" />
+            <Agent p_x="8.31" p_y="-111.00" />			
+            <Agent p_x="8.31" p_y="-123.00" />				
+            <Agent p_x="8.31" p_y="-135.00" />        
+            <Agent p_x="8.31" p_y="-141.00" />
+            <Agent p_x="8.31" p_y="-147.00" />
+            <Agent p_x="8.31" p_y="-153.00" />
+            <Agent p_x="8.31" p_y="-159.00" />
+            <Agent p_x="8.31" p_y="-165.00" />
+            <Agent p_x="8.31" p_y="-171.00" />
+            <Agent p_x="8.31" p_y="-177.00" />
+            <Agent p_x="8.31" p_y="-183.00" />
+            <Agent p_x="8.31" p_y="-189.00" />
+            <Agent p_x="8.31" p_y="-195.00" />
+            <Agent p_x="8.31" p_y="-201.00" />
+            <Agent p_x="8.31" p_y="-207.00" />
+            <Agent p_x="8.31" p_y="-213.00" />
+            <Agent p_x="8.31" p_y="-219.00" />
+            <Agent p_x="8.31" p_y="-225.00" />    
+            <Agent p_x="8.31" p_y="-237.00" />
+            <Agent p_x="8.31" p_y="-243.00" />      
+            <Agent p_x="8.31" p_y="-255.00" />
+            <Agent p_x="8.31" p_y="-261.00" />			
+            <Agent p_x="8.31" p_y="-273.00" />
+            <Agent p_x="8.31" p_y="-285.00" />        
+            <Agent p_x="8.31" p_y="-297.00" />        
+            <Agent p_x="8.31" p_y="-309.00" />	    
+            <Agent p_x="8.31" p_y="-423.00" />        
+            <Agent p_x="8.31" p_y="-471.00" />                
+            <Agent p_x="8.31" p_y="-573.00" />        
+            <Agent p_x="8.31" p_y="-645.00" />        
+            <Agent p_x="8.31" p_y="-819.00" />        
+            <Agent p_x="8.31" p_y="-921.00" />
+        </Generator>
+    </AgentGroup>
+    
+    <AgentProfile name="zone2" inherits="zone1">
+        <Common class="3" />
+    </AgentProfile>
+    
+    <AgentGroup>
+        <ProfileSelector type="const" name="zone2" />
+		<StateSelector type="const" name="Enter2" />
+		<Generator type="explicit" >
+			<Agent p_x="8.31" p_y="-231.00" />
+			<Agent p_x="8.31" p_y="-249.00" />
+			<Agent p_x="8.31" p_y="-267.00" />
+			<Agent p_x="8.31" p_y="-279.00" />
+			<Agent p_x="8.31" p_y="-291.00" />
+			<Agent p_x="8.31" p_y="-303.00" />
+			<Agent p_x="8.31" p_y="-315.00" />
+			<Agent p_x="8.31" p_y="-321.00" />
+			<Agent p_x="8.31" p_y="-327.00" />
+			<Agent p_x="8.31" p_y="-333.00" />
+			<Agent p_x="8.31" p_y="-339.00" />
+			<Agent p_x="8.31" p_y="-345.00" />
+			<Agent p_x="8.31" p_y="-351.00" />
+			<Agent p_x="8.31" p_y="-357.00" />
+			<Agent p_x="8.31" p_y="-363.00" />
+			<Agent p_x="8.31" p_y="-369.00" />
+			<Agent p_x="8.31" p_y="-375.00" />
+			<Agent p_x="8.31" p_y="-381.00" />
+			<Agent p_x="8.31" p_y="-387.00" />
+			<Agent p_x="8.31" p_y="-393.00" />
+			<Agent p_x="8.31" p_y="-399.00" />
+			<Agent p_x="8.31" p_y="-405.00" />
+			<Agent p_x="8.31" p_y="-411.00" />
+			<Agent p_x="8.31" p_y="-417.00" />
+			<Agent p_x="8.31" p_y="-435.00" />
+			<Agent p_x="8.31" p_y="-441.00" />
+			<Agent p_x="8.31" p_y="-453.00" />
+			<Agent p_x="8.31" p_y="-459.00" />
+			<Agent p_x="8.31" p_y="-477.00" />
+			<Agent p_x="8.31" p_y="-489.00" />
+			<Agent p_x="8.31" p_y="-501.00" />
+			<Agent p_x="8.31" p_y="-513.00" />
+			<Agent p_x="8.31" p_y="-639.00" />
+			<Agent p_x="8.31" p_y="-813.00" />
+        </Generator>
+    </AgentGroup>
+    
+    <AgentProfile name="zone3" inherits="zone1">
+        <Common class="4" />
+    </AgentProfile>
+    
+    <AgentGroup>
+        <ProfileSelector type="const" name="zone3" />
+		<StateSelector type="const" name="Enter3" />
+		<Generator type="explicit" >
+			<Agent p_x="8.31" p_y="-429.00" />
+			<Agent p_x="8.31" p_y="-447.00" />
+			<Agent p_x="8.31" p_y="-465.00" />
+			<Agent p_x="8.31" p_y="-483.00" />
+			<Agent p_x="8.31" p_y="-495.00" />
+			<Agent p_x="8.31" p_y="-507.00" />
+			<Agent p_x="8.31" p_y="-513.00" />
+			<Agent p_x="8.31" p_y="-519.00" />
+			<Agent p_x="8.31" p_y="-525.00" />
+			<Agent p_x="8.31" p_y="-531.00" />
+			<Agent p_x="8.31" p_y="-537.00" />
+			<Agent p_x="8.31" p_y="-543.00" />
+			<Agent p_x="8.31" p_y="-549.00" />
+			<Agent p_x="8.31" p_y="-555.00" />
+			<Agent p_x="8.31" p_y="-561.00" />
+			<Agent p_x="8.31" p_y="-567.00" />
+			<Agent p_x="8.31" p_y="-579.00" />
+			<Agent p_x="8.31" p_y="-585.00" />
+			<Agent p_x="8.31" p_y="-591.00" />
+			<Agent p_x="8.31" p_y="-597.00" />
+			<Agent p_x="8.31" p_y="-603.00" />
+			<Agent p_x="8.31" p_y="-609.00" />
+			<Agent p_x="8.31" p_y="-615.00" />
+			<Agent p_x="8.31" p_y="-621.00" />
+			<Agent p_x="8.31" p_y="-627.00" />
+			<Agent p_x="8.31" p_y="-633.00" />
+			<Agent p_x="8.31" p_y="-651.00" />
+			<Agent p_x="8.31" p_y="-657.00" />
+			<Agent p_x="8.31" p_y="-669.00" />
+			<Agent p_x="8.31" p_y="-675.00" />
+			<Agent p_x="8.31" p_y="-687.00" />
+			<Agent p_x="8.31" p_y="-699.00" />
+			<Agent p_x="8.31" p_y="-711.00" />
+			<Agent p_x="8.31" p_y="-723.00" />
+			<Agent p_x="8.31" p_y="-735.00" />
+			<Agent p_x="8.31" p_y="-795.00" />
+        </Generator>
+    </AgentGroup>
+    
+    <AgentProfile name="zone4" inherits="zone1">
+        <Common class="5" />
+    </AgentProfile>
+    
+    <AgentGroup>
+        <ProfileSelector type="const" name="zone4" />
+		<StateSelector type="const" name="Enter4" />
+		<Generator type="explicit" >
+			<Agent p_x="8.31" p_y="-663.00" />
+			<Agent p_x="8.31" p_y="-681.00" />
+			<Agent p_x="8.31" p_y="-693.00" />
+			<Agent p_x="8.31" p_y="-705.00" />
+			<Agent p_x="8.31" p_y="-717.00" />
+			<Agent p_x="8.31" p_y="-729.00" />
+			<Agent p_x="8.31" p_y="-741.00" />
+			<Agent p_x="8.31" p_y="-747.00" />
+			<Agent p_x="8.31" p_y="-753.00" />
+			<Agent p_x="8.31" p_y="-759.00" />
+			<Agent p_x="8.31" p_y="-765.00" />
+			<Agent p_x="8.31" p_y="-771.00" />
+			<Agent p_x="8.31" p_y="-777.00" />
+			<Agent p_x="8.31" p_y="-783.00" />
+			<Agent p_x="8.31" p_y="-789.00" />
+			<Agent p_x="8.31" p_y="-825.00" />
+			<Agent p_x="8.31" p_y="-831.00" />
+			<Agent p_x="8.31" p_y="-837.00" />
+			<Agent p_x="8.31" p_y="-843.00" />
+			<Agent p_x="8.31" p_y="-849.00" />
+			<Agent p_x="8.31" p_y="-855.00" />
+			<Agent p_x="8.31" p_y="-861.00" />
+			<Agent p_x="8.31" p_y="-867.00" />
+			<Agent p_x="8.31" p_y="-873.00" />
+			<Agent p_x="8.31" p_y="-879.00" />
+			<Agent p_x="8.31" p_y="-885.00" />
+			<Agent p_x="8.31" p_y="-891.00" />
+			<Agent p_x="8.31" p_y="-897.00" />
+			<Agent p_x="8.31" p_y="-903.00" />
+			<Agent p_x="8.31" p_y="-909.00" />
+			<Agent p_x="8.31" p_y="-915.00" />
+			<Agent p_x="8.31" p_y="-927.00" />
+			<Agent p_x="8.31" p_y="-933.00" />
+			<Agent p_x="8.31" p_y="-939.00" />
+			<Agent p_x="8.31" p_y="-945.00" />
+			<Agent p_x="8.31" p_y="-801.00" />
+        </Generator>
+    </AgentGroup>
+    
+    <AgentProfile name="firstClass" inherits="zone1">
+        <Common class="2" />
+    </AgentProfile>
+    
+    <AgentGroup>
+        <ProfileSelector type="const" name="firstClass" />
+		<StateSelector type="const" name="EnterFirst" />
+		<Generator type="explicit" >        
+			<Agent p_x="8.31" p_y="-3.00" />
+			<Agent p_x="8.31" p_y="-9.00" />
+			<Agent p_x="8.31" p_y="-15.00" />
+			<Agent p_x="8.31" p_y="-21.00" />
+			<Agent p_x="8.31" p_y="-27.00" />
+			<Agent p_x="8.31" p_y="-33.00" />
+			<Agent p_x="8.31" p_y="-39.00" />
+			<Agent p_x="8.31" p_y="-45.00" />
+			<Agent p_x="8.31" p_y="-57.00" />
+			<Agent p_x="8.31" p_y="-63.00" />
+			<Agent p_x="8.31" p_y="-75.00" />
+			<Agent p_x="8.31" p_y="-81.00" />
+			<Agent p_x="8.31" p_y="-93.00" />
+			<Agent p_x="8.31" p_y="-105.00" />
+			<Agent p_x="8.31" p_y="-117.00" />
+			<Agent p_x="8.31" p_y="-129.00" />
+        </Generator>
+    </AgentGroup>
+
+	<ObstacleSet type="explicit" class="1">
+		<Obstacle closed="1" >
+			<Vertex p_x="19.532600" p_y="-1.760220" />
+			<Vertex p_x="19.532600" p_y="-0.228600" />
+			<Vertex p_x="19.202398" p_y="-0.228600" />
+			<Vertex p_x="19.202398" p_y="-1.760220" />
+			<Vertex p_x="18.719799" p_y="-1.760220" />
+			<Vertex p_x="18.719799" p_y="-0.228600" />
+			<Vertex p_x="18.389599" p_y="-0.228600" />
+			<Vertex p_x="18.389599" p_y="-1.760220" />
+			<Vertex p_x="17.907000" p_y="-1.760220" />
+			<Vertex p_x="17.907000" p_y="-0.228600" />
+			<Vertex p_x="17.576801" p_y="-0.228600" />
+			<Vertex p_x="17.576801" p_y="-1.760220" />
+			<Vertex p_x="17.094200" p_y="-1.760220" />
+			<Vertex p_x="17.094200" p_y="-0.228600" />
+			<Vertex p_x="16.764000" p_y="-0.228600" />
+			<Vertex p_x="16.764000" p_y="-1.760220" />
+			<Vertex p_x="16.281401" p_y="-1.760220" />
+			<Vertex p_x="16.281401" p_y="-0.228600" />
+			<Vertex p_x="15.951200" p_y="-0.228600" />
+			<Vertex p_x="15.951200" p_y="-1.760220" />
+			<Vertex p_x="15.468600" p_y="-1.760220" />
+			<Vertex p_x="15.468600" p_y="-0.228600" />
+			<Vertex p_x="15.138400" p_y="-0.228600" />
+			<Vertex p_x="15.138400" p_y="-1.760220" />
+			<Vertex p_x="14.655800" p_y="-1.760220" />
+			<Vertex p_x="14.655800" p_y="-0.228600" />
+			<Vertex p_x="14.325601" p_y="-0.228600" />
+			<Vertex p_x="14.325601" p_y="-1.760220" />
+			<Vertex p_x="13.512800" p_y="-1.760220" />
+			<Vertex p_x="13.512800" p_y="-0.533400" />
+			<Vertex p_x="13.284200" p_y="-0.317500" />
+			<Vertex p_x="12.877800" p_y="-0.317500" />
+			<Vertex p_x="12.877800" p_y="-1.760220" />
+			<Vertex p_x="12.395200" p_y="-1.760220" />
+			<Vertex p_x="12.395200" p_y="-0.317500" />
+			<Vertex p_x="11.988800" p_y="-0.317500" />
+			<Vertex p_x="11.988800" p_y="-1.760220" />
+			<Vertex p_x="11.506200" p_y="-1.760220" />
+			<Vertex p_x="11.506200" p_y="-0.317500" />
+			<Vertex p_x="11.099800" p_y="-0.317500" />
+			<Vertex p_x="11.099800" p_y="-1.754488" />
+			<Vertex p_x="10.617200" p_y="-1.750623" />
+			<Vertex p_x="10.617200" p_y="-0.317500" />
+			<Vertex p_x="9.906000" p_y="-0.317500" />
+			<Vertex p_x="9.906000" p_y="-1.722449" />
+			<Vertex p_x="9.271000" p_y="-1.721442" />
+			<Vertex p_x="9.271000" p_y="-0.425450" />
+			<Vertex p_x="8.712200" p_y="-0.425450" />
+			<Vertex p_x="8.705176" p_y="-2.087912" />
+			<Vertex p_x="36.170660" p_y="-2.097290" />
+			<Vertex p_x="36.171328" p_y="2.138022" />
+			<Vertex p_x="6.393190" p_y="2.134698" />
+			<Vertex p_x="6.379121" p_y="-2.089245" />
+			<Vertex p_x="7.575968" p_y="-2.086503" />
+			<Vertex p_x="7.574369" p_y="1.699048" />
+			<Vertex p_x="8.389393" p_y="1.706030" />
+			<Vertex p_x="8.382000" p_y="0.254000" />
+			<Vertex p_x="9.271000" p_y="0.254000" />
+			<Vertex p_x="9.271000" p_y="1.724680" />
+			<Vertex p_x="9.906000" p_y="1.722449" />
+			<Vertex p_x="9.906000" p_y="0.317500" />
+			<Vertex p_x="10.617200" p_y="0.317500" />
+			<Vertex p_x="10.617200" p_y="1.750623" />
+			<Vertex p_x="11.099800" p_y="1.754488" />
+			<Vertex p_x="11.099800" p_y="0.317500" />
+			<Vertex p_x="11.506200" p_y="0.317500" />
+			<Vertex p_x="11.506200" p_y="1.760220" />
+			<Vertex p_x="11.988800" p_y="1.760220" />
+			<Vertex p_x="11.988800" p_y="0.317500" />
+			<Vertex p_x="12.395200" p_y="0.317500" />
+			<Vertex p_x="12.395200" p_y="1.760220" />
+			<Vertex p_x="12.877800" p_y="1.760220" />
+			<Vertex p_x="12.877800" p_y="0.317500" />
+			<Vertex p_x="13.284200" p_y="0.317500" />
+			<Vertex p_x="13.512800" p_y="0.533400" />
+			<Vertex p_x="13.512800" p_y="1.760220" />
+			<Vertex p_x="14.325601" p_y="1.760220" />
+			<Vertex p_x="14.325601" p_y="0.228600" />
+			<Vertex p_x="14.655800" p_y="0.228600" />
+			<Vertex p_x="14.655800" p_y="1.760220" />
+			<Vertex p_x="15.138400" p_y="1.760220" />
+			<Vertex p_x="15.138400" p_y="0.228600" />
+			<Vertex p_x="15.468600" p_y="0.228600" />
+			<Vertex p_x="15.468600" p_y="1.760220" />
+			<Vertex p_x="15.951200" p_y="1.760220" />
+			<Vertex p_x="15.951200" p_y="0.228600" />
+			<Vertex p_x="16.281401" p_y="0.228600" />
+			<Vertex p_x="16.281401" p_y="1.760220" />
+			<Vertex p_x="16.764000" p_y="1.760220" />
+			<Vertex p_x="16.764000" p_y="0.228600" />
+			<Vertex p_x="17.094200" p_y="0.228600" />
+			<Vertex p_x="17.094200" p_y="1.760220" />
+			<Vertex p_x="17.576801" p_y="1.760220" />
+			<Vertex p_x="17.576801" p_y="0.228600" />
+			<Vertex p_x="17.907000" p_y="0.228600" />
+			<Vertex p_x="17.907000" p_y="1.760220" />
+			<Vertex p_x="18.389599" p_y="1.760220" />
+			<Vertex p_x="18.389599" p_y="0.228600" />
+			<Vertex p_x="18.719799" p_y="0.228600" />
+			<Vertex p_x="18.719799" p_y="1.760220" />
+			<Vertex p_x="19.202398" p_y="1.760220" />
+			<Vertex p_x="19.202398" p_y="0.228600" />
+			<Vertex p_x="19.532600" p_y="0.228600" />
+			<Vertex p_x="19.532600" p_y="1.760220" />
+			<Vertex p_x="20.320002" p_y="1.760220" />
+			<Vertex p_x="20.320002" p_y="0.228600" />
+			<Vertex p_x="20.650200" p_y="0.228600" />
+			<Vertex p_x="20.650200" p_y="1.760220" />
+			<Vertex p_x="21.102889" p_y="1.754988" />
+			<Vertex p_x="21.102889" p_y="0.245487" />
+			<Vertex p_x="21.443058" p_y="0.238400" />
+			<Vertex p_x="21.435972" p_y="1.762074" />
+			<Vertex p_x="21.894800" p_y="1.760220" />
+			<Vertex p_x="21.894800" p_y="0.228600" />
+			<Vertex p_x="22.225000" p_y="0.228600" />
+			<Vertex p_x="22.225000" p_y="1.760220" />
+			<Vertex p_x="22.682201" p_y="1.760220" />
+			<Vertex p_x="22.682201" p_y="0.228600" />
+			<Vertex p_x="23.012400" p_y="0.228600" />
+			<Vertex p_x="23.012400" p_y="1.760220" />
+			<Vertex p_x="23.469601" p_y="1.760220" />
+			<Vertex p_x="23.469601" p_y="0.228600" />
+			<Vertex p_x="23.799801" p_y="0.228600" />
+			<Vertex p_x="23.799801" p_y="1.760220" />
+			<Vertex p_x="24.257000" p_y="1.760220" />
+			<Vertex p_x="24.257000" p_y="0.228600" />
+			<Vertex p_x="24.587200" p_y="0.228600" />
+			<Vertex p_x="24.587200" p_y="1.760220" />
+			<Vertex p_x="25.044399" p_y="1.760220" />
+			<Vertex p_x="25.044399" p_y="0.228600" />
+			<Vertex p_x="25.374599" p_y="0.228600" />
+			<Vertex p_x="25.374599" p_y="1.760220" />
+			<Vertex p_x="25.831800" p_y="1.760220" />
+			<Vertex p_x="25.831800" p_y="0.228600" />
+			<Vertex p_x="26.162001" p_y="0.228600" />
+			<Vertex p_x="26.162001" p_y="1.760220" />
+			<Vertex p_x="26.619200" p_y="1.760220" />
+			<Vertex p_x="26.619200" p_y="0.228600" />
+			<Vertex p_x="26.949400" p_y="0.228600" />
+			<Vertex p_x="26.949400" p_y="1.760220" />
+			<Vertex p_x="27.406599" p_y="1.760220" />
+			<Vertex p_x="27.406599" p_y="0.228600" />
+			<Vertex p_x="27.736799" p_y="0.228600" />
+			<Vertex p_x="27.736799" p_y="1.760220" />
+			<Vertex p_x="28.193998" p_y="1.760220" />
+			<Vertex p_x="28.193998" p_y="0.228600" />
+			<Vertex p_x="28.524199" p_y="0.228600" />
+			<Vertex p_x="28.524199" p_y="1.760220" />
+			<Vertex p_x="28.981398" p_y="1.760220" />
+			<Vertex p_x="28.981398" p_y="0.228600" />
+			<Vertex p_x="29.311598" p_y="0.228600" />
+			<Vertex p_x="29.311598" p_y="1.760220" />
+			<Vertex p_x="29.768797" p_y="1.760220" />
+			<Vertex p_x="29.768797" p_y="0.228600" />
+			<Vertex p_x="30.098999" p_y="0.228600" />
+			<Vertex p_x="30.098999" p_y="1.760220" />
+			<Vertex p_x="30.556198" p_y="1.760220" />
+			<Vertex p_x="30.556198" p_y="0.228600" />
+			<Vertex p_x="30.886398" p_y="0.228600" />
+			<Vertex p_x="30.886398" p_y="1.760220" />
+			<Vertex p_x="31.343597" p_y="1.760220" />
+			<Vertex p_x="31.343597" p_y="0.228600" />
+			<Vertex p_x="31.673798" p_y="0.228600" />
+			<Vertex p_x="31.673798" p_y="1.760220" />
+			<Vertex p_x="32.130997" p_y="1.760220" />
+			<Vertex p_x="32.130997" p_y="0.228600" />
+			<Vertex p_x="32.461197" p_y="0.228600" />
+			<Vertex p_x="32.461197" p_y="1.745876" />
+			<Vertex p_x="32.918392" p_y="1.738480" />
+			<Vertex p_x="32.918392" p_y="0.228600" />
+			<Vertex p_x="33.248596" p_y="0.228600" />
+			<Vertex p_x="33.248596" p_y="0.430830" />
+			<Vertex p_x="34.493202" p_y="0.431800" />
+			<Vertex p_x="34.527404" p_y="0.279400" />
+			<Vertex p_x="34.530001" p_y="1.578983" />
+			<Vertex p_x="35.601998" p_y="1.578808" />
+			<Vertex p_x="35.601998" p_y="-1.601609" />
+			<Vertex p_x="34.530001" p_y="-1.601784" />
+			<Vertex p_x="34.530001" p_y="-0.290801" />
+			<Vertex p_x="34.493202" p_y="-0.431800" />
+			<Vertex p_x="33.242660" p_y="-0.430830" />
+			<Vertex p_x="33.248596" p_y="-0.228600" />
+			<Vertex p_x="32.918392" p_y="-0.228600" />
+			<Vertex p_x="32.918392" p_y="-1.738480" />
+			<Vertex p_x="32.461197" p_y="-1.745876" />
+			<Vertex p_x="32.461197" p_y="-0.228600" />
+			<Vertex p_x="32.130997" p_y="-0.228600" />
+			<Vertex p_x="32.130997" p_y="-1.760220" />
+			<Vertex p_x="31.673798" p_y="-1.760220" />
+			<Vertex p_x="31.673798" p_y="-0.228600" />
+			<Vertex p_x="31.343597" p_y="-0.228600" />
+			<Vertex p_x="31.343597" p_y="-1.760220" />
+			<Vertex p_x="30.886398" p_y="-1.760220" />
+			<Vertex p_x="30.886398" p_y="-0.228600" />
+			<Vertex p_x="30.556198" p_y="-0.228600" />
+			<Vertex p_x="30.556198" p_y="-1.760220" />
+			<Vertex p_x="30.098999" p_y="-1.760220" />
+			<Vertex p_x="30.098999" p_y="-0.228600" />
+			<Vertex p_x="29.768797" p_y="-0.228600" />
+			<Vertex p_x="29.768797" p_y="-1.760220" />
+			<Vertex p_x="29.311598" p_y="-1.760220" />
+			<Vertex p_x="29.311598" p_y="-0.228600" />
+			<Vertex p_x="28.981398" p_y="-0.228600" />
+			<Vertex p_x="28.981398" p_y="-1.760220" />
+			<Vertex p_x="28.524199" p_y="-1.760220" />
+			<Vertex p_x="28.524199" p_y="-0.228600" />
+			<Vertex p_x="28.193998" p_y="-0.228600" />
+			<Vertex p_x="28.193998" p_y="-1.760220" />
+			<Vertex p_x="27.736799" p_y="-1.760220" />
+			<Vertex p_x="27.736799" p_y="-0.228600" />
+			<Vertex p_x="27.406599" p_y="-0.228600" />
+			<Vertex p_x="27.406599" p_y="-1.760220" />
+			<Vertex p_x="26.949400" p_y="-1.760220" />
+			<Vertex p_x="26.949400" p_y="-0.228600" />
+			<Vertex p_x="26.619200" p_y="-0.228600" />
+			<Vertex p_x="26.619200" p_y="-1.760220" />
+			<Vertex p_x="26.162001" p_y="-1.760220" />
+			<Vertex p_x="26.162001" p_y="-0.228600" />
+			<Vertex p_x="25.831800" p_y="-0.228600" />
+			<Vertex p_x="25.831800" p_y="-1.760220" />
+			<Vertex p_x="25.374599" p_y="-1.760220" />
+			<Vertex p_x="25.374599" p_y="-0.228600" />
+			<Vertex p_x="25.044399" p_y="-0.228600" />
+			<Vertex p_x="25.044399" p_y="-1.760220" />
+			<Vertex p_x="24.587200" p_y="-1.760220" />
+			<Vertex p_x="24.587200" p_y="-0.228600" />
+			<Vertex p_x="24.257000" p_y="-0.228600" />
+			<Vertex p_x="24.257000" p_y="-1.760220" />
+			<Vertex p_x="23.799801" p_y="-1.760220" />
+			<Vertex p_x="23.799801" p_y="-0.228600" />
+			<Vertex p_x="23.469601" p_y="-0.228600" />
+			<Vertex p_x="23.469601" p_y="-1.760220" />
+			<Vertex p_x="23.012400" p_y="-1.760220" />
+			<Vertex p_x="23.012400" p_y="-0.228600" />
+			<Vertex p_x="22.682201" p_y="-0.228600" />
+			<Vertex p_x="22.682201" p_y="-1.760220" />
+			<Vertex p_x="22.225000" p_y="-1.760220" />
+			<Vertex p_x="22.225000" p_y="-0.228600" />
+			<Vertex p_x="21.894800" p_y="-0.228600" />
+			<Vertex p_x="21.894800" p_y="-1.753133" />
+			<Vertex p_x="21.443058" p_y="-1.760093" />
+			<Vertex p_x="21.443058" p_y="-0.229332" />
+			<Vertex p_x="21.109976" p_y="-0.229332" />
+			<Vertex p_x="21.103943" p_y="-1.748098" />
+			<Vertex p_x="20.650200" p_y="-1.760220" />
+			<Vertex p_x="20.650200" p_y="-0.228600" />
+			<Vertex p_x="20.320002" p_y="-0.228600" />
+			<Vertex p_x="20.320002" p_y="-1.760220" />
+		</Obstacle>
+	</ObstacleSet>
+</Experiment>

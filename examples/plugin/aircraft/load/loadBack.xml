@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+
+<Project 
+	scene="loadS.xml" 
+	behavior="loadBack/loadBackB.xml" 
+	view="../aircraftV.xml" 
+	model="pedvo"
+	dumpPath="images/back"
+	duration="1000"
+	random="10"
+/>

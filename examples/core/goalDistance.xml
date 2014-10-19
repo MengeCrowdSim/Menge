@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<Project 
+	scene="goalDistance/goalDistanceS.xml" 
+	behavior="goalDistance/goalDistanceB.xml" 
+	view="goalDistance/goalDistanceV.xml" 
+	model="orca"
+	dumpPath="images/goalDistance/goalDistance"
+/>

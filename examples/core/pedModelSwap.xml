@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<Project 
+	scene="pedModelSwap/pedModelSwapS.xml" 
+	behavior="pedModelSwap/pedModelSwapB.xml" 
+	view="pedModelSwap/pedModelSwapV.xml" 
+	model="orca"
+	dumpPath="images/pedModelSwap"
+	timeStep=".01111111111"
+	outSamples="3"
+	random="5"
+/>

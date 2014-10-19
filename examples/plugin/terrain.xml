@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<Project 
+	scene="terrain/terrainS.xml" 
+	behavior="terrain/terrainB.xml" 
+	view="terrain/terrainV.xml" 
+	model="orca"
+	dumpPath="images"
+/>

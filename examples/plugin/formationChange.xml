@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<Project 
+	scene="formationChange/formationChangeS.xml" 
+	behavior="formationChange/formationChangeB.xml" 
+	view="formationChange/formationChangeV.xml" 
+	model="orca"
+	dumpPath="images/test"
+/>

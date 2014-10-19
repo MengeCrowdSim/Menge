@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<BFSM>
+	<VelModifier type="height_field" file_name="battlefield.ht" down_hill_scale="0.2" dir_weight="1.2" up_hill_scale="1.0"/>
+	
+	<GoalSet id="0">
+		<Goal type="AABB" id="0" min_x="10" min_y="300" max_x="1014" max_y="400" weight="1.0" />
+	</GoalSet>
+
+	<State name="Run" speedPolicy="mean" final="0" >
+		<GoalSelector type="explicit" goal_set="0" goal="0" />
+		<VelComponent type="goal" weight="1.0" />
+	</State>
+	<State name="Stop" speedPolicy="min" final="1">
+		<GoalSelector type="identity" />
+		<VelComponent type="goal" weight="1.0"/>
+	</State>
+
+	<Transition from="Run" to="Stop" >
+		<Condition type="goal_reached"  distance="0.2"/>
+	</Transition>
+
+</BFSM>

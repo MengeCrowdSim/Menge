@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{4AF6F39F-2653-4E7E-AF2E-EFD37B1C1AD4}</ProjectGuid>
+    <RootNamespace>AgtKaramouzas</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\pluginMacros.props" />
+    <Import Project="..\userMacros.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\pluginMacros.props" />
+    <Import Project="..\userMacros.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>11.0.50727.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(BuildRoot)\lib\</OutDir>
+    <IntDir>$(BuildRoot)\$(ProjectName)\$(Configuration)\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+    <TargetName>$(ProjectName)_d</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(BuildRoot)\lib\</OutDir>
+    <IntDir>$(BuildRoot)\$(ProjectName)\$(Configuration)\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>$(MengeSrc);$(MengeSrc)include;$(MengeSrc)tinyxml;$(MengeSrc)MengeCore;$(MengeSrc)MengeCore\Math;$(MengeSrc)MengeCore\BFSM;$(MengeSrc)MengeCore\SceneGraph;$(MengeSrc)MengeCore\Runtime;$(MengeSrc)MengeCore\PluginEngine;$(MengeSrc)MengeCore\Agents;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;KARAMOUZAS_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>MengeCore_d.lib;OpenGL32.lib;SDL_ttf.lib;GLU32.lib;SDL.lib;tinyxml_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)$(ProjectName)_d.dll</OutputFile>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\resources\winlib;$(MengeLib);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <PostBuildEvent>
+      <Message>Copy DLL to exectuable folder</Message>
+      <Command>if not exist $(ExeDir)\plugins\debug  md $(ExeDir)\plugins\debug
+xcopy /y $(TargetPath) $(ExeDir)\plugins\debug\
+</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(MengeSrc);$(MengeSrc)include;$(MengeSrc)tinyxml;$(MengeSrc)MengeCore;$(MengeSrc)MengeCore\Math;$(MengeSrc)MengeCore\BFSM;$(MengeSrc)MengeCore\SceneGraph;$(MengeSrc)MengeCore\Runtime;$(MengeSrc)MengeCore\PluginEngine;$(MengeSrc)MengeCore\Agents;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;KARAMOUZAS_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <OpenMPSupport>true</OpenMPSupport>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>MengeCore.lib;OpenGL32.lib;SDL_ttf.lib;GLU32.lib;SDL.lib;tinyxml.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\resources\winlib;$(MengeLib);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <PostBuildEvent>
+      <Message>Copy DLL to exectuable folder</Message>
+      <Command>if not exist $(ExeDir)\plugins  md $(ExeDir)\plugins
+xcopy /y $(TargetPath) $(ExeDir)\plugins\
+</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="$(PluginSrc)\AgtKaramouzas\Karamouzas.cpp" />
+    <ClCompile Include="$(PluginSrc)\AgtKaramouzas\KaramouzasAgent.cpp" />
+    <ClCompile Include="$(PluginSrc)\AgtKaramouzas\KaramouzasDBEntry.cpp" />
+    <ClCompile Include="$(PluginSrc)\AgtKaramouzas\KaramouzasInitializer.cpp" />
+    <ClCompile Include="$(PluginSrc)\AgtKaramouzas\KaramouzasSimulator.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(PluginSrc)\AgtKaramouzas\Karamouzas.h" />
+    <ClInclude Include="$(PluginSrc)\AgtKaramouzas\KaramouzasAgent.h" />
+    <ClInclude Include="$(PluginSrc)\AgtKaramouzas\KaramouzasConfig.h" />
+    <ClInclude Include="$(PluginSrc)\AgtKaramouzas\KaramouzasDBEntry.h" />
+    <ClInclude Include="$(PluginSrc)\AgtKaramouzas\KaramouzasInitializer.h" />
+    <ClInclude Include="$(PluginSrc)\AgtKaramouzas\KaramouzasSimulator.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

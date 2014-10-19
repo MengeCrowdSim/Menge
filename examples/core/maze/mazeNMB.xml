@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+
+<BFSM>
+	<GoalSet id="0">
+		<Goal type="AABB" id="0" min_x="21" min_y="26" max_x="26" max_y="31" />
+	</GoalSet>
+	
+	<State name="Walk" final="0" >
+		<GoalSelector type="explicit" goal_set="0" goal="0" />
+		<VelComponent type="nav_mesh" file_name="maze.nav" />
+	</State>
+	<State name="Exit" final="0">
+		<GoalSelector type="explicit" goal_set="0" goal="0" />
+		<VelComponent type="goal" />
+	</State>
+	<State name="Wait" final="1">
+		<GoalSelector type="identity" />
+		<VelComponent type="zero" />
+	</State>
+
+	<Transition from="Walk" to="Exit" >
+		<Condition type="AABB" inside="1" min_x="23" min_y="25" max_x="24" max_y="26" />
+	</Transition>
+	<Transition from="Exit" to="Wait" >
+		<Condition type="goal_reached" distance="0.25" />
+	</Transition>
+
+</BFSM>

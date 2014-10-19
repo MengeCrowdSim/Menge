@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<Project 
+	scene="denseFormation/denseFormationS.xml" 
+	behavior="denseFormation/denseFormationB.xml" 
+	view="denseFormation/denseFormationV.xml" 
+	model="orca"
+	dumpPath="images/test"
+/>

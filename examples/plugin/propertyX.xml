@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<Project 
+	scene="propertyX/propertyXS.xml" 
+	behavior="propertyX/propertyXB.xml" 
+	view="propertyX/propertyXV.xml" 
+	model="orca"
+	dumpPath="images/propertyX"
+/>

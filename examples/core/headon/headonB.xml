@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+
+<BFSM>
+	<GoalSet id="0">
+		<Goal type="point" id="0" x="-3" y="0.0"/>
+		<Goal type="point" id="1" x="3" y="0.0"/>
+	</GoalSet>
+	
+	<State name="Walk1" final="0" >
+		<GoalSelector type="explicit" goal_set="0" goal="0" />
+		<VelComponent type="goal" />
+	</State>
+	<State name="Stop1" final="1">
+		<GoalSelector type="identity" />
+		<VelComponent type="goal" />
+	</State>
+
+	<Transition from="Walk1" to="Stop1" >
+		<Condition type="goal_reached" distance="0.2" />
+	</Transition>
+
+	<State name="Walk2" final="0" >
+		<GoalSelector type="explicit" goal_set="0" goal="1" />
+		<VelComponent type="goal" />
+	</State>
+	<State name="Stop2" final="1">
+		<GoalSelector type="identity" />
+		<VelComponent type="goal" />
+	</State>
+
+	<Transition from="Walk2" to="Stop2" >
+		<Condition type="goal_reached" distance="0.2" />
+	</Transition>
+</BFSM>

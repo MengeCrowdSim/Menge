@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<Project 
+	scene="cross/crossS.xml" 
+	behavior="cross/crossB.xml" 
+	view="cross/crossV.xml" 
+	model="orca"
+	dumpPath="images/cross"
+/>

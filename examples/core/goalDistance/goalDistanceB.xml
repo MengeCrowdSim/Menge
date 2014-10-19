@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+
+<BFSM>
+	<GoalSet id="0">
+		<Goal type="AABB" id="0" min_x="-1" min_y="-3.6" max_x="1.9" max_y="-2.6"/>
+		<Goal type="AABB" id="1" min_x="0.21" min_y="5.6" max_x="3.2" max_y="6.6"/>
+		<Goal type="AABB" id="2" min_x="19.8" min_y="-.47" max_x="22.8" max_y=".534"/>
+	</GoalSet>
+
+	<State name="Walk1" final="0" >
+		<GoalSelector type="nearest" goal_set="0" />
+		<VelComponent type="nav_mesh" file_name="ring.nav" />
+	</State>
+	
+	<State name="Walk2" final="0" >
+		<GoalSelector type="farthest" goal_set="0" />
+		<VelComponent type="nav_mesh" file_name="ring.nav" />
+	</State>
+
+	<State name="Walk3" final="0" >
+		<GoalSelector type="nearest_nav_mesh" file_name="ring.nav" goal_set="0" />
+		<VelComponent type="nav_mesh" file_name="ring.nav" />
+	</State>
+
+	<State name="Walk4" final="0" >
+		<GoalSelector type="farthest_nav_mesh" file_name="ring.nav" goal_set="0" />
+		<VelComponent type="nav_mesh" file_name="ring.nav" />
+	</State>
+
+	<State name="Stop" final="1">
+		<GoalSelector type="identity" />
+		<VelComponent type="goal" />
+	</State>
+
+	
+	<Transition from="Walk1" to="Stop" >
+		<Condition type="goal_reached" distance="0.2" />
+	</Transition>
+
+	<Transition from="Walk2" to="Stop" >
+		<Condition type="goal_reached" distance="0.2" />
+	</Transition>
+
+	<Transition from="Walk3" to="Stop" >
+		<Condition type="goal_reached" distance="0.2" />
+	</Transition>
+
+	<Transition from="Walk4" to="Stop" >
+		<Condition type="goal_reached" distance="0.2" />
+	</Transition>
+
+</BFSM>

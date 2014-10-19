@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<Project 
+	scene="event/eventS.xml" 
+	behavior="event/eventB.xml" 
+	view="event/eventV.xml" 
+	model="orca"
+	dumpPath="event/images"
+/>

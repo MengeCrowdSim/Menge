@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<Experiment version="2.0">
+	<SpatialQuery type="kd-tree" test_visibility="false" />
+	
+    <Common time_step="0.1" />
+    <Helbing agent_scale="2000" obstacle_scale="4000" reaction_time="0.5" body_force="1200" friction="2400" force_distance="0.015" />
+    <Dummy stddev="0.05" />
+
+	<AgentProfile name="group1" >
+		<Common max_angle_vel="360" max_neighbors="10" obstacleSet="1" neighbor_dist="5" r="0.19"  pref_speed="1.04" max_speed="2" max_accel="5" priority="0.0"/>
+		<PedVO factor="1.57" buffer="0.9" tau="3" tauObst="0.1" turningBias="1.0" />
+        <Helbing mass="80" />
+        <ORCA tau="3.0" tauObst="0.15" />
+	</AgentProfile>
+	
+    <AgentGroup>
+        <ProfileSelector type="const" name="group1" />
+        <StateSelector type="const" name="Walk" />
+		<Generator type="rect_grid"
+					anchor_x="-18" anchor_y="-6"
+					offset_x="1" offset_y="0"
+					count_x="5" count_y="1"
+					/>
+    </AgentGroup>
+	
+    <ObstacleSet type="explicit" class="1">
+		<Obstacle  closed="1" >
+			<Vertex p_x="-30" p_y="-5" />
+			<Vertex p_x="-1" p_y="-5" />
+			<Vertex p_x="-1" p_y="5" />
+			<Vertex p_x="-30" p_y="5" />
+		</Obstacle>
+		
+		<Obstacle  closed="1" >
+			<Vertex p_x="30" p_y="-5" />
+			<Vertex p_x="30" p_y="5" />
+			<Vertex p_x="1" p_y="5" />
+			<Vertex p_x="1" p_y="-5" />
+		</Obstacle>
+	</ObstacleSet>
+</Experiment>

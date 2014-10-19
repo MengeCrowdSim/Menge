@@ -1,0 +1,1380 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Agents">
+      <UniqueIdentifier>{888ecaad-9bf2-4cf4-95e6-20e7ce32a19b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Agents\Elevations">
+      <UniqueIdentifier>{1609fc15-a4db-46ea-bdca-503e5a937f7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Agents\SpatialQueries">
+      <UniqueIdentifier>{5b551c6e-0cde-460e-8293-20af8665e1a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Agents\AgentGenerators">
+      <UniqueIdentifier>{831d4166-bca7-4478-99f2-a02a6a1ba569}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Agents\ProfileSelectors">
+      <UniqueIdentifier>{c875dc27-2fc9-4b62-83f1-f4e07a11183a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Agents\State Selectors">
+      <UniqueIdentifier>{96f890b2-9898-4869-9b32-479161ace98a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Agents\Events">
+      <UniqueIdentifier>{a00863e6-cb11-4ffd-9412-ea28faa4e0bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Agents\ObstacleSets">
+      <UniqueIdentifier>{af49b163-d6b3-4951-a991-0ed4b710e058}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Math">
+      <UniqueIdentifier>{23055bc5-78ed-476b-ae4d-35b7a757f8c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\PluginEngine">
+      <UniqueIdentifier>{12b87dc1-1afd-408c-9ac7-85d596e01c19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\SceneGraph">
+      <UniqueIdentifier>{b784ded7-c893-430a-a103-084fdfe7e680}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Runtime">
+      <UniqueIdentifier>{373f3281-9ab2-45bf-b088-89adc7dc2e14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Viewer">
+      <UniqueIdentifier>{3d337fd8-23f8-425c-becf-c0392dff7af1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\BFSM">
+      <UniqueIdentifier>{d26c1ee8-795e-4601-9c81-30540180edba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\BFSM\Actions">
+      <UniqueIdentifier>{c5d4ac1b-e64c-450b-b3aa-5e2364c917aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\BFSM\Transitions">
+      <UniqueIdentifier>{54bd8952-f312-4847-b14f-8dfc3d480dc1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\BFSM\VelComponents">
+      <UniqueIdentifier>{a6e6d0f4-cc55-4033-a217-c4bd8d84584e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\BFSM\Tasks">
+      <UniqueIdentifier>{e955d6aa-701b-408f-b2ed-450f48302c39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\BFSM\Goals">
+      <UniqueIdentifier>{65499c4b-d50e-4fe9-b66b-5cd2e4ea48db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\BFSM\GoalSelectors">
+      <UniqueIdentifier>{76894682-bcc2-4bf7-be8f-02453eddae3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\BFSM\VelModifiers">
+      <UniqueIdentifier>{d55edd71-0ad9-4d17-8e60-f6cc9c4c8283}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\orca">
+      <UniqueIdentifier>{631e635f-0c3f-4265-9f0f-022af99805bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\pedvo">
+      <UniqueIdentifier>{304ad583-673b-4a0b-bac6-9b7f14c02e5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\resources">
+      <UniqueIdentifier>{8257deef-690f-46d4-bb4f-ad4e40641204}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Agents">
+      <UniqueIdentifier>{9e1340ab-5226-495c-8066-210a59da1936}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Agents\Elevations">
+      <UniqueIdentifier>{a18866e4-f76e-4e31-a7a6-a054742f5e8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Agents\SpatialQueries">
+      <UniqueIdentifier>{1d9e0e3e-8edf-45a6-81b4-b1891f3c9a70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Agents\AgentGenerators">
+      <UniqueIdentifier>{c0f587f4-ffee-424e-b0d6-0b967235b1e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Agents\ProfileSelectors">
+      <UniqueIdentifier>{59ba3f7c-ad36-4de2-84aa-3508a4b16e98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Agents\StateSelectors">
+      <UniqueIdentifier>{18f99721-2dd5-425a-b5e2-c00e399dce19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Agents\Events">
+      <UniqueIdentifier>{84b759ef-0643-45a2-8abe-76edfe691946}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Agents\ObstacleSets">
+      <UniqueIdentifier>{cc1263ac-ad35-481a-9e7b-c4f011244c9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Math">
+      <UniqueIdentifier>{07588ce5-df47-452f-a504-6440b6dfdb69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\PluginEngine">
+      <UniqueIdentifier>{600536ec-e90d-4735-bf67-f00f5c399623}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\SceneGraph">
+      <UniqueIdentifier>{a08db023-ad49-4b6e-bbc4-311918eb73ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Runtime">
+      <UniqueIdentifier>{7605c45a-33f1-40b6-b554-e68666f66fa7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Viewer">
+      <UniqueIdentifier>{13ecd2b0-9032-44b1-bbde-e71ae8199d32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\BFSM">
+      <UniqueIdentifier>{91a3e3fc-6041-402b-a28d-2b669d7a0f9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\BFSM\Actions">
+      <UniqueIdentifier>{7e8d898d-8755-4db8-a235-9b23185399cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\BFSM\Transitions">
+      <UniqueIdentifier>{e685c140-8dd7-43fb-9279-756100cecf9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\BFSM\VelComponents">
+      <UniqueIdentifier>{50465e01-1118-466f-a6cd-b1c3f434af75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\BFSM\Tasks">
+      <UniqueIdentifier>{c0b8e67c-ccd1-4790-bbaa-3a3af963046a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\BFSM\Goals">
+      <UniqueIdentifier>{687f88f8-22d9-4b56-969f-22006e69abc7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\BFSM\GoalSelectors">
+      <UniqueIdentifier>{192a9af3-e168-42b9-84be-b9df54ed5123}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\BFSM\VelModifiers">
+      <UniqueIdentifier>{8450424c-665a-4e0d-8563-be9a7e340f62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\orca">
+      <UniqueIdentifier>{b0027d52-805a-4c04-821f-2acde70511ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\pedvo">
+      <UniqueIdentifier>{fc6b9a9b-3045-47ea-a941-4863d5e1a770}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\resources">
+      <UniqueIdentifier>{1298e387-09ae-4805-a961-1d67b00864f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(SrcDir)\mengeCore\Core.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\AgentInitializer.cpp">
+      <Filter>Source Files\Agents</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\AgentPropertyManipulator.cpp">
+      <Filter>Source Files\Agents</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\BaseAgent.cpp">
+      <Filter>Source Files\Agents</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\Obstacle.cpp">
+      <Filter>Source Files\Agents</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\PrefVelocity.cpp">
+      <Filter>Source Files\Agents</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\SCBWriter.cpp">
+      <Filter>Source Files\Agents</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\SimulatorInterface.cpp">
+      <Filter>Source Files\Agents</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\SimulatorState.cpp">
+      <Filter>Source Files\Agents</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\SimXMLLoader.cpp">
+      <Filter>Source Files\Agents</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\XMLSimulatorBase.cpp">
+      <Filter>Source Files\Agents</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\Elevations\ElevationDatabase.cpp">
+      <Filter>Source Files\Agents\Elevations</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\Elevations\ElevationFlat.cpp">
+      <Filter>Source Files\Agents\Elevations</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\Elevations\ElevationNavMesh.cpp">
+      <Filter>Source Files\Agents\Elevations</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\SpatialQueries\AgentKDTree.cpp">
+      <Filter>Source Files\Agents\SpatialQueries</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\SpatialQueries\KNearestQuery.cpp">
+      <Filter>Source Files\Agents\SpatialQueries</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\SpatialQueries\ObstacleKDTree.cpp">
+      <Filter>Source Files\Agents\SpatialQueries</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\SpatialQueries\SpatialQuery.cpp">
+      <Filter>Source Files\Agents\SpatialQueries</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\SpatialQueries\SpatialQueryDatabase.cpp">
+      <Filter>Source Files\Agents\SpatialQueries</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\SpatialQueries\SpatialQueryFactory.cpp">
+      <Filter>Source Files\Agents\SpatialQueries</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\SpatialQueries\SpatialQueryNavMesh.cpp">
+      <Filter>Source Files\Agents\SpatialQueries</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\AgentGenerators\AgentGenerator.cpp">
+      <Filter>Source Files\Agents\AgentGenerators</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\AgentGenerators\AgentGeneratorDatabase.cpp">
+      <Filter>Source Files\Agents\AgentGenerators</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\AgentGenerators\AgentGeneratorFactory.cpp">
+      <Filter>Source Files\Agents\AgentGenerators</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\AgentGenerators\ExplicitAgentGenerator.cpp">
+      <Filter>Source Files\Agents\AgentGenerators</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\AgentGenerators\HexLatticeGenerator.cpp">
+      <Filter>Source Files\Agents\AgentGenerators</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\AgentGenerators\RectGridGenerator.cpp">
+      <Filter>Source Files\Agents\AgentGenerators</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\ProfileSelectors\ConstProfileSelector.cpp">
+      <Filter>Source Files\Agents\ProfileSelectors</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\ProfileSelectors\ProfileSelector.cpp">
+      <Filter>Source Files\Agents\ProfileSelectors</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\ProfileSelectors\ProfileSelectorDatabase.cpp">
+      <Filter>Source Files\Agents\ProfileSelectors</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\StateSelectors\ConstStateSelector.cpp">
+      <Filter>Source Files\Agents\State Selectors</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\StateSelectors\StateSelector.cpp">
+      <Filter>Source Files\Agents\State Selectors</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\StateSelectors\StateSelectorDatabase.cpp">
+      <Filter>Source Files\Agents\State Selectors</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\Events\AgentEventEffect.cpp">
+      <Filter>Source Files\Agents\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\Events\Event.cpp">
+      <Filter>Source Files\Agents\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\Events\EventEffectDB.cpp">
+      <Filter>Source Files\Agents\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\Events\EventResponse.cpp">
+      <Filter>Source Files\Agents\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\Events\EventSystem.cpp">
+      <Filter>Source Files\Agents\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\Events\EventTarget.cpp">
+      <Filter>Source Files\Agents\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\Events\EventTargetDB.cpp">
+      <Filter>Source Files\Agents\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\Events\EventTrigger.cpp">
+      <Filter>Source Files\Agents\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\Events\EventTriggerDB.cpp">
+      <Filter>Source Files\Agents\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\Events\StateEvtTrigger.cpp">
+      <Filter>Source Files\Agents\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\Events\StateMemberTarget.cpp">
+      <Filter>Source Files\Agents\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\ObstacleSets\ExplicitObstacleSet.cpp">
+      <Filter>Source Files\Agents\ObstacleSets</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\ObstacleSets\ListObstacleSet.cpp">
+      <Filter>Source Files\Agents\ObstacleSets</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\ObstacleSets\NavMeshObstacleSet.cpp">
+      <Filter>Source Files\Agents\ObstacleSets</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\ObstacleSets\ObstacleSet.cpp">
+      <Filter>Source Files\Agents\ObstacleSets</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\ObstacleSets\ObstacleSetDatabase.cpp">
+      <Filter>Source Files\Agents\ObstacleSets</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\ObstacleSets\ObstacleSetFactory.cpp">
+      <Filter>Source Files\Agents\ObstacleSets</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Math\Geometry2D.cpp">
+      <Filter>Source Files\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Math\geomQuery.cpp">
+      <Filter>Source Files\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Math\Line.cpp">
+      <Filter>Source Files\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Math\Matrix.cpp">
+      <Filter>Source Files\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Math\RandGenerator.cpp">
+      <Filter>Source Files\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Math\SimRandom.cpp">
+      <Filter>Source Files\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\PluginEngine\Attribute.cpp">
+      <Filter>Source Files\PluginEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\PluginEngine\AttributeSet.cpp">
+      <Filter>Source Files\PluginEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\PluginEngine\Plugin.cpp">
+      <Filter>Source Files\PluginEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\PluginEngine\PluginEngine.cpp">
+      <Filter>Source Files\PluginEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\SceneGraph\Context.cpp">
+      <Filter>Source Files\SceneGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\SceneGraph\ContextSwitcher.cpp">
+      <Filter>Source Files\SceneGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\SceneGraph\GLCamera.cpp">
+      <Filter>Source Files\SceneGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\SceneGraph\GLContextManager.cpp">
+      <Filter>Source Files\SceneGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\SceneGraph\GLGroundPlane.cpp">
+      <Filter>Source Files\SceneGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\SceneGraph\GLLight.cpp">
+      <Filter>Source Files\SceneGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\SceneGraph\GLNode.cpp">
+      <Filter>Source Files\SceneGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\SceneGraph\GLScene.cpp">
+      <Filter>Source Files\SceneGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\SceneGraph\image.cpp">
+      <Filter>Source Files\SceneGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\SceneGraph\Select.cpp">
+      <Filter>Source Files\SceneGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\SceneGraph\shapes.cpp">
+      <Filter>Source Files\SceneGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\SceneGraph\TextWriter.cpp">
+      <Filter>Source Files\SceneGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\SceneGraph\Transform.cpp">
+      <Filter>Source Files\SceneGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\SceneGraph\XformMatrix.cpp">
+      <Filter>Source Files\SceneGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Runtime\BaseAgentContext.cpp">
+      <Filter>Source Files\Runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Runtime\Logger.cpp">
+      <Filter>Source Files\Runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Runtime\os.cpp">
+      <Filter>Source Files\Runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Runtime\ReadersWriterLock.cpp">
+      <Filter>Source Files\Runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Runtime\SimpleLock.cpp">
+      <Filter>Source Files\Runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Runtime\SimSystem.cpp">
+      <Filter>Source Files\Runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Runtime\SimulatorDB.cpp">
+      <Filter>Source Files\Runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Runtime\SimulatorDBEntry.cpp">
+      <Filter>Source Files\Runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Runtime\Utils.cpp">
+      <Filter>Source Files\Runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Runtime\VisAgent.cpp">
+      <Filter>Source Files\Runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Runtime\VisObstacle.cpp">
+      <Filter>Source Files\Runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\viewer\GLViewer.cpp">
+      <Filter>Source Files\Viewer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\viewer\NullViewer.cpp">
+      <Filter>Source Files\Viewer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\viewer\Profiler.cpp">
+      <Filter>Source Files\Viewer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\viewer\ScreenGrab.cpp">
+      <Filter>Source Files\Viewer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\viewer\ViewConfig.cpp">
+      <Filter>Source Files\Viewer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\viewer\Watermark.cpp">
+      <Filter>Source Files\Viewer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\buildFSM.cpp">
+      <Filter>Source Files\BFSM</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\FSM.cpp">
+      <Filter>Source Files\BFSM</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\fsmCommon.cpp">
+      <Filter>Source Files\BFSM</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\FsmContext.cpp">
+      <Filter>Source Files\BFSM</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\FSMDescrip.cpp">
+      <Filter>Source Files\BFSM</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\FSMEnumeration.cpp">
+      <Filter>Source Files\BFSM</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\GoalSet.cpp">
+      <Filter>Source Files\BFSM</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\State.cpp">
+      <Filter>Source Files\BFSM</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\StateContext.cpp">
+      <Filter>Source Files\BFSM</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\StateDescrip.cpp">
+      <Filter>Source Files\BFSM</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Actions\Action.cpp">
+      <Filter>Source Files\BFSM\Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Actions\ActionDatabase.cpp">
+      <Filter>Source Files\BFSM\Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Actions\ActionFactory.cpp">
+      <Filter>Source Files\BFSM\Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Actions\ObstacleAction.cpp">
+      <Filter>Source Files\BFSM\Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Actions\TeleportAction.cpp">
+      <Filter>Source Files\BFSM\Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Transitions\CondBoolean.cpp">
+      <Filter>Source Files\BFSM\Transitions</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Transitions\CondGoal.cpp">
+      <Filter>Source Files\BFSM\Transitions</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Transitions\ConditionDatabase.cpp">
+      <Filter>Source Files\BFSM\Transitions</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Transitions\CondSpace.cpp">
+      <Filter>Source Files\BFSM\Transitions</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Transitions\CondTimer.cpp">
+      <Filter>Source Files\BFSM\Transitions</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Transitions\Target.cpp">
+      <Filter>Source Files\BFSM\Transitions</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Transitions\TargetDatabase.cpp">
+      <Filter>Source Files\BFSM\Transitions</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Transitions\TargetProb.cpp">
+      <Filter>Source Files\BFSM\Transitions</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Transitions\TargetReturn.cpp">
+      <Filter>Source Files\BFSM\Transitions</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Transitions\Transition.cpp">
+      <Filter>Source Files\BFSM\Transitions</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\VelocityComponents\VelCompConst.cpp">
+      <Filter>Source Files\BFSM\VelComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\VelocityComponents\VelCompContext.cpp">
+      <Filter>Source Files\BFSM\VelComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\VelocityComponents\VelCompGoal.cpp">
+      <Filter>Source Files\BFSM\VelComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\VelocityComponents\VelCompNavMesh.cpp">
+      <Filter>Source Files\BFSM\VelComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\VelocityComponents\VelComponent.cpp">
+      <Filter>Source Files\BFSM\VelComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\VelocityComponents\VelComponentDatabase.cpp">
+      <Filter>Source Files\BFSM\VelComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\VelocityComponents\VelCompRoadMap.cpp">
+      <Filter>Source Files\BFSM\VelComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\VelocityComponents\VelCompVF.cpp">
+      <Filter>Source Files\BFSM\VelComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Tasks\NavMeshLocalizerTask.cpp">
+      <Filter>Source Files\BFSM\Tasks</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Tasks\Task.cpp">
+      <Filter>Source Files\BFSM\Tasks</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Tasks\TaskDatabase.cpp">
+      <Filter>Source Files\BFSM\Tasks</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Goals\Goal.cpp">
+      <Filter>Source Files\BFSM\Goals</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Goals\GoalAABB.cpp">
+      <Filter>Source Files\BFSM\Goals</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Goals\GoalCircle.cpp">
+      <Filter>Source Files\BFSM\Goals</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Goals\GoalDatabase.cpp">
+      <Filter>Source Files\BFSM\Goals</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Goals\GoalFactory.cpp">
+      <Filter>Source Files\BFSM\Goals</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Goals\GoalOBB.cpp">
+      <Filter>Source Files\BFSM\Goals</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Goals\GoalPoint.cpp">
+      <Filter>Source Files\BFSM\Goals</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelector.cpp">
+      <Filter>Source Files\BFSM\GoalSelectors</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelectorDatabase.cpp">
+      <Filter>Source Files\BFSM\GoalSelectors</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelectorExplicit.cpp">
+      <Filter>Source Files\BFSM\GoalSelectors</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelectorFactory.cpp">
+      <Filter>Source Files\BFSM\GoalSelectors</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelectorFarthest.cpp">
+      <Filter>Source Files\BFSM\GoalSelectors</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelectorFarthestNM.cpp">
+      <Filter>Source Files\BFSM\GoalSelectors</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelectorIdentity.cpp">
+      <Filter>Source Files\BFSM\GoalSelectors</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelectorMirror.cpp">
+      <Filter>Source Files\BFSM\GoalSelectors</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelectorNearest.cpp">
+      <Filter>Source Files\BFSM\GoalSelectors</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelectorNearestNM.cpp">
+      <Filter>Source Files\BFSM\GoalSelectors</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelectorOffset.cpp">
+      <Filter>Source Files\BFSM\GoalSelectors</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelectorRandom.cpp">
+      <Filter>Source Files\BFSM\GoalSelectors</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelectorSet.cpp">
+      <Filter>Source Files\BFSM\GoalSelectors</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelectorShared.cpp">
+      <Filter>Source Files\BFSM\GoalSelectors</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelectorWeighted.cpp">
+      <Filter>Source Files\BFSM\GoalSelectors</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\VelocityModifiers\VelModContext.cpp">
+      <Filter>Source Files\BFSM\VelModifiers</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\VelocityModifiers\VelModifier.cpp">
+      <Filter>Source Files\BFSM\VelModifiers</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\VelocityModifiers\VelModifierDatabase.cpp">
+      <Filter>Source Files\BFSM\VelModifiers</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\VelocityModifiers\VelModifierScale.cpp">
+      <Filter>Source Files\BFSM\VelModifiers</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Orca\ORCAAgent.cpp">
+      <Filter>Source Files\orca</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Orca\ORCADBEntry.cpp">
+      <Filter>Source Files\orca</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Orca\ORCAInitializer.cpp">
+      <Filter>Source Files\orca</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Orca\ORCASimulator.cpp">
+      <Filter>Source Files\orca</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\PedVO\PedVOAgent.cpp">
+      <Filter>Source Files\pedvo</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\PedVO\PedVODBEntry.cpp">
+      <Filter>Source Files\pedvo</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\PedVO\PedVOInitializer.cpp">
+      <Filter>Source Files\pedvo</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\PedVO\PedVOSimulator.cpp">
+      <Filter>Source Files\pedvo</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\resources\Funnel.cpp">
+      <Filter>Source Files\resources</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\resources\Graph.cpp">
+      <Filter>Source Files\resources</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\resources\GraphEdge.cpp">
+      <Filter>Source Files\resources</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\resources\GraphVertex.cpp">
+      <Filter>Source Files\resources</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\resources\MinHeap.cpp">
+      <Filter>Source Files\resources</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\resources\NavMesh.cpp">
+      <Filter>Source Files\resources</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\resources\NavMeshEdge.cpp">
+      <Filter>Source Files\resources</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\resources\NavMeshLocalizer.cpp">
+      <Filter>Source Files\resources</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\resources\NavMeshNode.cpp">
+      <Filter>Source Files\resources</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\resources\NavMeshObstacle.cpp">
+      <Filter>Source Files\resources</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\resources\NavMeshPoly.cpp">
+      <Filter>Source Files\resources</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\resources\PathPlanner.cpp">
+      <Filter>Source Files\resources</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\resources\Portal.cpp">
+      <Filter>Source Files\resources</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\resources\PortalPath.cpp">
+      <Filter>Source Files\resources</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\resources\Resource.cpp">
+      <Filter>Source Files\resources</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\resources\ResourceManager.cpp">
+      <Filter>Source Files\resources</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\resources\RoadMapPath.cpp">
+      <Filter>Source Files\resources</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\resources\Route.cpp">
+      <Filter>Source Files\resources</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\resources\VectorField.cpp">
+      <Filter>Source Files\resources</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\resources\WayPortal.cpp">
+      <Filter>Source Files\resources</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(SrcDir)\mengeCore\Core.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\CoreConfig.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\mengeCommon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\AgentInitializer.h">
+      <Filter>Header Files\Agents</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\AgentPropertyManipulator.h">
+      <Filter>Header Files\Agents</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\BaseAgent.h">
+      <Filter>Header Files\Agents</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\MengeException.h">
+      <Filter>Header Files\Agents</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\Obstacle.h">
+      <Filter>Header Files\Agents</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\PrefVelocity.h">
+      <Filter>Header Files\Agents</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\SCBWriter.h">
+      <Filter>Header Files\Agents</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\SimulatorBase.h">
+      <Filter>Header Files\Agents</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\SimulatorInterface.h">
+      <Filter>Header Files\Agents</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\SimulatorState.h">
+      <Filter>Header Files\Agents</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\SimXMLLoader.h">
+      <Filter>Header Files\Agents</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\XMLSimulatorBase.h">
+      <Filter>Header Files\Agents</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\Elevations\Elevation.h">
+      <Filter>Header Files\Agents\Elevations</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\Elevations\ElevationDatabase.h">
+      <Filter>Header Files\Agents\Elevations</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\Elevations\ElevationFactory.h">
+      <Filter>Header Files\Agents\Elevations</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\Elevations\ElevationFlat.h">
+      <Filter>Header Files\Agents\Elevations</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\Elevations\ElevationNavMesh.h">
+      <Filter>Header Files\Agents\Elevations</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\SpatialQueries\AgentKDTree.h">
+      <Filter>Header Files\Agents\SpatialQueries</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\SpatialQueries\KNearestQuery.h">
+      <Filter>Header Files\Agents\SpatialQueries</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\SpatialQueries\ObstacleKDTree.h">
+      <Filter>Header Files\Agents\SpatialQueries</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\SpatialQueries\ProximityQuery.h">
+      <Filter>Header Files\Agents\SpatialQueries</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\SpatialQueries\SpatialQuery.h">
+      <Filter>Header Files\Agents\SpatialQueries</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\SpatialQueries\SpatialQueryDatabase.h">
+      <Filter>Header Files\Agents\SpatialQueries</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\SpatialQueries\SpatialQueryFactory.h">
+      <Filter>Header Files\Agents\SpatialQueries</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\SpatialQueries\SpatialQueryKDTree.h">
+      <Filter>Header Files\Agents\SpatialQueries</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\SpatialQueries\SpatialQueryNavMesh.h">
+      <Filter>Header Files\Agents\SpatialQueries</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\SpatialQueries\SpatialQueryStructs.h">
+      <Filter>Header Files\Agents\SpatialQueries</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\AgentGenerators\AgentGenerator.h">
+      <Filter>Header Files\Agents\AgentGenerators</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\AgentGenerators\AgentGeneratorDatabase.h">
+      <Filter>Header Files\Agents\AgentGenerators</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\AgentGenerators\AgentGeneratorFactory.h">
+      <Filter>Header Files\Agents\AgentGenerators</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\AgentGenerators\ExplicitAgentGenerator.h">
+      <Filter>Header Files\Agents\AgentGenerators</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\AgentGenerators\HexLatticeGenerator.h">
+      <Filter>Header Files\Agents\AgentGenerators</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\AgentGenerators\RectGridGenerator.h">
+      <Filter>Header Files\Agents\AgentGenerators</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\ProfileSelectors\ConstProfileSelector.h">
+      <Filter>Header Files\Agents\ProfileSelectors</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\ProfileSelectors\ProfileSelector.h">
+      <Filter>Header Files\Agents\ProfileSelectors</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\ProfileSelectors\ProfileSelectorDatabase.h">
+      <Filter>Header Files\Agents\ProfileSelectors</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\ProfileSelectors\ProfileSelectorFactory.h">
+      <Filter>Header Files\Agents\ProfileSelectors</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\StateSelectors\ConstStateSelector.h">
+      <Filter>Header Files\Agents\StateSelectors</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\StateSelectors\StateSelector.h">
+      <Filter>Header Files\Agents\StateSelectors</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\StateSelectors\StateSelectorDatabase.h">
+      <Filter>Header Files\Agents\StateSelectors</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\StateSelectors\StateSelectorFactory.h">
+      <Filter>Header Files\Agents\StateSelectors</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\Events\AgentEventEffect.h">
+      <Filter>Header Files\Agents\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\Events\AgentEventTarget.h">
+      <Filter>Header Files\Agents\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\Events\AgentPropertyEffect.h">
+      <Filter>Header Files\Agents\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\Events\Event.h">
+      <Filter>Header Files\Agents\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\Events\EventEffect.h">
+      <Filter>Header Files\Agents\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\Events\EventEffectDB.h">
+      <Filter>Header Files\Agents\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\Events\EventEffectFactory.h">
+      <Filter>Header Files\Agents\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\Events\EventException.h">
+      <Filter>Header Files\Agents\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\Events\EventResponse.h">
+      <Filter>Header Files\Agents\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\Events\EventSystem.h">
+      <Filter>Header Files\Agents\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\Events\EventTarget.h">
+      <Filter>Header Files\Agents\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\Events\EventTargetDB.h">
+      <Filter>Header Files\Agents\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\Events\EventTargetFactory.h">
+      <Filter>Header Files\Agents\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\Events\EventTrigger.h">
+      <Filter>Header Files\Agents\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\Events\EventTriggerDB.h">
+      <Filter>Header Files\Agents\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\Events\EventTriggerFactory.h">
+      <Filter>Header Files\Agents\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\Events\StateEvtTrigger.h">
+      <Filter>Header Files\Agents\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\Events\StateMemberTarget.h">
+      <Filter>Header Files\Agents\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\ObstacleSets\ExplicitObstacleSet.h">
+      <Filter>Header Files\Agents\ObstacleSets</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\ObstacleSets\ListObstacleSet.h">
+      <Filter>Header Files\Agents\ObstacleSets</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\ObstacleSets\NavMeshObstacleSet.h">
+      <Filter>Header Files\Agents\ObstacleSets</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\ObstacleSets\ObstacleSet.h">
+      <Filter>Header Files\Agents\ObstacleSets</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\ObstacleSets\ObstacleSetDatabase.h">
+      <Filter>Header Files\Agents\ObstacleSets</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\ObstacleSets\ObstacleSetFactory.h">
+      <Filter>Header Files\Agents\ObstacleSets</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\ObstacleSets\ObstacleVertexList.h">
+      <Filter>Header Files\Agents\ObstacleSets</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Math\consts.h">
+      <Filter>Header Files\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Math\Geometry2D.h">
+      <Filter>Header Files\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Math\geomQuery.h">
+      <Filter>Header Files\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Math\Line.h">
+      <Filter>Header Files\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Math\Matrix.h">
+      <Filter>Header Files\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Math\RandGenerator.h">
+      <Filter>Header Files\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Math\SimRandom.h">
+      <Filter>Header Files\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Math\vector.h">
+      <Filter>Header Files\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Math\Vector2.h">
+      <Filter>Header Files\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Math\Vector3.h">
+      <Filter>Header Files\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\PluginEngine\Attribute.h">
+      <Filter>Header Files\PluginEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\PluginEngine\AttributeSet.h">
+      <Filter>Header Files\PluginEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\PluginEngine\Element.h">
+      <Filter>Header Files\PluginEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\PluginEngine\ElementDatabase.h">
+      <Filter>Header Files\PluginEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\PluginEngine\ElementFactory.h">
+      <Filter>Header Files\PluginEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\PluginEngine\Plugin.h">
+      <Filter>Header Files\PluginEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\PluginEngine\PluginEngine.h">
+      <Filter>Header Files\PluginEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\PluginEngine\SharedLibrary.h">
+      <Filter>Header Files\PluginEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\SceneGraph\Context.h">
+      <Filter>Header Files\SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\SceneGraph\ContextSwitcher.h">
+      <Filter>Header Files\SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\SceneGraph\GLCamera.h">
+      <Filter>Header Files\SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\SceneGraph\GLContextManager.h">
+      <Filter>Header Files\SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\SceneGraph\GLGroundPlane.h">
+      <Filter>Header Files\SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\SceneGraph\GLLight.h">
+      <Filter>Header Files\SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\SceneGraph\GLNode.h">
+      <Filter>Header Files\SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\SceneGraph\GLScene.h">
+      <Filter>Header Files\SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\SceneGraph\graphCommon.h">
+      <Filter>Header Files\SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\SceneGraph\image.h">
+      <Filter>Header Files\SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\SceneGraph\ManagedData.h">
+      <Filter>Header Files\SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\SceneGraph\Select.h">
+      <Filter>Header Files\SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\SceneGraph\shapes.h">
+      <Filter>Header Files\SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\SceneGraph\System.h">
+      <Filter>Header Files\SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\SceneGraph\TextWriter.h">
+      <Filter>Header Files\SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\SceneGraph\Transform.h">
+      <Filter>Header Files\SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\SceneGraph\XformMatrix.h">
+      <Filter>Header Files\SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Runtime\BaseAgentContext.h">
+      <Filter>Header Files\Runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Runtime\Logger.h">
+      <Filter>Header Files\Runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Runtime\os.h">
+      <Filter>Header Files\Runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Runtime\ReadersWriterLock.h">
+      <Filter>Header Files\Runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Runtime\SimpleLock.h">
+      <Filter>Header Files\Runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Runtime\SimSystem.h">
+      <Filter>Header Files\Runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Runtime\SimulatorDB.h">
+      <Filter>Header Files\Runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Runtime\SimulatorDBEntry.h">
+      <Filter>Header Files\Runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Runtime\Utils.h">
+      <Filter>Header Files\Runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Runtime\VisAgent.h">
+      <Filter>Header Files\Runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Runtime\VisObstacle.h">
+      <Filter>Header Files\Runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\viewer\GLViewer.h">
+      <Filter>Header Files\Viewer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\viewer\NullViewer.h">
+      <Filter>Header Files\Viewer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\viewer\Profiler.h">
+      <Filter>Header Files\Viewer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\viewer\ScreenGrab.h">
+      <Filter>Header Files\Viewer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\viewer\ViewConfig.h">
+      <Filter>Header Files\Viewer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\viewer\Watermark.h">
+      <Filter>Header Files\Viewer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\FSM.h">
+      <Filter>Header Files\BFSM</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\fsmCommon.h">
+      <Filter>Header Files\BFSM</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\FsmContext.h">
+      <Filter>Header Files\BFSM</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\FSMDescrip.h">
+      <Filter>Header Files\BFSM</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\FSMEnumeration.h">
+      <Filter>Header Files\BFSM</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\GoalSet.h">
+      <Filter>Header Files\BFSM</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\State.h">
+      <Filter>Header Files\BFSM</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\StateContext.h">
+      <Filter>Header Files\BFSM</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\StateDescrip.h">
+      <Filter>Header Files\BFSM</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Actions\Action.h">
+      <Filter>Header Files\BFSM\Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Actions\ActionDatabase.h">
+      <Filter>Header Files\BFSM\Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Actions\ActionFactory.h">
+      <Filter>Header Files\BFSM\Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Actions\ObstacleAction.h">
+      <Filter>Header Files\BFSM\Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Actions\PropertyAction.h">
+      <Filter>Header Files\BFSM\Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Actions\TeleportAction.h">
+      <Filter>Header Files\BFSM\Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Transitions\CondAuto.h">
+      <Filter>Header Files\BFSM\Transitions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Transitions\CondBoolean.h">
+      <Filter>Header Files\BFSM\Transitions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Transitions\CondGoal.h">
+      <Filter>Header Files\BFSM\Transitions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Transitions\Condition.h">
+      <Filter>Header Files\BFSM\Transitions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Transitions\ConditionDatabase.h">
+      <Filter>Header Files\BFSM\Transitions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Transitions\ConditionFactory.h">
+      <Filter>Header Files\BFSM\Transitions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Transitions\CondSpace.h">
+      <Filter>Header Files\BFSM\Transitions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Transitions\CondTimer.h">
+      <Filter>Header Files\BFSM\Transitions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Transitions\Target.h">
+      <Filter>Header Files\BFSM\Transitions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Transitions\TargetDatabase.h">
+      <Filter>Header Files\BFSM\Transitions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Transitions\TargetFactory.h">
+      <Filter>Header Files\BFSM\Transitions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Transitions\TargetProb.h">
+      <Filter>Header Files\BFSM\Transitions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Transitions\TargetReturn.h">
+      <Filter>Header Files\BFSM\Transitions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Transitions\Transition.h">
+      <Filter>Header Files\BFSM\Transitions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\VelocityComponents\VelCompConst.h">
+      <Filter>Header Files\BFSM\VelComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\VelocityComponents\VelCompContext.h">
+      <Filter>Header Files\BFSM\VelComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\VelocityComponents\VelCompGoal.h">
+      <Filter>Header Files\BFSM\VelComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\VelocityComponents\VelCompNavMesh.h">
+      <Filter>Header Files\BFSM\VelComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\VelocityComponents\VelComponent.h">
+      <Filter>Header Files\BFSM\VelComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\VelocityComponents\VelComponentDatabase.h">
+      <Filter>Header Files\BFSM\VelComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\VelocityComponents\VelComponentFactory.h">
+      <Filter>Header Files\BFSM\VelComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\VelocityComponents\VelCompRoadMap.h">
+      <Filter>Header Files\BFSM\VelComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\VelocityComponents\VelCompVF.h">
+      <Filter>Header Files\BFSM\VelComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Tasks\NavMeshLocalizerTask.h">
+      <Filter>Header Files\BFSM\Tasks</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Tasks\Task.h">
+      <Filter>Header Files\BFSM\Tasks</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Tasks\TaskDatabase.h">
+      <Filter>Header Files\BFSM\Tasks</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Tasks\TaskFactory.h">
+      <Filter>Header Files\BFSM\Tasks</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Goals\Goal.h">
+      <Filter>Header Files\BFSM\Goals</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Goals\GoalAABB.h">
+      <Filter>Header Files\BFSM\Goals</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Goals\GoalCircle.h">
+      <Filter>Header Files\BFSM\Goals</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Goals\GoalDatabase.h">
+      <Filter>Header Files\BFSM\Goals</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Goals\GoalFactory.h">
+      <Filter>Header Files\BFSM\Goals</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Goals\GoalOBB.h">
+      <Filter>Header Files\BFSM\Goals</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Goals\GoalPoint.h">
+      <Filter>Header Files\BFSM\Goals</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelector.h">
+      <Filter>Header Files\BFSM\GoalSelectors</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelectorDatabase.h">
+      <Filter>Header Files\BFSM\GoalSelectors</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelectorExplicit.h">
+      <Filter>Header Files\BFSM\GoalSelectors</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelectorFactory.h">
+      <Filter>Header Files\BFSM\GoalSelectors</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelectorFarthest.h">
+      <Filter>Header Files\BFSM\GoalSelectors</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelectorFarthestNM.h">
+      <Filter>Header Files\BFSM\GoalSelectors</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelectorIdentity.h">
+      <Filter>Header Files\BFSM\GoalSelectors</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelectorMirror.h">
+      <Filter>Header Files\BFSM\GoalSelectors</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelectorNearest.h">
+      <Filter>Header Files\BFSM\GoalSelectors</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelectorNearestNM.h">
+      <Filter>Header Files\BFSM\GoalSelectors</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelectorOffset.h">
+      <Filter>Header Files\BFSM\GoalSelectors</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelectorRandom.h">
+      <Filter>Header Files\BFSM\GoalSelectors</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelectorSet.h">
+      <Filter>Header Files\BFSM\GoalSelectors</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelectorShared.h">
+      <Filter>Header Files\BFSM\GoalSelectors</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\GoalSelectors\GoalSelectorWeighted.h">
+      <Filter>Header Files\BFSM\GoalSelectors</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\VelocityModifiers\VelModifier.h">
+      <Filter>Header Files\BFSM\VelModifiers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\VelocityModifiers\VelModifierContext.h">
+      <Filter>Header Files\BFSM\VelModifiers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\VelocityModifiers\VelModifierDatabase.h">
+      <Filter>Header Files\BFSM\VelModifiers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\VelocityModifiers\VelModifierFactory.h">
+      <Filter>Header Files\BFSM\VelModifiers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\VelocityModifiers\VelModifierScale.h">
+      <Filter>Header Files\BFSM\VelModifiers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Orca\ORCA.h">
+      <Filter>Header Files\orca</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Orca\ORCAAgent.h">
+      <Filter>Header Files\orca</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Orca\ORCAAgentContext.h">
+      <Filter>Header Files\orca</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Orca\ORCADBEntry.h">
+      <Filter>Header Files\orca</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Orca\ORCAInitializer.h">
+      <Filter>Header Files\orca</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Orca\ORCASimulator.h">
+      <Filter>Header Files\orca</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Orca\ORCATypeAgentContext.h">
+      <Filter>Header Files\orca</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\PedVO\PedVO.h">
+      <Filter>Header Files\pedvo</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\PedVO\PedVOAgent.h">
+      <Filter>Header Files\pedvo</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\PedVO\PedVOAgentContext.h">
+      <Filter>Header Files\pedvo</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\PedVO\PedVODBEntry.h">
+      <Filter>Header Files\pedvo</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\PedVO\PedVOInitializer.h">
+      <Filter>Header Files\pedvo</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\PedVO\PedVOSimSystem.h">
+      <Filter>Header Files\pedvo</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\PedVO\PedVOSimulator.h">
+      <Filter>Header Files\pedvo</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\resources\Funnel.h">
+      <Filter>Header Files\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\resources\Graph.h">
+      <Filter>Header Files\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\resources\GraphEdge.h">
+      <Filter>Header Files\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\resources\GraphVertex.h">
+      <Filter>Header Files\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\resources\MinHeap.h">
+      <Filter>Header Files\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\resources\NavMesh.h">
+      <Filter>Header Files\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\resources\NavMeshEdge.h">
+      <Filter>Header Files\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\resources\NavMeshLocalizer.h">
+      <Filter>Header Files\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\resources\NavMeshNode.h">
+      <Filter>Header Files\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\resources\NavMeshObstacle.h">
+      <Filter>Header Files\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\resources\NavMeshPoly.h">
+      <Filter>Header Files\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\resources\PathPlanner.h">
+      <Filter>Header Files\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\resources\Portal.h">
+      <Filter>Header Files\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\resources\PortalPath.h">
+      <Filter>Header Files\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\resources\Resource.h">
+      <Filter>Header Files\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\resources\ResourceManager.h">
+      <Filter>Header Files\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\resources\RoadMapPath.h">
+      <Filter>Header Files\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\resources\Route.h">
+      <Filter>Header Files\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\resources\VectorField.h">
+      <Filter>Header Files\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\resources\WayPortal.h">
+      <Filter>Header Files\resources</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

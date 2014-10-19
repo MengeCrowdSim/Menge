@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<Project 
+	scene="stadium/stadiumS.xml" 
+	behavior="stadium/stadiumB.xml" 
+	view="stadium/stadiumV.xml" 
+	model="orca"
+	dumpPath="images/test"
+/>

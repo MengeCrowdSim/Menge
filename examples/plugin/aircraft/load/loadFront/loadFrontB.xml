@@ -1,0 +1,111 @@
+<?xml version="1.0"?>
+
+<BFSM>
+	<GoalSet id="0">
+		// Entrance to the plane
+		<Goal type="point" id="0" x="8.31475906242" y="-1.63924898" />  
+	</GoalSet>
+	
+	<GoalSet id="1">
+		// coach class 
+		<Goal type="point" id="0" x="20.8804577199" y="-0.6" capacity="3" />  
+		<Goal type="point" id="1" x="20.8804577199" y="0.6" capacity="3" />
+		<Goal type="point" id="2" x="14.0725230443" y="-0.6" capacity="3" />  
+		<Goal type="point" id="3" x="14.0548792323" y="0.6" capacity="3" />  
+		<Goal type="point" id="4" x="14.8959009375" y="-0.6" capacity="3" />  
+		<Goal type="point" id="5" x="14.9017822081" y="0.6" capacity="3" />  
+		<Goal type="point" id="6" x="15.7192788307" y="-0.6" capacity="3" />  
+		<Goal type="point" id="7" x="15.695753748" y="0.6" capacity="3" />  
+		<Goal type="point" id="8" x="16.5308941826" y="-0.6" capacity="3" />  
+		<Goal type="point" id="9" x="16.5308941826" y="0.6" capacity="3" />  
+		<Goal type="point" id="10" x="17.3307469931" y="-0.6" capacity="3" />  
+		<Goal type="point" id="11" x="17.3366282638" y="0.6" capacity="3" />  
+		<Goal type="point" id="12" x="18.142362345" y="-0.6" capacity="3" />  
+		<Goal type="point" id="13" x="18.1482436157" y="0.6" capacity="3" />  
+		<Goal type="point" id="14" x="18.9657402382" y="-0.6" capacity="3" />  
+		<Goal type="point" id="15" x="18.9539776969" y="0.6" capacity="3" />  
+		<Goal type="point" id="16" x="20.0361314994" y="-0.6" capacity="3" />  
+		<Goal type="point" id="17" x="20.0537753114" y="0.6" capacity="3" />  
+		<Goal type="point" id="18" x="21.6652434738" y="-0.6" capacity="3" />  
+		<Goal type="point" id="19" x="21.6711247445" y="0.6" capacity="3" />  
+		<Goal type="point" id="20" x="22.453333743" y="-0.6" capacity="3" />  
+		<Goal type="point" id="21" x="22.453333743" y="0.6" capacity="3" />  
+		<Goal type="point" id="22" x="23.2296614709" y="-0.6" capacity="3" />  
+		<Goal type="point" id="23" x="23.2414240123" y="0.6" capacity="3" />  
+		<Goal type="point" id="24" x="24.0236330108" y="-0.6" capacity="3" />  
+		<Goal type="point" id="25" x="24.0177517402" y="0.6" capacity="3" />  
+		<Goal type="point" id="26" x="24.81172328" y="-0.6" capacity="3" />  
+		<Goal type="point" id="27" x="24.81172328" y="0.6" capacity="3" />  
+		<Goal type="point" id="28" x="25.5998135493" y="-0.6" capacity="3" />  
+		<Goal type="point" id="29" x="25.5998135493" y="0.6" capacity="3" />  
+		<Goal type="point" id="30" x="26.3820225478" y="-0.6" capacity="3" />  
+		<Goal type="point" id="31" x="26.3761412772" y="0.6" capacity="3" />  
+		<Goal type="point" id="32" x="27.1759940877" y="-0.6" capacity="3" />  
+		<Goal type="point" id="33" x="27.1818753584" y="0.6" capacity="3" />  
+		<Goal type="point" id="34" x="27.9523218156" y="-0.6" capacity="3" />  
+		<Goal type="point" id="35" x="27.9582030863" y="0.6" capacity="3" />  
+		<Goal type="point" id="36" x="28.7521746261" y="-0.6" capacity="3" />  
+		<Goal type="point" id="37" x="28.7462933555" y="0.6" capacity="3" />  
+		<Goal type="point" id="38" x="29.5226210834" y="-0.6" capacity="3" />  
+		<Goal type="point" id="39" x="29.546146166" y="0.6" capacity="3" />  
+		<Goal type="point" id="40" x="30.3283551646" y="-0.6" capacity="3" />  
+		<Goal type="point" id="41" x="30.3224738939" y="0.6" capacity="3" />  
+		<Goal type="point" id="42" x="31.1046828925" y="-0.6" capacity="3" />  
+		<Goal type="point" id="43" x="31.1046828925" y="0.6" capacity="3" />  
+		<Goal type="point" id="44" x="31.8986544324" y="-0.6" capacity="3" />  
+		<Goal type="point" id="45" x="31.8927731617" y="0.6" capacity="3" />  
+		<Goal type="point" id="46" x="32.6749821602" y="-0.6" capacity="3" />  
+		<Goal type="point" id="47" x="32.6749821602" y="0.6" capacity="3" />
+	</GoalSet>
+
+	<GoalSet id="2">
+		// First class 	
+		<Goal type="point" id="0" x="9.6001815843" y="-0.6" capacity="2" />  
+		<Goal type="point" id="1" x="9.58225361397" y="0.6" capacity="2" />  
+		<Goal type="point" id="2" x="10.8566733125" y="-0.6" capacity="2" />  
+		<Goal type="point" id="3" x="10.8371183506" y="0.6" capacity="2" />  
+		<Goal type="point" id="4" x="11.746486207" y="-0.6" capacity="2" />  
+		<Goal type="point" id="5" x="11.736708726" y="0.6" capacity="2" />  
+		<Goal type="point" id="6" x="12.628962108" y="-0.6" capacity="2" />  
+		<Goal type="point" id="7" x="12.6028836483" y="0.6" capacity="2" />  
+	</GoalSet>
+
+	// Coach entering and getting seat assigned
+	<State name="EnterCoach" final="0">
+		<GoalSelector type="explicit" goal_set="0" goal="0" per_agent="0" />
+		<VelComponent type="goal" />
+	</State>
+	<State name="ToCoachSeat" final="0">
+		<GoalSelector type="nearest" goal_set="1" per_agent="1" persistent="1"/>
+		<VelComponent type="nav_mesh" heading_threshold="30.0" file_name="../../aircraft.nav" />
+		<Action type="set_property" property="pref_speed" dist="c" value="1.04" exit_reset="1"/>
+		<Action type="offset_property" property="priority" dist="c" value="0.15" exit_reset="1"/>
+	</State>
+	
+	// First class entering plane and getting seat assigned
+	<State name="EnterFirst" final="0">
+		<GoalSelector type="explicit" goal_set="0" goal="0" per_agent="0" />
+		<VelComponent type="goal" />
+	</State>
+	<State name="ToFirstSeat" final="0">
+		<GoalSelector type="random" goal_set="2" per_agent="1" persistent="1" />
+		<VelComponent type="nav_mesh" heading_threshold="30.0" file_name="../../aircraft.nav" />
+		<Action type="set_property" property="pref_speed" dist="c" value="1.04" exit_reset="1"/>
+		<Action type="offset_property" property="priority" dist="c" value="0.15" exit_reset="1"/>
+	</State>
+	
+	// Passenger sitting in aisle seat
+	<State name="InSeat" final="1" />
+	
+	// Transitions
+	<Transition from="EnterCoach" to="ToCoachSeat" >
+		<Condition type="goal_reached" distance="0.2" />
+	</Transition>
+	<Transition from="EnterFirst" to="ToFirstSeat" >
+		<Condition type="goal_reached" distance="0.2" />
+	</Transition>
+	<Transition from="ToCoachSeat,ToFirstSeat" to="InSeat" >
+		<Condition type="goal_reached" distance="0.05" />
+	</Transition>
+	
+</BFSM>

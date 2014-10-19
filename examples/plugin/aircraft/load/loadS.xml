@@ -1,0 +1,297 @@
+<?xml version="1.0"?>
+<Experiment version="2.0">
+    <SpatialQuery type="kd-tree" test_visibility="false" />
+	
+	<OpenSteer max_force="8" leak_through="0.1" reaction_time="0.5" />
+    <Common time_step="0.1" />
+    <GCF reaction_time="0.5" max_agent_dist="2" max_agent_force="3" agent_interp_width="0.1" nu_agent="0.35" />
+    <Helbing agent_scale="2000" obstacle_scale="4000" reaction_time="0.5" body_force="1200" friction="2400" force_distance="0.015" />
+    <Johansson agent_scale="25" obstacle_scale="35" reaction_time="0.5" force_distance="0.15" stride_time="0.5" />
+    <Karamouzas orient_weight="0.8" fov="200" reaction_time="0.4" wall_steepness="2" wall_distance="2" colliding_count="5" d_min="1" d_mid="8" d_max="10" agent_force="4" />
+    <Zanlungo agent_scale="2000" obstacle_scale="4000" reaction_time="0.5" force_distance="0.005" />
+	<Dummy stddev="1.0" />
+
+	<AgentProfile name="coach">
+		<Common max_angle_vel="180" class="1" max_neighbors="10" obstacleSet="1" neighbor_dist="2.5" r="0.21" pref_speed="1.64" max_speed="2" max_accel="10" />
+		<PedVO factor="1.57" buffer="0.9" tau="3" tauObst="0.1" turningBias="1.0" />
+        <ORCA tau="1.0" tauObst="0.45" />
+		<Helbing mass="80" />
+	</AgentProfile>
+	
+	<AgentProfile name="first_class" inherits="coach" >
+		<Common class="2" />
+	</AgentProfile>	
+	
+	<AgentGroup>
+		<ProfileSelector type="const" name="coach" />
+		<StateSelector type="const" name="EnterCoach" />
+		<Generator type="rect_grid"
+				   anchor_x="8.31" anchor_y="-99.0"
+				   offset_x="0.0" offset_y="-6.0"
+				   count_x="1" count_y="144"
+				   />
+	</AgentGroup>	
+	
+	<AgentGroup>
+		<ProfileSelector type="const" name="first_class" />
+		<StateSelector type="const" name="EnterFirst" />
+		<Generator type="rect_grid"
+				   anchor_x="8.31" anchor_y="-3.0"
+				   offset_x="0.0" offset_y="-6.0"
+				   count_x="1" count_y="16"
+				   />
+	</AgentGroup>	
+
+    <ObstacleSet type="explicit" class="1">
+		<Obstacle closed="1" >
+			<Vertex p_x="19.532600" p_y="-1.760220" />
+			<Vertex p_x="19.532600" p_y="-0.228600" />
+			<Vertex p_x="19.202398" p_y="-0.228600" />
+			<Vertex p_x="19.202398" p_y="-1.760220" />
+			<Vertex p_x="18.719799" p_y="-1.760220" />
+			<Vertex p_x="18.719799" p_y="-0.228600" />
+			<Vertex p_x="18.389599" p_y="-0.228600" />
+			<Vertex p_x="18.389599" p_y="-1.760220" />
+			<Vertex p_x="17.907000" p_y="-1.760220" />
+			<Vertex p_x="17.907000" p_y="-0.228600" />
+			<Vertex p_x="17.576801" p_y="-0.228600" />
+			<Vertex p_x="17.576801" p_y="-1.760220" />
+			<Vertex p_x="17.094200" p_y="-1.760220" />
+			<Vertex p_x="17.094200" p_y="-0.228600" />
+			<Vertex p_x="16.764000" p_y="-0.228600" />
+			<Vertex p_x="16.764000" p_y="-1.760220" />
+			<Vertex p_x="16.281401" p_y="-1.760220" />
+			<Vertex p_x="16.281401" p_y="-0.228600" />
+			<Vertex p_x="15.951200" p_y="-0.228600" />
+			<Vertex p_x="15.951200" p_y="-1.760220" />
+			<Vertex p_x="15.468600" p_y="-1.760220" />
+			<Vertex p_x="15.468600" p_y="-0.228600" />
+			<Vertex p_x="15.138400" p_y="-0.228600" />
+			<Vertex p_x="15.138400" p_y="-1.760220" />
+			<Vertex p_x="14.655800" p_y="-1.760220" />
+			<Vertex p_x="14.655800" p_y="-0.228600" />
+			<Vertex p_x="14.325601" p_y="-0.228600" />
+			<Vertex p_x="14.325601" p_y="-1.760220" />
+			<Vertex p_x="13.512800" p_y="-1.760220" />
+			<Vertex p_x="13.512800" p_y="-0.533400" />
+			<Vertex p_x="13.284200" p_y="-0.317500" />
+			<Vertex p_x="12.877800" p_y="-0.317500" />
+			<Vertex p_x="12.877800" p_y="-1.760220" />
+			<Vertex p_x="12.395200" p_y="-1.760220" />
+			<Vertex p_x="12.395200" p_y="-0.317500" />
+			<Vertex p_x="11.988800" p_y="-0.317500" />
+			<Vertex p_x="11.988800" p_y="-1.760220" />
+			<Vertex p_x="11.506200" p_y="-1.760220" />
+			<Vertex p_x="11.506200" p_y="-0.317500" />
+			<Vertex p_x="11.099800" p_y="-0.317500" />
+			<Vertex p_x="11.099800" p_y="-1.754488" />
+			<Vertex p_x="10.617200" p_y="-1.750623" />
+			<Vertex p_x="10.617200" p_y="-0.317500" />
+			<Vertex p_x="9.906000" p_y="-0.317500" />
+			<Vertex p_x="9.906000" p_y="-1.722449" />
+			<Vertex p_x="9.271000" p_y="-1.721442" />
+			<Vertex p_x="9.271000" p_y="-0.425450" />
+			<Vertex p_x="8.712200" p_y="-0.425450" />
+			<Vertex p_x="8.705176" p_y="-2.087912" />
+			<Vertex p_x="36.170660" p_y="-2.097290" />
+			<Vertex p_x="36.171328" p_y="2.138022" />
+			<Vertex p_x="6.393190" p_y="2.134698" />
+			<Vertex p_x="6.379121" p_y="-2.089245" />
+			<Vertex p_x="7.575968" p_y="-2.086503" />
+			<Vertex p_x="7.574369" p_y="1.699048" />
+			<Vertex p_x="8.389393" p_y="1.706030" />
+			<Vertex p_x="8.382000" p_y="0.254000" />
+			<Vertex p_x="9.271000" p_y="0.254000" />
+			<Vertex p_x="9.271000" p_y="1.724680" />
+			<Vertex p_x="9.906000" p_y="1.722449" />
+			<Vertex p_x="9.906000" p_y="0.317500" />
+			<Vertex p_x="10.617200" p_y="0.317500" />
+			<Vertex p_x="10.617200" p_y="1.750623" />
+			<Vertex p_x="11.099800" p_y="1.754488" />
+			<Vertex p_x="11.099800" p_y="0.317500" />
+			<Vertex p_x="11.506200" p_y="0.317500" />
+			<Vertex p_x="11.506200" p_y="1.760220" />
+			<Vertex p_x="11.988800" p_y="1.760220" />
+			<Vertex p_x="11.988800" p_y="0.317500" />
+			<Vertex p_x="12.395200" p_y="0.317500" />
+			<Vertex p_x="12.395200" p_y="1.760220" />
+			<Vertex p_x="12.877800" p_y="1.760220" />
+			<Vertex p_x="12.877800" p_y="0.317500" />
+			<Vertex p_x="13.284200" p_y="0.317500" />
+			<Vertex p_x="13.512800" p_y="0.533400" />
+			<Vertex p_x="13.512800" p_y="1.760220" />
+			<Vertex p_x="14.325601" p_y="1.760220" />
+			<Vertex p_x="14.325601" p_y="0.228600" />
+			<Vertex p_x="14.655800" p_y="0.228600" />
+			<Vertex p_x="14.655800" p_y="1.760220" />
+			<Vertex p_x="15.138400" p_y="1.760220" />
+			<Vertex p_x="15.138400" p_y="0.228600" />
+			<Vertex p_x="15.468600" p_y="0.228600" />
+			<Vertex p_x="15.468600" p_y="1.760220" />
+			<Vertex p_x="15.951200" p_y="1.760220" />
+			<Vertex p_x="15.951200" p_y="0.228600" />
+			<Vertex p_x="16.281401" p_y="0.228600" />
+			<Vertex p_x="16.281401" p_y="1.760220" />
+			<Vertex p_x="16.764000" p_y="1.760220" />
+			<Vertex p_x="16.764000" p_y="0.228600" />
+			<Vertex p_x="17.094200" p_y="0.228600" />
+			<Vertex p_x="17.094200" p_y="1.760220" />
+			<Vertex p_x="17.576801" p_y="1.760220" />
+			<Vertex p_x="17.576801" p_y="0.228600" />
+			<Vertex p_x="17.907000" p_y="0.228600" />
+			<Vertex p_x="17.907000" p_y="1.760220" />
+			<Vertex p_x="18.389599" p_y="1.760220" />
+			<Vertex p_x="18.389599" p_y="0.228600" />
+			<Vertex p_x="18.719799" p_y="0.228600" />
+			<Vertex p_x="18.719799" p_y="1.760220" />
+			<Vertex p_x="19.202398" p_y="1.760220" />
+			<Vertex p_x="19.202398" p_y="0.228600" />
+			<Vertex p_x="19.532600" p_y="0.228600" />
+			<Vertex p_x="19.532600" p_y="1.760220" />
+			<Vertex p_x="20.320002" p_y="1.760220" />
+			<Vertex p_x="20.320002" p_y="0.228600" />
+			<Vertex p_x="20.650200" p_y="0.228600" />
+			<Vertex p_x="20.650200" p_y="1.760220" />
+			<Vertex p_x="21.102889" p_y="1.754988" />
+			<Vertex p_x="21.102889" p_y="0.245487" />
+			<Vertex p_x="21.443058" p_y="0.238400" />
+			<Vertex p_x="21.435972" p_y="1.762074" />
+			<Vertex p_x="21.894800" p_y="1.760220" />
+			<Vertex p_x="21.894800" p_y="0.228600" />
+			<Vertex p_x="22.225000" p_y="0.228600" />
+			<Vertex p_x="22.225000" p_y="1.760220" />
+			<Vertex p_x="22.682201" p_y="1.760220" />
+			<Vertex p_x="22.682201" p_y="0.228600" />
+			<Vertex p_x="23.012400" p_y="0.228600" />
+			<Vertex p_x="23.012400" p_y="1.760220" />
+			<Vertex p_x="23.469601" p_y="1.760220" />
+			<Vertex p_x="23.469601" p_y="0.228600" />
+			<Vertex p_x="23.799801" p_y="0.228600" />
+			<Vertex p_x="23.799801" p_y="1.760220" />
+			<Vertex p_x="24.257000" p_y="1.760220" />
+			<Vertex p_x="24.257000" p_y="0.228600" />
+			<Vertex p_x="24.587200" p_y="0.228600" />
+			<Vertex p_x="24.587200" p_y="1.760220" />
+			<Vertex p_x="25.044399" p_y="1.760220" />
+			<Vertex p_x="25.044399" p_y="0.228600" />
+			<Vertex p_x="25.374599" p_y="0.228600" />
+			<Vertex p_x="25.374599" p_y="1.760220" />
+			<Vertex p_x="25.831800" p_y="1.760220" />
+			<Vertex p_x="25.831800" p_y="0.228600" />
+			<Vertex p_x="26.162001" p_y="0.228600" />
+			<Vertex p_x="26.162001" p_y="1.760220" />
+			<Vertex p_x="26.619200" p_y="1.760220" />
+			<Vertex p_x="26.619200" p_y="0.228600" />
+			<Vertex p_x="26.949400" p_y="0.228600" />
+			<Vertex p_x="26.949400" p_y="1.760220" />
+			<Vertex p_x="27.406599" p_y="1.760220" />
+			<Vertex p_x="27.406599" p_y="0.228600" />
+			<Vertex p_x="27.736799" p_y="0.228600" />
+			<Vertex p_x="27.736799" p_y="1.760220" />
+			<Vertex p_x="28.193998" p_y="1.760220" />
+			<Vertex p_x="28.193998" p_y="0.228600" />
+			<Vertex p_x="28.524199" p_y="0.228600" />
+			<Vertex p_x="28.524199" p_y="1.760220" />
+			<Vertex p_x="28.981398" p_y="1.760220" />
+			<Vertex p_x="28.981398" p_y="0.228600" />
+			<Vertex p_x="29.311598" p_y="0.228600" />
+			<Vertex p_x="29.311598" p_y="1.760220" />
+			<Vertex p_x="29.768797" p_y="1.760220" />
+			<Vertex p_x="29.768797" p_y="0.228600" />
+			<Vertex p_x="30.098999" p_y="0.228600" />
+			<Vertex p_x="30.098999" p_y="1.760220" />
+			<Vertex p_x="30.556198" p_y="1.760220" />
+			<Vertex p_x="30.556198" p_y="0.228600" />
+			<Vertex p_x="30.886398" p_y="0.228600" />
+			<Vertex p_x="30.886398" p_y="1.760220" />
+			<Vertex p_x="31.343597" p_y="1.760220" />
+			<Vertex p_x="31.343597" p_y="0.228600" />
+			<Vertex p_x="31.673798" p_y="0.228600" />
+			<Vertex p_x="31.673798" p_y="1.760220" />
+			<Vertex p_x="32.130997" p_y="1.760220" />
+			<Vertex p_x="32.130997" p_y="0.228600" />
+			<Vertex p_x="32.461197" p_y="0.228600" />
+			<Vertex p_x="32.461197" p_y="1.745876" />
+			<Vertex p_x="32.918392" p_y="1.738480" />
+			<Vertex p_x="32.918392" p_y="0.228600" />
+			<Vertex p_x="33.248596" p_y="0.228600" />
+			<Vertex p_x="33.248596" p_y="0.430830" />
+			<Vertex p_x="34.493202" p_y="0.431800" />
+			<Vertex p_x="34.527404" p_y="0.279400" />
+			<Vertex p_x="34.530001" p_y="1.578983" />
+			<Vertex p_x="35.601998" p_y="1.578808" />
+			<Vertex p_x="35.601998" p_y="-1.601609" />
+			<Vertex p_x="34.530001" p_y="-1.601784" />
+			<Vertex p_x="34.530001" p_y="-0.290801" />
+			<Vertex p_x="34.493202" p_y="-0.431800" />
+			<Vertex p_x="33.242660" p_y="-0.430830" />
+			<Vertex p_x="33.248596" p_y="-0.228600" />
+			<Vertex p_x="32.918392" p_y="-0.228600" />
+			<Vertex p_x="32.918392" p_y="-1.738480" />
+			<Vertex p_x="32.461197" p_y="-1.745876" />
+			<Vertex p_x="32.461197" p_y="-0.228600" />
+			<Vertex p_x="32.130997" p_y="-0.228600" />
+			<Vertex p_x="32.130997" p_y="-1.760220" />
+			<Vertex p_x="31.673798" p_y="-1.760220" />
+			<Vertex p_x="31.673798" p_y="-0.228600" />
+			<Vertex p_x="31.343597" p_y="-0.228600" />
+			<Vertex p_x="31.343597" p_y="-1.760220" />
+			<Vertex p_x="30.886398" p_y="-1.760220" />
+			<Vertex p_x="30.886398" p_y="-0.228600" />
+			<Vertex p_x="30.556198" p_y="-0.228600" />
+			<Vertex p_x="30.556198" p_y="-1.760220" />
+			<Vertex p_x="30.098999" p_y="-1.760220" />
+			<Vertex p_x="30.098999" p_y="-0.228600" />
+			<Vertex p_x="29.768797" p_y="-0.228600" />
+			<Vertex p_x="29.768797" p_y="-1.760220" />
+			<Vertex p_x="29.311598" p_y="-1.760220" />
+			<Vertex p_x="29.311598" p_y="-0.228600" />
+			<Vertex p_x="28.981398" p_y="-0.228600" />
+			<Vertex p_x="28.981398" p_y="-1.760220" />
+			<Vertex p_x="28.524199" p_y="-1.760220" />
+			<Vertex p_x="28.524199" p_y="-0.228600" />
+			<Vertex p_x="28.193998" p_y="-0.228600" />
+			<Vertex p_x="28.193998" p_y="-1.760220" />
+			<Vertex p_x="27.736799" p_y="-1.760220" />
+			<Vertex p_x="27.736799" p_y="-0.228600" />
+			<Vertex p_x="27.406599" p_y="-0.228600" />
+			<Vertex p_x="27.406599" p_y="-1.760220" />
+			<Vertex p_x="26.949400" p_y="-1.760220" />
+			<Vertex p_x="26.949400" p_y="-0.228600" />
+			<Vertex p_x="26.619200" p_y="-0.228600" />
+			<Vertex p_x="26.619200" p_y="-1.760220" />
+			<Vertex p_x="26.162001" p_y="-1.760220" />
+			<Vertex p_x="26.162001" p_y="-0.228600" />
+			<Vertex p_x="25.831800" p_y="-0.228600" />
+			<Vertex p_x="25.831800" p_y="-1.760220" />
+			<Vertex p_x="25.374599" p_y="-1.760220" />
+			<Vertex p_x="25.374599" p_y="-0.228600" />
+			<Vertex p_x="25.044399" p_y="-0.228600" />
+			<Vertex p_x="25.044399" p_y="-1.760220" />
+			<Vertex p_x="24.587200" p_y="-1.760220" />
+			<Vertex p_x="24.587200" p_y="-0.228600" />
+			<Vertex p_x="24.257000" p_y="-0.228600" />
+			<Vertex p_x="24.257000" p_y="-1.760220" />
+			<Vertex p_x="23.799801" p_y="-1.760220" />
+			<Vertex p_x="23.799801" p_y="-0.228600" />
+			<Vertex p_x="23.469601" p_y="-0.228600" />
+			<Vertex p_x="23.469601" p_y="-1.760220" />
+			<Vertex p_x="23.012400" p_y="-1.760220" />
+			<Vertex p_x="23.012400" p_y="-0.228600" />
+			<Vertex p_x="22.682201" p_y="-0.228600" />
+			<Vertex p_x="22.682201" p_y="-1.760220" />
+			<Vertex p_x="22.225000" p_y="-1.760220" />
+			<Vertex p_x="22.225000" p_y="-0.228600" />
+			<Vertex p_x="21.894800" p_y="-0.228600" />
+			<Vertex p_x="21.894800" p_y="-1.753133" />
+			<Vertex p_x="21.443058" p_y="-1.760093" />
+			<Vertex p_x="21.443058" p_y="-0.229332" />
+			<Vertex p_x="21.109976" p_y="-0.229332" />
+			<Vertex p_x="21.103943" p_y="-1.748098" />
+			<Vertex p_x="20.650200" p_y="-1.760220" />
+			<Vertex p_x="20.650200" p_y="-0.228600" />
+			<Vertex p_x="20.320002" p_y="-0.228600" />
+			<Vertex p_x="20.320002" p_y="-1.760220" />
+		</Obstacle>
+	</ObstacleSet>
+</Experiment>

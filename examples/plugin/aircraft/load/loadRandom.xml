@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+
+<Project 
+	scene="loadS.xml" 
+	behavior="loadRandom/loadRandomB.xml" 
+	view="../aircraftV.xml" 
+	model="pedvo"
+	dumpPath="images/random"
+	duration="1000"
+	random="10"
+/>

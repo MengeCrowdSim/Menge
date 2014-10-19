@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+
+<BFSM>
+	<GoalSet id="0">
+		<Goal type="AABB" id="0" min_x="-5" max_x="7.4" min_y="11" max_y="20" />
+	</GoalSet>
+	<State name="Walk" final="0" >
+		<GoalSelector type="explicit" goal_set="0" goal="0" />
+		<VelComponent type="nav_mesh" headingDelta="5.0" file_name="soccer.nav" />
+	</State>
+	<State name="Tunnel" final="1" >
+		<Action type="set_obstacle" operand="2" exit_reset="0"/>
+		<GoalSelector type="explicit" goal_set="0" goal="0" />
+		<VelComponent type="goal" />
+	</State>
+	<State name="Final" final="1">
+		<GoalSelector type="identity" />
+		<VelComponent type="zero" />
+	</State>
+
+	// Into tunnel
+	<Transition from="Walk" to="Tunnel" >
+		<Condition type="AABB" inside="1" min_x="0.0" max_x="2.4" min_y="2.0" max_y="3.5" />
+	</Transition>
+	<Transition from="Tunnel" to="Final" >
+		<Condition type="goal_reached" distance="0.25" />
+	</Transition>
+	
+</BFSM>

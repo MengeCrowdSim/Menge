@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<Project 
+	scene="persistGoal/persistGoalS.xml" 
+	behavior="persistGoal/persistGoalB.xml" 
+	view="persistGoal/persistGoalV.xml" 
+	model="orca"
+	dumpPath="persistGoal/images"
+/>

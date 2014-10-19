@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+
+<BFSM>
+	<EventSystem conservative="1">
+		<Target name="notGoalReached" type="named_state_member" is_member="0" state="GoalReached" />
+		<Effect name="makeFatter" type="offset_agent_property" property="r" dist="c" value="0.01" />
+		<Effect name="makeFaster" type="offset_agent_property" property="pref_speed" dist="c" value="0.2" />
+		<Event name="lastInGetBig">
+			<Trigger type="state_pop_increase" state="GoalReached" />
+			<Response effect="makeFatter" target="notGoalReached" />
+			<Response effect="makeFaster" target="notGoalReached" />
+		</Event>
+	</EventSystem>
+	
+	<GoalSet id="0">
+		<Goal type="AABB" id="0" min_x="-16" max_x="-14" min_y="-15" max_y="15"/>
+	</GoalSet>
+	
+	<State name="Walk" final="0" >
+		<GoalSelector type="explicit" goal_set="0" goal="0" />
+		<VelComponent type="goal" />
+	</State>
+	<State name="GoalReached" final="1">
+		<GoalSelector type="identity" />
+		<VelComponent type="zero" />
+	</State>
+
+	<Transition from="Walk" to="GoalReached" >
+		<Condition type="goal_reached"  distance="0.2"/>
+	</Transition>
+
+</BFSM>
