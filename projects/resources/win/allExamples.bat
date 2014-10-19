@@ -50,5 +50,3 @@ menge.exe -p ../examples/plugin/denseFormation.xml
 menge.exe -p ../examples/plugin/formationChange.xml
 menge.exe -p ../examples/plugin/formationNavigation.xml
 menge.exe -p ../examples/plugin/fundDiag.xml
-
-menge.exe -p ../examples/hold/timer.xml
