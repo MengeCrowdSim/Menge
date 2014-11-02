@@ -1,0 +1,10 @@
+Release 0.8.1
+	November 2, 2014
+	Corrected run example scripts for windows and linux
+
+----------------------------------------------------------------
+
+Release 0.8.0
+	October 18, 2014
+	Initial release
+	
