@@ -63,7 +63,7 @@ namespace Menge {
 		 *	in a hexagonal lattice, bounded by the rectangular region on three sides.
 		 *
 		 *	The rectangular region is defined in "local" space.  In its own local space,
-		 *	the rectangular region lies on the x-axis and extends into the positive y-direction.
+		 *	the rectangular region is axis aligned and extends into the positive y-direction.
 		 *	The "front" of the region lies on the x-axis and the left and right sides extend
 		 *	into the positive y-direction.  The alignment of the rectangular region relative
 		 *	to the anchor point depends on the AnchorAlignEnum value.
@@ -71,6 +71,38 @@ namespace Menge {
 		 *	The hexagonal grid lattice size is based on the target average density.  The lattice
 		 *	points are placed to achieve that average density.  The lattice will either be aligned
 		 *	with the x-axis or the y-axis, depending on the LatticeRowEnum value.
+		 *
+		 *	To specify a hexagonal lattice generator, use the following syntax:
+		 *
+		 *		<Generator type="hex_lattice" 
+		 *				anchor_x="float" anchor_y="float"
+		 *				alignment="string" row_direction="string"
+		 *				density="float" width="float"
+		 *				population="int" rotation="float"
+		 *			>
+		 *		</Generator>
+		 *
+		 *	The various parameters have the following interpretation:
+		 *		- `anchor_x` and `anchor_y` represent the *anchor* point of the local 
+		 *			rectangular area.  All other parameters are defined relative to this point.
+		 *		- `alignment` is one of three values: `{ center | left | right }`.  It defines
+		 *			how the front line of the rectangular is positioned relative to the anchor
+		 *			point.  If `center`, the front edge of the rectangle is centered on the
+		 *			anchor point.  If `left` or `right`, one end or the other will be positioned
+		 *			at the anchor point.
+		 *		- `row_direction` is one of two values: `{ x | y }`.  The lattice's intrinsic
+		 *			rows can either be aligned with the local x-axis or the local y.
+		 *		- `density` defines the target average density of the agents.  As density increases,
+		 *			the distance between agents decreases.
+		 *		- `width` defines the approximate length of the front edge of the rectangular
+		 *			region.  This width will be populated with the maximum number of agnets
+		 *			based on the `density` and `row_direction` values.
+		 *		- `population` indicates the target population value.  The actual population may
+		 *			differ.  If the given population number doesn't exactly fill up all rows
+		 *			of the lattice, agents will be added to create a "complete" lattice.
+		 *		- `rotation` rotates the rectangle off of the world axes the given number of *degrees*.  
+		 *			This parameter is optional and, if excluded, defaults to a zero-degree rotation.  
+		 *			The rotation is counter-clockwise for positive values of rotation.
 		 */
 		class MENGE_API HexLatticeGenerator : public AgentGenerator {
 		public:
@@ -104,12 +136,12 @@ namespace Menge {
 			virtual size_t agentCount() { return _totalPop; }
 
 			/*!
-			*	@brief		Get the position of the ith agent.
-			*
-			*	@param		i		The index of the requested agent.
-			*	@param		agt		A pointer to the ith agent whose position is to be set.
-			*	@throws		AgentGeneratorException if the index, i, is invalid.
-			*/
+			 *	@brief		Sets the ith position to the given agent.
+			 *
+			 *	@param		i		The index of the requested position in the sequence.
+			 *	@param		agt		A pointer to the agent whose position is to be set.
+			 *	@throws		AgentGeneratorException if the index, i, is invalid.
+			 */
 			virtual void setAgentPosition(size_t i, BaseAgent * agt);
 			
 			/*!
@@ -133,6 +165,15 @@ namespace Menge {
 			void setRotationDeg( float angle );
 
 		protected:
+			/*!
+			 *	@brief		Compute the position of the ith agent.
+			 *
+			 *	@param		i		The index of the requested agent.
+			 *	@returns	The 2D position of the agent based on the generator's parameters.
+			 *	@throws		AgentGeneratorException if the index, i, is invalid.
+			 */
+			virtual Vector2 computePos( size_t i );
+			
 			/*!
 			 *	@brief		The anchor point of the lattice.  One agent will be positioned
 			 *				at this world coordainte.

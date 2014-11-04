@@ -57,6 +57,29 @@ namespace Menge {
 		/*!
 		 *	@brief		Definition of an agent generator class which produces agents based on
 		 *				the positions of intersections on a lattice--one agent per intersection.
+		 *
+		 *	To specify an rectangular grid generator, use the following syntax:
+		 *
+		 *		<Generator type="rect_grid" 
+		 *				anchor_x="float" anchor_y="float"
+		 *				offset_x="float" offset_y="float"
+		 *				count_x="int" count_y="int"
+		 *				rotation="float"
+		 *			>
+		 *		</Generator>
+		 *
+		 *	The various parameters have the following interpretation:
+		 *		- `anchor_x` and `anchor_y` represent the *anchor* point of a rectangular
+		 *			area.  All other parameters are defined relative to this point.
+		 *		- `offset_x` and `offset_y` represent the distance between adjacent agents
+		 *			in the grid along the x- and y-axes, respectively.  The first agent will be
+		 *			placed at the anchor point.  The rest of the agents will be offset from
+		 *			this point, by the given amounts.
+		 *		- `count_x` and `count_y` determine the number of rows and columns of agents
+		 *			in the grid.  The total number of agents will be `count_x` * `count_y`.
+		 *		- `rotation` rotates the rectangle off of the world axes the given number of *degrees*.  
+		 *			This parameter is optional and, if excluded, defaults to a zero-degree rotation.  
+		 *			The rotation is counter-clockwise for positive values of rotation.
 		 */
 		class MENGE_API RectGridGenerator : public AgentGenerator {
 		public:
@@ -73,12 +96,12 @@ namespace Menge {
 			virtual size_t agentCount() { return _xCount * _yCount; }
 
 			/*!
-			*	@brief		Get the position of the ith agent.
-			*
-			*	@param		i		The index of the requested agent.
-			*	@param		agt		A pointer to the ith agent whose position is to be set.
-			*	@throws		AgentGeneratorException if the index, i, is invalid.
-			*/
+			 *	@brief		Sets the ith position to the given agent.
+			 *
+			 *	@param		i		The index of the requested position in the sequence.
+			 *	@param		agt		A pointer to the agent whose position is to be set.
+			 *	@throws		AgentGeneratorException if the index, i, is invalid.
+			 */
 			virtual void setAgentPosition(size_t i, BaseAgent * agt);
 			
 			/*!
@@ -128,6 +151,15 @@ namespace Menge {
 			void setRotationDeg( float angle );
 
 		protected:
+			/*!
+			 *	@brief		Compute the position of the ith agent.
+			 *
+			 *	@param		i		The index of the requested agent.
+			 *	@returns	The 2D position of the agent based on the generator's parameters.
+			 *	@throws		AgentGeneratorException if the index, i, is invalid.
+			 */
+			virtual Vector2 computePos( size_t i );
+			
 			/*!
 			 *	@brief		The anchor point of the lattice.  One agent will be positioned
 			 *				at this world coordainte.

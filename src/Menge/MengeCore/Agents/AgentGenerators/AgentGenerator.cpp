@@ -73,6 +73,13 @@ namespace Menge {
 
 		/////////////////////////////////////////////////////////////////////
 
+		Vector2 AgentGenerator::agentPos( size_t i ) {
+			Vector2 pos = computePos( i );
+			return addNoise( pos );
+		}
+
+		/////////////////////////////////////////////////////////////////////
+
 		void AgentGenerator::setNoiseGenerator( FloatGenerator * gen ) {
 			if ( _disp ) delete _disp;
 			_disp = gen;
