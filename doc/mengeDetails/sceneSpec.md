@@ -3,6 +3,8 @@ Scene Specification                {#page_SceneSpec}
 
 @section sec_sceneSummary Summary
 
+** WHAT ABOUT VELOCITY MODIFIERS **
+
 The scene specification defines the *elements* of the simulation: the static obstacles, the elevation object, the spatial query mechanism, and, of course, the agent population.  All of this is specified via an XML file constructed from a pre-defined set of valid tags.  However, this set of tags can be extended when implementing new simulation elements by implementing the appropriate interface.
 
 The basic scene specification XML has the following form:
@@ -47,7 +49,7 @@ The header is simple.  It is the same across all simulation scenarios.  In addit
 
 @section sec_sceneSimParam Global Simulation Parameters
 
-Each pedestrian model requires values across a certain parameter space.  Some of these parameters are considered unique per agent.  Others are the same for all agents in the simulation -- these are considered *global* parameters.  Implementing the pedestrian model interface includes defining these global parameters.  All global parameter definitions are included as child tags of the `<Experiment>` tag.  There are some parameters which are common to all simulators (as all pedestrian models inherit from a common class).  These are contained in the `<Common>` tag. Global parameters unique to a particular model are contained in a uniquely defined tag.  This tag is a siblign to the global `<Common>` tag.
+Each pedestrian model requires values across a certain parameter space.  Some of these parameters are considered unique per agent.  Others are the same for all agents in the simulation -- these are considered *global* parameters.  Implementing the pedestrian model interface includes defining these global parameters.  All global parameter definitions are included as child tags of the `<Experiment>` tag.  There are some parameters which are common to all simulators (as all pedestrian models inherit from a common class).  These are contained in the `<Common>` tag. Global parameters unique to a particular model are contained in a uniquely defined tag.  This tag is a sibling to the global `<Common>` tag.
 
 Currently, there is only one global simulation parameter: time step.  Thus a typical `<Common>` tag would like this:
 	
@@ -57,7 +59,7 @@ It is worth noting that this simulation time step can be overridden on the [comm
 	
 @section sec_sceneAgentProfile Agent Profile Definitions
 
-Menge allows for crowds made up of a heterogeneous population.  This heterogeneity can be realized using two different mechanisms: profiles and distributions.  An agent profile reflects the idea that there may be different classifications of agents (e.g., old/young, male/female, etc.)  These different classifications (or *profiels*) arise from the idea that the agents are possessed of quite different property values.  However, inside a single profile, there can still be variability across agents with the same profile.  This is done using *distributions*.  For example, agents modeling young male pedestrians may have a mean preferred walking speed of 1.5 m/s with a standard deviation of 0.1 m/s.  We may also want to simulate old females with a mean walking speed of 0.9 m/s and a standard deviation of 0.05 m/s.  
+Menge allows for crowds made up of a heterogeneous population.  This heterogeneity can be realized using two complementary mechanisms: profiles and distributions.  An agent profile reflects the idea that there may be different classifications of agents (e.g., old/young, male/female, etc.)  These different classifications (or *profiles*) arise from the idea that the agents which belong to different profiles are possessed of quite different property values.  However, inside a single profile, there can still be variability across the agents.  This is done using *distributions*.  For example, agents modelling young male pedestrians may have a mean preferred walking speed of 1.5 m/s with a standard deviation of 0.1 m/s.  In contrast, old females would have a mean walking speed of 0.9 m/s and a standard deviation of 0.05 m/s.  
 
 Ultimately, the agent profile is directly concerned with defining *per-agent* parameters.  We specify an agent profile in the following manner:
 
@@ -70,25 +72,25 @@ Ultimately, the agent profile is directly concerned with defining *per-agent* pa
 	
 The agent profile must be given a name -- this is how the profile is referred to later by the `<AgentGenerator>` tags.
 
-As with the global simulation parmaeters, there are common per-agent parameters and model-specific parameters.  The common parameters are stored in the `<Common>` tag and the model-specific parmaeters are stored in a tag whose name is defined by the pedestrian model's implementation.
+As with the global simulation parameters, there are common per-agent parameters and model-specific parameters.  The common parameters are stored in the `<Common>` tag and the model-specific parameters are stored in a tag whose name is defined by the pedestrian model's implementation.
 
 The `<Common>` tag has the following values (order doesn't matter and exclusion will cause them to be assigned a built-in, default value):
 
-- max_angle_vel: the maximum angular velocity of the agent (in degrees/second).  The BaseAgent includes a method for smoothing the "orientation" of the agent.  It does so by limiting the speed at which it can turn.
-- max_neighbors: the maximum number of nearby *agents* which will be computed for defining an agent response.  Smaller numbers lead to faster simulations but can lead to simulation artifacts.
-- obstacle_set: All obstacles have a identifier (typically a power of two).  The agent's `obstacle_set` serves as a mask.  If the bit-wise and of the `obstacle_set` value and the obstacle's identifier is non-zero, the agent can "see" and respond to the obstacle, otherwise, it is ignored (see @ref page_ObstSet).
-- neighbor_dist: the maximum distance an agent can be and still be a neighbor candidate.  
-- r: in Menge, agents are largely modeled as circular disks.  This is the radius of that disk.
-- class: the visualization class of the agent.  Used by the visualizer.  Generally, agents with different class will be drawn differently.
-- pref_speed: the agents preferred speed (in m/s).
-- max_speed: the agents maximum speed of travel (in m/s).  The result of the pedestrian model's velocity computation will be clamped to this speed.
-- max_accel: the maximum acceleration the agent can experience (in m/s^2).  This is a simple smoothing mechanism and doesn't make allowances for anisotropic behaviors.
+- `max_angle_vel`: the maximum angular velocity of the agent (in degrees/second).  The BaseAgent includes a method for smoothing the "orientation" of the agent.  It does so by limiting the speed at which it can turn.
+- `max_neighbors`: the maximum number of nearby *agents* which will be computed for defining an agent response.  Smaller numbers lead to faster simulations but can lead to simulation artifacts.
+- `obstacle_set`: All obstacles have a identifier (typically a power of two).  The agent's `obstacle_set` serves as a mask.  If the bit-wise and of the `obstacle_set` value and the obstacle's identifier is non-zero, the agent can "see" and respond to the obstacle, otherwise, it is ignored (see @ref page_ObstSet).
+- `neighbor_dist`: the maximum distance an agent can be and still be a neighbor candidate.  
+- `r`: in Menge, agents are largely modeled as circular disks.  This is the radius of that disk.
+- `class`: the visualization class of the agent.  Used by the visualizer.  Generally, agents with different class will be drawn differently.
+- `pref_speed`: the agents preferred speed (in m/s).
+- `max_speed`: the agents maximum speed of travel (in m/s).  The result of the pedestrian model's velocity computation will be clamped to this speed.
+- `max_accel`: the maximum acceleration the agent can experience (in m/s^2).  This is a simple smoothing mechanism and doesn't make allowances for anisotropic behaviors.
 
 A `<Model>` tag has a similar structure.  Each per-agent property will have a property name and value pair.  For specific pedestrian models, the tag name and property key-value pairs are defined in the model (see @ref page_PedModel).
 
 @subsection subsec_sceneProfVariability Property Variability
 
-As shown above, every agent assigned the same profile will have the same property values.  Menge provides a mechanism to define distributions of values for any or all of the properties contained in an `<AgentProfile>` child tag (both `<Common>` and `<Model>` tags.  It looks like this (illustrated with the *comomon* property `pref_speed`):
+In the example above, every agent assigned the same profile would have the same property values.  Menge provides a mechanism to define distributions of values for any or all of the properties contained in an `<AgentProfile>` child tag (both `<Common>` and `<Model>` tags.  It looks like this (illustrated with the *common* property `pref_speed`):
 
 	<AgentProfile name="PROFILE_NAME">
 		<Common max_angle_vel="360" max_neighbors="10" obstacleSet="1" neighbor_dist="5" r="0.19" class="1" pref_speed="1.04" max_speed="2" max_accel="5" >
@@ -99,9 +101,7 @@ As shown above, every agent assigned the same profile will have the same propert
 		<ModelN prop1="value1" prop2="value2"/>
 	</AgentProfile>
 
-Note, that the `<Common>` tag is no longer a self-contained tag.  It now has a child tag: `<Property>`.  The property tag is how we define variability for a particular property.  We do so by sepcifying the property name (`name`) and a distribution (`dist`).  In this case, we're defining a normal distribution with a mean value of 1.3 m/s and a standard deviation of 0.1 m/s.  As agents are assigned this profile, their preferred speed values will be assigned according to this distribution (see @ref page_Distribution for more details).  Any property with such a proeprty tag will have its single value overridden by the distribution.
-
-The full simulation population can be decomposed into groups called "Agent sets".  This grouping is useful for creating sets of agents with common (or similar) per-agent properties.  For example, if I were simulating old and young pedestrians, one way in which the older population would differ from the younger distribution is that they would most likely have a slower preferred walking speed.  The concept of "Agent set"  (and its corresponding XML tag, `<AgentSet>`) make this possible.
+Note, that the `<Common>` tag is no longer a self-contained tag.  It now has a child tag: `<Property>`.  The property tag is how we define variability for a particular property.  We do so by specifying the property name (`name`) and a distribution (`dist`).  In this case, we're defining a normal distribution with a mean value of 1.3 m/s and a standard deviation of 0.1 m/s.  As agents are assigned this profile, their preferred speed values will be assigned according to this distribution (see @ref page_Distribution for more details).  Any property with such a property tag will have its single value overridden by the distribution.
 
 @subsection subsec_sceneProfInherit Profile Inheritance
 
@@ -123,7 +123,26 @@ The agent profiles must appear in the *correct* order in the specification file.
 
 @section sec_sceneAgentGroup Agent Groups
 
-Still to come...
+The agent profile merely defines a type or class of agent; it does not instantiate agents in the simulation.  The `<Agent Group>` tag is responsible for instantiating agents.  An agent is instantiated by defining three aspects: its profile, its position, and its initial behavioral state.  Each of these three aspects is defined by its own element (see @ref page_Elements): a Profile Selector, an Agent Generator, and a State Selector.  The syntax of the `<AgentGroup>` tag looks like this:
+
+	<AgentGroup>
+		<ProfileSelector type="<typeName>" ... />
+		<StateSelector type="<typeName>" ... />
+		<Generator type="<typeName>" ... />
+	</AgentGroup>
+
+@subsection subsec_sceneProfSelect Profile Selector
+
+The [Profile Selectors](@ref page_ProSelect) element encodes an algorithm which determines how a profile is assigned to each newly created agent in the group.  Each implementation of a [ProfileSelector](@ref Menge::Agents::ProfileSelector) defines a unique `type` name.  To declare a profile selector of that type, use the documented type name and provide its other arguments, as necessary.  See the documentation of various [profile selectors](@ref page_ProSelect) for details.
+
+@subsection subsec_sceneAgentGen Agent Generator
+
+The [Agent Generators](@ref page_AgentGen) element encodes an algorithm which determines the number and position of agents in the `Agent Group`.  Each implementation of an [AgentGenerator](@ref Menge::Agents::AgentGenerator) defines a unique `type` name.  To declare an agent generator of that type, use the documented type name and provide its other arguments, as necessary.  See the documentation of various [agent generators](@ref page_AgentGen) for details.
+
+@subsection subsec_sceneStateSelect State Selector
+
+The [State Selectors](@ref page_StateSelect) element encodes an algorithm which determines how a BFSM initial state is assigned to each newly created agent.  Each implementation of a [StateSelector](@ref Menge::Agents::StateSelector) defines a unique `type` name.  To declare a state selector of that type, use the documented type name and provide its other arguments, as necessary.  See the documentation of various [state selectors](@ref page_StateSelect) for details.
+
 
 @section sec_sceneSpaceQuery Spatial Queries
 

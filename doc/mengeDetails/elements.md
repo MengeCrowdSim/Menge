@@ -20,7 +20,7 @@ The element types are as follows:
 		
 		+ [Elevations](@ref page_Elevation): Mechanism by which agents can move in domains that are not flat planes.
 		+ [Obstacle Sets](@ref page_ObstSet): Mechanism by which obstacles are introduced into the scene.
-		+ [Spatial Queries](@ref page_SpatialQuery): Mechanism by which spatial queries (e.g., k-nearest neighbors) are satisifed.
+		+ [Spatial Queries](@ref page_SpatialQuery): Mechanism by which spatial queries (e.g., k-nearest neighbors) are satisfied.
 		+ [Tasks](@ref page_Tasks): Mechanism by which arbitrary computation can be introduced into the Menge paradigm.  
 		
 	- [Behavioral Finite State Machine](@ref sec_Arch_BFSM)
