@@ -8,3 +8,5 @@ build/
 *.sdf
 *.opensdf
 ipch/
+*.user
+*.ncb
