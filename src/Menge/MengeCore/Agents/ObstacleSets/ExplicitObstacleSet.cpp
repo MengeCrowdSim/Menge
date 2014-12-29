@@ -83,14 +83,6 @@ namespace Menge {
 		ObstacleVertexList ExplicitObstacleSetFactory::parseObstacle( TiXmlElement * node) const {
 
 			int iVal;
-			// TODO: Simply eliminate the bounding box obstacle -- it is basically
-			//	just ignored.
-			bool bb = false;
-			if ( node->Attribute( "boundingbox", &iVal ) ) {
-				// Skip bounding box obstacles, but treat it as normal
-				bb = (iVal != 0);
-				assert(!bb && "Bounding Boxes are depreciated!");
-			}
 			ObstacleVertexList vList;
 			vList.closed = false;
 			if ( node->Attribute( "closed", &iVal ) ) {
