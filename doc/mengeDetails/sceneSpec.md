@@ -3,8 +3,6 @@ Scene Specification                {#page_SceneSpec}
 
 @section sec_sceneSummary Summary
 
-** WHAT ABOUT VELOCITY MODIFIERS **
-
 The scene specification defines the *elements* of the simulation: the static obstacles, the elevation object, the spatial query mechanism, and, of course, the agent population.  All of this is specified via an XML file constructed from a pre-defined set of valid tags.  However, this set of tags can be extended when implementing new simulation elements by implementing the appropriate interface.
 
 The basic scene specification XML has the following form:
@@ -68,6 +66,9 @@ Ultimately, the agent profile is directly concerned with defining *per-agent* pa
         <Model1 prop1="value1" prop2="value2"/>
 		...
 		<ModelN prop1="value1" prop2="value2"/>
+		<VelModifier type="vmName" ... />
+		...
+		<VelModifier type="vmName" ... />
 	</AgentProfile>
 	
 The agent profile must be given a name -- this is how the profile is referred to later by the `<AgentGenerator>` tags.
@@ -87,6 +88,8 @@ The `<Common>` tag has the following values (order doesn't matter and exclusion 
 - `max_accel`: the maximum acceleration the agent can experience (in m/s^2).  This is a simple smoothing mechanism and doesn't make allowances for anisotropic behaviors.
 
 A `<Model>` tag has a similar structure.  Each per-agent property will have a property name and value pair.  For specific pedestrian models, the tag name and property key-value pairs are defined in the model (see @ref page_PedModel).
+
+Finally, a profile can consist of zero or more [velocity modifiers](@ref Menge::BFSM::VelModifier).  The velocity modifiers will affect all agents derived from this profile, regardless of what state they are in.  See the [Velocity Modifier](@ref page_VelMod) page for more details.
 
 @subsection subsec_sceneProfVariability Property Variability
 
