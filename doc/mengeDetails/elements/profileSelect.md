@@ -15,6 +15,6 @@ There are two important methods for an implementation of a ProfileSelector to im
 
 This version of Menge includes the following implementations of the profile selector:
 
-	- The [constant profile selector](@ref Menge::Agents::ConstProfileSelector).  See the class documentation for details on its semantics and how to instantiate this profile selector.
+- The [constant profile selector](@ref Menge::Agents::ConstProfileSelector).  See the class documentation for details on its semantics and how to instantiate this profile selector.
 
 Future versions of Menge will include profile selectors which can operate on sets of profiles, e.g., assigning profiles randomly or based on weighted distributions.
