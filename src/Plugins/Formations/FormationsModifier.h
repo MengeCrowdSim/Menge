@@ -69,6 +69,14 @@ namespace Formations {
 	/*!
 	 *	@brief		A velocity modifier which adapts agent preferred velocities
 	 *				so that they move in formations.
+	 *
+	 *	To specify a formation velocity modifier, use the following syntax:
+	 *
+	 *		<VelModifier type="formation" file_name="string"/>
+	 *
+	 *	The value `file_name` contains the path to the formation definition file 
+	 *	(see @refFormations::FreeFormation for details on the file).  The path 
+	 *	should be relative to the file that specifies the velocity modifier.
 	 */
 	class FORMATIONS_API FormationModifier : public Menge::BFSM::VelModifier {
 	public:

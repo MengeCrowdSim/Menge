@@ -59,7 +59,7 @@ namespace Menge {
 		/*!
 		 *	@brief		A velocity modifier that scales the input velocity's speed.
 		 *
-		 *	To specify an explicit agent generator, use the following syntax:
+		 *	To specify a scale velocity modifier, use the following syntax:
 		 *
 		 *		<VelModifier type="scale" scale="float"/>
 		 *
