@@ -159,9 +159,25 @@ namespace GCF {
 		virtual ParseResult processProperty( ::std::string propName, TiXmlElement * node );
 
 		/*!
-		 *	@brief		The mass of the agent.
+		 *	@brief		The minimum value for the radius along the agent's facing direction.
 		 */
-		FloatGenerator * _mass;			
+		FloatGenerator * _aMin;			
+
+		/*!
+		 *	@brief		The rate of change of the value for the radius along the agent's facing direction.
+		 */
+		FloatGenerator * _aRate;			
+
+		/*!
+		 *	@brief		The maximum value for the radius along the agent's perpendicular direction.
+		 */
+		FloatGenerator * _bMax;			
+
+		/*!
+		 *	@brief		The rate of change of the value for the radius along the agent's perpendicular direction.
+		 */
+		FloatGenerator * _bGrowth;			
+
 	};
 }	// namespace GCF
 

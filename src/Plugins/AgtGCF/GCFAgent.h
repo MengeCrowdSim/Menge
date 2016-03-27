@@ -46,6 +46,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #define	__GCF_AGENT_H__
 
 #include "BaseAgent.h"
+#include "Ellipse.h"
 
 using namespace Menge;
 
@@ -57,7 +58,7 @@ namespace GCF {
 	class Agent : public Agents::BaseAgent {
 	public:
 		/*!
-		 *	@brief		A variant of the copy constructor.
+		 *	@brief		Default constructor.
 		 */
 		Agent();
 
@@ -72,6 +73,32 @@ namespace GCF {
 		void computeNewVelocity();
 
 		/*!
+		 *	@brief			Provides the various parameters of the pedestrian repulsive 
+		 *					force between this agent and the given agent. 
+		 *					Helper for visualization.
+		 *
+		 *	@param		agent		The agent to compute the various repulsion parameters for.
+		 *	@param		effDist		The "effective" distance between the closest points on the agent boundaries.
+		 *	@param		forceDir	The direction of the force.
+		 *	@param		K_ij		The field of view parameter between agents.
+		 *	@param		response	The force strength based on effective distance.
+		 *	@param		velScale	The scale on the force magnitude based on the relative velocity.
+		 *	@param		magnitude	The overall magnitude of the repulsive force.
+		 *	@returns	An int indicating the computation success: 
+		 *					0 = repulsive force exists.
+		 *					1 = agent too far away.
+		 *					2 = agent out of field of view
+		 */
+		int getRepulsionParameters( const Agent * agent, float & effDist, Vector2 & forceDir, float & K_ij, float & response, float & velScale, float & magnitude ) const;
+
+		/*!
+		 *	@brief		Computes component of the force magnitude based on effective distance.
+		 *	@param		effDist			The effective distance from ellipse center to force source
+		 */		
+		float computeDistanceResponse( float effDist ) const;
+#if 0
+
+		/*!
 		 *	@brief		Compute the force due to another agent
 		 *	@param		other			A pointer to a neighboring agent
 		 *	@returns	The force imparted by the other agent on this agent
@@ -84,17 +111,37 @@ namespace GCF {
 		 *	@returns	The force imparted by the obstacle on this agent
 		 */
 		Vector2 obstacleForce( const Agents::Obstacle * obst ) const;
-
+#endif
 		/*!
 		 *	@brief		Computes the driving force for the agent
 		 *	@returns	The vector corresponding to the agent's driving force.
 		 */
-		Vector2 drivingForce() const;
+		Vector2 driveForce() const;
 
 		/*!
-		 *	@brief		The mass of the agent
+		 *	@brief		The ellipse representing the agent's volume
 		 */
-		float		_mass;
+		Ellipse		_ellipse;
+
+		/*!
+		 *	@brief		The minimum value for the radius along the agent's facing direction.
+		 */
+		float _aMin;			
+
+		/*!
+		 *	@brief		The rate of change of the value for the radius along the agent's facing direction.
+		 */
+		float _aRate;			
+
+		/*!
+		 *	@brief		The maximum value for the radius along the agent's perpendicular direction.
+		 */
+		float _bMax;			
+
+		/*!
+		 *	@brief		The rate of change of the value for the radius along the agent's perpendicular direction.
+		 */
+		float _bGrowth;			
 	};
 }	// namespace GCF
 

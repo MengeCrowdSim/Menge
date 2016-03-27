@@ -46,24 +46,36 @@ namespace GCF {
 	////////////////////////////////////////////////////////////////
 
 	// Default values
-	const float MASS = 80.f;			///< The agent's default mass.
+	const float A_MIN = 0.18f;			///< The agent's default minimum minor "facing" size
+	const float A_RATE = 0.53f;			///< The agent's default rate of growth on the "facing" axis
+	const float B_MAX = 0.25f;			///< The agent's default perpendicular axis radius.
+	const float B_GROWTH = 0.05f;		///< The agent's default growth rate for the perpendicular axis radius.
 	
 	////////////////////////////////////////////////////////////////
 
 	AgentInitializer::AgentInitializer() : Agents::AgentInitializer() { 
-		_mass = new ConstFloatGenerator( MASS );
+		_aMin = new ConstFloatGenerator( 0.18f );
+		_aRate = new ConstFloatGenerator( 0.53f );
+		_bMax = new ConstFloatGenerator( 0.25f );
+		_bGrowth = new ConstFloatGenerator( 0.05f );
 	}
 
 	////////////////////////////////////////////////////////////////
 
 	AgentInitializer::AgentInitializer( const AgentInitializer & init) : Agents::AgentInitializer(init) { 
-		_mass = init._mass->copy();
+		_aMin = init._aMin->copy();
+		_aRate = init._aRate->copy();
+		_bMax = init._bMax->copy();
+		_bGrowth = init._bGrowth->copy();
 	}
 
 	////////////////////////////////////////////////////////////////
 
 	AgentInitializer::~AgentInitializer() {
-		delete _mass;
+		delete _aMin;
+		delete _aRate;
+		delete _bMax;
+		delete _bGrowth;
 	}
 
 	////////////////////////////////////////////////////////////////
@@ -71,7 +83,10 @@ namespace GCF {
 	bool AgentInitializer::setProperties( Agents::BaseAgent * agent ) {
 		Agent * a = dynamic_cast< Agent * >( agent );
 		if ( a == 0x0 ) return false;
-		a->_mass = _mass->getValue();
+		a->_aMin = _aMin->getValue();
+		a->_aRate = _aRate->getValue();
+		a->_bMax = _bMax->getValue();
+		a->_bGrowth = _bGrowth->getValue();
 		return Agents::AgentInitializer::setProperties( agent );
 	}
 
@@ -85,8 +100,14 @@ namespace GCF {
 
 	Agents::AgentInitializer::ParseResult AgentInitializer::setFromXMLAttribute( const ::std::string & paramName, const ::std::string & value ) {
 		ParseResult result = IGNORED;
-		if ( paramName == "mass" ) {
-			result = constFloatGenerator( _mass, value );
+		if ( paramName == "facing_min" ) {
+			result = constFloatGenerator( _aMin, value );
+		} else if ( paramName == "facing_rate" ) {
+			result = constFloatGenerator( _aRate, value );
+		} else if ( paramName == "perp_max" ) {
+			result = constFloatGenerator( _bMax, value );
+		} else if ( paramName == "perp_growth" ) {
+			result = constFloatGenerator( _bGrowth, value );
 		}
 
 		if ( result == FAILURE ) {
@@ -102,8 +123,14 @@ namespace GCF {
 
 	AgentInitializer::ParseResult AgentInitializer::processProperty( ::std::string propName, TiXmlElement * node ) {
 		ParseResult result = IGNORED;
-		if ( propName == "mass" ) {
-			result = getFloatGenerator( _mass, node );
+		if ( propName == "facing_min" ) {
+			result = getFloatGenerator( _aMin, node );
+		} else if ( propName == "facing_rate" ) {
+			result = getFloatGenerator( _aRate, node );
+		} else if ( propName == "perp_max" ) {
+			result = getFloatGenerator( _bMax, node );
+		} else if ( propName == "perp_growth" ) {
+			result = getFloatGenerator( _bGrowth, node );
 		}
 
 		if ( result == FAILURE ) {
@@ -118,8 +145,14 @@ namespace GCF {
 	////////////////////////////////////////////////////////////////
 
 	void AgentInitializer::setDefaults() {
-		if ( _mass ) delete _mass;
-		_mass = new ConstFloatGenerator( MASS );
+		if ( _aMin ) delete _aMin;
+		_aMin = new ConstFloatGenerator( A_MIN );
+		if ( _aRate ) delete _aRate;
+		_aRate = new ConstFloatGenerator( A_RATE );
+		if ( _bMax ) delete _bMax;
+		_bMax = new ConstFloatGenerator( B_MAX );
+		if ( _bGrowth ) delete _bGrowth;
+		_bGrowth = new ConstFloatGenerator( B_GROWTH );
 		Agents::AgentInitializer::setDefaults();
 	}
 

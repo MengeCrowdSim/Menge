@@ -48,7 +48,10 @@ namespace GCF {
 	//			Implementation of GCFAgentContext
 	////////////////////////////////////////////////////////////////
 
-	AgentContext::AgentContext( VisAgent ** agents, unsigned int agtCount ): BaseAgentContext(agents,agtCount), _showForce(false),_forceObject(0)
+	AgentContext::AgentContext( VisAgent ** agents, unsigned int agtCount ): BaseAgentContext(agents,agtCount)
+#if 0
+		, _showForce(false),_forceObject(0)
+#endif
 	{
 	}
 
@@ -56,6 +59,7 @@ namespace GCF {
 
 	SceneGraph::ContextResult AgentContext::handleKeyboard( SDL_Event & e ) {
 		SceneGraph::ContextResult result = BaseAgentContext::handleKeyboard( e );
+#if 0
 		if ( !result.isHandled() ) {
 			SDLMod mods = e.key.keysym.mod;
 			bool hasCtrl = ( mods & KMOD_CTRL ) > 0;
@@ -108,6 +112,7 @@ namespace GCF {
 				}
 			}
 		}
+#endif
 		return result;
 	}
 
@@ -115,6 +120,7 @@ namespace GCF {
 
 	void AgentContext::update() {
 		BaseAgentContext::update();
+#if 0
 		if ( _selected && _forceObject ) {
 			const Agent * agt = dynamic_cast< const Agent * >( _selected->getAgent() );
 			assert( agt != 0x0 && "GCF context trying to work with a non GCF agent" );							
@@ -130,12 +136,14 @@ namespace GCF {
 				}
 			}
 		}
+#endif
 	}
 
 	////////////////////////////////////////////////////////////////
 
 	void AgentContext::draw3DGL( bool select ) {
 		BaseAgentContext::draw3DGL( select );
+#if 0
 		if ( !select && _selected ) {
 			glPushAttrib( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_ENABLE_BIT | GL_LINE_BIT | GL_POLYGON_BIT );
 			glDepthMask( GL_FALSE );
@@ -144,6 +152,7 @@ namespace GCF {
 			drawForce( agt );
 			glPopAttrib();
 		}
+#endif
 	}
 
 	////////////////////////////////////////////////////////////////
@@ -153,13 +162,8 @@ namespace GCF {
 		std::string m = BaseAgentContext::agentText( agt );
 
 		std::stringstream ss;
+#if 0
 		ss << std::setiosflags(std::ios::fixed) <<  std::setprecision( 2 );
-		ss << "\nMass";
-		if ( _selected ) {
-			const Agent * agt = dynamic_cast< const Agent * >( _selected->getAgent() );
-			assert( agt != 0x0 && "GCF context trying to work with a non GCF agent" );
-			ss << " " << agt->_mass << " kg";
-		}
 		ss << "\n_________________________";
 		ss << "\nDraw (F)orces";
 		if ( _showForce && _selected ) {
@@ -180,18 +184,19 @@ namespace GCF {
 				ss << "\n     Obstacle " << obst->_id << ": " << force << " N";
 			}
 		}
+#endif
 		return m + ss.str();
 	}
 
 	////////////////////////////////////////////////////////////////
-
+#if 0
 	void AgentContext::drawForce( const Agent * agt ) {
 		if ( _showForce && _selected ) {
 			if ( agt->_nearAgents.size() > 0 ) {
 				glPushMatrix();
 				// Draw driving force
 				glColor4f( 0.1f, 1.f, 0.1f, 1.f );
-				Vector2 driveForce( agt->drivingForce() );
+				Vector2 driveForce( agt->driveForce() );
 				drawForce( agt, driveForce, "D" );
 				// Draw repulsive forces
 				if ( _forceObject == 0 ) {
@@ -285,4 +290,5 @@ namespace GCF {
 		ss << abs( force ) << " N";
 		writeTextRadially( ss.str(), forceEnd, force, true );
 	}
+#endif
 }	// namespace GCF

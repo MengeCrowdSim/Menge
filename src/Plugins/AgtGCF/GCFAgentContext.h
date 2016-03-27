@@ -108,7 +108,7 @@ namespace GCF {
 		 *	@returns	A formatted string for display in the context's 2D gui.
 		 */
 		virtual std::string agentText( const Agents::BaseAgent * agent ) const;
-
+#if 0
 		/*!
 		 *	@brief		Determines if the force vectors are drawn
 		 */
@@ -155,7 +155,7 @@ namespace GCF {
 		 *	@param		label		The label to apply to the force.
 		 */
 		void drawForce( const Agent * agt, const Vector2 & force, const std::string & label );
-
+#endif
 	};
 }	// namespace GCF
 #endif	 // __GCF_AGENT_CONTEXT_H__

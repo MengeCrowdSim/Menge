@@ -45,29 +45,26 @@ namespace GCF {
 	////////////////////////////////////////////////////////////////
 
 	// These values come directly from the GCF 2010 paper -- TODO: Determine that this is true
-	float	Simulator::AGENT_SCALE = 2000.f;
-	float	Simulator::OBST_SCALE = 2000.f;
 	float	Simulator::REACTION_TIME = 0.5f;
-	float	Simulator::BODY_FORCE = 1.2e5f;
-	float	Simulator::FRICTION = 2.4e5f;
-	float	Simulator::FORCE_DISTANCE = 0.08f;
+	float	Simulator::NU_AGENT = 0.3f;
+	float	Simulator::MAX_AGENT_DIST = 2.f;
+	float	Simulator::MAX_AGENT_FORCE = 3.f;
+	float	Simulator::AGENT_INTERP_WIDTH = 0.1f;
 
 	////////////////////////////////////////////////////////////////
 
 	bool Simulator::setExpParam( const std::string & paramName, const std::string & value ) throw( Agents::XMLParamException ) {
 		try {
-			if ( paramName == "agent_scale" ) {
-				AGENT_SCALE = toFloat( value );
-			} else if ( paramName == "obstacle_scale" ) {
-				OBST_SCALE = toFloat( value );
-			} else if ( paramName == "reaction_time" ) {
+			if ( paramName == "reaction_time" ) {
 				REACTION_TIME = toFloat( value );
-			} else if ( paramName == "body_force" ) {
-				BODY_FORCE = toFloat( value );
-			} else if ( paramName == "friction" ) {
-				FRICTION = toFloat( value );
-			} else if ( paramName == "force_distance" ) {
-				FORCE_DISTANCE = toFloat( value );
+			} else if ( paramName == "agent_force_strength" ) {
+				NU_AGENT = toFloat( value );
+			} else if ( paramName == "max_agent_dist" ) {
+				MAX_AGENT_DIST = toFloat( value );
+			} else if ( paramName == "max_agent_force" ) {
+				MAX_AGENT_FORCE = toFloat( value );
+			} else if ( paramName == "agent_interp_width" ) {
+				AGENT_INTERP_WIDTH = toFloat( value );
 			} else if ( ! Agents::SimulatorBase<Agent>::setExpParam( paramName, value ) ) {
 				// Simulator base didn't recognize the parameter either
 				return false;

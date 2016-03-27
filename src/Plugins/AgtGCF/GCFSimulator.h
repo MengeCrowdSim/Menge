@@ -96,35 +96,32 @@ namespace GCF {
 
 	protected:
 		friend class Agent;
-		/*!
-		 *	@brief		The magnitude of the inter-agent repulsion forces
-		 */
-		static float	AGENT_SCALE;
-
-		/*!
-		 *	@brief		The magnitude of the agent-obstacle repulsion forces
-		 */
-		static float	OBST_SCALE;
-
+		
 		/*!
 		 *	@brief		The reaction time used to define the driving force
 		 */
 		static float	REACTION_TIME;
 
 		/*!
-		 *	@brief		The magnitude of the body force applied when agents collide
+		 *	@brief		The agent force strenth coefficient (nu)
 		 */
-		static float	BODY_FORCE;
+		static float	NU_AGENT;
 
 		/*!
-		 *	@brief		The magnitude of the friction force applied when agents collide
+		 *	@brief		The maximum EFFECTIVE distance between agents
+		 *				at which any force can be generated.
 		 */
-		static float	FRICTION;
+		static float	MAX_AGENT_DIST;
 
 		/*!
-		 *	@brief		The the fall-off distance of repulsive forces
+		 *	@brief		The maximum force applied by an agent.
 		 */
-		static float	FORCE_DISTANCE;
+		static float	MAX_AGENT_FORCE;
+
+		/*!
+		 *	@brief		The distance over which agent forces are interpolated
+		 */
+		static float	AGENT_INTERP_WIDTH;
 	};
 }	// namespace GCF
 #endif	 // __GCF_SIMULATOR_H__
