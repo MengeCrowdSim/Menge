@@ -17,7 +17,7 @@
 			<Property name="r" dist="u" min="0.15" max="0.25" seed="2"/>
 			<Property name="max_neighbors" dist="u" min="5" max="15" seed="2"/>
 		</Common>
-        <GCF stand_depth="0.18" move_scale="0.53" slow_width="0.25" sway_change="0.05" orient_weight="0.75" />
+        <GCF stand_depth="0.18" move_scale="0.53" slow_width="0.25" sway_change="0.05" />
         <Helbing mass="80" />
         <Johansson fov_weight="0.16" />
         <Karamouzas personal_space="0.69" anticipation="8" />

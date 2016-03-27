@@ -100,13 +100,13 @@ namespace GCF {
 
 	Agents::AgentInitializer::ParseResult AgentInitializer::setFromXMLAttribute( const ::std::string & paramName, const ::std::string & value ) {
 		ParseResult result = IGNORED;
-		if ( paramName == "facing_min" ) {
+		if ( paramName == "stand_depth" ) {
 			result = constFloatGenerator( _aMin, value );
-		} else if ( paramName == "facing_rate" ) {
+		} else if ( paramName == "move_scale" ) {
 			result = constFloatGenerator( _aRate, value );
-		} else if ( paramName == "perp_max" ) {
+		} else if ( paramName == "slow_width" ) {
 			result = constFloatGenerator( _bMax, value );
-		} else if ( paramName == "perp_growth" ) {
+		} else if ( paramName == "sway_change" ) {
 			result = constFloatGenerator( _bGrowth, value );
 		}
 

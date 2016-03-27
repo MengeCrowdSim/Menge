@@ -88,7 +88,7 @@ namespace GCF {
 		 *	@returns	A single string (with no spaces) that can be used as
 		 *				a command line parameter to uniquely identify this model.
 		 */
-		virtual ::std::string commandLineName() const { return "GCF"; }
+		virtual ::std::string commandLineName() const { return "gcf"; }
 
 		/*!
 		 *	@brief		Returns a pointer to this model's Simulator instance.
