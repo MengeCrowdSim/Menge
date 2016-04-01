@@ -87,7 +87,9 @@ namespace GCF {
 		a->_aRate = _aRate->getValue();
 		a->_bMax = _bMax->getValue();
 		a->_bGrowth = _bGrowth->getValue();
-		return Agents::AgentInitializer::setProperties( agent );
+		bool val = Agents::AgentInitializer::setProperties( agent );
+		a->_ellipse.setCenter(a->_pos);
+		return val;
 	}
 
 	////////////////////////////////////////////////////////////////
