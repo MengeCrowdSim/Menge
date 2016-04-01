@@ -123,6 +123,15 @@ namespace Menge {
 			void update( float timeStep );
 
 			/*!
+			 *	@brief		Method for sub-classes to perform additional update work
+			 *			
+			 *	This is the last thing called by the update method.  When this is called,
+			 *	position, velocity, and orientation will be updated in the base agent
+			 *	class.
+			 */
+			virtual void postUpdate() {}
+
+			/*!
 			 *	@brief		Given preferred velocity and neighboring agents and obstacles
 			 *				compute a new velocity.  
 			 *

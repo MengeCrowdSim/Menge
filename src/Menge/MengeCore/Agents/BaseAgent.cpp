@@ -121,6 +121,8 @@ namespace Menge {
 					_orient.set( newOrient );
 				}
 			}
+
+			postUpdate();
 		}
 
 		////////////////////////////////////////////////////////////////
