@@ -80,6 +80,19 @@ namespace GCF {
 
 	////////////////////////////////////////////////////////////////
 
+	void Agent::postUpdate() {
+		float speed = abs(_vel);
+		// update ellipse
+		_ellipse.setCenter( _pos );
+		_ellipse.setOrientation( _orient );
+		// compute major and minor axis values based on speed
+		float major = _aMin + _aRate * speed;
+		float minor = _bMax - _bGrowth * speed / 1.3f;
+		_ellipse.setAxes( major, minor );
+	}
+
+	////////////////////////////////////////////////////////////////
+
 	void Agent::computeNewVelocity() {
 #if 1
 		Vector2 force( driveForce() );	// driving force

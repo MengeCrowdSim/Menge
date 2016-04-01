@@ -68,6 +68,15 @@ namespace GCF {
 		~Agent();
 
 		/*!
+		 *	@brief		Method for sub-classes to perform additional update work
+		 *			
+		 *	This is the last thing called by the update method.  When this is called,
+		 *	position, velocity, and orientation will be updated in the base agent
+		 *	class.
+		 */
+		virtual void postUpdate();
+
+		/*!
 		 *  @brief      Computes the new velocity of this agent.
 		 */
 		void computeNewVelocity();
