@@ -216,6 +216,10 @@
 				RelativePath="$(PluginSrc)\AgtGCF\GCFSimulator.cpp"
 				>
 			</File>
+			<File
+				RelativePath="$(PluginSrc)\AgtGCF\GCFVisAgent.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -252,6 +256,10 @@
 			</File>
 			<File
 				RelativePath="$(PluginSrc)\AgtGCF\GCFSimulator.h"
+				>
+			</File>
+			<File
+				RelativePath="$(PluginSrc)\AgtGCF\GCFVisAgent.h"
 				>
 			</File>
 		</Filter>
