@@ -64,6 +64,7 @@ namespace Menge {
 		 *	@param		agent		The agent to wrap in simulation.
 		 *	@returns	An instance of a visualization agent associated with the given
 		 *				simulation agent.
+		 *	@throws		AgentException if the agent cannot be processed by this factory.
 		 */
 		virtual VisAgent * makeVisAgent( Agents::BaseAgent * agent );
 	};

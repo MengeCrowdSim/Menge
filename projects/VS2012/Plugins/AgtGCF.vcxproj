@@ -117,6 +117,7 @@ xcopy /y $(TargetPath) $(ExeDir)\plugins\
     <ClCompile Include="$(PluginSrc)\AgtGCF\GCFSimulator.cpp" />
     <ClCompile Include="$(PluginSrc)\AgtGCF\Ellipse.cpp" />
     <ClCompile Include="$(PluginSrc)\AgtGCF\GCFVisAgent.cpp" />
+    <ClCompile Include="$(PluginSrc)\AgtGCF\GCFVisAgentFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(PluginSrc)\AgtGCF\GCF.h" />
@@ -128,6 +129,7 @@ xcopy /y $(TargetPath) $(ExeDir)\plugins\
     <ClInclude Include="$(PluginSrc)\AgtGCF\GCFSimulator.h" />
     <ClInclude Include="$(PluginSrc)\AgtGCF\Ellipse.h" />
     <ClInclude Include="$(PluginSrc)\AgtGCF\GCFVisAgent.h" />
+    <ClInclude Include="$(PluginSrc)\AgtGCF\GCFVisAgentFactory.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

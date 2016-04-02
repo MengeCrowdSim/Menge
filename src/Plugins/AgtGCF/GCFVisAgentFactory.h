@@ -36,60 +36,36 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "GCFDBEntry.h"
-#include "GCFSimulator.h"
-#include "GCFAgentContext.h"
-#include "GCFInitializer.h"
-#include "GCFVisAgentFactory.h"
+/*!
+ *	@file		GCFVisAgentFactory.h
+ *	@brief		The visualization agent factory for use with gcf pedestrians.
+ */
 
-#include "SimulatorDB.h"
-#include "SimSystem.h"
+#ifndef __GCF_VIS_AGENT_FACTORY_H__
+#define	__GCF_VIS_AGENT_FACTORY_H__
+
+#include "VisAgentFactory.h"
+#include "GCF.h"
+
+using namespace Menge;
 
 namespace GCF {
-	/////////////////////////////////////////////////////////////////////////////
-	//                     Implementation of GCF::DBEntry
-	/////////////////////////////////////////////////////////////////////////////
+	/*!
+	 *	@brief		The simulator database entry for the generalized centifugal force simulator.
+	 */
+	class GCFVisAgentFactory : public Menge::VisAgentFactory {
+	public:
 
-	::std::string DBEntry::briefDescription() const {
-		return "Simulator based on generalized centrifugal force pedestrian model";
-	}
-	/////////////////////////////////////////////////////////////////////////////
+		/*!
+		 *	@brief		Interface for creating a visualization agent from a simulation agent.
+		 *
+		 *	@param		agent		The agent to wrap in simulation.
+		 *	@returns	An instance of a visualization agent associated with the given
+		 *				simulation agent.
+		 */
+		virtual VisAgent * makeVisAgent( Agents::BaseAgent * agent );
+		
+	};
+}	// namespace GCF
 
-	::std::string DBEntry::longDescription() const {
-		return "Simulator based on Chraibi et al. 2010 pedestrian model\n"
-			   "\tThe model is based on generalized centrifugal force model.\n"
-			   "\tAgents are modeled as ellipses which transform based on the\n"
-			   "\tagent speed.  It uses forces to handle collision avoidance.";
-	}
-
-	/////////////////////////////////////////////////////////////////////////////
-
-	::std::string DBEntry::viewerName() const {
-		return "GCF";
-	}
-
-	/////////////////////////////////////////////////////////////////////////////
-	 
-	Agents::SimulatorInterface * DBEntry::getNewSimulator() {
-		return new Simulator();
-	}
-
-	/////////////////////////////////////////////////////////////////////////////
-	 
-	BaseAgentContext * DBEntry::contextFromSystem( SimSystem * system ) {
-		return new AgentContext( system->getVisAgents(), (unsigned int)system->getAgentCount() ); 
-	}
-
-	/////////////////////////////////////////////////////////////////////////////
-	 
-	Agents::AgentInitializer * DBEntry::getAgentInitalizer() const {
-		return new AgentInitializer();
-	}
-
-	/////////////////////////////////////////////////////////////////////////////
- 
-	VisAgentFactory * DBEntry::getVisAgentFactory() {
-		return new GCFVisAgentFactory();
-	}
-
-}	// namespace GCF 
+#endif	// __GCF_VIS_AGENT_FACTORY_H__

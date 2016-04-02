@@ -126,6 +126,15 @@ namespace GCF {
 		 *				the wrong type (or if there is any other problem), NULL is returned.
 		 */
 		virtual BaseAgentContext * contextFromSystem( SimSystem * system );
+
+		/*!
+		 *	@brief		Creates a visual agent factory for these agents.
+		 *
+		 *	The caller is responsible for deleting the entity.
+		 *
+		 *	@returns	The factory to use to visualize the agents.
+		 */
+		virtual VisAgentFactory * getVisAgentFactory();
 	};
 }	// namespace GCF
 
