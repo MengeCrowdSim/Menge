@@ -186,7 +186,7 @@ namespace GCF {
 		}
 
 		// field of view
-//#define SEAN_GCF
+#define SEAN_GCF
 		K_ij = _orient * forceDir;
 #ifdef SEAN_GCF
 		K_ij = ( K_ij * 0.5f ) - 0.5f;
@@ -206,10 +206,10 @@ namespace GCF {
 		float velWeight = relVel * forceDir; 
 		if ( velWeight > 0.f ) {
 			// relative speed is away from the neighbor
-			velScale = _sim->_nuAgent * PREF_SPEED;
+			velScale = Simulator::NU_AGENT * PREF_SPEED;
 		} else {
 			// some portion is towards
-			velScale = _sim->_nuAgent * PREF_SPEED - velWeight / std::max( effDist, 0.01f ) ;
+			velScale = Simulator::NU_AGENT * PREF_SPEED - velWeight / std::max( effDist, 0.01f ) ;
 		}
 #else
 		float velWeight = relVel * _orient;
