@@ -52,12 +52,13 @@ namespace GCF {
 				}
 			}
 		}
-		Vector2 pos = agt->_pos;
+		const Vector2 & pos = agt->_ellipse.getCenter();
 		float x = pos.x();
 		float y = pos.y();
 		glPushMatrix();
 		glTranslatef( x, 0.0, y );
-		float angle = atan2( _agent->_orient.y(), _agent->_orient.x() ) * 180.f / 3.141597f;
+		const Vector2 & orient = agt->_ellipse.getOrientation();
+		float angle = atan2( orient.y(), orient.x() ) * 180.f / 3.141597f;
 		glRotatef( -angle, 0.f, 1.f, 0.f );
 		float major = agt->_ellipse.getMajor();
 		float minor = agt->_ellipse.getMinor();

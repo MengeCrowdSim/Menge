@@ -89,6 +89,7 @@ namespace GCF {
 		a->_bGrowth = _bGrowth->getValue();
 		bool val = Agents::AgentInitializer::setProperties( agent );
 		a->_ellipse.setCenter(a->_pos);
+		a->postUpdate();
 		return val;
 	}
 

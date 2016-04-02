@@ -68,6 +68,13 @@ namespace GCF {
 		~Agent();
 
 		/*!
+		 *	@brief		Initializes the agent
+		 *
+		 *	Subclasses should call their parent's implementation of initialize.
+		 */
+		virtual void initialize();
+
+		/*!
 		 *	@brief		Method for sub-classes to perform additional update work
 		 *			
 		 *	This is the last thing called by the update method.  When this is called,
@@ -105,6 +112,11 @@ namespace GCF {
 		 *	@param		effDist			The effective distance from ellipse center to force source
 		 */		
 		float computeDistanceResponse( float effDist ) const;
+
+		/*!
+		 *	@brief		Updates the ellipse to the current state
+		 */
+		void updateEllipse();
 #if 0
 
 		/*!

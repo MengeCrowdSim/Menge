@@ -111,8 +111,10 @@ namespace Menge {
 
 			/*!
 			 *	@brief		Initializes the agent
+			 *
+			 *	Subclasses should call their parent's implementation of initialize.
 			 */
-			void initialize();
+			virtual void initialize();
 
 			/*!
 			 *  @brief      Updates the two-dimensional position and two-dimensional

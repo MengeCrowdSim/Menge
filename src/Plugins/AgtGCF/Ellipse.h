@@ -181,10 +181,24 @@ namespace GCF {
 		inline void setOrientation( const Math::Vector2 & dir ) { _cosPhi = dir.x(); _sinPhi = dir.y(); }
 
 		/*!
+		 *	@brief		Returns the "facing" direction of the ellipse
+		 *
+		 *	@returns	The ellipse's facing direction.
+		 */
+		inline Math::Vector2 getOrientation(){ return Math::Vector2(_cosPhi, _sinPhi); }
+
+		/*!
 		 *	@brief		Set center of the ellipse.
 		 *	@param		pos			The two-dimensional vector specifying center position.
 		 */
 		inline void setCenter( const Math::Vector2 & pos ) { _center.set( pos ); }
+
+		/*!
+		 *	@brief		Returns the center of the ellipse.
+		 *
+		 *	@returns	A const reference to the ellipse's center.
+		 */
+		inline const Math::Vector2 & getCenter() { return _center; }
 
 		/*!
 		 *	@brief		Sets the major and minor axes of the ellipse.
