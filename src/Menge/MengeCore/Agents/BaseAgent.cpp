@@ -97,6 +97,13 @@ namespace Menge {
 			}
 			_pos += _vel * timeStep;
 
+			updateOrient( timeStep );
+			postUpdate();
+		}
+
+		////////////////////////////////////////////////////////////////
+
+		void BaseAgent::updateOrient( float timeStep ) {
 			float speedSq = absSq( _vel );
 			if ( speedSq > 0.00001f ) {
 				float speed = sqrt( speedSq );
@@ -121,8 +128,6 @@ namespace Menge {
 					_orient.set( newOrient );
 				}
 			}
-
-			postUpdate();
 		}
 
 		////////////////////////////////////////////////////////////////

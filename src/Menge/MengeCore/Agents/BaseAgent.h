@@ -123,6 +123,16 @@ namespace Menge {
 			void update( float timeStep );
 
 			/*!
+			 *	@brief		Updates the orientation.
+			 *
+			 *	This is guaranteed to be called after the current velocity and position have been
+			 *	integrated.
+			 *
+			 *	@param		timeStep		The duration of the simulation time step.
+			 */
+			virtual void updateOrient(float timeStep);
+
+			/*!
 			 *	@brief		Method for sub-classes to perform additional update work
 			 *			
 			 *	This is the last thing called by the update method.  When this is called,
