@@ -32,6 +32,8 @@
 
 #include <string>
 #include <iostream>
+#include "CoreConfig.h"
+#include "VisAgentFactory.h"
 
 namespace Menge {
 
@@ -207,6 +209,15 @@ namespace Menge {
 		 */
 		Agents::SimulatorInterface * initSimulator( const std::string & sceneFileName,
 													bool VERBOSE );
+
+		/*!
+		 *	@brief		Creates a visual agent factory for these agents.
+		 *
+		 *	The caller is responsible for deleting the entity.
+		 *
+		 *	@returns	The factory to use to visualize the agents.
+		 */
+		virtual VisAgentFactory * getVisAgentFactory() { return new VisAgentFactory(); }
 
 		/*!
 		 *	@brief		Creates the finite state machine and finalizes simulator and fsm

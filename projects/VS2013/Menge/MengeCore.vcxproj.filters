@@ -608,6 +608,8 @@
     </ClCompile>
     <ClCompile Include="$(SrcDir)\MengeCore\PluginEngine\CorePluginEngine.cpp">
       <Filter>Source Files\PluginEngine</Filter>
+    <ClCompile Include="$(SrcDir)\MengeCore\Runtime\VisAgentFactory.cpp">
+      <Filter>Source Files\Runtime</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1189,6 +1191,8 @@
     </ClInclude>
     <ClInclude Include="$(SrcDir)\MengeCore\PluginEngine\CorePluginEngine.h">
       <Filter>Header Files\PluginEngine</Filter>
+    <ClInclude Include="$(SrcDir)\MengeCore\Runtime\VisAgentFactory.h">
+      <Filter>Header Files\Runtime</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
