@@ -268,82 +268,8 @@ namespace GCF {
 	}
 
 	////////////////////////////////////////////////////////////////
+
 #if 0
-	Vector2 Agent::agentForce( const Agent * other ) const {
-		/* compute right of way */
-		float rightOfWay = fabs( _priority - other->_priority );
-		if ( rightOfWay >= 1.f ) {
-			rightOfWay = 1.f;
-		}
-
-		const float D = Simulator::FORCE_DISTANCE;
-		Vector2 normal_ij = _pos - other->_pos;
-		float distance_ij = abs( normal_ij ); 
-		normal_ij /= distance_ij;
-		float Radii_ij = _radius + other->_radius; 
-		
-		float AGENT_SCALE = Simulator::AGENT_SCALE;
-		float D_AGT = D;
-		
-		// Right of way-dependent calculations
-		// Compute the direction perpinduclar to preferred velocity (on the side 
-		//		of the normal force.
-
-		Vector2 avoidNorm( normal_ij );
-		if ( rightOfWay ) {
-			Vector2 perpDir;
-			if ( _priority < other->_priority ) {
-				// his advantage
-				D_AGT += ( rightOfWay * rightOfWay ) * _radius * .5f;	// Note: there is no symmetric reduction on 
-												// the other side
-				// modify normal direction
-				//	The perpendicular direction should always be in the direction that gets the
-				//	agent out of the way as easily as possible
-				float prefSpeed = other->_velPref.getSpeed();
-				if ( prefSpeed < 0.0001f ) {
-					// he wants to be stationary, accelerate perpinduclarly to displacement
-					perpDir.set( -normal_ij.y(), normal_ij.x() );
-					if ( perpDir * _vel < 0.f ) perpDir.negate();
-				} else {
-					// He's moving somewhere, accelerate perpindicularly to his preferred direction
-					// of travel.  
-					const Vector2 prefDir( other->_velPref.getPreferred() );
-					perpDir.set( -prefDir.y(), prefDir.x() );	// perpendicular to preferred velocity
-					if ( perpDir * normal_ij < 0.f ) perpDir.negate();
-				}
-				// spherical linear interpolation
-				float sinTheta = det( perpDir, normal_ij );
-				if ( sinTheta < 0.f ) {
-					sinTheta = -sinTheta;
-				} 
-				if ( sinTheta > 1.f ) {
-					sinTheta = 1.f;	// clean up numerical error arising from determinant
-				}
-				avoidNorm.set( slerp( rightOfWay, normal_ij, perpDir, sinTheta ) );
-			}
-		}
-		float mag = (AGENT_SCALE * expf((Radii_ij - distance_ij)/ D_AGT ));
-		const float MAX_FORCE = 1e15f;
-		if ( mag >= MAX_FORCE ) {
-			mag = MAX_FORCE;
-		}
-		Vector2 force( avoidNorm * mag );
-
-		if (distance_ij < Radii_ij) {
-			Vector2 f_pushing( 0.f, 0.f ); 
-			Vector2 f_friction( 0.f, 0.f );
-			// pushing
-			Vector2 tangent_ij( normal_ij.y(), -normal_ij.x() ); 
-
-			f_pushing = normal_ij * ( Simulator::BODY_FORCE * (Radii_ij - distance_ij)); 
-			f_friction = tangent_ij * (Simulator::FRICTION * (Radii_ij - distance_ij)) * fabs(( other->_vel - _vel ) * tangent_ij);// / distance_ij;
-			force += f_pushing + f_friction;
-		}
-		return force;
-	}
-
-	////////////////////////////////////////////////////////////////
-
 	Vector2 Agent::obstacleForce( const Agents::Obstacle * obst ) const {
 		const float D = Simulator::FORCE_DISTANCE;
 		const float OBST_MAG = Simulator::OBST_SCALE;
@@ -376,8 +302,10 @@ namespace GCF {
 		return force;
 	}
 
-	////////////////////////////////////////////////////////////////
 #endif
+
+	////////////////////////////////////////////////////////////////
+
 	Vector2 Agent::driveForce() const { 
 		return ( _velPref.getPreferredVel() - _vel ) / Simulator::REACTION_TIME;
 	}

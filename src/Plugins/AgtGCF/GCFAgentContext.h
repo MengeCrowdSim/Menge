@@ -92,6 +92,7 @@ namespace GCF {
 		virtual void update(); 
 
 	protected:
+
 		/*!
 		 *	@brief		Draw context elements into the 3D world.
 		 *
@@ -108,11 +109,17 @@ namespace GCF {
 		 *	@returns	A formatted string for display in the context's 2D gui.
 		 */
 		virtual std::string agentText( const Agents::BaseAgent * agent ) const;
-#if 0
+
 		/*!
 		 *	@brief		Determines if the force vectors are drawn
 		 */
 		bool		_showForce;
+
+		/*!
+		 *	@brief		Determines if the foces are drawn proportionately (false) or 
+		 *				purely the direction (true).
+		 */
+		bool		_onlyForceDir;
 
 		/*!
 		 *	@brief		The id of the forceObject to display.
@@ -122,11 +129,20 @@ namespace GCF {
 		int		_forceObject;
 
 		/*!
+		 *	@brief		Cycles the single entity whose force is being drawn.
+		 *
+		 *	@param		agt			The agent whose forces are being drawn.
+		 *	@param		forward		If true, cycles forward, if false, cycles backwards.
+		 *	@returns	True if a redraw is required.
+		 */
+		bool cycleSingleForce(const Agent * agt,  bool forward );
+
+		/*!
 		 *	@brief		Function for drawing the force vectors acting on agt
 		 *
 		 *	@param		agt			The agent whose forces are displayed.
 		 */
-		void drawForce( const Agent * agt );
+		void drawForces( const Agent * agt );
 
 		/*!
 		 *	@brief		Draw the force vector from srcAgent acting on agt
@@ -151,11 +167,11 @@ namespace GCF {
 		 *				It assumes the force color has already been set.
 		 *
 		 *	@param		agt			A pointer to the agent on which the force is acting
-		 *	@param		force		The force vector to draw
+		 *	@param		forceDir	The direction of the force vector to draw
+		 *	@param		forceMag	The magnitude of the underlying force.
 		 *	@param		label		The label to apply to the force.
 		 */
-		void drawForce( const Agent * agt, const Vector2 & force, const std::string & label );
-#endif
+		void drawForce( const Agent * agt, const Vector2 & forceDir, float forceMag, const std::string & label );
 	};
 }	// namespace GCF
 #endif	 // __GCF_AGENT_CONTEXT_H__
