@@ -127,13 +127,6 @@ namespace GCF {
 		 *	@brief		Updates the ellipse to the current state
 		 */
 		void updateEllipse();
-
-		/*!
-		 *	@brief		Compute the force due to another agent
-		 *	@param		other			A pointer to a neighboring agent
-		 *	@returns	The force imparted by the other agent on this agent
-		 */
-		Vector2 agentForce( const Agent * other ) const;
 #if 0
 
 		/*!
