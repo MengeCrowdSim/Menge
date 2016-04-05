@@ -171,11 +171,11 @@ namespace GCF {
 
 	int Agent::getRepulsionParameters( const Agent * agent, float & effDist, Vector2 & forceDir, float & K_ij, float & response, float & velScale, float & magnitude ) const {
 		const float PREF_SPEED = abs( _velPref.getPreferredVel() );
-		float centerDist = _ellipse.ellipseCenterDistance( agent->_ellipse );
+		forceDir = _ellipse.ellipseCenterDisplace( agent->_ellipse );
+		float centerDist = abs( forceDir );
 		float dca = _ellipse.distanceOfClosestApproach( agent->_ellipse );
 		effDist = centerDist - dca;
 
-		forceDir = _ellipse.ellipseCenterDisplace( agent->_ellipse );
 		float dist = abs( forceDir );
 		assert( dist > 0.0001f && "Agents are on top of each other" );
 		forceDir /= dist;
