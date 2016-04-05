@@ -74,4 +74,16 @@ namespace GCF {
 		}
 		return true;
 	}
+
+	////////////////////////////////////////////////////////////////
+
+	void Simulator::finalize() {
+		Agents::SimulatorBase<Agent>::finalize();
+		const float thresh = 1.f / ( 3.f * MAX_AGENT_FORCE );
+		if ( AGENT_INTERP_WIDTH < thresh ) {
+			AGENT_INTERP_WIDTH = thresh * 1.5f;
+			// TODO: Log this change
+		}
+	}
+	
 }	//namespace GCF 

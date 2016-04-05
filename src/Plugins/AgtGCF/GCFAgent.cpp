@@ -87,6 +87,35 @@ namespace GCF {
 
 	////////////////////////////////////////////////////////////////
 
+	void Agent::updateOrient(float timeStep) {
+		// This stabilizes orientation
+		//		As the agent slows down, the target orientation becomes preferred direction
+		float speed = sqrt( absSq( _vel ) );
+		float frac = speed < _prefSpeed ? sqrtf( speed / _prefSpeed ) : 1.f;
+		
+		Vector2 prefDir = _velPref.getPreferred();
+		Vector2 moveDir = _vel / speed;
+
+		Vector2 newOrient = frac * moveDir + ( 1.f - frac ) * prefDir;
+		newOrient.normalize();
+		const float MAX_ANGLE_CHANGE = timeStep * _maxAngVel;
+		float maxCt = cos( MAX_ANGLE_CHANGE );
+		float ct = newOrient * _orient;
+		if ( ct < maxCt ) {
+			// changing direction at a rate greater than _maxAngVel
+			float maxSt = sin( MAX_ANGLE_CHANGE );
+			if ( det( _orient, newOrient ) > 0.f ) {
+				// rotate _orient left
+				_orient.set( maxCt * _orient._x - maxSt * _orient._y, maxSt * _orient._x + maxCt * _orient._y );
+			} else {
+				// rotate _orient right
+				_orient.set( maxCt * _orient._x + maxSt * _orient._y, -maxSt * _orient._x + maxCt * _orient._y );
+			}
+		}
+	}
+
+	////////////////////////////////////////////////////////////////
+	
 	void Agent::postUpdate() {
 		updateEllipse();
 	}
@@ -186,37 +215,22 @@ namespace GCF {
 		}
 
 		// field of view
-#define SEAN_GCF
 		K_ij = _orient * forceDir;
-#ifdef SEAN_GCF
-		K_ij = ( K_ij * 0.5f ) - 0.5f;
-#else
-		if ( K_ij >= 0.f )  {
-			// No force if the displacement is more than 90 degrees away from
-			//	movement direction - force direction in opposite direction of
-			//	displacement
-			// Agent out of field of view
-			return 2;
-		}
-#endif
+
+		// This represents 360 degree sensitivity, with the maximum sensitivity in the oriented direction
+		//	fading to zero in the opposite direction
+		// remap [-1, 1] -> [-1, -0.1]
+		K_ij = ( K_ij * 0.45f ) - 0.55f;
 		
 		// relative velocities
 		Vector2 relVel = _vel - agent->_vel;
-#ifdef SEAN_GCF
+
 		float velWeight = relVel * forceDir; 
-		if ( velWeight > 0.f ) {
-			// relative speed is away from the neighbor
-			velScale = Simulator::NU_AGENT * PREF_SPEED;
-		} else {
-			// some portion is towards
-			velScale = Simulator::NU_AGENT * PREF_SPEED - velWeight / std::max( effDist, 0.01f ) ;
+		velScale = Simulator::NU_AGENT * PREF_SPEED;
+		if ( velWeight <= 0.f ) {
+			// convergent velocity needs some extra pushing
+			velScale -= velWeight / std::max( effDist, 0.01f ) ;
 		}
-#else
-		float velWeight = relVel * _orient;
-		if ( velWeight < 0.f ) velWeight = 0.f;
-		velScale = Simulator::NU_AGENT * PREF_SPEED + velWeight;
-		assert( velScale > 0.f && "velScale should always be non-zero" );
-#endif
 
 		// force response
 		response = computeDistanceResponse( effDist );
@@ -246,7 +260,7 @@ namespace GCF {
 		
 		// Distance so close that a constant force should be applied. - region 5
 		if ( effDist <= 0 ) {
-			return maxForce / interpWidth;
+			return 3.f * maxForce; 
 		}
 		
 		// Aproaching maximum distance with linearly decreasing force - region 2
@@ -264,7 +278,7 @@ namespace GCF {
 		// closest domain, smoothing converge to constant - region 4
 		float f = 1.f / interpWidth;
 		float fDeriv = -f * f;
-		return hermite_interp( effDist, 0, interpWidth, maxForce * f, f, 0, fDeriv );
+		return hermite_interp( effDist, 0, interpWidth, 3.f * maxForce, f, 0, fDeriv );
 	}
 
 	////////////////////////////////////////////////////////////////

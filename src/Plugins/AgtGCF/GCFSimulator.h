@@ -97,6 +97,18 @@ namespace GCF {
 		 */
 		virtual bool setExpParam( const std::string & paramName, const std::string & value ) throw( Agents::XMLParamException );
 
+		/*!
+		 *	@brief	After all agents and all obstacles have been added to the scene
+		 *			does the work to finish preparing the simulation to be run.
+		 *
+		 *	This work is performed when the simulator is done being initialized.
+		 *	If a particular new pedestrian simulator requires particular finalization
+		 *	work, this function should be sub-classed and the parent class's
+		 *	version of the function should be explicitly called before any additional
+		 *	work is performed.
+		 */
+		virtual void finalize();
+
 	protected:
 		friend class Agent;
 		friend class AgentContext;
