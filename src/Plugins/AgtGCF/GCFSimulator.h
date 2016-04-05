@@ -58,6 +58,9 @@ using namespace Menge;
  *					Chraibi et al., 2010 paper.
  */
 namespace GCF {
+	// forward declaration
+	class AgentContext;
+
 	/*!
 	 *  @brief      Defines the simulator operating on a GCF::Agent.
 	 */
@@ -96,6 +99,7 @@ namespace GCF {
 
 	protected:
 		friend class Agent;
+		friend class AgentContext;
 		
 		/*!
 		 *	@brief		The reaction time used to define the driving force

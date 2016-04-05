@@ -38,18 +38,27 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 #include "GCFAgentContext.h"
 #include "GCFAgent.h"
+#include "GCFSimulator.h"
 #include "VisAgent.h"
 #include <iomanip>
 #include <sstream>
 
 namespace GCF {
 
+	const int SAMPLE_COUNT = 50;
+
 	////////////////////////////////////////////////////////////////
 	//			Implementation of GCFAgentContext
 	////////////////////////////////////////////////////////////////
 
-	AgentContext::AgentContext( VisAgent ** agents, unsigned int agtCount ): BaseAgentContext(agents,agtCount), _showForce(false), _onlyForceDir(true), _forceObject(0)
+	AgentContext::AgentContext( VisAgent ** agents, unsigned int agtCount ): BaseAgentContext(agents,agtCount), _showForce(false), _onlyForceDir(true), _forceObject(0), _responses(0x0)
 	{
+	}
+
+	////////////////////////////////////////////////////////////////
+
+	AgentContext::~AgentContext() {
+		if ( _responses != 0x0 ) delete [] _responses;
 	}
 
 	////////////////////////////////////////////////////////////////
@@ -114,6 +123,61 @@ namespace GCF {
 
 	////////////////////////////////////////////////////////////////
 
+	void AgentContext::drawUIGL( int vWidth, int vHeight, bool select ) {
+		BaseAgentContext::drawUIGL( vWidth, vHeight, select );
+		if ( !select && _selected ) {
+			glMatrixMode( GL_PROJECTION );
+			glPushMatrix();
+			glLoadIdentity();
+			glOrtho( 0.0, vWidth, 0.0, vHeight, -1.0f, 1.0f );
+			glMatrixMode( GL_MODELVIEW );
+			glPushMatrix();
+			glLoadIdentity();
+			
+			glPushAttrib( GL_CURRENT_BIT | GL_ENABLE_BIT );
+			glDisable( GL_DEPTH_TEST );
+			glDisable( GL_LIGHTING );
+			
+			const float MAX_Y = _responses[1];
+			glTranslatef(vWidth * 0.75f + 10, 0.f + 10, 0.f );
+			glScalef( vWidth / ( Simulator::MAX_AGENT_DIST * 4 ), vHeight / (MAX_Y * 4 ), 1.f);
+			glColor3f( 1.f, 1.f, 1.f );
+
+			// horz/vert axes
+			glBegin( GL_LINE_STRIP );
+			glVertex3f( 0.f, MAX_Y, 0.f );
+			glVertex3f( 0.f, 0.f, 0.f );
+			glVertex3f( Simulator::MAX_AGENT_DIST, 0.f, 0.f );
+			glEnd();
+
+			// Tick marks
+			glBegin( GL_LINES );
+			glVertex3f( Simulator::MAX_AGENT_DIST, MAX_Y, 0.f );
+			glVertex3f( Simulator::MAX_AGENT_DIST, 0.f, 0.f );
+			glVertex3f( Simulator::MAX_AGENT_DIST - Simulator::AGENT_INTERP_WIDTH,MAX_Y, 0.f );
+			glVertex3f( Simulator::MAX_AGENT_DIST - Simulator::AGENT_INTERP_WIDTH, 0.f, 0.f );
+			glVertex3f( Simulator::AGENT_INTERP_WIDTH, MAX_Y, 0.f );
+			glVertex3f( Simulator::AGENT_INTERP_WIDTH, 0.f, 0.f );
+			glEnd();
+
+			glColor3f( 0.75f, 0.8f, 0.75f );
+			glBegin( GL_LINE_STRIP );
+			for ( int i = 0; i < SAMPLE_COUNT * 2; i += 2 ) {
+				glVertex3f( _responses[i], _responses[i + 1], 0.f );
+			}
+			glEnd();
+
+			glPopAttrib();
+			glPopMatrix();
+			//		draw a character
+			glMatrixMode( GL_PROJECTION );
+			glPopMatrix();
+			glMatrixMode( GL_MODELVIEW );
+		}
+	}
+
+	////////////////////////////////////////////////////////////////
+
 	void AgentContext::draw3DGL( bool select ) {
 		BaseAgentContext::draw3DGL( select );
 		if ( !select && _selected ) {
@@ -121,6 +185,7 @@ namespace GCF {
 			glDepthMask( GL_FALSE );
 			const Agent * agt = dynamic_cast< const Agent * >( _selected->getAgent() );
 			assert( agt != 0x0 && "GCF context trying to work with a non GCF agent" );
+			initResponses(agt);
 			drawForces( agt );
 			glPopAttrib();
 		}
@@ -285,6 +350,23 @@ namespace GCF {
 		}
 		ss << forceMag << " N";
 		writeTextRadially( ss.str(), forceEnd, forceDir, true );
+	}
+
+	////////////////////////////////////////////////////////////////
+
+	void AgentContext::initResponses(const Agent * agt) {
+		if ( _responses == 0x0 ) {
+			
+			float dd = Simulator::MAX_AGENT_DIST / SAMPLE_COUNT;
+			_responses = new float[ ( SAMPLE_COUNT + 1 ) * 2 ];
+			int idx = 0;
+			for ( int i = 0; i <= SAMPLE_COUNT; ++i, idx += 2 ) {
+				float d = dd * i;
+				float r = agt->computeDistanceResponse(d);
+				_responses[idx] = d;
+				_responses[idx + 1] = r;
+			}
+		}
 	}
 
 }	// namespace GCF

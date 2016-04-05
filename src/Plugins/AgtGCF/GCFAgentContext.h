@@ -69,6 +69,11 @@ namespace GCF {
 		AgentContext( VisAgent ** agents, unsigned int agtCount );
 
 		/*!
+		 *	@brief		Destructor
+		 */
+		virtual ~AgentContext();
+
+		/*!
 		 *	@brief		Returns the name of the context for display.
 		 *
 		 *	@returns		The name of this context.
@@ -92,6 +97,16 @@ namespace GCF {
 		virtual void update(); 
 
 	protected:
+
+		/*!
+		 *	@brief		Draw UI elements into the context.
+		 *
+		 *	@param		vWidth		The width of the viewport (in pixels).
+		 *	@param		vHeight		The height of the viewport (in pixels).
+		 *	@param		select		Defines if the drawing is being done for selection
+		 *							purposes (true) or visualization (false).
+		 */
+		virtual void drawUIGL( int vWidth, int vHeight, bool select=false );
 
 		/*!
 		 *	@brief		Draw context elements into the 3D world.
@@ -127,6 +142,11 @@ namespace GCF {
 		 *				if negative, an obstacle
 		 */
 		int		_forceObject;
+
+		/*!
+		 *	@brief		A sampling of force responses based on effective distance.
+		 */
+		float *		_responses;
 
 		/*!
 		 *	@brief		Cycles the single entity whose force is being drawn.
@@ -172,6 +192,13 @@ namespace GCF {
 		 *	@param		label		The label to apply to the force.
 		 */
 		void drawForce( const Agent * agt, const Vector2 & forceDir, float forceMag, const std::string & label );
+
+		/*!
+		 *	@brief		Initializes the responses curve
+		 *
+		 *	@param		Agent to use to build the response curve from.
+		 */
+		void initResponses(const Agent * agt);
 	};
 }	// namespace GCF
 #endif	 // __GCF_AGENT_CONTEXT_H__
