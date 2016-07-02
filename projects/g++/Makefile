@@ -9,12 +9,12 @@ $(DIRS):
 	mkdir $@
 
 
-release:
+release: $(DIRS)
 	( cd build/release && cmake -DCMAKE_BUILD_TYPE=release ../.. && $(MAKE) --no-print-directory  && make --no-print-directory install)
 #	ctags -R  --language-force=c++ *.*
 #	ctags -eR  --language-force=c++ *.*
 
-debug:
+debug: $(DIRS)
 	( cd build/debug && cmake -DCMAKE_BUILD_TYPE=debug ../.. && $(MAKE) --no-print-directory && make --no-print-directory install)
 #	ctags -R  --language-force=c++ *.*
 #	ctags -eR  --language-force=c++ *.*

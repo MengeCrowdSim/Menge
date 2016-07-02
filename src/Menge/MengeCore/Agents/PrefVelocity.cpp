@@ -3,7 +3,7 @@
 License
 
 Menge
-Copyright © and trademark ™ 2012-14 University of North Carolina at Chapel Hill. 
+Copyright ï¿½ and trademark ï¿½ 2012-14 University of North Carolina at Chapel Hill. 
 All rights reserved.
 
 Permission to use, copy, modify, and distribute this software and its documentation 
@@ -89,10 +89,10 @@ namespace Menge {
 			_preferred = preferred;
 	#if _DEBUG
 			const float SPAN_EPS = -1.e-4f;
-	#endif
 			assert( det( right, left ) >= SPAN_EPS );
 			assert( det( right, preferred )>= SPAN_EPS );
 			assert( det( preferred, left ) >= SPAN_EPS );
+	#endif
 		}
 				
 	}	// namespace Agents
