@@ -21,7 +21,6 @@
 #include <inttypes.h>
 #include <stdio.h>
 
-
 //FIXME: this should be handle automatically by cmake
 #define sprintf_s(buffer, buffer_size, stringbuffer, ...) (snprintf(buffer,buffer_size ,stringbuffer, __VA_ARGS__))
 #define sscanf_s(buffer, buffer_size, stringbuffer, ...) (snprintf(buffer,buffer_size ,stringbuffer, __VA_ARGS__))
@@ -30,13 +29,17 @@
 
 #ifndef DWORD
 #define WINAPI
-typedef unsigned long DWORD;
+//typedef unsigned long DWORD;
+typedef uint32_t DWORD;
 typedef short WCHAR;
 typedef void * HANDLE;
 //#define MAX_PATH    PATH_MAX
-typedef unsigned char BYTE;
-typedef unsigned short WORD;
-typedef unsigned int BOOL;
+typedef uint8_t BYTE;
+//typedef unsigned char BYTE;
+//typedef unsigned short WORD;
+typedef uint16_t WORD;
+typedef int32_t BOOL;
+//typedef unsigned int BOOL;
 #endif
 
 #ifdef UNICODE

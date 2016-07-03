@@ -242,6 +242,10 @@ namespace Menge {
 		 *	@returns	The number of VisAgents updated by the system.
 		 */
 		size_t getAgentCount() const;
+                const Menge::Agents::SimulatorInterface* getSimulator() const
+                {
+                    return _sim;
+                }
 
 	protected:
 
