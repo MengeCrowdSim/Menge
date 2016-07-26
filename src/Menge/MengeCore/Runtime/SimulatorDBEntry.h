@@ -3,7 +3,7 @@
 License
 
 Menge
-Copyright © and trademark ™ 2012-14 University of North Carolina at Chapel Hill. 
+Copyright ï¿½ and trademark ï¿½ 2012-14 University of North Carolina at Chapel Hill. 
 All rights reserved.
 
 Permission to use, copy, modify, and distribute this software and its documentation 
@@ -287,13 +287,16 @@ namespace Menge {
 		 *	@brief		A pointer to the simulator.  The database entry is not responsible for
 		 *				deleting it unless there is an error in initialization.
 		 */
-		Agents::SimulatorInterface * _sim;
+
 
 		/*!
 		 *	@brief		A pointer to the behavior finite state machine.  The database entry is *not*
 		 *				responsible for deleting it unless there is an error in initialization.
 		 */
-		BFSM::FSM * _fsm;
+		
+		public:
+                        static BFSM::FSM * _fsm;
+			static Agents::SimulatorInterface * _sim;
 	};
 }	// namespace Menge
 

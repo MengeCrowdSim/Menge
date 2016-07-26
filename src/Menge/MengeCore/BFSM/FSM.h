@@ -239,7 +239,7 @@ namespace Menge {
 			 *	@returns	A pointer to the corresponding goal.  If no such goal exists
 			 *				NULL is returned.
 			 */
-			const Goal * getGoal( size_t goalSet, size_t goalID );
+			Goal * getGoal( size_t goalSet, size_t goalID );
 
 			/*!
 			 *	@brief		Retrives the given goal set.
@@ -248,7 +248,7 @@ namespace Menge {
 			 *	@returns	A pointer to the corresponding goal set.  If no such goal set
 			 *				exists, NULL is returned.
 			 */
-			const GoalSet * getGoalSet( size_t goalSetID );
+			GoalSet * getGoalSet( size_t goalSetID );
 
 			/*!
 			 *	@brief		Update the fsm state by one time step

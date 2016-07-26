@@ -3,7 +3,7 @@
 License
 
 Menge
-Copyright © and trademark ™ 2012-14 University of North Carolina at Chapel Hill. 
+Copyright ï¿½ and trademark ï¿½ 2012-14 University of North Carolina at Chapel Hill. 
 All rights reserved.
 
 Permission to use, copy, modify, and distribute this software and its documentation 
@@ -40,7 +40,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include "Actions/ObstacleAction.h"
 #include "Actions/PropertyAction.h"
 #include "Actions/TeleportAction.h"
-
+#include "Actions/IncPropAction.h"
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
 namespace Menge {
@@ -57,6 +57,7 @@ namespace Menge {
 		addFactory( new BFSM::OffsetPropertyActFactory() );
 		addFactory( new BFSM::ScalePropertyActFactory() );
 		addFactory( new BFSM::TeleportActFactory() );
+		addFactory( new BFSM::IncPropActFactory() );
 	}
 }	// namespace Menge
 

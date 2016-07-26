@@ -3,7 +3,7 @@
 License
 
 Menge
-Copyright © and trademark ™ 2012-14 University of North Carolina at Chapel Hill. 
+Copyright ï¿½ and trademark ï¿½ 2012-14 University of North Carolina at Chapel Hill. 
 All rights reserved.
 
 Permission to use, copy, modify, and distribute this software and its documentation 
@@ -52,7 +52,8 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include "MengeException.h"
 
 namespace Menge {
-
+	Agents::SimulatorInterface * SimulatorDBEntry::_sim = 0;
+	BFSM::FSM * SimulatorDBEntry::_fsm = 0;
 	/////////////////////////////////////////////////////////////////////////////
 	//                     Implementation of SimulatorDBEntry
 	////////////////////////////////////////////////////////////////////////////

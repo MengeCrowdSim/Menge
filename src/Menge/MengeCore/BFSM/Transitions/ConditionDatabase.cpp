@@ -3,7 +3,7 @@
 License
 
 Menge
-Copyright © and trademark ™ 2012-14 University of North Carolina at Chapel Hill. 
+Copyright ï¿½ and trademark ï¿½ 2012-14 University of North Carolina at Chapel Hill. 
 All rights reserved.
 
 Permission to use, copy, modify, and distribute this software and its documentation 
@@ -42,7 +42,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include "Transitions/CondSpace.h"
 #include "Transitions/CondGoal.h"
 #include "Transitions/CondBoolean.h"
-
+#include "Transitions/CondProximity.h"
+#include "Transitions/CondFollow.h"
+#include "Transitions/CondVia.h"
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
 namespace Menge {
@@ -62,6 +64,9 @@ namespace Menge {
 		addFactory( new BFSM::AndCondFactory() );
 		addFactory( new BFSM::OrCondFactory() );
 		addFactory( new BFSM::NotCondFactory() );
+		addFactory( new BFSM::ProximityCondFactory() );
+		addFactory( new BFSM::FollowTargetCondFactory() );
+		addFactory( new BFSM::ViaTargetCondFactory() );
 	}
 
 }	// namespace Menge

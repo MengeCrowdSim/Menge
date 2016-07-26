@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+
+<BFSM>
+	<GoalSet id="0">
+	    <Goal capacity="10000" id="0" type="AABB" weight="1.00" max_x="-19.90" min_x="-22.34" max_y="1.28" min_y="0.58"/>
+        <Goal capacity="10000" id="1" type="AABB" weight="1.00" max_x="-17.10" min_x="-19" max_y="1.28" min_y="0.57"/>
+        <Goal capacity="10000" id="2" type="AABB" weight="1.00" max_x="-15.00" min_x="-18.5" max_y="1.25" min_y="0.58"/>
+        <Goal capacity="10000" id="3" type="AABB" weight="1.00" max_x="-12.70" min_x="-17.5" max_y="1.28" min_y="0.63"/>
+        <Goal capacity="10000" id="4" type="AABB" weight="1.00" max_x="-20" min_x="-21.175" max_y="7.54" min_y="6.98"/>
+        <Goal capacity="10000" id="6" type="AABB" weight="1.00" max_x="-11.50" min_x="-17.315" max_y="-4.42" min_y="-9.57"/>
+        <Goal capacity="10000" id="7" type="AABB" weight="1.00" max_x="-16.70" min_x="-18.96" max_y="-8.3" min_y="-9.02"/>
+        <Goal capacity="10000" id="8" type="AABB" weight="1.00" max_x="-16.70" min_x="-18.77" max_y="-6.2" min_y="-7.74"/>
+        <Goal capacity="10000" id="9" type="AABB" weight="1.00" max_x="-19.10" min_x="-19.72" max_y="-7.83" min_y="-8.87"/>
+        <Goal capacity="10000" id="10" type="AABB" weight="1.00" max_x="-10.40" min_x="-14.15" max_y="-10.43" min_y="-13.98"/>
+        <Goal capacity="10000" id="11" type="AABB" weight="1.00" max_x="-17.20" min_x="-20.14" max_y="-10.16" min_y="-11.98"/>
+        <Goal capacity="10000" id="12" type="AABB" weight="1.00" max_x="-12.50" min_x="-14.48" max_y="-12.23" min_y="-12.98"/>
+        <Goal capacity="10000" id="13" type="AABB" weight="1.00" max_x="1.06" min_x="-1.06" max_y="-5.13" min_y="-10.55"/>
+        <Goal capacity="10000" id="14" type="AABB" weight="1.00" max_x="0" min_x="-3.14" max_y="-7.93" min_y="-9.62"/>
+        <Goal capacity="10000" id="15" type="AABB" weight="1.00" max_x="0" min_x="-4.5" max_y="-7.41" min_y="-11.47"/>
+        <Goal capacity="10000" id="16" type="AABB" weight="1.00" max_x="2" min_x="0" max_y="-11.11" min_y="-11.99"/>
+        <Goal capacity="10000" id="17" type="AABB" weight="1.00" max_x="0" min_x="-2.06" max_y="-1.01" min_y="-5.90"/>
+        <Goal capacity="10000" id="18" type="AABB" weight="1.00" max_x="0" min_x="-7.304" max_y="-0.60" min_y="-4.41"/>
+        <Goal capacity="10000" id="19" type="AABB" weight="1.00" max_x="-2.3" min_x="-7.54" max_y="-0.45" min_y="-5.44"/>
+        <Goal capacity="10000" id="21" type="AABB" weight="1.00" max_x="-3.24" min_x="-5.63" max_y="-7.21" min_y="-7.96"/>
+        <Goal capacity="10000" id="22" type="AABB" weight="1.00" max_x="-6.82" min_x="-7.74" max_y="-8.45" min_y="-10.78"/>
+        <Goal capacity="10000" id="23" type="AABB" weight="1.00" max_x="2.78" min_x="-1.38" max_y="8.84" min_y="8.24"/>
+        <Goal capacity="10000" id="24" type="AABB" weight="1.00" max_x="0" min_x="-7.2" max_y="11.89" min_y="9.96"/>
+        <Goal capacity="10000" id="25" type="AABB" weight="1.00" max_x="-15.6" min_x="-19.2" max_y="8.23" min_y="7.09"/>
+        <Goal capacity="10000" id="26" type="AABB" weight="1.00" max_x="0" min_x="-7.3" max_y="10.24" min_y="9.52"/>
+        <Goal capacity="10000" id="27" type="AABB" weight="1.00" max_x="2.78" min_x="-0.67" max_y="11.33" min_y="10.36"/>
+        <Goal capacity="10000" id="28" type="AABB" weight="1.00" max_x="-6.06" min_x="-9.02" max_y="10.14" min_y="5.03"/>
+        <Goal capacity="10000" id="29" type="AABB" weight="1.00" max_x="-2.97" min_x="-6.01" max_y="9.14" min_y="6.09"/>
+        <Goal capacity="10000" id="30" type="AABB" weight="1.00" max_x="-19.30" min_x="-20.5" max_y="10.76" min_y="9.67"/>
+        <Goal capacity="10000" id="31" type="AABB" weight="1.00" max_x="-17.00" min_x="-19.56" max_y="11.54" min_y="10.68"/>
+        <Goal capacity="10000" id="32" type="AABB" weight="1.00" max_x="12.80" min_x="-12.01" max_y="8.67" min_y="6.33"/>
+        <Goal capacity="10000" id="33" type="AABB" weight="1.00" max_x="12.80" min_x="-12.03" max_y="6.20" min_y="3.67"/>
+
+	</GoalSet>
+	<GoalSet id="1">
+		<Goal type="point" id="0" x="-7" y="0.0"/>
+		<Goal type="point" id="1" x="20" y="0.0"/>
+	</GoalSet>
+	<GoalSet id ="2">
+		
+		<Goal type="point" id="1" x="1" y="0"/>
+	</GoalSet>
+	<GoalSet id ="99">
+		
+		<Goal type="circle" id="0" x="0" y="0" radius="1"/>
+	</GoalSet>
+		<State name="Walk1" final="0" >
+			<GoalSelector type="random" goal_set="0" />
+			<VelComponent type="goal"/>
+		</State>
+		<State name="Wait" final="0" >
+			<GoalSelector type="identity"/>
+			<VelComponent type="goal"/>
+		</State>
+		<State name="Wait1" final="0" >
+			<GoalSelector type="identity"/>
+			<VelComponent type="goal"/>
+		</State>
+		<State name="RunAway1" final="0" >
+			<GoalSelector type="explicit" goal_set="1" goal="1" />
+			<VelComponent type="goal"/>
+			<Action type="set_property" property="pref_speed" dist="c" value="2" exit_reset="1"/>
+		</State>
+		<State name="DisasterWait" final="0" >
+			<GoalSelector type="identity"/>
+			<VelComponent type="goal"/>
+		</State>
+		<State name="DisasterWait1" final="0" >
+			<GoalSelector type="identity"/>
+			<VelComponent type="goal"/>
+		</State>
+		<State name="DisasterMove" final="0" >
+			<GoalSelector type="explicit" goal_set="1" goal="0" />
+		<VelComponent type="goal"/>
+		</State>
+		<State name="RunAway" final="0" >
+			<GoalSelector type="random" goal_set="2"/>
+			<Action type="set_property" property="pref_speed" dist="c" value="2" exit_reset="2"/>
+		<VelComponent type="goal"/>
+		</State>
+
+        <State name="Follow" final="0" >
+			<GoalSelector type="explicit" goal_set="99" goal="0" />
+			<VelComponent type="goal"/>
+        </State>
+
+		<Transition from="Walk1" to="Wait" >
+			<Condition type="goal_reached" distance="0.5" />
+		</Transition>
+		<Transition from="Wait" to="Walk1" >
+			<Condition type="timer" dist="u" min="5" max="7" per_agent="0"/>
+		</Transition>
+		<Transition from="Walk1" to="RunAway" >
+			<Condition type="proximity" distance="10.0" agentToAvoid="260"/> 
+			
+		</Transition> 
+		<Transition from="Wait" to="RunAway" >
+			<Condition type="proximity" distance="10.0" agentToAvoid="260"/> 
+			
+		</Transition> 
+		<Transition from="RunAway" to="Follow" >
+			<Condition type="follow" distance="10.0" goalSetToFollow="99"/> 
+		</Transition> 
+		<Transition from="RunAway" to="RunAway1" >
+			<Condition type="timer" dist="u" min="2" max="3" per_agent="0"/>
+		</Transition>
+		<Transition from="RunAway1" to="Wait1" >
+			<Condition type="goal_reached" distance="0.5" />
+		</Transition>
+		<Transition from="DisasterWait" to="DisasterMove" >
+			<Condition type="timer" dist="u" min="15" max="16" per_agent="0"/>
+		</Transition>
+		<Transition from="DisasterMove" to="DisasterWait1" >
+			<Condition type="goal_reached" distance="0.5" />
+		</Transition>
+</BFSM>
+

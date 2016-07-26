@@ -202,7 +202,7 @@ namespace Menge {
 
 		/////////////////////////////////////////////////////////////////////
 
-		const Goal * FSM::getGoal( size_t goalSet, size_t goalID ) {
+		Goal * FSM::getGoal( size_t goalSet, size_t goalID ) {
 			if ( _goalSets.find( goalSet ) == _goalSets.end() ) {
 				return 0x0;
 			}
@@ -211,7 +211,7 @@ namespace Menge {
 
 		/////////////////////////////////////////////////////////////////////
 
-		const GoalSet * FSM::getGoalSet( size_t goalSetID ) {
+		GoalSet * FSM::getGoalSet( size_t goalSetID ) {
 			if ( _goalSets.find( goalSetID ) == _goalSets.end() ) {
 				return 0x0;
 			}

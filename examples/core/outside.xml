@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<Project 
+	scene="outside/outsideS.xml" 
+	behavior="outside/outsideB.xml" 
+	view="outside/outsideV.xml" 
+	model="orca"
+	dumpPath="images/test"
+/>

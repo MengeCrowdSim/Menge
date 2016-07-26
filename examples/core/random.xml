@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+
+<Project 
+	scene="random/randomS.xml" 
+	behavior="random/randomB.xml" 
+	view="random/randomV.xml" 
+	model="orca"
+	dumpPath="images/test"
+/>
+
