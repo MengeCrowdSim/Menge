@@ -39,6 +39,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include "ObstacleKDTree.h"
 #include "BaseAgent.h"
 #include "Math/consts.h"
+#include <algorithm>
 
 namespace Menge {
 

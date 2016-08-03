@@ -42,6 +42,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include "ORCAAgent.h"
 #include "ORCASimulator.h"
 #include "Math/consts.h"
+#include <algorithm>
 
 namespace ORCA {
 

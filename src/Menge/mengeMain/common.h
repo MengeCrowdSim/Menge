@@ -54,6 +54,6 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include "math/vector.h"
 #include "math/consts.h"
 #include "math/Matrix.h"
-using namespace Math; 
+using namespace Menge::Math; 
 
 #endif	 // __COMMON_H__

@@ -50,22 +50,10 @@ namespace Menge {
 
 	class RoadMapPath;
 
-	#ifdef _WIN32
-	#include <hash_map>
 	/*!
 	 *	@brief		A map from agent id to its path.
 	 */
-	typedef stdext::hash_map< size_t, RoadMapPath * > PathMap;
-	#else
-	#ifndef DOXYGEN_SHOULD_SKIP_THIS
-	#include <tr1/unordered_map>
-	/*!
-	 *	@brief		A map from agent id to its path.
-	 */
-	typedef std::tr1::unordered_map< size_t, RoadMapPath * > PathMap;
-	#endif	// DOXYGEN_SHOULD_SKIP_THIS
-	#endif
-
+	typedef HASH_MAP< size_t, RoadMapPath * > PathMap;
 
 	namespace Agents {
 		class BaseAgent;

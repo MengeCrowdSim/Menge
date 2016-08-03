@@ -50,6 +50,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include <string>
 #include <exception>
 
+#pragma warning(disable:4275)
 namespace Menge {
 
 	/*!
@@ -89,6 +90,8 @@ namespace Menge {
 		 */
 		std::string _msg;
 	};
+
+#pragma warning(default:4275)
 
 	/*!
 	 *	@brief		Base class for *fatal* exceptions.
