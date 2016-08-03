@@ -89,6 +89,11 @@ namespace Menge {
 				vList.closed = (iVal != 0);
 			}
 
+			if (!vList.closed) {
+				logger << Logger::ERR_MSG << "This version of Menge does not support open obstacles.  Obstacle on line " << node->Row() << " is declared to be open.\n";
+				throw ObstacleSetFatalException("Unsupported open obstacles");
+			}
+
 			double dVal;
 			bool valid = true;
 			
