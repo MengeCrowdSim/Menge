@@ -125,8 +125,10 @@ namespace Menge {
 			graph->destroy();
 			return 0x0;
 		}
+
+		bool validEdges = true;
 		
-		for ( size_t e = 0; e < eCount; ++ e ) {
+		for ( size_t e = 0; e < eCount; ++e ) {
 			GraphEdge edge;
 			int from, to;
 			if ( ! ( f >> from >> to ) ) {
@@ -137,13 +139,38 @@ namespace Menge {
 			}
 			edge.setDistance( graph->_vertices[ from ].getDistance( graph->_vertices[ to ] ) );
 			edge.setNeighbor( &graph->_vertices[ to ] );
-			graph->_vertices[ from ].setEdge( edge, vertNbr[ from ] );
+			if (!graph->_vertices[from].setEdge(edge, vertNbr[from])) {
+				validEdges = false;
+				logger << Logger::ERR_MSG << "Vertex " << from << " declared to have " << graph->_vertices[from].getEdgeCount() << " edges.  Attempting to add the " << (vertNbr[from] + 1) << "th edge.\n";
+			}
 			++vertNbr[ from ];
 			edge.setNeighbor( &graph->_vertices[ from ] );
-			graph->_vertices[ to ].setEdge( edge, vertNbr[ to ] );
+			if (!graph->_vertices[to].setEdge(edge, vertNbr[to])) {
+				validEdges = false;
+				logger << Logger::ERR_MSG << "Vertex " << to << " declared to have " << graph->_vertices[to].getEdgeCount() << " edges.  Attempting to add the " << (vertNbr[to] + 1) << "th edge.\n";
+			}
 			++vertNbr[ to ];
 		}
 
+		bool valid = validEdges;
+
+		if (!validEdges) {
+			logger << Logger::ERR_MSG << "Edges were improperly configured -- no valid roadmap.\n";
+		}
+
+		for (size_t v = 0; v < graph->_vCount; ++v) {
+			if (vertNbr[v] != graph->_vertices[v].getEdgeCount()) {
+				logger << Logger::ERR_MSG << "Vertex " << v << " declared to have " << graph->_vertices[v].getEdgeCount() << " edges.  Only " << vertNbr[v] << " assigned.\n";
+				valid = false;
+			}
+		}
+		if (!valid) {
+			delete[] vertNbr;
+			graph->destroy();
+			return 0x0;
+		}
+
+		delete[] vertNbr;
 		graph->initHeapMemory();
 		return graph;
 	}

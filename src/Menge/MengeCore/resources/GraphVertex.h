@@ -119,8 +119,9 @@ namespace Menge {
 		 *
 		 *	@param		edge		The edge to set
 		 *	@param		i			The index to set.
+		 *	@returns	True if the operation is valid, false otherwise.
 		 */
-		void setEdge( const GraphEdge & edge, size_t i );
+		bool setEdge( const GraphEdge & edge, size_t i );
 
 		/*!
 		 *	@brief		Reports the number of vertices adjacent to this vertex.

@@ -86,9 +86,12 @@ namespace Menge {
 
 	//////////////////////////////////////////////////////////////////////////////////////
 
-	void GraphVertex::setEdge( const GraphEdge & edge, size_t i ) {
-		assert( i < _edgeCount && "Trying to set a neighbor with an invalid index" );
-		_edges[ i ] = edge;
+	bool GraphVertex::setEdge( const GraphEdge & edge, size_t i ) {
+		if (i < _edgeCount) {
+			_edges[i] = edge;
+			return true;
+		}
+		return false;
 	}
 
 	//////////////////////////////////////////////////////////////////////////////////////
