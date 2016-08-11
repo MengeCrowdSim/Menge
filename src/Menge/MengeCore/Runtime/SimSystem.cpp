@@ -85,6 +85,7 @@ namespace Menge {
 				_isRunning = false;
 			} else {
 				for ( size_t i = 0; i <= _sim->getSubSteps(); ++i ) {
+                                        if(_sim->getGlobalTime()>=time) break;
 					try {
 						_isRunning = !_fsm->doStep();
 					} catch ( BFSM::FSMFatalException & e ) {
