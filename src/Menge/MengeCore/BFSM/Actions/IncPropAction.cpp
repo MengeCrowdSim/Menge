@@ -23,7 +23,7 @@ namespace Menge {
 		/////////////////////////////////////////////////////////////////////
 
 		void IncPropAction::onEnter( Agents::BaseAgent * agent ) {
-			if(agent->_radius<30)//TODO replace with property spec from xml
+			if(agent->_radius<20)//TODO replace with property spec from xml
 				agent->_radius = agent->_radius+this->_increment;
 		}
 

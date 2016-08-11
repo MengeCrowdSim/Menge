@@ -60,15 +60,22 @@
 		<Goal type="point" id="0" x="7" y="0"/>
 	</GoalSet>
 	<GoalSet id="3">
-		<Goal capacity="40" type="point" id="0" x="-12" y="17"/>
-		<Goal capacity="40" type="point" id="1" x="-12" y="0"/>
-		<Goal capacity="40" type="point" id="2" x="-12" y="-16"/>
-		<Goal capacity="40" type="point" id="3" x="20" y="17"/>
-		<Goal capacity="40" type="point" id="4" x="20" y="-17"/>
+		<Goal capacity="50" type="point" id="0" x="-15" y="17"/>
+		<Goal capacity="50" type="point" id="1" x="-10" y="0"/>
+		<Goal capacity="50" type="point" id="2" x="-15" y="-16"/>
+		<Goal capacity="50" type="point" id="3" x="20" y="17"/>
+		<Goal capacity="50" type="point" id="4" x="20" y="-17"/>
+	</GoalSet>
+	<GoalSet id="4">
+		<Goal capacity="50" type="point" id="0" x="-15" y="17"/>
+		<Goal capacity="50" type="point" id="1" x="-10" y="0"/>
+		<Goal capacity="50" type="point" id="2" x="-15" y="-16"/>
+		<Goal capacity="50" type="point" id="3" x="20" y="17"/>
+		<Goal capacity="50" type="point" id="4" x="20" y="-17"/>
 	</GoalSet>
 	<GoalSet id ="99">
 		
-		<Goal type="circle" id="0" x="100" y="100" radius="1"/>
+		<Goal type="circle" id="0" x="0" y="0" radius="1"/>
 	</GoalSet>	
 	
 		<State name="Walk1" final="0" >
@@ -98,7 +105,12 @@
 			<Action type="set_property" property="pref_speed" dist="c" value="2" exit_reset="1"/>
 		</State>
 		<State name="RunAway2" final="0" >
-			<GoalSelector type="nearest" goal_set="3"/>
+			<GoalSelector type="second_nearest" goal_set="3"/>
+			<VelComponent type="goal"/>
+			<Action type="set_property" property="pref_speed" dist="c" value="2" exit_reset="1"/>
+		</State>
+		<State name="RunAway3" final="0" >
+			<GoalSelector type="nearest" goal_set="4"/>
 			<VelComponent type="goal"/>
 			<Action type="set_property" property="pref_speed" dist="c" value="2" exit_reset="1"/>
 		</State>
@@ -107,7 +119,7 @@
 			<VelComponent type="goal"/>
 			<Action type="set_property" property="pref_speed" dist="c" value="2" exit_reset="1"/>
 		</State>
-		<State name="Safe" final="1" >
+		<State name="Wait2" final="0" >
 			<GoalSelector type="identity"/>
 			<VelComponent type="goal"/>
 		</State>
@@ -123,7 +135,10 @@
 			<GoalSelector type="explicit" goal_set="2"  goal="0"/>
 			<VelComponent type="goal"/>
 		</State>
-		
+		<State name="temp" final="0" >
+			<GoalSelector type="identity"/>
+			<VelComponent type="goal"/>
+		</State>
         <State name="Follow" final="0" >
 			<GoalSelector type="explicit" goal_set="99" goal="0" />
 			<VelComponent type="goal"/>
@@ -152,42 +167,93 @@
 		<Transition from="GrowMove" to="Grow" >
 			<Condition type="goal_reached" distance="1" />
 		</Transition>
-		<Transition from="Walk1" to="RunAway1" >
-			<Condition type="proximity" distance="2.0" agentToAvoid="260"/> 
+		<Transition from="Walk1">
+			<Condition type="proximity" distance="2.0" agentToAvoid="260"/>		
+			<Target type="prob">
+				<State name="RunAway1" weight="1"/>
+				<State name="RunAway2" weight="1"/>
+			</Target>
 		</Transition>
-		<Transition from="Wait1" to="RunAway1" >
-			<Condition type="proximity" distance="2.0" agentToAvoid="260"/> 
+		<Transition from="Wait1">
+			<Condition type="proximity" distance="2.0" agentToAvoid="260"/> 	
+			<Target type="prob">
+				<State name="RunAway1" weight="1"/>
+				<State name="RunAway2" weight="1"/>
+			</Target>
 		</Transition>
+		
 		<Transition from="Walk" to="Walk1" >
 			<Condition type="timer" dist="u" min="20" max="25" per_agent="0"/> 
 		</Transition>
 		<Transition from="Wait" to="Wait1" >
 			<Condition type="timer" dist="u" min="20" max="25" per_agent="0"/> 
 		</Transition>
-		<Transition from="RunAway1" to="RunAway" >
-			<Condition type="goal_reached" distance="5" />
+		<Transition from="RunAway1" to="RunAway3" >
+			<Condition type="goal_reached" distance="6" />
+			
 		</Transition>
-		<Transition from="RunAway2" to="RunAway" >
-			<Condition type="goal_reached" distance="5" />
+		<Transition from="RunAway2" to="RunAway3" >
+			<Condition type="goal_reached" distance="6" />
+			
 		</Transition>
-		<Transition from="RunAway" to="Safe" >
-			<Condition type="goal_reached" distance="5" />
+		<Transition from="RunAway" to="Wait2" >
+			<Condition type="goal_reached" distance="0.4" />
 		</Transition>
- 	        <Transition from="RunAway" to="Follow" >
+ 	        
+		
+		<Transition from="RunAway3" to="RunAway" >
+			<!--<Condition type = "or">
+			<Condition type = "AABB" max_x="-20" max_y="20" min_x ="-25" min_y="-20" inside ="true"/>-->
+			<Condition type="goal_reached" distance="5" />
+			<!--</Condition>-->
+		</Transition>
+		<!--<Transition from="RunAway" to="Follow" >
                         <Condition type="and">
-			      <Condition type="follow" distance="2.0" goalSetToFollow="99"/>
+			      <Condition type="follow" distance="5.0" goalSetToFollow="99" weight="1"/>
                               <Condition type="timer" dist="u" min="10" max="11" per_agent="0"/> 
                         </Condition>
+			<Target type="prob">
+				<State name="Follow" weight="2"/>
+				<State name="temp" weight="1"/>
+			</Target>
 		</Transition>
+		<Transition from="RunAway3" >
+                        <Condition type="and">
+			      <Condition type="follow" distance="5.0" goalSetToFollow="99" weight="1"/>
+                              <Condition type="timer" dist="u" min="5" max="6" per_agent="0"/> 
+                        </Condition>
+			<Target type="prob">
+				<State name="Follow" weight="2"/>
+				<State name="temp" weight="1"/>
+			</Target>
+
+		</Transition>-->
 		<Transition from="GrowStop" to="Grow" >
 			<Condition type="timer" dist="u" min="0.4" max="0.5" per_agent="0"/>
 		</Transition>
- 	        <Transition from="RunAway1" to="Follow" >
-			<Condition type="follow" distance="5.0" goalSetToFollow="99"/> 
+ 	        <Transition from="temp" >
+			<Condition type="auto"/>
+			<Target type="return"/>
 		</Transition>
+		<!--<Transition from="RunAway1">
+			<Condition type="follow" distance="5.0" goalSetToFollow="99" weight="1"/> 
+			<Target type="prob">
+				<State name="Follow" weight="2"/>
+				<State name="temp" weight="1"/>
+			</Target>
+		</Transition>
+		<Transition from="RunAway2">
+			<Condition type="follow" distance="5.0" goalSetToFollow="99" weight="1"/> 
+			<Target type="prob">
+				<State name="Follow" weight="2"/>
+				<State name="temp" weight="1"/>
+			</Target>
+		</Transition>-->
 		<Transition from="Follow" to="RunAway" >
-	            <Condition type="via" distance="5.0" goalsVia="3"/> 
-				
+			<Condition type = "and">	            
+				<Condition type="via" distance="7.0" goalsVia="4"/> 
+				<Condition type="timer" dist="u" min="5" max="6" per_agent="0"/> 
+			</Condition>
 		</Transition>
 </BFSM>
 

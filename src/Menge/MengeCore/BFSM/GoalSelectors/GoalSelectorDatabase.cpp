@@ -3,7 +3,7 @@
 License
 
 Menge
-Copyright © and trademark ™ 2012-14 University of North Carolina at Chapel Hill. 
+Copyright ï¿½ and trademark ï¿½ 2012-14 University of North Carolina at Chapel Hill. 
 All rights reserved.
 
 Permission to use, copy, modify, and distribute this software and its documentation 
@@ -48,7 +48,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include "GoalSelectors/GoalSelectorFarthest.h"
 #include "GoalSelectors/GoalSelectorFarthestNM.h"
 #include "GoalSelectors/GoalSelectorShared.h"
-
+#include "GoalSelectors/GoalSelectorSecondNearest.h"
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
 namespace Menge {
@@ -70,6 +70,7 @@ namespace Menge {
 		addFactory( new BFSM::NearestNMGoalSelectorFactory() );
 		addFactory( new BFSM::FarthestNMGoalSelectorFactory() );
 		addFactory( new BFSM::SharedGoalSelectorFactory() );
+		addFactory( new BFSM::SecondNearestGoalSelectorFactory() );
 	}
 }	// namespace Menge
 

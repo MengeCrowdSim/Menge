@@ -60,8 +60,8 @@ namespace Menge {
 				logger<<"null void agent";
 				return false;
 			}
-			if(avoidAgent->_radius>5 )
-				_inc+=0.0001;
+                        if(avoidAgent->_radius>=3)
+                                _inc+=0.0004;
 			return std::sqrt(std::pow(std::abs(agent->_pos._x- avoidAgent->_pos._x),2)+std::pow(std::abs(agent->_pos._y -
 					avoidAgent->_pos._y),2))<avoidAgent->_radius+_acceptedRadius+_inc;
 

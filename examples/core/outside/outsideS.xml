@@ -18,7 +18,7 @@
         <GCF stand_depth="0.18" move_scale="0.53" slow_width="0.25" sway_change="0.05" orient_weight="0.75" />
         <Helbing mass="80" />
         <Johansson fov_weight="0.16" />
-        <Karamouzas personal_space="0.69" anticipation="8" />
+        <Karamouzas personal_space="0.0" anticipation="8" />
         <ORCA tau="3" tauObst="0.15" />
         <Zanlungo mass="80" orient_weight="0.75" />
     </AgentProfile>
@@ -29,7 +29,7 @@
         <GCF stand_depth="0.18" move_scale="0.53" slow_width="0.25" sway_change="0.05" orient_weight="0.75" />
         <Helbing mass="300" />
         <Johansson fov_weight="0.16" />
-        <Karamouzas personal_space="5" anticipation="0" />
+        <Karamouzas personal_space="0" anticipation="0" />
         <ORCA tau="3" tauObst="0.15" />
         <Zanlungo mass="300" orient_weight="0.75" />
     </AgentProfile>
@@ -38,7 +38,7 @@
         	<ProfileSelector type="const" name="group1" />
 		<StateSelector type="const" name="Walk1" />
 		<Generator type="rect_grid" 
-				anchor_x="5" anchor_y="10" 
+				anchor_x="7" anchor_y="10" 
 				offset_x="-1.5" offset_y="-1.5" 
 				count_x="13" count_y="20" 
 				displace_dist="u" displace_min="0.0" displace_max="0.25"
@@ -94,7 +94,8 @@
 		    <Vertex p_x = "-19" p_y = "-15"/> 
 		    <Vertex p_x = "-13" p_y = "-15"/>
 	 </Obstacle>
-  	 <Obstacle closed="1"  >
+  	 
+	<Obstacle closed="1"  >
 		    <Vertex p_x = "-19" p_y = "1"/>
 		    <Vertex p_x = "-13" p_y = "1"/>
 		    <Vertex p_x = "-13" p_y = "15"/>
