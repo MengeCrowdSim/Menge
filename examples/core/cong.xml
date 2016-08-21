@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<Project 
+	scene="cong/congS.xml" 
+	behavior="cong/congB.xml" 
+	view="cong/congV.xml" 
+	model="orca"
+	dumpPath="images/test"
+/>

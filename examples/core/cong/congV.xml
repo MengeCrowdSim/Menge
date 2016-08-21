@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+
+<View width="640" height="480" >
+    <!-- Multiple cameras are mapped to a key from 1-9 in the order they are defined here -->
+	<Camera xpos="0" ypos="19.13" zpos="0.01" xtgt="0" ytgt="0" ztgt="0" far="500" near="0.01" fov="0.0" orthoScale="0.148687" />
+	<Camera xpos="-50.4039" ypos="42.0134" zpos="-1.68529" xtgt="-2.92525" ytgt="-3.08614" ztgt="-1.48571" far="500" near="0.01" fov="45" />
+	<Camera xpos="9.66527" ypos="19.1216" zpos="16.1774" xtgt="9.66527" ytgt="-0.00845144" ztgt="16.1674" far="500" near="0.01" fov="0.0" orthoScale="0.143958" />
+	<Camera xpos="9.83013" ypos="25.4353" zpos="49.3125" xtgt="-1.6328" ytgt="-0.234482" ztgt="9.07047" far="500" near="0.01" fov="45" />
+	<Camera xpos="0" ypos="19.13" zpos="0.01" xtgt="0" ytgt="0" ztgt="0" far="500" near="0.01" fov="0.0" orthoScale="1" />
+	<Camera xpos="-4.69053" ypos="19.1347" zpos="-8.93903" xtgt="-4.69053" ytgt="0.00467801" ztgt="-8.94903" far="500" near="0.01" fov="0.0" orthoScale="0.774902" />
+	<!-- Comment out lights for a constant-illuminated visualization -->
+	<Light x="1" y="0" z="-1" type="directional" diffR="1.0" diffG="0.8" diffB="0.8" space="camera"/>
+	<Light x="-1" y="0" z="-1" type="directional" diffR="0.8" diffG="0.8" diffB="1.0" space="camera"/>
+	<Light x="0" y="1" z="0" type="directional" diffR="0.8" diffG="0.8" diffB="0.8" space="world"/> 
+</View>
+
