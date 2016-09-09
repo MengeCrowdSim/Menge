@@ -24,7 +24,7 @@
     </AgentProfile>
     <AgentProfile name="explosion" >
 		<OpenSteer tau="3" tauObst="6" />
-        <Common max_angle_vel="0" max_neighbors="0" obstacleSet="1" neighbor_dist="5" r="0.5" class="1" pref_speed="1" max_speed="1" max_accel="100" />
+        <Common max_angle_vel="0" max_neighbors="0" obstacleSet="1" neighbor_dist="0" r="0.5" class="1" pref_speed="1" max_speed="1" max_accel="100" />
 		<PedVO factor="1.57" buffer="0.9" tau="3" tauObst="0.2" turningBias="0" />
         <GCF stand_depth="0.18" move_scale="0.53" slow_width="0.25" sway_change="0.05" orient_weight="0.75" />
         <Helbing mass="300" />
@@ -58,14 +58,19 @@
 	    <Vertex p_x = "-15" p_y = "18"/>
 	    <Vertex p_x = "19" p_y = "18"/>
           </Obstacle>
-        
+          
           <Obstacle closed="1"  >
             <Vertex p_x = "20" p_y = "-17"/>
             <Vertex p_x = "-20" p_y = "-17"/>
             <Vertex p_x = "-20" p_y = "-23"/>
             <Vertex p_x = "20" p_y = "-23"/> 
           </Obstacle>
-	   
+	    <!--<Obstacle closed="1"  >
+		    <Vertex p_x = "27" p_y = "3"/>
+		    <Vertex p_x = "13" p_y = "3"/>
+		    <Vertex p_x = "13" p_y = "-3"/> 
+		    <Vertex p_x = "27" p_y = "-3"/>
+	 </Obstacle>-->
   	 <Obstacle closed="1"  >
 		    <Vertex p_x = "28" p_y = "20"/>
 		    <Vertex p_x = "22" p_y = "20"/>

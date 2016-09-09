@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<Project 
+	scene="predetermined/predeterminedS.xml" 
+	behavior="predetermined/predeterminedB.xml" 
+	view="predetermined/predeterminedV.xml" 
+	model="orca"
+	dumpPath="images/test"
+/>

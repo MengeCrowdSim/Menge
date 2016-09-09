@@ -1,0 +1,464 @@
+<?xml version="1.0"?>
+
+<BFSM>
+	<GoalSet id="0">
+	 <Goal capacity="10000" id="0" type="AABB" weight="1.00" max_x="-9.90" min_x="-12.34" max_y="1.28" min_y="0.58"/>
+        <Goal capacity="10000" id="1" type="AABB" weight="1.00" max_x="-7.10" min_x="-9" max_y="1.28" min_y="0.57"/>
+        <Goal capacity="10000" id="2" type="AABB" weight="1.00" max_x="-5.00" min_x="-8.5" max_y="1.25" min_y="0.58"/>
+        <Goal capacity="10000" id="3" type="AABB" weight="1.00" max_x="-2.70" min_x="-7.5" max_y="1.28" min_y="0.63"/>
+        <Goal capacity="10000" id="4" type="AABB" weight="1.00" max_x="-10" min_x="-11.175" max_y="7.54" min_y="6.98"/>
+        <Goal capacity="10000" id="6" type="AABB" weight="1.00" max_x="-1.50" min_x="-7.315" max_y="-4.42" min_y="-9.57"/>
+        <Goal capacity="10000" id="7" type="AABB" weight="1.00" max_x="-6.70" min_x="-8.96" max_y="-8.3" min_y="-9.02"/>
+        <Goal capacity="10000" id="8" type="AABB" weight="1.00" max_x="-6.70" min_x="-8.77" max_y="-6.2" min_y="-7.74"/>
+        <Goal capacity="10000" id="9" type="AABB" weight="1.00" max_x="-9.10" min_x="-9.72" max_y="-7.83" min_y="-8.87"/>
+        <Goal capacity="10000" id="10" type="AABB" weight="1.00" max_x="-0.40" min_x="-4.15" max_y="-10.43" min_y="-13.98"/>
+        <Goal capacity="10000" id="11" type="AABB" weight="1.00" max_x="-7.20" min_x="-10.14" max_y="-10.16" min_y="-11.98"/>
+        <Goal capacity="10000" id="12" type="AABB" weight="1.00" max_x="-2.50" min_x="-4.48" max_y="-12.23" min_y="-12.98"/>
+        <Goal capacity="10000" id="13" type="AABB" weight="1.00" max_x="1.06" min_x="0.06" max_y="-5.13" min_y="-10.55"/>
+        <Goal capacity="10000" id="14" type="AABB" weight="1.00" max_x="1" min_x="-2.14" max_y="-7.93" min_y="-9.62"/>
+        <Goal capacity="10000" id="15" type="AABB" weight="1.00" max_x="10" min_x="6.5" max_y="-7.41" min_y="-11.47"/>
+        <Goal capacity="10000" id="16" type="AABB" weight="1.00" max_x="5" min_x="-5" max_y="-11.11" min_y="-11.99"/>
+        <Goal capacity="10000" id="17" type="AABB" weight="1.00" max_x="0" min_x="-2.06" max_y="-1.01" min_y="-5.90"/>
+        <Goal capacity="10000" id="18" type="AABB" weight="1.00" max_x="10" min_x="3.304" max_y="-3.60" min_y="-4.41"/>
+        <Goal capacity="10000" id="19" type="AABB" weight="1.00" max_x="8.3" min_x="3.54" max_y="-0.45" min_y="-5.44"/>
+        <Goal capacity="10000" id="21" type="AABB" weight="1.00" max_x="7.24" min_x="5.63" max_y="-7.21" min_y="-7.96"/>
+        <Goal capacity="10000" id="22" type="AABB" weight="1.00" max_x="4.82" min_x="-3.74" max_y="-8.45" min_y="-10.78"/>
+        <Goal capacity="10000" id="23" type="AABB" weight="1.00" max_x="12.78" min_x="9.38" max_y="8.84" min_y="8.24"/>
+        <Goal capacity="10000" id="24" type="AABB" weight="1.00" max_x="10" min_x="3.2" max_y="11.89" min_y="9.96"/>
+        <Goal capacity="10000" id="25" type="AABB" weight="1.00" max_x="-5.6" min_x="-9.2" max_y="8.23" min_y="7.09"/>
+        <Goal capacity="10000" id="26" type="AABB" weight="1.00" max_x="1" min_x="-1" max_y="10.24" min_y="9.52"/>
+        <Goal capacity="10000" id="27" type="AABB" weight="1.00" max_x="12.78" min_x="10.67" max_y="11.33" min_y="10.36"/>
+        <Goal capacity="10000" id="28" type="AABB" weight="1.00" max_x="4.06" min_x="-1.02" max_y="10.14" min_y="5.03"/>
+        <Goal capacity="10000" id="29" type="AABB" weight="1.00" max_x="8.97" min_x="4.01" max_y="9.14" min_y="6.09"/>
+        <Goal capacity="10000" id="30" type="AABB" weight="1.00" max_x="-9.30" min_x="-10.5" max_y="10.76" min_y="9.67"/>
+        <Goal capacity="10000" id="31" type="AABB" weight="1.00" max_x="-7.00" min_x="-9.56" max_y="11.54" min_y="10.68"/>
+        
+	<Goal capacity="10000" id="32" type="AABB" weight="1.00" max_x="13.30" min_x="11.5" max_y="-14.76" min_y="-15.67"/>
+        <Goal capacity="10000" id="33" type="AABB" weight="1.00" max_x="13.00" min_x="10.56" max_y="5.54" min_y="3.68"/>
+	<Goal capacity="10000" id="34" type="AABB" weight="1.00" max_x="12.30" min_x="9.5" max_y="-16.76" min_y="-15.67"/>
+        <Goal capacity="10000" id="35" type="AABB" weight="1.00" max_x="13.00" min_x="10.56" max_y="-7.54" min_y="-10.68"/>
+	<Goal capacity="10000" id="36" type="AABB" weight="1.00" max_x="13.30" min_x="11.5" max_y="-1.76" min_y="-4.67"/>
+        <Goal capacity="10000" id="37" type="AABB" weight="1.00" max_x="10.00" min_x="6.56" max_y="-3.54" min_y="-5.68"/>
+	<Goal capacity="10000" id="38" type="AABB" weight="1.00" max_x="12.30" min_x="6.5" max_y="-8.76" min_y="-12.67"/>
+        <Goal capacity="10000" id="39" type="AABB" weight="1.00" max_x="12.00" min_x="7.56" max_y="7.54" min_y="5.68"/>
+	<Goal capacity="10000" id="40" type="AABB" weight="1.00" max_x="8.00" min_x="6.56" max_y="3.54" min_y=".68"/>
+        <Goal capacity="10000" id="41" type="AABB" weight="1.00" max_x="13.00" min_x="-12.56" max_y="14.54" min_y="10.68"/>
+	<Goal capacity="10000" id="42" type="AABB" weight="1.00" max_x="-11.30" min_x="-12.5" max_y="-14.76" min_y="-15.67"/>
+	<Goal capacity="10000" id="43" type="AABB" weight="1.00" max_x="-11.30" min_x="-12.5" max_y="14.76" min_y="15.67"/>
+	<Goal capacity="10000" id="44" type="AABB" weight="1.00" max_x="11.30" min_x="12.5" max_y="14.76" min_y="15.67"/>
+<Goal capacity="10000" id="45" type="AABB" weight="1.00" max_x="1" min_x="-1" max_y="15.76" min_y="14.67"/>
+<Goal capacity="10000" id="46" type="AABB" weight="1.00" max_x="1" min_x="-1" max_y="-14.76" min_y="-15.67"/></GoalSet>
+	<GoalSet id="1">
+		<Goal type="point" id="0" x="-40" y="40"/>
+		<Goal type="point" id="1" x="-40" y="-40"/>
+		<Goal type="point" id="2" x="40" y="40"/>
+		<Goal type="point" id="3" x="40" y="-40"/>
+		<Goal type="point" id="4" x="-55" y="0"/>
+	</GoalSet>
+	<GoalSet id ="2">
+		
+		<Goal type="point" id="0" x="7" y="0"/>
+	</GoalSet>
+	<GoalSet id="3"><!-- exit set-->
+		<Goal capacity="50" type="point" id="0" x="-15" y="17"/>
+		<Goal capacity="50" type="point" id="1" x="-10" y="0"/>
+		<Goal capacity="50" type="point" id="2" x="-15" y="-16"/>
+		<Goal capacity="50" type="point" id="3" x="20" y="17"/>
+		<Goal capacity="50" type="point" id="4" x="20" y="-17"/>
+	</GoalSet>
+<GoalSet id="4"><!-- unblocked exits-->
+		<Goal capacity="50" type="point" id="0" x="-15" y="17"/>
+		<Goal capacity="50" type="point" id="1" x="-10" y="0"/>
+		<Goal capacity="50" type="point" id="2" x="-15" y="-16"/>
+		<Goal capacity="50" type="point" id="3" x="20" y="17"/>
+		<Goal capacity="50" type="point" id="4" x="20" y="-17"/>
+	</GoalSet>
+	<GoalSet id ="99">
+		
+		<Goal type="circle" id="0" x="0" y="0" radius="1"/>
+	</GoalSet>	
+	
+		<State name="Walk1" final="0" >
+			<GoalSelector type="random" goal_set="0" />
+			<VelComponent type="goal"/>
+		</State>
+		<State name="Wait1" final="0" >
+			<GoalSelector type="identity"/>
+			<VelComponent type="goal"/>
+		</State>
+		<State name="Walk2" final="0" >
+			<GoalSelector type="random" goal_set="0" />
+			<VelComponent type="goal"/>
+		</State>
+		<State name="Wait2" final="0" >
+			<GoalSelector type="identity"/>
+			<VelComponent type="goal"/>
+		</State>
+		<State name="Walk" final="0" >
+			<GoalSelector type="random" goal_set="0" />
+			<VelComponent type="goal"/>
+		</State>
+		<State name="Wait" final="0" >
+			<GoalSelector type="identity"/>
+			<VelComponent type="goal"/>
+		</State>
+		<State name="Grow" final="0" >
+			<GoalSelector type="identity"/>
+			<VelComponent type="goal"/>
+			<!--<Action type="increment_property" increment="0.2"/>-->
+		</State>
+		
+		<State name="Wait3" final="0" >
+			<GoalSelector type="identity"/>
+			<VelComponent type="goal"/>
+		</State>
+		<State name="GrowStop" final="0" >
+			<GoalSelector type="identity" />
+			<VelComponent type="goal"/>
+		</State>
+		<State name="GrowWait" final="0" >
+			<GoalSelector type="identity" />
+			<VelComponent type="goal"/>
+		</State>
+		<State name="GrowMove" final="0" >
+			<GoalSelector type="explicit" goal_set="2"  goal="0"/>
+			<VelComponent type="goal"/>
+		</State>
+		<State name="temp" final="0" >
+			<GoalSelector type="identity"/>
+			<VelComponent type="goal"/>
+		</State>
+
+		<State name="final" final="0" >
+			<GoalSelector type="nearest" goal_set="1"/>
+			<VelComponent type="goal"/>
+		</State>
+		<State name="waitfinal" final="0" >
+			<GoalSelector type="identity"/>
+			<VelComponent type="goal"/>
+		</State>
+
+		<!-- exits-->
+		<State name = "exit1" final = "0">
+			<GoalSelector type="explicit" goal_set="3" goal="0"/>		
+			<VelComponent type="goal"/>
+		</State>
+		<State name = "exit2" final = "0">
+			<GoalSelector type="explicit" goal_set="3" goal="1"/>		
+			<VelComponent type="goal"/>
+		</State>
+		<State name = "exit3" final = "0">
+			<GoalSelector type="explicit" goal_set="3" goal="2"/>		
+			<VelComponent type="goal"/>
+		</State>
+		<State name = "exit4" final = "0">
+			<GoalSelector type="explicit" goal_set="3" goal="3"/>		
+			<VelComponent type="goal"/>
+		</State>
+		<State name = "exit5" final = "0">
+			<GoalSelector type="explicit" goal_set="3" goal="4"/>		
+			<VelComponent type="goal"/>
+		</State>
+		<State name = "exitnearest" final = "0">
+			<GoalSelector type="nearest" goal_set="3"/>		
+			<VelComponent type="goal"/>
+		</State>
+
+		<State name = "exit12" final = "0">
+			<GoalSelector type="explicit" goal_set="3" goal="0"/>		
+			<VelComponent type="goal"/>
+		</State>
+		<State name = "exit22" final = "0">
+			<GoalSelector type="explicit" goal_set="3" goal="1"/>		
+			<VelComponent type="goal"/>
+		</State>
+		<State name = "exit32" final = "0">
+			<GoalSelector type="explicit" goal_set="3" goal="2"/>		
+			<VelComponent type="goal"/>
+		</State>
+		<State name = "exit42" final = "0">
+			<GoalSelector type="explicit" goal_set="3" goal="3"/>		
+			<VelComponent type="goal"/>
+		</State>
+		<State name = "exit52" final = "0">
+			<GoalSelector type="explicit" goal_set="3" goal="4"/>		
+			<VelComponent type="goal"/>
+		</State>
+
+
+
+		<State name="Follow" final="0" >
+			<GoalSelector type="explicit" goal_set="99" goal="0" />
+			<VelComponent type="goal"/>
+			<Action type="set_property" property="pref_speed" dist="c" value="2" exit_reset="1"/>
+        	</State>
+       
+
+
+
+		<Transition from="Walk1" to="Wait1" >
+			<Condition type="goal_reached" distance="0.4" />
+		</Transition>
+		<Transition from="Wait1" to="Walk1" >
+			<Condition type="timer" dist="u" min="2" max="7" per_agent="0"/>
+		</Transition>
+		<Transition from="Walk2" to="Wait2" >
+			<Condition type="goal_reached" distance="0.4" />
+		</Transition>
+		<Transition from="Wait2" to="Walk2" >
+			<Condition type="timer" dist="u" min="2" max="7" per_agent="0"/>
+		</Transition>
+		<Transition from="Walk" to="Wait" >
+			<Condition type="goal_reached" distance="0.4" />
+		</Transition>
+
+		<Transition from="Wait" to="Walk" >
+			<Condition type="timer" dist="u" min="2" max="7" per_agent="0"/>
+		</Transition>
+		<Transition from="Grow" to="GrowStop" >
+			<Condition type="auto" />
+		</Transition>
+		<Transition from="GrowWait" to="GrowMove" >
+			<Condition type="timer" dist="u" min="20" max="21" per_agent="0"/>
+		</Transition>
+		<Transition from="GrowMove" to="Grow" >
+			<Condition type="goal_reached" distance="1" />
+		</Transition>
+		<Transition from="Walk1" to="Walk2" >
+			<Condition type="timer" dist="u" min="15" max="16" per_agent="0"/>
+		</Transition>
+		<Transition from="Wait1" to="Wait2" >
+			<Condition type="timer" dist="u" min="15" max="16" per_agent="0"/>
+		</Transition>
+		<Transition from="Walk2">
+			<!--<Condition type = "and">-->
+				<Condition type="proximity" distance="2.0" agentToAvoid="260"/>		
+				<!--<Condition type="timer" dist="u" min="24" max="25" per_agent="1"/> -->
+			<!--</Condition>-->
+			<Target type="prob">
+				<State name="exit1" weight="1"/>
+				<State name="exit2" weight="1"/>
+				<State name="exit3" weight="1"/>
+				<State name="exit4" weight="1"/>
+				<State name="exit5" weight="1"/>
+			</Target>
+		</Transition>
+		<Transition from="Wait2">
+			<!--<Condition type = "and">-->
+				<Condition type="proximity" distance="2.0" agentToAvoid="260"/>		
+				<!--<Condition type="timer" dist="u" min="24" max="25" per_agent="1"/> -->
+			<!--</Condition>-->
+			<Target type="prob">
+				<State name="exit1" weight="1"/>
+				<State name="exit2" weight="1"/>
+				<State name="exit3" weight="1"/>
+				<State name="exit4" weight="1"/>
+				<State name="exit5" weight="1"/>
+			</Target>
+		</Transition>
+		<Transition from="exit1" to="exitnearest" >
+			<Condition type="via" distance="3.0" goalsVia="4"/> 
+		</Transition>
+		<Transition from="exit2" to = "exitnearest">
+			<Condition type="via" distance="3.0" goalsVia="4"/> 
+		</Transition>
+		<Transition from="exit3" to="exitnearest" >
+			<Condition type="via" distance="3.0" goalsVia="4"/> 
+		</Transition>
+		<Transition from="exit4" to = "exitnearest">
+			<Condition type="via" distance="3.0" goalsVia="4"/> 
+		</Transition>
+		<Transition from="exit5" to = "exitnearest">
+			<Condition type="via" distance="3.0" goalsVia="4"/> 
+		</Transition>
+		<Transition from="exit12" to="exitnearest" >
+			<Condition type="via" distance="3.0" goalsVia="4"/> 
+		</Transition>
+		<Transition from="exit22" to = "exitnearest">
+			<Condition type="via" distance="3.0" goalsVia="4"/> 
+		</Transition>
+		<Transition from="exit32" to="exitnearest" >
+			<Condition type="via" distance="3.0" goalsVia="4"/> 
+		</Transition>
+		<Transition from="exit42" to = "exitnearest">
+			<Condition type="via" distance="3.0" goalsVia="4"/> 
+		</Transition>
+		<Transition from="exit52" to = "exitnearest">
+			<Condition type="via" distance="3.0" goalsVia="4"/> 
+		</Transition>
+		<Transition from="Walk" to="Walk1" >
+			<Condition type="timer" dist="u" min="20" max="25" per_agent="0"/> 
+		</Transition>
+		<Transition from="Wait" to="Wait1" >
+			<Condition type="timer" dist="u" min="20" max="25" per_agent="0"/> 
+		</Transition>
+		<Transition from="exit1" to="exit12" >
+			<Condition type="goal_reached" distance="5" />
+		</Transition>
+ 	        <Transition from="exit2" to="exit22" >
+			<Condition type="goal_reached" distance="5" />
+		</Transition>
+		<Transition from="exit3" to="exit32" >
+			<Condition type="goal_reached" distance="5" />
+		</Transition>
+		<Transition from="exit4" to="exit42" >
+			<Condition type="goal_reached" distance="5" />
+		</Transition>
+		<Transition from="exit5" to="exit52" >
+			<Condition type="goal_reached" distance="5" />
+		</Transition>
+		<Transition from="exit1"> <!--to="Follow" -->
+                        <Condition type="and">
+			      <Condition type="follow" distance="5.0" goalSetToFollow="99" weight="1"/>
+                              <Condition type="timer" dist="u" min="10" max="11" per_agent="0"/> 
+                        </Condition>
+			<Target type="prob">
+				<State name="Follow" weight="2"/>
+				<State name="temp" weight="1"/>
+			</Target>
+		</Transition>
+		<Transition from="exit2" >
+                        <Condition type="and">
+			      <Condition type="follow" distance="5.0" goalSetToFollow="99" weight="1"/>
+                              <Condition type="timer" dist="u" min="5" max="6" per_agent="0"/> 
+                        </Condition>
+			<Target type="prob">
+				<State name="Follow" weight="2"/>
+				<State name="temp" weight="1"/>
+			</Target>
+
+		</Transition>
+		<Transition from="exit3"> <!--to="Follow" -->
+                        <Condition type="and">
+			      <Condition type="follow" distance="5.0" goalSetToFollow="99" weight="1"/>
+                              <Condition type="timer" dist="u" min="10" max="11" per_agent="0"/> 
+                        </Condition>
+			<Target type="prob">
+				<State name="Follow" weight="2"/>
+				<State name="temp" weight="1"/>
+			</Target>
+		</Transition>
+		<Transition from="exit4" >
+                        <Condition type="and">
+			      <Condition type="follow" distance="5.0" goalSetToFollow="99" weight="1"/>
+                              <Condition type="timer" dist="u" min="5" max="6" per_agent="0"/> 
+                        </Condition>
+			<Target type="prob">
+				<State name="Follow" weight="2"/>
+				<State name="temp" weight="1"/>
+			</Target>
+
+		</Transition>
+		<Transition from="exit5" >
+                        <Condition type="and">
+			      <Condition type="follow" distance="5.0" goalSetToFollow="99" weight="1"/>
+                              <Condition type="timer" dist="u" min="5" max="6" per_agent="0"/> 
+                        </Condition>
+			<Target type="prob">
+				<State name="Follow" weight="2"/>
+				<State name="temp" weight="1"/>
+			</Target>
+
+		</Transition>
+		<Transition from="exitnearest" >
+                        <Condition type="and">
+			      <Condition type="follow" distance="5.0" goalSetToFollow="99" weight="1"/>
+                              <Condition type="timer" dist="u" min="5" max="6" per_agent="0"/> 
+                        </Condition>
+			<Target type="prob">
+				<State name="Follow" weight="2"/>
+				<State name="temp" weight="1"/>
+			</Target>
+
+		</Transition>
+		<Transition from="exit12"> <!--to="Follow" -->
+                        <Condition type="and">
+			      <Condition type="follow" distance="5.0" goalSetToFollow="99" weight="1"/>
+                              <Condition type="timer" dist="u" min="10" max="11" per_agent="0"/> 
+                        </Condition>
+			<Target type="prob">
+				<State name="Follow" weight="2"/>
+				<State name="temp" weight="1"/>
+			</Target>
+		</Transition>
+		<Transition from="exit22" >
+                        <Condition type="and">
+			      <Condition type="follow" distance="5.0" goalSetToFollow="99" weight="1"/>
+                              <Condition type="timer" dist="u" min="5" max="6" per_agent="0"/> 
+                        </Condition>
+			<Target type="prob">
+				<State name="Follow" weight="2"/>
+				<State name="temp" weight="1"/>
+			</Target>
+
+		</Transition>
+		<Transition from="exit32"> <!--to="Follow" -->
+                        <Condition type="and">
+			      <Condition type="follow" distance="5.0" goalSetToFollow="99" weight="1"/>
+                              <Condition type="timer" dist="u" min="10" max="11" per_agent="0"/> 
+                        </Condition>
+			<Target type="prob">
+				<State name="Follow" weight="2"/>
+				<State name="temp" weight="1"/>
+			</Target>
+		</Transition>
+		<Transition from="exit42" >
+                        <Condition type="and">
+			      <Condition type="follow" distance="5.0" goalSetToFollow="99" weight="1"/>
+                              <Condition type="timer" dist="u" min="5" max="6" per_agent="0"/> 
+                        </Condition>
+			<Target type="prob">
+				<State name="Follow" weight="2"/>
+				<State name="temp" weight="1"/>
+			</Target>
+
+		</Transition>
+		<Transition from="exit52" >
+                        <Condition type="and">
+			      <Condition type="follow" distance="5.0" goalSetToFollow="99" weight="1"/>
+                              <Condition type="timer" dist="u" min="5" max="6" per_agent="0"/> 
+                        </Condition>
+			<Target type="prob">
+				<State name="Follow" weight="2"/>
+				<State name="temp" weight="1"/>
+			</Target>
+		</Transition>
+
+
+		<Transition from="exit12" to="final" >
+			<Condition type="goal_reached" distance="5" />
+		</Transition>
+ 	        <Transition from="exit22" to="final" >
+			<Condition type="goal_reached" distance="5" />
+		</Transition>
+		<Transition from="exit32" to="final" >
+			<Condition type="goal_reached" distance="5" />
+		</Transition>
+		<Transition from="exit42" to="final" >
+			<Condition type="goal_reached" distance="5" />
+		</Transition>
+		<Transition from="exit52" to="final" >
+			<Condition type="goal_reached" distance="5" />
+		</Transition>
+		<Transition from="exitnearest" to="final" >
+			<Condition type="goal_reached" distance="5" />
+		</Transition>
+		<Transition from="final" to="waitfinal" >
+			<Condition type="goal_reached" distance="5" />
+		</Transition>
+		<Transition from="GrowStop" to="Grow" >
+			<Condition type="timer" dist="u" min="0.4" max="0.5" per_agent="0"/>
+		</Transition>
+ 	        <Transition from="temp" >
+			<Condition type="auto"/>
+			<Target type="return"/>
+		</Transition>
+		<Transition from="Follow" to="exitnearest" >
+			<Condition type = "and">	            
+				<Condition type="via" distance="7.0" goalsVia="4"/> 
+				<Condition type="timer" dist="u" min="5" max="6" per_agent="0"/> 
+			</Condition>
+		</Transition>
+
+</BFSM>
+
