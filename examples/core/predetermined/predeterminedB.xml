@@ -60,18 +60,19 @@
 		<Goal type="point" id="0" x="7" y="0"/>
 	</GoalSet>
 	<GoalSet id="3"><!-- exit set-->
-		<Goal capacity="50" type="point" id="0" x="-15" y="17"/>
-		<Goal capacity="50" type="point" id="1" x="-10" y="0"/>
-		<Goal capacity="50" type="point" id="2" x="-15" y="-16"/>
-		<Goal capacity="50" type="point" id="3" x="20" y="17"/>
-		<Goal capacity="50" type="point" id="4" x="20" y="-17"/>
+		<Goal capacity="500" id="0" type="AABB" weight="1.00" max_x="-15" min_x="-20" max_y="18" min_y="16"/>
+		<Goal capacity="500" id="1" type="AABB" weight="1.00" max_x="-15" min_x="-20" max_y="1" min_y="-1"/>
+		<Goal capacity="500" id="2" type="AABB" weight="1.00" max_x="-15" min_x="-20" max_y="-15" min_y="-17"/>
+		<Goal capacity="500" id="3" type="AABB" weight="1.00" max_x="21" min_x="19" max_y="22" min_y="17"/>
+		<Goal capacity="500" id="4" type="AABB" weight="1.00" max_x="21" min_x="19" max_y="-17" min_y="-22"/>
+		
 	</GoalSet>
 <GoalSet id="4"><!-- unblocked exits-->
-		<Goal capacity="50" type="point" id="0" x="-15" y="17"/>
-		<Goal capacity="50" type="point" id="1" x="-10" y="0"/>
-		<Goal capacity="50" type="point" id="2" x="-15" y="-16"/>
-		<Goal capacity="50" type="point" id="3" x="20" y="17"/>
-		<Goal capacity="50" type="point" id="4" x="20" y="-17"/>
+		<Goal capacity="500" id="0" type="AABB" weight="1.00" max_x="-15" min_x="-20" max_y="18" min_y="16"/>
+		<Goal capacity="500" id="1" type="AABB" weight="1.00" max_x="-15" min_x="-20" max_y="1" min_y="-1"/>
+		<Goal capacity="500" id="2" type="AABB" weight="1.00" max_x="-15" min_x="-20" max_y="-15" min_y="-17"/>
+		<Goal capacity="500" id="3" type="AABB" weight="1.00" max_x="21" min_x="19" max_y="22" min_y="17"/>
+		<Goal capacity="500" id="4" type="AABB" weight="1.00" max_x="21" min_x="19" max_y="-17" min_y="-22"/>
 	</GoalSet>
 	<GoalSet id ="99">
 		
@@ -165,23 +166,23 @@
 		</State>
 
 		<State name = "exit12" final = "0">
-			<GoalSelector type="explicit" goal_set="3" goal="0"/>		
+			<GoalSelector type="explicit" goal_set="4" goal="0"/>		
 			<VelComponent type="goal"/>
 		</State>
 		<State name = "exit22" final = "0">
-			<GoalSelector type="explicit" goal_set="3" goal="1"/>		
+			<GoalSelector type="explicit" goal_set="4" goal="1"/>		
 			<VelComponent type="goal"/>
 		</State>
 		<State name = "exit32" final = "0">
-			<GoalSelector type="explicit" goal_set="3" goal="2"/>		
+			<GoalSelector type="explicit" goal_set="4" goal="2"/>		
 			<VelComponent type="goal"/>
 		</State>
 		<State name = "exit42" final = "0">
-			<GoalSelector type="explicit" goal_set="3" goal="3"/>		
+			<GoalSelector type="explicit" goal_set="4" goal="3"/>		
 			<VelComponent type="goal"/>
 		</State>
 		<State name = "exit52" final = "0">
-			<GoalSelector type="explicit" goal_set="3" goal="4"/>		
+			<GoalSelector type="explicit" goal_set="4" goal="4"/>		
 			<VelComponent type="goal"/>
 		</State>
 
@@ -257,10 +258,10 @@
 			</Target>
 		</Transition>
 		<Transition from="exit1" to="exitnearest" >
-			<Condition type="via" distance="3.0" goalsVia="4"/> 
+			<Condition type="via" distance="0.5" goalsVia="4"/> 
 		</Transition>
 		<Transition from="exit2" to = "exitnearest">
-			<Condition type="via" distance="3.0" goalsVia="4"/> 
+			<Condition type="via" distance="0.5" goalsVia="4"/> 
 		</Transition>
 		<Transition from="exit3" to="exitnearest" >
 			<Condition type="via" distance="3.0" goalsVia="4"/> 
@@ -269,22 +270,22 @@
 			<Condition type="via" distance="3.0" goalsVia="4"/> 
 		</Transition>
 		<Transition from="exit5" to = "exitnearest">
-			<Condition type="via" distance="3.0" goalsVia="4"/> 
+			<Condition type="via" distance="0.5" goalsVia="4"/> 
 		</Transition>
 		<Transition from="exit12" to="exitnearest" >
-			<Condition type="via" distance="3.0" goalsVia="4"/> 
+			<Condition type="via" distance="0.5" goalsVia="4"/> 
 		</Transition>
 		<Transition from="exit22" to = "exitnearest">
-			<Condition type="via" distance="3.0" goalsVia="4"/> 
+			<Condition type="via" distance="0.5" goalsVia="4"/> 
 		</Transition>
 		<Transition from="exit32" to="exitnearest" >
-			<Condition type="via" distance="3.0" goalsVia="4"/> 
+			<Condition type="via" distance="0.5" goalsVia="4"/> 
 		</Transition>
 		<Transition from="exit42" to = "exitnearest">
-			<Condition type="via" distance="3.0" goalsVia="4"/> 
+			<Condition type="via" distance="0.5" goalsVia="4"/> 
 		</Transition>
 		<Transition from="exit52" to = "exitnearest">
-			<Condition type="via" distance="3.0" goalsVia="4"/> 
+			<Condition type="via" distance="0.5" goalsVia="4"/> 
 		</Transition>
 		<Transition from="Walk" to="Walk1" >
 			<Condition type="timer" dist="u" min="20" max="25" per_agent="0"/> 
@@ -293,21 +294,21 @@
 			<Condition type="timer" dist="u" min="20" max="25" per_agent="0"/> 
 		</Transition>
 		<Transition from="exit1" to="exit12" >
-			<Condition type="goal_reached" distance="5" />
+			<Condition type="goal_reached" distance="0.5" />
 		</Transition>
  	        <Transition from="exit2" to="exit22" >
-			<Condition type="goal_reached" distance="5" />
+			<Condition type="goal_reached" distance="0.5" />
 		</Transition>
 		<Transition from="exit3" to="exit32" >
-			<Condition type="goal_reached" distance="5" />
+			<Condition type="goal_reached" distance="0.5" />
 		</Transition>
 		<Transition from="exit4" to="exit42" >
-			<Condition type="goal_reached" distance="5" />
+			<Condition type="goal_reached" distance="0.5" />
 		</Transition>
 		<Transition from="exit5" to="exit52" >
-			<Condition type="goal_reached" distance="5" />
+			<Condition type="goal_reached" distance="0.5" />
 		</Transition>
-		<Transition from="exit1"> <!--to="Follow" -->
+		<Transition from="exit1"> 
                         <Condition type="and">
 			      <Condition type="follow" distance="5.0" goalSetToFollow="99" weight="1"/>
                               <Condition type="timer" dist="u" min="10" max="11" per_agent="0"/> 
@@ -328,7 +329,7 @@
 			</Target>
 
 		</Transition>
-		<Transition from="exit3"> <!--to="Follow" -->
+		<Transition from="exit3"> 
                         <Condition type="and">
 			      <Condition type="follow" distance="5.0" goalSetToFollow="99" weight="1"/>
                               <Condition type="timer" dist="u" min="10" max="11" per_agent="0"/> 
@@ -371,7 +372,7 @@
 			</Target>
 
 		</Transition>
-		<Transition from="exit12"> <!--to="Follow" -->
+		<Transition from="exit12">
                         <Condition type="and">
 			      <Condition type="follow" distance="5.0" goalSetToFollow="99" weight="1"/>
                               <Condition type="timer" dist="u" min="10" max="11" per_agent="0"/> 
@@ -392,7 +393,7 @@
 			</Target>
 
 		</Transition>
-		<Transition from="exit32"> <!--to="Follow" -->
+		<Transition from="exit32"> 
                         <Condition type="and">
 			      <Condition type="follow" distance="5.0" goalSetToFollow="99" weight="1"/>
                               <Condition type="timer" dist="u" min="10" max="11" per_agent="0"/> 
@@ -426,22 +427,22 @@
 
 
 		<Transition from="exit12" to="final" >
-			<Condition type="goal_reached" distance="5" />
+			<Condition type="goal_reached" distance=".5" />
 		</Transition>
  	        <Transition from="exit22" to="final" >
-			<Condition type="goal_reached" distance="5" />
+			<Condition type="goal_reached" distance=".5" />
 		</Transition>
 		<Transition from="exit32" to="final" >
-			<Condition type="goal_reached" distance="5" />
+			<Condition type="goal_reached" distance=".5" />
 		</Transition>
 		<Transition from="exit42" to="final" >
-			<Condition type="goal_reached" distance="5" />
+			<Condition type="goal_reached" distance=".5" />
 		</Transition>
 		<Transition from="exit52" to="final" >
-			<Condition type="goal_reached" distance="5" />
+			<Condition type="goal_reached" distance=".5" />
 		</Transition>
 		<Transition from="exitnearest" to="final" >
-			<Condition type="goal_reached" distance="5" />
+			<Condition type="goal_reached" distance="0.5" />
 		</Transition>
 		<Transition from="final" to="waitfinal" >
 			<Condition type="goal_reached" distance="5" />

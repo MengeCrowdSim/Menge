@@ -60,18 +60,24 @@
 		<Goal type="point" id="0" x="7" y="0"/>
 	</GoalSet>
 	<GoalSet id="3">
-		<Goal capacity="50" type="point" id="0" x="-15" y="17"/>
-		<Goal capacity="50" type="point" id="1" x="-10" y="0"/>
-		<Goal capacity="50" type="point" id="2" x="-15" y="-16"/>
-		<Goal capacity="50" type="point" id="3" x="20" y="17"/>
-		<Goal capacity="50" type="point" id="4" x="20" y="-17"/>
+		<Goal capacity="50" id="0" type="AABB" weight="1.00" max_x="-10" min_x="-20" max_y="18" min_y="16"/>
+		<Goal capacity="50" id="1" type="AABB" weight="1.00" max_x="-15" min_x="-20" max_y="1" min_y="-1"/>
+		<Goal capacity="50" id="2" type="AABB" weight="1.00" max_x="-15" min_x="-20" max_y="-15" min_y="-17"/>
+		<Goal capacity="50" id="3" type="AABB" weight="1.00" max_x="21" min_x="19" max_y="22" min_y="17"/>
+		<Goal capacity="50" id="4" type="AABB" weight="1.00" max_x="21" min_x="19" max_y="-17" min_y="-22"/>
+		
 	</GoalSet>
 	<GoalSet id="4">
-		<Goal capacity="50" type="point" id="0" x="-15" y="17"/>
+		<!--<Goal capacity="50" id="0" type="AABB" weight="1.00" max_x="-15" min_x="-20" max_y="18" min_y="16"/>-->
+		<Goal capacity="50" id="1" type="AABB" weight="1.00" max_x="-15" min_x="-20" max_y="1" min_y="-1"/>
+		<Goal capacity="50" id="2" type="AABB" weight="1.00" max_x="-15" min_x="-20" max_y="-15" min_y="-17"/>
+		<Goal capacity="50" id="3" type="AABB" weight="1.00" max_x="21" min_x="19" max_y="22" min_y="17"/>
+		<Goal capacity="50" id="4" type="AABB" weight="1.00" max_x="21" min_x="19" max_y="-17" min_y="-22"/>
+		<!--<Goal capacity="50" type="point" id="0" x="-15" y="17"/>
 		<Goal capacity="50" type="point" id="1" x="-10" y="0"/>
 		<Goal capacity="50" type="point" id="2" x="-15" y="-16"/>
 		<Goal capacity="50" type="point" id="3" x="20" y="17"/>
-		<Goal capacity="50" type="point" id="4" x="20" y="-17"/>
+		<Goal capacity="50" type="point" id="4" x="20" y="-17"/>-->
 	</GoalSet>
 	<GoalSet id ="99">
 		
@@ -179,14 +185,14 @@
 			<Condition type="proximity" distance="2.0" agentToAvoid="260"/>		
 			<Target type="prob">
 				<State name="RunAway1" weight="1"/>
-				<State name="RunAway2" weight="0"/>
+				<State name="RunAway2" weight="1"/>
 			</Target>
 		</Transition>
 		<Transition from="Wait2">
 			<Condition type="proximity" distance="2.0" agentToAvoid="260"/> 	
 			<Target type="prob">
 				<State name="RunAway1" weight="1"/>
-				<State name="RunAway2" weight="0"/>
+				<State name="RunAway2" weight="1"/>
 			</Target>
 		</Transition>
 		
@@ -195,11 +201,11 @@
 			<Condition type="timer" dist="u" min="20" max="25" per_agent="0"/> 
 		</Transition>
 		<Transition from="RunAway1" to="RunAway3" >
-			<Condition type="goal_reached" distance="6" />
+			<Condition type="goal_reached" distance="0.3" />
 			
 		</Transition>
 		<Transition from="RunAway2" to="RunAway3" >
-			<Condition type="goal_reached" distance="6" />
+			<Condition type="goal_reached" distance="0.3" />
 			
 		</Transition>
 		<Transition from="RunAway" to="Wait3" >

@@ -80,10 +80,10 @@
 	 </Obstacle>
   	 
 	<Obstacle closed="1"  >
-		    <Vertex p_x = "-19" p_y = "1"/>
 		    <Vertex p_x = "-13" p_y = "1"/>
-		    <Vertex p_x = "-13" p_y = "15"/>
-		    <Vertex p_x = "-19" p_y = "15"/> 
+		    <Vertex p_x = "-13" p_y = "1"/>
+		    <Vertex p_x = "-13" p_y = "25"/>
+		    <Vertex p_x = "-19" p_y = "25"/> 
 	</Obstacle>
 </ObstacleSet>
 
