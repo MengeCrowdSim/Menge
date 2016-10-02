@@ -293,12 +293,13 @@ namespace Menge {
 					}
 					// Now instantiate the agents
 					const size_t AGT_COUNT = generator->agentCount();
-					for ( size_t i = 0; i < AGT_COUNT; ++i ) {
-						Vector2 p = generator->agentPos( i );
-						BaseAgent * agent = _sim->addAgent( p, profileSel->getProfile() );
-						_sim->getInitialState()->setAgentState( agent->_id, stateSel->getState() );
+					Vector2 zero;
+					for (size_t i = 0; i < AGT_COUNT; ++i) {
+						BaseAgent * agent = _sim->addAgent(zero, profileSel->getProfile());
+						generator->setAgentPosition(i, agent);
+						_sim->getInitialState()->setAgentState(agent->_id, stateSel->getState());
 					}
-					_agtCount += (unsigned int) AGT_COUNT;
+					_agtCount += (unsigned int)AGT_COUNT;
 
 					generator->destroy();
 				}

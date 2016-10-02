@@ -134,6 +134,7 @@ namespace Menge {
 			 *					of the caller to free the memory of the provided task by
 			 *					calling its destroy method.
 			 */
+			// TODO(curds01) 10/1/2016 Implement this
 			virtual BFSM::Task * getTask();
 
 		protected:

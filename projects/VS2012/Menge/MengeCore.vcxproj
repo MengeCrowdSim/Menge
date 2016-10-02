@@ -135,6 +135,7 @@ xcopy /y $(TargetPath) $(ExeDir)
     <ClCompile Include="$(SrcDir)\mengeCore\Agents\AgentGenerators\AgentGeneratorDatabase.cpp" />
     <ClCompile Include="$(SrcDir)\mengeCore\Agents\AgentGenerators\AgentGeneratorFactory.cpp" />
     <ClCompile Include="$(SrcDir)\mengeCore\Agents\AgentGenerators\ExplicitAgentGenerator.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\AgentGenerators\NavMeshAgentGenerator.cpp" />
     <ClCompile Include="$(SrcDir)\mengeCore\Agents\AgentGenerators\HexLatticeGenerator.cpp" />
     <ClCompile Include="$(SrcDir)\mengeCore\Agents\AgentGenerators\RectGridGenerator.cpp" />
     <ClCompile Include="$(SrcDir)\mengeCore\Agents\ProfileSelectors\ConstProfileSelector.cpp" />
@@ -347,6 +348,7 @@ xcopy /y $(TargetPath) $(ExeDir)
     <ClInclude Include="$(SrcDir)\mengeCore\Agents\AgentGenerators\AgentGeneratorDatabase.h" />
     <ClInclude Include="$(SrcDir)\mengeCore\Agents\AgentGenerators\AgentGeneratorFactory.h" />
     <ClInclude Include="$(SrcDir)\mengeCore\Agents\AgentGenerators\ExplicitAgentGenerator.h" />
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\AgentGenerators\NavMeshAgentGenerator.h" />
     <ClInclude Include="$(SrcDir)\mengeCore\Agents\AgentGenerators\HexLatticeGenerator.h" />
     <ClInclude Include="$(SrcDir)\mengeCore\Agents\AgentGenerators\RectGridGenerator.h" />
     <ClInclude Include="$(SrcDir)\mengeCore\Agents\ProfileSelectors\ConstProfileSelector.h" />

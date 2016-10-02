@@ -68,8 +68,14 @@ namespace Menge {
 		Agents::AgentInitializer * agentInit = getAgentInitalizer();
 		Agents::SimXMLLoader loader( sim );
 		logger.line();
-		if ( ! loader.loadFromXML( sceneFileName, agentInit, VERBOSE ) ) {
-			logger << Logger::ERR_MSG  << "Couldn't initialize scene from xml.";
+		try {
+			if (!loader.loadFromXML(sceneFileName, agentInit, VERBOSE)) {
+				logger << Logger::ERR_MSG << "Couldn't initialize scene from xml.";
+				return 0x0;
+			}
+		}
+		catch (MengeFatalException e) {
+			logger << Logger::ERR_MSG << e._msg;
 			return 0x0;
 		}
 		return sim;

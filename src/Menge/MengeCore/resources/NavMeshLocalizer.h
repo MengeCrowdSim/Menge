@@ -216,7 +216,20 @@ namespace Menge {
 		 *	@returns	The index of the node associated with this location.
 		 *				If the location is not on a node, NavMeshLocation::NO_NODE is returned.
 		 */
-		unsigned int getNode( const Agents::BaseAgent * agent ) const;
+		unsigned int getNode(const Agents::BaseAgent * agent) const;
+
+		/*!
+		*	@brief		Reports the first node in the given group which contains the agent.
+		*
+		*	@param		agent		The agent whose position relative to the nav
+		*							mesh is returned.
+		*	@param		grpName		The name of the group to search for a polygon containing the point.
+		*	@param		searchAll	If true and no polygon in `grpName` contains the point, search
+		*							the full navigation mesh for the point.
+		*	@returns	The index of the node associated with this location.
+		*				If the location is not on a node, NavMeshLocation::NO_NODE is returned.
+		*/
+		unsigned int getNode(const Agents::BaseAgent * agent, const std::string & grpName, bool searchAll = false);
 
 		/*!
 		 *	@brief		Reports the node with the highest elevation for the given point.
@@ -233,7 +246,7 @@ namespace Menge {
 		 *	@param		i			The index of the desired mesh node.
 		 *	@returns	A copy the specified mesh node.
 		 */
-		const NavMeshNode getNode( unsigned int i ) { return _navMesh->getNode( i ); }
+		const NavMeshNode getNode(unsigned int i) { return _navMesh->getNode(i); }
 
 		/*!
 		 *	@brief		Retrieves the path for the given agent.
@@ -401,6 +414,32 @@ namespace Menge {
 		 *				NavMeshLocation::NO_NODE is returned.
 		 */
 		unsigned int findNodeBlind( const Vector2 & p, float tgtElev=1e5f ) const;
+
+		/*!
+		 *	@brief		Finds the node a point lies in within a particular polygon group.
+		 *
+		 *	@param		p			The point to test.
+		 *	@param		grpName		The name of the group to search in.
+		 *	@param		searchAll	If true, not finding the point in the requested group
+		 *							will cause the algorithm to find an alternative anywhere
+		 *							in the mesh.
+		 *	@returns	The index of the node on which the point lies.
+		 */
+		unsigned int findNodeInGroup(const Vector2 & p, const std::string & grpName, bool searchAll) const;
+
+		/*!
+		 *	@brief		Searches the nodes in the given range for a projection of p.
+		 *
+		 *	Searches a contiguous range [start, stop) of node ids for projection of p.
+		 *	The first node that "contains" p is returned.  Otherwise "NO_NODE".
+		 *
+		 *	@param		p			The point to test.
+		 *	@param		start		The identifier of the first node to search for.
+		 *	@param		step		The identifier of the last (inclusive)
+		 *	@returns	The identifier of the node that contains the query point, or NavMeshLocation::NO_NODE
+		 *				if no polygon found in the range.
+		 */
+		unsigned int findNodeInRange(const Vector2 & p, unsigned int start, unsigned int stop) const;
 
 		/*!
 		 *	@brief		Determines if the point is in a neighboring node to the given node

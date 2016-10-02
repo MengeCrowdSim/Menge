@@ -126,10 +126,10 @@ namespace Menge {
 			 *	@brief		Get the position of the ith agent.
 			 *
 			 *	@param		i		The index of the requested agent.
-			 *	@returns	The 2D position of the agent based on the generator's parameters.
+			 *	@param		agt		A pointer to the ith agent whose position is to be set.
 			 *	@throws		AgentGeneratorException if the index, i, is invalid.
 			 */
-			virtual Vector2 agentPos( size_t i ) = 0;
+			virtual void setAgentPosition( size_t i, BaseAgent * agt ) = 0;
 			
 			/*!
 			 *	@brief		Sets the Generators noise generation.

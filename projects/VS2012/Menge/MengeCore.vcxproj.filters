@@ -234,6 +234,9 @@
     <ClCompile Include="$(SrcDir)\mengeCore\Agents\AgentGenerators\ExplicitAgentGenerator.cpp">
       <Filter>Source Files\Agents\AgentGenerators</Filter>
     </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\AgentGenerators\NavMeshAgentGenerator.cpp">
+      <Filter>Source Files\Agents\AgentGenerators</Filter>
+    </ClCompile>
     <ClCompile Include="$(SrcDir)\mengeCore\Agents\AgentGenerators\HexLatticeGenerator.cpp">
       <Filter>Source Files\Agents\AgentGenerators</Filter>
     </ClCompile>
@@ -804,6 +807,9 @@
       <Filter>Header Files\Agents\AgentGenerators</Filter>
     </ClInclude>
     <ClInclude Include="$(SrcDir)\mengeCore\Agents\AgentGenerators\ExplicitAgentGenerator.h">
+      <Filter>Header Files\Agents\AgentGenerators</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\AgentGenerators\NavMeshAgentGenerator.h">
       <Filter>Header Files\Agents\AgentGenerators</Filter>
     </ClInclude>
     <ClInclude Include="$(SrcDir)\mengeCore\Agents\AgentGenerators\HexLatticeGenerator.h">

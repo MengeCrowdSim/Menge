@@ -339,12 +339,15 @@ namespace Menge {
 		}
 
 		////////////////////////////////////////////////////////////////
+
 		void NavMeshSpatialQuery::obstacleQuery( ProximityQuery *filter) const {
 			float range = filter->getMaxObstacleRange();
 			obstacleQuery(filter, range);
 		}
 
-		void NavMeshSpatialQuery::obstacleQuery( ProximityQuery *filter,  float rangeSq ) const {
+		////////////////////////////////////////////////////////////////
+
+		void NavMeshSpatialQuery::obstacleQuery(ProximityQuery *filter, float rangeSq) const {
 			Vector2 pt = filter->getQueryPoint();
 			
 			BaseAgent * agent = dynamic_cast<BaseAgent*>(filter);

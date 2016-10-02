@@ -310,6 +310,10 @@
 						>
 					</File>
 					<File
+						RelativePath="$(SrcDir)\mengeCore\Agents\AgentGenerators\NavMeshAgentGenerator.cpp"
+						>
+					</File>
+					<File
 						RelativePath="$(SrcDir)\mengeCore\Agents\AgentGenerators\RectGridGenerator.cpp"
 						>
 					</File>
@@ -1227,7 +1231,6 @@
 						RelativePath="$(SrcDir)\mengeCore\Agents\AgentGenerators\AgentGenerator.h"
 						>
 					</File>
-					<File
 						RelativePath="$(SrcDir)\mengeCore\Agents\AgentGenerators\AgentGeneratorDatabase.h"
 						>
 					</File>
@@ -1239,6 +1242,11 @@
 						RelativePath="$(SrcDir)\mengeCore\Agents\AgentGenerators\ExplicitAgentGenerator.h"
 						>
 					</File>
+					<File
+						RelativePath="$(SrcDir)\mengeCore\Agents\AgentGenerators\NavMeshAgentGenerator.h"
+						>
+					</File>
+					<File
 					<File
 						RelativePath="$(SrcDir)\mengeCore\Agents\AgentGenerators\HexLatticeGenerator.h"
 						>

@@ -104,13 +104,13 @@ namespace Menge {
 			virtual size_t agentCount() { return _totalPop; }
 
 			/*!
-			 *	@brief		Get the position of the ith agent.
-			 *
-			 *	@param		i		The index of the requested agent.
-			 *	@returns	The 2D position of the agent based on the generator's parameters.
-			 *	@throws		AgentGeneratorException if the index, i, is invalid.
-			 */
-			virtual Vector2 agentPos( size_t i );
+			*	@brief		Get the position of the ith agent.
+			*
+			*	@param		i		The index of the requested agent.
+			*	@param		agt		A pointer to the ith agent whose position is to be set.
+			*	@throws		AgentGeneratorException if the index, i, is invalid.
+			*/
+			virtual void setAgentPosition(size_t i, BaseAgent * agt);
 			
 			/*!
 			 *	@brief		Sets the properties of the generator

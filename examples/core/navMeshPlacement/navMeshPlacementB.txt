@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+
+<BFSM>
+
+	<GoalSet id="0">
+		<Goal type="point" id="0" x="-2.975" y="-0.868" />
+	</GoalSet>
+
+	<State name="to_goal" final="0">
+		<GoalSelector type="explicit" goal_set="0" goal="0" />
+		<VelComponent type="nav_mesh" heading_threshold="15" file_name="simple_NM.txt" />
+	</State>
+	<State name="finished" final="1"/>
+
+	<Transition from="to_goal" to="finished">
+		<Condition type="goal_reached" distance="0.25" />
+	</Transition>
+
+</BFSM>
