@@ -219,6 +219,7 @@ namespace Menge {
 			float range = filter->getMaxAgentRange();
 			agentQuery(filter, range);
 		}
+
 		void NavMeshSpatialQuery::agentQuery( ProximityQuery *filter, float &rangeSq) const {
 			Vector2 pt = filter->getQueryPoint();
 			unsigned int currNode = _localizer->getNode( pt);
@@ -344,8 +345,16 @@ namespace Menge {
 		}
 
 		void NavMeshSpatialQuery::obstacleQuery( ProximityQuery *filter,  float rangeSq ) const {
-			Vector2 pt  = filter->getQueryPoint();
-			size_t currNode = _localizer->getNode( pt );
+			Vector2 pt = filter->getQueryPoint();
+			
+			BaseAgent * agent = dynamic_cast<BaseAgent*>(filter);
+			size_t currNode = NavMeshLocation::NO_NODE;
+			if (agent != 0x0) {
+				currNode = _localizer->getNode(agent);
+			}
+			else {
+				size_t currNode = _localizer->getNode(pt);
+			}
 
 			assert( currNode != NavMeshLocation::NO_NODE && "Can't use NavMesh for spatial query if the point isn't on the mesh" );
 
