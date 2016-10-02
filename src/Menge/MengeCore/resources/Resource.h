@@ -266,6 +266,15 @@ namespace Menge {
 			return _data == ptr._data;
 		}
 
+		/**
+		 *	@brief		Reports if the resource pointer contains data.
+		 *
+		 *	@returns	True if there is data contained in the pointer.
+		 */
+		bool hasData() const {
+			return _data != 0x0;
+		}
+
 	protected:
 		/*!
 		 *	@brief		The underlying resource data.
