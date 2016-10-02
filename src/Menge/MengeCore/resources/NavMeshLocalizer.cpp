@@ -142,8 +142,21 @@ namespace Menge {
 
 	/////////////////////////////////////////////////////////////////////
 
-	unsigned int NavMeshLocalizer::getNode( const Vector2 & p ) const {
-		return findNodeBlind( p );
+	unsigned int NavMeshLocalizer::getNode(const Agents::BaseAgent * agent, const std::string & grpName, bool searchAll) {
+		unsigned int node = getNode(agent);
+		if (node == NavMeshLocation::NO_NODE) {
+			node = findNodeInGroup(agent->_pos, grpName, searchAll);
+			if (node != NavMeshLocation::NO_NODE) {
+				setNode(agent->_id, node);
+			}
+		}
+		return node;
+	}
+
+	/////////////////////////////////////////////////////////////////////
+
+	unsigned int NavMeshLocalizer::getNode(const Vector2 & p) const {
+		return findNodeBlind(p);
 	}
 
 	/////////////////////////////////////////////////////////////////////
@@ -244,6 +257,7 @@ namespace Menge {
 	/////////////////////////////////////////////////////////////////////
 
 	unsigned int NavMeshLocalizer::findNodeBlind( const Vector2 & p, float tgtElev ) const {
+		// TODO(curds01) 10/1/2016 - This cast is bad because I can lose precision (after I get 4 billion nodes...)
 		const unsigned int nCount =  static_cast< unsigned int >( _navMesh->getNodeCount() );
 		float elevDiff = 1e6f;
 		unsigned int maxNode = NavMeshLocation::NO_NODE;
@@ -258,6 +272,38 @@ namespace Menge {
 			}
 		}
 		return maxNode;
+	}
+
+	/////////////////////////////////////////////////////////////////////
+
+	unsigned int NavMeshLocalizer::findNodeInGroup(const Vector2 & p, const std::string & grpName, bool searchAll) const {
+		unsigned int node = NavMeshLocation::NO_NODE;
+		const NMNodeGroup * grp = _navMesh->getNodeGroup(grpName);
+		if (grp != 0x0) {
+			node = findNodeInRange(p, grp->_first, grp->_last + 1);
+
+			if (node == NavMeshLocation::NO_NODE && searchAll) {
+				node = findNodeInRange(p, 0, grp->_first);
+				if (node == NavMeshLocation::NO_NODE) {
+					// TODO(curds01) 10/1/2016 - This cast is bad because I can lose precision (after I get 4 billion nodes...)
+					const unsigned int TOTAL_NODES = static_cast< unsigned int >(_navMesh->getNodeCount());
+					node = findNodeInRange(p,grp->_first + 1, TOTAL_NODES);
+				}
+			}
+		}
+		return node;
+	}
+
+	/////////////////////////////////////////////////////////////////////
+
+	unsigned int NavMeshLocalizer::findNodeInRange(const Vector2 & p, unsigned int start, unsigned int stop) const {
+		for (unsigned int n = start; n < stop; ++n) {
+			const NavMeshNode & node = _navMesh->getNode(n);
+			if (node.containsPoint(p)) {
+				return n;
+			}
+		}
+		return NavMeshLocation::NO_NODE;
 	}
 
 	/////////////////////////////////////////////////////////////////////

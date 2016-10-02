@@ -89,16 +89,30 @@ namespace Menge {
 
 	//////////////////////////////////////////////////////////////////////////////////////
 
-	NavMeshNode & NavMesh::getNode( unsigned int i ) {
-		assert( i < _nCount && "Tried to access invalid node index" );
-		return _nodes[ i ];
+	NavMeshNode & NavMesh::getNode(unsigned int i) {
+		assert(i < _nCount && "Tried to access invalid node index");
+		return _nodes[i];
 	}
 
 	//////////////////////////////////////////////////////////////////////////////////////
 
-	const NavMeshNode & NavMesh::getNode( unsigned int i ) const {
-		assert( i < _nCount && "Tried to access invalid node index" );
-		return _nodes[ i ];
+	const NavMeshNode & NavMesh::getNode(unsigned int i) const {
+		assert(i < _nCount && "Tried to access invalid node index");
+		return _nodes[i];
+	}
+
+	//////////////////////////////////////////////////////////////////////////////////////
+
+	NavMeshNode & NavMesh::getNode(const NMNodeGroup * grp, unsigned int i) {
+		assert(i < grp->groupSize() && "Tried to access invalid node index from group");
+		return _nodes[grp->getGlobalId(i)];
+	}
+
+	//////////////////////////////////////////////////////////////////////////////////////
+
+	const NavMeshNode & NavMesh::getNode(const NMNodeGroup * grp, unsigned int i) const {
+		assert(i < _nCount && "Tried to access invalid node index");
+		return _nodes[grp->getGlobalId(i)];
 	}
 
 	//////////////////////////////////////////////////////////////////////////////////////
@@ -124,9 +138,20 @@ namespace Menge {
 
 	//////////////////////////////////////////////////////////////////////////////////////
 
-	const NavMeshObstacle & NavMesh::getObstacle( unsigned int i ) const {
-		assert( i < _obstCount && "Tried to access invalid obstacle index" );
-		return _obstacles[ i ];
+	const NavMeshObstacle & NavMesh::getObstacle(unsigned int i) const {
+		assert(i < _obstCount && "Tried to access invalid obstacle index");
+		return _obstacles[i];
+	}
+
+	//////////////////////////////////////////////////////////////////////////////////////
+
+	const NMNodeGroup * NavMesh::getNodeGroup(const std::string & grpName) const {
+		std::map<const std::string, NMNodeGroup>::const_iterator itr = _nodeGroups.find(grpName);
+		NMNodeGroup * grp = 0x0;
+		if (itr != _nodeGroups.end()) {
+			return &(itr->second);
+		}
+		return grp;
 	}
 
 	//////////////////////////////////////////////////////////////////////////////////////

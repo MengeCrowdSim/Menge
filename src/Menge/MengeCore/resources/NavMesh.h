@@ -87,6 +87,15 @@ namespace Menge {
 		 */
 		NMNodeGroup( unsigned int first, unsigned int last ): _first(first), _last(last) {}
 
+		/*! 
+		 *	@brief		Returns the global identifer of the group's ith node.
+		 *
+		 *	@param		i		The ith index in this group.
+		 *	@returns	The id for the ith group; it is *not* checked against boundaries.
+		 *				It is the caller's responsibility to make sure that 0 <= i < groupSize().
+		 */
+		inline size_t getGlobalId(unsigned int i) const { return _first + i; }
+
 		/*!
 		 *	@brief		Reports the number of nodes in this group.
 		 */
@@ -171,7 +180,7 @@ namespace Menge {
 		 *						in debug build.
 		 *	@returns	A reference to the ith node.
 		 */
-		NavMeshNode & getNode( unsigned int i );
+		NavMeshNode & getNode(unsigned int i);
 
 		/*!
 		 *	@brief		Returns a const reference to the ith node.
@@ -181,7 +190,29 @@ namespace Menge {
 		 *						in debug build.
 		 *	@returns	A const reference to the ith node.
 		 */
-		const NavMeshNode & getNode( unsigned int i ) const;
+		const NavMeshNode & getNode(unsigned int i) const;
+
+		/*!
+		 *	@brief		Returns a reference to the ith node in the given group.
+		 *
+		 *	@param		grp		The group to retrieve the node from.
+		 *	@param		i		The index of the desired node.
+		 *						The validitity of the index is only tested
+		 *						in debug build.
+		 *	@returns	A reference to the ith node.
+		 */
+		NavMeshNode & getNode(const NMNodeGroup * grp, unsigned int i);
+
+		/*!
+		 *	@brief		Returns a const reference to the ith node in the given group.
+		 *
+		 *	@param		grp		The group to retrieve the node from.
+		 *	@param		i		The index of the desired node.
+		 *						The validitity of the index is only tested
+		 *						in debug build.
+		 *	@returns	A const reference to the ith node.
+		 */
+		const NavMeshNode & getNode(const NMNodeGroup * grp, unsigned int i) const;
 
 		/*!
 		 *	@brief		Reports the number of edges in the navigation mesh.
@@ -248,6 +279,15 @@ namespace Menge {
 		 *	@returns	The const pointer to the array of vertices.
 		 */
 		inline const Vector2 *	getVertices() const { return &_vertices[0]; }
+
+		/*!
+		 *	@brief		Returns a pointer to the node group associated with the
+		 *				given gropu name.
+		 *
+		 *	@param		grpName		The name of the group to find.
+		 *	@returns	A pointer to the node group.  Null if the name isn't found.
+		 */
+		const NMNodeGroup * getNodeGroup(const std::string & grpName) const;
 
 		////////////////////////////////////////////////////////////////
 		//					Geometric queries
