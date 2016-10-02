@@ -39,6 +39,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include "ExplicitAgentGenerator.h"
 #include "tinyxml.h"
 #include "Logger.h"
+#include "BaseAgent.h"
 
 namespace Menge {
 
@@ -53,11 +54,11 @@ namespace Menge {
 
 		////////////////////////////////////////////////////////////////////////////
 
-		Vector2 ExplicitGenerator::agentPos( size_t i ) {
+		void ExplicitGenerator::setAgentPosition(size_t i, BaseAgent * agt) {
 			if ( i >= _positions.size() ) {
 				throw AgentGeneratorFatalException("ExplicitGenerator trying to access an agent outside of the specified population");
 			}
-			return _positions[ i ];
+			agt->_pos = _positions[i];
 		}
 
 		////////////////////////////////////////////////////////////////////////////

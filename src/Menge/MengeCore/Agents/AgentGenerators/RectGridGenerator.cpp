@@ -40,6 +40,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include "tinyxml.h"
 #include "Logger.h"
 #include "Math/consts.h"
+#include "BaseAgent.h"
 
 namespace Menge {
 
@@ -54,7 +55,7 @@ namespace Menge {
 
 		////////////////////////////////////////////////////////////////////////////
 
-		Vector2 RectGridGenerator::agentPos( size_t i ) {
+		void RectGridGenerator::setAgentPosition(size_t i, BaseAgent * agt) {
 			if ( i >= _xCount * _yCount ) {
 				throw AgentGeneratorFatalException("RectGridGenerator trying to access an agent outside of the specified population");
 			}
@@ -66,7 +67,7 @@ namespace Menge {
 			Vector2 r = Vector2( _cosRot * p._x - _sinRot * p._y,
 								_cosRot * p._y + _sinRot * p._x );
 			// world
-			return _anchor + r;
+			agt->_pos = _anchor + r;
 		}
 
 		////////////////////////////////////////////////////////////////////////////
