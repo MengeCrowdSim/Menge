@@ -702,6 +702,9 @@
     <ClCompile Include="$(SrcDir)\mengeCore\resources\WayPortal.cpp">
       <Filter>Source Files\resources</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\Menge\MengeCore\Agents\AgentGenerators\NavMeshAgentGenerator.cpp">
+      <Filter>Source Files\Agents\AgentGenerators</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(SrcDir)\mengeCore\Core.h">
@@ -1375,6 +1378,9 @@
     </ClInclude>
     <ClInclude Include="$(SrcDir)\mengeCore\resources\WayPortal.h">
       <Filter>Header Files\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Menge\MengeCore\Agents\AgentGenerators\NavMeshAgentGenerator.h">
+      <Filter>Header Files\Agents\AgentGenerators</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

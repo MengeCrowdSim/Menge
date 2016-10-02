@@ -40,6 +40,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include "AgentGenerators/ExplicitAgentGenerator.h"
 #include "AgentGenerators/RectGridGenerator.h"
 #include "AgentGenerators/HexLatticeGenerator.h"
+#include "AgentGenerators/NavMeshAgentGenerator.h"
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS 
 
@@ -54,6 +55,7 @@ namespace Menge {
 		addFactory( new Agents::ExplicitGeneratorFactory() );
 		addFactory( new Agents::RectGridGeneratorFactory() );
 		addFactory( new Agents::HexLatticeGeneratorFactory() );
+		addFactory(new Agents::NavMeshGeneratorFactory());
 	}
 }	// namespace Menge
 
