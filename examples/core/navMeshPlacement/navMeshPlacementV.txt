@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+
+<View width="779" height="461" >
+	<!-- Multiple cameras are mapped to a key from 1-9 in the order they are defined here -->
+	<Camera xpos="-98.8348" ypos="100.107" zpos="-231.776" xtgt="-1.62617" ytgt="-0.92607" ztgt="-0.830689" far="600" near="0.01" fov="0.0" orthoScale="25.5" />
+	<Camera xpos="-0.937845" ypos="270.172" zpos="-0.412367" xtgt="-0.937845" ytgt="1.56268e-005" ztgt="-0.422367" far="600" near="0.01" fov="0.0" orthoScale="51.6643" />
+
+	<!-- Comment out lights for a constant-illuminated visualization -->
+	<Light x="1" y="0" z="-1" type="directional" diffR="1.0" diffG="0.8" diffB="0.8" space="camera"/>
+	<Light x="-1" y="0" z="-1" type="directional" diffR="0.8" diffG="0.8" diffB="1.0" space="camera"/>
+	<Light x="0" y="1" z="0" type="directional" diffR="0.8" diffG="0.8" diffB="0.8" space="world"/> 
+	
+	<Watermark file_name="mengeLogo.png" alignment="bottom_right" scale="0.5" opacity="0.25"/>
+	
+
+</View>
