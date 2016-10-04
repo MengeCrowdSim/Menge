@@ -5,7 +5,7 @@
 #ifndef __STRESS_GAS_ACTION_H__
 #define __STRESS_GAS_ACTION_H__
 
-#include "StressGASConfig.h"
+#include "StressGasConfig.h"
 #include "Actions/Action.h"
 #include "Actions/ActionFactory.h"
 #include "FSMEnumeration.h"

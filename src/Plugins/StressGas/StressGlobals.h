@@ -5,7 +5,7 @@
 #ifndef __STRESS_GLOBALS_H__
 #define __STRESS_GLOBALS_H__
 
-#include "StressGASConfig.h"
+#include "StressGasConfig.h"
 #include "StressManager.h"
 
 

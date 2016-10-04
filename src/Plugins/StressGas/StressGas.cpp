@@ -3,7 +3,7 @@
  *	@brief		Plugin for StressGAS 
  */
 
-#include "StressGASConfig.h"
+#include "StressGasConfig.h"
 #include "PluginEngine.h"
 #include "StressActions.h"
 
