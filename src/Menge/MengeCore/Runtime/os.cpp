@@ -54,6 +54,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 // For linux absolute path
 #include <sys/param.h>
 #include <stdlib.h>
+#include <fstream>
 #endif
 
 namespace Menge {
@@ -260,16 +261,11 @@ namespace Menge {
 
 			bool absPath( const std::string & path, std::string & fullPath ) {
 	            
-				const unsigned int BUFSIZE = 4096;
-				char BUFFER[ BUFSIZE ];
+				char BUFFER[ PATH_MAX ];
 				
 	#ifdef _MSC_VER
-
-				
 				char ** lppPart= {0x0};
 				DWORD retval = GetFullPathName( path.c_str(), BUFSIZE, BUFFER, lppPart );
-
-
 	#else
 				std::string storage;
 				std::string mutpath = path;
@@ -277,6 +273,21 @@ namespace Menge {
 				std::string splitStr;
 				bool iterative = false;
 				size_t err = 0;
+
+				if ( !exists( path ) ) {
+				  // TODO (curds01): 10/3/16 - this is a horrible hack.
+				  // g++ version 5.4.0 hangs on the call to realpath if the file does *not* exist (instead of returning)
+				  // the appropriate signal.  This hack handles it.
+				  // The code below suggests that it *should* return and processes the string appropriately.  But if realpath
+				  // hangs, it can't be used.  Find out what's going on.
+				  std::fstream fs;
+				  fs.open(path.c_str(), std::ios::out);
+				  if ( !fs.is_open() ) {
+				    logger << Logger::ERR_MSG << "Unable to create the requested path: " << path << "\n";
+				    return false;
+				  }
+				  fs.close();
+				}
 
 				char * retval = realpath( path.c_str(), BUFFER );
 				err = errno;
@@ -313,7 +324,6 @@ namespace Menge {
 	#endif
 					return true;
 				}
-	        
 			}
 
 			///////////////////////////////////////////////////////////////////////////////////
