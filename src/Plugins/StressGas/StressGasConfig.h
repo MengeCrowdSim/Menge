@@ -1,5 +1,5 @@
 /*!
- *	@file		ProxyAgentsConfig.h
+ *	@file		StressGasConfig.h
  *	@brief		Configures the shared library aspect of the includes.
  */
 

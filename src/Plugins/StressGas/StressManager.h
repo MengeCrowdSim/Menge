@@ -1,10 +1,10 @@
 /*!
- *	@file		STRESSManager.h
+ *	@file		StressSManager.h
  *	@brief		Manages stress values for agents
  */
 
-#ifndef __STRESS_GAS_MANAGER_H__
-#define __STRESS_GAS_MANAGER_H__
+#ifndef __STRESS_MANAGER_H__
+#define __STRESS_MANAGER_H__
 
 #include "FSM.h"
 #include "BaseAgent.h"
@@ -18,7 +18,7 @@ namespace StressGAS {
 	/*!
      * @class StressManager
      *
-     * @brief Manages stress applied to agents over time. Determines if stress needs to be applied, and does so.
+     * @brief	Manages stress applied to agents over time. Determines if stress needs to be applied, and does so.
      *
 	 * This class contains several maps to initial agent values, and agents under effect
 	 *
@@ -26,149 +26,142 @@ namespace StressGAS {
 	class StressManager {
 	public:
 		/*!
-		 * @brief default constructor
+		 * @brief	Default constructor
 		 */
 		StressManager();
 
 		/*!
-		 * @brief default destructor
+		 * @brief	Destructor
 		 */
 		~StressManager();
 
 		/*!
-		 * @brief adds an agent to the stress system
+		 * @brief	Adds an agent to the stress system.
 		 *
+		 *	Passing an agent that has already been registered does nothing.
 		 *
-		 * @param agent The BaseAgent that will be stressed
+		 * @param	agent		The BaseAgent that will be stressed.
 		 */
 		void addAgent(Agents::BaseAgent  * agent);
 
 		/*!
-		 * @brief removes an agent from the stress system, and resets it if necessary
+		 * @brief	Removes an agent from the stress system, and resets it if necessary
 		 *
+		 *	Submitting an agent that is not currently stressed does nothing.
 		 *
-		 * @param agent The BaseAgent that will removed.
+		 * @param	agent		The BaseAgent that will removed.
 		 */
 		void removeAgent(Agents::BaseAgent  * agent);
 
 		/*!
-		 * @brief reset an agent from the stress system
+		 * @brief	Reset a stressed agent to its initial pre-stressed state.
 		 *
-		 *
-		 * @param agent The BaseAgent that will reset
+		 * @param	agent	The BaseAgent that will reset.
 		 */
 		void resetAgent(Agents::BaseAgent  * agent);
 
-
 		/*!
-		 * @brief checks if stress needs to be applied, does so if necessary
-		 *
-		 *
+		 * @brief	Checks if stress needs to be applied, does so if necessary
 		 */
 		void updateStress();
 
 		/*!
-		 * @brief adds stress to the provided agent
-		 * @param agent The BaseAgent that get stress
-		 *
+		 * @brief	Adds stress to the provided agent.
+		 * @param	agentId		The identifier for the agent that gets stress.
 		 */
-		void stressAgent(size_t AgentID);
+		void stressAgent(size_t agentId);
 
 		/*!
-		 * @brief Function to determine if an agent is in the stress system
+		 * @brief	Reports if the given agent is in the stress system.
 		 *
-		 *
-		 * @param agent The BaseAgent to check
-		 * @returns True if the given agent is in the system
+		 * @param	agent	The BaseAgent to check.
+		 * @returns	True if the given agent is in the system
 		 */
 		bool isInSystem(const Agents::BaseAgent  * agent);
-
 		
 	protected:
 
 		/*
-		 * @brief: vector of agents in the stress system
+		 * @brief	The set of agents in the stress system.
 		 */
 		std::map<size_t, Agents::BaseAgent *> _agents;
 		
 		/*
-		 * @ brief: map of agents to initial neighbor_distance
+		 * @brief	The initial `_neighborDist` values for stressed agents.
 		 */
 		std::map<size_t, float> _agent_initialNeighborDistance;
 
 		/*
-		 * @ brief: map of agents to initial maxNeighbors
+		 * @brief	The initial `maxNeighbors` values for stressed agents.
 		 */
 		std::map<size_t, float> _agent_initialMaxNeighbors;
 
 		/*
-		 * @ brief: map of agents to initial radius
+		 * @brief	The initial `_radius` values for stressed agents.
 		 */
 		std::map<size_t, float> _agent_initialRadius;
 
 		/*
-		 * @ brief: map of agents to initial pref_speed
+		 * @brief	The initial `_prefSpeed` values for stressed agents.
 		 */
 		std::map<size_t, float> _agent_initialPrefSpeed;
 		
 		/*
-		 * @ brief: map of agents to initial planning_horizon, fails gracefully 
-		 *          if not using pedvo
+		 * @brief	The initial `_timeHorizon` values for stressed agents.
+		 *			Only applies to pedvo agents.
+		 * // TODO(curds01) 10/4/16 - Should this be PedVO only?  Or ORCA as well?
 		 */
 		std::map<size_t, float> _agent_initialPlanningHorizon;
 
-
 		/*
-		 * @ brief:the current stress level of the agent
+		 * @brief	The current stress level values for stressed agents.
 		 */
 		std::map<size_t, float> _agent_stress;
 
 		/*
-		 * @ brief:the next time to stress the agent
+		 * @brief	The simulation time at which to accumulate stress for each stressed agent.
 		 */
 		std::map<size_t, float> _agent_nextStress;
 
 		/*
-		 * @ brief: max change to NeighborDistance from stress
+		 * @brief	The maximum change to `_neighborDist` at maximum stress.
 		 */
 		float _deltaNeighborDistance;
 
 		/*
-		 * @ brief: max change to  maxNeighbors by this much
+		 * @brief	The maximum change to `_maxNeighbors` at maximum stress.
 		 */
 		float _deltaNaxNeighbors;
 
 		/*
-		 * @ brief: max change to  PrefSpeed by this much
+		 * @brief	The maximum change to `_prefSpeed` at maximum stress.
 		 */
 		float _deltaPrefSpeed;
 
 		/*
-		 * @ brief: max change to  Radius by this much
+		 * @brief	The maximum change to `_radius` at maximum stress.
 		 */
 		float _deltaRadius;
 
 		/*
-		 * @ brief: max change to  planningHorizon by this much
+		 * @brief	The maximum change to `_timeHorizon` at maximum stress.
 		 */
 		float _deltaPlanningHorizon;
 
 		/*
-		 * @ brief:the amount of time that must pass before stressing
+		 * @brief	The time intervals at which stress accumulates.
 		 */
 		float _stressStep;
 
 		/*
-		 * @ brief:the amount of stress level to change each step
+		 * @brief	The amount of stress levels change at each accumulation.
 		 */
 		float _stressDelta;
 
 		/*
-		 * @ brief:the max amount of stress level
+		 * @brief	The max amount of stress an agent can accumulate.
 		 */
 		float _stressMax;
-
-	}; //end class
-
+	}; 
 };
-#endif
+#endif	// __STRESS_MANAGER_H__

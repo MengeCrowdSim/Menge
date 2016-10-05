@@ -1,6 +1,6 @@
 /*!
- *	@file		PROXY_AGENT_ACTION.h
- *	@brief		Definition of actions used with proxy agents only  (not agents that get tehm)
+ *	@file		StressActions.h
+ *	@brief		Definition of actions used to apply stress to agents.
  */
 #ifndef __STRESS_GAS_ACTION_H__
 #define __STRESS_GAS_ACTION_H__
@@ -9,7 +9,6 @@
 #include "Actions/Action.h"
 #include "Actions/ActionFactory.h"
 #include "FSMEnumeration.h"
-//#include "StressGlobals.h"
 #include <map>
 
 //forward declaration
@@ -22,7 +21,7 @@ namespace StressGAS {
 	class RegisterStressAgentActionFactory;
 	
 	/*!
-	 *	@brief		An action that registers an agent as needing stress
+	 *	@brief		An action sets an agent for accumulating stress
 	 */
 	class EXPORT_API RegisterStressAgentAction : public BFSM::Action {
 	public:
@@ -45,13 +44,11 @@ namespace StressGAS {
 		void onEnter( Agents::BaseAgent * agent );
 
 		/*! 
-		 *	@brief		returns the task for keeping proxies out of their nearby agent's list
-		 *				of the action.
+		 *	@brief		Returns the task for managing stress accumulation.
 		 *
-		 *	@returns   The ProxyAgentCollisionsTask
+		 *	@returns   The StressTask instance
 		 */
 		virtual BFSM::Task * getTask();
-
 
 		friend class RegisterStressAgentActionFactory;
 
@@ -69,7 +66,7 @@ namespace StressGAS {
 	};
 
 	/*!
-	 *	@brief		Factory for instantiating PropertyXAction instances.
+	 *	@brief		Factory for instantiating RegisterStressAgentAction instances.
 	 */
 	class EXPORT_API RegisterStressAgentActionFactory : public BFSM::ActionFactory {
 	public:
@@ -128,6 +125,5 @@ namespace StressGAS {
 		virtual bool setFromXML( BFSM::Action * action, TiXmlElement * node, const std::string & behaveFldr ) const;
 	};
 
-
 };
-#endif
+#endif	// __STRESS_GAS_ACTION_H__

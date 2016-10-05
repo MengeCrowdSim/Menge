@@ -1,5 +1,5 @@
 /*!
- *	@file		ProxyGlobals.h
+ *	@file		StressGlobals.h
  *	@brief		Defines a static global proxyagent manager
 */
 #ifndef __STRESS_GLOBALS_H__
@@ -11,6 +11,7 @@
 
 //Define the global static proxy unit
 namespace StressGAS {
+	// TODO(curds01) 10/4/2016 - This is not particularly thread safe
 	extern EXPORT_API StressManager *STRESS_MANAGER;
 }
 

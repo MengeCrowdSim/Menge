@@ -3,16 +3,10 @@
 #include "StressGlobals.h"
 #include "StressTasks.h"
 
-//#include "FsmGlobals.h"
-//#include "SimulatorInterface.h"
-//#include "FSM.h"
-//#include "fsm/GoalSet.h"
-//#include <iostream>
-
 namespace StressGAS {
 
 	/////////////////////////////////////////////////////////////////////
-	//                   Implementation of PropertyXAction
+	//                   Implementation of RegisterStressAgentAction
 	/////////////////////////////////////////////////////////////////////
 
 	RegisterStressAgentAction::RegisterStressAgentAction() : Action() {
@@ -56,8 +50,4 @@ namespace StressGAS {
 		//there are none
 		return true;
 	}
-
-	
-
-
-}	// namespace Boeing
+}	// namespace StressGAS

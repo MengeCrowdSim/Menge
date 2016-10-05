@@ -34,5 +34,5 @@ extern "C" EXPORT_API const char * getDescription() {
  *	@param		engine		A pointer to the plugin engine.
  */
 extern "C" EXPORT_API void registerPlugin( PluginEngine * engine ) {
-	engine->registerActionFactory( new StressGAS::RegisterStressAgentActionFactory());
+	engine->registerActionFactory( new StressGAS::RegisterStressAgentActionFactory() );
 }

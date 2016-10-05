@@ -1,15 +1,17 @@
 /*!
- *	@file		STRESSGlobals.cpp
+ *	@file		StressGlobals.cpp
  *	@brief		Defines a static global STRESS manager
 */
-#ifndef __STRESS_GLOBALS_CPP__
-#define __STRESS_GLOBALS_CPP__
 
 #include "StressGlobals.h"
 
-//Define the global static proxy unit
 namespace StressGAS {
+	// TODO(curds01) 10/4/16 - This is not particularly threadsafe.  However, it needs to be.
+	//	Agents can enter the stress manager at arbitrary times during the BFSM execution and
+	//	access to the maps can collide.
+	/**
+	 *	@brief		Manager accessible to all StressGas members
+	 */
 	StressManager *STRESS_MANAGER = new StressManager();
-}
+}	// namespace StressGAS
 
-#endif

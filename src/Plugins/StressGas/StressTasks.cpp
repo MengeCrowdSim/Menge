@@ -1,11 +1,9 @@
 #include "StressTasks.h"
 #include "StressGlobals.h"
 #include "BaseAgent.h"
-//#include "FSM.h"
-//#include "MengeBase\SimulatorInterface.h"
-
 
 namespace StressGAS {
+
 	/////////////////////////////////////////////////////////////////////
 	//                   Implementation of DensityGridTask
 	/////////////////////////////////////////////////////////////////////
@@ -16,14 +14,12 @@ namespace StressGAS {
 	/////////////////////////////////////////////////////////////////////
 
 	void StressTask::doWork( const BFSM::FSM * fsm ) throw( BFSM::TaskException ) {
-		
-		//call the stress system update
 		StressGAS::STRESS_MANAGER->updateStress();
 	}
+
 	/////////////////////////////////////////////////////////////////////
 
 	std::string StressTask::toString() const {
-		// TODO: include the name of the navigation mesh
 		return "Stress Task";
 	}
 
@@ -37,6 +33,4 @@ namespace StressGAS {
 			return true;
 		}
 	}
-	
-
-}	// namespace BFSM 
+}	// namespace StressGAS 
