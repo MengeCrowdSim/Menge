@@ -98,7 +98,7 @@ namespace Menge {
 			 *
 			 *	@param		agent		The agent to act on.
 			 */
-			virtual void leaveAction( Agents::BaseAgent * agent );
+			virtual void resetAction( Agents::BaseAgent * agent );
 
 			/*!
 			 *	@brief		Computes the new property value given the original property value.
