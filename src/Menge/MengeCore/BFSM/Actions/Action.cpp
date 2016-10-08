@@ -50,9 +50,9 @@ namespace Menge {
 
 		void Action::onLeave( Agents::BaseAgent * agent ) {
 			if ( _undoOnExit ) {
-				resetAction(agent);
+				resetAction( agent );
 			}
-			leaveAction(agent);
+			leaveAction( agent );
 		}
 
 		/////////////////////////////////////////////////////////////////////

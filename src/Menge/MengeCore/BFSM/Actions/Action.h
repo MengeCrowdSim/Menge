@@ -117,7 +117,7 @@ namespace Menge {
 			 *	The reset action is guaranteed to be called *before* the general leave action, if
 			 *	the action has been configured to reset.
 			 *
-			 *	@param [in,out]	agent	If non-null, the action should take whatever actions are
+			 *	@param[in,out]	agent	If non-null, the action should take whatever actions are
 			 * 							necessary to reset the action's effects.
 			 */
 			virtual void resetAction( Agents::BaseAgent * agent ) {}
@@ -128,7 +128,7 @@ namespace Menge {
 			 *
 			 *	@param		agent		The agent to act on.
 			 */
-			virtual void leaveAction(Agents::BaseAgent * agent) {};
+			virtual void leaveAction( Agents::BaseAgent * agent ) {};
 
 			/*!
 			 *	@brief		Determines if the action undoes itself on exiting the state.
