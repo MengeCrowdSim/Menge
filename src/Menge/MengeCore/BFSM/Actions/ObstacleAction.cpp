@@ -69,7 +69,7 @@ namespace Menge {
 
 		/////////////////////////////////////////////////////////////////////
 
-		void ObstacleAction::leaveAction( Agents::BaseAgent * agent ) {
+		void ObstacleAction::resetAction( Agents::BaseAgent * agent ) {
 			_lock.lock();
 			std::map< size_t, size_t >::iterator itr = _originalMap.begin();
 			assert( itr != _originalMap.end() && "Trying to find an original value for an agent whose value was not cached" );

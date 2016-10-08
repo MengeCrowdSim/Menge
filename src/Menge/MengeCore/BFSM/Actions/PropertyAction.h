@@ -105,7 +105,7 @@ namespace Menge {
 			 *
 			 *	@param		agent		The agent to act on.
 			 */
-			virtual void leaveAction( Agents::BaseAgent * agent ) { _manip.restore( agent ); }
+			virtual void resetAction( Agents::BaseAgent * agent ) { _manip.restore( agent ); }
 
 			/*!
 			 *	@brief		The manipulator responsible for changing agent properties.

@@ -110,16 +110,25 @@ namespace Menge {
 			friend class ActionFactory;
 
 		protected:
-			/*! 
-			 *	@brief		The actual work to do upon exiting the state.
+
+			/*!
+			 *	@brief		The work to do when reseting an agent up on exit reset.   
+			 *				
+			 *	The reset action is guaranteed to be called *before* the general leave action, if
+			 *	the action has been configured to reset.
 			 *
-			 *	This is a purely virtual function.  Any Action sub-class must
-			 *	*explicitly* account for this function.  It will only be called if the
-			 *	action is set to undo its work upon exit.
+			 *	@param [in,out]	agent	If non-null, the action should take whatever actions are
+			 * 							necessary to reset the action's effects.
+			 */
+			virtual void resetAction( Agents::BaseAgent * agent ) {}
+
+			/*! 
+			 *	@brief		Work that will be done *unconditionally* when an agent leaves the state
+			 *				to which this action belongs.
 			 *
 			 *	@param		agent		The agent to act on.
 			 */
-			virtual void leaveAction( Agents::BaseAgent * agent ) = 0;
+			virtual void leaveAction(Agents::BaseAgent * agent) {};
 
 			/*!
 			 *	@brief		Determines if the action undoes itself on exiting the state.

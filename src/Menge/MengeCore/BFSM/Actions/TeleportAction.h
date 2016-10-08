@@ -93,13 +93,6 @@ namespace Menge {
 		protected:
 
 			/*!
-			 *	@brief		The work to do upon state exit.
-			 *
-			 *	@param		agent		The agent to act on.
-			 */
-			virtual void leaveAction( Agents::BaseAgent * agent ) {}
-
-			/*!
 			 *	@brief		The generator for computing teleport destination locations.
 			 */
 			Vec2DGenerator * _goals;
