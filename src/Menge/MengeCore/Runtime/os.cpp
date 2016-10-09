@@ -261,12 +261,15 @@ namespace Menge {
 
 			bool absPath( const std::string & path, std::string & fullPath ) {
 	            
+#ifdef _MSC_VER
+				const unsigned int PATH_MAX = 512;
+#endif
 				char BUFFER[ PATH_MAX ];
-				
-	#ifdef _MSC_VER
+
+#ifdef _MSC_VER
 				char ** lppPart= {0x0};
-				DWORD retval = GetFullPathName( path.c_str(), BUFSIZE, BUFFER, lppPart );
-	#else
+				DWORD retval = GetFullPathName(path.c_str(), PATH_MAX, BUFFER, lppPart);
+#else
 				std::string storage;
 				std::string mutpath = path;
 				std::string mutpath2;
