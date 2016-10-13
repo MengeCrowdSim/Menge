@@ -5,7 +5,7 @@
 
 #include "StressGasConfig.h"
 #include "PluginEngine.h"
-#include "StressActions.h"
+#include "TimedStressAction.h"
 
 /*!
  *	@brief		Retrieves the name of the plug-in.
@@ -23,9 +23,9 @@ extern "C" EXPORT_API const char * getName() {
  */
 extern "C" EXPORT_API const char * getDescription() {
 	return	"Utilties for modelling stress according to the GAS model " \
-			"including the following:\n"\
-			"\tAction \"general_stress\" - registers an agent for general stress as opposed to positional or temporal stress\n " \
-			"Stress is applied to agents each second, independent of the simulation timestep, using a task.";
+		"including the following:\n"\
+		"\tAction \"timed_stress\" - registers an agent to accumulate stress up to 100% stressed" \
+		" in a specified number of seconds.";
 }
 
 /*!
@@ -34,5 +34,5 @@ extern "C" EXPORT_API const char * getDescription() {
  *	@param		engine		A pointer to the plugin engine.
  */
 extern "C" EXPORT_API void registerPlugin( PluginEngine * engine ) {
-	engine->registerActionFactory( new StressGAS::RegisterStressAgentActionFactory() );
+	engine->registerActionFactory( new StressGAS::TimedStressActionFactory() );
 }

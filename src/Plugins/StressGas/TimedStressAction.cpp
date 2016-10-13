@@ -1,0 +1,50 @@
+#include "TimedStressAction.h"
+
+#include "StressGlobals.h"
+#include "StressTasks.h"
+#include "TimedStressFunction.h"
+
+#include "BaseAgent.h"
+
+namespace StressGAS {
+
+	/////////////////////////////////////////////////////////////////////
+	//                   Implementation of TimedStressAction
+	/////////////////////////////////////////////////////////////////////
+
+	StressFunction * TimedStressAction::makeStressFunction( Agents::BaseAgent * agent, 
+															AgentStressor * stressor,
+															float coolDuration ) 
+	{
+		return new TimedStressFunction( _duration->getValue(), agent, stressor, coolDuration );
+		return 0x0;
+	}
+
+	/////////////////////////////////////////////////////////////////////
+
+	/////////////////////////////////////////////////////////////////////
+	//                   Implementation of TimedStressActionFactory
+	/////////////////////////////////////////////////////////////////////
+
+	TimedStressActionFactory::TimedStressActionFactory() {
+		_durationId = _attrSet.addFloatDistAttribute( "duration_", true, 10.f, 1.f );
+	}
+
+	/////////////////////////////////////////////////////////////////////
+	// 
+	bool TimedStressActionFactory::setFromXML( BFSM::Action * action, TiXmlElement * node,
+											   const std::string & behaveFldr ) const {
+		TimedStressAction * pAction = dynamic_cast< TimedStressAction * >( action );
+		assert( pAction != 0x0 && 
+				"Trying to set stress action properties on an incompatible object" );
+		if ( ! BaseStressActionFactory::setFromXML( action, node, behaveFldr ) ) {
+			return false;
+		}
+		
+		// extract stress duration
+		if ( pAction->_duration != 0x0 ) delete pAction->_duration;
+		pAction->_duration = _attrSet.getFloatGenerator( _durationId );
+
+		return true;
+	}
+}	// namespace StressGAS

@@ -1,75 +1,60 @@
 /*!
- *	@file		StressActions.h
- *	@brief		Definition of actions used to apply stress to agents.
+ *	@file		TimedStressAction.h
+ *	@brief		Definition of actions which triggers accumulation of strss based on elapsed time.
  */
-#ifndef __STRESS_GAS_ACTION_H__
-#define __STRESS_GAS_ACTION_H__
+#ifndef __TIMED_STRESS_ACTION_H__
+#define __TIMED_STRESS_ACTION_H__
 
+#include "BaseStressAction.h"
 #include "StressGasConfig.h"
-#include "Actions/Action.h"
 #include "Actions/ActionFactory.h"
-#include "FSMEnumeration.h"
-#include <map>
-
-//forward declaration
-class TiXmlElement;
 
 using namespace Menge;
 
 namespace StressGAS {
 	// forward declaration
-	class RegisterStressAgentActionFactory;
+	class TimedStressActionFactory;
 	
 	/*!
-	 *	@brief		An action sets an agent for accumulating stress
+	 *	@brief		An action that configures an agent to begin accumulating stress.
 	 */
-	class EXPORT_API RegisterStressAgentAction : public BFSM::Action {
+	class EXPORT_API TimedStressAction : public BaseStressAction {
 	public:
-		/*!
-		 *	@brief		Constructor
-		 */
-		RegisterStressAgentAction();
+		/** Default constructor */
+		TimedStressAction() : BaseStressAction(), _duration(0x0) {}
 
 		/*!
-		 *	@brief		Virtual destructor.
-		 */
-		~RegisterStressAgentAction();
-
-		/*! 
-		 *	@brief		Upon entering the state, this is called -- it is the main work
-		 *				of the action.
+		 *	@brief		Returns the stress function for this stress action.
 		 *
-		 *	@param		agent		The agent to act on.
-		 */
-		void onEnter( Agents::BaseAgent * agent );
-
-		/*! 
-		 *	@brief		Returns the task for managing stress accumulation.
+		 *	Stress actions vary in the stress function they are associated with.  Each sub-class
+		 *	must define this method to provide the right type of StressFunction.
 		 *
-		 *	@returns   The StressTask instance
-		 */
-		virtual BFSM::Task * getTask();
+		 *	@param	stressor	The stressor for the StressFunction to use.
+		 *	@returns	An instance of the appropriate stress function.
+		*/
+		virtual StressFunction * makeStressFunction( Agents::BaseAgent * agent, 
+													 AgentStressor * stressor, 
+													 float coolDuration );
 
-		friend class RegisterStressAgentActionFactory;
+		friend class TimedStressActionFactory;
 
 	protected:
+		/*! @brief	The value for the duration of time to reach full stress. */
+		FloatGenerator * _duration;
 
-		/*!
-		 *	@brief		The work to do upon state exit.
-		 *
-		 *	@param		agent		The agent to act on.
-		 */
-		void leaveAction( Agents::BaseAgent * agent );
-
-	protected:
 		
 	};
 
 	/*!
-	 *	@brief		Factory for instantiating RegisterStressAgentAction instances.
+	 *	@brief		Factory for instantiating TimedStressAction instances.
 	 */
-	class EXPORT_API RegisterStressAgentActionFactory : public BFSM::ActionFactory {
+	class EXPORT_API TimedStressActionFactory : public BaseStressActionFactory {
 	public:
+		/*!
+		 *	@brief		Default constructor.
+		 */
+		TimedStressActionFactory();
+
 		/*!
 		 *	@brief		The name of the action.
 		 *
@@ -78,7 +63,7 @@ namespace StressGAS {
 		 *
 		 *	@returns	A string containing the unique action name.
 		 */
-		virtual const char * name() const { return "stress_agent"; }
+		virtual const char * name() const { return "timed_stress"; }
 
 		/*!
 		 *	@brief		A description of the action.
@@ -88,7 +73,9 @@ namespace StressGAS {
 		 *	@returns	A string containing the action description.
 		 */
 		virtual const char * description() const {
-			return "Registers an agent to the stress update system.";
+			return "Sets an agent to begin accumulating stress with the passage of time. " \
+				"Configured by setting the amount of time it will take the agent to reach " \
+				"100% stress (\"duration\").";
 		};
 
 	protected:
@@ -102,7 +89,7 @@ namespace StressGAS {
 		 *
 		 *	@returns		A pointer to a newly instantiated Action class.
 		 */
-		BFSM::Action * instance() const { return new RegisterStressAgentAction(); }	
+		BFSM::Action * instance() const { return new TimedStressAction(); }
 		
 		/*!
 		 *	@brief		Given a pointer to an Action instance, sets the appropriate fields
@@ -122,8 +109,12 @@ namespace StressGAS {
 		 *							that path. 
 		 *	@returns	A boolean reporting success (true) or failure (false).
 		 */
-		virtual bool setFromXML( BFSM::Action * action, TiXmlElement * node, const std::string & behaveFldr ) const;
+		virtual bool setFromXML( BFSM::Action * action, TiXmlElement * node, 
+								 const std::string & behaveFldr ) const;
+
+		/** @brief	Identifier for the stress duration float attribute. */
+		size_t _durationId;
 	};
 
 };
-#endif	// __STRESS_GAS_ACTION_H__
+#endif	// __TIMED_STRESS_ACTION_H__

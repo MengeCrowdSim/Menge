@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -18,13 +18,13 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <PlatformToolset>v110</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <PlatformToolset>v110</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
@@ -110,17 +110,25 @@ xcopy /y $(TargetPath) $(ExeDir)\plugins\
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="$(PluginSrc)\StressGas\StressGas.cpp" />
-    <ClCompile Include="..\..\..\src\Plugins\StressGas\StressActions.cpp" />
+    <ClCompile Include="..\..\..\src\Plugins\StressGas\AgentStressor.cpp" />
+    <ClCompile Include="..\..\..\src\Plugins\StressGas\BaseStressAction.cpp" />
+    <ClCompile Include="..\..\..\src\Plugins\StressGas\TimedStressAction.cpp" />
+    <ClCompile Include="..\..\..\src\Plugins\StressGas\StressFunction.cpp" />
     <ClCompile Include="..\..\..\src\Plugins\StressGas\StressGlobals.cpp" />
     <ClCompile Include="..\..\..\src\Plugins\StressGas\StressManager.cpp" />
     <ClCompile Include="..\..\..\src\Plugins\StressGas\StressTasks.cpp" />
+    <ClCompile Include="..\..\..\src\Plugins\StressGas\TimedStressFunction.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(PluginSrc)\StressGas\StressGasConfig.h" />
-    <ClInclude Include="..\..\..\src\Plugins\StressGas\StressActions.h" />
+    <ClInclude Include="..\..\..\src\Plugins\StressGas\AgentStressor.h" />
+    <ClInclude Include="..\..\..\src\Plugins\StressGas\BaseStressAction.h" />
+    <ClInclude Include="..\..\..\src\Plugins\StressGas\TimedStressAction.h" />
+    <ClInclude Include="..\..\..\src\Plugins\StressGas\StressFunction.h" />
     <ClInclude Include="..\..\..\src\Plugins\StressGas\StressGlobals.h" />
     <ClInclude Include="..\..\..\src\Plugins\StressGas\StressManager.h" />
     <ClInclude Include="..\..\..\src\Plugins\StressGas\StressTasks.h" />
+    <ClInclude Include="..\..\..\src\Plugins\StressGas\TimedStressFunction.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -6,10 +6,13 @@
 #ifndef __STRESS_MANAGER_H__
 #define __STRESS_MANAGER_H__
 
-#include "FSM.h"
-#include "BaseAgent.h"
 #include <map>
 #include <vector>
+
+#include "StressFunction.h"
+
+#include "FSM.h"
+#include "BaseAgent.h"
 
 using namespace Menge;
 
@@ -36,31 +39,6 @@ namespace StressGAS {
 		~StressManager();
 
 		/*!
-		 * @brief	Adds an agent to the stress system.
-		 *
-		 *	Passing an agent that has already been registered does nothing.
-		 *
-		 * @param	agent		The BaseAgent that will be stressed.
-		 */
-		void addAgent(Agents::BaseAgent  * agent);
-
-		/*!
-		 * @brief	Removes an agent from the stress system, and resets it if necessary
-		 *
-		 *	Submitting an agent that is not currently stressed does nothing.
-		 *
-		 * @param	agent		The BaseAgent that will removed.
-		 */
-		void removeAgent(Agents::BaseAgent  * agent);
-
-		/*!
-		 * @brief	Reset a stressed agent to its initial pre-stressed state.
-		 *
-		 * @param	agent	The BaseAgent that will reset.
-		 */
-		void resetAgent(Agents::BaseAgent  * agent);
-
-		/*!
 		 * @brief	Checks if stress needs to be applied, does so if necessary
 		 */
 		void updateStress();
@@ -78,90 +56,41 @@ namespace StressGAS {
 		 * @returns	True if the given agent is in the system
 		 */
 		bool isInSystem(const Agents::BaseAgent  * agent);
-		
+
+		/*!
+		 * @brief	Reports the stress function for the given agent.
+		 *
+		 * @param	agent	The agent to query -- assumed to be non-null.
+		 *
+		 * @return	Null if there is no stress function for this agent, otherwise a pointer to that
+		 * 			agent's stress function.
+		 */
+		StressFunction * getStressFunction( const Agents::BaseAgent * agent );
+
+		/*!
+		 * @brief	Sets stress function for the given agent. If there is currently a function it
+		 * 			will be deleted and removed.
+		 * 			
+		 * @param 		  	agent	The agent -- assumed to be non-null.
+		 * @param [in,out]	func 	The function to register for this agent; must be non-null but
+		 * 							this is not tested.
+		 */
+		void setStressFunction( const Agents::BaseAgent * agent, StressFunction * func );
+
+		/*!
+		 * @brief	Pops the stress function described by agent.
+		 *
+		 * @param	agent	The agent to query -- assumed to be non-null.
+		 *
+		 * @return	Null if the agent has no registered function; otherwise the registered stress
+		 * 			function will be removed from the manager.
+		 */
+		StressFunction * popStressFunction( const Agents::BaseAgent * agent );
+
 	protected:
-
-		/*
-		 * @brief	The set of agents in the stress system.
-		 */
-		std::map<size_t, Agents::BaseAgent *> _agents;
 		
-		/*
-		 * @brief	The initial `_neighborDist` values for stressed agents.
-		 */
-		std::map<size_t, float> _agent_initialNeighborDistance;
-
-		/*
-		 * @brief	The initial `maxNeighbors` values for stressed agents.
-		 */
-		std::map<size_t, float> _agent_initialMaxNeighbors;
-
-		/*
-		 * @brief	The initial `_radius` values for stressed agents.
-		 */
-		std::map<size_t, float> _agent_initialRadius;
-
-		/*
-		 * @brief	The initial `_prefSpeed` values for stressed agents.
-		 */
-		std::map<size_t, float> _agent_initialPrefSpeed;
-		
-		/*
-		 * @brief	The initial `_timeHorizon` values for stressed agents.
-		 *			Only applies to pedvo agents.
-		 * // TODO(curds01) 10/4/16 - Should this be PedVO only?  Or ORCA as well?
-		 */
-		std::map<size_t, float> _agent_initialPlanningHorizon;
-
-		/*
-		 * @brief	The current stress level values for stressed agents.
-		 */
-		std::map<size_t, float> _agent_stress;
-
-		/*
-		 * @brief	The simulation time at which to accumulate stress for each stressed agent.
-		 */
-		std::map<size_t, float> _agent_nextStress;
-
-		/*
-		 * @brief	The maximum change to `_neighborDist` at maximum stress.
-		 */
-		float _deltaNeighborDistance;
-
-		/*
-		 * @brief	The maximum change to `_maxNeighbors` at maximum stress.
-		 */
-		float _deltaNaxNeighbors;
-
-		/*
-		 * @brief	The maximum change to `_prefSpeed` at maximum stress.
-		 */
-		float _deltaPrefSpeed;
-
-		/*
-		 * @brief	The maximum change to `_radius` at maximum stress.
-		 */
-		float _deltaRadius;
-
-		/*
-		 * @brief	The maximum change to `_timeHorizon` at maximum stress.
-		 */
-		float _deltaPlanningHorizon;
-
-		/*
-		 * @brief	The time intervals at which stress accumulates.
-		 */
-		float _stressStep;
-
-		/*
-		 * @brief	The amount of stress levels change at each accumulation.
-		 */
-		float _stressDelta;
-
-		/*
-		 * @brief	The max amount of stress an agent can accumulate.
-		 */
-		float _stressMax;
+		/*! The set of agents which receive stress and their corresponding stress functions. */
+		HASH_MAP< const Agents::BaseAgent *, StressFunction *> _stressFunctions;
 	}; 
 };
 #endif	// __STRESS_MANAGER_H__

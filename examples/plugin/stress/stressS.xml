@@ -32,27 +32,28 @@
 
 	<AgentGroup>
         <ProfileSelector type="const" name="group1" />
-		<StateSelector type="const" name="Walk1" />
+		<StateSelector type="const" name="Walk1_0" />
 		<Generator type="hex_lattice"
 				anchor_x="1.5" anchor_y="0.0"
 				alignment="center" row_direction="y"
-				density="1.8" width="4.0"
-				population="100" rotation="-90"
+				density="1.2" width="4.0"
+				population="75" rotation="-90"
 				displace_dist="n" displace_mean="0.1" displace_stddev="0.03"
 				/>
     </AgentGroup>
 
     <AgentGroup>
         <ProfileSelector type="const" name="group2" />
-		<StateSelector type="const" name="Walk2" />
+		<StateSelector type="const" name="Walk2_0" />
 		<Generator type="hex_lattice"
 				anchor_x="-1.5" anchor_y="0.0"
-				alignment="center" row_direction="x"
-				density="1.8" width="4.0"
-				population="100" rotation="90"
+				alignment="center" row_direction="y"
+				density="1.2" width="4.0"
+				population="75" rotation="90"
 				displace_dist="n" displace_mean="0.1" displace_stddev="0.03"
 				/>
     </AgentGroup>
+
 	<ObstacleSet type="explicit" class="1">    
         <Obstacle closed="1" >
             <Vertex p_x="-20" p_y="2.0" />
