@@ -1,7 +1,7 @@
 #include "AgentStressor.h"
 #include "BaseAgent.h"
-#include "Orca\ORCAAgent.h"
-#include "PedVO\PedVOAgent.h"
+#include "Orca/ORCAAgent.h"
+#include "PedVO/PedVOAgent.h"
 
 namespace StressGAS {
 
