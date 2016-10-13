@@ -50,11 +50,11 @@ namespace StressGAS {
 				break;
 			case COOL_DOWN:
 				func = STRESS_MANAGER->getStressFunction( agent );
-				func->setMode( StressFunctionMode::COOLING );
+				func->setMode( COOLING );
 				break;
 			case PAUSE:
 				func = STRESS_MANAGER->getStressFunction( agent );
-				func->setMode( StressFunctionMode::PAUSED );
+				func->setMode( PAUSED );
 				break;
 			case CONTINUE:
 				break;
@@ -118,15 +118,15 @@ namespace StressGAS {
 		std::string mode = _attrSet.getString( _exitBehaviorId );
 		std::transform( mode.begin(), mode.end(), mode.begin(), ::tolower );
 
-		if ( mode == "reset" ) sAction->_exitBehavior = ExitBehavior::RESET;
-		else if ( mode == "cool down" ) sAction->_exitBehavior = ExitBehavior::COOL_DOWN;
-		else if ( mode == "pause" ) sAction->_exitBehavior = ExitBehavior::PAUSE;
-		else if ( mode == "continue" ) sAction->_exitBehavior = ExitBehavior::CONTINUE;
+		if ( mode == "reset" ) sAction->_exitBehavior = RESET;
+		else if ( mode == "cool down" ) sAction->_exitBehavior = COOL_DOWN;
+		else if ( mode == "pause" ) sAction->_exitBehavior = PAUSE;
+		else if ( mode == "continue" ) sAction->_exitBehavior = CONTINUE;
 		else {
 			logger << Logger::WARN_MSG << "Parameter \"exit_behavior\" has an unrecognizable " \
 				"value: " << mode << ".  Should be one of: reset, cool down, pause, or " \
 				"continue.  Defaulting to reset.";
-			sAction->_exitBehavior = ExitBehavior::RESET;
+			sAction->_exitBehavior = RESET;
 		}
 
 		// exit behavior

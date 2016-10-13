@@ -46,7 +46,7 @@ namespace StressGAS {
 		/*!
 		 *	@brief		Constructor
 		 */
-		BaseStressAction() : Action(), _exitBehavior( ExitBehavior::RESET ), _deltaNeighborDist( 0x0 ),
+		BaseStressAction() : Action(), _exitBehavior( RESET ), _deltaNeighborDist( 0x0 ),
 							_deltaMaxNeighbors( 0x0 ), _deltaRadius(0x0), _deltaTimeHorizon(0x0),
 							_deltaPrefSpeed(0x0) {}
 

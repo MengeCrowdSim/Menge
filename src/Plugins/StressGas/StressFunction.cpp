@@ -24,15 +24,15 @@ namespace StressGAS {
 	void StressFunction::processStress() {
 		float stress = 0.f;
 		switch ( _mode ) {
-			case StressFunctionMode::ACTIVE:
+			case ACTIVE:
 				updateStress();
 				break;
-			case StressFunctionMode::COOLING:
+			case COOLING:
 				coolDown();
 				if ( _stressLevel == 0.f ) _mode = FINISHED;
 				break;
-			case StressFunctionMode::PAUSED:
-			case StressFunctionMode::FINISHED:
+			case PAUSED:
+			case FINISHED:
 				return;
 		}
 		_stressor->applyStress( _stressLevel, _agent );

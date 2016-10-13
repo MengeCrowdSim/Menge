@@ -49,7 +49,7 @@ namespace StressGAS {
 		 *								100% stress to 0%.
 		 */
 		StressFunction( Agents::BaseAgent * agent, AgentStressor * stressor, float coolDuration ) : 
-			_agent( agent ), _mode( StressFunctionMode::ACTIVE ), _stressor( stressor ),
+			_agent( agent ), _mode( ACTIVE ), _stressor( stressor ),
 			_coolDownRate( 1.f / coolDuration ), _stressLevel(0.f) {
 			stressor->setBaseline( agent );
 		}
