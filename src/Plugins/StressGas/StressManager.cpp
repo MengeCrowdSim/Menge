@@ -17,8 +17,7 @@ namespace StressGAS {
 	//             Implementation of StressGasManager
 	////////////////////////////////////////////////////////////////
 	
-	StressManager::StressManager() : _stressFunctions() {
-	
+	StressManager::StressManager() : _stressFunctions(), _lock() {
 	};
 
 	////////////////////////////////////////////////////////////////
@@ -35,46 +34,55 @@ namespace StressGAS {
 	////////////////////////////////////////////////////////////////
 	
 	void StressManager::updateStress() {
+		_lock.lockRead();
 		HASH_MAP< const Agents::BaseAgent *, StressFunction *>::iterator itr =
 			_stressFunctions.begin();
 		for ( ; itr != _stressFunctions.end(); ++itr ) {
 			itr->second->processStress();
 		}
+		_lock.releaseRead();
 	};
 
 	////////////////////////////////////////////////////////////////
 
 	StressFunction * StressManager::getStressFunction( const Agents::BaseAgent * agent ) {
+		_lock.lockRead();
 		HASH_MAP< const Agents::BaseAgent *, StressFunction *>::iterator itr =
 			_stressFunctions.find( agent );
+		StressFunction * func = 0x0;
 		if ( itr != _stressFunctions.end() ) {
-			return itr->second;
+			func = itr->second;
 		}
-		return 0x0;
+		_lock.releaseRead();
+		return func;
 	}
 
 	////////////////////////////////////////////////////////////////
 
 	void StressManager::setStressFunction( const Agents::BaseAgent * agent, StressFunction * func ) {
+		_lock.lockWrite();
 		HASH_MAP< const Agents::BaseAgent *, StressFunction *>::iterator itr =
 			_stressFunctions.find( agent );
 		if ( itr != _stressFunctions.end() ) {
 			delete itr->second;
 		}
 		_stressFunctions[ agent ] = func;
+		_lock.releaseWrite();
 	}
 
 	////////////////////////////////////////////////////////////////
 
 	StressFunction * StressManager::popStressFunction( const Agents::BaseAgent * agent ) {
+		_lock.lockWrite();
 		HASH_MAP< const Agents::BaseAgent *, StressFunction *>::iterator itr =
 			_stressFunctions.find( agent );
+		StressFunction * func = 0x0;
 		if ( itr != _stressFunctions.end() ) {
-			StressFunction * func = itr->second;
+			func = itr->second;
 			_stressFunctions.erase( itr );
-			return func;
 		}
-		return 0x0;
+		_lock.releaseWrite();
+		return func;
 	}
 
 	////////////////////////////////////////////////////////////////

@@ -11,8 +11,9 @@
 
 #include "StressFunction.h"
 
-#include "FSM.h"
 #include "BaseAgent.h"
+#include "FSM.h"
+#include "ReadersWriterLock.h"
 
 using namespace Menge;
 
@@ -91,6 +92,9 @@ namespace StressGAS {
 		
 		/*! The set of agents which receive stress and their corresponding stress functions. */
 		HASH_MAP< const Agents::BaseAgent *, StressFunction *> _stressFunctions;
+
+		/*! A lock for managing access to the function map. */
+		ReadersWriterLock _lock;
 	}; 
 };
 #endif	// __STRESS_MANAGER_H__
