@@ -40,6 +40,57 @@ namespace StressGAS {
 	 *	It provides the core functionality for defining the stress vector (the offset to agent 
 	 *	parameters which represent a change to 100% stressed.) Handles the initial registration 
 	 *	with the stress manager.
+	 *	
+	 *	The stress action's basic behavior is to initialize stress accumulation upon entering the
+	 *	action's corresponding state and control how the stress accumulation changes when the agent
+	 *	exits the state.
+	 *	
+	 *	The nature of the stress accumulation is dicatated by creating a subclass of this method 
+	 *	and overriding the makeStressFunction.  A StressFunction is responsible for mapping agent
+	 *	state to a stress level - a value in the range [0, 1].  This is interpreted as ranging
+	 *	between no stress and being "fully" stressed.  It is invoked at each time step.  The 
+	 *	formula for computing instantaneous stress can use arbitrary logic.
+	 *	
+	 *	Upon exiting the state, the action can specify what happens to the stress accumulation
+	 *	when the agent exits the state.  There are for options:
+	 *		- "reset" - this reverts the agent to its unstressed state.  This is analgous to the  
+	 *		   basic Action behavior "exit_reset".  However, the stress action *ignores* the
+	 *		   "exit_reset" parameter and uses the exit behavior field instead.
+	 *		- "pause" - the current stress level is preserved but will not change.  
+	 *		- "cool down" - the stress level will decrease at a xml-specified rate.  
+	 *		- "continue" - continue accumluating stress into subsequent states.    
+	 *  Regardless of what the specified exit behavior is, if the agent enters a state with a
+	 *  stress action, that will replace the current stress accumulator; however, the agent's
+	 *  stress level will be preserved across the change.
+	 *  
+	 *  XML example:
+	 * ```
+	 *	<Action type="..."
+	 *		exit_behavior={"reset"|"continue"|"pause"|"cool down"}
+	 *		cool_duration_dist="c|n|u" ...
+	 *		neighbor_dist_dist="c|n|u" ...
+	 *		max_neighbors_dist="c|n|u" ...
+	 *		radius_dist="c|n|u" ...
+	 *		pref_speed_dist="c|n|u" ...
+	 *		time_horizon_dist="c|n|u" ...
+	 *		/>
+	 * ```
+	 * 
+	 *  - `exit_behavior` defines the state-exiting behavior and is required.
+	 *	- `cool_duration_dist` dictates the amount of time it would take the agent to cool down from
+	 *		a 100% stress level.  It has a default value and, therefore, is optional.
+	 *	- `neighbor_dist_dst`, `max_neighbors_dist`, `radius_dist`, `pref_speed_dist`, 
+	 *	`time_horizon_dist` define the changes to the agent parameters as stress increases.  The
+	 *	semantics are defined in @see StressFunction.  All have constant distribution default
+	 *	values.  However, arbitrary distributions can be provided to vary the stress behaviors
+	 *	for agents who enter the state.
+	 *	
+	 *	All of the values (except for `exit_behavior`) are numerical distribution parameters.  If
+	 *	omitted, they apply a constant distribution of a default value across all agents.  
+	 *	Otherwise, other distributions can be indicated as defined by Menge::Math::FloatGenerator. 
+	 *	@see Menge::Math::FloatGenerator
+	 *	
+	 *	Individual sub-clases can include additional parameters.
 	 */
 	class EXPORT_API BaseStressAction : public BFSM::Action {
 	public:
@@ -64,7 +115,10 @@ namespace StressGAS {
 		 *	Stress actions vary in the stress function they are associated with.  Each sub-class
 		 *	must define this method to provide the right type of StressFunction.
 		 *
-		 *	@param	stressor	The stressor for the StressFunction to use.
+		 *	@param	agent			The agent to compute stress for.
+		 *	@param	stressor		The stressor for the StressFunction to use.
+		 *	@param	coolDuration	The amount of simulation time required to cool down from
+		 *							full stress to no stress  (in simulation seconds).
 		 *	@returns	An instance of the appropriate stress function.
 		 */
 		virtual StressFunction * makeStressFunction( Agents::BaseAgent * agent, 

@@ -30,10 +30,15 @@ namespace StressGAS {
 	 */
 	class EXPORT_API AgentStressor {
 	public:
-		const static float DEFAULT_NEIGHBOR_DIST_DELTA;
+		/** Default change to neighbor distance at full stress. */
+		const static float DEFAULT_NEIGHBOR_DIST_DELTA;	
+		/** Default change to maximum neighbors at full stress. */
 		const static float DEFAULT_MAX_NEIGHBORS_DELTA;
+		/** Default change to time horizon (for ORCA and PedVO) at full stress. */
 		const static float DEFAULT_TIME_HORIZON_DELTA;
+		/** Default change to agent radius at full stress. */
 		const static float DEFAULT_RADIUS_DELTA;
+		/** Default change to preferred speed at full stress. */
 		const static float DEFAULT_PREF_SPEED_DELTA;
 
 		/** @brief		Default constructor */

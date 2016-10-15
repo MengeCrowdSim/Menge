@@ -6,6 +6,16 @@
 
 namespace StressGAS {
 
+	/**
+	 *	@brief		The StressFunction that defines stress accumulation based on the passage of
+	 *				time.
+	 *				
+	 *	Agents simply accumulate stress as time passes.  The rate at which they accumulate stress
+	 *	is:
+	 *	    `\delta t` / `duration`
+	 *	where `\delta` t is the size of the time step and `duration` is the total time a user would
+	 *	require to go from zero stress to full stress.
+	 */
 	class EXPORT_API TimedStressFunction : public StressFunction {
 	public:
 
@@ -22,6 +32,8 @@ namespace StressGAS {
 
 		/*!
 		 *	@brief		Updates the stress level for this agent.
+		 *				
+		 *	@returns	The stress value for the function's agent.
 		 */
 		virtual float updateStress();
 

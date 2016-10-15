@@ -38,7 +38,7 @@ namespace StressGAS {
 	 * 			controls how an agent's stress changes based on simulator 
 	 * 			state.
 	 */
-	class StressFunction {
+	class EXPORT_API StressFunction {
 	public:
 
 		/*!
@@ -100,6 +100,8 @@ namespace StressGAS {
 
 		/*!
 		 *	@brief		Updates the stress level for this agent.
+		 *				
+		 *	@returns	The new stress value for the underlying agent.
 		 */
 		virtual float updateStress() = 0;
 

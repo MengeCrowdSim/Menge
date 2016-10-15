@@ -1,5 +1,5 @@
 /*!
- *	@file		StressSManager.h
+ *	@file		StressManager.h
  *	@brief		Manages stress values for agents
  */
 

@@ -29,7 +29,10 @@ namespace StressGAS {
 		 *	Stress actions vary in the stress function they are associated with.  Each sub-class
 		 *	must define this method to provide the right type of StressFunction.
 		 *
-		 *	@param	stressor	The stressor for the StressFunction to use.
+		 *	@param	agent			The agent to compute stress for.
+		 *	@param	stressor		The stressor for the StressFunction to use.
+		 *	@param	coolDuration	The amount of simulation time required to cool down from
+		 *							full stress to no stress  (in simulation seconds).
 		 *	@returns	An instance of the appropriate stress function.
 		*/
 		virtual StressFunction * makeStressFunction( Agents::BaseAgent * agent, 
