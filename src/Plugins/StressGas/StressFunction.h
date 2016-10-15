@@ -7,6 +7,7 @@
 #define __STRESS_FUNCTION_H__
 
 #include "AgentStressor.h"
+#include "StressGasConfig.h"
 
 #include "Agents/BaseAgent.h"
 

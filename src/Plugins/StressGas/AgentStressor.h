@@ -6,6 +6,8 @@
 #ifndef __AGENT_STRESSOR_H__
 #define __AGENT_STRESSOR_H__
 
+#include "StressGasConfig.h"
+
 #include "Agents/BaseAgent.h"
 
 // forward declarations
@@ -26,7 +28,7 @@ namespace StressGAS {
 	 *	state and, given a stress level modifies the agent's properties to reflect the stress 
 	 *	level.
 	 */
-	class AgentStressor {
+	class EXPORT_API AgentStressor {
 	public:
 		const static float DEFAULT_NEIGHBOR_DIST_DELTA;
 		const static float DEFAULT_MAX_NEIGHBORS_DELTA;

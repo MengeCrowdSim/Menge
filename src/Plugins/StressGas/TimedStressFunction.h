@@ -1,11 +1,12 @@
 #ifndef __TIMED_STRESS_FUNCTION_H__
 #define __TIMED_STRESS_FUNCTION_H__
 
+#include "StressGasConfig.h"
 #include "StressFunction.h"
 
 namespace StressGAS {
 
-	class TimedStressFunction : public StressFunction {
+	class EXPORT_API TimedStressFunction : public StressFunction {
 	public:
 
 		/**
