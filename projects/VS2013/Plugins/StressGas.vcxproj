@@ -116,7 +116,7 @@ xcopy /y $(TargetPath) $(ExeDir)\plugins\
     <ClCompile Include="..\..\..\src\Plugins\StressGas\StressFunction.cpp" />
     <ClCompile Include="..\..\..\src\Plugins\StressGas\StressGlobals.cpp" />
     <ClCompile Include="..\..\..\src\Plugins\StressGas\StressManager.cpp" />
-    <ClCompile Include="..\..\..\src\Plugins\StressGas\StressTasks.cpp" />
+    <ClCompile Include="..\..\..\src\Plugins\StressGas\StressTask.cpp" />
     <ClCompile Include="..\..\..\src\Plugins\StressGas\TimedStressFunction.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -127,7 +127,7 @@ xcopy /y $(TargetPath) $(ExeDir)\plugins\
     <ClInclude Include="..\..\..\src\Plugins\StressGas\StressFunction.h" />
     <ClInclude Include="..\..\..\src\Plugins\StressGas\StressGlobals.h" />
     <ClInclude Include="..\..\..\src\Plugins\StressGas\StressManager.h" />
-    <ClInclude Include="..\..\..\src\Plugins\StressGas\StressTasks.h" />
+    <ClInclude Include="..\..\..\src\Plugins\StressGas\StressTask.h" />
     <ClInclude Include="..\..\..\src\Plugins\StressGas\TimedStressFunction.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

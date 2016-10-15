@@ -26,9 +26,6 @@ namespace StressGAS {
 	public:
 		/*!
 		 *	@brief		Constructor 
-		 *
-		 *  @param      the formation to be tasked out
-		 *
 		 */
 		StressTask();
 
@@ -61,11 +58,6 @@ namespace StressGAS {
 		 *				or unique (false).
 		 */
 		virtual bool isEquivalent( const Task * task ) const;
-
-		
-
-	protected:
-
 	};
 
 

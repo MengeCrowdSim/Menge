@@ -1,7 +1,5 @@
 #include "TimedStressAction.h"
 
-#include "StressGlobals.h"
-#include "StressTasks.h"
 #include "TimedStressFunction.h"
 
 #include "BaseAgent.h"

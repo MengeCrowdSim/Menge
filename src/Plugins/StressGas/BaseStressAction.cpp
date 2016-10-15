@@ -4,7 +4,7 @@
 
 #include "AgentStressor.h"
 #include "StressGlobals.h"
-#include "StressTasks.h"
+#include "StressTask.h"
 
 namespace StressGAS {
 
