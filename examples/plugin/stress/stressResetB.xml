@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+
+<BFSM>
+	<GoalSet id="0">
+		<Goal type="point" id="0" x="30" y="0.0"/>
+	</GoalSet>
+	
+	<State name="Walk1_0" final="0">
+		<GoalSelector type="explicit" goal_set="0" goal="0" />
+		<VelComponent type="goal" />
+        <Action type="timed_stress" exit_behavior="cool down"
+			duration_dist="c" duration_value="10" 
+			/>
+	</State>
+	
+	<State name="Walk2_0" final="0">
+		<GoalSelector type="explicit" goal_set="0" goal="0" />
+		<VelComponent type="goal" />
+        <Action type="timed_stress" exit_behavior="continue"
+			duration_dist="c" duration_value="10" 
+			/>
+	</State>
+	
+	<State name="Walk3_0" final="0">
+		<GoalSelector type="explicit" goal_set="0" goal="0" />
+		<VelComponent type="goal" />
+        <Action type="timed_stress" exit_behavior="cool down"
+			cool_duration_dist="c" cool_duration_value="15"
+			duration_dist="c" duration_value="10" 
+			/>
+	</State>
+	
+	<State name="EndStressor" final="0">
+		<GoalSelector type="explicit" goal_set="0" goal="0" />
+		<VelComponent type="goal" />
+	</State>
+	
+	<State name="GoalReached" final="1">
+		<GoalSelector type="identity" />
+		<VelComponent type="zero" />
+	</State>
+
+	<Transition from="Walk1_0" to="EndStressor" >
+		<Condition type="AABB" min_x="15" max_x="16" min_y="-3" max_y="3.0" inside="1" />
+	</Transition>
+	<Transition from="Walk2_0" to="EndStressor" >
+		<Condition type="AABB" min_x="15" max_x="16" min_y="-3" max_y="3.0" inside="1" />
+	</Transition>
+	<Transition from="Walk3_0" to="EndStressor" >
+		<Condition type="AABB" min_x="15" max_x="16" min_y="-3" max_y="3.0" inside="1" />
+	</Transition>
+	<Transition from="EndStressor" to="GoalReached" >
+		<Condition type="goal_reached" distance="0.2" />
+	</Transition>
+
+		
+</BFSM>
