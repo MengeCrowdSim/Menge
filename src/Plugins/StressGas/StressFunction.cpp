@@ -1,6 +1,7 @@
 #include "StressFunction.h"
 #include "AgentStressor.h"
 
+#include "Core.h"
 
 namespace StressGAS {
 
@@ -41,7 +42,7 @@ namespace StressGAS {
 	/////////////////////////////////////////////////////////////////////
 	
 	void StressFunction::coolDown() {
-		_stressLevel -= _coolDownRate;
+		_stressLevel -= _coolDownRate * Menge::SIM_TIME_STEP;
 		if ( _stressLevel < 0.f ) _stressLevel = 0.f;
 	}
 

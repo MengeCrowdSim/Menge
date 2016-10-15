@@ -43,12 +43,15 @@ namespace StressGAS {
 	 */
 	class EXPORT_API BaseStressAction : public BFSM::Action {
 	public:
+		/*! The default time to cool down from 100% stress. */
+		const static float DEFAULT_COOL_DURATION;
+
 		/*!
 		 *	@brief		Constructor
 		 */
 		BaseStressAction() : Action(), _exitBehavior( RESET ), _deltaNeighborDist( 0x0 ),
 							_deltaMaxNeighbors( 0x0 ), _deltaRadius(0x0), _deltaTimeHorizon(0x0),
-							_deltaPrefSpeed(0x0) {}
+							_deltaPrefSpeed(0x0), _coolDuration(0x0) {}
 
 		/*!
 		 *	@brief		Virtual destructor.
@@ -99,17 +102,20 @@ namespace StressGAS {
 		/*! @brief	The value for the change in neighbor distance. */
 		FloatGenerator * _deltaNeighborDist;
 
-		/*! @brief	The value for the change in  maximum neighbors. */
+		/*! @brief	The value for the change in maximum neighbors. */
 		FloatGenerator * _deltaMaxNeighbors;
 
-		/*! @brief	The value for the change in  radius. */
+		/*! @brief	The value for the change in radius. */
 		FloatGenerator * _deltaRadius;
 
-		/*! @brief	The value for the change in  time horizon. */
+		/*! @brief	The value for the change in time horizon. */
 		FloatGenerator * _deltaTimeHorizon;
 
-		/*! @brief	The value for the change in  preference speed. */
+		/*! @brief	The value for the change in preference speed. */
 		FloatGenerator * _deltaPrefSpeed;
+
+		/*! @brief  The value for the cool down duration. */
+		FloatGenerator * _coolDuration;
 
 	protected:
 
@@ -165,6 +171,9 @@ namespace StressGAS {
 
 		/** @brief  Identifier for the exit behavior of the stress action */
 		size_t _exitBehaviorId;
+
+		/** @brief  Identifier for the cool down duration of the stress action */
+		size_t _coolDurationId;
 	};
 }	 // namespace StressGAS
 

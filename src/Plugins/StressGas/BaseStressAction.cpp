@@ -12,12 +12,17 @@ namespace StressGAS {
 	//                   Implementation of BaseStressAction
 	/////////////////////////////////////////////////////////////////////
 
+	const float BaseStressAction::DEFAULT_COOL_DURATION = 5.f;	///< 5 seconds to cool from 100%
+
+	/////////////////////////////////////////////////////////////////////
+
 	BaseStressAction::~BaseStressAction() {
 		if ( _deltaNeighborDist != 0x0 ) delete _deltaNeighborDist;
 		if ( _deltaMaxNeighbors != 0x0 ) delete _deltaMaxNeighbors;
 		if ( _deltaRadius != 0x0 ) delete _deltaRadius;
 		if ( _deltaTimeHorizon != 0x0 ) delete _deltaTimeHorizon;
 		if ( _deltaPrefSpeed != 0x0 ) delete _deltaPrefSpeed;
+		if ( _coolDuration != 0x0 ) delete _coolDuration;
 	}
 
 	/////////////////////////////////////////////////////////////////////
@@ -29,7 +34,7 @@ namespace StressGAS {
 			);
 
 		// TODO (curds01): define the cool down value in XML
-		StressFunction * newFunc = makeStressFunction( agent, stressor, 5.f /*cool down*/ );
+		StressFunction * newFunc = makeStressFunction( agent, stressor, _coolDuration->getValue() );
 		StressFunction * func = STRESS_MANAGER->getStressFunction( agent );
 		if ( func != 0x0 ) {
 			newFunc->initialize( func );
@@ -87,6 +92,9 @@ namespace StressGAS {
 														 AgentStressor::DEFAULT_TIME_HORIZON_DELTA,
 														 1.f );
 		_exitBehaviorId = _attrSet.addStringAttribute( "exit_behavior", true/*required*/, "" );
+		_coolDurationId = _attrSet.addFloatDistAttribute( "cool_duration_", false/*required*/,
+														 BaseStressAction::DEFAULT_COOL_DURATION,
+														 1.f );
 	}
 
 	/////////////////////////////////////////////////////////////////////
@@ -118,6 +126,7 @@ namespace StressGAS {
 		std::string mode = _attrSet.getString( _exitBehaviorId );
 		std::transform( mode.begin(), mode.end(), mode.begin(), ::tolower );
 
+		// exit behavior
 		if ( mode == "reset" ) sAction->_exitBehavior = RESET;
 		else if ( mode == "cool down" ) sAction->_exitBehavior = COOL_DOWN;
 		else if ( mode == "pause" ) sAction->_exitBehavior = PAUSE;
@@ -129,7 +138,9 @@ namespace StressGAS {
 			sAction->_exitBehavior = RESET;
 		}
 
-		// exit behavior
+		if ( sAction->_coolDuration != 0x0 ) delete sAction->_coolDuration;
+		sAction->_coolDuration = _attrSet.getFloatGenerator( _coolDurationId );
+
 		return true;
 	}
 
