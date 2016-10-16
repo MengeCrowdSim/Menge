@@ -1,6 +1,6 @@
 /*!
  *	@file		TimedStressAction.h
- *	@brief		Definition of actions which triggers accumulation of strss based on elapsed time.
+ *	@brief		Definition of actions which triggers accumulation of stress based on elapsed time.
  */
 #ifndef __TIMED_STRESS_ACTION_H__
 #define __TIMED_STRESS_ACTION_H__
