@@ -61,6 +61,13 @@ namespace Menge {
 
 		/////////////////////////////////////////////////////////////////////
 
+		void Goal::setGeometry(Math::Geometry2D * geometry) {
+			if (_geometry != 0x0) delete _geometry;
+			_geometry = geometry; 
+		}
+
+		/////////////////////////////////////////////////////////////////////
+
 		bool Goal::hasCapacity() const { 
 			_lock.lockRead();
 			bool result = _population < _capacity; 
