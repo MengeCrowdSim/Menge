@@ -46,6 +46,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 #include "mengeCommon.h"
 
+// forward declaration
+class TiXmlElement;
+
 namespace Menge {
 
 	namespace Math {
@@ -477,6 +480,69 @@ namespace Menge {
 			 */
 			float _sinTheta;
 		};
+
+		/*!
+		 *	@brief		Reads the attributes of an XML element to determine if it contains the
+		 *				definition of a known Geoemtry2D instance -- instantiating the shape if
+		 *				possible.
+		 * 
+		 *	@param [in,out]	node  	The node containing xml attributes.
+		 *	@param 		  	prefix	(Optional) A prefix that can be pre-pended to the shape 
+		 *							attribute names.
+		 *
+		 *	@return	Null if it fails, else the new geometry.  The caller is responsible for destroying
+		 *  		the instance.
+		 */
+		MENGE_API Geometry2D * createGeometry(TiXmlElement * node, const std::string & prefix = "");
+
+		/**
+		 *	@brief	Creates a point from the attributes of an XML element.
+		 *
+		 *	@param [in,out]	node  	The node containing xml attributes.
+		 *	@param 		  	prefix	(Optional) A prefix that can be pre-pended to the shape 
+		 *							attribute names.
+		 *
+		 *	@return	Null if it fails, else the new point.  The caller is responsible for destroying
+		 *  		the instance.
+		 */
+		MENGE_API PointShape * createPoint(TiXmlElement * node, const std::string & prefix = "");
+
+		/**
+		 *	@brief	Creates a circle from the attributes of an XML element.
+		 *
+		 *	@param [in,out]	node  	The node containing xml attributes.
+		 *	@param 		  	prefix	(Optional) A prefix that can be pre-pended to the shape 
+		 *							attribute names.
+		 *
+		 *	@return	Null if it fails, else the new circle.  The caller is responsible for destroying
+		 *  		the instance.
+		 */
+		MENGE_API CircleShape * createCircle(TiXmlElement * node, const std::string & prefix = "");
+
+		/**
+		 *	@brief	Creates an axis-aligned bounding box from the attributes of an XML element.
+		 *
+		 *	@param [in,out]	node  	The node containing xml attributes.
+		 *	@param 		  	prefix	(Optional) A prefix that can be pre-pended to the shape 
+		 *							attribute names.
+		 *
+		 *  @return	Null if it fails, else the new AABB.  The caller is responsible for destroying
+		 *  		the instance.
+		 */
+		MENGE_API AABBShape * createAABB(TiXmlElement * node, const std::string & prefix = "");
+
+		/**
+		 *  @brief	Creates an oriented bounding box (OBB) from the attributes of an XML element.
+		 *
+		 *	@param [in,out]	node  	The node containing xml attributes.
+		 *	@param 		  	prefix	(Optional) A prefix that can be pre-pended to the shape 
+		 *							attribute names.
+		 *
+		 *  @return	Null if it fails, else the new OBB.  The caller is responsible for destroying
+		 *  		the instance.
+		 */
+		MENGE_API OBBShape * createOBB(TiXmlElement * node, const std::string & prefix = "");
+
 	}	// namespace Math
 }	// namespace Menge
 

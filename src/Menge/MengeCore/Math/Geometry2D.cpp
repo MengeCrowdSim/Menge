@@ -37,6 +37,12 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 */
 
 #include "Geometry2D.h"
+
+#include "Attribute.h"
+
+#include "tinyxml.h"
+
+#include <algorithm>
 #include <cassert>
 
 namespace Menge {
@@ -270,5 +276,169 @@ namespace Menge {
 			_cosTheta = cos( angle );
 			_sinTheta = sin( angle );
 		}
+
+		/////////////////////////////////////////////////////////////////////
+		//                   Implementation of XML Parsing
+		/////////////////////////////////////////////////////////////////////
+		
+		Geometry2D * createGeometry(TiXmlElement * node, const std::string & prefix) {
+			std::string fullName = prefix + "shape";
+			const char * val = node->Attribute(fullName.c_str());
+			if (val) {
+				std::string shapeName(val);
+				std::transform(shapeName.begin(), shapeName.end(), shapeName.begin(), ::tolower);
+				if (shapeName == "point") {
+					return createPoint(node, prefix);
+				}
+				else if (shapeName == "circle") {
+					return createCircle(node, prefix);
+				}
+				else if (shapeName == "aabb") {
+					return createAABB(node, prefix);
+				}
+				else if (shapeName == "obb") {
+					return createOBB(node, prefix);
+				}
+				else {
+					logger << Logger::ERR_MSG << "Attemtped to read shape attributes from a tag " \
+						"but the shape type was not recognized: " << val << ".\n";
+				}
+			}
+			else {
+				logger << Logger::ERR_MSG << "Attempted to read shape attributes from a tag but "\
+					"didn't find the shape declaration: \" " << fullName << "\" on line " <<
+					node->Row() << ".\n";
+			}
+			return 0x0;
+		}
+
+		/////////////////////////////////////////////////////////////////////
+
+		PointShape * createPoint(TiXmlElement * node, const std::string & prefix) {
+			bool valid = true;
+			FloatAttribute attrX(prefix + "x", true, 0.f);
+			if (!attrX.extract(node)) {
+				logger << Logger::ERR_MSG << "Missing \"x\" value from point definition on line ";
+				logger << node->Row() << "\n";
+				valid = false;
+			}
+			FloatAttribute attrY(prefix + "y", true, 0.f);
+			if (!attrY.extract(node)) {
+				logger << Logger::ERR_MSG << "Missing \"y\" value from point definition on line ";
+				logger << node->Row() << "\n";
+				valid = false;
+			}
+			if (valid) {
+				return new PointShape(Vector2(attrX.getFloat(), attrY.getFloat()));
+			}
+			return 0x0;
+		}
+
+		/////////////////////////////////////////////////////////////////////
+
+		CircleShape * createCircle(TiXmlElement * node, const std::string & prefix) {
+
+			bool valid = true;
+			FloatAttribute attrX(prefix + "x", true, 0.f);
+			if (!attrX.extract(node)) {
+				logger << Logger::ERR_MSG << "Missing \"x\" value from circle definition on line ";
+				logger << node->Row() << "\n";
+				valid = false;
+			}
+			FloatAttribute attrY(prefix + "y", true, 0.f);
+			if (!attrY.extract(node)) {
+				logger << Logger::ERR_MSG << "Missing \"y\" value from circle definition on line ";
+				logger << node->Row() << "\n";
+				valid = false;
+			}
+			FloatAttribute radius(prefix + "radius", true, 0.f);
+			if (!attrY.extract(node)) {
+				logger << Logger::ERR_MSG << "Missing \"radius\" value from circle definition on ";
+				logger << "line " << node->Row() << "\n";
+				valid = false;
+			}
+			if (valid) {
+				return new CircleShape(Vector2(attrX.getFloat(), attrY.getFloat()), 
+					radius.getFloat());
+			}
+			return 0x0;
+		}
+
+		/////////////////////////////////////////////////////////////////////
+
+		AABBShape * createAABB(TiXmlElement * node, const std::string & prefix) {
+			bool valid = true;
+			FloatAttribute minX(prefix + "min_x", true, 0.f);
+			if (!minX.extract(node)) {
+				logger << Logger::ERR_MSG << "Missing \"min_x\" value from AABB definition on line ";
+				logger << node->Row() << "\n";
+				valid = false;
+			}
+			FloatAttribute minY(prefix + "min_y", true, 0.f);
+			if (!minY.extract(node)) {
+				logger << Logger::ERR_MSG << "Missing \"min_y\" value from AABB definition on line ";
+				logger << node->Row() << "\n";
+				valid = false;
+			}
+			FloatAttribute maxX(prefix + "max_x", true, 0.f);
+			if (!maxX.extract(node)) {
+				logger << Logger::ERR_MSG << "Missing \"max_x\" value from AABB definition on line ";
+				logger << node->Row() << "\n";
+				valid = false;
+			}
+			FloatAttribute maxY(prefix + "max_y", true, 0.f);
+			if (!maxY.extract(node)) {
+				logger << Logger::ERR_MSG << "Missing \"max_y\" value from AABB definition on line ";
+				logger << node->Row() << "\n";
+				valid = false;
+			}
+			if (valid) {
+				return new AABBShape(Vector2(minX.getFloat(), minY.getFloat()),
+									 Vector2(maxX.getFloat(), maxY.getFloat()));
+			}
+			return 0x0;
+		}
+
+		/////////////////////////////////////////////////////////////////////
+
+		OBBShape * createOBB(TiXmlElement * node, const std::string & prefix) {
+			bool valid = true;
+			FloatAttribute x(prefix + "x", true, 0.f);
+			if (!x.extract(node)) {
+				logger << Logger::ERR_MSG << "Missing \"x\" value from OBB definition on line ";
+				logger << node->Row() << "\n";
+				valid = false;
+			}
+			FloatAttribute y(prefix + "y", true, 0.f);
+			if (!y.extract(node)) {
+				logger << Logger::ERR_MSG << "Missing \"y\" value from OBB definition on line ";
+				logger << node->Row() << "\n";
+				valid = false;
+			}
+			FloatAttribute width(prefix + "width", true, 0.f);
+			if (!width.extract(node)) {
+				logger << Logger::ERR_MSG << "Missing \"width\" value from OBB definition on line ";
+				logger << node->Row() << "\n";
+				valid = false;
+			}
+			FloatAttribute height(prefix + "height", true, 0.f);
+			if (!height.extract(node)) {
+				logger << Logger::ERR_MSG << "Missing \"height\" value from OBB definition on line ";
+				logger << node->Row() << "\n";
+				valid = false;
+			}
+			FloatAttribute angle(prefix + "angle", true, 0.f);
+			if (!angle.extract(node)) {
+				logger << Logger::ERR_MSG << "Missing \"angle\" value from OBB definition on line ";
+				logger << node->Row() << "\n";
+				valid = false;
+			}
+			if (valid) {
+				return new OBBShape(Vector2(x.getFloat(), y.getFloat()),
+					Vector2(width.getFloat(), height.getFloat()), angle.getFloat() * DEG_TO_RAD);
+			}
+			return 0x0;
+		}
+
 	}	// namespace Math
 }	// namespace Menge
