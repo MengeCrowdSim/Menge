@@ -51,6 +51,11 @@ class TiXmlElement;
 
 namespace Menge {
 
+	// forward declaration
+	namespace Agents {
+		class PrefVelocity;
+	}
+
 	namespace Math {
 
 		/*!
@@ -90,6 +95,56 @@ namespace Menge {
 			 *	@returns	True if the point is inside the shape, false otherwise.
 			 */
 			virtual bool containsPoint( const Vector2 & pt, const Vector2 & pos ) const = 0;
+
+			/*!
+			 *	@brief		Reports the *squared* distance from the given point to the goal.
+			 *
+			 *	@param		pt			The query point.
+			 *	@returns	The squared distance from the point to the goal.
+			 */
+			virtual float squaredDistance(const Vector2 & pt) const = 0;
+
+			/*!
+			 *	@brief		Set the preferred velocity directions w.r.t. the goal: left, right, and 
+			 *				preferred.
+			 *
+			 *	The Agents::PrefVelocity class represents a span of velocities that will reach the 
+			 *	goal. For a goal that covers a 2D region, the directions in the 
+			 *	Agents::PrefVelocity should span the arc subtended by the goal from the query 
+			 *	point's perspective.  Furthermore, it should have sufficient clearance for a disk 
+			 *	with the given radius to pass through. This should be overridden by subclasses to 
+			 *	account for their unique geometry.
+			 *
+			 *	@param		q				The query point.
+			 *	@param		r				The radius of clearance.
+			 *	@param		directions		An instance of Agents::PrefVelocity.
+			 */
+			virtual void setDirections(const Vector2 & q, float r, 
+				Agents::PrefVelocity & directions) const = 0;
+
+			// TODO: Delete this function= transition uses it determine distance to goal
+			//		I would be better off simply returning "squared distance to goal"
+			/*!
+			 *	@brief		Returns the closest "target" point in the goal to the given
+			 *				query point.
+			 *
+			 *	A "valid" target point is the nearest point to the query point that is sufficiently
+			 *	inside the goal region that a disk with the given radius is completely inside the 
+			 *	goal. It need not be literally the *best* value, an approximation is sufficient.
+			 *
+			 *	In the case where the goal region is too small to hold the agent, then the 
+			 *	"deepest" point in the region is a good approximation.
+			 *
+			 *	@param		q		The query point.
+			 *	@param		r		The radius of clearance.
+			 *	@returns	A 2D position representing the target point.
+			 */
+			virtual Vector2 getTargetPoint(const Vector2 & q, float r) const = 0;
+
+			/*!
+			 *	@brief		Return the centroid of the goal.
+			 */
+			virtual Vector2 getCentroid() const = 0;
 		};
 
 		/////////////////////////////////////////////////////////////////////
@@ -100,65 +155,122 @@ namespace Menge {
 		class MENGE_API PointShape : public Geometry2D {
 		public:
 			/*!
-			*	@brief		Default constructor
-			*/
+			 *	@brief		Default constructor
+			 */
 			PointShape() : _position(0.f, 0.f) {}
 
 			/*!
-			*	@brief		Constructor
-			*
-			*	@param		pos		The position of the point.
-			*/
+			 *	@brief		Constructor
+			 *
+			 *	@param		pos		The position of the point.
+			 */
 			PointShape(const Vector2 & pos) : Geometry2D(), _position(pos) {}
 
 			/*!
-			*	@brief		Copy constructor
-			*
-			*	@param		shape		The shape to copy from.
-			*/
+			 *	@brief		Copy constructor
+			 *
+			 *	@param		shape		The shape to copy from.
+			 */
 			PointShape(const PointShape & shape);
 
 			/*!
-			*	@brief		Initializes this shape as an translated version of the input shape.
-			*
-			*	@param		shape		The shape to copy from.
-			*	@param		offset		The displacement from this point to the new.
-			*/
+			 *	@brief		Initializes this shape as an translated version of the input shape.
+			 *
+			 *	@param		shape		The shape to copy from.
+			 *	@param		offset		The displacement from this point to the new.
+			 */
 			PointShape(const PointShape & shape, const Vector2 & offset);
 
 			/*!
-			*	@brief		Construct an offset version of this shape.
-			*
-			*	@param		pt		The offset value.
-			*	@returns	A new PointShape offset from this one by the vector pt.
-			*/
+			 *	@brief		Construct an offset version of this shape.
+			 *
+			 *	@param		pt		The offset value.
+			 *	@returns	A new PointShape offset from this one by the vector pt.
+			 */
 			PointShape operator+(const Vector2 & pt);
 
 			/*!
-			*	@brief		Sets the center of the circle.
-			*
-			*	@param		pos		The new position.
-			*/
+			 *	@brief		Sets the center of the circle.
+			 *
+			 *	@param		pos		The new position.
+			 */
 			void setPosition(const Vector2 & pos) { _position.set(pos); }
 
 			/*!
-			*	@brief		Determine if the point is inside the shape based on
-			*				the instance properties.
-			*
-			*	@param		pt		The point to test.
-			*	@returns	True if the point is inside the shape, false otherwise.
-			*/
+			 *	@brief		Reports the point position.
+			 *				
+			 *	@returns	The point position.
+			 */
+			const Vector2 & getPosition() const { return _position; }
+
+			/*!
+			 *	@brief		Determine if the point is inside the shape based on
+			 *				the instance properties.
+			 *
+			 *	@param		pt		The point to test.
+			 *	@returns	True if the point is inside the shape, false otherwise.
+			 */
 			virtual bool containsPoint(const Vector2 & pt) const;
 
 			/*!
-			*	@brief		Determine if the point is inside a circle, centered on the
-			*				given position.
-			*
-			*	@param		pt		The point to test.
-			*	@param		pos		The position of the circle's center.
-			*	@returns	True if the point is inside the shape, false otherwise.
-			*/
+			 *	@brief		Determine if the point is inside a circle, centered on the
+			 *				given position.
+			 *
+			 *	@param		pt		The point to test.
+			 *	@param		pos		The position of the circle's center.
+			 *	@returns	True if the point is inside the shape, false otherwise.
+			 */
 			virtual bool containsPoint(const Vector2 & pt, const Vector2 & pos) const;
+
+			/*!
+			 *	@brief		Reports the *squared* distance from the given point to the goal.
+			 *
+			 *	@param		pt			The query point.
+			 *	@returns	The squared distance from the point to the goal.
+			 */
+			virtual float squaredDistance(const Vector2 & pt) const;
+
+			/*!
+			 *	@brief		Set the preferred velocity directions w.r.t. the goal: left, right, and
+			 *				preferred.
+			 *
+			 *	The Agents::PrefVelocity class represents a span of velocities that will reach the
+			 *	goal. For a goal that covers a 2D region, the directions in the
+			 *	Agents::PrefVelocity should span the arc subtended by the goal from the query
+			 *	point's perspective.  Furthermore, it should have sufficient clearance for a disk
+			 *	with the given radius to pass through. This should be overridden by subclasses to
+			 *	account for their unique geometry.
+			 *
+			 *	@param		q				The query point.
+			 *	@param		r				The radius of clearance.
+			 *	@param		directions		An instance of Agents::PrefVelocity.
+			 */
+			virtual void setDirections(const Vector2 & q, float r,
+				Agents::PrefVelocity & directions) const;
+
+			// TODO: Delete this function= transition uses it determine distance to goal
+			//		I would be better off simply returning "squared distance to goal"
+			/*!
+			 *	@brief		Returns the closest "target" point in the goal to the given
+			 *				query point.
+			 *
+			 *	A "valid" target point is the nearest point to the query point that is sufficiently
+			 *	inside the goal region that a disk with the given radius is completely inside the
+			 *	goal. It need not be literally the *best* value, an approximation is sufficient.
+			 *
+			 *	In the case where the goal region is too small to hold the agent, then the
+			 *	"deepest" point in the region is a good approximation.
+			 *
+			 *	@param		q		The query point.
+			 *	@param		r		The radius of clearance.
+			 *	@returns	A 2D position representing the target point.
+			 */
+			virtual Vector2 getTargetPoint(const Vector2 & q, float r) const;
+
+			/*!
+			 *	@brief		Return the centroid of the goal.
+			 */
+			virtual Vector2 getCentroid() const;
 
 		protected:
 			/*! @brief		Position */
@@ -173,7 +285,7 @@ namespace Menge {
 			/*!
 			 *	@brief		Default constructor
 			 */
-			CircleShape(): _center(0.f,0.f), _radSqd(1.f) {}
+			CircleShape() : _center(0.f, 0.f), _radius(1.f) {}
 
 			/*!
 			 *	@brief		Constructor
@@ -181,7 +293,7 @@ namespace Menge {
 			 *	@param		center		The position of the circle's center.
 			 *	@param		radius		The radius of the circle.
 			 */
-			CircleShape( const Vector2 & center, float radius ):Geometry2D(), _center(center), _radSqd(radius*radius) {}
+			CircleShape(const Vector2 & center, float radius) :Geometry2D(), _center(center), _radius(radius) {}
 			
 			/*!
 			 *	@brief		Copy constructor
@@ -207,11 +319,25 @@ namespace Menge {
 			CircleShape operator+( const Vector2 & pt );
 
 			/*!
+			 *	@brief		Reports the circle's radius.
+			 *				
+			 *	@returns	The circle's radius.
+			 */
+			float getRadius() const { return _radius; }
+
+			/*!
 			 *	@brief		Sets the radius of the circle.
 			 *
 			 *	@param		radius		The circle's radius.
 			 */
-			void setRadius( float radius ) { _radSqd = radius * radius; }
+			void setRadius(float radius) { _radius = radius; }
+
+			/*!
+			 *	@brief		Reports the circle's center.
+			 *				
+			 *	@returns	The circle center.
+			 */
+			const Vector2 & getCenter() const { return _center; }
 
 			/*!
 			 *	@brief		Sets the center of the circle.
@@ -226,7 +352,7 @@ namespace Menge {
 			 *	@param		center		The circle's center.
 			 *	@param		radius		The circle's radius.
 			 */
-			void set( const Vector2 & center, float radius ) { _center.set( center ); _radSqd = radius * radius; }
+			void set(const Vector2 & center, float radius) { _center.set(center); _radius = radius; }
 
 			/*!
 			 *	@brief		Determine if the point is inside the shape based on
@@ -245,7 +371,57 @@ namespace Menge {
 			 *	@param		pos		The position of the circle's center.
 			 *	@returns	True if the point is inside the shape, false otherwise.
 			 */
-			virtual bool containsPoint( const Vector2 & pt, const Vector2 & pos ) const;
+			virtual bool containsPoint(const Vector2 & pt, const Vector2 & pos) const;
+
+			/*!
+			 *	@brief		Reports the *squared* distance from the given point to the goal.
+			 *
+			 *	@param		pt			The query point.
+			 *	@returns	The squared distance from the point to the goal.
+			 */
+			virtual float squaredDistance(const Vector2 & pt) const;
+
+			/*!
+			 *	@brief		Set the preferred velocity directions w.r.t. the goal: left, right, and
+			 *				preferred.
+			 *
+			 *	The Agents::PrefVelocity class represents a span of velocities that will reach the
+			 *	goal. For a goal that covers a 2D region, the directions in the
+			 *	Agents::PrefVelocity should span the arc subtended by the goal from the query
+			 *	point's perspective.  Furthermore, it should have sufficient clearance for a disk
+			 *	with the given radius to pass through. This should be overridden by subclasses to
+			 *	account for their unique geometry.
+			 *
+			 *	@param		q				The query point.
+			 *	@param		r				The radius of clearance.
+			 *	@param		directions		An instance of Agents::PrefVelocity.
+			 */
+			virtual void setDirections(const Vector2 & q, float r,
+				Agents::PrefVelocity & directions) const;
+
+			// TODO: Delete this function= transition uses it determine distance to goal
+			//		I would be better off simply returning "squared distance to goal"
+			/*!
+			 *	@brief		Returns the closest "target" point in the goal to the given
+			 *				query point.
+			 *
+			 *	A "valid" target point is the nearest point to the query point that is sufficiently
+			 *	inside the goal region that a disk with the given radius is completely inside the
+			 *	goal. It need not be literally the *best* value, an approximation is sufficient.
+			 *
+			 *	In the case where the goal region is too small to hold the agent, then the
+			 *	"deepest" point in the region is a good approximation.
+			 *
+			 *	@param		q		The query point.
+			 *	@param		r		The radius of clearance.
+			 *	@returns	A 2D position representing the target point.
+			 */
+			virtual Vector2 getTargetPoint(const Vector2 & q, float r) const;
+
+			/*!
+			 *	@brief		Return the centroid of the goal.
+			 */
+			virtual Vector2 getCentroid() const;
 
 		protected:
 			/*!
@@ -254,9 +430,9 @@ namespace Menge {
 			Vector2 _center;
 
 			/*!
-			 *	@brief		Squared radius of the circle
+			 *	@brief		Radius of the circle
 			 */
-			float	_radSqd;
+			float	_radius;
 		};
 
 		/////////////////////////////////////////////////////////////////////
@@ -324,6 +500,27 @@ namespace Menge {
 			virtual bool containsPoint( const Vector2 & pt, const Vector2 & pos ) const;
 
 			/*!
+			 *	@brief		Reports the box's size (width by height)
+			 *				
+			 *	@returns	The box size.
+			 */
+			const Vector2 & getSize() const { return _maxPt - _minPt; }
+
+			/*!
+			 *	@brief		Reports the box's maximal point (in x & y directions).
+			 *				
+			 *	@returns	The box's maximal extents.
+			 */
+			const Vector2 & getMaxPoint() const { return _maxPt; }
+
+			/*!
+			 *	@brief		Reports the box's minimal point (in x & y directions).
+			 *				
+			 *	@returns	The box's minimal extents.
+			 */
+			const Vector2 & getMinPoint() const { return _minPt; }
+
+			/*!
 			 *	@brief		Sets the extent of the AABB.
 			 *
 			 *	@param		minPt		The minimum point (along the x- and y-axes).
@@ -339,7 +536,57 @@ namespace Menge {
 			 *
 			 *	@param		size		The width and height of the box.
 			 */
-			void setSize( const Vector2 & size );
+			void setSize(const Vector2 & size);
+
+			/*!
+			 *	@brief		Reports the *squared* distance from the given point to the goal.
+			 *
+			 *	@param		pt			The query point.
+			 *	@returns	The squared distance from the point to the goal.
+			 */
+			virtual float squaredDistance(const Vector2 & pt) const;
+
+			/*!
+			 *	@brief		Set the preferred velocity directions w.r.t. the goal: left, right, and
+			 *				preferred.
+			 *
+			 *	The Agents::PrefVelocity class represents a span of velocities that will reach the
+			 *	goal. For a goal that covers a 2D region, the directions in the
+			 *	Agents::PrefVelocity should span the arc subtended by the goal from the query
+			 *	point's perspective.  Furthermore, it should have sufficient clearance for a disk
+			 *	with the given radius to pass through. This should be overridden by subclasses to
+			 *	account for their unique geometry.
+			 *
+			 *	@param		q				The query point.
+			 *	@param		r				The radius of clearance.
+			 *	@param		directions		An instance of Agents::PrefVelocity.
+			 */
+			virtual void setDirections(const Vector2 & q, float r,
+				Agents::PrefVelocity & directions) const;
+
+			// TODO: Delete this function= transition uses it determine distance to goal
+			//		I would be better off simply returning "squared distance to goal"
+			/*!
+			 *	@brief		Returns the closest "target" point in the goal to the given
+			 *				query point.
+			 *
+			 *	A "valid" target point is the nearest point to the query point that is sufficiently
+			 *	inside the goal region that a disk with the given radius is completely inside the
+			 *	goal. It need not be literally the *best* value, an approximation is sufficient.
+			 *
+			 *	In the case where the goal region is too small to hold the agent, then the
+			 *	"deepest" point in the region is a good approximation.
+			 *
+		 	 *	@param		q		The query point.
+		 	 *	@param		r		The radius of clearance.
+			 *	@returns	A 2D position representing the target point.
+			 */
+			virtual Vector2 getTargetPoint(const Vector2 & q, float r) const;
+
+			/*!
+			 *	@brief		Return the centroid of the goal.
+			 */
+			virtual Vector2 getCentroid() const;
 
 		protected:
 			/*!
@@ -450,7 +697,85 @@ namespace Menge {
 			 *
 			 *	@param		angle		The angle (in radians) the OBB is rotated around its pivot.
 			 */
-			void setAngle( float angle );
+			void setAngle(float angle);
+
+			/*!
+			 *	@brief		Reports the *squared* distance from the given point to the goal.
+			 *
+			 *	@param		pt			The query point.
+			 *	@returns	The squared distance from the point to the goal.
+			 */
+			virtual float squaredDistance(const Vector2 & pt) const;
+
+			/*!
+			 *	@brief		Set the preferred velocity directions w.r.t. the goal: left, right, and
+			 *				preferred.
+			 *
+			 *	The Agents::PrefVelocity class represents a span of velocities that will reach the
+			 *	goal. For a goal that covers a 2D region, the directions in the
+			 *	Agents::PrefVelocity should span the arc subtended by the goal from the query
+			 *	point's perspective.  Furthermore, it should have sufficient clearance for a disk
+			 *	with the given radius to pass through. This should be overridden by subclasses to
+			 *	account for their unique geometry.
+			 *
+			 *	@param		q				The query point.
+			 *	@param		r				The radius of clearance.
+			 *	@param		directions		An instance of Agents::PrefVelocity.
+			 */
+			virtual void setDirections(const Vector2 & q, float r,
+				Agents::PrefVelocity & directions) const;
+
+			// TODO: Delete this function= transition uses it determine distance to goal
+			//		I would be better off simply returning "squared distance to goal"
+			/*!
+			 *	@brief		Returns the closest "target" point in the goal to the given
+			 *				query point.
+			 *
+			 *	A "valid" target point is the nearest point to the query point that is sufficiently
+			 *	inside the goal region that a disk with the given radius is completely inside the
+			 *	goal. It need not be literally the *best* value, an approximation is sufficient.
+			 *
+			 *	In the case where the goal region is too small to hold the agent, then the
+			 *	"deepest" point in the region is a good approximation.
+			 *
+			 *	@param		q		The query point.
+			 *	@param		r		The radius of clearance.
+			 *	@returns	A 2D position representing the target point.
+			 */
+			virtual Vector2 getTargetPoint(const Vector2 & q, float r) const;
+
+			/*!
+			 *	@brief		Return the centroid of the goal.
+			 */
+			virtual Vector2 getCentroid() const;
+
+			/*!
+			 *	@brief		Returns the x-axis of the OBB's local frame
+			 *				
+			 *	@returns	The direction of the obb's x-axis.
+			 */
+			Vector2 getXBasis() const { return Vector2(_cosTheta, -_sinTheta); }
+
+			/*!
+			 *	@brief		Returns the y-axis of the OBB's local frame
+			 *				
+			 *	@returns	The direction of the obb's y-axis.
+			 */
+			Vector2 getYBasis() const { return Vector2(_sinTheta, _cosTheta); }
+
+			/*!
+			 *	@brief		Returns the size of the obb (w, h)
+			 *				
+			 *	@returns	The box's size.
+			 */
+			const Vector2 & getSize() const { return _size; }
+
+			/*!
+			 *	@brief		Return the pivot point of the obb.
+			 *				
+			 *	@returns	The box's pivot.
+			 */
+			const Vector2 & getPivot() const { return _pivot; }
 
 		protected:
 			/*!
