@@ -61,9 +61,7 @@ namespace Menge {
 		
 		Goal * OffsetGoalSelector::getGoal( const Agents::BaseAgent * agent ) const {
 			assert( agent != 0x0 && "OffsetGoalSelector requires a valid base agent!\n" );
-			PointGoal * goal = new PointGoal();
-			goal->setPosition( agent->_pos + _2DVel->getValue() );
-			return goal;
+			return new PointGoal(agent->_pos + _2DVel->getValue());
 		}
 		
 		/////////////////////////////////////////////////////////////////////

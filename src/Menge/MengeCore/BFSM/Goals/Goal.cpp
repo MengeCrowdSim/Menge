@@ -55,6 +55,17 @@ namespace Menge {
 
 		const size_t Goal::MAX_CAPACITY = -1;	// -1 is the biggest value for size_t
 
+		Goal::~Goal() {
+			if (_geometry) delete _geometry;
+		}
+
+		/////////////////////////////////////////////////////////////////////
+
+		void Goal::setGeometry(Math::Geometry2D * geometry) {
+			if (_geometry != 0x0) delete _geometry;
+			_geometry = geometry; 
+		}
+
 		/////////////////////////////////////////////////////////////////////
 
 		bool Goal::hasCapacity() const { 

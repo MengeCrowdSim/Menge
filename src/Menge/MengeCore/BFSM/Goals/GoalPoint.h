@@ -48,6 +48,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include "fsmCommon.h"
 #include "Goals/Goal.h"
 #include "Goals/GoalFactory.h"
+//#include "Math/Geometry2D.h"
 
 namespace Menge {
 
@@ -57,81 +58,28 @@ namespace Menge {
 		 */
 		class MENGE_API PointGoal : public Goal {
 		public:
-			/*!
-			 *	@brief		Default constructor
-			 */
+			/*! Default constructor */
 			PointGoal();
 
 			/*!
-			 *	@brief		Reports the *squared* distance from the given point to the goal.
-			 *
-			 *	@param		pt			The query point.
-			 *	@returns	The squared distance from the point to the goal.
+			 *	@brief		Full constructor.
+			 *				
+			 *	@param		p		The position of the goal.
 			 */
-			virtual float squaredDistance( const Vector2 & pt ) const { return absSq( pt - _point ); }
+			PointGoal(const Vector2 & p);
 
 			/*!
-			 *	@brief		Set the preferred velocity directions w.r.t. the goal: left, right, and preferred.
-			 *
-			 *	The Agents::PrefVelocity class represents a span of velocities that will reach the goal.
-			 *	For a goal that covers a 2D region, the directions in the Agents::PrefVelocity should span the arc 
-			 *	subtended by the goal from the query point's perspective.  Furthermore, it should have sufficient clearance
-			 *	for a disk with the given radius to pass through.
-			 *	This should be overridden by subclasses to account for their unique geometry.
-			 *
-			 *	@param		q				The query point.
-			 *	@param		r				The radius of clearance.
-			 *	@param		directions		An instance of Agents::PrefVelocity.  
-			 */
-			virtual void setDirections( const Vector2 & q, float r, Agents::PrefVelocity & directions ) const;
-
-			/*!
-			 *	@brief		Returns the closest "target" point in the goal to the given
-			 *				query point.
-			 *
-			 *	A "valid" target point is the nearest point to the query point that is sufficiently
-			 *	inside the goal region that a disk with the given radius is completely inside the goal.
-			 *	It need not be literally the *best* value, an approximation is sufficient.
-			 *
-			 *	In the case where the goal region is too small to hold the agent, then the "deepest"
-			 *	point in the region is a good approximation.
-			 *
-			 *	@param		q		The query point.
-			 *	@param		r		The radius of clearance.
-			 *	@returns	A 2D position representing the target point.
-			 */
-			virtual Vector2 getTargetPoint( const Vector2 & q, float r ) const { return _point; }
-
-			/*!
-			 *	@brief		Return the centroid of the goal.
-			 */
-			virtual Vector2 getCentroid() const { return _point; }
+			*	@brief		Full constructor - component-wise.
+			*
+			*	@param		x		The x-position of the goal.
+			*	@param		y		The x-position of the goal.
+			*/
+			PointGoal(float x, float y);
 
 			/*!
 			 *	@brief		Draws the goal into an OpenGL context.
 			 */
 			virtual void drawGL() const;
-
-			/*!
-			 *	@brief		Sets the goal's position.
-			 *
-			 *	@param		p		The position value.
-			 */
-			void setPosition( const Vector2 & p ) { _point.set( p ); }
-
-			/*!
-			 *	@brief		Sets the goal's position.
-			 *
-			 *	@param		x		The x-value of the goal position.
-			 *	@param		y		The y-value of the goal position.
-			 */
-			void setPosition( float x, float y ) { _point.set( x, y ); }
-
-		protected:
-			/*!
-			 *	@brief		The point for this goal.
-			 */
-			Vector2	_point;
 		};
 
 		/*!
@@ -139,10 +87,6 @@ namespace Menge {
 		 */
 		class MENGE_API PointGoalFactory : public GoalFactory { 
 		public:
-			/*!
-			 *	@brief		Constructor.
-			 */
-			PointGoalFactory();
 
 			/*!
 			 *	@brief		The name of the goal type.
@@ -185,17 +129,8 @@ namespace Menge {
 			 *							that path. 
 			 *	@returns	A boolean reporting success (true) or failure (false).
 			 */
-			virtual bool setFromXML( Goal * goal, TiXmlElement * node, const std::string & behaveFldr ) const;
-		
-			/*!
-			 *	@brief		The identifier for the "x" float attribute.
-			 */
-			size_t	_xID;
-
-			/*!
-			 *	@brief		The identifier for the "y" float attribute.
-			 */
-			size_t	_yID;
+			virtual bool setFromXML( Goal * goal, TiXmlElement * node, 
+									 const std::string & behaveFldr ) const;
 		};
 
 	}	// namespace BFSM

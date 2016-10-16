@@ -55,9 +55,7 @@ namespace Menge {
 		
 		Goal * IdentityGoalSelector::getGoal( const Agents::BaseAgent * agent ) const {
 			assert( agent != 0x0 && "IdentityGoalGenerator requires a valid base agent!\n" );
-			PointGoal * goal = new PointGoal();
-			goal->setPosition( agent->_pos );
-			return goal;
+			return new PointGoal(agent->_pos);
 		}
 		
 	}	// namespace BFSM

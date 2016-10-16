@@ -56,94 +56,11 @@ namespace Menge {
 		 *	@brief		A circular goal region with uniform probability
 		 */
 		class MENGE_API CircleGoal : public Goal {
-		public:
-			/*!
-			 *	@brief		Default constructor
-			 */
-			CircleGoal();
-
-			/*!
-			 *	@brief		Reports the *squared* distance from the given point to the goal.
-			 *
-			 *	@param		pt			The query point.
-			 *	@returns	The squared distance from the point to the goal.
-			 */
-			virtual float squaredDistance( const Vector2 & pt ) const;
-
-			/*!
-			 *	@brief		Set the preferred velocity directions w.r.t. the goal: left, right, and preferred.
-			 *
-			 *	The Agents::PrefVelocity class represents a span of velocities that will reach the goal.
-			 *	For a goal that covers a 2D region, the directions in the Agents::PrefVelocity should span the arc 
-			 *	subtended by the goal from the query point's perspective.  Furthermore, it should have sufficient clearance
-			 *	for a disk with the given radius to pass through.
-			 *	This should be overridden by subclasses to account for their unique geometry.
-			 *
-			 *	@param		q				The query point.
-			 *	@param		r				The radius of clearance.
-			 *	@param		directions		An instance of Agents::PrefVelocity.  
-			 */
-			virtual void setDirections( const Vector2 & q, float r, Agents::PrefVelocity & directions ) const;
-
-			/*!
-			 *	@brief		Returns the closest "target" point in the goal to the given
-			 *				query point.
-			 *
-			 *	A "valid" target point is the nearest point to the query point that is sufficiently
-			 *	inside the goal region that a disk with the given radius is completely inside the goal.
-			 *	It need not be literally the *best* value, an approximation is sufficient.
-			 *
-			 *	In the case where the goal region is too small to hold the agent, then the "deepest"
-			 *	point in the region is a good approximation.
-			 *
-			 *	@param		q		The query point.
-			 *	@param		r		The radius of clearance.
-			 *	@returns	A 2D position representing the target point.
-			 */
-			virtual Vector2 getTargetPoint( const Vector2 & q, float r ) const;
-
-			/*!
-			 *	@brief		Return the centroid of the goal.
-			 */
-			virtual Vector2 getCentroid() const { return _center; }
-
-			/*!
-			 *	@brief		Sets the circle's center position.
-			 *
-			 *	@param		x		The x-value of the center position.
-			 *	@param		y		The y-value of the center position.
-			 */
-			inline void setCenter( float x, float y ) { _center.set( x, y ); }
-
-			/*!
-			 *	@brief		Sets the circle's center position.
-			 *
-			 *	@param		p		The new center position.
-			 */
-			inline void setCenter( const Vector2 & p ) { _center.set( p ); }
-
-			/*!
-			 *	@brief		Sets the circle's radius.
-			 *
-			 *	@param		r		The circle's new radius value.
-			 */
-			inline void setRadius( float r ) { _radius = r; }
-
 		protected:
 			/*!
 			 *	@brief		Draws the goal geometry.
 			 */
 			virtual void drawGLGeometry() const;
-
-			/*!
-			 *	@brief		The center of the goal circle.
-			 */
-			Vector2	_center;
-
-			/*!
-			 *	@brief		The radius of the goal circle.
-			 */
-			float	_radius;
 		};
 
 		/*!
@@ -151,10 +68,6 @@ namespace Menge {
 		 */
 		class MENGE_API CircleGoalFactory : public GoalFactory { 
 		public:
-			/*!
-			 *	@brief		Constructor
-			 */
-			CircleGoalFactory();
 
 			/*!
 			 *	@brief		The name of the goal type.
@@ -197,22 +110,8 @@ namespace Menge {
 			 *							that path. 
 			 *	@returns	A boolean reporting success (true) or failure (false).
 			 */
-			virtual bool setFromXML( Goal * goal, TiXmlElement * node, const std::string & behaveFldr ) const;
-		
-			/*!
-			 *	@brief		The identifier for the "x" float attribute.
-			 */
-			size_t	_xID;
-
-			/*!
-			 *	@brief		The identifier for the "y" float attribute.
-			 */
-			size_t	_yID;
-
-			/*!
-			 *	@brief		The identifier for the "radius" float attribute.
-			 */
-			size_t	_rID;
+			virtual bool setFromXML( Goal * goal, TiXmlElement * node, 
+									 const std::string & behaveFldr ) const;
 		};
 	}	//	namespace BFSM
 }	// namespace Menge

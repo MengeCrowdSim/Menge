@@ -48,33 +48,32 @@ namespace Menge {
 		//                   Implementation of PointGoal
 		/////////////////////////////////////////////////////////////////////
 
-		PointGoal::PointGoal():Goal(),_point(0.f,0.f) {}
-
-		/////////////////////////////////////////////////////////////////////
-
-		void PointGoal::setDirections( const Vector2 & q, float r, Agents::PrefVelocity & directions ) const {
-			Vector2 dir( norm( _point - q ) );
-			directions.setSingle( dir );
-			directions.setTarget( _point );
+		PointGoal::PointGoal() : Goal() {
 		}
 
 		/////////////////////////////////////////////////////////////////////
 
+		PointGoal::PointGoal(const Vector2 & p) : Goal() {
+			_geometry = new PointShape(p);
+		}
+
+		/////////////////////////////////////////////////////////////////////
+		
+		PointGoal::PointGoal(float x, float y) : Goal() {
+			_geometry = new PointShape(Vector2(x, y));
+		}
+
+		/////////////////////////////////////////////////////////////////////
+		
 		void PointGoal::drawGL() const{
 			glBegin( GL_POINTS );
-			glVertex3f( _point.x(), 0.f, _point.y() );
+			const Vector2 & p = static_cast<Math::PointShape*>(_geometry)->getPosition();
+			glVertex3f( p.x(), 0.f, p.y() );
 			glEnd();
 		}
 
 		/////////////////////////////////////////////////////////////////////
 		//                   Implementation of PointGoalFactory
-		/////////////////////////////////////////////////////////////////////
-
-		PointGoalFactory::PointGoalFactory() : GoalFactory() {
-			_xID = _attrSet.addFloatAttribute( "x", true /*required*/ );
-			_yID = _attrSet.addFloatAttribute( "y", true /*required*/ );
-		}
-
 		/////////////////////////////////////////////////////////////////////
 
 		bool PointGoalFactory::setFromXML( Goal * goal, TiXmlElement * node, const std::string & behaveFldr ) const {
@@ -84,8 +83,13 @@ namespace Menge {
 
 			if ( ! GoalFactory::setFromXML( pGoal, node, behaveFldr ) ) return false;
 
-			pGoal->setPosition( _attrSet.getFloat( _xID ), _attrSet.getFloat( _yID ) );
-			return true;
+			// rely on createPoint to parse errors
+			PointShape * geometry = createPoint(node);
+			if (geometry != 0x0) {
+				goal->setGeometry(geometry);
+				return true;
+			} 
+			return false;
 		}
 		
 	}	// namespace BFSM

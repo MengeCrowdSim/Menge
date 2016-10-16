@@ -99,7 +99,7 @@ namespace Menge {
 
 		CircleCondition::CircleCondition( const CircleCondition & cond ):SpaceCondition(cond),CircleShape() {
 			_center = cond._center;
-			_radSqd = cond._radSqd;
+			_radius = cond._radius;
 		}
 
 		/////////////////////////////////////////////////////////////////////

@@ -37,6 +37,13 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 */
 
 #include "Geometry2D.h"
+
+#include "Attribute.h"
+#include "PrefVelocity.h"
+
+#include "tinyxml.h"
+
+#include <algorithm>
 #include <cassert>
 
 namespace Menge {
@@ -44,19 +51,80 @@ namespace Menge {
 	namespace Math {
 
 		/////////////////////////////////////////////////////////////////////
+		//                   Implementation of PointShape
+		/////////////////////////////////////////////////////////////////////
+
+		PointShape::PointShape(const PointShape & shape) {
+			_position = shape._position;
+		}
+
+		/////////////////////////////////////////////////////////////////////
+
+		PointShape::PointShape(const PointShape & shape, const Vector2 & offset) {
+			_position = shape._position+ offset;
+		}
+
+		/////////////////////////////////////////////////////////////////////
+
+		PointShape PointShape::operator+(const Vector2 & pt) {
+			return PointShape(*this, pt);
+		}
+
+		/////////////////////////////////////////////////////////////////////
+
+		bool PointShape::containsPoint(const Vector2 & pt) const {
+			float distSq = absSq(pt - _position);
+			return distSq < 1e-6f;
+		}
+
+		/////////////////////////////////////////////////////////////////////
+
+		bool PointShape::containsPoint(const Vector2 & pt, const Vector2 & pos) const {
+			float distSq = absSq(pt - pos);
+			return distSq < 1e-6f;
+		}
+
+		/////////////////////////////////////////////////////////////////////
+
+		float PointShape::squaredDistance(const Vector2 & pt) const {
+			return absSq(pt - _position);
+		}
+
+		/////////////////////////////////////////////////////////////////////
+
+		void PointShape::setDirections(const Vector2 & q, float r,
+			Agents::PrefVelocity & directions) const {
+			Vector2 dir(norm(_position - q));
+			directions.setSingle(dir);
+			directions.setTarget(_position);
+		}
+
+		/////////////////////////////////////////////////////////////////////
+
+		Vector2 PointShape::getTargetPoint(const Vector2 & q, float r) const {
+			return _position;
+		}
+
+		/////////////////////////////////////////////////////////////////////
+
+		Vector2 PointShape::getCentroid() const {
+			return _position;
+		}
+
+		/////////////////////////////////////////////////////////////////////
 		//                   Implementation of CircleShape
 		/////////////////////////////////////////////////////////////////////
 
 		CircleShape::CircleShape( const CircleShape & shape ) {
 			_center = shape._center;
-			_radSqd = shape._radSqd;
+			_radius = shape._radius;
 		}
 
 		/////////////////////////////////////////////////////////////////////
 
 		CircleShape::CircleShape( const CircleShape & shape, const Vector2 & offset ) {
 			_center = shape._center + offset;
-			_radSqd = shape._radSqd;
+			_radius = shape._radius;
 		}
 
 		/////////////////////////////////////////////////////////////////////
@@ -71,14 +139,84 @@ namespace Menge {
 
 		bool CircleShape::containsPoint( const Vector2 & pt ) const {
 			float distSq = absSq( pt - _center );
-			return distSq < _radSqd;
+			return distSq < _radius * _radius;
 		}
 
 		/////////////////////////////////////////////////////////////////////
 
 		bool CircleShape::containsPoint( const Vector2 & pt, const Vector2 & pos ) const {
 			float distSq = absSq( pt - pos );
-			return distSq < _radSqd;
+			return distSq < _radius * _radius;
+		}
+
+		/////////////////////////////////////////////////////////////////////
+
+		float CircleShape::squaredDistance(const Vector2 & pt) const {
+			float d = abs(pt - _center);
+			float perimD = d - _radius;
+			return perimD * perimD;
+		}
+
+		/////////////////////////////////////////////////////////////////////
+
+		void CircleShape::setDirections(const Vector2 & q, float r,
+			Agents::PrefVelocity & directions) const {
+			const float TARGET_R = _radius - r;
+			if (TARGET_R < 0) {
+				// circle isn't big enough to fit agent -- treat it like a point goal
+				Vector2 dir(norm(_center - q));
+				directions.setSingle(dir);
+				directions.setTarget(_center);
+			}
+			else {
+				// Circle is large enough to form a span
+				const float TARGET_R_SQD = TARGET_R * TARGET_R;
+				Vector2 relPos = _center - q;
+				const float distSq = absSq(relPos);
+				if (distSq < TARGET_R_SQD) {
+					// Goal reached -- I'm inside the effective circle -- current position is the goal
+					//	and no movement is necessary
+					directions.setSingle(Vector2(0.f, 0.f));
+					directions.setTarget(q);
+				}
+				else {
+					// Outside the effective circle, a span is possible.
+					float leg = sqrtf(distSq - TARGET_R_SQD);
+					Vector2 left = Vector2(relPos.x() * leg - relPos.y() * TARGET_R, relPos.x() * TARGET_R + relPos.y() * leg) / distSq;
+					Vector2 right = Vector2(relPos.x() * leg + relPos.y() * TARGET_R, -relPos.x() * TARGET_R + relPos.y() * leg) / distSq;
+					const float dist = sqrtf(distSq);
+					Vector2 dir = relPos / dist;
+					directions.setSpan(left, right, dir);
+					directions.setTarget(q + dir * (dist - TARGET_R));
+				}
+			}
+		}
+
+		/////////////////////////////////////////////////////////////////////
+
+		Vector2 CircleShape::getTargetPoint(const Vector2 & q, float r) const {
+			const float THRESH = _radius - r;
+			if (THRESH > 0) {
+				Vector2 disp(q - _center);
+				float distSqd = absSq(disp);
+				if (distSqd < THRESH * THRESH) {
+					return q;
+				}
+				else {
+					float dist = sqrtf(distSqd);
+					Vector2 offset = disp * (THRESH / dist);
+					return _center + offset;
+				}
+			}
+			else {
+				return _center;
+			}
+		}
+
+		/////////////////////////////////////////////////////////////////////
+
+		Vector2 CircleShape::getCentroid() const {
+			return _center;
 		}
 
 		/////////////////////////////////////////////////////////////////////
@@ -153,6 +291,162 @@ namespace Menge {
 		void AABBShape::setSize( const Vector2 & size ) {
 			_maxPt = _minPt + size;
 			_halfSize = size * 0.5f;
+		}
+		/////////////////////////////////////////////////////////////////////
+
+		float AABBShape::squaredDistance(const Vector2 & pt) const {
+			// determine quadrant
+			float minX = _minPt._x;
+			float maxX = _maxPt._x;
+			const int xCoord = (int)(pt._x > maxX) - (int)(pt._x < minX);
+			float minY = _minPt._y;
+			float maxY = _maxPt._y;
+			const int yCoord = (int)(pt._y > maxY) - (int)(pt._y < minY);
+
+			if (xCoord == 0 && yCoord == 0) {
+				return 0.f;
+			}
+			else {
+				// the x- and y- coordinates of the nearest point
+				float X, Y;
+				X = (xCoord == -1) * minX + (xCoord == 1) * maxX;
+				Y = (yCoord == -1) * minY + (yCoord == 1) * maxY;
+				return absSq(Vector2(X, Y) - pt);
+			}
+		}
+
+		/////////////////////////////////////////////////////////////////////
+
+		void AABBShape::setDirections(const Vector2 & q, float r,
+			Agents::PrefVelocity & directions) const {
+			// based on the voronoi regions of the AABB
+			//	 (-1,1)  |        (0,1)        |  (1,1)
+			// ----------------------------------------
+			//	         |                     |
+			//	 (-1, 0) |        (0,0)        |  (1,0)
+			//	         |                     |
+			// ----------------------------------------
+			//	 (-1,-1) |       (0,-1)        |  (1,-1)
+			//
+
+			// the x- and y- coordinates of the nearest point
+			float X, Y;
+			// the x- and y-coordintes of the left and right directions
+			float xL, xR, yL, yR;
+			Vector2 size = _maxPt - _minPt;
+
+			// determine quadrant
+			const float D = 2.f * r;
+			float minX = _minPt._x + r;
+			float maxX = minX + size._x - D;
+			const int xCoord = (int)(q._x > maxX) - (int)(q._x < minX);
+			float minY = _minPt._y + r;
+			float maxY = minY + size._y - D;
+			const int yCoord = (int)(q._y > maxY) - (int)(q._y < minY);
+
+			if (xCoord == 0 && yCoord == 0) {
+				// inside the region already
+				directions.setSingle(Vector2(0.f, 0.f));
+				directions.setTarget(q);
+			}
+			else {
+				Vector2 size = _halfSize * 2;
+				int dimensions = 2;
+				if (size._x < D) {
+					X = _minPt._x + size._x * 0.5f;
+					xL = X;
+					xR = X;
+					--dimensions;
+				}
+				else {
+					int LMaxXtest = (yCoord == 1) | ((xCoord == 1) & (yCoord == 0));
+					xL = maxX * LMaxXtest + (1 - LMaxXtest) * minX;
+					int RMaxXtest = (yCoord == -1) | ((xCoord == 1) & (yCoord == 0));
+					xR = maxX * RMaxXtest + (1 - RMaxXtest) * minX;
+					X = (xCoord == -1) * minX + (xCoord == 1) * maxX + (xCoord == 0) * q._x;
+				}
+				if (size._y < D) {
+					Y = _minPt._y + size._y * 0.5f;
+					yL = Y;
+					yR = Y;
+					--dimensions;
+				}
+				else {
+					int LMaxYtest = (xCoord == -1) | ((xCoord == 0) & (yCoord == 1));
+					yL = maxY * LMaxYtest + (1 - LMaxYtest) * minY;
+					int RMaxYtest = (xCoord == 1) | ((xCoord == 0) & (yCoord == 1));
+					yR = maxY * RMaxYtest + (1 - RMaxYtest) * minY;
+					Y = (yCoord == -1) * minY + (yCoord == 1) * maxY + (yCoord == 0) * q._y;
+				}
+
+				Vector2 targetPt = Vector2(X, Y);
+				directions.setTarget(targetPt);
+				Vector2 prefDir(norm(targetPt - q));
+				if (dimensions) {
+					// there is actually a span
+					directions.setSpan(norm(Vector2(xL, yL) - q),
+						norm(Vector2(xR, yR) - q),
+						prefDir);
+				}
+				else {
+					directions.setSingle(prefDir);
+				}
+			}
+		}
+
+		/////////////////////////////////////////////////////////////////////
+
+		Vector2 AABBShape::getTargetPoint(const Vector2 & q, float r) const {
+			// based on the voronoi regions of the AABB
+			//	 0 |         1          |  2
+			// ----------------------------------------
+			//	   |                    |
+			//	 3 |         4          |  5
+			//	   |                    |
+			// ----------------------------------------
+			//	 6 |         7          |  8
+			//
+			//	Approximated by simply offsetting the sides by r.
+
+			Vector2 size = _maxPt - _minPt;
+			float X = q._x;
+			float Y = q._y;
+			const float D = 2.f * r;
+
+			if (size._x < D) {
+				X = _minPt._x + size._x * 0.5f;
+			}
+			else {
+				float minX = _minPt._x + r;
+				float maxX = minX + size._x - D;
+				if (q._x < minX) {
+					X = minX;
+				}
+				else if (q._x > maxX) {
+					X = maxX;
+				}
+			}
+			if (size._y < D) {
+				Y = _minPt._y + size._y * 0.5f;
+			}
+			else {
+				float minY = _minPt._y + r;
+				float maxY = minY + size._y - D;
+				if (q._y < minY) {
+					Y = minY;
+				}
+				else if (q._y > maxY) {
+					Y = maxY;
+				}
+			}
+
+			return Vector2(X, Y);
+		}
+
+		/////////////////////////////////////////////////////////////////////
+
+		Vector2 AABBShape::getCentroid() const {
+			return (_minPt + _maxPt) * 0.5f;
 		}
 
 		/////////////////////////////////////////////////////////////////////
@@ -236,5 +530,349 @@ namespace Menge {
 			_cosTheta = cos( angle );
 			_sinTheta = sin( angle );
 		}
+
+		/////////////////////////////////////////////////////////////////////
+
+		float OBBShape::squaredDistance(const Vector2 & pt) const {
+			// First rotate so that the OBB is an AABB then use the same logic as
+			//	with the AABB
+			Vector2 disp = pt - _pivot;
+			// the LOCAL x- and y- coordinates of the nearest point, initialized to the
+			//	local value of the query point.
+			float X = disp.x() * _cosTheta + disp.y() * _sinTheta;
+			float Y = disp.y() * _cosTheta - disp.x() * _sinTheta;
+
+			// determine quadrant
+			const float minX = 0.f;
+			const float maxX = _size._x;
+			const int xCoord = (int)(X > maxX) - (int)(X < minX);
+			const float minY = 0.f;
+			const float maxY = _size._y;
+			const int yCoord = (int)(Y > maxY) - (int)(Y < minY);
+
+			if (xCoord == 0 && yCoord == 0) {
+				return 0.f;
+			}
+			else {
+				// the x- and y- coordinates of the nearest point
+				X = (xCoord == -1) * minX + (xCoord == 1) * maxX;
+				Y = (yCoord == -1) * minY + (yCoord == 1) * maxY;
+				return absSq(Vector2(X, Y) - disp);
+			}
+		}
+
+		/////////////////////////////////////////////////////////////////////
+
+		void OBBShape::setDirections(const Vector2 & q, float r,
+			Agents::PrefVelocity & directions) const {
+			// First rotate so that the OBB is an AABB then use the same logic as
+			//	with the AABB
+			Vector2 disp = q - _pivot;
+			// the LOCAL x- and y- coordinates of the nearest point, initialized to the
+			//	local value of the query point.
+			float X = disp.x() * _cosTheta + disp.y() * _sinTheta;
+			float Y = disp.y() * _cosTheta - disp.x() * _sinTheta;
+
+			// based on the voronoi regions of the AABB
+			//	 (-1,1)  |        (0,1)        |  (1,1)
+			// ----------------------------------------
+			//	         |                     |
+			//	 (-1, 0) |        (0,0)        |  (1,0)
+			//	         |                     |
+			// ----------------------------------------
+			//	 (-1,-1) |       (0,-1)        |  (1,-1)
+			//
+
+			// the x- and y-coordintes of the left and right directions
+			float xL, xR, yL, yR;
+
+			// determine quadrant
+			const float D = 2.f * r;
+			const float minX = r;
+			const float maxX = _size._x - r;
+			const int xCoord = (int)(X > maxX) - (int)(X < minX);
+			const float minY = r;
+			const float maxY = _size._y - r;
+			const int yCoord = (int)(Y > maxY) - (int)(Y < minY);
+
+			if (xCoord == 0 && yCoord == 0) {
+				// inside the region already
+				directions.setSingle(Vector2(0.f, 0.f));
+				directions.setTarget(q);
+			}
+			else {
+				int dimensions = 2;
+				if (_size._x < D) {
+					X = _size._x * 0.5f;
+					xL = X;
+					xR = X;
+					--dimensions;
+				}
+				else {
+					int LMaxXtest = (yCoord == 1) | ((xCoord == 1) & (yCoord == 0));
+					xL = maxX * LMaxXtest + (1 - LMaxXtest) * minX;
+					int RMaxXtest = (yCoord == -1) | ((xCoord == 1) & (yCoord == 0));
+					xR = maxX * RMaxXtest + (1 - RMaxXtest) * minX;
+					X = (xCoord == -1) * minX + (xCoord == 1) * maxX + (xCoord == 0) * X;
+				}
+				if (_size._y < D) {
+					Y = _size._y * 0.5f;
+					yL = Y;
+					yR = Y;
+					--dimensions;
+				}
+				else {
+					int LMaxYtest = (xCoord == -1) | ((xCoord == 0) & (yCoord == 1));
+					yL = maxY * LMaxYtest + (1 - LMaxYtest) * minY;
+					int RMaxYtest = (xCoord == 1) | ((xCoord == 0) & (yCoord == 1));
+					yR = maxY * RMaxYtest + (1 - RMaxYtest) * minY;
+					Y = (yCoord == -1) * minY + (yCoord == 1) * maxY + (yCoord == 0) * Y;
+				}
+
+				Vector2 localPt(X, Y);
+				Vector2 rot0 = getXBasis();
+				Vector2 rot1 = getYBasis();
+				Vector2 targetPt(_pivot + Vector2(localPt * rot0, localPt * rot1));
+				directions.setTarget(targetPt);
+				Vector2 prefDir(norm(targetPt - q));
+				if (dimensions) {
+					// there is actually a span
+					localPt.set(xL, yL);
+					Vector2 leftPt(_pivot + Vector2(localPt * rot0, localPt * rot1));
+					localPt.set(xR, yR);
+					Vector2 rightPt(_pivot + Vector2(localPt * rot0, localPt * rot1));
+					directions.setSpan(norm(leftPt - q),
+						norm(rightPt - q),
+						prefDir);
+				}
+				else {
+					directions.setSingle(prefDir);
+				}
+			}
+		}
+
+		/////////////////////////////////////////////////////////////////////
+
+		Vector2 OBBShape::getTargetPoint(const Vector2 & q, float r) const {
+			// First rotate so that the OBB is an AABB then use the same logic as
+			//	with the AABB
+			Vector2 disp = q - _pivot;
+			float X = disp.x() * _cosTheta + disp.y() * _sinTheta;
+			float Y = disp.y() * _cosTheta - disp.x() * _sinTheta;
+
+			// based on the voronoi regions of the AABB
+			//	 0 |         1          |  2
+			// ----------------------------------------
+			//	   |                    |
+			//	 3 |         4          |  5
+			//	   |                    |
+			// ----------------------------------------
+			//	 6 |         7          |  8
+			//
+			//	Approximated by simply offsetting the sides by r.
+
+			const float D = 2.f * r;
+
+			if (_size._x < D) {
+				X = _size._x * 0.5f;
+			}
+			else {
+				float minX = r;
+				float maxX = _size._x - r;
+				if (X < minX) {
+					X = minX;
+				}
+				else if (X > maxX) {
+					X = maxX;
+				}
+			}
+			if (_size._y < D) {
+				Y = _size._y * 0.5f;
+			}
+			else {
+				float minY = r;
+				float maxY = _size._y - r;
+				if (Y < minY) {
+					Y = minY;
+				}
+				else if (Y > maxY) {
+					Y = maxY;
+				}
+			}
+
+			Vector2 localPt(X, Y);
+			
+			return _pivot + Vector2(localPt * getXBasis(), localPt * getYBasis());
+		}
+
+		/////////////////////////////////////////////////////////////////////
+
+		Vector2 OBBShape::getCentroid() const {
+			return _pivot + getXBasis() * (_size.x() * 0.5f) + getYBasis() * (_size.y() * 0.5f);
+		}
+
+		/////////////////////////////////////////////////////////////////////
+		//                   Implementation of XML Parsing
+		/////////////////////////////////////////////////////////////////////
+		
+		Geometry2D * createGeometry(TiXmlElement * node, const std::string & prefix) {
+			std::string fullName = prefix + "shape";
+			const char * val = node->Attribute(fullName.c_str());
+			if (val) {
+				std::string shapeName(val);
+				std::transform(shapeName.begin(), shapeName.end(), shapeName.begin(), ::tolower);
+				if (shapeName == "point") {
+					return createPoint(node, prefix);
+				}
+				else if (shapeName == "circle") {
+					return createCircle(node, prefix);
+				}
+				else if (shapeName == "aabb") {
+					return createAABB(node, prefix);
+				}
+				else if (shapeName == "obb") {
+					return createOBB(node, prefix);
+				}
+				else {
+					logger << Logger::ERR_MSG << "Attemtped to read shape attributes from a tag " \
+						"but the shape type was not recognized: " << val << ".\n";
+				}
+			}
+			else {
+				logger << Logger::ERR_MSG << "Attempted to read shape attributes from a tag but "\
+					"didn't find the shape declaration: \" " << fullName << "\" on line " <<
+					node->Row() << ".\n";
+			}
+			return 0x0;
+		}
+
+		/////////////////////////////////////////////////////////////////////
+
+		PointShape * createPoint(TiXmlElement * node, const std::string & prefix) {
+			bool valid = true;
+			FloatAttribute attrX(prefix + "x", true, 0.f);
+			if (!attrX.extract(node)) {
+				logger << Logger::ERR_MSG << "Missing \"x\" value from point definition on line ";
+				logger << node->Row() << "\n";
+				valid = false;
+			}
+			FloatAttribute attrY(prefix + "y", true, 0.f);
+			if (!attrY.extract(node)) {
+				logger << Logger::ERR_MSG << "Missing \"y\" value from point definition on line ";
+				logger << node->Row() << "\n";
+				valid = false;
+			}
+			if (valid) {
+				return new PointShape(Vector2(attrX.getFloat(), attrY.getFloat()));
+			}
+			return 0x0;
+		}
+
+		/////////////////////////////////////////////////////////////////////
+
+		CircleShape * createCircle(TiXmlElement * node, const std::string & prefix) {
+
+			bool valid = true;
+			FloatAttribute attrX(prefix + "x", true, 0.f);
+			if (!attrX.extract(node)) {
+				logger << Logger::ERR_MSG << "Missing \"x\" value from circle definition on line ";
+				logger << node->Row() << "\n";
+				valid = false;
+			}
+			FloatAttribute attrY(prefix + "y", true, 0.f);
+			if (!attrY.extract(node)) {
+				logger << Logger::ERR_MSG << "Missing \"y\" value from circle definition on line ";
+				logger << node->Row() << "\n";
+				valid = false;
+			}
+			FloatAttribute radius(prefix + "radius", true, 0.f);
+			if (!radius.extract(node)) {
+				logger << Logger::ERR_MSG << "Missing \"radius\" value from circle definition on ";
+				logger << "line " << node->Row() << "\n";
+				valid = false;
+			}
+			if (valid) {
+				return new CircleShape(Vector2(attrX.getFloat(), attrY.getFloat()), 
+					radius.getFloat());
+			}
+			return 0x0;
+		}
+
+		/////////////////////////////////////////////////////////////////////
+
+		AABBShape * createAABB(TiXmlElement * node, const std::string & prefix) {
+			bool valid = true;
+			FloatAttribute minX(prefix + "min_x", true, 0.f);
+			if (!minX.extract(node)) {
+				logger << Logger::ERR_MSG << "Missing \"min_x\" value from AABB definition on line ";
+				logger << node->Row() << "\n";
+				valid = false;
+			}
+			FloatAttribute minY(prefix + "min_y", true, 0.f);
+			if (!minY.extract(node)) {
+				logger << Logger::ERR_MSG << "Missing \"min_y\" value from AABB definition on line ";
+				logger << node->Row() << "\n";
+				valid = false;
+			}
+			FloatAttribute maxX(prefix + "max_x", true, 0.f);
+			if (!maxX.extract(node)) {
+				logger << Logger::ERR_MSG << "Missing \"max_x\" value from AABB definition on line ";
+				logger << node->Row() << "\n";
+				valid = false;
+			}
+			FloatAttribute maxY(prefix + "max_y", true, 0.f);
+			if (!maxY.extract(node)) {
+				logger << Logger::ERR_MSG << "Missing \"max_y\" value from AABB definition on line ";
+				logger << node->Row() << "\n";
+				valid = false;
+			}
+			if (valid) {
+				return new AABBShape(Vector2(minX.getFloat(), minY.getFloat()),
+									 Vector2(maxX.getFloat(), maxY.getFloat()));
+			}
+			return 0x0;
+		}
+
+		/////////////////////////////////////////////////////////////////////
+
+		OBBShape * createOBB(TiXmlElement * node, const std::string & prefix) {
+			bool valid = true;
+			FloatAttribute x(prefix + "x", true, 0.f);
+			if (!x.extract(node)) {
+				logger << Logger::ERR_MSG << "Missing \"x\" value from OBB definition on line ";
+				logger << node->Row() << "\n";
+				valid = false;
+			}
+			FloatAttribute y(prefix + "y", true, 0.f);
+			if (!y.extract(node)) {
+				logger << Logger::ERR_MSG << "Missing \"y\" value from OBB definition on line ";
+				logger << node->Row() << "\n";
+				valid = false;
+			}
+			FloatAttribute width(prefix + "width", true, 0.f);
+			if (!width.extract(node)) {
+				logger << Logger::ERR_MSG << "Missing \"width\" value from OBB definition on line ";
+				logger << node->Row() << "\n";
+				valid = false;
+			}
+			FloatAttribute height(prefix + "height", true, 0.f);
+			if (!height.extract(node)) {
+				logger << Logger::ERR_MSG << "Missing \"height\" value from OBB definition on line ";
+				logger << node->Row() << "\n";
+				valid = false;
+			}
+			FloatAttribute angle(prefix + "angle", true, 0.f);
+			if (!angle.extract(node)) {
+				logger << Logger::ERR_MSG << "Missing \"angle\" value from OBB definition on line ";
+				logger << node->Row() << "\n";
+				valid = false;
+			}
+			if (valid) {
+				return new OBBShape(Vector2(x.getFloat(), y.getFloat()),
+					Vector2(width.getFloat(), height.getFloat()), angle.getFloat() * DEG_TO_RAD);
+			}
+			return 0x0;
+		}
+
 	}	// namespace Math
 }	// namespace Menge
