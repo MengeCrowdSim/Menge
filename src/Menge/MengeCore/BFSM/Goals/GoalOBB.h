@@ -62,92 +62,43 @@ namespace Menge {
 		 */
 		class MENGE_API OBBGoal : public Goal {
 		public:
-			/*!
-			 *	@brief		Default constructor
-			 */
-			OBBGoal();
 
-			/*!
-			 *	@brief		Reports the *squared* distance from the given point to the goal.
-			 *
-			 *	@param		pt			The query point.
-			 *	@returns	The squared distance from the point to the goal.
-			 */
-			virtual float squaredDistance( const Vector2 & pt ) const;
+			///*!
+			// *	@brief		Set the OBB's pivot point.
+			// *
+			// *	@param		x		The x-value of the OBB's pivot point.
+			// *	@param		y		The y-value of the OBB's pivot point.
+			// */
+			//inline void setPivot( float x, float y ) { _pivot.set( x, y ); }
 
-			/*!
-			 *	@brief		Set the preferred velocity directions w.r.t. the goal: left, right, and preferred.
-			 *
-			 *	The Agents::PrefVelocity class represents a span of velocities that will reach the goal.
-			 *	For a goal that covers a 2D region, the directions in the Agents::PrefVelocity should span the arc 
-			 *	subtended by the goal from the query point's perspective.  Furthermore, it should have sufficient clearance
-			 *	for a disk with the given radius to pass through.
-			 *	This should be overridden by subclasses to account for their unique geometry.
-			 *
-			 *	@param		q				The query point.
-			 *	@param		r				The radius of clearance.
-			 *	@param		directions		An instance of Agents::PrefVelocity.  
-			 */
-			virtual void setDirections( const Vector2 & q, float r, Agents::PrefVelocity & directions ) const;
+			///*!
+			// *	@brief		Set the OBB's pivot point.
+			// *
+			// *	@param		p		The position of the OBB's pivot point.
+			// */
+			//inline void setPivot( const Vector2 & p ) { _pivot.set( p ); }
 
-			/*!
-			 *	@brief		Returns the closest "target" point in the goal to the given
-			 *				query point.
-			 *
-			 *	A "valid" target point is the nearest point to the query point that is sufficiently
-			 *	inside the goal region that a disk with the given radius is completely inside the goal.
-			 *	It need not be literally the *best* value, an approximation is sufficient.
-			 *
-			 *	In the case where the goal region is too small to hold the agent, then the "deepest"
-			 *	point in the region is a good approximation.
-			 *
-			 *	@param		q		The query point.
-			 *	@param		r		The radius of clearance.
-			 *	@returns	A 2D position representing the target point.
-			 */
-			virtual Vector2 getTargetPoint( const Vector2 & q, float r ) const;
+			///*!
+			// *	@brief		Set the AABB's size.
+			// *
+			// *	@param		w		The width (extent along the x-axis) of the AABB.
+			// *	@param		h		The height (extent along the y-axis) of the AABB.
+			// */
+			//inline void setSize( float w, float h ) { _size.set( w, h ); }
 
-			/*!
-			 *	@brief		Return the centroid of the goal.
-			 */
-			virtual Vector2 getCentroid() const;
+			///*!
+			// *	@brief		Set the AABB's size.
+			// *
+			// *	@param		size	The size of the AABB (width, height).
+			// */
+			//inline void setSize( const Vector2 & size ) { _size.set( size ); }
 
-			/*!
-			 *	@brief		Set the OBB's pivot point.
-			 *
-			 *	@param		x		The x-value of the OBB's pivot point.
-			 *	@param		y		The y-value of the OBB's pivot point.
-			 */
-			inline void setPivot( float x, float y ) { _pivot.set( x, y ); }
-
-			/*!
-			 *	@brief		Set the OBB's pivot point.
-			 *
-			 *	@param		p		The position of the OBB's pivot point.
-			 */
-			inline void setPivot( const Vector2 & p ) { _pivot.set( p ); }
-
-			/*!
-			 *	@brief		Set the AABB's size.
-			 *
-			 *	@param		w		The width (extent along the x-axis) of the AABB.
-			 *	@param		h		The height (extent along the y-axis) of the AABB.
-			 */
-			inline void setSize( float w, float h ) { _size.set( w, h ); }
-
-			/*!
-			 *	@brief		Set the AABB's size.
-			 *
-			 *	@param		size	The size of the AABB (width, height).
-			 */
-			inline void setSize( const Vector2 & size ) { _size.set( size ); }
-
-			/*!
-			 *	@brief		Set the OBB's rotation angle (in radians).
-			 *
-			 *	@param		angle	The angle of rotation (in radians).
-			 */
-			void setRotation( float angle );
+			///*!
+			// *	@brief		Set the OBB's rotation angle (in radians).
+			// *
+			// *	@param		angle	The angle of rotation (in radians).
+			// */
+			//void setRotation( float angle );
 
 		protected:
 			/*!
@@ -155,29 +106,29 @@ namespace Menge {
 			 */
 			virtual void drawGLGeometry() const;
 
-			/*!
-			 *	@brief		The minimum point in the box region.
-			 */
-			Vector2	_pivot;
+			///*!
+			// *	@brief		The minimum point in the box region.
+			// */
+			//Vector2	_pivot;
 
-			/*!
-			 *	@brief		The size of the box region beyond the minimum point.
-			 */
-			Vector2	_size;
+			///*!
+			// *	@brief		The size of the box region beyond the minimum point.
+			// */
+			//Vector2	_size;
 
-			/*!
-			 *	@brief		The first column of the rotation matrix
-			 *				A point, p, can be rotated to the box's
-			 *				orientation as: Vector( p * _rot0, p * _rot1 );
-			 */
-			Vector2	_rot0;
+			///*!
+			// *	@brief		The first column of the rotation matrix
+			// *				A point, p, can be rotated to the box's
+			// *				orientation as: Vector( p * _rot0, p * _rot1 );
+			// */
+			//Vector2	_rot0;
 
-			/*!
-			 *	@brief		The second column of the rotation matrix
-			 *				A point, p, can be rotated to the box's
-			 *				orientation as: Vector( p * _rot0, p * _rot1 );
-			 */
-			Vector2	_rot1;
+			///*!
+			// *	@brief		The second column of the rotation matrix
+			// *				A point, p, can be rotated to the box's
+			// *				orientation as: Vector( p * _rot0, p * _rot1 );
+			// */
+			//Vector2	_rot1;
 		};
 
 		/*!
@@ -185,10 +136,6 @@ namespace Menge {
 		 */
 		class MENGE_API OBBGoalFactory : public GoalFactory { 
 		public:
-			/*!
-			 *	@brief		Constructor.
-			 */
-			OBBGoalFactory();
 
 			/*!
 			 *	@brief		The name of the goal type.
@@ -231,32 +178,8 @@ namespace Menge {
 			 *							that path. 
 			 *	@returns	A boolean reporting success (true) or failure (false).
 			 */
-			virtual bool setFromXML( Goal * goal, TiXmlElement * node, const std::string & behaveFldr ) const;
-		
-			/*!
-			 *	@brief		The identifier for the "x" float attribute.
-			 */
-			size_t	_xID;
-
-			/*!
-			 *	@brief		The identifier for the "y" float attribute.
-			 */
-			size_t	_yID;
-		
-			/*!
-			 *	@brief		The identifier for the "width" float attribute.
-			 */
-			size_t	_wID;
-
-			/*!
-			 *	@brief		The identifier for the "height" float attribute.
-			 */
-			size_t	_hID;
-		
-			/*!
-			 *	@brief		The identifier for the "angle" float attribute.
-			 */
-			size_t	_aID;
+			virtual bool setFromXML( Goal * goal, TiXmlElement * node, 
+									 const std::string & behaveFldr ) const;
 		};
 	}	// namespace BFSM
 }	// namespace Menge

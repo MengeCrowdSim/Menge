@@ -59,9 +59,7 @@ namespace Menge {
 			float x = _mirrorX ? -p.x() : p.x();
 			float y = _mirrorY ? -p.y() : p.y();
 			
-			PointGoal * goal = new PointGoal();
-			goal->setPosition( x, y );
-			return goal;
+			return new PointGoal(x, y);
 		}
 		
 		/////////////////////////////////////////////////////////////////////

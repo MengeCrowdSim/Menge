@@ -57,116 +57,57 @@ namespace Menge {
 		 */
 		class MENGE_API AABBGoal : public Goal {
 		public:
-			/*!
-			 *	@brief		Default constructor
-			 */
-			AABBGoal();
 
-			/*!
-			 *	@brief		Reports the *squared* distance from the given point to the goal.
-			 *
-			 *	@param		pt			The query point.
-			 *	@returns	The squared distance from the point to the goal.
-			 */
-			virtual float squaredDistance( const Vector2 & pt ) const;
+			///*!
+			// *	@brief		Set the AABB's minimum point.
+			// *
+			// *	@param		x		The x-value of the AABB's minimum corner.
+			// *	@param		y		The y-value of the AABB's minimum corner.
+			// */
+			//inline void setMinimum( float x, float y ) { _minPt.set( x, y ); }
 
-			/*!
-			 *	@brief		Set the preferred velocity directions w.r.t. the goal: left, right, and preferred.
-			 *
-			 *	The Agents::PrefVelocity class represents a span of velocities that will reach the goal.
-			 *	For a goal that covers a 2D region, the directions in the Agents::PrefVelocity should span the arc 
-			 *	subtended by the goal from the query point's perspective.  Furthermore, it should have sufficient clearance
-			 *	for a disk with the given radius to pass through.
-			 *	This should be overridden by subclasses to account for their unique geometry.
-			 *
-			 *	@param		q				The query point.
-			 *	@param		r				The radius of clearance.
-			 *	@param		directions		An instance of Agents::PrefVelocity.  
-			 */
-			virtual void setDirections( const Vector2 & q, float r, Agents::PrefVelocity & directions ) const;
+			///*!
+			// *	@brief		Set the AABB's minimum point.
+			// *
+			// *	@param		p		The position of the AABB's minimum corner.
+			// */
+			//inline void setMinimum( const Vector2 & p ) { _minPt.set( p ); }
 
-			/*!
-			 *	@brief		Returns the closest "target" point in the goal to the given
-			 *				query point.
-			 *
-			 *	A "valid" target point is the nearest point to the query point that is sufficiently
-			 *	inside the goal region that a disk with the given radius is completely inside the goal.
-			 *	It need not be literally the *best* value, an approximation is sufficient.
-			 *
-			 *	In the case where the goal region is too small to hold the agent, then the "deepest"
-			 *	point in the region is a good approximation.
-			 *
-			 *	@param		q		The query point.
-			 *	@param		r		The radius of clearance.
-			 *	@returns	A 2D position representing the target point.
-			 */
-			virtual Vector2 getTargetPoint( const Vector2 & q, float r ) const;
+			///*!
+			// *	@brief		Set the AABB's maximum point.
+			// *
+			// *	@param		x		The x-value of the AABB's maximum corner.
+			// *	@param		y		The y-value of the AABB's maximum corner.
+			// */
+			//inline void setMaximum( float x, float y ) { _size.set( Vector2( x, y ) - _minPt ); }
 
-			/*!
-			 *	@brief		Return the centroid of the goal.
-			 */
-			virtual Vector2 getCentroid() const;
+			///*!
+			// *	@brief		Set the AABB's maximum point.
+			// *
+			// *	@param		p		The position of the AABB's maximum corner.
+			// */
+			//inline void setMaximum( const Vector2 & p ) { _size.set( p - _minPt ); }
 
-			/*!
-			 *	@brief		Set the AABB's minimum point.
-			 *
-			 *	@param		x		The x-value of the AABB's minimum corner.
-			 *	@param		y		The y-value of the AABB's minimum corner.
-			 */
-			inline void setMinimum( float x, float y ) { _minPt.set( x, y ); }
+			///*!
+			// *	@brief		Set the AABB's size.
+			// *
+			// *	@param		w		The width (extent along the x-axis) of the AABB.
+			// *	@param		h		The height (extent along the y-axis) of the AABB.
+			// */
+			//inline void setSize( float w, float h ) { _size.set( w, h ); }
 
-			/*!
-			 *	@brief		Set the AABB's minimum point.
-			 *
-			 *	@param		p		The position of the AABB's minimum corner.
-			 */
-			inline void setMinimum( const Vector2 & p ) { _minPt.set( p ); }
-
-			/*!
-			 *	@brief		Set the AABB's maximum point.
-			 *
-			 *	@param		x		The x-value of the AABB's maximum corner.
-			 *	@param		y		The y-value of the AABB's maximum corner.
-			 */
-			inline void setMaximum( float x, float y ) { _size.set( Vector2( x, y ) - _minPt ); }
-
-			/*!
-			 *	@brief		Set the AABB's maximum point.
-			 *
-			 *	@param		p		The position of the AABB's maximum corner.
-			 */
-			inline void setMaximum( const Vector2 & p ) { _size.set( p - _minPt ); }
-
-			/*!
-			 *	@brief		Set the AABB's size.
-			 *
-			 *	@param		w		The width (extent along the x-axis) of the AABB.
-			 *	@param		h		The height (extent along the y-axis) of the AABB.
-			 */
-			inline void setSize( float w, float h ) { _size.set( w, h ); }
-
-			/*!
-			 *	@brief		Set the AABB's size.
-			 *
-			 *	@param		size	The size of the AABB (width, height).
-			 */
-			inline void setSize( const Vector2 & size ) { _size.set( size ); }
+			///*!
+			// *	@brief		Set the AABB's size.
+			// *
+			// *	@param		size	The size of the AABB (width, height).
+			// */
+			//inline void setSize( const Vector2 & size ) { _size.set( size ); }
 
 		protected:
 			/*!
 			 *	@brief		Draws the goal geometry.
 			 */
 			virtual void drawGLGeometry() const;
-
-			/*!
-			 *	@brief		The minimum point in the box region.
-			 */
-			Vector2	_minPt;
-
-			/*!
-			 *	@brief		The size of the box region beyond the minimum point.
-			 */
-			Vector2	_size;
 		};
 
 		/*!
@@ -174,10 +115,6 @@ namespace Menge {
 		 */
 		class MENGE_API AABBGoalFactory : public GoalFactory { 
 		public:
-			/*!
-			 *	@brief		Constructor.
-			 */
-			AABBGoalFactory();
 
 			/*!
 			 *	@brief		The name of the goal type.
@@ -220,27 +157,8 @@ namespace Menge {
 			 *							that path. 
 			 *	@returns	A boolean reporting success (true) or failure (false).
 			 */
-			virtual bool setFromXML( Goal * goal, TiXmlElement * node, const std::string & behaveFldr ) const;
-		
-			/*!
-			 *	@brief		The identifier for the "min_x" float attribute.
-			 */
-			size_t	_minXID;
-
-			/*!
-			 *	@brief		The identifier for the "min_y" float attribute.
-			 */
-			size_t	_minYID;
-		
-			/*!
-			 *	@brief		The identifier for the "max_x" float attribute.
-			 */
-			size_t	_maxXID;
-
-			/*!
-			 *	@brief		The identifier for the "max_y" float attribute.
-			 */
-			size_t	_maxYID;
+			virtual bool setFromXML( Goal * goal, TiXmlElement * node, 
+									 const std::string & behaveFldr ) const;
 		};
 	}	// namespace BFSM
 }	// namespace Menge

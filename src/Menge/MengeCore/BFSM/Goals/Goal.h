@@ -49,6 +49,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include "Element.h"
 #include "ReadersWriterLock.h"
 #include "MengeException.h"
+#include "Math/Geometry2D.h"
 
 // forward declaration
 class TiXmlElement;
@@ -111,15 +112,15 @@ namespace Menge {
 		public:
 			/*!
 			 *	@brief		Basic constructor
-			 *
 			 */
-			Goal():Element(),_weight(1.f),_capacity(MAX_CAPACITY),_id(-1),_goalSet(0x0),_population(0){}	// -1 is the biggest value for size_t
+			Goal():Element(),_weight(1.f),_capacity(MAX_CAPACITY),_id(-1),_goalSet(0x0),
+				_population(0), _geometry(0x0) {}	// -1 is the biggest value for size_t
 
 		protected:
 			/*!
 			 *	@brief		Destructor. 
 			 */
-			virtual ~Goal(){}
+			virtual ~Goal();
 
 		public:
 			/*!
@@ -128,7 +129,9 @@ namespace Menge {
 			 *	@param		pt			The query point.
 			 *	@returns	The squared distance from the point to the goal.
 			 */
-			virtual float squaredDistance( const Vector2 & pt ) const = 0;
+			float squaredDistance(const Vector2 & pt) const { 
+				return _geometry->squaredDistance(pt);
+			}
 
 			/*!
 			 *	@brief		Set the preferred velocity directions w.r.t. the goal: left, right, and preferred.
@@ -143,7 +146,9 @@ namespace Menge {
 			 *	@param		r				The radius of clearance.
 			 *	@param		directions		An instance of Agents::PrefVelocity.  
 			 */
-			virtual void setDirections( const Vector2 & q, float r, Agents::PrefVelocity & directions ) const = 0;
+			void setDirections(const Vector2 & q, float r, Agents::PrefVelocity & directions) const {
+				return _geometry->setDirections(q, r, directions);
+			}
 
 			// TODO: Delete this function= transition uses it determine distance to goal
 			//		I would be better off simply returning "squared distance to goal"
@@ -162,12 +167,14 @@ namespace Menge {
 			 *	@param		r		The radius of clearance.
 			 *	@returns	A 2D position representing the target point.
 			 */
-			virtual Vector2 getTargetPoint( const Vector2 & q, float r ) const = 0;
+			Vector2 getTargetPoint(const Vector2 & q, float r) const {
+				return _geometry->getTargetPoint(q, r);
+			}
 
 			/*!
 			 *	@brief		Return the centroid of the goal.
 			 */
-			virtual Vector2 getCentroid() const = 0;
+			Vector2 getCentroid() const { return _geometry->getCentroid(); }
 
 			/*!
 			 *	@brief		Reports if the goal still has capacity.
@@ -187,6 +194,13 @@ namespace Menge {
 			 *	@brief		Inform the goal that an assignment has been removed.
 			 */
 			void free();
+
+			/*!
+			 *	@brief		Sets the goal's geometry.
+			 *				
+			 *	@param		geometry		The geometry for this goal; the goal takes ownership.
+			 */
+			inline void setGeometry(Math::Geometry2D * geometry) { _geometry = geometry; }
 
 			/*!
 			 *	@brief		Sets this goal's goal set.
@@ -308,6 +322,9 @@ namespace Menge {
 			 *				has been called on this goal.  If a goal is to support
 			 */
 			mutable size_t	_population;
+
+			/*! @brief	The underlying geometry for the goal. */
+			Math::Geometry2D * _geometry;
 
 			/*!
 			 *	@brief		The lock to maintain readers-writer access to the
