@@ -44,6 +44,40 @@ namespace Menge {
 	namespace Math {
 
 		/////////////////////////////////////////////////////////////////////
+		//                   Implementation of PointShape
+		/////////////////////////////////////////////////////////////////////
+
+		PointShape::PointShape(const PointShape & shape) {
+			_position = shape._position;
+		}
+
+		/////////////////////////////////////////////////////////////////////
+
+		PointShape::PointShape(const PointShape & shape, const Vector2 & offset) {
+			_position = shape._position+ offset;
+		}
+
+		/////////////////////////////////////////////////////////////////////
+
+		PointShape PointShape::operator+(const Vector2 & pt) {
+			return PointShape(*this, pt);
+		}
+
+		/////////////////////////////////////////////////////////////////////
+
+		bool PointShape::containsPoint(const Vector2 & pt) const {
+			float distSq = absSq(pt - _position);
+			return distSq < 1e-6f;
+		}
+
+		/////////////////////////////////////////////////////////////////////
+
+		bool PointShape::containsPoint(const Vector2 & pt, const Vector2 & pos) const {
+			float distSq = absSq(pt - pos);
+			return distSq < 1e-6f;
+		}
+
+		/////////////////////////////////////////////////////////////////////
 		//                   Implementation of CircleShape
 		/////////////////////////////////////////////////////////////////////
 

@@ -92,6 +92,77 @@ namespace Menge {
 		/////////////////////////////////////////////////////////////////////
 
 		/*!
+		 *	@brief		Point "shape"
+		 */
+		class MENGE_API PointShape : public Geometry2D {
+		public:
+			/*!
+			*	@brief		Default constructor
+			*/
+			PointShape() : _position(0.f, 0.f) {}
+
+			/*!
+			*	@brief		Constructor
+			*
+			*	@param		pos		The position of the point.
+			*/
+			PointShape(const Vector2 & pos) : Geometry2D(), _position(pos) {}
+
+			/*!
+			*	@brief		Copy constructor
+			*
+			*	@param		shape		The shape to copy from.
+			*/
+			PointShape(const PointShape & shape);
+
+			/*!
+			*	@brief		Initializes this shape as an translated version of the input shape.
+			*
+			*	@param		shape		The shape to copy from.
+			*	@param		offset		The displacement from this point to the new.
+			*/
+			PointShape(const PointShape & shape, const Vector2 & offset);
+
+			/*!
+			*	@brief		Construct an offset version of this shape.
+			*
+			*	@param		pt		The offset value.
+			*	@returns	A new PointShape offset from this one by the vector pt.
+			*/
+			PointShape operator+(const Vector2 & pt);
+
+			/*!
+			*	@brief		Sets the center of the circle.
+			*
+			*	@param		pos		The new position.
+			*/
+			void setPosition(const Vector2 & pos) { _position.set(pos); }
+
+			/*!
+			*	@brief		Determine if the point is inside the shape based on
+			*				the instance properties.
+			*
+			*	@param		pt		The point to test.
+			*	@returns	True if the point is inside the shape, false otherwise.
+			*/
+			virtual bool containsPoint(const Vector2 & pt) const;
+
+			/*!
+			*	@brief		Determine if the point is inside a circle, centered on the
+			*				given position.
+			*
+			*	@param		pt		The point to test.
+			*	@param		pos		The position of the circle's center.
+			*	@returns	True if the point is inside the shape, false otherwise.
+			*/
+			virtual bool containsPoint(const Vector2 & pt, const Vector2 & pos) const;
+
+		protected:
+			/*! @brief		Position */
+			Vector2 _position;
+		};
+
+		/*!
 		 *	@brief		Circle shape
 		 */
 		class MENGE_API CircleShape : public Geometry2D {
