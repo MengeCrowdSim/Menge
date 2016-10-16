@@ -1,6 +1,8 @@
 debug/
 Exe/
 release/
+doc/
+bug_examples/
 COPY.txt
 *.scb
 *.suo
