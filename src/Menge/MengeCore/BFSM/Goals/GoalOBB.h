@@ -61,74 +61,11 @@ namespace Menge {
 		 *	height, respectively.  Positive angle causes counter-clockwise rotation.
 		 */
 		class MENGE_API OBBGoal : public Goal {
-		public:
-
-			///*!
-			// *	@brief		Set the OBB's pivot point.
-			// *
-			// *	@param		x		The x-value of the OBB's pivot point.
-			// *	@param		y		The y-value of the OBB's pivot point.
-			// */
-			//inline void setPivot( float x, float y ) { _pivot.set( x, y ); }
-
-			///*!
-			// *	@brief		Set the OBB's pivot point.
-			// *
-			// *	@param		p		The position of the OBB's pivot point.
-			// */
-			//inline void setPivot( const Vector2 & p ) { _pivot.set( p ); }
-
-			///*!
-			// *	@brief		Set the AABB's size.
-			// *
-			// *	@param		w		The width (extent along the x-axis) of the AABB.
-			// *	@param		h		The height (extent along the y-axis) of the AABB.
-			// */
-			//inline void setSize( float w, float h ) { _size.set( w, h ); }
-
-			///*!
-			// *	@brief		Set the AABB's size.
-			// *
-			// *	@param		size	The size of the AABB (width, height).
-			// */
-			//inline void setSize( const Vector2 & size ) { _size.set( size ); }
-
-			///*!
-			// *	@brief		Set the OBB's rotation angle (in radians).
-			// *
-			// *	@param		angle	The angle of rotation (in radians).
-			// */
-			//void setRotation( float angle );
-
 		protected:
 			/*!
 			 *	@brief		Draws the goal geometry.
 			 */
 			virtual void drawGLGeometry() const;
-
-			///*!
-			// *	@brief		The minimum point in the box region.
-			// */
-			//Vector2	_pivot;
-
-			///*!
-			// *	@brief		The size of the box region beyond the minimum point.
-			// */
-			//Vector2	_size;
-
-			///*!
-			// *	@brief		The first column of the rotation matrix
-			// *				A point, p, can be rotated to the box's
-			// *				orientation as: Vector( p * _rot0, p * _rot1 );
-			// */
-			//Vector2	_rot0;
-
-			///*!
-			// *	@brief		The second column of the rotation matrix
-			// *				A point, p, can be rotated to the box's
-			// *				orientation as: Vector( p * _rot0, p * _rot1 );
-			// */
-			//Vector2	_rot1;
 		};
 
 		/*!

@@ -435,7 +435,7 @@ namespace Menge {
 		 *
 		 *	@param		p			The point to test.
 		 *	@param		start		The identifier of the first node to search for.
-		 *	@param		step		The identifier of the last (inclusive)
+		 *	@param		stop		The identifier of the last (inclusive)
 		 *	@returns	The identifier of the node that contains the query point, or NavMeshLocation::NO_NODE
 		 *				if no polygon found in the range.
 		 */

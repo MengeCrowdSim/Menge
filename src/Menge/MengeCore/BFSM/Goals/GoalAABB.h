@@ -56,53 +56,6 @@ namespace Menge {
 		 *	@brief		A axis-aligned bounding box goal region with uniform probability
 		 */
 		class MENGE_API AABBGoal : public Goal {
-		public:
-
-			///*!
-			// *	@brief		Set the AABB's minimum point.
-			// *
-			// *	@param		x		The x-value of the AABB's minimum corner.
-			// *	@param		y		The y-value of the AABB's minimum corner.
-			// */
-			//inline void setMinimum( float x, float y ) { _minPt.set( x, y ); }
-
-			///*!
-			// *	@brief		Set the AABB's minimum point.
-			// *
-			// *	@param		p		The position of the AABB's minimum corner.
-			// */
-			//inline void setMinimum( const Vector2 & p ) { _minPt.set( p ); }
-
-			///*!
-			// *	@brief		Set the AABB's maximum point.
-			// *
-			// *	@param		x		The x-value of the AABB's maximum corner.
-			// *	@param		y		The y-value of the AABB's maximum corner.
-			// */
-			//inline void setMaximum( float x, float y ) { _size.set( Vector2( x, y ) - _minPt ); }
-
-			///*!
-			// *	@brief		Set the AABB's maximum point.
-			// *
-			// *	@param		p		The position of the AABB's maximum corner.
-			// */
-			//inline void setMaximum( const Vector2 & p ) { _size.set( p - _minPt ); }
-
-			///*!
-			// *	@brief		Set the AABB's size.
-			// *
-			// *	@param		w		The width (extent along the x-axis) of the AABB.
-			// *	@param		h		The height (extent along the y-axis) of the AABB.
-			// */
-			//inline void setSize( float w, float h ) { _size.set( w, h ); }
-
-			///*!
-			// *	@brief		Set the AABB's size.
-			// *
-			// *	@param		size	The size of the AABB (width, height).
-			// */
-			//inline void setSize( const Vector2 & size ) { _size.set( size ); }
-
 		protected:
 			/*!
 			 *	@brief		Draws the goal geometry.

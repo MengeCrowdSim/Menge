@@ -56,8 +56,6 @@ namespace Menge {
 		 *	@brief		A circular goal region with uniform probability
 		 */
 		class MENGE_API CircleGoal : public Goal {
-		public:
-
 		protected:
 			/*!
 			 *	@brief		Draws the goal geometry.
