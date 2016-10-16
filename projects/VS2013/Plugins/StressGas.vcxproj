@@ -112,6 +112,7 @@ xcopy /y $(TargetPath) $(ExeDir)\plugins\
     <ClCompile Include="$(PluginSrc)\StressGas\StressGas.cpp" />
     <ClCompile Include="..\..\..\src\Plugins\StressGas\AgentStressor.cpp" />
     <ClCompile Include="..\..\..\src\Plugins\StressGas\BaseStressAction.cpp" />
+    <ClCompile Include="..\..\..\src\Plugins\StressGas\DistanceStressFunction.cpp" />
     <ClCompile Include="..\..\..\src\Plugins\StressGas\TimedStressAction.cpp" />
     <ClCompile Include="..\..\..\src\Plugins\StressGas\StressFunction.cpp" />
     <ClCompile Include="..\..\..\src\Plugins\StressGas\StressGlobals.cpp" />
@@ -123,6 +124,8 @@ xcopy /y $(TargetPath) $(ExeDir)\plugins\
     <ClInclude Include="$(PluginSrc)\StressGas\StressGasConfig.h" />
     <ClInclude Include="..\..\..\src\Plugins\StressGas\AgentStressor.h" />
     <ClInclude Include="..\..\..\src\Plugins\StressGas\BaseStressAction.h" />
+    <ClInclude Include="..\..\..\src\Plugins\StressGas\DistanceStressAction.h" />
+    <ClInclude Include="..\..\..\src\Plugins\StressGas\DistanceStressFunction.h" />
     <ClInclude Include="..\..\..\src\Plugins\StressGas\TimedStressAction.h" />
     <ClInclude Include="..\..\..\src\Plugins\StressGas\StressFunction.h" />
     <ClInclude Include="..\..\..\src\Plugins\StressGas\StressGlobals.h" />

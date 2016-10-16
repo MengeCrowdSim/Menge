@@ -42,6 +42,9 @@
     <ClCompile Include="..\..\..\src\Plugins\StressGas\StressTask.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\Plugins\StressGas\DistanceStressFunction.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(PluginSrc)\StressGas\StressGasConfig.h">
@@ -69,6 +72,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Plugins\StressGas\StressTask.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Plugins\StressGas\DistanceStressFunction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Plugins\StressGas\DistanceStressAction.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
