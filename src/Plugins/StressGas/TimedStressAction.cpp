@@ -15,7 +15,6 @@ namespace StressGAS {
 															float coolDuration ) 
 	{
 		return new TimedStressFunction( _duration->getValue(), agent, stressor, coolDuration );
-		return 0x0;
 	}
 
 	/////////////////////////////////////////////////////////////////////
