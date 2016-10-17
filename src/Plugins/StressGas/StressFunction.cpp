@@ -43,7 +43,10 @@ namespace StressGAS {
 	
 	void StressFunction::coolDown() {
 		_stressLevel -= _coolDownRate * Menge::SIM_TIME_STEP;
-		if ( _stressLevel < 0.f ) _stressLevel = 0.f;
+		if ( _stressLevel < 0.f ) {
+			_stressLevel = 0.f;
+			_mode = FINISHED;
+		}
 	}
 
 	/////////////////////////////////////////////////////////////////////

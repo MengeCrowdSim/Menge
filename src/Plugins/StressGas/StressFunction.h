@@ -92,6 +92,9 @@ namespace StressGAS {
 		 */
 		StressFunctionMode getMode() const { return _mode; }
 
+		/*! Reports true if the function is finished. */
+		bool isFinished() const { return _mode == FINISHED; }
+
 		/*!
 		 *	@brief	Evaluate the simulation state and modify agent stress level and state as 
 		 *			appropriate.

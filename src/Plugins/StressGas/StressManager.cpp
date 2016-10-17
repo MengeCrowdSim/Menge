@@ -7,6 +7,7 @@
 #include "BaseAgent.h"
 #include "PedVO/PedVOAgent.h"
 #include <map>
+#include <set>
 #include <vector>
 #include "StressManager.h"
 #include "Core.h"
@@ -37,8 +38,16 @@ namespace StressGAS {
 		_lock.lockRead();
 		HASH_MAP< const Agents::BaseAgent *, StressFunction *>::iterator itr =
 			_stressFunctions.begin();
+		std::set<const Agents::BaseAgent *> deleteSet;
 		for ( ; itr != _stressFunctions.end(); ++itr ) {
 			itr->second->processStress();
+			if ( itr->second->isFinished() ) {
+				deleteSet.insert( itr->first );
+			}
+		}
+		std::set<const Agents::BaseAgent *>::iterator aItr = deleteSet.begin();
+		for ( ; aItr != deleteSet.end(); ++aItr ){
+			_stressFunctions.erase( *aItr );
 		}
 		_lock.releaseRead();
 	};
