@@ -92,7 +92,11 @@ namespace StressGAS {
 		 */
 		StressFunctionMode getMode() const { return _mode; }
 
-		/*! Reports true if the function is finished. */
+		/*! Reports true if the function is finished. 
+		 *
+		 *	@returns	True if the function is finished cooling down and will no longer 
+		 *				create stress.
+		 */
 		bool isFinished() const { return _mode == FINISHED; }
 
 		/*!
