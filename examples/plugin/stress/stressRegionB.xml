@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+
+<BFSM>
+	<GoalSet id="0">
+		<Goal type="point" id="0" x="10" y="-1"/>
+	</GoalSet>
+	
+	<State name="ToGoal" final="0" >
+		<GoalSelector type="explicit" goal_set="0" goal="0" />
+		<VelComponent type="goal" />
+        <Action type="distance_stress" exit_behavior="cool down"
+			inner_dist="c" inner_value="1.0" 
+			outer_dist="c" outer_value="4.0"
+			fall_off="linear"
+			shape="circle" radius="3" x="0" y="0"
+			/>
+	</State>
+	<State name="GoalReached" final="1">
+		<GoalSelector type="identity" />
+		<VelComponent type="zero" />
+	</State>
+
+	<Transition from="ToGoal" to="GoalReached" >
+		<Condition type="goal_reached" />
+	</Transition>
+		
+</BFSM>

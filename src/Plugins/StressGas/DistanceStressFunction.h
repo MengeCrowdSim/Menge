@@ -4,7 +4,7 @@
 #include "StressGasConfig.h"
 #include "StressFunction.h"
 
-#include "shapes.h"
+#include "Math/Geometry2D.h"
 
 using namespace Menge;
 
@@ -39,7 +39,7 @@ namespace StressGAS {
 		 *	@brief	Constructor.
 		 *
 		 *	@param	region				The region to compute distance from; this function does
-		 *								*not* own the shape.
+		 *								*not* own the geometry.
 		 *	@param	inner				The distance to which stress is 100%.
 		 *	@param	outer				The maximum distance beyond which stress is zero.
 		 *	@param	funcType			The distance to stress function.
@@ -47,7 +47,7 @@ namespace StressGAS {
 		 *	@param	stressor			The agent stressor to use on the agent.
 		 *	@param	coolDuration		The amount of time (in seconds) required to cool down from
 		 */
-		DistanceStressFunction( SceneGraph::Shape const * const region,
+		DistanceStressFunction( Math::Geometry2D const * const region,
 								float inner, float outer, StressInterpEnum funcType,
 								Agents::BaseAgent * agent, AgentStressor * stressor, 
 								float coolDuration );
@@ -62,7 +62,7 @@ namespace StressGAS {
 	protected:
 
 		/** The definition of the stress region. */
-		SceneGraph::Shape const * const _region;
+		Math::Geometry2D const * const _region;
 
 		/** The distance of full stress effect. */
 		float _inner;

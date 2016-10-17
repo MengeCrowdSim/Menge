@@ -45,6 +45,9 @@
     <ClCompile Include="..\..\..\src\Plugins\StressGas\DistanceStressFunction.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\Plugins\StressGas\DistanceStressAction.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(PluginSrc)\StressGas\StressGasConfig.h">

@@ -6,6 +6,7 @@
 #include "StressGasConfig.h"
 #include "PluginEngine.h"
 #include "TimedStressAction.h"
+#include "DistanceStressAction.h"
 
 /*!
  *	@brief		Retrieves the name of the plug-in.
@@ -35,4 +36,5 @@ extern "C" EXPORT_API const char * getDescription() {
  */
 extern "C" EXPORT_API void registerPlugin( PluginEngine * engine ) {
 	engine->registerActionFactory( new StressGAS::TimedStressActionFactory() );
+	engine->registerActionFactory( new StressGAS::DistanceStressActionFactory() );
 }
