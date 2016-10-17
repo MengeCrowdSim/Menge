@@ -200,7 +200,7 @@ namespace Menge {
 			 *				
 			 *	@param		geometry		The geometry for this goal; the goal takes ownership.
 			 */
-			inline void setGeometry(Math::Geometry2D * geometry) { _geometry = geometry; }
+			inline void setGeometry( Math::Geometry2D * geometry );
 
 			/*!
 			 *	@brief		Sets this goal's goal set.
