@@ -50,3 +50,7 @@ menge.exe -p ../examples/plugin/denseFormation.xml
 menge.exe -p ../examples/plugin/formationChange.xml
 menge.exe -p ../examples/plugin/formationNavigation.xml
 menge.exe -p ../examples/plugin/fundDiag.xml
+menge.exe -p ../examples/plugin/stress.xml
+menge.exe -p ../examples/plugin/stressCooldown.xml
+menge.exe -p ../examples/plugin/stressRegion.xml
+menge.exe -p ../examples/plugin/stressReset.xml

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<Project 
+	scene="stress/stressResetS.xml" 
+	behavior="stress/stressResetB.xml" 
+	view="stress/stressResetV.xml" 
+	model="orca"
+	dumpPath="stress/images"
+/>

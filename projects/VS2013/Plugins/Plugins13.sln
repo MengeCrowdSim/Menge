@@ -18,6 +18,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FundDiag", "FundDiag.vcxpro
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Aircraft", "Aircraft.vcxproj", "{2B4A4D3D-27A9-4C27-95BE-21737C22EA54}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "StressGas", "StressGas.vcxproj", "{0D2D751B-24DD-457D-BDDD-46EDB597E006}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -79,6 +81,12 @@ Global
 		{2B4A4D3D-27A9-4C27-95BE-21737C22EA54}.Release|Win32.Build.0 = Release|Win32
 		{2B4A4D3D-27A9-4C27-95BE-21737C22EA54}.ReleaseST|Win32.ActiveCfg = Release|Win32
 		{2B4A4D3D-27A9-4C27-95BE-21737C22EA54}.ReleaseST|Win32.Build.0 = Release|Win32
+		{0D2D751B-24DD-457D-BDDD-46EDB597E006}.Debug|Win32.ActiveCfg = Debug|Win32
+		{0D2D751B-24DD-457D-BDDD-46EDB597E006}.Debug|Win32.Build.0 = Debug|Win32
+		{0D2D751B-24DD-457D-BDDD-46EDB597E006}.Release|Win32.ActiveCfg = Release|Win32
+		{0D2D751B-24DD-457D-BDDD-46EDB597E006}.Release|Win32.Build.0 = Release|Win32
+		{0D2D751B-24DD-457D-BDDD-46EDB597E006}.ReleaseST|Win32.ActiveCfg = Release|Win32
+		{0D2D751B-24DD-457D-BDDD-46EDB597E006}.ReleaseST|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

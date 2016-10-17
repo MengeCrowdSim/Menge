@@ -1,3 +1,27 @@
+Release 0.8.2
+	October 17, 2016
+	
+	New Features
+		Added new plugin: StressGAS
+			Action for inducing stress upon agents.  Provided two examples: time based and distance based with corresponding examples.
+		Added project for VS2013
+		Added navigation mesh agent placement.  For multi-layered navigation meshes, a 2D position can be placed on specific polygon groups (rather than the top-down projection default behavior.)  This allows for population of multiple overlapping layers.
+		Refactored Goals to use a common region class and operations.
+		
+	Clean up
+		Graph parsing made more verbose; errors in the graph now write to the log and program exits gracefully.
+		Obstacles
+			Removed unused "boundingbox" attribute in XML obstacle definition.
+			Open obstacles are now rejected.
+		Fixed .gitignore to properly ignore VS2005 build artifacts
+		
+	Bugs
+		NavMesh spatial query uses agent polygon position to search for polygons; previously it ignored this information and would, in some cases, produce incorrect sets of neigbhor obstacles.
+		Fixed bug which prevented scb creation in linux
+	
+
+----------------------------------------------------------------
+
 Release 0.8.1
 	November 2, 2014
 	Corrected run example scripts for windows and linux

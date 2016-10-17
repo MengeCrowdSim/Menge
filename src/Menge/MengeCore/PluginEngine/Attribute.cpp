@@ -167,10 +167,10 @@ namespace Menge {
 		_generator = createFloatGenerator( node, _scale, _name );
 		if ( _generator == 0x0 ) {
 			if ( _required ) {
-				logger << Logger::ERR_MSG << "Expecting a missing float distribution specification on line " << node->Row() << ".";
+				logger << Logger::ERR_MSG << "Expecting a missing float distribution specification for \"" << _name << "\" on line " << node->Row() << ".";
 				return false;
 			} else {
-				logger << Logger::WARN_MSG << "Expecting a missing float distribution specification on line " << node->Row() << ". Using a const distribution with value: " << _default << ".";
+				logger << Logger::WARN_MSG << "Expecting a missing float distribution specification \"" << _name << "\" on line " << node->Row() << ".Using a const distribution with value : " << _default << ".";
 				_generator = new ConstFloatGenerator( _default );
 			}
 		}
