@@ -6,6 +6,7 @@ Release 0.8.2
 			Action for inducing stress upon agents.  Provided two examples: time based and distance based with corresponding examples.
 		Added project for VS2013
 		Added navigation mesh agent placement.  For multi-layered navigation meshes, a 2D position can be placed on specific polygon groups (rather than the top-down projection default behavior.)  This allows for population of multiple overlapping layers.
+		Refactored Goals to use a common region class and operations.
 		
 	Clean up
 		Graph parsing made more verbose; errors in the graph now write to the log and program exits gracefully.
