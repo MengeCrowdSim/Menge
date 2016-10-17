@@ -504,7 +504,7 @@ namespace Menge {
 			 *				
 			 *	@returns	The box size.
 			 */
-			const Vector2 & getSize() const { return _maxPt - _minPt; }
+			const Vector2 getSize() const { return _maxPt - _minPt; }
 
 			/*!
 			 *	@brief		Reports the box's maximal point (in x & y directions).

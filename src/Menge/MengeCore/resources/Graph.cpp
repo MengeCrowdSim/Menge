@@ -135,7 +135,7 @@ namespace Menge {
 				logger << Logger::ERR_MSG << "Error parsing roadmap: format error for edge " << ( e + 1 ) << ".\n";
 				delete [] vertNbr;
 				graph->destroy();
-				return false;
+				return 0x0;
 			}
 			edge.setDistance( graph->_vertices[ from ].getDistance( graph->_vertices[ to ] ) );
 			edge.setNeighbor( &graph->_vertices[ to ] );
