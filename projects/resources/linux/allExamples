@@ -52,3 +52,7 @@ set -x
 ./menge -p ../examples/plugin/formationChange.xml
 ./menge -p ../examples/plugin/formationNavigation.xml
 ./menge -p ../examples/plugin/fundDiag.xml
+./menge -p ../examples/plugin/stress.xml
+./menge -p ../examples/plugin/stressCooldown.xml
+./menge -p ../examples/plugin/stressRegion.xml
+./menge -p ../examples/plugin/stressReset.xml
