@@ -63,21 +63,23 @@ namespace Menge {
 		/*!
 		 *	@brief		The base class for filtering spatial queries according to proximity
 		 *
-		 *	A spatial query performs basic operations on a query structure
-		 *      The ProximityQuery class is tasked with taking whatever data the spatialquery gives
-		 *      us and filtering the result set to fit our desires. For example
-		 *      K-nearest, K-nearest with minRange
-		 *      ProximityQueries work with obstacles and agents. They must support BOTH
-		 *      Children must overwrite filterAgent and filterObstacle
+		 *	There are different types of spatial queries: nearest, k-nearest, k-nearest with minimum range, etc.
+		 *	The ProximityQuery class works in conjunction with a SpatialQuery implementation to 
+		 *	define one of these types of spatial queries.  It serves as a means of directing the
+		 *	spatial query implementation in its search and of filtering and caching the results.
+		 *
+		 *	The ProximityQuery can apply to proximal agents or obstacles.
+		 *
+		 *	Valid sub-classes must provide implementations for both obstacles and agents.
 		 */
 		class MENGE_API ProximityQuery {
 		public:
 			/*!
-			 *	@brief		default Constructor.
+			 *	@brief		Default constructor.
 			 */
 			ProximityQuery(){}
 
-		protected:
+			protected:
 			/*!
 			 *	@brief		Virtual destructor.
 			 */
@@ -85,14 +87,14 @@ namespace Menge {
 
 		public:
 			/*!
-			 *  @brief     resets the query
+			 *  @brief     Resets the query's state.
 			 */
 			virtual void startQuery() = 0;
 
 			/*!
-			 *  @brief      gets the start point for the query
+			 *  @brief      gets the start point for the query ???
 			 *
-			 *   @returns    the query point for this Query
+			 *  @returns    the query point for this Query
 			 */
 			virtual Math::Vector2 getQueryPoint() = 0;
 
@@ -131,7 +133,6 @@ namespace Menge {
 			 *  @param      distSq  the distance to the obstacle
 			 */
 			virtual void filterObstacle(const Obstacle * obstacle, float distSq) = 0;
-
 		};
 	}	// namespace Agents
 }	// namespace Menge
