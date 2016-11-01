@@ -21,6 +21,6 @@ add_library(
 	${source_files}
 )
 
-target_link_libraries ( mengeCore dl )
+target_link_libraries ( mengeCore dl tinyxml ${OPENGL_LIBRARIES} ${GLUT_LIBRARY}  ${SDL_LIBRARY} ${PNG_LIBRARY}  ${SDLIMAGE_LIBRARY}  ${SDLTTF_LIBRARY})
 
 install( TARGETS mengeCore DESTINATION ${LIBRARY_OUTPUT_PATH} )
