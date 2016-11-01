@@ -3,7 +3,7 @@
 License
 
 Menge
-Copyright © and trademark ™ 2012-14 University of North Carolina at Chapel Hill. 
+Copyright ï¿½ and trademark ï¿½ 2012-14 University of North Carolina at Chapel Hill. 
 All rights reserved.
 
 Permission to use, copy, modify, and distribute this software and its documentation 
@@ -40,7 +40,12 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include "GLScene.h"
 #include "graphCommon.h"
 #include "Select.h"
-#include "GL/glu.h"
+#ifdef __APPLE__
+#include <GLUT/glut.h>
+#else
+#include "GL/gl.h"
+#endif
+
 #include <sstream>
 
 namespace Menge {

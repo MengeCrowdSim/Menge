@@ -3,7 +3,7 @@
 License
 
 Menge
-Copyright © and trademark ™ 2012-14 University of North Carolina at Chapel Hill. 
+Copyright ï¿½ and trademark ï¿½ 2012-14 University of North Carolina at Chapel Hill. 
 All rights reserved.
 
 Permission to use, copy, modify, and distribute this software and its documentation 
@@ -47,7 +47,11 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifdef _WIN32
 #include <windows.h>
 #endif
+#ifdef __APPLE__
+#include <OpenGL/gl.h>
+#else
 #include "GL/gl.h"
+#endif
 #include "Math/Matrix.h"
 #include "Math/consts.h"
 #include "mengeCommon.h"
