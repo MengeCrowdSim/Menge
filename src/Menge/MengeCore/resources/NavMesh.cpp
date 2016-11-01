@@ -257,12 +257,12 @@ namespace Menge {
 				//		The pointer will be larger than the unsigned int.  But as I'm pushing an unsigned
 				//		int into a pointer slot, it'll probably be safe.  Needs to be tested.
 
-				unsigned int eID = reinterpret_cast< unsigned int >( node._edges[ e ] );
+				unsigned int eID = reinterpret_cast< uintptr_t >( node._edges[ e ] );
 				assert( eID >= 0 && eID < _eCount && "Finalizing invalid edge id from node" );
 				node._edges[ e ] = &_edges[ eID ];
 			}
 			for ( size_t o = 0; o < node._obstCount; ++o ) {
-				unsigned int oID = reinterpret_cast< unsigned int >( node._obstacles[ o ] );
+				unsigned int oID = reinterpret_cast< uintptr_t >( node._obstacles[ o ] );
 				assert( oID >= 0 && oID < _obstCount && "Finalizing invalid obstacle id for node" );
 				node._obstacles[ o ] = &_obstacles[ oID ];
 			}
@@ -273,11 +273,11 @@ namespace Menge {
 		// All of the node indices in the edges need to be replaced with pointers
 		for ( size_t e = 0; e < _eCount; ++e ) {
 			NavMeshEdge & edge = _edges[ e ];
-			unsigned int nID = reinterpret_cast< unsigned int >( edge._node0 );
+			unsigned int nID = reinterpret_cast< uintptr_t >( edge._node0 );
 			assert( nID >= 0 && nID < _nCount && "Finalizing invalid node id from edge" );
 			edge._node0 = &_nodes[ nID ];
 			
-			nID = reinterpret_cast< unsigned int >( edge._node1 );
+			nID = reinterpret_cast< uintptr_t >( edge._node1 );
 			assert( nID >= 0 && nID < _nCount && "Finalizing invalid node id from edge" );
 			edge._node1 = &_nodes[ nID ];
 			// compute edge distance
@@ -300,11 +300,12 @@ namespace Menge {
 			while ( curr != NavMeshObstacle::NO_NEIGHBOR_OBST && !processed[ curr ] ) {
 				processed[ curr ] = true;
 				NavMeshObstacle & obst = _obstacles[ curr ];
-				unsigned int nID = reinterpret_cast< unsigned int>( obst._node );
+				unsigned int nID = reinterpret_cast<uintptr_t>( obst._node );
+                                //error: cast from 'Menge::Agents::Obstacle*' to 'unsigned int' loses precision [-fpermissive]
 				assert( nID < _nCount && "Finalizing invalid node id from obstacle" );
 				obst._node = &_nodes[ nID ];
 
-				nID = reinterpret_cast< unsigned int >( obst._nextObstacle );
+				nID = reinterpret_cast< uintptr_t >( obst._nextObstacle );
 				assert( ( nID < _obstCount || nID == NavMeshObstacle::NO_NEIGHBOR_OBST ) && "Finalizing invalid obstacle index for next obstacle" );
 				if ( nID == NavMeshObstacle::NO_NEIGHBOR_OBST ) {
 					obst._nextObstacle = 0x0;
