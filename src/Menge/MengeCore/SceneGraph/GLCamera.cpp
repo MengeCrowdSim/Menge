@@ -170,7 +170,7 @@ namespace Menge {
 			const int PICK_SIZE = 5;
 			glMatrixMode( GL_PROJECTION );
 			glLoadIdentity();
-			int viewport[4] = { 0, 0, _viewWidth, _viewHeight };
+			int viewport[4] = { 0, 0, static_cast<int>(_viewWidth), static_cast<int>(_viewHeight) };
 			gluPickMatrix( selectPoint[0], _viewHeight - selectPoint[1], PICK_SIZE, PICK_SIZE, viewport );
 			_setProjMat();
 		}
