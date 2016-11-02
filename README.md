@@ -13,4 +13,4 @@ Steps to follow in order to get `Menge` compiled:
 ```
 
 
-@todo: with `g++` there are some linking errors. See also the discussion in #28. 
+@todo: with `g++` there are some linking errors. See also the discussion in [#28](https://github.com/MengeCrowdSim/Menge/issues/28). 
