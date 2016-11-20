@@ -61,6 +61,26 @@ namespace Menge {
 		 *	@brief		Definition of agent generator class which produces agents based on
 		 *				explicit enumeration of agent positions in an XML file and defines
 		 *				their placement on a navigation mesh.
+		 *				
+		 *	To specify an navigation mesh generator, use the following syntax:
+		 *
+		 *		<Generator type="nav_mesh_explicit" file_name="string" group_name="string">
+		 *			<Agent p_x="float" p_y="float"/>
+		 *			<Agent p_x="float" p_y="float"/>
+		 *			...
+		 *			<Agent p_x="float" p_y="float"/>
+		 *		</Genrator>
+		 *
+		 *	The `nav_mesh_explicit` is related to the @ref ExplicitGenerator.  Each agent's initial
+		 *  2D position is explicitly enumerated.  However, that position may project onto multiple
+		 *  locations on the navigation mesh.  The NavMeshGenerator class allows for specifying
+		 *  a partciular polygon group to project the point onto. It introduces two
+		 *  new properties:
+		 *		- `file_name`: the relative path to the navigation mesh specification.
+		 *		- `group_name`: the name of a polygon group specified in the navigation mesh 
+		 *			defined in `file_name`.
+		 *
+		 *  @sa NavMesh
 		 */
 		class MENGE_API NavMeshGenerator : public AgentGenerator {
 		public:

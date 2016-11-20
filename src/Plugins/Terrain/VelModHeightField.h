@@ -88,7 +88,7 @@ namespace Terrain {
 	 *
 	 *	The parameters have the following meanings:
 	 *	- The value `file_name` contains the path to the height field definition file 
-	 *	(see @Terrain::HeightField for details on the file).  The path 
+	 *	(see @ref Terrain::HeightField for details on the file).  The path 
 	 *	should be relative to the file that specifies the velocity modifier.
 	 *	- The value `down_hill_scale` is a scale factor applied to down hill motion
 	 *		It limits the amount the speed increases when going downhill (e.g., a value of zero

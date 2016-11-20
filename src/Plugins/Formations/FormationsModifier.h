@@ -75,7 +75,7 @@ namespace Formations {
 	 *		<VelModifier type="formation" file_name="string"/>
 	 *
 	 *	The value `file_name` contains the path to the formation definition file 
-	 *	(see @refFormations::FreeFormation for details on the file).  The path 
+	 *	(see @ref Formations::FreeFormation for details on the file).  The path 
 	 *	should be relative to the file that specifies the velocity modifier.
 	 */
 	class FORMATIONS_API FormationModifier : public Menge::BFSM::VelModifier {
