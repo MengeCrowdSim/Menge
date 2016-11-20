@@ -166,15 +166,6 @@ namespace Menge {
 
 		protected:
 			/*!
-			 *	@brief		Compute the position of the ith agent.
-			 *
-			 *	@param		i		The index of the requested agent.
-			 *	@returns	The 2D position of the agent based on the generator's parameters.
-			 *	@throws		AgentGeneratorException if the index, i, is invalid.
-			 */
-			virtual Vector2 computePos( size_t i ) = 0;
-			
-			/*!
 			 *	@brief		The generator for displacement amount (defaults to zero).
 			 */
 			Math::FloatGenerator	* _disp;

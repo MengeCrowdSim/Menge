@@ -151,14 +151,6 @@ namespace Menge {
 			void setRotationDeg( float angle );
 
 		protected:
-			/*!
-			 *	@brief		Compute the position of the ith agent.
-			 *
-			 *	@param		i		The index of the requested agent.
-			 *	@returns	The 2D position of the agent based on the generator's parameters.
-			 *	@throws		AgentGeneratorException if the index, i, is invalid.
-			 */
-			virtual Vector2 computePos( size_t i );
 			
 			/*!
 			 *	@brief		The anchor point of the lattice.  One agent will be positioned
