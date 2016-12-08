@@ -2,13 +2,13 @@
 
 <BFSM>
 	<GoalSet id="0">
-		<Goal type="AABB" id="0" min_x="-1" min_y="-1" max_x="1.0" max_y="1" weight="20.0" />
-		<Goal type="OBB" id="1" x="-1" y="5" width="2" height="2" angle="10.0" weight="1.0" />
-		<Goal type="AABB" id="2" min_x="-1" min_y="-7" max_x="1" max_y="-5" weight="1.0" />
+		<Goal type="AABB" id="0" min_x="-10" min_y="-10" max_x="10" max_y="10" weight="20.0" />
+		<Goal type="OBB" id="1" x="-10" y="15" width="2" height="2" angle="10.0" weight="1.0" />
+		<Goal type="AABB" id="2" min_x="-10" min_y="-17" max_x="10" max_y="-15" weight="1.0" />
 	</GoalSet>
 	<GoalSet id="1">
-		<Goal type="circle" id="0" x="-10" y="0" radius="0.5"/>
-		<Goal type="circle" id="1" x="10" y="0" radius="0.5"/>
+		<Goal type="circle" id="0" x="-10" y="0" radius="15"/>
+		<Goal type="circle" id="1" x="10" y="0" radius="15"/>
 	</GoalSet>
 
 	<State name="Walk1" final="0" >

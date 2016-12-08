@@ -31,9 +31,9 @@
         <ProfileSelector type="const" name="group1" />
 		<StateSelector type="const" name="Walk1" />
 		<Generator type="rect_grid"
-				anchor_x="-10" anchor_y="5.0"
-				offset_x="-.5" offset_y="-0.5"
-				count_x="3" count_y="21"
+				anchor_x="0" anchor_y="0"
+				offset_x="-1.5" offset_y="-1.5"
+				count_x="2" count_y="2"
 				/>
     </AgentGroup>
 
@@ -43,7 +43,7 @@
 		<Generator type="rect_grid"
 				anchor_x="10" anchor_y="5.0"
 				offset_x="0.5" offset_y="-0.5"
-				count_x="3" count_y="21"
+				count_x="0" count_y="0"
 				/>
     </AgentGroup>
 

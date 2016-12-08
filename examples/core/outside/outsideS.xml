@@ -36,7 +36,7 @@
 	
 	<AgentGroup>
         	<ProfileSelector type="const" name="group1" />
-		<StateSelector type="const" name="Walk1" />
+		<StateSelector type="const" name="Walk" />
 		<Generator type="rect_grid" 
 				anchor_x="7" anchor_y="10" 
 				offset_x="-1.5" offset_y="-1.5" 
@@ -48,18 +48,26 @@
         	<ProfileSelector type="const" name="explosion" />
 		<StateSelector type="const" name="GrowWait" />
 		<Generator type="explicit">
-			<Agent p_x="20" p_y="0" />
+			<Agent p_x="30" p_y="0" />
 		</Generator>
 	</AgentGroup>
 <ObstacleSet type="explicit" class="1"> 
           <Obstacle closed="1"  >
+            <!--box=1-->
             <Vertex p_x = "19" p_y = "22"/>
 	    <Vertex p_x = "-15" p_y = "22"/>
 	    <Vertex p_x = "-15" p_y = "18"/>
 	    <Vertex p_x = "19" p_y = "18"/>
           </Obstacle>
-        
+        <Obstacle closed="1"  >
+            <!--box=2-->
+            <Vertex p_x = "-14" p_y = "-27"/>
+	    <Vertex p_x = "-14" p_y = "-21"/>
+	    <Vertex p_x = "14" p_y = "-21"/>
+	    <Vertex p_x = "14" p_y = "-27"/>
+          </Obstacle>
           <Obstacle closed="1"  >
+                      <!--box=4-->
             <Vertex p_x = "20" p_y = "-17"/>
             <Vertex p_x = "-20" p_y = "-17"/>
             <Vertex p_x = "-20" p_y = "-23"/>
@@ -67,12 +75,14 @@
           </Obstacle>
 	   
   	 <Obstacle closed="1"  >
+  	             <!--box=7-->
 		    <Vertex p_x = "28" p_y = "20"/>
 		    <Vertex p_x = "22" p_y = "20"/>
 		    <Vertex p_x = "22" p_y = "-20"/> 
 		    <Vertex p_x = "28" p_y = "-20"/>
 	</Obstacle>
 	<Obstacle closed="1"  >
+	            <!--box=8-->
 		    <Vertex p_x = "-13" p_y = "-1"/>
 		    <Vertex p_x = "-19" p_y = "-1"/>
 		    <Vertex p_x = "-19" p_y = "-15"/> 
@@ -80,7 +90,8 @@
 	 </Obstacle>
   	 
 	<Obstacle closed="1"  >
-		    <Vertex p_x = "-13" p_y = "1"/>
+	            <!--box=9-->
+		    <Vertex p_x = "-19" p_y = "1"/>
 		    <Vertex p_x = "-13" p_y = "1"/>
 		    <Vertex p_x = "-13" p_y = "25"/>
 		    <Vertex p_x = "-19" p_y = "25"/> 
