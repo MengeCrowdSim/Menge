@@ -41,9 +41,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include "graphCommon.h"
 #include "Select.h"
 #ifdef __APPLE__
-#include <GLUT/glut.h>
+#include <OpenGL/glu.h>
 #else
-#include "GL/gl.h"
+#include "GL/glu.h"
 #endif
 
 #include <sstream>
