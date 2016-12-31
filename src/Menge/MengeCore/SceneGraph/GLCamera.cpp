@@ -41,7 +41,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifdef __APPLE__
 #include <GLUT/glut.h>
 #else
-#include "GL/gl.h"
+#include "GL/glu.h"
 #endif
 #include <math.h>
 

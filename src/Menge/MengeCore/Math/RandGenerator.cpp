@@ -45,14 +45,14 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifdef _WIN32
 #define NOMINMAX	// prevent windows.h from stomping on "max" - used by limits
 #include "windows.h"
-#else	// _WIN32
-#include <ctime>
-#include "include/macros.h"
-#endif	// _WIN32
-#ifdef __APPLE__
+#elif __APPLE__
 #include <mach/clock.h>
 #include <mach/mach.h>
+#else	// not _WIN32 and not __APPLE__, i.e., Linux
+#include <ctime>
+#include "include/macros.h"
 #endif
+
 namespace Menge {
 
 	namespace Math {
