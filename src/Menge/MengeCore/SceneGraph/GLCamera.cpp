@@ -39,7 +39,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include "graphCommon.h"
 #include "GLCamera.h"
 #ifdef __APPLE__
-#include <GLUT/glut.h>
+#include <OpenGL/glu.h>
 #else
 #include "GL/glu.h"
 #endif

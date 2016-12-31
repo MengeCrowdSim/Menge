@@ -42,7 +42,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include "windows.h"
 #endif
 #ifdef __APPLE__
-#include <GLUT/glut.h>
+#include <OpenGL/gl.h>
 #else
 #include "GL/gl.h"
 #endif
