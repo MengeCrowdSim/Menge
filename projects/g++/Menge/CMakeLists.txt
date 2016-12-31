@@ -19,7 +19,8 @@ INCLUDE_DIRECTORIES (${MENGE_SRC_DIR}/MengeCore/Agents)
 INCLUDE_DIRECTORIES (${MENGE_SRC_DIR}/MengeCore/Runtime)
 INCLUDE_DIRECTORIES (${MENGE_SRC_DIR}/MengeCore/PluginEngine)
 
-set( CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fpermissive" )
+set( CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fpermissive -std=c++11" )
+set( CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -std=c++11" )
 
 #find the correct OpenMP flag
 FIND_PACKAGE(OpenMP)
