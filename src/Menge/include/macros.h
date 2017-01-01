@@ -12,8 +12,8 @@
 	#include <hash_map>
 	#define HASH_MAP stdext::hash_map
 #else
-	#include <tr1/unordered_map>
-	#define HASH_MAP std::tr1::unordered_map
+	#include <unordered_map>
+	#define HASH_MAP std::unordered_map
 #endif
 
 #ifndef _MSC_VER

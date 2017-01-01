@@ -12,3 +12,5 @@ build/
 ipch/
 *.user
 *.ncb
+# CLion files
+*.idea

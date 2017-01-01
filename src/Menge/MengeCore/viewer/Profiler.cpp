@@ -3,7 +3,7 @@
 License
 
 Menge
-Copyright © and trademark ™ 2012-14 University of North Carolina at Chapel Hill. 
+Copyright © and trademark ™ 2012-14 University of North Carolina at Chapel Hill.
 All rights reserved.
 
 Permission to use, copy, modify, and distribute this software and its documentation 
@@ -41,6 +41,30 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include <cassert>
 #include <vector>
 #include <iostream>
+
+#ifdef __APPLE__
+#include <mach/clock.h>
+#include <mach/mach.h>
+#endif
+
+namespace {
+	void current_epoch_time( struct timespec *ts ) {
+
+#ifdef _WIN32
+#elif __APPLE__ // OS X does not have clock_gettime, use clock_get_time
+		clock_serv_t cclock;
+		mach_timespec_t mts;
+		host_get_clock_service(mach_host_self(), CALENDAR_CLOCK, &cclock);
+		clock_get_time(cclock, &mts);
+		mach_port_deallocate(mach_task_self(), cclock);
+		ts->tv_sec = mts.tv_sec;
+		ts->tv_nsec = mts.tv_nsec;
+#else // Linux
+		clock_gettime(CLOCK_REALTIME, ts);
+#endif
+
+	}
+}	// namespace
 
 namespace Menge {
 
@@ -88,14 +112,14 @@ namespace Menge {
 		////////////////////////////////////////////////////////////////////////////
 
 		void Timer::start() {
-			clock_gettime( CLOCK_REALTIME, &_start );
+			current_epoch_time(&_start);
 		}
 
 		////////////////////////////////////////////////////////////////////////////
 
 		float Timer::elapsed( float scale ) {
 			struct timespec t;
-			clock_gettime( CLOCK_REALTIME, &t );
+			current_epoch_time(&t);
 			return ( ( t.tv_sec - _start.tv_sec ) + ( t.tv_nsec - _start.tv_nsec ) * 1e-9f ) * scale;
 		}
 
@@ -136,7 +160,7 @@ namespace Menge {
 			
 		float LapTimer::lap( float scale ) {
 			struct timespec t;
-			clock_gettime( CLOCK_REALTIME, &t );
+			current_epoch_time(&t);
 			float e = ( t.tv_sec - _start.tv_sec ) + ( t.tv_nsec - _start.tv_nsec ) * 1e-9f;
 			_start = t;
 			_total += e;
@@ -182,7 +206,7 @@ namespace Menge {
 
 		float SampleTimer::lap( float scale ) {
 			struct timespec t;
-			clock_gettime( CLOCK_REALTIME, &t );
+			current_epoch_time(&t);
 			_total += ( t.tv_sec - _start.tv_sec ) + ( t.tv_nsec - _start.tv_nsec ) * 1e-9f;
 			++_currSample;
 			if ( _currSample == _totalSamples ) {
