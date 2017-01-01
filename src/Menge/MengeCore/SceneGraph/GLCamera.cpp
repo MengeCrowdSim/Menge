@@ -3,7 +3,7 @@
 License
 
 Menge
-Copyright © and trademark ™ 2012-14 University of North Carolina at Chapel Hill. 
+Copyright © and trademark ™ 2012-14 University of North Carolina at Chapel Hill.
 All rights reserved.
 
 Permission to use, copy, modify, and distribute this software and its documentation 
@@ -38,7 +38,11 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 #include "graphCommon.h"
 #include "GLCamera.h"
-#include <GL/glu.h>
+#ifdef __APPLE__
+#include <OpenGL/glu.h>
+#else
+#include "GL/glu.h"
+#endif
 #include <math.h>
 
 #include <iostream>
@@ -166,7 +170,7 @@ namespace Menge {
 			const int PICK_SIZE = 5;
 			glMatrixMode( GL_PROJECTION );
 			glLoadIdentity();
-			int viewport[4] = { 0, 0, _viewWidth, _viewHeight };
+			int viewport[4] = { 0, 0, static_cast<int>(_viewWidth), static_cast<int>(_viewHeight) };
 			gluPickMatrix( selectPoint[0], _viewHeight - selectPoint[1], PICK_SIZE, PICK_SIZE, viewport );
 			_setProjMat();
 		}

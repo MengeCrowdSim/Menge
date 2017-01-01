@@ -1,5 +1,5 @@
 #ifndef __STRESS_TASK_H__
-#define _STRESS_TASK_H__
+#define __STRESS_TASK_H__
 
 /*!
  *	@file	StressTask.h

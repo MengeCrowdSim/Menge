@@ -18,7 +18,9 @@ add_executable(
 	${source_files}
 )
 
-target_link_libraries (menge mengeCore tinyxml  ${OPENGL_LIBRARIES} ${SDL_LIBRARY} ${SDLIMAGE_LIBRARY} ${SDLTTF_LIBRARY} ${PNG_LIBRARY})
+
+
+target_link_libraries ( menge mengeCore )
 
 #file( COPY ${CMAKE_SOURCE_DIR}/../resources/linux DESTINATION ${MENGE_EXE_DIR} )
 #file( COPY ${CMAKE_SOURCE_DIR}/../resources/common DESTINATION ${MENGE_EXE_DIR} )
