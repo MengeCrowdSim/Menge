@@ -2,7 +2,7 @@ Release 0.8.3
 	January 1, 2017
 	
 	New Features
-		Supports bulding on Mac OSX
+		Supports building on Mac OSX
 		
 	Bugs
 		Fixed a compilation problem in stress plugin.
