@@ -1,3 +1,16 @@
+Release 0.8.3
+	January 1, 2017
+	
+	New Features
+		Supports bulding on Mac OSX
+		
+	Bugs
+		Fixed a compilation problem in stress plugin.
+		Corrected compilation problem which prevents NavMesh from compiling under certain non-windows 
+			build environments.
+
+----------------------------------------------------------------
+
 Release 0.8.2
 	October 17, 2016
 	
