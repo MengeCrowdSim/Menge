@@ -41,12 +41,13 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
  *	@brief		The definition of a basic UI context for finite
  *				state machine *states*.
  */
+#if 0
 
 #ifndef __STATE_CONTEXT_H__
 #define	__STATE_CONTEXT_H__
 
-#include "CoreConfig.h"
-#include "fsmCommon.h"
+#include "MengeCore/CoreConfig.h"
+#include "MengeCore/BFSM/fsmCommon.h"
 #include "Context.h"
 #include "VelocityComponents/VelCompContext.h"
 
@@ -152,3 +153,4 @@ namespace Menge {
 	}	// namespace BFSM
 }	// namespace Menge
 #endif	// __STATE_CONTEXT_H__
+#endif // 0

@@ -48,9 +48,10 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __SIMULATOR_DB_ENTRY_H__
 #define	__SIMULATOR_DB_ENTRY_H__
 
+#include "MengeCore/CoreConfig.h"
+
 #include <string>
 #include <iostream>
-#include "CoreConfig.h"
 
 namespace Menge {
 
@@ -140,7 +141,7 @@ namespace Menge {
 		 *				for this database entry.
 		 */
 		virtual Agents::SimulatorInterface * getNewSimulator() = 0;
-
+#if 0
 		/*!
 		 *	@brief		Returns a simulator system that can be attached to a
 		 *				SceneGraph::GLScene and advanced by a Viewer.
@@ -157,7 +158,7 @@ namespace Menge {
 		 *	@param		scbVersion		The scb version to write.
 		 *	@param		visualize		Determines if this simulator is to be visualized.
 		 *	@param		VERBOSE			Determines if the initialization process prints status
-		 *								and information to the console.  True ouputs, false does not.
+		 *								and information to the console. True ouputs, false doesn't.
 		 *	@returns	A pointer to the resultant System for running the simulation.
 		 *				If there is an error, NULL is returned.
 		 */
@@ -193,7 +194,7 @@ namespace Menge {
 		 *	@returns	A pointer to the appropriate agent context.  
 		 */
 		BaseAgentContext * getAgentContext( SimSystem * system );
-
+#endif
 		/*!
 		 *	@brief		Reports the current run-time of an instantiated simulation.
 		 *
@@ -205,6 +206,7 @@ namespace Menge {
 		float simDuration() const;
 
 	protected:
+#if 0
 		/*!
 		 *	@brief		Returns a pointer to an agent context appropriate to
 		 *				the corresponding simulator.
@@ -222,7 +224,7 @@ namespace Menge {
 		 *				the wrong type (or if there is any other problem), NULL is returned.
 		 */
 		virtual BaseAgentContext * contextFromSystem( SimSystem * simSystem );
-
+#endif
 		/*!
 		 *	@brief		Provides an AgentInitializer appropriate to this simulator class.
 		 *
@@ -245,18 +247,21 @@ namespace Menge {
 		 *	@returns	A pointer to the instantiated simulator.
 		 *				If there is an error, NULL is returned.
 		 */
-		Agents::SimulatorInterface * initSimulator( const std::string & sceneFileName, bool VERBOSE );
+		Agents::SimulatorInterface * initSimulator( const std::string & sceneFileName,
+													bool VERBOSE );
 
 		/*!
 		 *	@brief		Creates the finite state machine and finalizes simulator and fsm
 		 *
 		 *	@param		behaveFile		string containing the full path to the behavior file
-		 *	@param		sim				pointer to the simulator interface to be used in conjunction with the FSM
+		 *	@param		sim				pointer to the simulator interface to be used in
+		 *								conjunction with the FSM
 		 *	@param		VERBOSE			boolean flag for verbose output
 		 *	@returns	A pointer to the instantiated finite state machine for the simulator.
 		 *				If there is an error, NULL is returned.
 		 */
-		BFSM::FSM * initFSM( const std::string & behaveFile, Agents::SimulatorInterface * sim, bool VERBOSE );
+		BFSM::FSM * initFSM( const std::string & behaveFile, Agents::SimulatorInterface * sim,
+							 bool VERBOSE );
 
 		/*! 
 		 *	@brief		Finalizes the finite state machine and simulator in preparation for
@@ -267,7 +272,7 @@ namespace Menge {
 		 *	@returns	A boolean reporting if finalization was successful (true) or not (false).
 		 */
 		bool finalize( Agents::SimulatorInterface * sim, BFSM::FSM * fsm );
-
+#if 0
 		/*! 
 		 *	@brief		Creates an instance of a SimSystem to populate.
 		 *
@@ -282,7 +287,7 @@ namespace Menge {
 		 *	@returns	A pointer to a new SimSystem.
 		 */
 		virtual SimSystem * createSimSystem(  bool visualize, float duration );
-
+#endif
 		/*!
 		 *	@brief		A pointer to the simulator.  The database entry is not responsible for
 		 *				deleting it unless there is an error in initialization.
@@ -290,8 +295,9 @@ namespace Menge {
 		Agents::SimulatorInterface * _sim;
 
 		/*!
-		 *	@brief		A pointer to the behavior finite state machine.  The database entry is *not*
-		 *				responsible for deleting it unless there is an error in initialization.
+		 *	@brief		A pointer to the behavior finite state machine.  The database entry is
+		 *				*not* responsible for deleting it unless there is an error in
+		 *				initialization.
 		 */
 		BFSM::FSM * _fsm;
 	};

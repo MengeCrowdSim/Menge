@@ -36,9 +36,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "TargetDatabase.h"
-#include "Transitions/TargetProb.h"
-#include "Transitions/TargetReturn.h"
+#include "MengeCore/BFSM/Transitions/TargetDatabase.h"
+#include "MengeCore/BFSM/Transitions/TargetProb.h"
+#include "MengeCore/BFSM/Transitions/TargetReturn.h"
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
@@ -46,7 +46,9 @@ namespace Menge {
 
 	// Specialization
 	template <>
-	std::string ElementDB< BFSM::TargetFactory, BFSM::TransitionTarget >::getElementName() { return "target"; }
+	std::string ElementDB< BFSM::TargetFactory, BFSM::TransitionTarget >::getElementName() {
+		return "target";
+	}
 
 	template <>
 	void ElementDB< BFSM::TargetFactory, BFSM::TransitionTarget >::addBuiltins() {

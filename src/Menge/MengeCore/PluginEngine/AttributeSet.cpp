@@ -36,9 +36,12 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "AttributeSet.h"
-#include "Attribute.h"
+#include "MengeCore/PluginEngine/AttributeSet.h"
+
+#include "MengeCore/PluginEngine/Attribute.h"
+
 #include "tinyxml.h"
+
 #include <sstream>
 
 namespace Menge {
@@ -60,14 +63,16 @@ namespace Menge {
 
 	/////////////////////////////////////////////////////////////////////
 
-	size_t AttributeSet::addBoolAttribute( const std::string & name, bool required, bool defValue ) {
+	size_t AttributeSet::addBoolAttribute( const std::string & name, bool required,
+										   bool defValue ) {
 		if ( isUniqueName( name ) ) {
 			Attribute * attr = new BoolAttribute( name, required, defValue );
 			_attrs.push_back( attr );
 			return _attrs.size() - 1;
 		} else {
 			std::stringstream ss;
-			ss << "Trying to add a boolean attribute with the key value: \"" << name << "\".  Previous attribute already using that name.";
+			ss << "Trying to add a boolean attribute with the key value: \"" << name;
+			ss << "\".  Previous attribute already using that name.";
 			throw AttributeDefinitionException( ss.str() );
 		}
 	}
@@ -81,61 +86,70 @@ namespace Menge {
 			return _attrs.size() - 1;
 		} else {
 			std::stringstream ss;
-			ss << "Trying to add an int attribute with the key value: \"" << name << "\".  Previous attribute already using that name.";
+			ss << "Trying to add an int attribute with the key value: \"" << name;
+			ss << "\".  Previous attribute already using that name.";
 			throw AttributeDefinitionException( ss.str() );
 		}
 	}
 
 	/////////////////////////////////////////////////////////////////////
 
-	size_t AttributeSet::addSizeTAttribute( const std::string & name, bool required, size_t defValue ) {
+	size_t AttributeSet::addSizeTAttribute( const std::string & name, bool required,
+											size_t defValue ) {
 		if ( isUniqueName( name ) ) {
 			Attribute * attr = new SizeTAttribute( name, required, defValue );
 			_attrs.push_back( attr );
 			return _attrs.size() - 1;
 		} else {
 			std::stringstream ss;
-			ss << "Trying to add a size_t attribute with the key value: \"" << name << "\".  Previous attribute already using that name.";
+			ss << "Trying to add a size_t attribute with the key value: \"" << name;
+			ss << "\".  Previous attribute already using that name.";
 			throw AttributeDefinitionException( ss.str() );
 		}
 	}
 
 	/////////////////////////////////////////////////////////////////////
 
-	size_t AttributeSet::addFloatAttribute( const std::string & name, bool required, float defValue ) {
+	size_t AttributeSet::addFloatAttribute( const std::string & name, bool required,
+											float defValue ) {
 		if ( isUniqueName( name ) ) {
 			Attribute * attr = new FloatAttribute( name, required, defValue );
 			_attrs.push_back( attr );
 			return _attrs.size() - 1;
 		} else {
 			std::stringstream ss;
-			ss << "Trying to add a float attribute with the key value: \"" << name << "\".  Previous attribute already using that name.";
+			ss << "Trying to add a float attribute with the key value: \"" << name;
+			ss << "\".  Previous attribute already using that name.";
 			throw AttributeDefinitionException( ss.str() );
 		}
 	}
 
 	/////////////////////////////////////////////////////////////////////
 
-	size_t AttributeSet::addFloatDistAttribute( const std::string & prefix, bool required, float defValue, float scale ) {
+	size_t AttributeSet::addFloatDistAttribute( const std::string & prefix, bool required,
+												float defValue, float scale ) {
 		if ( isUniqueName( prefix ) ) {
 			Attribute * attr = new FloatDistributionAttribute( prefix, required, defValue, scale );
 			_attrs.push_back( attr );
 			return _attrs.size() - 1;
 		} else {
 			std::stringstream ss;
-			ss << "Trying to add a float distribution attribute with the key value: \"" << prefix << "\".  Previous attribute already using that name.";
+			ss << "Trying to add a float distribution attribute with the key value: \"" << prefix;
+			ss << "\".  Previous attribute already using that name.";
 			throw AttributeDefinitionException( ss.str() );
 		}
 	}
 
 	/////////////////////////////////////////////////////////////////////
 
-	size_t AttributeSet::addVec2DDistAttribute( bool required, const Vector2 & defValue, float scale ) {
+	size_t AttributeSet::addVec2DDistAttribute( bool required, const Vector2 & defValue,
+												float scale ) {
 		// Confirm that this is the only Vec2D generator
 		for ( size_t i = 0; i < _attrs.size(); ++i ) {
 			if ( dynamic_cast< Vec2DDistributionAttribute * >( _attrs[i] ) != 0x0 ) {
 				std::stringstream ss;
-				ss << "Trying to add multiple Vector 2D distribution attributes to a factory.  This is not allowed.";
+				ss << "Trying to add multiple Vector 2D distribution attributes to a factory.  ";
+				ss << "This is not allowed.";
 				throw AttributeDefinitionException( ss.str() );
 			}
 		}
@@ -146,28 +160,32 @@ namespace Menge {
 
 	/////////////////////////////////////////////////////////////////////
 
-	size_t AttributeSet::addIntDistAttribute( const std::string & prefix, bool required, int defValue ) {
+	size_t AttributeSet::addIntDistAttribute( const std::string & prefix, bool required,
+											  int defValue ) {
 		if ( isUniqueName( prefix ) ) {
 			Attribute * attr = new IntDistributionAttribute( prefix, required, defValue );
 			_attrs.push_back( attr );
 			return _attrs.size() - 1;
 		} else {
 			std::stringstream ss;
-			ss << "Trying to add an int distribution attribute with the key value: \"" << prefix << "\".  Previous attribute already using that name.";
+			ss << "Trying to add an int distribution attribute with the key value: \"" << prefix;
+			ss << "\".  Previous attribute already using that name.";
 			throw AttributeDefinitionException( ss.str() );
 		}
 	}
 
 	/////////////////////////////////////////////////////////////////////
 
-	size_t AttributeSet::addStringAttribute( const std::string & name, bool required, const std::string & defValue ) {
+	size_t AttributeSet::addStringAttribute( const std::string & name, bool required,
+											 const std::string & defValue ) {
 		if ( isUniqueName( name ) ) {
 			Attribute * attr = new StringAttribute( name, required, defValue );
 			_attrs.push_back( attr );
 			return _attrs.size() - 1;
 		} else {
 			std::stringstream ss;
-			ss << "Trying to add a string attribute with the key value: \"" << name << "\".  Previous attribute already using that name.";
+			ss << "Trying to add a string attribute with the key value: \"" << name;
+			ss << "\".  Previous attribute already using that name.";
 			throw AttributeDefinitionException( ss.str() );
 		}
 	}

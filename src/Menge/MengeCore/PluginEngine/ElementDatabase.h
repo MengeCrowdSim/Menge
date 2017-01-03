@@ -45,10 +45,12 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __ELEMENT_DATABASE_H__
 #define __ELEMENT_DATABASE_H__
 
+#include "MengeCore/Runtime/Logger.h"
+
+#include "tinyxml.h"
+
 #include <string>
 #include <list>
-#include "tinyxml.h"
-#include "Logger.h"
 
 namespace Menge {
 
@@ -88,7 +90,9 @@ namespace Menge {
 			// extract type name
 			const char * typeCStr = node->Attribute( "type" );
 			if ( ! typeCStr ) {
-				logger << Logger::ERR_MSG << "A " << getElementName() << " tag has been provided with no \"type\" attribute on line " << node->Row() << "\n";
+				logger << Logger::ERR_MSG << "A " << getElementName();
+				logger << " tag has been provided with no \"type\" attribute on line ";
+				logger << node->Row() << "\n";
 				return 0x0;
 			}
 			std::string typeName( typeCStr );
@@ -99,14 +103,17 @@ namespace Menge {
 					// try to parse it
 					Element * element = factory->createInstance( node, behaveFldr );
 					if ( ! element ) {
-						logger << Logger::ERR_MSG << "The " << getElementName() << " of type \"" << typeName << "\" defined on line " << node->Row() << " could not be instantiated.\n";
+						logger << Logger::ERR_MSG << "The " << getElementName() << " of type \"";
+						logger << typeName << "\" defined on line " << node->Row();
+						logger << " could not be instantiated.\n";
 						return 0x0;
 					}
 					return element;
 				}
 			}
 
-			logger << Logger::ERR_MSG << "Found an undefined " << getElementName() << " type (" << typeName << ") on line " << node->Row() << "\n";
+			logger << Logger::ERR_MSG << "Found an undefined " << getElementName() << " type (";
+			logger << typeName << ") on line " << node->Row() << "\n";
 			return 0x0;
 		}
 
@@ -145,10 +152,14 @@ namespace Menge {
 			for (; itr != _factories.end(); ++itr ) {
 				std::string prevName( (*itr)->name() );
 				if ( testName == prevName ) {
-					logger << Logger::ERR_MSG << "Trying to add a " << getElementName() << " factory which conflicts with a previous condition factories.\n";
-					logger << "\tBoth " << getElementName() << "s use the name: " << testName << ".\n";
-					logger << "\tDescription of the first " << getElementName() << " type: " << (*itr)->description() << ".\n";
-					logger << "\tDescription of the new " << getElementName() << " type: " << factory->description() << ".";
+					logger << Logger::ERR_MSG << "Trying to add a " << getElementName();
+					logger << " factory which conflicts with a previous condition factories.\n";
+					logger << "\tBoth " << getElementName() << "s use the name: ";
+					logger << testName << ".\n";
+					logger << "\tDescription of the first " << getElementName();
+					logger << " type: " << ( *itr )->description() << ".\n";
+					logger << "\tDescription of the new " << getElementName();
+					logger << " type: " << factory->description() << ".";
 					factory->destroy();
 					return false;
 				}

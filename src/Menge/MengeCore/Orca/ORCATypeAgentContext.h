@@ -45,6 +45,8 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
  *	this context gives some basic functionality for displaying those constraints
  */
 
+#if 0
+
 #ifndef __ORCA_TYPE_AGENT_CONTEXT_H__
 #define __ORCA_TYPE_AGENT_CONTEXT_H__
 
@@ -523,3 +525,4 @@ void ORCATypeAgentContext< Agent >::drawOptVelocity( Agent * agent ) const {
 
 
 #endif // __ORCA_TYPE_AGENT_CONTEXT_H__
+#endif // 0

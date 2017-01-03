@@ -36,7 +36,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "SpatialQueries/SpatialQuery.h"
+#include "MengeCore/Agents/SpatialQueries/SpatialQuery.h"
 
 namespace Menge {
 
@@ -48,7 +48,6 @@ namespace Menge {
 
 		SpatialQuery::SpatialQuery(): Element(), _testVisibility(false) {
 		}
-
 
 		/////////////////////////////////////////////////////////////////////
 

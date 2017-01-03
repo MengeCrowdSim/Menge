@@ -36,12 +36,16 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "NavMeshObstacle.h"
-#include "Logger.h"
+#include "MengeCore/resources/NavMeshObstacle.h"
+
+#include "MengeCore/Runtime/Logger.h"
+
 #include <iostream>
 #include <limits>
 
 namespace Menge {
+
+	using Math::Vector2;
 
 	/*!
 	 *	@brief		The minimum width for an edge to be considered valid.
@@ -74,7 +78,9 @@ namespace Menge {
 			Vector2 disp = vertices[ v1 ] - vertices[ v0 ];
 			_length = abs( disp );
 			if ( _length <= MIN_EDGE_WIDTH ) {
-				logger << Logger::ERR_MSG << "\tError in parsing nav mesh: obstacle is too narrow (length = " << _length << ").\n";
+				logger << Logger::ERR_MSG;
+				logger << "\tError in parsing nav mesh: obstacle is too narrow (length = ";
+				logger << _length << ").\n";
 				return false;
 			}
 			_unitDir.set( disp / _length );

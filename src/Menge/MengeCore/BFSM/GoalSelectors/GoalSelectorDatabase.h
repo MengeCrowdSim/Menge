@@ -44,9 +44,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __GOAL_SELECTOR_DATABASE_H__
 #define __GOAL_SELECTOR_DATABASE_H__
 
-#include "ElementDatabase.h"
-#include "GoalSelectors/GoalSelectorFactory.h"
-#include "GoalSelectors/GoalSelector.h"
+#include "MengeCore/PluginEngine/ElementDatabase.h"
+#include "MengeCore/BFSM/GoalSelectors/GoalSelector.h"
+#include "MengeCore/BFSM/GoalSelectors/GoalSelectorFactory.h"
 
 namespace Menge {
 
@@ -68,7 +68,8 @@ namespace Menge {
 	/*!
 	 *	@brief		Explicit specialization of getElementName for the GoalSelector Database
 	 */
-	template<> std::string ElementDB< BFSM::GoalSelectorFactory, BFSM::GoalSelector >::getElementName();
+	template<> std::string
+		ElementDB< BFSM::GoalSelectorFactory, BFSM::GoalSelector >::getElementName();
 
 #endif	// DOXYGEN_SHOULD_SKIP_THIS
 

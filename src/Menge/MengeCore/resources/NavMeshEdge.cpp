@@ -36,14 +36,17 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "NavMeshEdge.h"
-#include "NavMeshNode.h"
-#include "Logger.h"
-#include "PrefVelocity.h"
+#include "MengeCore/Agents/PrefVelocity.h"
+#include "MengeCore/resources/NavMeshEdge.h"
+#include "MengeCore/resources/NavMeshNode.h"
+#include "MengeCore/Runtime/Logger.h"
+
 #include <cassert>
 #include <iostream>
 
 namespace Menge {
+
+	using Math::Vector2;
 
 	/*!
 	 *	@brief		The minimum width for an edge to be considered valid.
@@ -54,7 +57,8 @@ namespace Menge {
 	//					Implementation of NavMeshEdge
 	/////////////////////////////////////////////////////////////////////
 
-	NavMeshEdge::NavMeshEdge():_point(0.f,0.f), _dir(0.f,0.f), _width(0.f), _distance(0.f), _node0(0x0), _node1(0x0) {
+	NavMeshEdge::NavMeshEdge() : _point(0.f, 0.f), _dir(0.f, 0.f), _width(0.f), _distance(0.f),
+								 _node0(0x0), _node1(0x0) {
 	}
 
 	//////////////////////////////////////////////////////////////////////////////////////
@@ -65,7 +69,8 @@ namespace Menge {
 	//////////////////////////////////////////////////////////////////////////////////////
 
 	NavMeshNode * NavMeshEdge::getOtherByID( unsigned int id ) const {
-		assert( _node0->_id == id || _node1->_id == id && "The node indicated is not incident to this edge" );
+		assert( _node0->_id == id || _node1->_id == id &&
+				"The node indicated is not incident to this edge" );
 		if ( _node0->_id == id ) {
 			return _node1;
 		} else {
@@ -76,7 +81,8 @@ namespace Menge {
 	//////////////////////////////////////////////////////////////////////////////////////
 
 	NavMeshNode * NavMeshEdge::getOtherByPtr( const NavMeshNode * node ) {
-		assert( _node0 == node || _node1 == node && "The node indicated is not incident to this edge" );
+		assert( _node0 == node || _node1 == node &&
+				"The node indicated is not incident to this edge" );
 		if ( _node0 == node) {
 			return _node1;
 		} else {
@@ -87,7 +93,8 @@ namespace Menge {
 	//////////////////////////////////////////////////////////////////////////////////////
 
 	const NavMeshNode * NavMeshEdge::getOtherByPtr( const NavMeshNode * node ) const {
-		assert( _node0 == node || _node1 == node && "The node indicated is not incident to this edge" );
+		assert( _node0 == node || _node1 == node &&
+				"The node indicated is not incident to this edge" );
 		if ( _node0 == node) {
 			return _node1;
 		} else {
@@ -150,7 +157,9 @@ namespace Menge {
 			Vector2 disp = vertices[ v1 ] - vertices[ v0 ];
 			_width = abs( disp );
 			if ( _width <= MIN_EDGE_WIDTH ) {
-				logger << Logger::ERR_MSG << "\tError in parsing nav mesh: edge is too narrow (width = " << _width << ").";
+				logger << Logger::ERR_MSG;
+				logger << "\tError in parsing nav mesh: edge is too narrow (width = ";
+				logger << _width << ").";
 				return false;
 			}
 			_dir.set( disp / _width );
@@ -176,10 +185,11 @@ namespace Menge {
 
 	//////////////////////////////////////////////////////////////////////////////////////
 
-	// TODO: Give a parameter which indicates a bias position -- i.e. find the point that is closest
-	//	to this.
+	// TODO: Give a parameter which indicates a bias position -- i.e. find the point that is
+	// closest to this.
 	Vector2 NavMeshEdge::targetPoint( const Vector2 & pos, float radius ) const {
-		assert( _width > 2.f * radius && "Agent's radius bigger than the portal width -- can't pass through" );
+		assert( _width > 2.f * radius &&
+				"Agent's radius bigger than the portal width -- can't pass through" );
 		// Be smart about this
 		//	If the position projects onto the portal, then simply find the closest point to the
 		//		"effective" portal
@@ -241,11 +251,14 @@ namespace Menge {
 
 	//////////////////////////////////////////////////////////////////////////////////////
 
-	Vector2	NavMeshEdge::getClearDirection( const Vector2 & pos, float radius, const Vector2 & dir ) const {
-		assert( _width > 2.f * radius && "Agent's radius bigger than the portal width -- can't pass through" );
+	Vector2	NavMeshEdge::getClearDirection( const Vector2 & pos, float radius,
+											const Vector2 & dir ) const {
+		assert( _width > 2.f * radius &&
+				"Agent's radius bigger than the portal width -- can't pass through" );
 		/*
- 			The algorithm seeks to find the direction, closest to the given direction (dir) but doesn't lead to
- 			collisions with the portal endpoints (and, therefore, the adjacent obstacles).
+ 			The algorithm seeks to find the direction, closest to the given direction (dir) but
+			doesn't lead to collisions with the portal endpoints (and, therefore, the adjacent
+			obstacles).
 
 			It does so in the following manner.
 
@@ -267,33 +280,39 @@ namespace Menge {
 				2) pos, P0 and P1 are not co-linear.
 				3) The input direction is NOT normalized.
 
-			First, it determines if moving the given direction will bring it closer to the end points than radius
-				distance (shown w.r.t. P0).  
-				This is a two-part test.  Given the line passing through pos in the direction of dir, it determines the
-					distance of each portal endpoint to this line.  If the distance > agent radius, then it's fine.
-				HOWEVER, just because the distance is less than the radius does NOT mean it's necessarily bad.  For example,
-					if the agent is moving AWAY from the point, then the point can approach the line from behind.
-					- this is detected by determining if the projection lies on the opposite side of the point, pos, than
-						the movement.
-				If the distance > radius, or the projection is "behind" the agent, the path is clear and the preferred
-					direction is returned.
+			First, it determines if moving the given direction will bring it closer to the end
+				points than radius distance (shown w.r.t. P0).  
+				This is a two-part test.  Given the line passing through pos in the direction of
+					dir, it determines the distance of each portal endpoint to this line.  If the
+					distance > agent radius, then it's fine.
+				HOWEVER, just because the distance is less than the radius does NOT mean it's
+					necessarily bad.  For example, if the agent is moving AWAY from the point, then
+					the point can approach the line from behind.
+					- this is detected by determining if the projection lies on the opposite side
+						of the point, pos, than the movement.
+				If the distance > radius, or the projection is "behind" the agent, the path is
+					clear and the preferred direction is returned.
 
-			If it isn't clear, then a clear direction must be computed.  A direction is computed from pos to a point Q
-			on a circle positioned at each end point (P0 and P1).  The tangent point is defined such that the line
-			connecting Q and pos is tangent to the circle AND intersects the portal between P0 and P1 (generally, there
-			are two lines passing through pos and tangent to the circle, but one must, by definition point outside
-			of the portal).  It is computed by rotatining the vector TO the end point such that it becomes tangent.
-			The direction to P0 is rotated to the right and the direction to P1 is rotated to the left.  
+			If it isn't clear, then a clear direction must be computed.  A direction is computed
+			from pos to a point Q on a circle positioned at each end point (P0 and P1).  The
+			tangent point is defined such that the line connecting Q and pos is tangent to the
+			circle AND intersects the portal between P0 and P1 (generally, there are two lines
+			passing through pos and tangent to the circle, but one must, by definition point
+			outside of the portal).  It is computed by rotatining the vector TO the end point such
+			that it becomes tangent. The direction to P0 is rotated to the right and the direction
+			to P1 is rotated to the left.  
 
-			The two directions define a cone which spans the passable region of directions..  If the cone is well 
-			formed (i.e. the right limit is on the right side of the left limit) then a valid direction exists. 
-			In that case, the preferred direction must lie outside of the cone (if it lies inside, then the original test
-			would have already passed).  So, if the preferred direction lies to the left of the cone, we return the
-			left limit.  If it lies to the right of the cone, we return the right limit.
+			The two directions define a cone which spans the passable region of directions..  If
+			the cone is well formed (i.e. the right limit is on the right side of the left limit)
+			then a valid direction exists. In that case, the preferred direction must lie outside
+			of the cone (if it lies inside, then the original test would have already passed).  So,
+			if the preferred direction lies to the left of the cone, we return the left limit.  If
+			it lies to the right of the cone, we return the right limit.
 
-			If the cone is not well-formed, it is because the agent's position does not project onto the portal and
-			it is coming at the portal at an oblique angle.  As such, there is no direction which will take it straight
-			through the portal.  Instead, we'll take the direction that will have it clear the nearest end point.
+			If the cone is not well-formed, it is because the agent's position does not project
+			onto the portal and it is coming at the portal at an oblique angle.  As such, there is
+			no direction which will take it straight through the portal.  Instead, we'll take the
+			direction that will have it clear the nearest end point.
 		 */
 
 		// Test to see if goal direction is valid
@@ -382,60 +401,11 @@ namespace Menge {
 
 	//////////////////////////////////////////////////////////////////////////////////////
 
-	void NavMeshEdge::setClearDirections( const Vector2 & pos, float radius, const Vector2 & dir, Agents::PrefVelocity & pVel ) const {
-		assert( _width > 2.f * radius && "Agent's radius bigger than the portal width -- can't pass through" );
-		/*
- 			The algorithm seeks to find the direction, closest to the given direction (dir) but doesn't lead to
- 			collisions with the portal endpoints (and, therefore, the adjacent obstacles).
-
-			It does so in the following manner.
-
-						  _
-			P0            /|                     P1
-			o------------------------------------o
-			 \          /  
-			  \        /
-			   \      /
-				\    / dir
-				 \  /
-				  \/
-				  /
-				 o
-				pos
-
-			ASSUMPTIONS: 
-				1) the provided direction intersects the portal between p0 and p1
-				2) pos, P0 and P1 are not co-linear.
-				3) The input direction is NOT normalized.
-
-			First, it determines if moving the given direction will bring it closer to the end points than radius
-				distance (shown w.r.t. P0).  
-				This is a two-part test.  Given the line passing through pos in the direction of dir, it determines the
-					distance of each portal endpoint to this line.  If the distance > agent radius, then it's fine.
-				HOWEVER, just because the distance is less than the radius does NOT mean it's necessarily bad.  For example,
-					if the agent is moving AWAY from the point, then the point can approach the line from behind.
-					- this is detected by determining if the projection lies on the opposite side of the point, pos, than
-						the movement.
-				If the distance > radius, or the projection is "behind" the agent, the path is clear and the preferred
-					direction is returned.
-
-			If it isn't clear, then a clear direction must be computed.  A direction is computed from pos to a point Q
-			on a circle positioned at each end point (P0 and P1).  The tangent point is defined such that the line
-			connecting Q and pos is tangent to the circle AND intersects the portal between P0 and P1 (generally, there
-			are two lines passing through pos and tangent to the circle, but one must, by definition point outside
-			of the portal).  It is computed by rotatining the vector TO the end point such that it becomes tangent.
-			The direction to P0 is rotated to the right and the direction to P1 is rotated to the left.  
-
-			The two directions define a cone which spans the passable region of directions..  If the cone is well 
-			formed (i.e. the right limit is on the right side of the left limit) then a valid direction exists. 
-			In that case, the preferred direction must lie outside of the cone (if it lies inside, then the original test
-			would have already passed).  So, if the preferred direction lies to the left of the cone, we return the
-			left limit.  If it lies to the right of the cone, we return the right limit.
-
-			If the cone is not well-formed, it is because the agent's position does not project onto the portal and
-			it is coming at the portal at an oblique angle.  As such, there is no direction which will take it straight
-			through the portal.  Instead, we'll take the direction that will have it clear the nearest end point.
-		 */
+	void NavMeshEdge::setClearDirections( const Vector2 & pos, float radius, const Vector2 & dir,
+										  Agents::PrefVelocity & pVel ) const {
+		assert( _width > 2.f * radius &&
+				"Agent's radius bigger than the portal width -- can't pass through" );
+		/* See getClearDirections for how this works. */
 
 		// Directions towards portal's PHYSICAL endpoints
 		Vector2 d0 = _point - pos;
@@ -511,7 +481,8 @@ namespace Menge {
 	//////////////////////////////////////////////////////////////////////////////////////
 
 	bool NavMeshEdge::pointOnLeft( unsigned int id ) const {
-		assert( id == _node0->getID() || id == _node1->getID() && "Given node is not attached to this edge" );
+		assert( id == _node0->getID() || id == _node1->getID() &&
+				"Given node is not attached to this edge" );
 		return id == _node0->getID();
 	}
 

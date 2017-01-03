@@ -41,10 +41,10 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
  *  @brief      Contains the Obstacle class.
  */
 
-#ifndef OBSTACLE_H
-#define OBSTACLE_H
+#ifndef __OBSTACLE_H__
+#define __OBSTACLE_H__
 
-#include "mengeCommon.h"
+#include "MengeCore/mengeCommon.h"
 
 namespace Menge {
 
@@ -56,7 +56,8 @@ namespace Menge {
 		class MENGE_API Obstacle {
 		public:
 			/*!
-			 *	@brief		An enumeration to define the type of nearest point - first, middle, last
+			 *	@brief		An enumeration to define the type of nearest point - first, middle,
+			 *				last.
 			 */
 			enum NearTypeEnum {
 				FIRST,
@@ -78,22 +79,26 @@ namespace Menge {
 			 *	@brief		Retrieves the normal of the obstacle
 			 *	@returns	The normal
 			 */
-			inline Vector2 normal() const { return Vector2( _unitDir.y(), -_unitDir.x() ); }
+			inline Math::Vector2 normal() const {
+				return Math::Vector2( _unitDir.y(), -_unitDir.x() );
+			}
 
 			/*!
 			 *	@brief		Retrieve the first point on the obstacle.
 			 */
-			inline const Vector2 & getP0() const { return _point; }
+			inline const Math::Vector2 & getP0() const { return _point; }
 
 			/*!
 			 *	@brief		Retrieve the obstacle's mid-point.
 			 */
-			inline const Vector2 midPt() const { return _point + ( 0.5f * _length) * _unitDir; }
+			inline const Math::Vector2 midPt() const {
+				return _point + ( 0.5f * _length ) * _unitDir;
+			}
 
 			/*!
 			 *	@brief		Retrieve the second point on the obstacle.
 			 */
-			Vector2 getP1() const;
+			Math::Vector2 getP1() const;
 
 			/*!
 			 *	@brief		Returns the next obstacle in sequence
@@ -109,9 +114,11 @@ namespace Menge {
 			 *							test point will be set here.
 			 *	@param		distSq		The squared distance to the line (i.e. ||pt - nearPt||^2)
 			 *							is placed inside this parameter.
-			 *	@returns	The classificaiton of what the nearest point is - first, middle, or last
+			 *	@returns	The classificaiton of what the nearest point is - first, middle, or
+			 *				last.
 			 */
-			NearTypeEnum distanceSqToPoint( const Vector2 & pt, Vector2 & nearPt, float & distSq ) const;
+			NearTypeEnum distanceSqToPoint( const Math::Vector2 & pt, Math::Vector2 & nearPt,
+											float & distSq ) const;
 
 			/*!
 			 *	@brief		Determines if a circle, moving along a ray, will intersect
@@ -123,7 +130,8 @@ namespace Menge {
 			 *	@returns	The time to collision (a large value representing infinity
 			 *					if no collision is possible.)
 			 */
-			float circleIntersection( const Vector2 & dir, const Vector2 & start, float radius ) const;
+			float circleIntersection( const Math::Vector2 & dir, const Math::Vector2 & start,
+									  float radius ) const;
 
 			/*!
 			 *	@brief		Returns the length of the obstacle
@@ -138,7 +146,7 @@ namespace Menge {
 			 *	@param		pt		The point to test
 			 *	@returns	True if pt is on the obstacle, false otherwise
 			 */
-			bool pointOnObstacle( const Vector2 & pt ) const;
+			bool pointOnObstacle( const Math::Vector2 & pt ) const;
 
 			/*!
 			 *	@brief		Reports if the given point is on the "outside" of
@@ -150,8 +158,11 @@ namespace Menge {
 			 *				obstacle (true) or not (false).
 			 */
 			// NOTE: This test is "safe" because if _doubleSided is true, the leftOf test doesn't
-			//		get performed.  If it is false, then _nextObstacle must point to a valid obstacle.
-			inline bool pointOutside( const Vector2 & point ) const { return _doubleSided || ( leftOf( _point, getP1(), point ) < 0.f ); }
+			//		get performed.  If it is false, then _nextObstacle must point to a valid
+			//		obstacle.
+			inline bool pointOutside( const Math::Vector2 & point ) const {
+				return _doubleSided || ( leftOf( _point, getP1(), point ) < 0.f );
+			}
 
 			/*!
 			 *	@brief		Reports if the obstacle is convext at _point. 
@@ -163,7 +174,9 @@ namespace Menge {
 			 *								the obstacle (true) or the left (false).
 			 *	@returns	True if the obstacle is convex, false otherwise.
 			 */
-			inline bool p0Convex( bool agtOnRight) const { return agtOnRight ? _isConvex : _doubleSided && !_isConvex; }
+			inline bool p0Convex( bool agtOnRight) const {
+				return agtOnRight ? _isConvex : _doubleSided && !_isConvex;
+			}
 
 			/*!
 			 *	@brief		Reports if the obstacle is convext at _point + _length * _unitDir. 
@@ -177,7 +190,14 @@ namespace Menge {
 			 */
 			// NOTE: The only way for _nextObstacle to be NULL is for this to be double sided.
 			//		And end points of double-sided obstacles are always convex.
-			inline bool p1Convex( bool agtOnRight) const { return _nextObstacle == 0x0 ? true : ( agtOnRight ? _nextObstacle->_isConvex : _doubleSided && _nextObstacle->_isConvex ); }
+			inline bool p1Convex( bool agtOnRight) const {
+				return _nextObstacle == 0x0 ? 
+					true : 
+					( agtOnRight ? 
+						_nextObstacle->_isConvex : 
+						_doubleSided && _nextObstacle->_isConvex
+					);
+			}
 
 			/*!
 			 *	@brief		Sets the obstacle's closed state.  
@@ -213,7 +233,7 @@ namespace Menge {
 			/*!
 			 *	@brief		The point from which the obstacle is defined.
 			 */
-			Vector2 _point;
+			Math::Vector2 _point;
 			
 			/*!
 			 *	@brief		Pointer to the previous obstacle in the greater obstacle structure.
@@ -224,7 +244,7 @@ namespace Menge {
 			/*!
 			 *	@brief		The direction the obstacle extends from the originating point.
 			 */
-			Vector2 _unitDir;
+			Math::Vector2 _unitDir;
 
 			/*!
 			 *	@brief		The distance in the direction the obstacle extends.
@@ -252,8 +272,9 @@ namespace Menge {
 		   *                              be calculated.
 		   *  @returns    The squared distance from the line segment to the point.
 		   */
-		  inline MENGE_API float distSqPointLineSegment(const Vector2& a, const Vector2& b,
-											  const Vector2& c)
+		  inline MENGE_API float distSqPointLineSegment( const Math::Vector2& a, 
+														 const Math::Vector2& b,
+														 const Math::Vector2& c)
 		  {
 			const float r = ((c - a) * (b - a)) / absSq(b - a);
 
@@ -267,5 +288,4 @@ namespace Menge {
 		  }
 	}	// namespace Agents
 }	// namespace Menge
-#endif
-
+#endif	// __OBSTACLE_H__

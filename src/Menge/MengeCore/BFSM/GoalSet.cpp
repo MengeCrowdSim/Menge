@@ -36,12 +36,14 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "Goals/Goal.h"
-#include "GoalSet.h"
-#include <cmath>
-#include "fsmCommon.h"
+#include "MengeCore/BFSM/GoalSet.h"
+
+#include "MengeCore/BFSM/fsmCommon.h"
+#include "MengeCore/BFSM/Goals/Goal.h"
+#include "MengeCore/Math/consts.h"
+
 #include <cassert>
-#include "Math/consts.h"
+#include <cmath>
 
 namespace Menge {
 
@@ -194,7 +196,8 @@ namespace Menge {
 		void GoalSet::setGoalAvailable( const Goal * goal ) const {
 			const size_t GOAL_ID = goal->getID();
 			_lock.lockWrite();
-			assert( _goals.find( GOAL_ID ) != _goals.end() && "Trying to set a goal available that doesn't belong to the goal set" );
+			assert( _goals.find( GOAL_ID ) != _goals.end() &&
+					"Trying to set a goal available that doesn't belong to the goal set" );
 	#ifdef _DEBUG
 			bool found = false;
 			for ( size_t i = 0; i < _goalIDs.size(); ++i ) {

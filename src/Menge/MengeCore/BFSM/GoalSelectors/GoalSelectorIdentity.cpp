@@ -36,9 +36,11 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "GoalSelectors/GoalSelectorIdentity.h"
-#include "Goals/GoalPoint.h"
-#include "BaseAgent.h"
+#include "MengeCore/BFSM/GoalSelectors/GoalSelectorIdentity.h"
+
+#include "MengeCore/Agents/BaseAgent.h"
+#include "MengeCore/BFSM/Goals/GoalPoint.h"
+
 #include <cassert>
 
 namespace Menge {

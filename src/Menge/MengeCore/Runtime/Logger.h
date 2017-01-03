@@ -45,8 +45,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __LOGGER_H__
 #define __LOGGER_H__
 
+#include "MengeCore/CoreConfig.h"
+
 #include <string>
-#include "CoreConfig.h"
 #include <fstream>
 
 namespace Menge {
@@ -129,7 +130,8 @@ namespace Menge {
 	        
 		#if defined(_MSC_VER)
 		   /*!
-		 *	@brief		Writes a size_t to the logger based on current status. Only done in windows, as GCC complains.
+		 *	@brief		Writes a size_t to the logger based on current status. Only done in
+		 *				windows, as GCC complains.
 		 *
 		 *	@param		logger		A reference to a logger.
 		 *	@param		value		The value to write.

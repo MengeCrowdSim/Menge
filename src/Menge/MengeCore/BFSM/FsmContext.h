@@ -35,7 +35,7 @@ TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
-
+#if 0
 /*!
  *	@file		FsmContext.h
  *	@brief		The definition of a basic UI context for finite
@@ -45,9 +45,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __FSM_CONTEXT_H__
 #define	__FSM_CONTEXT_H__
 
-#include "CoreConfig.h"
+#include "MengeCore/CoreConfig.h"
 #include "Context.h"
-#include "StateContext.h"
+#include "MengeCore/Agents/StateContext.h"
 
 namespace Menge {
 
@@ -157,3 +157,4 @@ namespace Menge {
 }	// namespace Menge
 
 #endif	// __FSM_CONTEXT_H__
+#endif // 0

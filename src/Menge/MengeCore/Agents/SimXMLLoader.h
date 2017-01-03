@@ -45,9 +45,11 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
  *				from an XML file.
  */
 
-#include "mengeCommon.h"
-#include <string>
+#include "MengeCore/mengeCommon.h"
+
 #include "tinyxml/tinyxml.h"
+
+#include <string>
 
 namespace Menge {
 
@@ -59,8 +61,8 @@ namespace Menge {
 
 		/*!
 		 *	@brief		Class for parsing the SCENE XML specification and initialize a simulator
-		 *				It only knows the most fundamental common aspects of the file, relying on the
-		 *				Simulator to know of its own specific domain knowledge.
+		 *				It only knows the most fundamental common aspects of the file, relying on
+		 *				the Simulator to know of its own specific domain knowledge.
 		 */
 		class MENGE_API SimXMLLoader {
 		public:
@@ -80,7 +82,8 @@ namespace Menge {
 			 *							or parses silently (false).
 			 *	@returns	True if the simulation is successfully loaded, false otherwise.
 			 */
-			bool loadFromXML( const std::string & xmlName, AgentInitializer * agentInit, bool verbose=false );
+			bool loadFromXML( const std::string & xmlName, AgentInitializer * agentInit,
+							  bool verbose=false );
 
 		protected:
 			/*!
@@ -98,7 +101,8 @@ namespace Menge {
 			 *	@brief		Parses the definition of an AgentGroup.
 			 *
 			 *	@param		node		A pointer to the XML node containing the definition.
-			 *	@param		agentInit	The AgentInitializer necessary to parse AgentProfile properties
+			 *	@param		agentInit	The AgentInitializer necessary to parse AgentProfile
+			 *							properties.
 			 *	@returns	A boolean reporting success (true) or failure (false).
 			 */
 			bool parseAgentGroup( TiXmlElement * node, AgentInitializer * agentInit );
@@ -116,7 +120,8 @@ namespace Menge {
 			 *	@brief		Parses the definition of an agent profile.
 			 *
 			 *	@param		node		A pointer to the XML node containing the definition.
-			 *	@param		agentInit	The AgentInitializer necessary to parse AgentProfile properties
+			 *	@param		agentInit	The AgentInitializer necessary to parse AgentProfile
+			 *							properties.
 			 *	@returns	A boolean reporting success (true) or failure (false).
 			 */
 			bool parseAgentProfile( TiXmlElement * node, AgentInitializer * agentInit );

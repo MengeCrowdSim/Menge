@@ -45,15 +45,12 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
  *				work with different types of agents.  It is templated on the Agent type.
  */
 
-// UTILS
-#include "mengeCommon.h"
-#include "Utils.h"
-// Ped Models
-#include "SimulatorInterface.h"
-#include "AgentInitializer.h"
-#include "SpatialQueries/SpatialQuery.h"
+#include "MengeCore/mengeCommon.h"
+#include "MengeCore/Agents/AgentInitializer.h"
+#include "MengeCore/Agents/SimulatorInterface.h"
+#include "MengeCore/Agents/SpatialQueries/SpatialQuery.h"
+#include "MengeCore/Runtime/Utils.h"
 
-// STL
 #include <vector>
 
 #if HAVE_OPENMP || _OPENMP
@@ -125,17 +122,21 @@ namespace Menge {
 			 *								simulator's local store.
 			 *  @returns    A pointer to the agent.
 			 */
-			virtual const BaseAgent * getAgent( size_t agentNo ) const { return &_agents[ agentNo ]; }
+			virtual const BaseAgent * getAgent( size_t agentNo ) const {
+				return &_agents[ agentNo ];
+			}
 			
 			/*!
 			 *	@brief		Add an agent with specified position to the simulator whose properties
 			 *				are defined by the given agent initializer.
 			 *
-			 *	It uses the agent initializer to define the values of the remaining agent parameters
+			 *	It uses the agent initializer to define the values of the remaining agent
+			 *	parameters.
 			 *
 			 *	@param		pos			The 2d vector representing the agent's position
 			 *	@param		agentInit	The AgentInitializer necessary to parse AgentSet properties
-			 *	@returns	A pointer to the agent (if initialization was succesful) or NULL if failed.
+			 *	@returns	A pointer to the agent (if initialization was succesful) or NULL if
+			 *				failed.
 			 */
 			virtual BaseAgent * addAgent( const Vector2 & pos, AgentInitializer * agentInit );
 
@@ -171,11 +172,13 @@ namespace Menge {
 			 *
 			 *	// TODO: Define the conditions of success/failure.
 			 *
-			 *	@param			paramName		A string containing the parameter name for the experiment.
+			 *	@param			paramName		A string containing the parameter name for the
+			 *									experiment.
 			 *	@param			value			A string containing the value for the parameter.
 			 *	@returns		True if the parameter was successfully set, false otherwise.
 			 */
-			virtual bool setExpParam( const std::string & paramName, const std::string & value ) throw( XMLParamException );
+			virtual bool setExpParam( const std::string & paramName, const std::string & value )
+				throw( XMLParamException );
 
 		protected:
 
@@ -263,7 +266,8 @@ namespace Menge {
 		////////////////////////////////////////////////////////////////
 
 		template < class Agent >
-		BaseAgent * SimulatorBase<Agent>::addAgent( const Vector2 & pos, AgentInitializer * agentInit ) {
+		BaseAgent * SimulatorBase<Agent>::addAgent( const Vector2 & pos,
+													AgentInitializer * agentInit ) {
 			Agent agent;
 
 			agent._pos = pos;
@@ -280,13 +284,17 @@ namespace Menge {
 		////////////////////////////////////////////////////////////////
 
 		template < class Agent >
-		bool SimulatorBase<Agent>::setExpParam( const std::string & paramName, const std::string & value ) throw( XMLParamException ) {
+		bool SimulatorBase<Agent>::setExpParam( const std::string & paramName,
+												const std::string & value )
+												throw( XMLParamException ) {
 			
 			if ( paramName == "time_step" ) {
 				try {
 					LOGICAL_TIME_STEP = toFloat( value );
 				} catch ( UtilException ) {
-					throw XMLParamException( std::string( "Common parameters \"time_step\" value couldn't be converted to a float.  Found the value: " ) + value );
+					throw XMLParamException(
+						std::string( "Common parameters \"time_step\" value couldn't be converted "
+									 "to a float.  Found the value: " ) + value );
 				}
 			} else {
 				return false;

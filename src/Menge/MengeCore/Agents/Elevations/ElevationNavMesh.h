@@ -47,16 +47,12 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __ELEVATION_NAV_MESH_H__
 #define	__ELEVATION_NAV_MESH_H__
 
-// Resources
-#include "NavMesh.h"
-#include "NavMeshLocalizer.h"
+#include "MengeCore/mengeCommon.h"
+#include "MengeCore/Agents/Elevations/Elevation.h"
+#include "MengeCore/Agents/Elevations/ElevationFactory.h"
+#include "MengeCore/resources/NavMesh.h"
+#include "MengeCore/resources/NavMeshLocalizer.h"
 
-// Menge Base
-#include "mengeCommon.h"
-#include "Elevations/Elevation.h"
-#include "Elevations/ElevationFactory.h"
-
-// STL
 #include <string>
 
 namespace Menge {
@@ -91,8 +87,10 @@ namespace Menge {
 			/*!
 			 *	@brief		Reports the elevation of the simulation domain for the given agent
 			 *
-			 *	@param		agent		A pointer to the agent for which elevation should be reported.
-			 *	@returns	The elevation (position on the y-axis) based on current agent state/position.
+			 *	@param		agent		A pointer to the agent for which elevation should be
+			 *							reported.
+			 *	@returns	The elevation (position on the y-axis) based on current agent
+			 *				state/position.
 			 */
 			virtual float getElevation( const BaseAgent * agent ) const;
 
@@ -108,7 +106,8 @@ namespace Menge {
 			/*!
 			 *	@brief		Reports the gradient of the simulation domain for the given agent
 			 *
-			 *	@param		agent		A pointer to the agent for which gradient should be reported.
+			 *	@param		agent		A pointer to the agent for which gradient should be
+			 *							reported.
 			 *	@returns	The gradient of the domain based on current agent state/position.
 			 */
 			virtual Vector2 getGradient( const BaseAgent * agent ) const;
@@ -208,13 +207,14 @@ namespace Menge {
 			 *
 			 *	@param		e			A pointer to the elevation whose attributes are to be set.
 			 *	@param		node		The XML node containing the elevation attributes.
-			 *	@param		specFldr	The path to the specification file.  If the Elevation references
-			 *							resources in the file system, it should be defined relative
-			 *							to the specification file location.  This is the folder containing
-			 *							that path. 
+			 *	@param		specFldr	The path to the specification file.  If the Elevation
+			 *							references resources in the file system, it should be
+			 *							defined relative to the specification file location.  This
+			 *							is the folder containing that path. 
 			 *	@returns	A boolean reporting success (true) or failure (false).
 			 */
-			virtual bool setFromXML( Elevation * e, TiXmlElement * node, const std::string & specFldr ) const;
+			virtual bool setFromXML( Elevation * e, TiXmlElement * node,
+									 const std::string & specFldr ) const;
 		
 			/*!
 			 *	@brief		The identifier for the "file_name" string attribute.
@@ -224,4 +224,3 @@ namespace Menge {
 	}	// namespace Agents
 }	// namespace Menge
 #endif	// __ELEVATION_NAV_MESH_H__
-

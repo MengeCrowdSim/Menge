@@ -47,9 +47,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __STATE_SELECTOR_DATABASE_H__
 #define __STATE_SELECTOR_DATABASE_H__
 
-#include "ElementDatabase.h"
-#include "StateSelectors/StateSelectorFactory.h"
-#include "StateSelectors/StateSelector.h"
+#include "MengeCore/Agents/StateSelectors/StateSelector.h"
+#include "MengeCore/Agents/StateSelectors/StateSelectorFactory.h"
+#include "MengeCore/PluginEngine/ElementDatabase.h"
 
 namespace Menge {
 
@@ -63,8 +63,10 @@ namespace Menge {
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
-	template<> void ElementDB< Agents::StateSelectorFactory, Agents::StateSelector >::addBuiltins();
-	template<> std::string ElementDB< Agents::StateSelectorFactory, Agents::StateSelector >::getElementName();
+	template<> 
+	void ElementDB< Agents::StateSelectorFactory, Agents::StateSelector >::addBuiltins();
+	template<> std::string 
+		ElementDB< Agents::StateSelectorFactory, Agents::StateSelector >::getElementName();
 
 #endif	 // DOXYGEN_SHOULD_SKIP_THIS
 

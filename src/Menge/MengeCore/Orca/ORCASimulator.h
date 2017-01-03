@@ -44,9 +44,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __ORCA_SIMULATOR_H__
 #define __ORCA_SIMULATOR_H__
 
-#include "mengeCommon.h"
-#include "SimulatorBase.h"	
-#include "ORCAAgent.h"
+#include "MengeCore/mengeCommon.h"
+#include "MengeCore/Agents/SimulatorBase.h"	
+#include "MengeCore/Orca/ORCAAgent.h"
 
 /*!
  *	@namespace	ORCA

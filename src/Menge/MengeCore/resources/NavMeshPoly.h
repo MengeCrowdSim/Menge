@@ -45,9 +45,10 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __NAV_MESH_POLY_H__
 #define __NAV_MESH_POLY_H__
 
-#include "fsmCommon.h"
-#include "string.h"
+#include "MengeCore/BFSM/fsmCommon.h"
+
 #include <fstream>
+#include <string>
 
 namespace Menge {
 
@@ -84,7 +85,7 @@ namespace Menge {
 		 *				or outside (false) the polygon
 		 *				TODO: Figure out what I do w.r.t. boundaries.
 		 */
-		bool containsPoint( const Vector2 & point ) const;
+		bool containsPoint( const Math::Vector2 & point ) const;
 
 		/*!
 		 *	@brief		Computes the elevation of the polygon at the
@@ -95,7 +96,7 @@ namespace Menge {
 		 *							lies inside the polygon.
 		 *	@returns	The elevation of the polygon at the given point.
 		 */
-		float getElevation( const Vector2 & point ) const;
+		float getElevation( const Math::Vector2 & point ) const;
 
 		/*!
 		 *	@brief		Reports the gradient of the polygon.
@@ -103,7 +104,7 @@ namespace Menge {
 		 *
 		 *	@returns	The gradient of the plane.
 		 */
-		Vector2 getGradient() const { return Vector2( _A, _B ); }
+		Math::Vector2 getGradient() const { return Math::Vector2( _A, _B ); }
 
 		/*!
 		 *	@brief		Sets the polygon properties from a polygon definition
@@ -138,7 +139,8 @@ namespace Menge {
 		 *	@param		C			The third coefficient of the planar equation:
 		 *							f( x, y ) = Ax + By + C
 		 */
-		void initialize( size_t vCount, unsigned int * ids, float A=0.f, float B=0.f, float C=0.f );
+		void initialize( size_t vCount, unsigned int * ids, float A=0.f, float B=0.f,
+						 float C=0.f );
 
 		friend class NavMeshNode;
 		friend class NavMesh;
@@ -163,7 +165,7 @@ namespace Menge {
 		 *	@brief		A pointer to the mesh vertex information for performing
 		 *				geometric tests.
 		 */	
-		const Vector2 *  _vertices;
+		const Math::Vector2 *  _vertices;
 
 		// TODO: Replace the individual bounding box with a BVH outside of the
 		//		polygon.  And then change the "is inside" function assuming
@@ -194,7 +196,7 @@ namespace Menge {
 		 *	@param		vertices		The actucal vertices used for
 		 *								geometric queries.
 		 */
-		void setBB( const Vector2 * vertices );
+		void setBB( const Math::Vector2 * vertices );
 
 		/*!
 		 *	@brief		The first coefficient of the planar equation:
@@ -220,3 +222,4 @@ namespace Menge {
 }	// namespace Menge
 
 #endif // __NAV_MESH_POLY_H__
+

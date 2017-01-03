@@ -44,8 +44,8 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __STATE_SELECTOR_H__
 #define	__STATE_SELECTOR_H__
 
-#include "mengeCommon.h"
-#include "Element.h"
+#include "MengeCore/mengeCommon.h"
+#include "MengeCore/PluginEngine/Element.h"
 
 namespace Menge {
 
@@ -74,19 +74,23 @@ namespace Menge {
 		/*!
 		 *	@brief		The fatal state selector exception.
 		 */
-		class MENGE_API StateSelectorFatalException : public StateSelectorException, public MengeFatalException {
+		class MENGE_API StateSelectorFatalException : public StateSelectorException,
+													  public MengeFatalException {
 		public:
 			/*!
 			 *	@brief		Default constructor.
 			 */
-			StateSelectorFatalException() : MengeException(), StateSelectorException(), MengeFatalException() {}
+			StateSelectorFatalException() : MengeException(), StateSelectorException(),
+											MengeFatalException() {}
 
 			/*!
 			 *	@brief		Constructor with message.
 			 *
 			 *	@param		s		The exception-specific message.
 			 */
-			StateSelectorFatalException( const std::string & s ): MengeException(s), StateSelectorException(), MengeFatalException() {}
+			StateSelectorFatalException( const std::string & s ): MengeException(s),
+																  StateSelectorException(),
+																  MengeFatalException() {}
 		};
 
 		/*!
@@ -121,4 +125,4 @@ namespace Menge {
 
 	} // namespace Agents
 }	// namespace Menge
-#endif // __PROFILE_SELECTOR_H__
+#endif // __STATE_SELECTOR_H__

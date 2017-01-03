@@ -36,8 +36,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "Actions/ObstacleAction.h"
-#include "BaseAgent.h"
+#include "MengeCore/BFSM/Actions/ObstacleAction.h"
+
+#include "MengeCore/Agents/BaseAgent.h"
 
 namespace Menge {
 
@@ -72,7 +73,8 @@ namespace Menge {
 		void ObstacleAction::resetAction( Agents::BaseAgent * agent ) {
 			_lock.lock();
 			std::map< size_t, size_t >::iterator itr = _originalMap.begin();
-			assert( itr != _originalMap.end() && "Trying to find an original value for an agent whose value was not cached" );
+			assert( itr != _originalMap.end() &&
+					"Trying to find an original value for an agent whose value was not cached" );
 			agent->_obstacleSet = itr->second;
 			_originalMap.erase( itr );
 			_lock.release();
@@ -88,9 +90,11 @@ namespace Menge {
 
 		/////////////////////////////////////////////////////////////////////
 
-		bool ObstacleActFactory::setFromXML( Action * action, TiXmlElement * node, const std::string & behaveFldr ) const {
+		bool ObstacleActFactory::setFromXML( Action * action, TiXmlElement * node,
+											 const std::string & behaveFldr ) const {
 			ObstacleAction * oAction = dynamic_cast< ObstacleAction * >( action );
-			assert( oAction != 0x0 && "Trying to set obstacle set action properties on an incompatible object" );
+			assert( oAction != 0x0 &&
+					"Trying to set obstacle set action properties on an incompatible object" );
 			
 			if ( ! ActionFactory::setFromXML( action, node, behaveFldr ) ) return false;
 			oAction->_setOperand = _attrSet.getSizeT( _operandID );

@@ -36,11 +36,12 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "VelocityComponents/VelCompGoal.h"
-#include "BaseAgent.h"
-#include "PrefVelocity.h"
-#include "Goals/Goal.h"
-#include "Core.h"
+#include "MengeCore/BFSM/VelocityComponents/VelCompGoal.h"
+
+#include "MengeCore/Core.h"
+#include "MengeCore/Agents/BaseAgent.h"
+#include "MengeCore/Agents/PrefVelocity.h"
+#include "MengeCore/BFSM/Goals/Goal.h"
 
 #include <sstream>
 #include <iomanip>
@@ -58,7 +59,8 @@ namespace Menge {
 
 		/////////////////////////////////////////////////////////////////////
 
-		void GoalVelComponent::setPrefVelocity( const Agents::BaseAgent * agent, const Goal * goal, Agents::PrefVelocity & pVel ) {
+		void GoalVelComponent::setPrefVelocity( const Agents::BaseAgent * agent, const Goal * goal,
+												Agents::PrefVelocity & pVel ) {
 			// directions
 			goal->setDirections( agent->_pos, agent->_radius, pVel );
 			
@@ -83,7 +85,7 @@ namespace Menge {
 		}
 
 		/////////////////////////////////////////////////////////////////////
-		
+#if 0
 		VelCompContext * GoalVelComponent::getContext() {
 			return new GoalVCContext( this );
 		}
@@ -116,6 +118,6 @@ namespace Menge {
 			_vc->setPrefVelocity( agt, goal, pVel );
 			drawPrefVel( pVel, agt->_pos );
 		}
-		
+#endif
 	} // namespace BFSM
 }	// namespace Menge

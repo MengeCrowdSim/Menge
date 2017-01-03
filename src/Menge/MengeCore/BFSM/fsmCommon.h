@@ -44,7 +44,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __FSM_COMMON_H__
 #define __FSM_COMMON_H__
 
-#include "mengeCommon.h"
+#include "MengeCore/mengeCommon.h"
 
 namespace Menge {
 	// Forward declartion

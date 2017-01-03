@@ -36,9 +36,10 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "Action.h"
-#include "ActionDatabase.h"
-#include "BaseAgent.h"
+#include "MengeCore/BFSM/Actions/Action.h"
+
+#include "MengeCore/Agents/BaseAgent.h"
+#include "MengeCore/BFSM/Actions/ActionDatabase.h"
 
 namespace Menge {
 

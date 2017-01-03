@@ -36,6 +36,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
+#if 0
 /*!
  *	@file	PedVOSimSystem.h
  *	@brief	Specialization of the SimSystem for PedVO agents
@@ -75,3 +76,4 @@ void SimSystem< PedVO::Simulator, PedVO::Agent >::populateScene( Menge::SceneGra
 }
 
 #endif	// __PED_VO_SIM_SYSTEM_H__
+#endif // 0

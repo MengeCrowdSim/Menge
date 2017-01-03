@@ -36,9 +36,10 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "ElevationDatabase.h"
-#include "Elevations/ElevationFlat.h"
-#include "Elevations/ElevationNavMesh.h"
+#include "MengeCore/Agents/Elevations/ElevationDatabase.h"
+
+#include "MengeCore/Agents/Elevations/ElevationFlat.h"
+#include "MengeCore/Agents/Elevations/ElevationNavMesh.h"
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
@@ -51,7 +52,9 @@ namespace Menge {
 	 *	@returns	The string representation of the database name.
 	 */
 	template <>
-	std::string ElementDB< Agents::ElevationFactory, Agents::Elevation >::getElementName() { return "elevation"; }
+	std::string ElementDB< Agents::ElevationFactory, Agents::Elevation >::getElementName() {
+		return "elevation";
+	}
 
 	/*! 
 	 *	@brief		Initialization of built in database elements.

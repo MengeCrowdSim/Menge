@@ -44,7 +44,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __NAV_MESH_OBSTACLE__
 #define	__NAV_MESH_OBSTACLE__
 
-#include "Obstacle.h"
+#include "MengeCore/Agents/Obstacle.h"
 #include <fstream>
 
 namespace Menge {
@@ -80,7 +80,7 @@ namespace Menge {
 		 *	@returns	A boolean indicating successful parsing (true) or failure
 		 *				(false).
 		 */
-		bool loadFromAscii( std::ifstream & f, Vector2 * vertices );
+		bool loadFromAscii( std::ifstream & f, Math::Vector2 * vertices );
 
 		/*!
 		 *	@brief		Retrieve the nav mesh node to which this obstacle is adjacent.

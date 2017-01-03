@@ -36,30 +36,31 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "SimulatorDBEntry.h"
-// Menge Runtime
+#include "MengeCore/Runtime/SimulatorDBEntry.h"
+
+#include "MengeCore/MengeException.h"
+#include "MengeCore/Agents/AgentInitializer.h"
+#include "MengeCore/Agents/SimulatorInterface.h"
+#include "MengeCore/BFSM/FSM.h"
+#include "MengeCore/BFSM/FSMDescrip.h"
+#include "MengeCore/Runtime/Logger.h"
+#if 0
 #include "SimSystem.h"
 #include "BaseAgentContext.h"
-#include "Logger.h"
-// Agents
-#include "AgentInitializer.h"
-#include "SimulatorInterface.h"
-// BFSM
-#include "FSMDescrip.h"
-#include "FSM.h"
-// SceneGraph
 #include "GLScene.h"
-#include "MengeException.h"
+#endif
 
 namespace Menge {
 
 	/////////////////////////////////////////////////////////////////////////////
 	//                     Implementation of SimulatorDBEntry
 	////////////////////////////////////////////////////////////////////////////
-
+#if 0
 	SimSystem * SimulatorDBEntry::createSimSystem(  bool visualize, float duration ) {
 		return new SimSystem( visualize, duration );
 	}
+
+#endif
 
 	////////////////////////////////////////////////////////////////////////////
 
@@ -83,7 +84,8 @@ namespace Menge {
 
 	////////////////////////////////////////////////////////////////////////////
 
-	BFSM::FSM * SimulatorDBEntry::initFSM( const std::string & behaveFile, Agents::SimulatorInterface * sim, bool VERBOSE ) {
+	BFSM::FSM * SimulatorDBEntry::initFSM( const std::string & behaveFile,
+										   Agents::SimulatorInterface * sim, bool VERBOSE ) {
 		logger.line();
 		BFSM::FSMDescrip fsmDescrip;
 
@@ -126,14 +128,15 @@ namespace Menge {
 			delete fsm;
 			return false;
 		} catch ( Menge::MengeException & e ) {
-			logger << Logger::WARN_MSG  << "There were non-fatal errors in finalizing the finite state machine!\n";
+			logger << Logger::WARN_MSG  << "There were non-fatal errors in finalizing the finite "
+				"state machine!\n";
 			logger << "\t" << e.what();
 		}
 		return true;
 	}
 
 	////////////////////////////////////////////////////////////////////////////
-
+#if 0
 	SimSystem * SimulatorDBEntry::getSimulatorSystem( size_t & agentCount,
 													  float & simTimeStep,
 													  size_t subSteps,
@@ -212,7 +215,7 @@ namespace Menge {
 		if ( ctx ) ctx->setFSMContext( _fsm->getContext() );
 		return ctx;
 	}
-
+#endif
 	////////////////////////////////////////////////////////////////////////////
 
 	float SimulatorDBEntry::simDuration() const { 
@@ -220,13 +223,13 @@ namespace Menge {
 	}
 
 	////////////////////////////////////////////////////////////////////////////
-
+#if 0
 	BaseAgentContext * SimulatorDBEntry::contextFromSystem( SimSystem * simSystem ) {
 		return new BaseAgentContext( simSystem->getVisAgents(), simSystem->getAgentCount() ); 
 	}
 
 	////////////////////////////////////////////////////////////////////////////
-
+#endif
 	Agents::AgentInitializer * SimulatorDBEntry::getAgentInitalizer() const { 
 		return new Agents::AgentInitializer(); 
 	}

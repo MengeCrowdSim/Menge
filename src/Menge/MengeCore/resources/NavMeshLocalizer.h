@@ -45,11 +45,12 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __NAV_MESH_LOCALIZER_H__
 #define	__NAV_MESH_LOCALIZER_H__
 
-#include "NavMesh.h"
-#include "NavMeshNode.h"
-#include "mengeCommon.h"
-#include "Resource.h"
-#include "ReadersWriterLock.h"
+#include "MengeCore/mengeCommon.h"
+#include "MengeCore/resources/NavMesh.h"
+#include "MengeCore/resources/NavMeshNode.h"
+#include "MengeCore/resources/Resource.h"
+#include "MengeCore/Runtime/ReadersWriterLock.h"
+
 #include <map>
 #include <set>
 
@@ -223,13 +224,15 @@ namespace Menge {
 		*
 		*	@param		agent		The agent whose position relative to the nav
 		*							mesh is returned.
-		*	@param		grpName		The name of the group to search for a polygon containing the point.
+		*	@param		grpName		The name of the group to search for a polygon containing the
+		*							point.
 		*	@param		searchAll	If true and no polygon in `grpName` contains the point, search
 		*							the full navigation mesh for the point.
 		*	@returns	The index of the node associated with this location.
 		*				If the location is not on a node, NavMeshLocation::NO_NODE is returned.
 		*/
-		unsigned int getNode(const Agents::BaseAgent * agent, const std::string & grpName, bool searchAll = false);
+		unsigned int getNode(const Agents::BaseAgent * agent, const std::string & grpName,
+							  bool searchAll = false);
 
 		/*!
 		 *	@brief		Reports the node with the highest elevation for the given point.
@@ -238,7 +241,7 @@ namespace Menge {
 		 *	@returns	The index of the node associated with this location.
 		 *				If the location is not on a node, NavMeshLocation::NO_NODE is returned.
 		 */
-		unsigned int getNode( const Vector2 & p ) const;
+		unsigned int getNode( const Math::Vector2 & p ) const;
 
 		/*!
 		 *	@brief		Returns the NavMeshNode of the given id.
@@ -321,7 +324,9 @@ namespace Menge {
 		 *	@param		nodeID		The index of the desired node.
 		 *	@returns	A pointer to the OccupantSet of the given node.
 		 */
-		const OccupantSet * getNodeOccupants( unsigned int nodeID ) const { return &_nodeOccupants[ nodeID ]; }
+		const OccupantSet * getNodeOccupants( unsigned int nodeID ) const {
+			return &_nodeOccupants[ nodeID ];
+		}
 
 		/*!
 		 *	@brief		Returns a const pointer to the underlying navigation mesh
@@ -376,8 +381,8 @@ namespace Menge {
 		bool _trackAll;
 
 		/*!
-		 *	@brief		Optional planner.  This is only non-NULL if there is a PathPlanner created either
-		 *				by a NavMeshGoalGenerator or NavMeshVelComponent.
+		 *	@brief		Optional planner.  This is only non-NULL if there is a PathPlanner created
+		 *				either by a NavMeshGoalGenerator or NavMeshVelComponent.
 		 */
 		PathPlanner * _planner;
 
@@ -413,7 +418,7 @@ namespace Menge {
 		 *				to the tgtElev value.  If the point does not lie on any mesh node, 
 		 *				NavMeshLocation::NO_NODE is returned.
 		 */
-		unsigned int findNodeBlind( const Vector2 & p, float tgtElev=1e5f ) const;
+		unsigned int findNodeBlind( const Math::Vector2 & p, float tgtElev=1e5f ) const;
 
 		/*!
 		 *	@brief		Finds the node a point lies in within a particular polygon group.
@@ -425,7 +430,8 @@ namespace Menge {
 		 *							in the mesh.
 		 *	@returns	The index of the node on which the point lies.
 		 */
-		unsigned int findNodeInGroup(const Vector2 & p, const std::string & grpName, bool searchAll) const;
+		unsigned int findNodeInGroup(const Math::Vector2 & p, const std::string & grpName,
+									  bool searchAll) const;
 
 		/*!
 		 *	@brief		Searches the nodes in the given range for a projection of p.
@@ -436,10 +442,11 @@ namespace Menge {
 		 *	@param		p			The point to test.
 		 *	@param		start		The identifier of the first node to search for.
 		 *	@param		stop		The identifier of the last (inclusive)
-		 *	@returns	The identifier of the node that contains the query point, or NavMeshLocation::NO_NODE
-		 *				if no polygon found in the range.
+		 *	@returns	The identifier of the node that contains the query point, or
+		 *				NavMeshLocation::NO_NODE if no polygon found in the range.
 		 */
-		unsigned int findNodeInRange(const Vector2 & p, unsigned int start, unsigned int stop) const;
+		unsigned int findNodeInRange(const Math::Vector2 & p, unsigned int start,
+									  unsigned int stop) const;
 
 		/*!
 		 *	@brief		Determines if the point is in a neighboring node to the given node
@@ -451,7 +458,7 @@ namespace Menge {
 		 *				does not lie on any neighboring mesh node, NavMeshLocation::NO_NODE 
 		 *				is returned.
 		 */
-		unsigned int testNeighbors( const NavMeshNode & node, const Vector2 & p ) const;
+		unsigned int testNeighbors( const NavMeshNode & node, const Math::Vector2 & p ) const;
 	};
 
 
@@ -469,7 +476,8 @@ namespace Menge {
 	 *	@returns	The NavMeshLocalizerPtr containing the data.
 	 *	@throws		A ResourceException if the data is unable to be instantiated.
 	 */
-	NavMeshLocalizerPtr loadNavMeshLocalizer( const std::string & fileName, bool usePlanner ) throw ( ResourceException );
+	NavMeshLocalizerPtr loadNavMeshLocalizer( const std::string & fileName,
+											  bool usePlanner ) throw ( ResourceException );
 
 }	// namespace Menge
 

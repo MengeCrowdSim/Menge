@@ -36,7 +36,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "MinHeap.h"
+#include "MengeCore/resources/MinHeap.h"
 #include <iostream>
 #ifndef _MSC_VER
 #include <string.h>
@@ -48,7 +48,8 @@ namespace Menge {
 	//						Implementation of MinHeap
 	//////////////////////////////////////////////////////////////////////////////////////
 
-	AStarMinHeap::AStarMinHeap( unsigned int * heap, float * data, bool * state, unsigned int * path, size_t N ) {
+	AStarMinHeap::AStarMinHeap( unsigned int * heap, float * data, bool * state,
+								unsigned int * path, size_t N ) {
 		_f = data;
 		_g = _f + N;
 		_h = _g + N;

@@ -35,14 +35,8 @@
     <Filter Include="Source Files\PluginEngine">
       <UniqueIdentifier>{12b87dc1-1afd-408c-9ac7-85d596e01c19}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\SceneGraph">
-      <UniqueIdentifier>{b784ded7-c893-430a-a103-084fdfe7e680}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Runtime">
       <UniqueIdentifier>{373f3281-9ab2-45bf-b088-89adc7dc2e14}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Viewer">
-      <UniqueIdentifier>{3d337fd8-23f8-425c-becf-c0392dff7af1}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\BFSM">
       <UniqueIdentifier>{d26c1ee8-795e-4601-9c81-30540180edba}</UniqueIdentifier>
@@ -111,14 +105,8 @@
     <Filter Include="Header Files\PluginEngine">
       <UniqueIdentifier>{600536ec-e90d-4735-bf67-f00f5c399623}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\SceneGraph">
-      <UniqueIdentifier>{a08db023-ad49-4b6e-bbc4-311918eb73ad}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Runtime">
       <UniqueIdentifier>{7605c45a-33f1-40b6-b554-e68666f66fa7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Viewer">
-      <UniqueIdentifier>{13ecd2b0-9032-44b1-bbde-e71ae8199d32}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\BFSM">
       <UniqueIdentifier>{91a3e3fc-6041-402b-a28d-2b669d7a0f9d}</UniqueIdentifier>
@@ -339,51 +327,6 @@
     <ClCompile Include="$(SrcDir)\mengeCore\PluginEngine\PluginEngine.cpp">
       <Filter>Source Files\PluginEngine</Filter>
     </ClCompile>
-    <ClCompile Include="$(SrcDir)\mengeCore\SceneGraph\Context.cpp">
-      <Filter>Source Files\SceneGraph</Filter>
-    </ClCompile>
-    <ClCompile Include="$(SrcDir)\mengeCore\SceneGraph\ContextSwitcher.cpp">
-      <Filter>Source Files\SceneGraph</Filter>
-    </ClCompile>
-    <ClCompile Include="$(SrcDir)\mengeCore\SceneGraph\GLCamera.cpp">
-      <Filter>Source Files\SceneGraph</Filter>
-    </ClCompile>
-    <ClCompile Include="$(SrcDir)\mengeCore\SceneGraph\GLContextManager.cpp">
-      <Filter>Source Files\SceneGraph</Filter>
-    </ClCompile>
-    <ClCompile Include="$(SrcDir)\mengeCore\SceneGraph\GLGroundPlane.cpp">
-      <Filter>Source Files\SceneGraph</Filter>
-    </ClCompile>
-    <ClCompile Include="$(SrcDir)\mengeCore\SceneGraph\GLLight.cpp">
-      <Filter>Source Files\SceneGraph</Filter>
-    </ClCompile>
-    <ClCompile Include="$(SrcDir)\mengeCore\SceneGraph\GLNode.cpp">
-      <Filter>Source Files\SceneGraph</Filter>
-    </ClCompile>
-    <ClCompile Include="$(SrcDir)\mengeCore\SceneGraph\GLScene.cpp">
-      <Filter>Source Files\SceneGraph</Filter>
-    </ClCompile>
-    <ClCompile Include="$(SrcDir)\mengeCore\SceneGraph\image.cpp">
-      <Filter>Source Files\SceneGraph</Filter>
-    </ClCompile>
-    <ClCompile Include="$(SrcDir)\mengeCore\SceneGraph\Select.cpp">
-      <Filter>Source Files\SceneGraph</Filter>
-    </ClCompile>
-    <ClCompile Include="$(SrcDir)\mengeCore\SceneGraph\shapes.cpp">
-      <Filter>Source Files\SceneGraph</Filter>
-    </ClCompile>
-    <ClCompile Include="$(SrcDir)\mengeCore\SceneGraph\TextWriter.cpp">
-      <Filter>Source Files\SceneGraph</Filter>
-    </ClCompile>
-    <ClCompile Include="$(SrcDir)\mengeCore\SceneGraph\Transform.cpp">
-      <Filter>Source Files\SceneGraph</Filter>
-    </ClCompile>
-    <ClCompile Include="$(SrcDir)\mengeCore\SceneGraph\XformMatrix.cpp">
-      <Filter>Source Files\SceneGraph</Filter>
-    </ClCompile>
-    <ClCompile Include="$(SrcDir)\mengeCore\Runtime\BaseAgentContext.cpp">
-      <Filter>Source Files\Runtime</Filter>
-    </ClCompile>
     <ClCompile Include="$(SrcDir)\mengeCore\Runtime\Logger.cpp">
       <Filter>Source Files\Runtime</Filter>
     </ClCompile>
@@ -396,9 +339,6 @@
     <ClCompile Include="$(SrcDir)\mengeCore\Runtime\SimpleLock.cpp">
       <Filter>Source Files\Runtime</Filter>
     </ClCompile>
-    <ClCompile Include="$(SrcDir)\mengeCore\Runtime\SimSystem.cpp">
-      <Filter>Source Files\Runtime</Filter>
-    </ClCompile>
     <ClCompile Include="$(SrcDir)\mengeCore\Runtime\SimulatorDB.cpp">
       <Filter>Source Files\Runtime</Filter>
     </ClCompile>
@@ -407,30 +347,6 @@
     </ClCompile>
     <ClCompile Include="$(SrcDir)\mengeCore\Runtime\Utils.cpp">
       <Filter>Source Files\Runtime</Filter>
-    </ClCompile>
-    <ClCompile Include="$(SrcDir)\mengeCore\Runtime\VisAgent.cpp">
-      <Filter>Source Files\Runtime</Filter>
-    </ClCompile>
-    <ClCompile Include="$(SrcDir)\mengeCore\Runtime\VisObstacle.cpp">
-      <Filter>Source Files\Runtime</Filter>
-    </ClCompile>
-    <ClCompile Include="$(SrcDir)\mengeCore\viewer\GLViewer.cpp">
-      <Filter>Source Files\Viewer</Filter>
-    </ClCompile>
-    <ClCompile Include="$(SrcDir)\mengeCore\viewer\NullViewer.cpp">
-      <Filter>Source Files\Viewer</Filter>
-    </ClCompile>
-    <ClCompile Include="$(SrcDir)\mengeCore\viewer\Profiler.cpp">
-      <Filter>Source Files\Viewer</Filter>
-    </ClCompile>
-    <ClCompile Include="$(SrcDir)\mengeCore\viewer\ScreenGrab.cpp">
-      <Filter>Source Files\Viewer</Filter>
-    </ClCompile>
-    <ClCompile Include="$(SrcDir)\mengeCore\viewer\ViewConfig.cpp">
-      <Filter>Source Files\Viewer</Filter>
-    </ClCompile>
-    <ClCompile Include="$(SrcDir)\mengeCore\viewer\Watermark.cpp">
-      <Filter>Source Files\Viewer</Filter>
     </ClCompile>
     <ClCompile Include="$(SrcDir)\mengeCore\BFSM\buildFSM.cpp">
       <Filter>Source Files\BFSM</Filter>
@@ -625,9 +541,6 @@
       <Filter>Source Files\orca</Filter>
     </ClCompile>
     <ClCompile Include="$(SrcDir)\mengeCore\Orca\ORCAInitializer.cpp">
-      <Filter>Source Files\orca</Filter>
-    </ClCompile>
-    <ClCompile Include="$(SrcDir)\mengeCore\Orca\ORCASimulator.cpp">
       <Filter>Source Files\orca</Filter>
     </ClCompile>
     <ClCompile Include="$(SrcDir)\mengeCore\PedVO\PedVOAgent.cpp">
@@ -965,60 +878,6 @@
     <ClInclude Include="$(SrcDir)\mengeCore\PluginEngine\SharedLibrary.h">
       <Filter>Header Files\PluginEngine</Filter>
     </ClInclude>
-    <ClInclude Include="$(SrcDir)\mengeCore\SceneGraph\Context.h">
-      <Filter>Header Files\SceneGraph</Filter>
-    </ClInclude>
-    <ClInclude Include="$(SrcDir)\mengeCore\SceneGraph\ContextSwitcher.h">
-      <Filter>Header Files\SceneGraph</Filter>
-    </ClInclude>
-    <ClInclude Include="$(SrcDir)\mengeCore\SceneGraph\GLCamera.h">
-      <Filter>Header Files\SceneGraph</Filter>
-    </ClInclude>
-    <ClInclude Include="$(SrcDir)\mengeCore\SceneGraph\GLContextManager.h">
-      <Filter>Header Files\SceneGraph</Filter>
-    </ClInclude>
-    <ClInclude Include="$(SrcDir)\mengeCore\SceneGraph\GLGroundPlane.h">
-      <Filter>Header Files\SceneGraph</Filter>
-    </ClInclude>
-    <ClInclude Include="$(SrcDir)\mengeCore\SceneGraph\GLLight.h">
-      <Filter>Header Files\SceneGraph</Filter>
-    </ClInclude>
-    <ClInclude Include="$(SrcDir)\mengeCore\SceneGraph\GLNode.h">
-      <Filter>Header Files\SceneGraph</Filter>
-    </ClInclude>
-    <ClInclude Include="$(SrcDir)\mengeCore\SceneGraph\GLScene.h">
-      <Filter>Header Files\SceneGraph</Filter>
-    </ClInclude>
-    <ClInclude Include="$(SrcDir)\mengeCore\SceneGraph\graphCommon.h">
-      <Filter>Header Files\SceneGraph</Filter>
-    </ClInclude>
-    <ClInclude Include="$(SrcDir)\mengeCore\SceneGraph\image.h">
-      <Filter>Header Files\SceneGraph</Filter>
-    </ClInclude>
-    <ClInclude Include="$(SrcDir)\mengeCore\SceneGraph\ManagedData.h">
-      <Filter>Header Files\SceneGraph</Filter>
-    </ClInclude>
-    <ClInclude Include="$(SrcDir)\mengeCore\SceneGraph\Select.h">
-      <Filter>Header Files\SceneGraph</Filter>
-    </ClInclude>
-    <ClInclude Include="$(SrcDir)\mengeCore\SceneGraph\shapes.h">
-      <Filter>Header Files\SceneGraph</Filter>
-    </ClInclude>
-    <ClInclude Include="$(SrcDir)\mengeCore\SceneGraph\System.h">
-      <Filter>Header Files\SceneGraph</Filter>
-    </ClInclude>
-    <ClInclude Include="$(SrcDir)\mengeCore\SceneGraph\TextWriter.h">
-      <Filter>Header Files\SceneGraph</Filter>
-    </ClInclude>
-    <ClInclude Include="$(SrcDir)\mengeCore\SceneGraph\Transform.h">
-      <Filter>Header Files\SceneGraph</Filter>
-    </ClInclude>
-    <ClInclude Include="$(SrcDir)\mengeCore\SceneGraph\XformMatrix.h">
-      <Filter>Header Files\SceneGraph</Filter>
-    </ClInclude>
-    <ClInclude Include="$(SrcDir)\mengeCore\Runtime\BaseAgentContext.h">
-      <Filter>Header Files\Runtime</Filter>
-    </ClInclude>
     <ClInclude Include="$(SrcDir)\mengeCore\Runtime\Logger.h">
       <Filter>Header Files\Runtime</Filter>
     </ClInclude>
@@ -1031,9 +890,6 @@
     <ClInclude Include="$(SrcDir)\mengeCore\Runtime\SimpleLock.h">
       <Filter>Header Files\Runtime</Filter>
     </ClInclude>
-    <ClInclude Include="$(SrcDir)\mengeCore\Runtime\SimSystem.h">
-      <Filter>Header Files\Runtime</Filter>
-    </ClInclude>
     <ClInclude Include="$(SrcDir)\mengeCore\Runtime\SimulatorDB.h">
       <Filter>Header Files\Runtime</Filter>
     </ClInclude>
@@ -1042,30 +898,6 @@
     </ClInclude>
     <ClInclude Include="$(SrcDir)\mengeCore\Runtime\Utils.h">
       <Filter>Header Files\Runtime</Filter>
-    </ClInclude>
-    <ClInclude Include="$(SrcDir)\mengeCore\Runtime\VisAgent.h">
-      <Filter>Header Files\Runtime</Filter>
-    </ClInclude>
-    <ClInclude Include="$(SrcDir)\mengeCore\Runtime\VisObstacle.h">
-      <Filter>Header Files\Runtime</Filter>
-    </ClInclude>
-    <ClInclude Include="$(SrcDir)\mengeCore\viewer\GLViewer.h">
-      <Filter>Header Files\Viewer</Filter>
-    </ClInclude>
-    <ClInclude Include="$(SrcDir)\mengeCore\viewer\NullViewer.h">
-      <Filter>Header Files\Viewer</Filter>
-    </ClInclude>
-    <ClInclude Include="$(SrcDir)\mengeCore\viewer\Profiler.h">
-      <Filter>Header Files\Viewer</Filter>
-    </ClInclude>
-    <ClInclude Include="$(SrcDir)\mengeCore\viewer\ScreenGrab.h">
-      <Filter>Header Files\Viewer</Filter>
-    </ClInclude>
-    <ClInclude Include="$(SrcDir)\mengeCore\viewer\ViewConfig.h">
-      <Filter>Header Files\Viewer</Filter>
-    </ClInclude>
-    <ClInclude Include="$(SrcDir)\mengeCore\viewer\Watermark.h">
-      <Filter>Header Files\Viewer</Filter>
     </ClInclude>
     <ClInclude Include="$(SrcDir)\mengeCore\BFSM\FSM.h">
       <Filter>Header Files\BFSM</Filter>

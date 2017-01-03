@@ -36,8 +36,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "ResourceManager.h"
-#include "Resource.h"
+#include "MengeCore/resources/ResourceManager.h"
+
+#include "MengeCore/resources/Resource.h"
 #include <iostream>
 
 namespace Menge {
@@ -51,7 +52,9 @@ namespace Menge {
 
 	/////////////////////////////////////////////////////////////////////
 
-	Resource * ResourceManager::getResource( const std::string & fileName, Resource * (*reader)(const std::string & ), const std::string & suffix ) {
+	Resource * ResourceManager::getResource( const std::string & fileName,
+											 Resource * (*reader)(const std::string & ),
+											 const std::string & suffix ) {
 		Resource * rsrc = 0x0;
 		const std::string key = fileName + CAT_SYMBOL + suffix;
 		ResourceMap::iterator itr = _resources.find( key );
@@ -60,7 +63,8 @@ namespace Menge {
 		} else {
 			rsrc = reader( fileName );
 			if ( rsrc == 0x0 ) {
-				logger << Logger::ERR_MSG << "Error loading the resource from: " << fileName << "\n";
+				logger << Logger::ERR_MSG << "Error loading the resource from: ";
+				logger << fileName << "\n";
 			}
 			_resources[ key ] = rsrc;
 		}
@@ -92,11 +96,15 @@ namespace Menge {
 		const std::string key = rsrc->_fileName + CAT_SYMBOL + rsrc->getLabel();
 		ResourceMap::iterator itr = _resources.find( key );
 		if ( itr == _resources.end() ) {
-			logger << Logger::ERR_MSG << "Trying to remove a resource that the ResourceManager doesn't own: " << rsrc->_fileName << "\n";
+			logger << Logger::ERR_MSG;
+			logger << "Trying to remove a resource that the ResourceManager doesn't own: ";
+			logger << rsrc->_fileName << "\n";
 			return false;
 		}
 		if ( ! rsrc->isUnreferenced() ) {
-			logger << Logger::ERR_MSG << "Trying to remove a resource with a non-zero reference count: " << rsrc->_fileName << "\n";
+			logger << Logger::ERR_MSG;
+			logger << "Trying to remove a resource with a non-zero reference count: ";
+			logger << rsrc->_fileName << "\n";
 			return false;
 		}
 		_resources.erase( itr );

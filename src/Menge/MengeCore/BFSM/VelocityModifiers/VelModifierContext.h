@@ -42,6 +42,8 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
  *				state machine *velocity modifiers*.
  */
 
+#if 0
+
 #ifndef __VEL_MOD_CONTEXT_H__
 #define	__VEL_MOD_CONTEXT_H__
 
@@ -120,3 +122,4 @@ namespace Menge {
 	}	// namespace BFSM
 }	// namespace Menge
 #endif	// __VEL_MOD_CONTEXT_H__
+#endif // 0

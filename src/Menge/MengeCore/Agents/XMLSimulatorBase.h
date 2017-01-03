@@ -50,8 +50,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __XML_SIMULATOR_BASE__
 #define __XML_SIMULATOR_BASE__
 
-#include "SimXMLLoader.h"
-#include "mengeCommon.h"
+#include "MengeCore/mengeCommon.h"
+#include "MengeCore/Agents/SimXMLLoader.h"
+
 #include <vector>
 
 namespace Menge {
@@ -100,14 +101,17 @@ namespace Menge {
 			/*!
 			 *	@brief		Default constructor.
 			 */
-			XMLParamFatalException() : MengeException(), XMLParamException(), MengeFatalException() {}
+			XMLParamFatalException() : MengeException(), XMLParamException(),
+									   MengeFatalException() {}
 
 			/*!
 			 *	@brief		Constructor with message.
 			 *
 			 *	@param		s		The exception-specific message.
 			 */
-			XMLParamFatalException( const std::string & s ): MengeException(s), XMLParamException(), MengeFatalException() {}
+			XMLParamFatalException( const std::string & s ) : MengeException(s),
+															  XMLParamException(),
+															  MengeFatalException() {}
 		};
 
 		/*!
@@ -173,21 +177,26 @@ namespace Menge {
 			 *								It is the responsibility of the particular sub-class to
 			 *								translate the representation as necessary.
 			 *	@returns	True if the parameter was set successfully, false otherwise.
-			 *	@throws		An XMLParamException if there was a problem with the parameter name/value 
+			 *	@throws		An XMLParamException if there was a problem with the parameter
+			 *				name/value .
 			 */
-			virtual bool setExpParam( const std::string & paramName, const std::string & value ) throw( XMLParamException ) = 0;
+			virtual bool setExpParam( const std::string & paramName, const std::string & value )
+				throw( XMLParamException ) = 0;
 
 			/*!
 			 *	@brief		Add an agent with specified position to the simulator whose properties
 			 *				are defined by the given agent initializer.
 			 *
-			 *	It uses the agent initializer to define the values of the remaining agent parameters
+			 *	It uses the agent initializer to define the values of the remaining agent
+			 *	parameters.
 			 *
 			 *	@param		pos			The 2d vector representing the agent's position
 			 *	@param		agentInit	The AgentInitializer necessary to parse AgentSet properties
-			 *	@returns	A pointer to the agent (if initialization was succesful) or NULL if failed.
+			 *	@returns	A pointer to the agent (if initialization was succesful) or NULL if
+			 *				failed.
 			 */
-			virtual BaseAgent * addAgent( const Vector2 & pos, AgentInitializer * agentInit ) = 0;
+			virtual BaseAgent * addAgent( const Math::Vector2 & pos,
+										  AgentInitializer * agentInit ) = 0;
 
 			/*!
 			 *	@brief		Set the elevation instance of the simulator

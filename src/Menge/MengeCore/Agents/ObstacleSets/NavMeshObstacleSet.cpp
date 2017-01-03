@@ -36,10 +36,13 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "ObstacleSets/NavMeshObstacleSet.h"
+#include "MengeCore/Agents/ObstacleSets/NavMeshObstacleSet.h"
+
+#include "MengeCore/Runtime/os.h"
+
 #include "tinyxml.h"
+
 #include <vector>
-#include "os.h"
 
 namespace Menge {
 
@@ -75,22 +78,26 @@ namespace Menge {
 		
 		////////////////////////////////////////////////////////////////////////////
 
-		bool NavMeshObstacleSetFactory::setFromXML( ObstacleSet * gen, TiXmlElement * node, const std::string & specFldr ) const {
+		bool NavMeshObstacleSetFactory::setFromXML( ObstacleSet * gen, TiXmlElement * node,
+													const std::string & specFldr ) const {
 			NavMeshObstacleSet * eSet = dynamic_cast< NavMeshObstacleSet * >( gen );
-			assert( eSet != 0x0 && "Trying to set attributes of an explicit obstacle set on an incompatible object" );
+			assert( eSet != 0x0 && "Trying to set attributes of an explicit obstacle set on an "
+					"incompatible object" );
 
 			if ( ! ObstacleSetFactory::setFromXML( eSet, node, specFldr ) ) return false;
 
 			//get the absolute path for the file name
 			std::string fName;
-			std::string path = os::path::join( 2, specFldr.c_str(), _attrSet.getString( _fileNameID ).c_str() );
+			std::string path = os::path::join( 2, specFldr.c_str(),
+											   _attrSet.getString( _fileNameID ).c_str() );
 			os::path::absPath( path, fName );
 			// nav mesh
 			NavMeshPtr nmPtr;
 			try {
 				nmPtr = loadNavMesh( fName );
 			} catch ( ResourceException ) {
-				logger << Logger::ERR_MSG << "Couldn't instantiate the navigation mesh referenced on line " << node->Row() << ".";
+				logger << Logger::ERR_MSG << "Couldn't instantiate the navigation mesh "
+					"referenced on line " << node->Row() << ".";
 				return false;
 			}
 

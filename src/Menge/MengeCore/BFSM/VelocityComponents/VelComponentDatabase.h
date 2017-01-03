@@ -47,9 +47,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __VEL_COMPONENT_DATABASE_H__
 #define __VEL_COMPONENT_DATABASE_H__
 
-#include "ElementDatabase.h"
-#include "VelocityComponents/VelComponentFactory.h"
-#include "VelocityComponents/VelComponent.h"
+#include "MengeCore/PluginEngine/ElementDatabase.h"
+#include "MengeCore/BFSM/VelocityComponents/VelComponent.h"
+#include "MengeCore/BFSM/VelocityComponents/VelComponentFactory.h"
 
 namespace Menge {
 	namespace BFSM {

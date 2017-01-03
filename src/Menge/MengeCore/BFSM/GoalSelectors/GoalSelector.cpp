@@ -36,10 +36,11 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "GoalSelectors/GoalSelector.h"
-#include "GoalSelectors/GoalSelectorDatabase.h"
-#include "Goals/Goal.h"
-#include "BaseAgent.h"
+#include "MengeCore/BFSM/GoalSelectors/GoalSelector.h"
+
+#include "MengeCore/Agents/BaseAgent.h"
+#include "MengeCore/BFSM/Goals/Goal.h"
+#include "MengeCore/BFSM/GoalSelectors/GoalSelectorDatabase.h"
 
 namespace Menge {
 
@@ -65,13 +66,15 @@ namespace Menge {
 			lockResources();
 			goal = getGoal( agent );
 			if ( goal == 0x0 ) {
-				logger << Logger::ERR_MSG << "Goal selector unable to create goal for agent " << agent->_id << ".";
+				logger << Logger::ERR_MSG << "Goal selector unable to create goal for agent ";
+				logger << agent->_id << ".";
 				throw GoalSelectorException();
 			}
 			try {
 				goal->assign( agent );
 			} catch ( GoalException ) {
-				logger << Logger::ERR_MSG << "Couldn't assign agent " << agent->_id << " to goal " << goal->getID() << ".";
+				logger << Logger::ERR_MSG << "Couldn't assign agent " << agent->_id << " to goal ";
+				logger << goal->getID() << ".";
 				throw GoalSelectorException();
 			}
 			releaseResources();
@@ -97,8 +100,10 @@ namespace Menge {
 		void GoalSelector::freeGoal( const Agents::BaseAgent * agent, Goal * goal ) {
 	#ifdef _DEBUG
 			_lock.lockWrite();
-			assert( _assignedGoals.count( agent->_id ) == 1 && "Trying to free a goal from an agent that hasn't actually been assigned." );
-			assert( _assignedGoals[ agent->_id ] == goal && "Trying to free the wrong goal from the agent" );
+			assert( _assignedGoals.count( agent->_id ) == 1 &&
+					"Trying to free a goal from an agent that hasn't actually been assigned." );
+			assert( _assignedGoals[ agent->_id ] == goal &&
+					"Trying to free the wrong goal from the agent" );
 			_lock.releaseWrite();
 	#endif 
 			if ( !_persistent ) {

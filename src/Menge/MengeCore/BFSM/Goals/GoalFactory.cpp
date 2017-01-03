@@ -36,7 +36,8 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "GoalFactory.h"
+#include "MengeCore/BFSM/Goals/GoalFactory.h"
+
 #include <limits>
 
 namespace Menge {
@@ -50,13 +51,16 @@ namespace Menge {
 		GoalFactory::GoalFactory(): ElementFactory< Goal >() {
 			// register attributes
 			_idID = _attrSet.addSizeTAttribute( "id", true/*required*/, 0/*default*/ );
-			_capacityID = _attrSet.addSizeTAttribute( "capacity", false/*required*/, std::numeric_limits< size_t >::max()/*default*/ );
+			_capacityID = _attrSet.addSizeTAttribute( "capacity", false/*required*/,
+													  std::numeric_limits< size_t >::max()
+													  /*default*/ );
 			_weightID = _attrSet.addFloatAttribute( "weight", false /*required*/, 1.f );
 		}
 
 		/////////////////////////////////////////////////////////////////////
 
-		bool GoalFactory::setFromXML( Goal * goal, TiXmlElement * node, const std::string & behaveFldr ) const {
+		bool GoalFactory::setFromXML( Goal * goal, TiXmlElement * node,
+									  const std::string & behaveFldr ) const {
 			if ( !ElementFactory< Goal >::setFromXML( goal, node, behaveFldr ) ) return false;
 
 			goal->setID( _attrSet.getSizeT( _idID ) );

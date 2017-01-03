@@ -44,8 +44,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __EVENT_SYSTEM_H__
 #define __EVENT_SYSTEM_H__
 
+#include "MengeCore/mengeCommon.h"
+
 #include <vector>
-#include "mengeCommon.h"
 
 // forward declaration
 class TiXmlElement;
@@ -148,6 +149,6 @@ namespace Menge {
 		 */
 		HASH_MAP< std::string, EventEffect * > _effects;
 	};
-}
+}	// namespace Menge
 
 #endif // __EVENT_SYSTEM_H__

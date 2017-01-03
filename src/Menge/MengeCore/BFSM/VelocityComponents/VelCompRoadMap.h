@@ -47,14 +47,19 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __VEL_COMP_ROAD_MAP_H__
 #define __VEL_COMP_ROAD_MAP_H__
 
-#include "CoreConfig.h"
-#include "VelocityComponents/VelComponent.h"
-#include "VelocityComponents/VelComponentFactory.h"
+#include "MengeCore/CoreConfig.h"
+#include "MengeCore/Agents/PrefVelocity.h"
+#include "MengeCore/BFSM/VelocityComponents/VelComponent.h"
+#include "MengeCore/BFSM/VelocityComponents/VelComponentFactory.h"
+#include "MengeCore/resources/Graph.h"
+#include "MengeCore/resources/RoadMapPath.h"
+#include "MengeCore/Runtime/ReadersWriterLock.h"
+
+#if 0
 #include "VelocityComponents/VelCompContext.h"
+#endif
+
 #include <map>
-#include "Graph.h"
-#include "RoadMapPath.h"
-#include "ReadersWriterLock.h"
 
 namespace Menge {
 
@@ -108,9 +113,11 @@ namespace Menge {
 			void setRoadMap( const GraphPtr & graph ) { _roadmap = graph; }
 
 			/*!
-			 *	@brief		Called when the agent leaves the state which possesses this velocity component.
+			 *	@brief		Called when the agent leaves the state which possesses this velocity
+			 *				component.
 			 *
-			 *	Gives the velocity component to restore any agent-specific data it might have changed.
+			 *	Gives the velocity component to restore any agent-specific data it might have
+			 *	changed.
 			 *
 			 *	@param		agent		The agent who left the state.
 			 */
@@ -130,10 +137,12 @@ namespace Menge {
 			 *	@param		goal		The agent's goal (although this may be ignored).
 			 *	@param		pVel		The instance of Agents::PrefVelocity to set.
 			 */
-			virtual void setPrefVelocity( const Agents::BaseAgent * agent, const Goal * goal, Agents::PrefVelocity & pVel );
-
+			virtual void setPrefVelocity( const Agents::BaseAgent * agent, const Goal * goal,
+										  Agents::PrefVelocity & pVel );
+#if 0
 			/*!
-			 *	@brief		Provides a display context for interacting with this velocity component.
+			 *	@brief		Provides a display context for interacting with this velocity
+			 *				component.
 			 *
 			 *	It is the responsibility of the caller to delete the provided context.
 			 *
@@ -142,7 +151,7 @@ namespace Menge {
 			virtual VelCompContext * getContext();
 
 			friend class RoadMapVCContext;
-
+#endif
 		protected:
 			/*!
 			 *	@brief		The roadmap.
@@ -159,7 +168,7 @@ namespace Menge {
 			 */
 			ReadersWriterLock	_lock;
 		};
-
+#if 0
 		//////////////////////////////////////////////////////////////////////////////
 
 		/*!
@@ -202,7 +211,7 @@ namespace Menge {
 			 */
 			RoadMapVelComponent * _vc;
 		};
-
+#endif
 		//////////////////////////////////////////////////////////////////////////////
 
 		/*!
@@ -233,7 +242,7 @@ namespace Menge {
 			 *	@returns	A string containing the velocity component description.
 			 */
 			virtual const char * description() const {
-				return "Provides a preferred velocity which is derived from a path along a "\
+				return "Provides a preferred velocity which is derived from a path along a "
 					"graph discretization of the free space (a.k.a. a road map).";
 			};
 
@@ -242,17 +251,18 @@ namespace Menge {
 			 *	@brief		Create an instance of this class's velocity component.
 			 *
 			 *	All VelCompFactory sub-classes must override this by creating (on the heap)
-			 *	a new instance of its corresponding velocity component type.  The various field values
-			 *	of the instance will be set in a subsequent call to VelCompFactory::setFromXML.
-			 *	The caller of this function takes ownership of the memory.
+			 *	a new instance of its corresponding velocity component type.  The various field
+			 *	valuesof the instance will be set in a subsequent call to
+			 *	VelCompFactory::setFromXML. The caller of this function takes ownership of the
+			 *	memory.
 			 *
 			 *	@returns		A pointer to a newly instantiated VelComponent class.
 			 */
 			VelComponent * instance() const { return new RoadMapVelComponent(); }
 			
 			/*!
-			 *	@brief		Given a pointer to an VelComponent instance, sets the appropriate fields
-			 *				from the provided XML node.
+			 *	@brief		Given a pointer to an VelComponent instance, sets the appropriate
+			 *				fields from the provided XML node.
 			 *
 			 *	It is assumed that the value of the `type` attribute is this VelComponent's type.
 			 *	(i.e. VelCompFactory::thisFactory has already been called and returned true.)
@@ -260,15 +270,17 @@ namespace Menge {
 			 *	sub-class should override this method but explicitly call the parent class's
 			 *	version.
 			 *
-			 *	@param		vc			A pointer to the velocity component whose attributes are to be set.
+			 *	@param		vc			A pointer to the velocity component whose attributes are to
+			 *							be set.
 			 *	@param		node		The XML node containing the velocity component attributes.
-			 *	@param		behaveFldr	The path to the behavior file.  If the velocity component references
-			 *							resources in the file system, it should be defined relative
-			 *							to the behavior file location.  This is the folder containing
-			 *							that path. 
+			 *	@param		behaveFldr	The path to the behavior file.  If the velocity component
+			 *							references resources in the file system, it should be
+			 *							defined relative to the behavior file location.  This is
+			 *							the folder containing that path. 
 			 *	@returns	A boolean reporting success (true) or failure (false).
 			 */
-			virtual bool setFromXML( VelComponent * vc, TiXmlElement * node, const std::string & behaveFldr ) const;
+			virtual bool setFromXML( VelComponent * vc, TiXmlElement * node,
+									 const std::string & behaveFldr ) const;
 		
 			/*!
 			 *	@brief		The identifier for the "file_name" string attribute.

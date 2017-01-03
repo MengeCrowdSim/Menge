@@ -44,7 +44,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __EVENT_EXCEPTION_H__
 #define __EVENT_EXCEPTION_H__
 
-#include "MengeException.h"
+#include "MengeCore/MengeException.h"
 #include <string>
 
 namespace Menge {
@@ -81,7 +81,8 @@ namespace Menge {
 		 *
 		 *	@param		s		The exception-specific message.
 		 */
-		EventFatalException( const std::string & s ):MengeException(s), EventException(), MengeFatalException() {}
+		EventFatalException( const std::string & s ) : MengeException(s), EventException(),
+													  MengeFatalException() {}
 	};
 
 }	// namespace Menge

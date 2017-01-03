@@ -36,11 +36,12 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "VelocityComponents/VelCompVF.h"
-#include "BaseAgent.h"
-#include "os.h"
-#include "Logger.h"
-#include "Goals/Goal.h"
+#include "MengeCore/BFSM/VelocityComponents/VelCompVF.h"
+
+#include "MengeCore/Agents/BaseAgent.h"
+#include "MengeCore/BFSM/Goals/Goal.h"
+#include "MengeCore/Runtime/Logger.h"
+#include "MengeCore/Runtime/os.h"
 
 #include <sstream>
 #include <iomanip>
@@ -53,17 +54,19 @@ namespace Menge {
 		//                   Implementation of VFVelComponent
 		/////////////////////////////////////////////////////////////////////
 
-		VFVelComponent::VFVelComponent(): VelComponent(), _vf(0x0), _nearest(true) {
+		VFVelComponent::VFVelComponent() : VelComponent(), _vf( 0x0 ), _nearest( true ) {
 		}
 
 		/////////////////////////////////////////////////////////////////////
 
-		VFVelComponent::VFVelComponent( VectorFieldPtr & vf, bool useNearest ): VelComponent(), _vf(vf), _nearest(useNearest) {
+		VFVelComponent::VFVelComponent( VectorFieldPtr & vf, bool useNearest ) :
+			VelComponent(), _vf( vf ), _nearest(useNearest) {
 		}
 
 		/////////////////////////////////////////////////////////////////////
 
-		void VFVelComponent::setPrefVelocity( const Agents::BaseAgent * agent, const Goal * goal, Agents::PrefVelocity & pVel ) {
+		void VFVelComponent::setPrefVelocity( const Agents::BaseAgent * agent, const Goal * goal,
+											  Agents::PrefVelocity & pVel ) {
 			Vector2 dir;
 			if ( _nearest ) {
 				dir.set( _vf->getFieldValue( agent->_pos ) );
@@ -85,7 +88,7 @@ namespace Menge {
 		}
 
 		/////////////////////////////////////////////////////////////////////
-		
+#if 0
 		VelCompContext * VFVelComponent::getContext() {
 			return new VecFieldVCContext( this );
 		}
@@ -222,33 +225,38 @@ namespace Menge {
 
 			glPopAttrib();
 		}
-
+#endif
 		/////////////////////////////////////////////////////////////////////
 		//                   Implementation of VFVCFactory
 		/////////////////////////////////////////////////////////////////////
 
 		VFVCFactory::VFVCFactory() : VelCompFactory() {
 			_fileNameID = _attrSet.addStringAttribute( "file_name", true /*required*/ );
-			_useNearestID = _attrSet.addBoolAttribute( "use_nearest", false /*required*/, true /*default*/ );
+			_useNearestID = _attrSet.addBoolAttribute( "use_nearest", false /*required*/,
+													   true /*default*/ );
 		}
 
 		/////////////////////////////////////////////////////////////////////
 
-		bool VFVCFactory::setFromXML( VelComponent * vc, TiXmlElement * node, const std::string & behaveFldr ) const {
+		bool VFVCFactory::setFromXML( VelComponent * vc, TiXmlElement * node,
+									  const std::string & behaveFldr ) const {
 			VFVelComponent * vfvc = dynamic_cast< VFVelComponent * >( vc );
-			assert( vfvc != 0x0 && "Trying to set attributes of a velocity field velocity component on an incompatible object" );
+			assert( vfvc != 0x0 && "Trying to set attributes of a velocity field velocity "
+					"component on an incompatible object" );
 			
 			if ( ! VelCompFactory::setFromXML( vfvc, node, behaveFldr ) ) return false;
 
 			// get the file name
 			std::string fName;
-			std::string path = os::path::join( 2, behaveFldr.c_str(), _attrSet.getString( _fileNameID ).c_str() );
+			std::string path = os::path::join( 2, behaveFldr.c_str(),
+											   _attrSet.getString( _fileNameID ).c_str() );
 			os::path::absPath( path, fName );
 			VectorFieldPtr vfPtr;
 			try {
 				vfPtr = loadVectorField( fName );
 			} catch ( ResourceException ) {
-				logger << Logger::ERR_MSG << "Couldn't instantiate the vector field referenced on line " << node->Row() << ".";
+				logger << Logger::ERR_MSG << "Couldn't instantiate the vector field referenced "
+					"on line " << node->Row() << ".";
 				return false;
 			}
 			vfvc->setVectorField( vfPtr );

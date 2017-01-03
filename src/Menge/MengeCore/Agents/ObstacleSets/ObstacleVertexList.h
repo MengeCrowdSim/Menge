@@ -44,14 +44,15 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __OBSTACLE_VERTEX_LIST__
 #define __OBSTACLE_VERTEX_LIST__
 
+#include "MengeCore/mengeCommon.h"
+
 #include <vector>
-#include "mengeCommon.h"
 
 namespace Menge {
 
 	/*!
 	 *  @file       ObstacleVertexList.h
-	 *  @brief      defines a struct for passing around obstacles as lists of vertex and a closed flag
+	 *  @brief      Defines a struct for passing around obstacles as lists of vertices.
 	 */
 	namespace Agents {
 		/*!
@@ -61,7 +62,7 @@ namespace Menge {
 			/*!
 			 *	@brief		The list of vertices for the obstacle.
 			 */
-			std::vector<Vector2> vertices;
+			std::vector<Math::Vector2> vertices;
 
 			/*! 
 			 *	@brief		Indicates if the obstacle is closed (true) or open (false).
@@ -71,4 +72,4 @@ namespace Menge {
 	}	// namespace Agents
 }	// namespace Menge
 
-#endif
+#endif	// __OBSTACLE_VERTEX_LIST__

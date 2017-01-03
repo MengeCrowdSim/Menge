@@ -44,7 +44,8 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __CONSTS_H__
 #define __CONSTS_H__
 
-#include "CoreConfig.h"
+#include "MengeCore/CoreConfig.h"
+
 #include <math.h>
 
 namespace Menge {

@@ -36,7 +36,8 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "Matrix.h"
+#include "MengeCore/Math/Matrix.h"
+
 #include <cstring>
 #include <cassert>
 
@@ -144,9 +145,12 @@ namespace Menge {
 		///////////////////////////////////////////////////////////////////////////
 
 		void Matrix4x4::translateRotationLeft( const Vector3 & trans ) {
-			_matData[3][0] = _matData[0][0] * trans._x + _matData[1][0] * trans._y + _matData[2][0] * trans._z;
-			_matData[3][1] = _matData[0][1] * trans._x + _matData[1][1] * trans._y + _matData[2][1] * trans._z;
-			_matData[3][2] = _matData[0][2] * trans._x + _matData[1][2] * trans._y + _matData[2][2] * trans._z;
+			_matData[3][0] = _matData[0][0] * trans._x +
+				_matData[1][0] * trans._y + _matData[2][0] * trans._z;
+			_matData[3][1] = _matData[0][1] * trans._x +
+				_matData[1][1] * trans._y + _matData[2][1] * trans._z;
+			_matData[3][2] = _matData[0][2] * trans._x +
+				_matData[1][2] * trans._y + _matData[2][2] * trans._z;
 		}
 
 		///////////////////////////////////////////////////////////////////////////
@@ -170,48 +174,93 @@ namespace Menge {
 		///////////////////////////////////////////////////////////////////////////
 
 		void Matrix4x4::product( const Matrix4x4 & m1, const Matrix4x4 & m2 ) {
-			_matData[0][0] = m1._matData[0][0] * m2._matData[0][0] + m1._matData[0][1] * m2._matData[1][0] + m1._matData[0][2] * m2._matData[2][0] + m1._matData[0][3] * m2._matData[3][0];
-			_matData[0][1] = m1._matData[0][0] * m2._matData[0][1] + m1._matData[0][1] * m2._matData[1][1] + m1._matData[0][2] * m2._matData[2][1] + m1._matData[0][3] * m2._matData[3][1];
-			_matData[0][2] = m1._matData[0][0] * m2._matData[0][2] + m1._matData[0][1] * m2._matData[1][2] + m1._matData[0][2] * m2._matData[2][2] + m1._matData[0][3] * m2._matData[3][2];
-			_matData[0][3] = m1._matData[0][0] * m2._matData[0][3] + m1._matData[0][1] * m2._matData[1][3] + m1._matData[0][2] * m2._matData[2][3] + m1._matData[0][3] * m2._matData[3][3];
+			_matData[0][0] = m1._matData[0][0] * m2._matData[0][0] +
+				m1._matData[0][1] * m2._matData[1][0] +
+				m1._matData[0][2] * m2._matData[2][0] + m1._matData[0][3] * m2._matData[3][0];
+			_matData[0][1] = m1._matData[0][0] * m2._matData[0][1] +
+				m1._matData[0][1] * m2._matData[1][1] +
+				m1._matData[0][2] * m2._matData[2][1] + m1._matData[0][3] * m2._matData[3][1];
+			_matData[0][2] = m1._matData[0][0] * m2._matData[0][2] +
+				m1._matData[0][1] * m2._matData[1][2] +
+				m1._matData[0][2] * m2._matData[2][2] + m1._matData[0][3] * m2._matData[3][2];
+			_matData[0][3] = m1._matData[0][0] * m2._matData[0][3] +
+				m1._matData[0][1] * m2._matData[1][3] +
+				m1._matData[0][2] * m2._matData[2][3] + m1._matData[0][3] * m2._matData[3][3];
 
-			_matData[1][0] = m1._matData[1][0] * m2._matData[0][0] + m1._matData[1][1] * m2._matData[1][0] + m1._matData[1][2] * m2._matData[2][0] + m1._matData[1][3] * m2._matData[3][0];
-			_matData[1][1] = m1._matData[1][0] * m2._matData[0][1] + m1._matData[1][1] * m2._matData[1][1] + m1._matData[1][2] * m2._matData[2][1] + m1._matData[1][3] * m2._matData[3][1];
-			_matData[1][2] = m1._matData[1][0] * m2._matData[0][2] + m1._matData[1][1] * m2._matData[1][2] + m1._matData[1][2] * m2._matData[2][2] + m1._matData[1][3] * m2._matData[3][2];
-			_matData[1][3] = m1._matData[1][0] * m2._matData[0][3] + m1._matData[1][1] * m2._matData[1][3] + m1._matData[1][2] * m2._matData[2][3] + m1._matData[1][3] * m2._matData[3][3];
+			_matData[1][0] = m1._matData[1][0] * m2._matData[0][0] +
+				m1._matData[1][1] * m2._matData[1][0] +
+				m1._matData[1][2] * m2._matData[2][0] + m1._matData[1][3] * m2._matData[3][0];
+			_matData[1][1] = m1._matData[1][0] * m2._matData[0][1] +
+				m1._matData[1][1] * m2._matData[1][1] +
+				m1._matData[1][2] * m2._matData[2][1] + m1._matData[1][3] * m2._matData[3][1];
+			_matData[1][2] = m1._matData[1][0] * m2._matData[0][2] +
+				m1._matData[1][1] * m2._matData[1][2] +
+				m1._matData[1][2] * m2._matData[2][2] + m1._matData[1][3] * m2._matData[3][2];
+			_matData[1][3] = m1._matData[1][0] * m2._matData[0][3] +
+				m1._matData[1][1] * m2._matData[1][3] +
+				m1._matData[1][2] * m2._matData[2][3] + m1._matData[1][3] * m2._matData[3][3];
 
-			_matData[2][0] = m1._matData[2][0] * m2._matData[0][0] + m1._matData[2][1] * m2._matData[1][0] + m1._matData[2][2] * m2._matData[2][0] + m1._matData[2][3] * m2._matData[3][0];
-			_matData[2][1] = m1._matData[2][0] * m2._matData[0][1] + m1._matData[2][1] * m2._matData[1][1] + m1._matData[2][2] * m2._matData[2][1] + m1._matData[2][3] * m2._matData[3][1];
-			_matData[2][2] = m1._matData[2][0] * m2._matData[0][2] + m1._matData[2][1] * m2._matData[1][2] + m1._matData[2][2] * m2._matData[2][2] + m1._matData[2][3] * m2._matData[3][2];
-			_matData[2][3] = m1._matData[2][0] * m2._matData[0][3] + m1._matData[2][1] * m2._matData[1][3] + m1._matData[2][2] * m2._matData[2][3] + m1._matData[2][3] * m2._matData[3][3];
+			_matData[2][0] = m1._matData[2][0] * m2._matData[0][0] +
+				m1._matData[2][1] * m2._matData[1][0] +
+				m1._matData[2][2] * m2._matData[2][0] + m1._matData[2][3] * m2._matData[3][0];
+			_matData[2][1] = m1._matData[2][0] * m2._matData[0][1] +
+				m1._matData[2][1] * m2._matData[1][1] +
+				m1._matData[2][2] * m2._matData[2][1] + m1._matData[2][3] * m2._matData[3][1];
+			_matData[2][2] = m1._matData[2][0] * m2._matData[0][2] +
+				m1._matData[2][1] * m2._matData[1][2] +
+				m1._matData[2][2] * m2._matData[2][2] + m1._matData[2][3] * m2._matData[3][2];
+			_matData[2][3] = m1._matData[2][0] * m2._matData[0][3] +
+				m1._matData[2][1] * m2._matData[1][3] +
+				m1._matData[2][2] * m2._matData[2][3] + m1._matData[2][3] * m2._matData[3][3];
 
-			_matData[3][0] = m1._matData[3][0] * m2._matData[0][0] + m1._matData[3][1] * m2._matData[1][0] + m1._matData[3][2] * m2._matData[2][0] + m1._matData[3][3] * m2._matData[3][0];
-			_matData[3][1] = m1._matData[3][0] * m2._matData[0][1] + m1._matData[3][1] * m2._matData[1][1] + m1._matData[3][2] * m2._matData[2][1] + m1._matData[3][3] * m2._matData[3][1];
-			_matData[3][2] = m1._matData[3][0] * m2._matData[0][2] + m1._matData[3][1] * m2._matData[1][2] + m1._matData[3][2] * m2._matData[2][2] + m1._matData[3][3] * m2._matData[3][2];
-			_matData[3][3] = m1._matData[3][0] * m2._matData[0][3] + m1._matData[3][1] * m2._matData[1][3] + m1._matData[3][2] * m2._matData[2][3] + m1._matData[3][3] * m2._matData[3][3];
+			_matData[3][0] = m1._matData[3][0] * m2._matData[0][0] +
+				m1._matData[3][1] * m2._matData[1][0] +
+				m1._matData[3][2] * m2._matData[2][0] + m1._matData[3][3] * m2._matData[3][0];
+			_matData[3][1] = m1._matData[3][0] * m2._matData[0][1] +
+				m1._matData[3][1] * m2._matData[1][1] +
+				m1._matData[3][2] * m2._matData[2][1] + m1._matData[3][3] * m2._matData[3][1];
+			_matData[3][2] = m1._matData[3][0] * m2._matData[0][2] +
+				m1._matData[3][1] * m2._matData[1][2] +
+				m1._matData[3][2] * m2._matData[2][2] + m1._matData[3][3] * m2._matData[3][2];
+			_matData[3][3] = m1._matData[3][0] * m2._matData[0][3] +
+				m1._matData[3][1] * m2._matData[1][3] +
+				m1._matData[3][2] * m2._matData[2][3] + m1._matData[3][3] * m2._matData[3][3];
 		}
 
 		///////////////////////////////////////////////////////////////////////////
 
 		void Matrix4x4::product3x3( const Matrix4x4 & m1, const Matrix4x4 & m2 ) {
-			_matData[0][3] = _matData[1][3] = _matData[2][3] = _matData[3][0] = _matData[3][1] = _matData[3][2] = 0.f;
+			_matData[0][3] = _matData[1][3] = _matData[2][3] =
+				_matData[3][0] = _matData[3][1] = _matData[3][2] = 0.f;
 			_matData[3][3] = 1.f;
 
-			_matData[0][0] = m1._matData[0][0] * m2._matData[0][0] + m1._matData[0][1] * m2._matData[1][0] + m1._matData[0][2] * m2._matData[2][0];
-			_matData[0][1] = m1._matData[0][0] * m2._matData[0][1] + m1._matData[0][1] * m2._matData[1][1] + m1._matData[0][2] * m2._matData[2][1];
-			_matData[0][2] = m1._matData[0][0] * m2._matData[0][2] + m1._matData[0][1] * m2._matData[1][2] + m1._matData[0][2] * m2._matData[2][2];
+			_matData[0][0] = m1._matData[0][0] * m2._matData[0][0] +
+				m1._matData[0][1] * m2._matData[1][0] + m1._matData[0][2] * m2._matData[2][0];
+			_matData[0][1] = m1._matData[0][0] * m2._matData[0][1] +
+				m1._matData[0][1] * m2._matData[1][1] + m1._matData[0][2] * m2._matData[2][1];
+			_matData[0][2] = m1._matData[0][0] * m2._matData[0][2] +
+				m1._matData[0][1] * m2._matData[1][2] + m1._matData[0][2] * m2._matData[2][2];
 			
-			_matData[1][0] = m1._matData[1][0] * m2._matData[0][0] + m1._matData[1][1] * m2._matData[1][0] + m1._matData[1][2] * m2._matData[2][0];
-			_matData[1][1] = m1._matData[1][0] * m2._matData[0][1] + m1._matData[1][1] * m2._matData[1][1] + m1._matData[1][2] * m2._matData[2][1];
-			_matData[1][2] = m1._matData[1][0] * m2._matData[0][2] + m1._matData[1][1] * m2._matData[1][2] + m1._matData[1][2] * m2._matData[2][2];
+			_matData[1][0] = m1._matData[1][0] * m2._matData[0][0] +
+				m1._matData[1][1] * m2._matData[1][0] + m1._matData[1][2] * m2._matData[2][0];
+			_matData[1][1] = m1._matData[1][0] * m2._matData[0][1] +
+				m1._matData[1][1] * m2._matData[1][1] + m1._matData[1][2] * m2._matData[2][1];
+			_matData[1][2] = m1._matData[1][0] * m2._matData[0][2] +
+				m1._matData[1][1] * m2._matData[1][2] + m1._matData[1][2] * m2._matData[2][2];
 
-			_matData[2][0] = m1._matData[2][0] * m2._matData[0][0] + m1._matData[2][1] * m2._matData[1][0] + m1._matData[2][2] * m2._matData[2][0];
-			_matData[2][1] = m1._matData[2][0] * m2._matData[0][1] + m1._matData[2][1] * m2._matData[1][1] + m1._matData[2][2] * m2._matData[2][1];
-			_matData[2][2] = m1._matData[2][0] * m2._matData[0][2] + m1._matData[2][1] * m2._matData[1][2] + m1._matData[2][2] * m2._matData[2][2];
+			_matData[2][0] = m1._matData[2][0] * m2._matData[0][0] +
+				m1._matData[2][1] * m2._matData[1][0] + m1._matData[2][2] * m2._matData[2][0];
+			_matData[2][1] = m1._matData[2][0] * m2._matData[0][1] +
+				m1._matData[2][1] * m2._matData[1][1] + m1._matData[2][2] * m2._matData[2][1];
+			_matData[2][2] = m1._matData[2][0] * m2._matData[0][2] +
+				m1._matData[2][1] * m2._matData[1][2] + m1._matData[2][2] * m2._matData[2][2];
 
-			_matData[3][0] = m1._matData[3][0] * m2._matData[0][0] + m1._matData[3][1] * m2._matData[1][0] + m1._matData[3][2] * m2._matData[2][0];
-			_matData[3][1] = m1._matData[3][0] * m2._matData[0][1] + m1._matData[3][1] * m2._matData[1][1] + m1._matData[3][2] * m2._matData[2][1];
-			_matData[3][2] = m1._matData[3][0] * m2._matData[0][2] + m1._matData[3][1] * m2._matData[1][2] + m1._matData[3][2] * m2._matData[2][2];
+			_matData[3][0] = m1._matData[3][0] * m2._matData[0][0] +
+				m1._matData[3][1] * m2._matData[1][0] + m1._matData[3][2] * m2._matData[2][0];
+			_matData[3][1] = m1._matData[3][0] * m2._matData[0][1] +
+				m1._matData[3][1] * m2._matData[1][1] + m1._matData[3][2] * m2._matData[2][1];
+			_matData[3][2] = m1._matData[3][0] * m2._matData[0][2] +
+				m1._matData[3][1] * m2._matData[1][2] + m1._matData[3][2] * m2._matData[2][2];
 		}
 
 		///////////////////////////////////////////////////////////////////////////
@@ -267,10 +316,14 @@ namespace Menge {
 		///////////////////////////////////////////////////////////////////////////
 
 		Logger & operator << ( Logger & out, const Matrix4x4 & mat ) {
-			out << mat._matData[0][0] << " " << mat._matData[0][1] << " " << mat._matData[0][2] << " " << mat._matData[0][3] << "\n";
-			out << mat._matData[1][0] << " " << mat._matData[1][1] << " " << mat._matData[1][2] << " " << mat._matData[1][3] << "\n";
-			out << mat._matData[2][0] << " " << mat._matData[2][1] << " " << mat._matData[2][2] << " " << mat._matData[2][3] << "\n";
-			out << mat._matData[3][0] << " " << mat._matData[3][1] << " " << mat._matData[3][2] << " " << mat._matData[3][3];
+			out << mat._matData[ 0 ][ 0 ] << " " << mat._matData[ 0 ][ 1 ] << " ";
+			out << mat._matData[ 0 ][ 2 ] << " " << mat._matData[ 0 ][ 3 ] << "\n";
+			out << mat._matData[ 1 ][ 0 ] << " " << mat._matData[ 1 ][ 1 ] << " ";
+			out << mat._matData[ 1 ][ 2 ] << " " << mat._matData[ 1 ][ 3 ] << "\n";
+			out << mat._matData[ 2 ][ 0 ] << " " << mat._matData[ 2 ][ 1 ] << " ";
+			out << mat._matData[ 2 ][ 2 ] << " " << mat._matData[ 2 ][ 3 ] << "\n";
+			out << mat._matData[ 3 ][ 0 ] << " " << mat._matData[ 3 ][ 1 ] << " ";
+			out << mat._matData[ 3 ][ 2 ] << " " << mat._matData[ 3 ][ 3 ];
 			return out;
 		}
 

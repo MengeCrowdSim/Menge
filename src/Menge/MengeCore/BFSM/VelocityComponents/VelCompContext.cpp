@@ -35,13 +35,13 @@ TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
-
+#if 0
 #include "VelCompContext.h"
-#include "BaseAgent.h"
-#include "PrefVelocity.h"
-#include "VelComponent.h"
+#include "MengeCore/Agents/BaseAgent.h"
+#include "MengeCore/Agents/PrefVelocity.h"
+#include "MengeCore/BFSM/VelocityComponents/VelComponent.h"
 #include "shapes.h"
-#include "Goals/Goal.h"
+#include "MengeCore/BFSM/Goals/Goal.h"
 #include <sstream>
 #include "TextWriter.h"
 #include <iomanip>
@@ -153,3 +153,4 @@ namespace Menge {
 
 	}	// namespace BFSM
 }	// namespace Menge
+#endif // 0

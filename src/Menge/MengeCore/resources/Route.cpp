@@ -36,9 +36,10 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "Route.h"
-#include "NavMeshEdge.h"
-#include "WayPortal.h"
+#include "MengeCore/resources/Route.h"
+
+#include "MengeCore/resources/NavMeshEdge.h"
+#include "MengeCore/resources/WayPortal.h"
 
 namespace Menge {
 
@@ -46,7 +47,8 @@ namespace Menge {
 	//					Implementation of PortalRoute
 	/////////////////////////////////////////////////////////////////////
 
-	PortalRoute::PortalRoute( unsigned int start, unsigned int end ): _startNode(start), _endNode(end), _maxWidth(1e6f), _bestSmallest(1e6f), _length(0.f) {
+	PortalRoute::PortalRoute( unsigned int start, unsigned int end ) : _startNode(start),
+		_endNode(end), _maxWidth(1e6f), _bestSmallest(1e6f), _length(0.f) {
 	}
 
 	/////////////////////////////////////////////////////////////////////

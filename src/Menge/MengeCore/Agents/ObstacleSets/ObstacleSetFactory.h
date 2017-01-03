@@ -45,9 +45,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __OBSTACLE_SET_FACTORY_H__
 #define __OBSTACLE_SET_FACTORY_H__
 
-#include "CoreConfig.h"
-#include "ElementFactory.h"
-#include "ObstacleSets/ObstacleSet.h"
+#include "MengeCore/CoreConfig.h"
+#include "MengeCore/Agents/ObstacleSets/ObstacleSet.h"
+#include "MengeCore/PluginEngine/ElementFactory.h"
 
 namespace Menge {
 
@@ -71,20 +71,21 @@ namespace Menge {
 			 *
 			 *	It is assumed that the value of the `type` attribute is this ObstacleSet's type.
 			 *	(i.e. ObstacleSetFactory::thisFactory has already been called and returned true.)
-			 *	If sub-classes of ObstacleSetFactory introduce *new* ObstacleSet parameters, then the
-			 *	sub-class should override this method but explicitly call the parent class's
+			 *	If sub-classes of ObstacleSetFactory introduce *new* ObstacleSet parameters, then
+			 *	the sub-class should override this method but explicitly call the parent class's
 			 *	version.
 			 *
-			 *	@param		gen				A pointer to the ObstacleSet whose attributes are to be set.
-			 *	@param		node			The XML node containing the ObstacleSet attributes.
-			 *	@param		behaveFldr		The path to the behavior file.  If the ObstacleSet references
-			 *								resources in the file system, it should be defined relative
-			 *								to the behavior file location.  This is the folder containing
-			 *								that path. 
+			 *	@param		gen			A pointer to the ObstacleSet whose attributes are to be
+			 *							set.
+			 *	@param		node		The XML node containing the ObstacleSet attributes.
+			 *	@param		specFldr	The path to the specification file.  If the ObstacleSet
+			 *							references resources in the file system, it should be
+			 *							defined relative to the specification file location.  This
+			 *							is the folder containing that path.
 			 *	@returns	A boolean reporting success (true) or failure (false).
 			 */
-			virtual bool setFromXML( ObstacleSet * gen, TiXmlElement * node, const std::string & behaveFldr ) const;
-
+			virtual bool setFromXML( ObstacleSet * gen, TiXmlElement * node,
+									 const std::string & specFldr ) const;
 
 			/*!
 			 *	@brief		The identifier for the "class" size_t parameter.

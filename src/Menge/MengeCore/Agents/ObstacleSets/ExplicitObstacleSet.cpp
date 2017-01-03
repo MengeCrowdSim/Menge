@@ -36,8 +36,10 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "ObstacleSets/ExplicitObstacleSet.h"
+#include "MengeCore/Agents/ObstacleSets/ExplicitObstacleSet.h"
+
 #include "tinyxml.h"
+
 #include <vector>
 
 namespace Menge {
@@ -55,14 +57,18 @@ namespace Menge {
 		//			Implementation of ExplicitObstacleSetFactory
 		////////////////////////////////////////////////////////////////////////////
 
-		bool ExplicitObstacleSetFactory::setFromXML( ObstacleSet * gen, TiXmlElement * node, const std::string & specFldr ) const {
+		bool ExplicitObstacleSetFactory::setFromXML( ObstacleSet * gen, TiXmlElement * node,
+													 const std::string & specFldr ) const {
 			ExplicitObstacleSet * eSet = dynamic_cast< ExplicitObstacleSet * >( gen );
-			assert( eSet != 0x0 && "Trying to set attributes of an explicit obstacle set on an incompatible object" );
+			assert( eSet != 0x0 && "Trying to set attributes of an explicit obstacle set on an "
+					"incompatible object" );
 
 			if ( ! ObstacleSetFactory::setFromXML( eSet, node, specFldr ) ) return false;
 
 			bool isClosed = false;
-			for( TiXmlElement * child = node->FirstChildElement(); child; child = child->NextSiblingElement()) {
+			for( TiXmlElement * child = node->FirstChildElement();
+				 child;
+				 child = child->NextSiblingElement()) {
 				if ( child->ValueStr() == "Obstacle" ) {
 					try {
 						ObstacleVertexList obs = parseObstacle( child);
@@ -71,7 +77,9 @@ namespace Menge {
 						return false;
 					}
 				} else {
-					logger << Logger::WARN_MSG << "Found an unexpected child tag in an ObstacleSet on line " << node->Row() << ".  Ignoring the tag: " << child->ValueStr() << ".";
+					logger << Logger::WARN_MSG << "Found an unexpected child tag in an "
+						"ObstacleSet on line " << node->Row() << ".  Ignoring the tag: ";
+					logger << child->ValueStr() << ".";
 				}
 			}
 
@@ -90,14 +98,17 @@ namespace Menge {
 			}
 
 			if (!vList.closed) {
-				logger << Logger::ERR_MSG << "This version of Menge does not support open obstacles.  Obstacle on line " << node->Row() << " is declared to be open.\n";
+				logger << Logger::ERR_MSG << "This version of Menge does not support open "
+					"obstacles.  Obstacle on line " << node->Row() << " is declared to be open.\n";
 				throw ObstacleSetFatalException("Unsupported open obstacles");
 			}
 
 			double dVal;
 			bool valid = true;
 			
-			for ( TiXmlElement * vert = node->FirstChildElement(); vert; vert = vert->NextSiblingElement() ) {
+			for ( TiXmlElement * vert = node->FirstChildElement();
+				  vert;
+				  vert = vert->NextSiblingElement() ) {
 				if ( vert->ValueStr() == "Vertex") {
 					float p_x = 0;
 					float p_y = 0;
@@ -113,18 +124,23 @@ namespace Menge {
 					}
 
 					if ( ! valid ) {
-						logger << Logger::ERR_MSG << "Obstacle vertex on line " << vert->Row() << " is missing the full x- and y-position specification.";
-						throw ObstacleSetFatalException("Obstacle vertex missing full specification");
+						logger << Logger::ERR_MSG << "Obstacle vertex on line " << vert->Row();
+						logger << " is missing the full x- and y-position specification.";
+						throw ObstacleSetFatalException("Obstacle vertex missing full "
+														 "specification");
 
 					}
 					vList.vertices.push_back( Vector2( p_x, p_y ) );
 				}
 				else {
-					logger << Logger::WARN_MSG << "Encountered unexpected tag inside an obstacle definition on line " << vert->Row() << ": " << vert->ValueStr() << ".  It will be ignored.";
+					logger << Logger::WARN_MSG << "Encountered unexpected tag inside an obstacle "
+						"definition on line " << vert->Row() << ": " << vert->ValueStr() << ".  "
+						"It will be ignored.";
 				}
 
 				if ( ! valid ) {
-					logger << Logger::ERR_MSG << "Incomplete obstacle definition on line " << node->Row() << ".";
+					logger << Logger::ERR_MSG << "Incomplete obstacle definition on line ";
+					logger << node->Row() << ".";
 					throw ObstacleSetFatalException("Incomplete obstacle definition");
 				}
 			}
@@ -133,5 +149,3 @@ namespace Menge {
 		};
 	}	// namespace Agents
 }	// namespace Menge
-
-

@@ -47,10 +47,11 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __NAV_MESH_EDGE_H__
 #define __NAV_MESH_EDGE_H__
 
-#include <fstream>
-#include "mengeCommon.h"
+#include "MengeCore/mengeCommon.h"
 
-	namespace Menge {
+#include <fstream>
+
+namespace Menge {
 
 	// Forward declarations
 	class NavMesh;
@@ -63,11 +64,10 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 	 *	@brief		The navigation mesh adjacency graph edge.  
 	 *
 	 *	It is comprised of
-	 *	two parts: the portal geometry and the logical graph connectivity.
-	 *	A NavMeshEdge exists because two navigation mesh polygons share
-	 *	a common edge.  The portal geometry is the edge.  The graph
-	 *	connectivity indicates that the two mesh polygons (nodes) are
-	 *	connected in the logical graph.
+	 *	two parts: the portal geometry and the logical graph connectivity. A NavMeshEdge exists
+	 *	because two navigation mesh polygons share a common edge.  The portal geometry is the edge.
+	 *	The graph connectivity indicates that the two mesh polygons (nodes) are  connected in the
+	 *	logical graph.
 	 */
 	class NavMeshEdge {
 	public:
@@ -86,7 +86,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 		 *
 		 *	@returns	The 2D value of the first edge end point
 		 */
-		inline Vector2 getP0() const { return _point; }
+		inline Math::Vector2 getP0() const { return _point; }
 
 		/*!
 		 *	@brief		Returns a point inset from the first end point.
@@ -94,14 +94,14 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 		 *	@param		dist		The inset distance.
 		 *	@returns	The 2D value of the point inset dist from the first edge end point
 		 */
-		inline Vector2 getP0( float dist ) const { return _point + _dir * dist; }
+		inline Math::Vector2 getP0( float dist ) const { return _point + _dir * dist; }
 
 		/*!
 		 *	@brief		Returns the second edge point.
 		 *
 		 *	@returns	The 2D value of the second edge end point
 		 */
-		inline Vector2 getP1() const { return _point + _dir * _width; }
+		inline Math::Vector2 getP1() const { return _point + _dir * _width; }
 
 		/*!
 		 *	@brief		Returns a point inset from the second end point.
@@ -109,14 +109,16 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 		 *	@param		dist		The inset distance.
 		 *	@returns	The 2D value of the point inset dist from the second edge end point
 		 */
-		inline Vector2 getP1( float dist ) const { return _point + _dir * (_width - dist); }
+		inline Math::Vector2 getP1( float dist ) const {
+			return _point + _dir * ( _width - dist );
+		}
 
 		/*!
 		 *	@brief		Returns the direction of the edge.
 		 *
 		 *	@returns	The edge's direction.
 		 */
-		inline Vector2 getDirection() const { return _dir; }
+		inline Math::Vector2 getDirection() const { return _dir; }
 
 		/*!
 		 *	@brief		Returns the first attached NavMeshNode
@@ -126,11 +128,11 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 		NavMeshNode * getFirstNode() const { return _node0; }
 
 		/*!
-		 *	@brief		Returns a pointer to the node on the opposite end
-		 *				of the edge from the given node (by id).
+		 *	@brief		Returns a pointer to the node on the opposite end of the edge from the
+		 *				given node (by id).
 		 *
-		 *	If the given node is not actually adjacent to the edge, then the
-		 *	first adjacent node is returned.
+		 *	If the given node is not actually adjacent to the edge, then the first adjacent node is
+		 *	returned.
 		 *
 		 *	@param		id		The identifier of the operand node.
 		 *	@returns	A pointer to the node on the other side of the edge.
@@ -138,11 +140,11 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 		NavMeshNode * getOtherByID( unsigned int id ) const;
 
 		/*!
-		 *	@brief		Returns a pointer to the node on the opposite end
-		 *				of the edge from the given node (by pointer).
+		 *	@brief		Returns a pointer to the node on the opposite end of the edge from the
+		 *				given node (by pointer).
 		 *
-		 *	If the given node is not actually adjacent to the edge, then the
-		 *	first adjacent node is returned.
+		 *	If the given node is not actually adjacent to the edge, then the first adjacent node is
+		 *	returned.
 		 *
 		 *	@param		node		A pointer to the operand node.
 		 *	@returns	A pointer to the node on the other side of the edge.
@@ -150,11 +152,11 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 		NavMeshNode * getOtherByPtr( const NavMeshNode * node );
 
 		/*!
-		 *	@brief		Returns a const pointer to the node on the opposite end
-		 *				of the edge from the given node (by pointer).
+		 *	@brief		Returns a const pointer to the node on the opposite end of the edge from
+		 *				the given node (by pointer).
 		 *
-		 *	If the given node is not actually adjacent to the edge, then the
-		 *	first adjacent node is returned.
+		 *	If the given node is not actually adjacent to the edge, then the first adjacent node is
+		 *	returned.
 		 *
 		 *	@param		node		A pointer to the operand node.
 		 *	@returns	A const pointer to the node on the other side of the edge.
@@ -172,15 +174,15 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 		 *
 		 *	@param		p		The point value to set.
 		 */
-		inline void setPoint( const Vector2 & p ) { _point.set( p ); }
+		inline void setPoint( const Math::Vector2 & p ) { _point.set( p ); }
 
 		/*!
 		 *	@brief		Sets the edge's direction value.
 		 *
-		 *	@param		d		The direction value to set.  It is assumed to be
-		 *						normalized and is not tested.
+		 *	@param		d		The direction value to set.  It is assumed to be normalized and is
+		 *						not tested.
 		 */
-		inline void setDirection( const Vector2 & d ) { _dir.set( d ); }
+		inline void setDirection( const Math::Vector2 & d ) { _dir.set( d ); }
 
 		/*!
 		 *	@brief		Sets the edge's width value.
@@ -214,36 +216,35 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 		 *	@param		t		The parameter from _point in the edge direction.
 		 *	@returns	The point which is: _point + t * _dir;
 		 */
-		inline Vector2 getPoint( float t ) const { return _point + t * _dir; }
+		inline Math::Vector2 getPoint( float t ) const { return _point + t * _dir; }
 
 		/*!
-		 *	@brief		Reports if the point q = _point + param * _dir is
-		 *				clear for an agent with the given radius positioned at pos.
-		 *				"Clear" means a straight-line path will not cause it to intersect
-		 *				the ends of the edge.
+		 *	@brief		Reports if the point q = _point + param * _dir is clear for an agent with
+		 *				the given radius positioned at pos. "Clear" means a straight-line path will
+		 *				not cause it to intersect the ends of the edge.
 		 *
 		 *	@param		pos			The position of the agent.
 		 *	@param		radius		The radius of the agent.
-		 *	@param		param		The parameter, along the edge's direction, of the 
-		 *							desired goal point.
+		 *	@param		param		The parameter, along the edge's direction, of the desired goal
+		 *							point.
 		 *	@returns	A boolean reporting if the straight line path is clear (true) or
 		 *				occlued (false).
 		 */
-		bool pointClear( const Vector2 & pos, float radius, float param ) const;
+		bool pointClear( const Math::Vector2 & pos, float radius, float param ) const;
 
 		/*!
-		 *	@brief		Computes a target point with respect to this edge.  The target point
-		 *				is a point along the line of the edge to which the agent with the
-		 *				given radius can head straight towards and be guaranteed NOT to
-		 *				intersect with the end points of the edge.  It also leads the agent
-		 *				to get closer to crossing the edge.
+		 *	@brief		Computes a target point with respect to this edge.  The target point is a
+		 *				point along the line of the edge to which the agent with the given radius
+		 *				can head straight towards and be guaranteed NOT to intersect with the end
+		 *				points of the edge.  It also leads the agent to get closer to crossing the
+		 *				edge.
 		 *
 		 *	@param		pos			The position from which to compute nearest point.
 		 *	@param		radius		The radius of the agent -- required clearance.
-		 *	@returns	A point which represents the goal point the agent should walk
-		 *				towards to clear the obstacles and pass through the edge.
+		 *	@returns	A point which represents the goal point the agent should walk towards to
+		 *				clear the obstacles and pass through the edge.
 		 */
-		Vector2 targetPoint( const Vector2 & pos, float radius ) const;
+		Math::Vector2 targetPoint( const Math::Vector2 & pos, float radius ) const;
 
 		/*!
 		 *	@brief		Computes the collision-free velocity towards the portal based on the
@@ -258,7 +259,8 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 		 *	@returns	The collision-free direction that best approximates the preferred
 		 *				direction (may be the preferred direction).
 		 */
-		Vector2	getClearDirection( const Vector2 & pos, float radius, const Vector2 & dir ) const;
+		Math::Vector2	getClearDirection( const Math::Vector2 & pos, float radius,
+										   const Math::Vector2 & dir ) const;
 
 		/*!
 		 *	@brief		Sets the directions of a preferred velocity that passes through the
@@ -277,7 +279,8 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 		 *							be of unit-length.
 		 *	@param		pVel		The preferred velocity whose directions are set.
 		 */
-		void setClearDirections( const Vector2 & pos, float radius, const Vector2 & dir, Agents::PrefVelocity & pVel ) const;
+		void setClearDirections( const Math::Vector2 & pos, float radius,
+								 const Math::Vector2 & dir, Agents::PrefVelocity & pVel ) const;
 
 		/*!
 		 *	@brief		Reports the squared distance to the edge from the given point.
@@ -285,7 +288,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 		 *	@param		pt			The point to compute from.
 		 *	@returns	The squared distance between p and the nearest point on the edge.
 		 */
-		float getSqDist( const Vector2 & pt ) const;
+		float getSqDist( const Math::Vector2 & pt ) const;
 
 		/*!
 		 *	@brief		Reports the squared distance to the edge from the given point
@@ -296,7 +299,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 		 *							this vector will be changed by the function
 		 *	@returns	The squared distance between p and the nearest point on the edge.
 		 */
-		float getSqDist( const Vector2 & pt, Vector2 & nearPt ) const;
+		float getSqDist( const Math::Vector2 & pt, Math::Vector2 & nearPt ) const;
 
 		/*!
 		 *	@brief		Reports the distance to the edge from the given point.
@@ -304,7 +307,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 		 *	@param		pt		The point to compute from.
 		 *	@returns	The squared distance between p and the nearest point on the edge.
 		 */
-		float getDist( const Vector2 & pt ) const { return sqr( getSqDist( pt ) ); }
+		float getDist( const Math::Vector2 & pt ) const { return Math::sqr( getSqDist( pt ) ); }
 
 		/*!
 		 *	@brief		Computes the width-dependent distance between the
@@ -336,7 +339,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 		 *	@returns	A boolean indicating successful parsing (true) or failure
 		 *				(false).
 		 */
-		bool loadFromAscii( std::ifstream & f, Vector2 * vertices );
+		bool loadFromAscii( std::ifstream & f, Math::Vector2 * vertices );
 
 		/*!
 		 *	@brief		Reports if _point in this edge is on the left for
@@ -368,13 +371,13 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 		 *	@brief		The point that defines the portal geometry.  The portal
 		 *				is defined as p(t) = _point + t * _dir, t in the range [0, _width]
 		 */
-		Vector2	_point;
+		Math::Vector2	_point;
 
 		/*!
 		 *	@brief		The unit-length direction of the portal.  See _point
 		 *				for how the portal is defined w.r.t. this field member.
 		 */
-		Vector2 _dir;
+		Math::Vector2 _dir;
 
 		/*!
 		 *	@brief		The width of the portal.

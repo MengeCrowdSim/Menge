@@ -36,7 +36,8 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "GoalSelectorFactory.h"
+#include "MengeCore/BFSM/GoalSelectors/GoalSelectorFactory.h"
+
 #include <limits>
 
 namespace Menge {
@@ -49,13 +50,17 @@ namespace Menge {
 
 		GoalSelectorFactory::GoalSelectorFactory(): ElementFactory< GoalSelector >() {
 			// register attributes
-			_persistentID = _attrSet.addBoolAttribute( "persistent", false/*required*/, false/*default*/ );
+			_persistentID = _attrSet.addBoolAttribute( "persistent", false/*required*/,
+													   false/*default*/ );
 		}
 
 		/////////////////////////////////////////////////////////////////////
 
-		bool GoalSelectorFactory::setFromXML( GoalSelector * selector, TiXmlElement * node, const std::string & behaveFldr ) const {
-			if ( !ElementFactory< GoalSelector >::setFromXML( selector, node, behaveFldr ) ) return false;
+		bool GoalSelectorFactory::setFromXML( GoalSelector * selector, TiXmlElement * node,
+											  const std::string & behaveFldr ) const {
+			if ( !ElementFactory< GoalSelector >::setFromXML( selector, node, behaveFldr ) ) {
+				return false;
+			}
 
 			selector->setPersistence( _attrSet.getBool( _persistentID ) );
 

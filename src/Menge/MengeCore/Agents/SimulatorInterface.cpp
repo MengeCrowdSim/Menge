@@ -36,11 +36,12 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "SimulatorInterface.h"
-#include "Obstacle.h"
-#include "SpatialQueries/SpatialQuery.h"
-#include "Elevations/ElevationFlat.h"
-#include "Core.h"
+#include "MengeCore/Agents/SimulatorInterface.h"
+
+#include "MengeCore/Core.h"
+#include "MengeCore/Agents/Obstacle.h"
+#include "MengeCore/Agents/Elevations/ElevationFlat.h"
+#include "MengeCore/Agents/SpatialQueries/SpatialQuery.h"
 
 namespace Menge {
 
@@ -58,7 +59,8 @@ namespace Menge {
 
 		////////////////////////////////////////////////////////////////////////////
 
-		SimulatorInterface::SimulatorInterface():XMLSimulatorBase(), _globalTime(0.f), _elevation(0x0), _spatialQuery(0x0) {
+		SimulatorInterface::SimulatorInterface() : XMLSimulatorBase(), _globalTime( 0.f ),
+												   _elevation( 0x0 ), _spatialQuery( 0x0 ) {
 		}
 
 		////////////////////////////////////////////////////////////////////////////
@@ -91,14 +93,16 @@ namespace Menge {
 		////////////////////////////////////////////////////////////////
 
 		void SimulatorInterface::setSpatialQuery( SpatialQuery * spatialQuery ) {
-			assert( _spatialQuery == 0x0 && "Trying to set the spatial query when one already exists" );
+			assert( _spatialQuery == 0x0 &&
+					"Trying to set the spatial query when one already exists" );
 			_spatialQuery = spatialQuery;
 		}
 
 
 		////////////////////////////////////////////////////////////////
 
-		bool SimulatorInterface::queryVisibility( const Vector2& point1, const Vector2& point2, float radius ) const {
+		bool SimulatorInterface::queryVisibility( const Vector2& point1, const Vector2& point2,
+												  float radius ) const {
 			return _spatialQuery->queryVisibility( point1, point2, radius );
 		}
 
@@ -106,7 +110,8 @@ namespace Menge {
 
 		void SimulatorInterface::finalize() {
 			if ( _elevation == 0x0 ) {
-				logger << Logger::WARN_MSG << "No elevation implementation specified.  Using \"flat\" implementation.";
+				logger << Logger::WARN_MSG << "No elevation implementation specified.  "
+					"Using \"flat\" implementation.";
 				_elevation = new FlatElevation();
 				Menge::ELEVATION = _elevation;
 			}

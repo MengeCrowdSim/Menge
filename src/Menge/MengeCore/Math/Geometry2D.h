@@ -44,7 +44,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __GEOMETRY_2D_H__
 #define __GEOMETRY_2D_H__
 
-#include "mengeCommon.h"
+#include "MengeCore/mengeCommon.h"
 
 // forward declaration
 class TiXmlElement;
@@ -293,7 +293,8 @@ namespace Menge {
 			 *	@param		center		The position of the circle's center.
 			 *	@param		radius		The radius of the circle.
 			 */
-			CircleShape(const Vector2 & center, float radius) :Geometry2D(), _center(center), _radius(radius) {}
+			CircleShape(const Vector2 & center, float radius) :
+				Geometry2D(), _center(center), _radius(radius) {}
 			
 			/*!
 			 *	@brief		Copy constructor
@@ -306,7 +307,8 @@ namespace Menge {
 			 *	@brief		Initializes this shape as an translated version of the input shape.
 			 *
 			 *	@param		shape		The shape to copy from.
-			 *	@param		offset		defines an offset from the copied CircleShape for the new CircleShape center
+			 *	@param		offset		defines an offset from the copied CircleShape for the new
+			 *							CircleShape center
 			 */
 			CircleShape( const CircleShape & shape, const Vector2 & offset );
 
@@ -352,7 +354,10 @@ namespace Menge {
 			 *	@param		center		The circle's center.
 			 *	@param		radius		The circle's radius.
 			 */
-			void set(const Vector2 & center, float radius) { _center.set(center); _radius = radius; }
+			void set(const Vector2 & center, float radius) {
+				_center.set(center);
+				_radius = radius;
+			}
 
 			/*!
 			 *	@brief		Determine if the point is inside the shape based on
@@ -468,7 +473,8 @@ namespace Menge {
 			 *	@brief		Initializes this shape as an translated version of the input shape.
 			 *
 			 *	@param		shape		The shape to copy from.
-			 *	@param		offset		defines an offset from the copied AABBShape for the new AABBShape
+			 *	@param		offset		defines an offset from the copied AABBShape for the new
+			 *							AABBShape.
 			 */
 			AABBShape( const AABBShape & shape, const Vector2 & offset );
 
@@ -779,7 +785,8 @@ namespace Menge {
 
 		protected:
 			/*!
-			 *	@brief		The minimum corners of the bounding box (the box is rotated around this point).
+			 *	@brief		The minimum corners of the bounding box (the box is rotated around this
+			 *				point).
 			 */
 			Vector2 _pivot;
 			
@@ -815,10 +822,11 @@ namespace Menge {
 		 *	@param 		  	prefix	(Optional) A prefix that can be pre-pended to the shape 
 		 *							attribute names.
 		 *
-		 *	@return	Null if it fails, else the new geometry.  The caller is responsible for destroying
-		 *  		the instance.
+		 *	@return	Null if it fails, else the new geometry.  The caller is responsible for
+		 *			destroying the instance.
 		 */
-		MENGE_API Geometry2D * createGeometry(TiXmlElement * node, const std::string & prefix = "");
+		MENGE_API Geometry2D * createGeometry(TiXmlElement * node,
+											   const std::string & prefix = "");
 
 		/**
 		 *	@brief	Creates a point from the attributes of an XML element.
@@ -839,8 +847,8 @@ namespace Menge {
 		 *	@param 		  	prefix	(Optional) A prefix that can be pre-pended to the shape 
 		 *							attribute names.
 		 *
-		 *	@return	Null if it fails, else the new circle.  The caller is responsible for destroying
-		 *  		the instance.
+		 *	@return	Null if it fails, else the new circle.  The caller is responsible for
+		 *  		destroying the instance.
 		 */
 		MENGE_API CircleShape * createCircle(TiXmlElement * node, const std::string & prefix = "");
 

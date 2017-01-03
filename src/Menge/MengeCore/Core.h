@@ -45,7 +45,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __CORE_H__
 #define	__CORE_H__
 
-#include "CoreConfig.h"
+#include "MengeCore/CoreConfig.h"
 
 /*!
  * @namespace Menge
@@ -63,6 +63,7 @@ namespace Menge {
 	namespace BFSM {
 		class FSM;
 	}
+
 	class EventSystem;
 
 	/*!

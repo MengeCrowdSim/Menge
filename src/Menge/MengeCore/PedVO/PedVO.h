@@ -44,7 +44,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __PEDVO_H__
 #define __PEDVO_H__
 
-#include "PedVOSimulator.h"
-#include "PedVOAgent.h"
+#include "MengeCore/PedVO/PedVOSimulator.h"
+#include "MengeCore/PedVO/PedVOAgent.h"
 
 #endif

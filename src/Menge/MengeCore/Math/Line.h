@@ -45,7 +45,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
  *				(e.g. ORCA half plane)
  */
 
-#include "mengeCommon.h"
+#include "MengeCore/mengeCommon.h"
 
 namespace Menge {
 

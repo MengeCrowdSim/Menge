@@ -36,20 +36,21 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "FSM.h"
+#include "MengeCore/BFSM/FSM.h"
 
-#include "State.h"
-#include "Transitions/Transition.h"
-#include "Tasks/Task.h"
-#include "Core.h"
-#include "FsmContext.h"
-#include "StateContext.h"
-#include "GoalSet.h"
-#include "PrefVelocity.h"
-#include "Events/EventSystem.h"
-
-#include "BaseAgent.h"
-#include "SimulatorInterface.h"
+#include "MengeCore/Core.h"
+#include "MengeCore/Agents/BaseAgent.h"
+#include "MengeCore/Agents/Events/EventSystem.h"
+#include "MengeCore/Agents/PrefVelocity.h"
+#include "MengeCore/Agents/SimulatorInterface.h"
+#if 0
+#include "MengeCore/Agents/StateContext.h"
+#include "MengeCore/BFSM/FsmContext.h"
+#endif
+#include "MengeCore/BFSM/GoalSet.h"
+#include "MengeCore/BFSM/State.h"
+#include "MengeCore/BFSM/Transitions/Transition.h"
+#include "MengeCore/BFSM/Tasks/Task.h"
 
 namespace Menge {
 
@@ -90,7 +91,8 @@ namespace Menge {
 
 			//now collect the velocity modifiers tasks
 			std::vector< VelModifier * >::iterator vItr = _velModifiers.begin();
-			for ( ; vItr != _velModifiers.end(); ++vItr ) {   //TODO: replace global vel mod initalizer
+			//TODO: replace global vel mod initalizer
+			for ( ; vItr != _velModifiers.end(); ++vItr ) {   
 				addTask((*vItr)->getTask());
 			}
 
@@ -149,7 +151,8 @@ namespace Menge {
 			//TODO: My velocity modifiers here
 			 
 			std::vector< VelModifier * >::iterator vItr = _velModifiers.begin();
-			for ( ; vItr != _velModifiers.end(); ++vItr ) {   //TODO: replace global vel mod initalizer
+			//TODO: replace global vel mod initalizer
+			for ( ; vItr != _velModifiers.end(); ++vItr ) {   
 				(*vItr)->adaptPrefVelocity(agent, newVel);
 			}
 
@@ -286,10 +289,12 @@ namespace Menge {
 				try {
 					this->_tasks[i]->doWork( this );
 				} catch ( TaskFatalException ) {
-					logger << Logger::ERR_MSG << "Fatal error in FSM task: " << _tasks[i]->toString() << "\n";
+					logger << Logger::ERR_MSG << "Fatal error in FSM task: ";
+					logger << _tasks[ i ]->toString() << "\n";
 					throw FSMFatalException();
 				} catch ( TaskException ) {
-					logger << Logger::ERR_MSG << "Error in FSM task: " << _tasks[i]->toString() << "\n";
+					logger << Logger::ERR_MSG << "Error in FSM task: ";
+					logger << _tasks[ i ]->toString() << "\n";
 				}
 			}
 		}
@@ -300,7 +305,7 @@ namespace Menge {
 			EVENT_SYSTEM->finalize();
 			doTasks();
 		}
-
+#if 0
 		/////////////////////////////////////////////////////////////////////
 
 		FsmContext * FSM::getContext() {
@@ -313,5 +318,6 @@ namespace Menge {
 			
 			return ctx;
 		}
+#endif
 	}	// namespace BFSM
 }	// namespace Menge

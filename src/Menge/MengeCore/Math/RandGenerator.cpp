@@ -36,9 +36,11 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "RandGenerator.h"
-#include "SimRandom.h"
+#include "MengeCore/Math/RandGenerator.h"
+#include "MengeCore/Math/SimRandom.h"
+
 #include "tinyxml/tinyxml.h"
+
 #include <ctime>
 #include <limits>
 
@@ -146,7 +148,14 @@ namespace Menge {
 		//                   Implementation of NormalFloatGenerator
 		/////////////////////////////////////////////////////////////////////
 
-		NormalFloatGenerator::NormalFloatGenerator( float mean, float stddev, float minVal, float maxVal, int seed ):FloatGenerator(), _mean(mean),_std(stddev),_min(minVal),_max(maxVal),_second(0.f),_calls(0) {
+		NormalFloatGenerator::NormalFloatGenerator( float mean, float stddev, float minVal,
+													float maxVal, int seed ) : FloatGenerator(),
+																			   _mean(mean),
+																			   _std(stddev),
+																			   _min(minVal),
+																			   _max(maxVal),
+																			   _second(0.f),
+																			   _calls(0) {
 			if ( seed == 0 ) {
 				_seed = getDefaultSeed();
 			} else {
@@ -206,7 +215,8 @@ namespace Menge {
 		/////////////////////////////////////////////////////////////////////
 
 		Logger & operator<<( Logger & out, const NormalFloatGenerator & gen ) {
-			out << "Normal float: mean( " << gen._mean << " ), std( " << gen._std << " ) in the range [ " << gen._min << ", " << gen._max << " ]";
+			out << "Normal float: mean( " << gen._mean << " ), std( " << gen._std;
+			out << " ) in the range [ " << gen._min << ", " << gen._max << " ]";
 			return out;
 		}
 
@@ -214,7 +224,8 @@ namespace Menge {
 		//                   Implementation of UniformFloatGenerator
 		/////////////////////////////////////////////////////////////////////
 
-		UniformFloatGenerator::UniformFloatGenerator( float minVal, float maxVal, int seed ):FloatGenerator(), _min(minVal),_size(maxVal-minVal) {
+		UniformFloatGenerator::UniformFloatGenerator( float minVal, float maxVal, int seed ) :
+			FloatGenerator(), _min( minVal ), _size( maxVal - minVal ) {
 			if ( seed == 0 ) {
 				_seed = getDefaultSeed();
 			} else {
@@ -224,7 +235,8 @@ namespace Menge {
 
 		/////////////////////////////////////////////////////////////////////
 
-		UniformFloatGenerator::UniformFloatGenerator( const UniformFloatGenerator & gen ):FloatGenerator(gen), _min(gen._min), _size(gen._size), _seed(gen._seed+1) {
+		UniformFloatGenerator::UniformFloatGenerator( const UniformFloatGenerator & gen ) :
+			FloatGenerator( gen ), _min( gen._min ), _size( gen._size ), _seed( gen._seed + 1 ) {
 		}
 
 		/////////////////////////////////////////////////////////////////////
@@ -257,7 +269,8 @@ namespace Menge {
 		/////////////////////////////////////////////////////////////////////
 
 		Logger & operator<<( Logger & out, const UniformFloatGenerator & gen ) {
-			out << "Uniform float: range[ " << gen._min << " , " << (gen._min + gen._size ) << "  ]";
+			out << "Uniform float: range[ " << gen._min << " , " << ( gen._min + gen._size );
+			out << "  ]";
 			return out;
 		}
 
@@ -286,7 +299,8 @@ namespace Menge {
 		//                   Implementation of UniformIntGenerator
 		/////////////////////////////////////////////////////////////////////
 
-		UniformIntGenerator::UniformIntGenerator( int minVal, int maxVal, int seed ):IntGenerator(), _min(minVal),_size(maxVal-minVal+1),_seed(seed) {
+		UniformIntGenerator::UniformIntGenerator( int minVal, int maxVal, int seed ) :
+			IntGenerator(), _min( minVal ), _size( maxVal - minVal + 1 ), _seed( seed ) {
 			if ( seed == 0 ) {
 				_seed = getDefaultSeed();
 			} else {
@@ -297,7 +311,8 @@ namespace Menge {
 		/////////////////////////////////////////////////////////////////////
 
 		int UniformIntGenerator::getValue() const {
-			int randVal = static_cast< int >( r4_uniform_01( &_seed ) * std::numeric_limits<int>::max() );
+			int randVal = static_cast< int >( r4_uniform_01( &_seed ) *
+											  std::numeric_limits<int>::max() );
 			int val = randVal % _size;
 			return _min + val;
 		}
@@ -326,7 +341,8 @@ namespace Menge {
 		/////////////////////////////////////////////////////////////////////
 
 		Logger & operator<<( Logger & out, const UniformIntGenerator & gen ) {
-			out << "Uniform int: range[ " << gen._min << " , " << (gen._min + gen._size - 1) << "  ]";
+			out << "Uniform int: range[ " << gen._min << " , " << ( gen._min + gen._size - 1 );
+			out << "  ]";
 			return out;
 		}
 
@@ -364,7 +380,11 @@ namespace Menge {
 		//                   Implementation of AABBUniformPosGenerator
 		/////////////////////////////////////////////////////////////////////
 
-		AABBUniformPosGenerator::AABBUniformPosGenerator( const Vector2 & minPt, const Vector2 & maxPt, int seed ):Vec2DGenerator(), _xRand(minPt.x(),maxPt.x(),seed==0?getDefaultSeed():seed), _yRand(minPt.y(), maxPt.y(),(seed==0?getDefaultSeed():seed)+5) {
+		AABBUniformPosGenerator::AABBUniformPosGenerator( const Vector2 & minPt, 
+														  const Vector2 & maxPt, int seed ) :
+			Vec2DGenerator(),
+			_xRand( minPt.x(), maxPt.x(), seed == 0 ? getDefaultSeed() : seed),
+			_yRand( minPt.y(), maxPt.y(), (seed == 0 ? getDefaultSeed() : seed ) + 5 ) {
 		}
 
 		/////////////////////////////////////////////////////////////////////
@@ -384,7 +404,8 @@ namespace Menge {
 
 		/////////////////////////////////////////////////////////////////////
 
-		AABBUniformPosGenerator::AABBUniformPosGenerator( const AABBUniformPosGenerator & aabbGen ): _xRand(aabbGen._xRand), _yRand(aabbGen._yRand) {
+		AABBUniformPosGenerator::AABBUniformPosGenerator( const AABBUniformPosGenerator & aabbGen ):
+			_xRand( aabbGen._xRand ), _yRand( aabbGen._yRand ) {
 		}
 
 		/////////////////////////////////////////////////////////////////////
@@ -411,12 +432,20 @@ namespace Menge {
 		//                   Implementation of OBBUniformPosGenerator
 		/////////////////////////////////////////////////////////////////////
 
-		OBBUniformPosGenerator::OBBUniformPosGenerator( const Vector2 & minPt, const Vector2 & size, float theta, int seed ):Vec2DGenerator(), _xRand(0.f, size.x(),seed==0?getDefaultSeed():seed), _yRand(0.f, size.y(),(seed==0?getDefaultSeed():seed)+5), _minPt(minPt), _cosTheta(cos(theta)), _sinTheta(sin(theta)) {
+		OBBUniformPosGenerator::OBBUniformPosGenerator( const Vector2 & minPt,
+														const Vector2 & size,
+														float theta, int seed ) :
+			Vec2DGenerator(),
+			_xRand( 0.f, size.x(), seed == 0 ? getDefaultSeed() : seed ),
+			_yRand( 0.f, size.y(), (seed == 0 ? getDefaultSeed() : seed ) + 5 ),
+			_minPt( minPt ), _cosTheta( cos( theta ) ), _sinTheta( sin( theta ) ) {
 		}
 
 		/////////////////////////////////////////////////////////////////////
 
-		OBBUniformPosGenerator::OBBUniformPosGenerator( const OBBUniformPosGenerator & obbGen ): _xRand(obbGen._xRand), _yRand(obbGen._yRand), _minPt(obbGen._minPt), _cosTheta(obbGen._cosTheta), _sinTheta(obbGen._sinTheta) {
+		OBBUniformPosGenerator::OBBUniformPosGenerator( const OBBUniformPosGenerator & obbGen ) :
+			_xRand( obbGen._xRand ), _yRand( obbGen._yRand ), _minPt( obbGen._minPt ),
+			_cosTheta( obbGen._cosTheta ), _sinTheta( obbGen._sinTheta ) {
 		}
 
 		/////////////////////////////////////////////////////////////////////
@@ -473,12 +502,14 @@ namespace Menge {
 		//                   Implementation of WeightedIntGenerator
 		/////////////////////////////////////////////////////////////////////
 
-		WeightedIntGenerator::WeightedIntGenerator():IntGenerator(), _dice(0.f,1.f,getDefaultSeed()), _pairs() {
+		WeightedIntGenerator::WeightedIntGenerator() : IntGenerator(),
+			_dice( 0.f, 1.f, getDefaultSeed() ), _pairs() {
 		}
 
 		/////////////////////////////////////////////////////////////////////
 
-		WeightedIntGenerator::WeightedIntGenerator( const WeightedIntGenerator & gen):IntGenerator(), _dice(gen._dice) {
+		WeightedIntGenerator::WeightedIntGenerator( const WeightedIntGenerator & gen) :
+			IntGenerator(), _dice( gen._dice ) {
 			_pairs.insert( _pairs.begin(), gen._pairs.begin(), gen._pairs.end() );
 		}
 
@@ -561,7 +592,8 @@ namespace Menge {
 			Vec2DGenerator * gen = 0x0;
 			const char * genCStr = node->Attribute( "dist" );
 			if ( genCStr == 0x0 ) {
-				logger << Logger::WARN_MSG << "Missing the \"dist\" attribute on line " << node->Row() << "\n";
+				logger << Logger::WARN_MSG << "Missing the \"dist\" attribute on line ";
+				logger << node->Row() << "\n";
 				return 0x0;
 			}
 			std::string genType( genCStr );
@@ -570,50 +602,62 @@ namespace Menge {
 			} else if ( genType == "u" ) {
 				double minX, maxX, minY, maxY;
 				if ( ! node->Attribute( "min_x", &minX ) ) {
-					logger << Logger::ERR_MSG << "Uniform 2D distributon requires \"min_x\" attribute.\n";
+					logger << Logger::ERR_MSG;
+					logger << "Uniform 2D distributon requires \"min_x\" attribute.\n";
 					return gen;
 				}
 				if ( ! node->Attribute( "max_x", &maxX ) ) {
-					logger << Logger::ERR_MSG << "Uniform 2D distributon requires \"max_x\" attribute.\n";
+					logger << Logger::ERR_MSG;
+					logger << "Uniform 2D distributon requires \"max_x\" attribute.\n";
 					return gen;
 				}
 				if ( ! node->Attribute( "min_y", &minY ) ) {
-					logger << Logger::ERR_MSG << "Uniform 2D distributon requires \"min_y\" attribute.\n";
+					logger << Logger::ERR_MSG;
+					logger << "Uniform 2D distributon requires \"min_y\" attribute.\n";
 					return gen;
 				}
 				if ( ! node->Attribute( "max_y", &maxY ) ) {
-					logger << Logger::ERR_MSG << "Uniform 2D distributon requires \"max_y\" attribute.\n";
+					logger << Logger::ERR_MSG;
+					logger << "Uniform 2D distributon requires \"max_y\" attribute.\n";
 					return gen;
 				}
 				node->Attribute( "seed", &seed );
-				gen = new AABBUniformPosGenerator( Vector2( (float)minX * scale, (float)minY * scale ), Vector2( (float)maxX * scale, (float)maxY * scale ), seed );
+				gen = new AABBUniformPosGenerator(
+					Vector2( (float)minX * scale, (float)minY * scale ),
+					Vector2( (float)maxX * scale, (float)maxY * scale ), seed );
 			} else if ( genType == "c" ) {
 				double x, y;
 				if ( ! node->Attribute( "x_value", &x ) ) {
-					logger << Logger::ERR_MSG << "Constant 2D distributon requires \"x_value\" attribute.\n";
+					logger << Logger::ERR_MSG;
+					logger << "Constant 2D distributon requires \"x_value\" attribute.\n";
 					return gen;
 				}
 				if ( ! node->Attribute( "y_value", &y ) ) {
-					logger << Logger::ERR_MSG << "Constant 2D distributon requires \"y_value\" attribute.\n";
+					logger << Logger::ERR_MSG;
+					logger << "Constant 2D distributon requires \"y_value\" attribute.\n";
 					return gen;
 				}
 				gen = new Const2DGenerator( Vector2( (float)x * scale, (float)y * scale ) );
 			} else if ( genType == "" ) {
-				logger << Logger::ERR_MSG << "No 2D number generation type specified.  Should be u or c.\n";
+				logger << Logger::ERR_MSG;
+				logger << "No 2D number generation type specified.  Should be u or c.\n";
 			} else {
-				logger << Logger::ERR_MSG << "Unrecognized 2D number generation type: " << genType << "\n";
+				logger << Logger::ERR_MSG;
+				logger << "Unrecognized 2D number generation type: " << genType << "\n";
 			}
 			return gen;
 		}
 
 		/////////////////////////////////////////////////////////////////////
 
-		FloatGenerator * createFloatGenerator( TiXmlElement * node, float scale, const std::string & prefix ) {
+		FloatGenerator * createFloatGenerator( TiXmlElement * node, float scale,
+											   const std::string & prefix ) {
 			FloatGenerator * gen = 0x0;
 			std::string distS = prefix + "dist";
 			const char * genCStr = node->Attribute( distS.c_str() );
 			if ( genCStr == 0x0 ) {
-				logger << Logger::WARN_MSG << "Missing the \"dist\" attribute on line " << node->Row() << "\n";
+				logger << Logger::WARN_MSG;
+				logger << "Missing the \"dist\" attribute on line " << node->Row() << "\n";
 				return 0x0;
 			}
 			std::string genType( genCStr );
@@ -621,11 +665,13 @@ namespace Menge {
 			if ( genType == "n" ) {
 				double mean, std;
 				if ( ! node->Attribute( prefix + "mean", &mean ) ) {
-					logger << Logger::ERR_MSG << "Normal distribution requires \"mean\" attribute.\n";
+					logger << Logger::ERR_MSG;
+					logger << "Normal distribution requires \"mean\" attribute.\n";
 					return gen;
 				}
 				if ( ! node->Attribute( prefix + "stddev", &std ) ) {
-					logger << Logger::ERR_MSG << "Normal distribution requires \"stddev\" attribute.\n";
+					logger << Logger::ERR_MSG;
+					logger << "Normal distribution requires \"stddev\" attribute.\n";
 					return gen;
 				}
 				int seed;
@@ -636,15 +682,18 @@ namespace Menge {
 				std *= scale;
 				double minVal = mean - 3.f * std;
 				double maxVal = mean + 3.f * std;
-				gen = new NormalFloatGenerator( (float)mean, (float)std, (float)minVal, (float)maxVal, seed );
+				gen = new NormalFloatGenerator(
+					(float)mean, (float)std, (float)minVal, (float)maxVal, seed );
 			} else if ( genType == "u" ) {
 				double minVal, maxVal;
 				if ( ! node->Attribute( prefix + "min", &minVal ) ) {
-					logger << Logger::ERR_MSG << "Uniform distribution requires \"min\" attribute.\n";
+					logger << Logger::ERR_MSG;
+					logger << "Uniform distribution requires \"min\" attribute.\n";
 					return gen;
 				}
 				if ( ! node->Attribute( prefix + "max", &maxVal ) ) {
-					logger << Logger::ERR_MSG << "Uniform distribution requires \"max\" attribute.\n";
+					logger << Logger::ERR_MSG;
+					logger << "Uniform distribution requires \"max\" attribute.\n";
 					return gen;
 				}
 				int seed;
@@ -657,14 +706,16 @@ namespace Menge {
 			} else if ( genType == "c" ) {
 				double val;
 				if ( ! node->Attribute( prefix + "value", &val ) ) {
-					logger << Logger::ERR_MSG << "Constant distribution requires \"value\" attribute.\n";
+					logger << Logger::ERR_MSG;
+					logger << "Constant distribution requires \"value\" attribute.\n";
 					return gen;
 				}
 				gen = new ConstFloatGenerator( (float)val * scale );
 			} else if ( genType == "" ) {
 				logger << Logger::ERR_MSG << "Float generation requires a type: n, c or u.\n";
 			} else {
-				logger << Logger::ERR_MSG << "Unrecognized float generation type: " << genType << "\n";
+				logger << Logger::ERR_MSG;
+				logger << "Unrecognized float generation type: " << genType << "\n";
 			}
 			return gen;
 		}
@@ -678,18 +729,21 @@ namespace Menge {
 			std::string distS = prefix + "dist";
 			const char * genCStr = node->Attribute( distS.c_str() );
 			if ( genCStr == 0x0 ) {
-				logger << Logger::WARN_MSG << "Missing the \"dist\" attribute on line " << node->Row() << "\n";
+				logger << Logger::WARN_MSG;
+				logger << "Missing the \"dist\" attribute on line " << node->Row() << "\n";
 				return 0x0;
 			}
 			std::string genType( genCStr );
 			if ( genType == "u" ) {
 				int minVal, maxVal;
 				if ( ! node->Attribute( prefix + "min", &minVal ) ) {
-					logger << Logger::ERR_MSG << "Uniform distribution requires \"min\" attribute.\n";
+					logger << Logger::ERR_MSG;
+					logger << "Uniform distribution requires \"min\" attribute.\n";
 					return gen;
 				}
 				if ( ! node->Attribute( prefix + "max", &maxVal ) ) {
-					logger << Logger::ERR_MSG << "Uniform distribution requires \"max\" attribute.\n";
+					logger << Logger::ERR_MSG;
+					logger << "Uniform distribution requires \"max\" attribute.\n";
 					return gen;
 				}
 				node->Attribute( "seed", &seed );
@@ -697,14 +751,17 @@ namespace Menge {
 			} else if ( genType == "c" ) {
 				int val;
 				if ( ! node->Attribute( prefix + "value", &val ) ) {
-					logger << Logger::ERR_MSG << "Constant distribution requires \"value\" attribute.\n";
+					logger << Logger::ERR_MSG;
+					logger << "Constant distribution requires \"value\" attribute.\n";
 					return gen;
 				}
 				gen = new ConstIntGenerator( val );
 			} else if ( genType == "" ) {
-				logger << Logger::ERR_MSG << "Int generation requires a distribution type: c or u.\n";
+				logger << Logger::ERR_MSG;
+				logger << "Int generation requires a distribution type: c or u.\n";
 			} else {
-				logger << Logger::ERR_MSG << "Unrecognized int generation type: " << genType << ". Must be c or u.\n";
+				logger << Logger::ERR_MSG;
+				logger << "Unrecognized int generation type: " << genType << ". Must be c or u.\n";
 			}
 			return gen;
 		}

@@ -36,11 +36,13 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "Elevations/ElevationNavMesh.h"
-#include "Tasks/NavMeshLocalizerTask.h"
-#include "BaseAgent.h"
+#include "MengeCore/Agents/Elevations/ElevationNavMesh.h"
+
+#include "MengeCore/Agents/BaseAgent.h"
+#include "MengeCore/BFSM/Tasks/NavMeshLocalizerTask.h"
+#include "MengeCore/Runtime/os.h"
+
 #include "tinyxml.h"
-#include "os.h"
 
 namespace Menge {
 
@@ -50,7 +52,7 @@ namespace Menge {
 		//					Implementation of NavMeshElevation
 		////////////////////////////////////////////////////////////////
 
-		NavMeshElevation::NavMeshElevation(): Elevation(), _navMesh(0x0), _localizer(0x0) {
+		NavMeshElevation::NavMeshElevation(): Elevation(), _navMesh( 0x0 ), _localizer( 0x0 ) {
 		}
 
 		////////////////////////////////////////////////////////////////
@@ -113,22 +115,26 @@ namespace Menge {
 
 		/////////////////////////////////////////////////////////////////////
 
-		bool NavMeshElevationFactory::setFromXML( Elevation * e, TiXmlElement * node, const std::string & specFldr ) const {
+		bool NavMeshElevationFactory::setFromXML( Elevation * e, TiXmlElement * node,
+												  const std::string & specFldr ) const {
 			NavMeshElevation * nme = dynamic_cast< NavMeshElevation * >( e );
-			assert( nme != 0x0 && "Trying to set attributes of a navigation mesh elevation component on an incompatible object" );
+			assert( nme != 0x0 && "Trying to set attributes of a navigation mesh elevation "
+					"component on an incompatible object" );
 
 			if ( ! ElevationFactory::setFromXML( nme, node, specFldr ) ) return false;
 
 			// get the file name
 			std::string fName;
-			std::string path = os::path::join( 2, specFldr.c_str(), _attrSet.getString( _fileNameID ).c_str() );
+			std::string path = os::path::join( 2, specFldr.c_str(),
+											   _attrSet.getString( _fileNameID ).c_str() );
 			os::path::absPath( path, fName );
 			// nav mesh
 			NavMeshPtr nmPtr;
 			try {
 				nmPtr = loadNavMesh( fName );
 			} catch ( ResourceException ) {
-				logger << Logger::ERR_MSG << "Couldn't instantiate the navigation mesh referenced on line " << node->Row() << ".";
+				logger << Logger::ERR_MSG << "Couldn't instantiate the navigation mesh referenced "
+					"on line " << node->Row() << ".";
 				return false;
 			}
 			nme->setNavMesh( nmPtr );
@@ -137,7 +143,8 @@ namespace Menge {
 			try {
 				nmlPtr = loadNavMeshLocalizer( fName, true );
 			} catch ( ResourceException ) {
-				logger << Logger::ERR_MSG << "Couldn't instantiate the navigation mesh localizer required by the elevation on line " << node->Row() << ".";
+				logger << Logger::ERR_MSG << "Couldn't instantiate the navigation mesh localizer "
+					"required by the elevation on line " << node->Row() << ".";
 				return false;
 			}
 			nme->setNavMeshLocalizer( nmlPtr );

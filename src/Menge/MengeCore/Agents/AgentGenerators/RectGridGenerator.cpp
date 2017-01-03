@@ -36,11 +36,13 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "RectGridGenerator.h"
+#include "MengeCore/Agents/AgentGenerators/RectGridGenerator.h"
+
+#include "MengeCore/Agents/BaseAgent.h"
+#include "MengeCore/Math/consts.h"
+#include "MengeCore/Runtime/Logger.h"
+
 #include "tinyxml.h"
-#include "Logger.h"
-#include "Math/consts.h"
-#include "BaseAgent.h"
 
 namespace Menge {
 
@@ -50,14 +52,17 @@ namespace Menge {
 		//			Implementation of RectGridGenerator
 		////////////////////////////////////////////////////////////////////////////
 
-		RectGridGenerator::RectGridGenerator() : AgentGenerator(), _anchor(0.f,0.f), _offset(0.f,0.f), _xCount(0), _yCount(0), _cosRot(1.f), _sinRot(0.f) {
+		RectGridGenerator::RectGridGenerator() : AgentGenerator(), _anchor( 0.f,0.f ),
+												 _offset( 0.f, 0.f ), _xCount( 0 ), _yCount( 0 ),
+												 _cosRot( 1.f ), _sinRot( 0.f ) {
 		}
 
 		////////////////////////////////////////////////////////////////////////////
 
 		void RectGridGenerator::setAgentPosition(size_t i, BaseAgent * agt) {
 			if ( i >= _xCount * _yCount ) {
-				throw AgentGeneratorFatalException("RectGridGenerator trying to access an agent outside of the specified population");
+				throw AgentGeneratorFatalException("RectGridGenerator trying to access an agent "
+													"outside of the specified population");
 			}
 			size_t v = i / _xCount;
 			size_t u = i % _xCount;
@@ -96,9 +101,11 @@ namespace Menge {
 
 		////////////////////////////////////////////////////////////////////////////
 
-		bool RectGridGeneratorFactory::setFromXML( AgentGenerator * gen, TiXmlElement * node, const std::string & specFldr ) const {
+		bool RectGridGeneratorFactory::setFromXML( AgentGenerator * gen, TiXmlElement * node,
+												   const std::string & specFldr ) const {
 			RectGridGenerator * lGen = dynamic_cast< RectGridGenerator * >( gen );
-			assert( lGen != 0x0 && "Trying to set attributes of a rectangular grid agent generator component on an incompatible object" );
+			assert( lGen != 0x0 && "Trying to set attributes of a rectangular grid agent "
+					"generator component on an incompatible object" );
 
 			if ( ! AgentGeneratorFactory::setFromXML( lGen, node, specFldr ) ) return false;
 

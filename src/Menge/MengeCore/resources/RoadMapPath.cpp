@@ -36,21 +36,25 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "RoadMapPath.h"
-#include "BaseAgent.h"
-#include "PrefVelocity.h"
-#include "Core.h"
-#include "SpatialQueries/SpatialQuery.h"
-#include "Goals/Goal.h"
+#include "MengeCore/Core.h"
+#include "MengeCore/Agents/BaseAgent.h"
+#include "MengeCore/Agents/PrefVelocity.h"
+#include "MengeCore/Agents/SpatialQueries/SpatialQuery.h"
+#include "MengeCore/BFSM/Goals/Goal.h"
+#include "MengeCore/resources/RoadMapPath.h"
+
 #include <cassert>
 
 namespace Menge {
+
+	using Math::Vector2;
 
 	/////////////////////////////////////////////////////////////////////
 	//					Implementation of RoadMapPath
 	/////////////////////////////////////////////////////////////////////
 
-	RoadMapPath::RoadMapPath( size_t pointCount ): _targetID(0), _goal(0x0), _validPos(), _wayPointCount(pointCount) {
+	RoadMapPath::RoadMapPath( size_t pointCount ) : _targetID(0), _goal(0x0), _validPos(),
+													_wayPointCount(pointCount) {
 		_wayPoints = new Vector2[ pointCount ];
 	}
 
@@ -69,7 +73,8 @@ namespace Menge {
 
 	/////////////////////////////////////////////////////////////////////
 
-	void RoadMapPath::setPrefDirection( const Agents::BaseAgent * agent, Agents::PrefVelocity & pVel ) {
+	void RoadMapPath::setPrefDirection( const Agents::BaseAgent * agent,
+										Agents::PrefVelocity & pVel ) {
 		// Assume that when I'm overlapping one node, that I can see the next
 		// Test to see if I can advance target way point
 		//	while I'm overlapping current target, advance it
@@ -81,18 +86,24 @@ namespace Menge {
 		//			current position last valid
 		//   else
 		//			direction towards last valid position
-		// TODO: This has flaws because the ObstacleKDTree is finding segments visible when it should not.
+		// TODO: This has flaws because the ObstacleKDTree is finding segments visible when it
+		//	should not.
 		bool isVisible = false;
 		// TODO: Should I compute this blindly?  Although it is used in potentially three places
 		//		mostly, it won't be used.
 		Vector2 target = _goal->getTargetPoint( agent->_pos, agent->_radius );
 		if ( _targetID < _wayPointCount ) {
-			isVisible = Menge::SPATIAL_QUERY->queryVisibility( agent->_pos, _wayPoints[ _targetID ], agent->_radius );
+			isVisible =
+				Menge::SPATIAL_QUERY->queryVisibility( agent->_pos, _wayPoints[ _targetID ],
+				agent->_radius );
 		} else {
-			isVisible = Menge::SPATIAL_QUERY->queryVisibility( agent->_pos, target, agent->_radius );
+			isVisible = Menge::SPATIAL_QUERY->queryVisibility( agent->_pos, target,
+															   agent->_radius );
 		}
 		size_t testID = _targetID + 1;
-		while ( testID < _wayPointCount && Menge::SPATIAL_QUERY->queryVisibility( agent->_pos, _wayPoints[ testID ], agent->_radius ) ) {
+		while ( testID < _wayPointCount &&
+				Menge::SPATIAL_QUERY->queryVisibility( agent->_pos, _wayPoints[ testID ],
+				agent->_radius ) ) {
 			_targetID = testID;
 			isVisible = true;
 			++testID;

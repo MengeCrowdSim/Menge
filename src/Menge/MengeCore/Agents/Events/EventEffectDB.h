@@ -47,9 +47,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __EVENT_EFFECT_DATABASE_H__
 #define __EVENT_EFFECT_DATABASE_H__
 
-#include "ElementDatabase.h"
-#include "Events/EventEffectFactory.h"
-#include "Events/EventEffect.h"
+#include "MengeCore/PluginEngine/ElementDatabase.h"
+#include "MengeCore/Agents/Events/EventEffectFactory.h"
+#include "MengeCore/Agents/Events/EventEffect.h"
 
 namespace Menge {
 	/*!

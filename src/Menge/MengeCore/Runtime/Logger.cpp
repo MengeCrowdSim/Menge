@@ -36,9 +36,11 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "Logger.h"
+#include "MengeCore/Runtime/Logger.h"
+
+#include "MengeCore/Runtime/os.h"
+
 #include <iostream>
-#include "os.h"
 
 namespace Menge {
 
@@ -170,7 +172,8 @@ namespace Menge {
 		_file << "<head>\n";
 		_file << "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\n";
 		_file << "<title>Menge Log</title>\n";
-		_file << "<link rel=\"stylesheet\" type=\"text/css\" href=\"log.css\" media=\"screen\"/>\n";
+		_file << "<link rel=\"stylesheet\" type=\"text/css\" href=\"log.css\" ";
+		_file << "media=\"screen\"/>\n";
 		_file << "</head>\n\n";
 
 		_file << "<body>\n";
@@ -204,11 +207,14 @@ namespace Menge {
 	 *	@param		find		The sub-strings to find and replace in the main string.
 	 *	@param		replace		The sub-string to input into the main string.
 	 */
-	inline void findAndReplace( std::string & source, const std::string & find, const std::string & replace)
+	inline void findAndReplace( std::string & source, const std::string & find,
+								const std::string & replace)
 	{
 		size_t fLen = find.size();
 		size_t rLen = replace.size();
-		for ( size_t pos = 0; ( pos = source.find( find, pos ) ) != std::string::npos; pos += rLen ) {
+		for ( size_t pos = 0;
+			  ( pos = source.find( find, pos ) ) != std::string::npos;
+			  pos += rLen ) {
 			source.replace(pos, fLen, replace);
 		}
 	}
@@ -223,7 +229,8 @@ namespace Menge {
 			// carriage returns
 			findAndReplace( input, std::string( "\n" ), std::string( "<br>" ) );
 			// tabs
-			findAndReplace( input, std::string( "\t" ), std::string( "&nbsp;&nbsp;&nbsp;&nbsp;" ) );
+			findAndReplace( input, std::string( "\t" ),
+							std::string( "&nbsp;&nbsp;&nbsp;&nbsp;" ) );
 		}
 	}
 

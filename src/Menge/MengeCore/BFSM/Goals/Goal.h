@@ -44,12 +44,12 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __GOALS_H__
 #define	__GOALS_H__
 
-#include "CoreConfig.h"
-#include "fsmCommon.h"
-#include "Element.h"
-#include "ReadersWriterLock.h"
-#include "MengeException.h"
-#include "Math/Geometry2D.h"
+#include "MengeCore/CoreConfig.h"
+#include "MengeCore/MengeException.h"
+#include "MengeCore/BFSM/fsmCommon.h"
+#include "MengeCore/Math/Geometry2D.h"
+#include "MengeCore/PluginEngine/Element.h"
+#include "MengeCore/Runtime/ReadersWriterLock.h"
 
 // forward declaration
 class TiXmlElement;
@@ -113,8 +113,9 @@ namespace Menge {
 			/*!
 			 *	@brief		Basic constructor
 			 */
-			Goal():Element(),_weight(1.f),_capacity(MAX_CAPACITY),_id(-1),_goalSet(0x0),
-				_population(0), _geometry(0x0) {}	// -1 is the biggest value for size_t
+			Goal() : Element(), _weight( 1.f ), _capacity( MAX_CAPACITY ), _id( -1 ), 
+					 _goalSet( 0x0 ), _population( 0 ), _geometry( 0x0 ) {}	
+			// -1 is the biggest value for size_t
 
 		protected:
 			/*!
@@ -129,25 +130,28 @@ namespace Menge {
 			 *	@param		pt			The query point.
 			 *	@returns	The squared distance from the point to the goal.
 			 */
-			float squaredDistance(const Vector2 & pt) const { 
-				return _geometry->squaredDistance(pt);
+			float squaredDistance( const Math::Vector2 & pt ) const {
+				return _geometry->squaredDistance( pt );
 			}
 
 			/*!
-			 *	@brief		Set the preferred velocity directions w.r.t. the goal: left, right, and preferred.
+			 *	@brief		Set the preferred velocity directions w.r.t. the goal: left, right,
+			 *				and preferred.
 			 *
-			 *	The Agents::PrefVelocity class represents a span of velocities that will reach the goal.
-			 *	For a goal that covers a 2D region, the directions in the Agents::PrefVelocity should span the arc 
-			 *	subtended by the goal from the query point's perspective.  Furthermore, it should have sufficient clearance
-			 *	for a disk with the given radius to pass through.
-			 *	This should be overridden by subclasses to account for their unique geometry.
+			 *	The Agents::PrefVelocity class represents a span of velocities that will reach the
+			 *	goal. For a goal that covers a 2D region, the directions in the
+			 *	Agents::PrefVelocity should span the arc subtended by the goal from the query 
+			 *	point's perspective.  Furthermore, it should have sufficient clearance for a disk
+			 *	with the given radius to pass through. This should be overridden by subclasses to
+			 *	account for their unique geometry.
 			 *
 			 *	@param		q				The query point.
 			 *	@param		r				The radius of clearance.
 			 *	@param		directions		An instance of Agents::PrefVelocity.  
 			 */
-			void setDirections(const Vector2 & q, float r, Agents::PrefVelocity & directions) const {
-				return _geometry->setDirections(q, r, directions);
+			void setDirections( const Math::Vector2 & q, float r,
+								Agents::PrefVelocity & directions ) const {
+				return _geometry->setDirections( q, r, directions );
 			}
 
 			// TODO: Delete this function= transition uses it determine distance to goal
@@ -157,8 +161,8 @@ namespace Menge {
 			 *				query point.
 			 *
 			 *	A "valid" target point is the nearest point to the query point that is sufficiently
-			 *	inside the goal region that a disk with the given radius is completely inside the goal.
-			 *	It need not be literally the *best* value, an approximation is sufficient.
+			 *	inside the goal region that a disk with the given radius is completely inside the
+			 *	goal. It need not be literally the *best* value, an approximation is sufficient.
 			 *
 			 *	In the case where the goal region is too small to hold the agent, then the "deepest"
 			 *	point in the region is a good approximation.
@@ -167,14 +171,14 @@ namespace Menge {
 			 *	@param		r		The radius of clearance.
 			 *	@returns	A 2D position representing the target point.
 			 */
-			Vector2 getTargetPoint(const Vector2 & q, float r) const {
-				return _geometry->getTargetPoint(q, r);
+			Math::Vector2 getTargetPoint( const Math::Vector2 & q, float r ) const {
+				return _geometry->getTargetPoint( q, r );
 			}
 
 			/*!
 			 *	@brief		Return the centroid of the goal.
 			 */
-			Vector2 getCentroid() const { return _geometry->getCentroid(); }
+			Math::Vector2 getCentroid() const { return _geometry->getCentroid(); }
 
 			/*!
 			 *	@brief		Reports if the goal still has capacity.
@@ -276,11 +280,12 @@ namespace Menge {
 			 *	@returns	The goal's id.
 			 */
 			inline size_t getID() const { return _id; }
-
+#if 0
 			/*!
 			 *	@brief		Draws the goal into an OpenGL context.
 			 */
 			virtual void drawGL() const;
+#endif
 
 			/*!
 			 *	@brief		The maximum capacity any goal can hold.
@@ -290,11 +295,12 @@ namespace Menge {
 			friend class GoalSet;
 
 		protected:
+#if 0
 			/*!
 			 *	@brief		Draws the goal geometry.
 			 */
 			virtual void drawGLGeometry() const {}
-
+#endif
 			/*!
 			 *	@brief		The relative weight of this goal.
 			 */
@@ -344,6 +350,5 @@ namespace Menge {
 		Goal * parseGoal( TiXmlElement * node, const std::string & behaveFldr );
 
 	}	// namespace BFSM
-
 }	// namespace Menge
 #endif	 //__GOALS_H__

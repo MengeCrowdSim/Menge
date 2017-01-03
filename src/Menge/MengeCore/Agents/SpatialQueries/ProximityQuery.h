@@ -38,15 +38,16 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 /*!
  *  @file       ProximityQuery.h
- *  @brief      The base class for all objects which actually perform filtering and store results from spatial queries
+ *  @brief      The base class for all objects which actually perform filtering and store results
+ *				from spatial queries
  */
-#ifndef __SPATIAL_QUERY_FILTER_H__
-#define	__SPATIAL_QUERY_FILTER_H__
+#ifndef __PROXIMITY_QUERY_H__
+#define	__PROXIMITY_QUERY_H__
 
+#include "MengeCore/CoreConfig.h"
+#include "MengeCore/Agents/Obstacle.h"
+#include "MengeCore/Math/Vector2.h"
 
-// UTILS
-#include "CoreConfig.h"
-#include "Obstacle.h"
 #include <vector>
 #include <exception>
 
@@ -63,8 +64,8 @@ namespace Menge {
 		 *	@brief		The base class for filtering spatial queries according to proximity
 		 *
 		 *	A spatial query performs basic operations on a query structure
-		 *      The ProximityQuery class is tasked with taking whatever data the spatialquery gives us
-		 *      and filtering the result set to fit our desires. For example
+		 *      The ProximityQuery class is tasked with taking whatever data the spatialquery gives
+		 *      us and filtering the result set to fit our desires. For example
 		 *      K-nearest, K-nearest with minRange
 		 *      ProximityQueries work with obstacles and agents. They must support BOTH
 		 *      Children must overwrite filterAgent and filterObstacle
@@ -74,7 +75,8 @@ namespace Menge {
 			/*!
 			 *	@brief		default Constructor.
 			 */
-			ProximityQuery(){};
+			ProximityQuery(){}
+
 		protected:
 			/*!
 			 *	@brief		Virtual destructor.
@@ -82,8 +84,6 @@ namespace Menge {
 			virtual ~ProximityQuery() {}
 
 		public:
-
-			
 			/*!
 			 *  @brief     resets the query
 			 */
@@ -94,20 +94,21 @@ namespace Menge {
 			 *
 			 *   @returns    the query point for this Query
 			 */
-			virtual Vector2 getQueryPoint() = 0;
-
+			virtual Math::Vector2 getQueryPoint() = 0;
 
 			/*!
-			 *  @brief      updates the max agent query range if conditions inside the Query are met
-			 *              typically, we don't shrink the query range until the result set is full
+			 *  @brief      updates the max agent query range if conditions inside the Query are
+			 *				met typically, we don't shrink the query range until the result set is
+			 *				full.
 			 *
 			 *  @returns	the current max query range
 			 */
 			virtual float getMaxAgentRange() = 0;
 
 			/*!
-			 *  @brief      updates the max query obstacle range if conditions inside the Query are met
-			 *              typically, we don't shrink the query range until the result set is full
+			 *  @brief      updates the max query obstacle range if conditions inside the Query are
+			 *				met typically, we don't shrink the query range until the result set is
+			 *				full.
 			 *
 			 *  @returns	the current max query range
 			 */
@@ -134,4 +135,4 @@ namespace Menge {
 		};
 	}	// namespace Agents
 }	// namespace Menge
-#endif
+#endif	// __PROXIMITY_QUERY_H__

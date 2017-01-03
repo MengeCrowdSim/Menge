@@ -36,12 +36,13 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "ConditionDatabase.h"
-#include "Transitions/CondAuto.h"
-#include "Transitions/CondTimer.h"
-#include "Transitions/CondSpace.h"
-#include "Transitions/CondGoal.h"
-#include "Transitions/CondBoolean.h"
+#include "MengeCore/BFSM/Transitions/ConditionDatabase.h"
+
+#include "MengeCore/BFSM/Transitions/CondAuto.h"
+#include "MengeCore/BFSM/Transitions/CondTimer.h"
+#include "MengeCore/BFSM/Transitions/CondSpace.h"
+#include "MengeCore/BFSM/Transitions/CondGoal.h"
+#include "MengeCore/BFSM/Transitions/CondBoolean.h"
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
@@ -49,7 +50,9 @@ namespace Menge {
 
 	// Specialization
 	template <>
-	std::string ElementDB< BFSM::ConditionFactory, BFSM::Condition >::getElementName() { return "condition"; }
+	std::string ElementDB< BFSM::ConditionFactory, BFSM::Condition >::getElementName() {
+		return "condition";
+	}
 
 	template <>
 	void ElementDB< BFSM::ConditionFactory, BFSM::Condition >::addBuiltins() {

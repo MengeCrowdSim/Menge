@@ -44,9 +44,10 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __ATTRIBUTE_SET_H__
 #define __ATTRIBUTE_SET_H__
 
+#include "MengeCore/CoreConfig.h"
+#include "MengeCore/Math/Vector2.h"
+
 #include <vector>
-#include "CoreConfig.h"
-#include "Math/Vector2.h"
 
 // forward declaration
 class TiXmlElement;
@@ -152,7 +153,8 @@ namespace Menge {
 		/*!
 		 *	@brief		Adds a float distribution attribute to the set.
 		 *
-		 *	@param		prefix		The prefix for the distribution (provide the empty string to use defaults.)
+		 *	@param		prefix		The prefix for the distribution (provide the empty string to
+		 *							use defaults.)
 		 *	@param		required	Whether or not the attribute is required (true)
 		 *							or not (false).
 		 *	@param		defValue	The default value for the attribute if none is provided.
@@ -161,7 +163,8 @@ namespace Menge {
 		 *	@returns	The unique identifier for this attribute.
 		 *	@throws		An AttributeDefinitionException if the attribute name is not unique.
 		 */
-		size_t addFloatDistAttribute( const std::string & prefix, bool required, float defValue, float scale );
+		size_t addFloatDistAttribute( const std::string & prefix, bool required, float defValue,
+									  float scale );
 
 		/*!
 		 *	@brief		Adds a Vector2 distribution attribute to the set.
@@ -179,7 +182,8 @@ namespace Menge {
 		/*!
 		 *	@brief		Adds an integer distribution attribute to the set.
 		 *
-		 *	@param		prefix		The prefix for the distribution (provide the empty string to use defaults.)
+		 *	@param		prefix		The prefix for the distribution (provide the empty string to
+		 *							use defaults.)
 		 *	@param		required	Whether or not the attribute is required (true)
 		 *							or not (false).
 		 *	@param		defValue	The default value for the attribute if none is provided.
@@ -200,7 +204,8 @@ namespace Menge {
 		 *	@returns	The unique identifier for this attribute.
 		 *	@throws		An AttributeDefinitionException if the attribute name is not unique.
 		 */
-		size_t addStringAttribute( const std::string & name, bool required, const std::string & defValue="" );
+		size_t addStringAttribute( const std::string & name, bool required,
+								   const std::string & defValue="" );
 
 		/*!
 		 *	@brief		Prepares the set to parse a new instance.

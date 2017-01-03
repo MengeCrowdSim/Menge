@@ -47,9 +47,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __EVENT_TARGET_DATABASE_H__
 #define __EVENT_TARGET_DATABASE_H__
 
-#include "ElementDatabase.h"
-#include "Events/EventTargetFactory.h"
-#include "Events/EventTarget.h"
+#include "MengeCore/Agents/Events/EventTarget.h"
+#include "MengeCore/Agents/Events/EventTargetFactory.h"
+#include "MengeCore/PluginEngine/ElementDatabase.h"
 
 namespace Menge {
 	/*!

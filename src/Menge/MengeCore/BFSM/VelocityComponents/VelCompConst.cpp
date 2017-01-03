@@ -36,8 +36,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "VelocityComponents/VelCompConst.h"
-#include "BaseAgent.h"
+#include "MengeCore/BFSM/VelocityComponents/VelCompConst.h"
+
+#include "MengeCore/Agents/BaseAgent.h"
 
 #include <sstream>
 #include <iomanip>
@@ -62,7 +63,8 @@ namespace Menge {
 
 		/////////////////////////////////////////////////////////////////////
 
-		void ConstVelComponent::setPrefVelocity( const Agents::BaseAgent * agent, const Goal * goal, Agents::PrefVelocity & pVel ) {
+		void ConstVelComponent::setPrefVelocity( const Agents::BaseAgent * agent,
+												 const Goal * goal, Agents::PrefVelocity & pVel ) {
 			pVel.setSingle( _dir );
 			pVel.setSpeed( _speed );
 			pVel.setTarget( _dir * ( _speed * 5.f ) + agent->_pos );
@@ -74,7 +76,7 @@ namespace Menge {
 			_dir.set( norm( velocity ) );
 			_speed = abs( velocity );
 		}
-
+#if 0
 		/////////////////////////////////////////////////////////////////////
 
 		VelCompContext * ConstVelComponent::getContext() { 
@@ -104,7 +106,7 @@ namespace Menge {
 			_vc->setPrefVelocity( agt, goal, pVel );
 			drawPrefVel( pVel, agt->_pos );
 		}
-		
+#endif
 		/////////////////////////////////////////////////////////////////////
 		//                   Implementation of ConstVCFactory
 		/////////////////////////////////////////////////////////////////////
@@ -116,9 +118,12 @@ namespace Menge {
 
 		/////////////////////////////////////////////////////////////////////
 
-		bool ConstVCFactory::setFromXML( VelComponent * vc, TiXmlElement * node, const std::string & behaveFldr ) const {
+		bool ConstVCFactory::setFromXML( VelComponent * vc, TiXmlElement * node,
+										 const std::string & behaveFldr ) const {
 			ConstVelComponent * cvc = dynamic_cast< ConstVelComponent * >( vc );
-			assert( cvc != 0x0 && "Trying to set attributes of a const velocity component on an incompatible object" );
+			assert( cvc != 0x0 &&
+					"Trying to set attributes of a const velocity component on an incompatible "
+					"object" );
 
 			if ( ! VelCompFactory::setFromXML( vc, node, behaveFldr ) ) return false;
 
@@ -142,7 +147,9 @@ namespace Menge {
 		
 		/////////////////////////////////////////////////////////////////////
 
-		void ConstVelDirComponent::setPrefVelocity( const Agents::BaseAgent * agent, const Goal * goal, Agents::PrefVelocity & pVel ) {
+		void ConstVelDirComponent::setPrefVelocity( const Agents::BaseAgent * agent,
+													const Goal * goal,
+													Agents::PrefVelocity & pVel ) {
 			pVel.setSingle( _dir );
 			pVel.setSpeed( agent->_prefSpeed );
 			pVel.setTarget( _dir * ( agent->_prefSpeed * 5.f ) + agent->_pos );
@@ -153,7 +160,7 @@ namespace Menge {
 		void ConstVelDirComponent::setDirection( const Vector2 & dir ) {
 			_dir.set( norm( dir ) );
 		}
-		
+#if 0
 		/////////////////////////////////////////////////////////////////////
 
 		VelCompContext * ConstVelDirComponent::getContext() {
@@ -183,7 +190,7 @@ namespace Menge {
 			_vc->setPrefVelocity( agt, goal, pVel );
 			drawPrefVel( pVel, agt->_pos );
 		}
-		
+#endif
 		/////////////////////////////////////////////////////////////////////
 		//                   Implementation of ConstDirVCFactory
 		/////////////////////////////////////////////////////////////////////
@@ -195,9 +202,11 @@ namespace Menge {
 
 		/////////////////////////////////////////////////////////////////////
 
-		bool ConstDirVCFactory::setFromXML( VelComponent * vc, TiXmlElement * node, const std::string & behaveFldr ) const {
+		bool ConstDirVCFactory::setFromXML( VelComponent * vc, TiXmlElement * node,
+											const std::string & behaveFldr ) const {
 			ConstVelDirComponent * cvc = dynamic_cast< ConstVelDirComponent * >( vc );
-			assert( cvc != 0x0 && "Trying to set attributes of a const direction velocity component on an incompatible object" );
+			assert( cvc != 0x0 && "Trying to set attributes of a const direction velocity "
+					"component on an incompatible object" );
 
 			if ( ! VelCompFactory::setFromXML( cvc, node, behaveFldr ) ) return false;
 			
@@ -214,12 +223,13 @@ namespace Menge {
 
 		/////////////////////////////////////////////////////////////////////
 
-		void ZeroVelComponent::setPrefVelocity( const Agents::BaseAgent * agent, const Goal * goal, Agents::PrefVelocity & pVel ) {
+		void ZeroVelComponent::setPrefVelocity( const Agents::BaseAgent * agent, const Goal * goal,
+												Agents::PrefVelocity & pVel ) {
 			pVel.setSingle( Vector2(1.f,0.f) );
 			pVel.setSpeed( 0.f );
 			pVel.setTarget( agent->_pos );
 		}
-
+#if 0
 		/////////////////////////////////////////////////////////////////////
 
 		VelCompContext * ZeroVelComponent::getContext() {
@@ -242,6 +252,6 @@ namespace Menge {
 		}
 
 		
-		
+#endif
 	}	// namespace BFSM
 }	// namespace Menge

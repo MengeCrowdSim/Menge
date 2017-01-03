@@ -35,11 +35,11 @@ TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
-
-#include "StateContext.h"
-#include "BaseAgent.h"
-#include "State.h"
-#include "Goals/Goal.h"
+#if 0
+#include "MengeCore/Agents/StateContext.h"
+#include "MengeCore/Agents/BaseAgent.h"
+#include "MengeCore/BFSM/State.h"
+#include "MengeCore/BFSM/Goals/Goal.h"
 #include <sstream>
 #include <limits>
 
@@ -133,3 +133,4 @@ namespace Menge {
 		}
 	}	// namespace BFSM
 }	// namespace Menge
+#endif 

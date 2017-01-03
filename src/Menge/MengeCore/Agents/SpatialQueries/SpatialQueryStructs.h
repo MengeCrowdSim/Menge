@@ -44,9 +44,8 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __SPATIAL_QUERY_STRUCTS_H__
 #define	__SPATIAL_QUERY_STRUCTS_H__
 
+#include "MengeCore/CoreConfig.h"
 
-// UTILS
-#include "CoreConfig.h"
 #include <vector>
 #include <exception>
 
@@ -78,7 +77,8 @@ namespace Menge {
 			 * @param		distance		the distance to store in the struct
 			 * @param		agt		the agent to store in the struct
 			 */
-			NearAgent(float distance, const BaseAgent * agt):distanceSquared(distance),agent(agt){};
+			NearAgent( float distance, const BaseAgent * agt ) : distanceSquared( distance ),
+																 agent(agt) {}
 		};
 
 		/*!
@@ -101,9 +101,10 @@ namespace Menge {
 			 * @param		distance		the distance to store in the struct
 			 * @param		obs		the obstacle to store in the struct
 			 */
-			NearObstacle(float distance, const Obstacle * obs):distanceSquared(distance),obstacle(obs){};
+			NearObstacle( float distance, const Obstacle * obs ) : distanceSquared( distance ),
+																   obstacle( obs ) {}
 		};
 
 	}	// namespace Agents
 }	// namespace Menge
-#endif
+#endif	// __SPATIAL_QUERY_STRUCTS_H__

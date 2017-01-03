@@ -45,11 +45,11 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __TARGET_FACTORY_H__
 #define __TARGET_FACTORY_H__
 
-#include "CoreConfig.h"
-#include <string>
+#include "MengeCore/CoreConfig.h"
+#include "MengeCore/BFSM/Transitions/Target.h"
+#include "MengeCore/PluginEngine/ElementFactory.h"
 
-#include "ElementFactory.h"
-#include "Transitions/Target.h"
+#include <string>
 
 namespace Menge {
 

@@ -51,9 +51,10 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 	#pragma warning( disable : 4231 )
 #endif
 
-#include "CoreConfig.h"
-#include "Logger.h"
-#include "Math/consts.h"
+#include "MengeCore/CoreConfig.h"
+#include "MengeCore/Runtime/Logger.h"
+#include "MengeCore/Math/consts.h"
+
 #include <cmath>
 #include <ostream>
 #include <cassert>
@@ -300,7 +301,7 @@ namespace Menge {
 			  return _x != v._x || _y != v._y || _z != v._z;
 			}
 
-			/////////////////////////////    IN-PLACE MATH OPERATIONS      ////////////////////////////
+			/////////////////////////////    IN-PLACE MATH OPERATIONS      ////////////////////////
 
 			/*!
 			 *	@brief		Perform in-place scalar multiplication on this vector.
@@ -442,9 +443,12 @@ namespace Menge {
 				Type s = sin( angle );
 				Type omc = 1 - c;
 				// This is a hack -- it should be done with a matrix.....
-				Type vx = _x * (v._x * v._x * omc + c) + _y * (v._y * v._x * omc + v._z * s) + _z * (v._z * v._x * omc - v._y * s);
-				Type vy = _x * (v._x * v._y * omc - v._z * s) + _y * (v._y * v._y * omc + c) + _z * (v._z * v._y * omc + v._x * s);
-				Type vz = _x * (v._x * v._z * omc + v._y * s) + _y * (v._y * v._z * omc - v._x * s) + _z * (v._z * v._z * omc + c);
+				Type vx = _x * (v._x * v._x * omc + c) + _y * (v._y * v._x * omc + v._z * s) +
+						  _z * (v._z * v._x * omc - v._y * s);
+				Type vy = _x * (v._x * v._y * omc - v._z * s) + _y * (v._y * v._y * omc + c) +
+						  _z * (v._z * v._y * omc + v._x * s);
+				Type vz = _x * (v._x * v._z * omc + v._y * s) + _y *
+					      (v._y * v._z * omc - v._x * s) + _z * (v._z * v._z * omc + c);
 				return Vector3d( vx, vy, vz );
 			}
 
@@ -460,9 +464,12 @@ namespace Menge {
 				Type s = sin(angle);
 				Type omc = 1 - c;
 				// This is a hack -- it should be done with a matrix.....
-				Type vx = _x * (v._x * v._x * omc + c) + _y * (v._y * v._x * omc + v._z * s) + _z * (v._z * v._x * omc - v._y * s);
-				Type vy = _x * (v._x * v._y * omc - v._z * s) + _y * (v._y * v._y * omc + c) + _z * (v._z * v._y * omc + v._x * s);
-				Type vz = _x * (v._x * v._z * omc + v._y * s) + _y * (v._y * v._z * omc - v._x * s) + _z * (v._z * v._z * omc + c);
+				Type vx = _x * (v._x * v._x * omc + c) + _y * (v._y * v._x * omc + v._z * s) + _z *
+						  (v._z * v._x * omc - v._y * s);
+				Type vy = _x * (v._x * v._y * omc - v._z * s) + _y * (v._y * v._y * omc + c) + _z *
+						  (v._z * v._y * omc + v._x * s);
+				Type vz = _x * (v._x * v._z * omc + v._y * s) + _y *
+						  (v._y * v._z * omc - v._x * s) + _z * (v._z * v._z * omc + c);
 				_x = vx;
 				_y = vy;
 				_z = vz;
@@ -616,7 +623,8 @@ namespace Menge {
 		 *	@brief		Explicit specialization for shared library export.
 		 *	@internal
 		 */
-		MATHEXTERN template MENGE_API Vector3d<float> operator*( float s, const Vector3d<float>& v);
+		MATHEXTERN template MENGE_API Vector3d<float> operator*( float s,
+																 const Vector3d<float>& v);
 
 		/*!
 		 *  @brief      Inserts the specified two-dimensional vector into the logger.
@@ -704,9 +712,9 @@ namespace Menge {
 		inline MENGE_API Vector3d<Type> norm( const Vector3d<Type>& vector ) {
 			Type mag = abs( vector );
 			if ( mag < EPS ) {
-				// This may not be the "right" behavior.  I do this because the "normalized" vector has unit
-				//	length.  This guarantees that the result is always unit length.  Although it introduces other
-				//	issues.
+				// This may not be the "right" behavior.  I do this because the "normalized" vector
+				//  has unit length.  This guarantees that the result is always unit length.
+				//	Although it introduces otherissues.
 				return Vector3d<Type>( 1.f, 0.f, 0.f );
 			} else {
 				return vector / mag;
@@ -730,7 +738,8 @@ namespace Menge {
 		 *            false otherwise.
 		 */
 		template< class Type >
-		inline MENGE_API bool equivalent( const Vector3d<Type> & v1, const Vector3d<Type> & v2, float threshSqd=0.000001f ) {
+		inline MENGE_API bool equivalent( const Vector3d<Type> & v1, const Vector3d<Type> & v2,
+										  float threshSqd=0.000001f ) {
 			return absSq( v1 - v2 ) < threshSqd;
 		}
 
@@ -738,7 +747,9 @@ namespace Menge {
 		 *	@brief		Explicit specialization for shared library export.
 		 *	@internal
 		 */
-		MATHEXTERN template MENGE_API bool equivalent( const Vector3d<float> & v1, const Vector3d<float> & v2, float threshSqd );
+		MATHEXTERN template MENGE_API bool equivalent( const Vector3d<float> & v1,
+													   const Vector3d<float> & v2,
+													   float threshSqd );
 
 		// Possible operations 
 		//	Normal to a trio of points (i.e. normal of triangle)

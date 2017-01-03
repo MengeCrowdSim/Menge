@@ -45,9 +45,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __GRAPH_H__
 #define	__GRAPH_H__
 
-#include "mengeCommon.h"
-#include "Resource.h"
-#include "GraphVertex.h"
+#include "MengeCore/mengeCommon.h"
+#include "MengeCore/resources/GraphVertex.h"
+#include "MengeCore/resources/Resource.h"
 
 namespace Menge {
 
@@ -62,6 +62,8 @@ namespace Menge {
 		class BaseAgent;
 	}
 
+	using Menge::Math::Vector2;
+
 	/*!
 	 *	@brief		A roadmap graph and the infrastructure for performing graph
 	 *				searches.  NOTE: This implementation assumes that the graph 
@@ -72,7 +74,8 @@ namespace Menge {
 		/*!
 		 *	@brief		Constructor.
 		 *
-		 *	@param		fileName		The name of the file which contains the vector field definition.
+		 *	@param		fileName		The name of the file which contains the vector field
+		 *								definition.
 		 */
 		Graph( const std::string & fileName );
 
@@ -176,7 +179,9 @@ namespace Menge {
 		 *	@param		goal		The goal point.
 		 *	@returns	The h-value.
 		 */
-		inline float computeH( size_t v, const Vector2 & goal ) { return abs( _vertices[v].getPosition() - goal ); }
+		inline float computeH( size_t v, const Vector2 & goal ) {
+			return abs( _vertices[v].getPosition() - goal );
+		}
 
 		/*!
 		 *	@brief		The number of vertices.
@@ -225,8 +230,8 @@ namespace Menge {
 		 *	@brief		The block of data for tracking the f, g, and h data for nodes.
 		 *				(This is where DATA_SIZE = 3N comes from.)  One block for
 		 *				each active thread.
-		 *				The first N values in a block are the f values, the next N are the g values,
-		 *				and the last set of N values are the h values.
+		 *				The first N values in a block are the f values, the next N are the g
+		 *				values, and the last set of N values are the h values.
 		 */
 		float * _DATA;	
 

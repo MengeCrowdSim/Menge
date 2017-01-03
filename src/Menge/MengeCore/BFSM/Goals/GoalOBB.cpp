@@ -36,9 +36,13 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "Goals/GoalOBB.h"
+#include "MengeCore/BFSM/Goals/GoalOBB.h"
+
+#include "MengeCore/Agents/PrefVelocity.h"
+
+#if 0
 #include "graphCommon.h"
-#include "PrefVelocity.h"
+#endif
 
 namespace Menge  {
 
@@ -47,7 +51,7 @@ namespace Menge  {
 		/////////////////////////////////////////////////////////////////////
 		//                   Implementation of OBBGoal
 		/////////////////////////////////////////////////////////////////////
-
+#if 0
 		void OBBGoal::drawGLGeometry() const{
 			OBBShape * obb = static_cast<OBBShape *>(_geometry);
 			Vector2 X = obb->getXBasis();
@@ -73,15 +77,17 @@ namespace Menge  {
 			glEnd();
 			glPopMatrix();
 		}
-
+#endif
 		/////////////////////////////////////////////////////////////////////
 		//                   Implementation of OBBGoalFactory
 		/////////////////////////////////////////////////////////////////////
 
-		bool OBBGoalFactory::setFromXML( Goal * goal, TiXmlElement * node, const std::string & behaveFldr ) const {
+		bool OBBGoalFactory::setFromXML( Goal * goal, TiXmlElement * node,
+										 const std::string & behaveFldr ) const {
 			
 			OBBGoal * obbGoal = dynamic_cast< OBBGoal * >( goal );
-			assert( obbGoal != 0x0 && "Trying to set OBB goal attributes on an incompatible object." );
+			assert( obbGoal != 0x0 &&
+					"Trying to set OBB goal attributes on an incompatible object." );
 			if (!GoalFactory::setFromXML(obbGoal, node, behaveFldr)) return false;
 
 			// rely on createOBB to parse errors
@@ -97,4 +103,4 @@ namespace Menge  {
 
 		
 	}	// namespace BFSM
-}	// namespace Menge 
+}	// namespace Menge

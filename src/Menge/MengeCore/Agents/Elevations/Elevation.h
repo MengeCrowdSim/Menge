@@ -44,8 +44,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __ELEVATION_H__
 #define	__ELEVATION_H__
 
-#include "mengeCommon.h"
-#include "Element.h"
+#include "MengeCore/mengeCommon.h"
+#include "MengeCore/Math/Vector2.h"
+#include "MengeCore/PluginEngine/Element.h"
 
 namespace Menge {
 
@@ -74,19 +75,23 @@ namespace Menge {
 		/*!
 		 *	@brief		The fatal elevation exception.
 		 */
-		class MENGE_API ElevationFatalException : public ElevationException, public MengeFatalException {
+		class MENGE_API ElevationFatalException : public ElevationException,
+												  public MengeFatalException {
 		public:
 			/*!
 			 *	@brief		Default constructor.
 			 */
-			ElevationFatalException() : MengeException(), ElevationException(), MengeFatalException() {}
+			ElevationFatalException() : MengeException(), ElevationException(),
+										MengeFatalException() {}
 
 			/*!
 			 *	@brief		Constructor with message.
 			 *
 			 *	@param		s		The exception-specific message.
 			 */
-			ElevationFatalException( const std::string & s ): MengeException(s), ElevationException(), MengeFatalException() {}
+			ElevationFatalException( const std::string & s ) : MengeException(s),
+															   ElevationException(),
+															   MengeFatalException() {}
 		};
 
 
@@ -121,7 +126,7 @@ namespace Menge {
 			 *	@param		point		A point on the x-z cartesian plane.
 			 *	@returns	The elevation at the given point.
 			 */
-			virtual float getElevation( const Vector2 & point ) const = 0;
+			virtual float getElevation( const Math::Vector2 & point ) const = 0;
 
 			/*!
 			 *	@brief		Reports the elevation of the simulation domain for the given agent
@@ -129,8 +134,10 @@ namespace Menge {
 			 *	The domain may have more than one valid elevation for the point.
 			 *	It is the responsibility of the elevation entity resolve this.
 			 *
-			 *	@param		agent		A pointer to the agent for which elevation should be reported.
-			 *	@returns	The elevation (position on the y-axis) based on current agent state/position.
+			 *	@param		agent		A pointer to the agent for which elevation should be
+			 *							reported.
+			 *	@returns	The elevation (position on the y-axis) based on current agent
+			 *				state/position.
 			 */
 			virtual float getElevation( const BaseAgent * agent ) const = 0;
 
@@ -142,7 +149,7 @@ namespace Menge {
 			 *	@param		point		A point on the x-z cartesian plane.
 			 *	@returns	The gradient at the given point.
 			 */
-			virtual Vector2 getGradient( const Vector2 & point ) const = 0;
+			virtual Math::Vector2 getGradient( const Math::Vector2 & point ) const = 0;
 
 			/*!
 			 *	@brief		Reports the gradient of the simulation domain for the given agent
@@ -153,7 +160,7 @@ namespace Menge {
 			 *	@param		agent		A pointer to the agent for which gradient should be reported.
 			 *	@returns	The gradient of the domain based on current agent state/position.
 			 */
-			virtual Vector2 getGradient( const BaseAgent * agent ) const = 0;
+			virtual Math::Vector2 getGradient( const BaseAgent * agent ) const = 0;
 		};
 
 	} // namespace Agents

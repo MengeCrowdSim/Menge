@@ -45,11 +45,11 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __VEL_MODIFIER_FACTORY_H__
 #define __VEL_MODIFIER_FACTORY_H__
 
-#include "CoreConfig.h"
+#include "MengeCore/CoreConfig.h"
 #include <string>
 
-#include "ElementFactory.h"
-#include "VelocityModifiers/VelModifier.h"
+#include "MengeCore/PluginEngine/ElementFactory.h"
+#include "MengeCore/BFSM/VelocityModifiers/VelModifier.h"
 
 namespace Menge {
 

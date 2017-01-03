@@ -36,17 +36,19 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
+
+#include "MengeCore/Math/SimRandom.h"
+
+#include "MengeCore/Math/consts.h"
+#include "MengeCore/Runtime/Logger.h"
+
 #include <cmath>
 #include <cstdlib>
 #include <iostream>
 
-using namespace std;
-
-#include "Logger.h"
-#include "SimRandom.h"
-#include "consts.h"
-
 namespace Menge {
+
+	using namespace std;
 
 	namespace Math {
 

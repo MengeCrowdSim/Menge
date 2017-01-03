@@ -44,8 +44,10 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #define	__K_NEAREST_QUERY_H__
 
 // UTILS
-#include "ProximityQuery.h"
-#include "SpatialQueryStructs.h"
+#include "MengeCore/Agents/SpatialQueries/ProximityQuery.h"
+#include "MengeCore/Agents/SpatialQueries/SpatialQueryStructs.h"
+#include "MengeCore/Math/Vector2.h"
+
 #include <vector>
 
 namespace Menge {
@@ -65,83 +67,83 @@ namespace Menge {
 			/*!
 			 *	@brief		default Constructor.
 			 */
-			KNearestQuery() : ProximityQuery(), _maxAgentResultDistance(0.0f), _maxObstacleResultDistance(0.0f), _queryPoint(0,0), _initialRange(100){};
-
-
-				/*!
-			 *  @brief      filters an agent and determines if it is within the set of k-nearest neighbors
-			 *
-			 *  @param      agent     the agent to consider
-			 *  @param      distSq	  the distance to the agent
-			 */
-			void filterAgent(const BaseAgent * agent, float distSq);
+			KNearestQuery() : ProximityQuery(), _maxAgentResultDistance( 0.0f ),
+							  _maxObstacleResultDistance( 0.0f ), _queryPoint( 0, 0 ),
+							  _initialRange( 100 ) {}
 
 			/*!
-			 *  @brief      filters an obstacle and determines if it is within the set of k-nearest neighbors
+			 *  @brief      Filters an agent and determines if it is within the set of k-nearest
+			 *				neighbors.
 			 *
-			 *  @param      obstacle     the obstacle to consider
-			 *  @param      distSq  the distance to the obstacle
+			 *  @param      agent     the agent to consider
+			 *  @param      distSq	  the squared distance to the agent
 			 */
-			void filterObstacle(const Obstacle * obstacle, float distSq);
+			void filterAgent( const BaseAgent * agent, float distSq );
+
+			/*!
+			 *  @brief      Filters an obstacle and determines if it is within the set of k-nearest
+			 *				neighbors.
+			 *
+			 *  @param      obstacle    the obstacle to consider
+			 *  @param      distSq		the squared distance to the obstacle
+			 */
+			void filterObstacle( const Obstacle * obstacle, float distSq );
 
 			/*!
 			 *  @brief      sets the max number of agent results for this query to store
 			 *
 			 *  @param      results         the number of agent results to store
 			 */
-			void setMaxAgentResults(size_t results){_maxAgentResults = results;}
+			void setMaxAgentResults( size_t results ){ _maxAgentResults = results; }
 
 			/*!
 			 *  @brief      sets the max number of obstacle results for this query to store
 			 *
 			 *  @param      results         the number of obstacle results to store
 			 */
-			void setMaxObstacleResults(size_t results){_maxObstacleResults = results;}
-
+			void setMaxObstacleResults( size_t results ){ _maxObstacleResults = results; }
 
 			/*!
 			 *  @brief      sets the query point
 			 *
 			 *  @param     point       the query point to be stored
 			 */
-			void setQueryPoint(Vector2 point){_queryPoint = point;}
+			void setQueryPoint( Math::Vector2 point ){ _queryPoint = point; }
 	        
 			/*!
 			 *  @brief      sets the query point
 			 *
 			 *  @param     range       the squared range to search for nearby candidates
 			 */
-			void setQueryRangeSq(float range){_initialRange = range;}
-	        
+			void setQueryRangeSq( float range ){ _initialRange = range; }
 	        
 			/*!
 			 *  @brief      gets the max number of agent results for this query to store
 			 *
 			 *  @returns      the number of agent results to store
 			 */
-			size_t maxAgentResults(){ return _maxAgentResults;}
+			size_t maxAgentResults(){ return _maxAgentResults; }
 
 			/*!
 			 *  @brief      gets the max number of obstacle results for this query to store
 			 *
 			 *  @returns      the number of obstacle results to store
 			 */
-			size_t maxObstacleResults(){ return _maxObstacleResults;}
+			size_t maxObstacleResults(){ return _maxObstacleResults; }
 	        
 			/*!
 			 *  @brief      gets the number of agent results stored currently
 			 *
 			 *  @returns         the number of agent results in the query
 			 */
-			size_t agentResultCount(){ return _agentResults.size();}
+			size_t agentResultCount(){ return _agentResults.size(); }
 	        
 			/*!
 			 *  @brief      gets the number of obstacle results stored currently
 			 *
 			 *  @returns         the number of obstacle results in the query
 			 */
-			size_t obstacleResultCount(){ return _obstacleResults.size();}
-
+			size_t obstacleResultCount(){ return _obstacleResults.size(); }
 			
 			/*!
 			 *  @brief     clears the result vectors. Resets the query
@@ -153,7 +155,7 @@ namespace Menge {
 			 *
 			 *   @returns    the query point for this query
 			 */
-			virtual Vector2 getQueryPoint() { return _queryPoint;};
+			virtual Math::Vector2 getQueryPoint() { return _queryPoint; }
 
 			/*!
 			 *  @brief      gets the ith agent result
@@ -161,7 +163,7 @@ namespace Menge {
 			 *  @param      i		the index of the agent to get
 			 *  @returns    the result pair in question
 			 */
-			NearAgent getAgentResult(size_t i) { return _agentResults[i];};
+			NearAgent getAgentResult( size_t i ) { return _agentResults[i]; }
 
 			/*!
 			 *  @brief      gets the ith obstacle result
@@ -169,19 +171,21 @@ namespace Menge {
 			 *  @param      i		the index of the obstacle to get
 			 *  @returns    the result pair in question
 			 */
-			NearObstacle getObstacleResult(size_t i) { return _obstacleResults[i];};
+			NearObstacle getObstacleResult( size_t i ) { return _obstacleResults[i]; }
 
 			/*!
-			 *  @brief      updates the max agent query range if conditions inside the query are met
-			 *              typically, we don't shrink the query range until the result set is full
+			 *  @brief      Updates the max agent query range if conditions inside the query are
+			 *              met typically, we don't shrink the query range until the result set is
+			 *				full.
 			 *
 			 *  @returns    the new query distance. Typically this is the initial value.d
 			 */
 			virtual float getMaxAgentRange();
 
 			/*!
-			 *  @brief      updates the max query obstacle range if conditions inside the query are met
-			 *              typically, we don't shrink the query range until the result set is full
+			 *  @brief      updates the max query obstacle range if conditions inside the query are
+			 *				met typically, we don't shrink the query range until the result set is
+			 *				full.
 			 *
 			 *  @returns    the new query distance. Typically this is the initial value.
 			 */
@@ -199,17 +203,16 @@ namespace Menge {
 			size_t _maxObstacleResults;
 
 			/*!
-			 *  @brief   the max distance to an agent result. Useful for informing the spatial query
-			 *           to stop searching further
+			 *  @brief   the max distance to an agent result. Useful for informing the spatial
+			 *           query to stop searching further.
 			 */
 			float _maxAgentResultDistance;
 
 			/*!
-			 *  @brief   the max distance to an obstacle result. Useful for informing the spatial query
-			 *           to stop searching further
+			 *  @brief   the max distance to an obstacle result. Useful for informing the spatial
+			 *           query to stop searching further.
 			 */
 			float _maxObstacleResultDistance;
-
 
 			/*!
 			 *  @brief   vector of pairs. Each pair contains a distance to an agent, and the agent
@@ -224,7 +227,7 @@ namespace Menge {
 			/*!
 			 *  @brief   the start point for the query
 			 */
-			Vector2 _queryPoint;
+			Math::Vector2 _queryPoint;
 
 			/*!
 			 *    @brief  the base max range of queries
@@ -233,4 +236,4 @@ namespace Menge {
 		};
 	}	// namespace Agents
 }	// namespace Menge
-#endif
+#endif	// __K_NEAREST_QUERY_H__

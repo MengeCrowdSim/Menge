@@ -47,9 +47,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __ACTION_DATABASE_H__
 #define __ACTION_DATABASE_H__
 
-#include "ElementDatabase.h"
-#include "Actions/ActionFactory.h"
-#include "Actions/Action.h"
+#include "MengeCore/BFSM/Actions/ActionFactory.h"
+#include "MengeCore/BFSM/Actions/Action.h"
+#include "MengeCore/PluginEngine/ElementDatabase.h"
 
 namespace Menge {
 

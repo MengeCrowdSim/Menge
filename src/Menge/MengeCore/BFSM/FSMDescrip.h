@@ -44,22 +44,18 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __CONFIG_H__
 #define __CONFIG_H__
 
+#include "MengeCore/BFSM/fsmCommon.h"
+#include "MengeCore/BFSM/StateDescrip.h"
+#include "MengeCore/resources/ResourceManager.h"
+#include "MengeCore/resources/VectorField.h"
+#include "MengeCore/Runtime/Logger.h"
+#include "MengeCore/Runtime/os.h"
+
+#include "tinyxml.h"
+
 #include <string>
 #include <map>
 #include <list>
-
-#include "fsmCommon.h"
-
-
-// Configuration description classes
-#include "StateDescrip.h"
-#include "resources/ResourceManager.h"
-#include "resources/VectorField.h"
-
-#include "Logger.h"
-#include "os.h"
-#include "tinyxml.h"
-
 
 namespace Menge {
 
@@ -102,8 +98,8 @@ namespace Menge {
 			 *		- connecting states with transitions.
 			 *
 			 *	@param		sData		The description of the state to create.
-			 *	@returns	A pointer to the created state.  If there are two states with the same name
-			 *				*in this behavior*, NULL is returned.
+			 *	@returns	A pointer to the created state.  If there are two states with the same
+			 *				name *in this behavior*, NULL is returned.
 			 */
 			State * addState( StateDescrip * sData );
 
@@ -125,10 +121,12 @@ namespace Menge {
 			 *	@param		VERBOSE		Dictates whether the construction process is verbose (true)
 			 *							or not (false).
 			 */
-			friend FSM * buildFSM( FSMDescrip & fsmDescrip, Agents::SimulatorInterface * sim, bool VERBOSE );
+			friend FSM * buildFSM( FSMDescrip & fsmDescrip, Agents::SimulatorInterface * sim,
+								   bool VERBOSE );
 
 			/*!
-			 *	@brief		Friend operator for printing the behavior configuration to an output stream.
+			 *	@brief		Friend operator for printing the behavior configuration to an output
+			 *				stream.
 			 *
 			 *	@param		out				The logger.
 			 *	@param		fsmDescrip		A behavior configuration to write to the stream.
@@ -171,13 +169,14 @@ namespace Menge {
 			/*!
 			 *	@brief		A mapping of goal sets to goals.
 			 *				The goal sets are represented by their id.  The goals for each goal
-			 *				set are stored in a map, mapping the goal's local id to a descriptor for
-			 *				that goal.  This is to facilitate set additions.
+			 *				set are stored in a map, mapping the goal's local id to a descriptor
+			 *				for that goal.  This is to facilitate set additions.
 			 */
 			std::map< size_t, GoalSet * >	_goalSets;
 
 			/*!
-			 *	@brief		A list of velocity modifiers to be applied to all states in the simulator
+			 *	@brief		A list of velocity modifiers to be applied to all states in the
+			 *				simulator.
 			 */
 			std::vector< VelModifier * >	_velModifiers;
 

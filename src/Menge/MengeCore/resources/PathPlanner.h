@@ -44,9 +44,10 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __PATH_PLANNER_H__
 #define	__PATH_PLANNER_H__
 
-#include "mengeCommon.h"
-#include "NavMesh.h"
-#include "ReadersWriterLock.h"
+#include "MengeCore/mengeCommon.h"
+#include "MengeCore/resources/NavMesh.h"
+#include "MengeCore/Runtime/ReadersWriterLock.h"
+
 #include <map>
 #include <list>
 
@@ -73,19 +74,23 @@ namespace Menge {
 	/*!
 	 *	@brief		The fatal path planner exception.
 	 */
-	class MENGE_API PathPlannerFatalException : public PathPlannerException, public MengeFatalException {
+	class MENGE_API PathPlannerFatalException : public PathPlannerException,
+												public MengeFatalException {
 	public:
 		/*!
 		 *	@brief		Default constructor.
 		 */
-		PathPlannerFatalException() : MengeException(), PathPlannerException(), MengeFatalException() {}
+		PathPlannerFatalException() : MengeException(), PathPlannerException(),
+									  MengeFatalException() {}
 
 		/*!
 		 *	@brief		Constructor with message.
 		 *
 		 *	@param		s		The exception-specific message.
 		 */
-		PathPlannerFatalException( const std::string & s ): MengeException(s), PathPlannerException(), MengeFatalException() {}
+		PathPlannerFatalException( const std::string & s ) : MengeException(s),
+															 PathPlannerException(),
+															 MengeFatalException() {}
 	};
 
 	// FORWARD DECLARATIONS
@@ -184,7 +189,7 @@ namespace Menge {
 		 *	@param		goal		The goal point.
 		 *	@returns	The h-value.
 		 */
-		float computeH( unsigned int node, const Vector2 & goal );
+		float computeH( unsigned int node, const Math::Vector2 & goal );
 
 		/*!
 		 *	@brief		Cache the given route going from start to goal

@@ -36,9 +36,12 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "Goals/GoalPoint.h"
-#include "PrefVelocity.h"
+#include "MengeCore/BFSM/Goals/GoalPoint.h"
+#include "MengeCore/Agents/PrefVelocity.h"
+
+#if 0
 #include "graphCommon.h"
+#endif
 
 namespace Menge {
 
@@ -62,7 +65,7 @@ namespace Menge {
 		PointGoal::PointGoal(float x, float y) : Goal() {
 			_geometry = new PointShape(Vector2(x, y));
 		}
-
+#if 0
 		/////////////////////////////////////////////////////////////////////
 		
 		void PointGoal::drawGL() const{
@@ -71,15 +74,17 @@ namespace Menge {
 			glVertex3f( p.x(), 0.f, p.y() );
 			glEnd();
 		}
-
+#endif
 		/////////////////////////////////////////////////////////////////////
 		//                   Implementation of PointGoalFactory
 		/////////////////////////////////////////////////////////////////////
 
-		bool PointGoalFactory::setFromXML( Goal * goal, TiXmlElement * node, const std::string & behaveFldr ) const {
+		bool PointGoalFactory::setFromXML( Goal * goal, TiXmlElement * node,
+										   const std::string & behaveFldr ) const {
 			
 			PointGoal * pGoal = dynamic_cast< PointGoal * >( goal );
-			assert( pGoal != 0x0 && "Trying to set point goal attributes on an incompatible object." );
+			assert( pGoal != 0x0 &&
+					"Trying to set point goal attributes on an incompatible object." );
 
 			if ( ! GoalFactory::setFromXML( pGoal, node, behaveFldr ) ) return false;
 
@@ -93,4 +98,4 @@ namespace Menge {
 		}
 		
 	}	// namespace BFSM
-}	// namespace Menge 
+}	// namespace Menge

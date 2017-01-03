@@ -36,10 +36,13 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "AgentPropertyManipulator.h"
-#include "BaseAgent.h"
+#include "MengeCore/Agents/AgentPropertyManipulator.h"
+
+#include "MengeCore/Agents/BaseAgent.h"
 
 namespace Menge {
+
+	using Math::FloatGenerator;
 
 	/////////////////////////////////////////////////////////////////////
 	//                   Implementation of helper function
@@ -79,7 +82,9 @@ namespace Menge {
 	//					Implementation of AgentPropertyManipulator
 	/////////////////////////////////////////////////////////////////////
 
-	AgentPropertyManipulator::AgentPropertyManipulator(): Element(), _operandGen(0x0),_property(BFSM::NO_PROPERTY),_originalMap() {
+	AgentPropertyManipulator::AgentPropertyManipulator() : Element(), _operandGen( 0x0 ),
+														   _property( BFSM::NO_PROPERTY ),
+														   _originalMap() {
 	}
 
 	/////////////////////////////////////////////////////////////////////

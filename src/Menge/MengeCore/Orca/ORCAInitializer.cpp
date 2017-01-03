@@ -36,11 +36,14 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "ORCAInitializer.h"
-#include "ORCAAgent.h"
-#include "Math/RandGenerator.h"
+#include "MengeCore/Orca/ORCAInitializer.h"
+
+#include "MengeCore/Math/RandGenerator.h"
+#include "MengeCore/Orca/ORCAAgent.h"
 
 namespace ORCA {
+
+	using Menge::Math::ConstFloatGenerator;
 
 	////////////////////////////////////////////////////////////////
 	//			Implementation of ORCA::AgentInitializer
@@ -59,7 +62,8 @@ namespace ORCA {
 
 	////////////////////////////////////////////////////////////////
 
-	AgentInitializer::AgentInitializer( const AgentInitializer & init ) : Menge::Agents::AgentInitializer(init) { 
+	AgentInitializer::AgentInitializer( const AgentInitializer & init ) :
+		Menge::Agents::AgentInitializer(init) { 
 		_timeHorizon = init._timeHorizon->copy();
 		_timeHorizonObst = init._timeHorizonObst->copy();
 	}
@@ -90,7 +94,8 @@ namespace ORCA {
 
 	////////////////////////////////////////////////////////////////
 
-	Menge::Agents::AgentInitializer::ParseResult AgentInitializer::setFromXMLAttribute( const ::std::string & paramName, const ::std::string & value ) {
+	Menge::Agents::AgentInitializer::ParseResult AgentInitializer::setFromXMLAttribute(
+		const ::std::string & paramName, const ::std::string & value ) {
 		Menge::Agents::AgentInitializer::ParseResult result = IGNORED;
 		if ( paramName == "tau" ) {
 			result = constFloatGenerator( _timeHorizon, value );
@@ -99,7 +104,9 @@ namespace ORCA {
 		} 
 
 		if ( result == FAILURE ) {
-			Menge::logger << Menge::Logger::WARN_MSG << "Attribute \"" << paramName << "\" had an incorrectly formed value: \"" << value << "\".  Using default value.";
+			Menge::logger << Menge::Logger::WARN_MSG << "Attribute \"" << paramName;
+			Menge::logger << "\" had an incorrectly formed value: \"" << value;
+			Menge::logger << "\".  Using default value.";
 			result = ACCEPTED;
 		} else if ( result == IGNORED ){
 			return Menge::Agents::AgentInitializer::setFromXMLAttribute( paramName, value );
@@ -109,7 +116,8 @@ namespace ORCA {
 
 	////////////////////////////////////////////////////////////////
 
-	Menge::Agents::AgentInitializer::ParseResult AgentInitializer::processProperty( ::std::string propName, TiXmlElement * node ) {
+	Menge::Agents::AgentInitializer::ParseResult AgentInitializer::processProperty(
+		::std::string propName, TiXmlElement * node ) {
 		Menge::Agents::AgentInitializer::ParseResult result = IGNORED;
 		if ( propName == "tau" ) {
 			result = getFloatGenerator( _timeHorizon, node );
@@ -118,7 +126,9 @@ namespace ORCA {
 		} 
 
 		if ( result == FAILURE ) {
-			Menge::logger << Menge::Logger::ERR_MSG << "Error extracting value distribution from Property " << propName << ".";
+			Menge::logger << Menge::Logger::ERR_MSG;
+			Menge::logger << "Error extracting value distribution from Property ";
+			Menge::logger << propName << ".";
 			return result;
 		} else if ( result == IGNORED ) {
 			return Menge::Agents::AgentInitializer::processProperty( propName, node );

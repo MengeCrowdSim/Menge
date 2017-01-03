@@ -36,20 +36,24 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "WayPortal.h"
+#include "MengeCore/resources/WayPortal.h"
 
 namespace Menge {
+
+	using Math::Vector2;
 
 	/////////////////////////////////////////////////////////////////////
 	//					Implementation of WayPortal
 	/////////////////////////////////////////////////////////////////////
 
-	WayPortal::WayPortal( const NavMeshEdge * edge, unsigned int nodeID, bool p0IsLeft ): _edge(edge), _nodeID(nodeID), _p0IsLeft(p0IsLeft) {
+	WayPortal::WayPortal( const NavMeshEdge * edge, unsigned int nodeID, bool p0IsLeft ) :
+		_edge(edge), _nodeID(nodeID), _p0IsLeft(p0IsLeft) {
 	}
 
 	/////////////////////////////////////////////////////////////////////
 
-	void WayPortal::setPreferredDirection( const Vector2 & pos, float radius, const Vector2 & dir, Agents::PrefVelocity & pVel ) const {
+	void WayPortal::setPreferredDirection( const Vector2 & pos, float radius, const Vector2 & dir,
+										   Agents::PrefVelocity & pVel ) const {
 		_edge->setClearDirections( pos, radius, dir, pVel );
 
 	}

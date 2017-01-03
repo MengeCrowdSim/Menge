@@ -45,10 +45,12 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __VEL_MOD_SCALE_H__
 #define	__VEL_MOD_SCALE_H__
 
-#include "CoreConfig.h"
-#include "VelModifier.h"
-#include "VelModifierContext.h"  
-#include "VelModifierFactory.h"
+#include "MengeCore/CoreConfig.h"
+#include "MengeCore/BFSM/VelocityModifiers/VelModifier.h"
+#if 0
+#include "MengeCore/BFSM/VelModifiers/VelModifierContext.h"  
+#endif
+#include "MengeCore/BFSM/VelocityModifiers/VelModifierFactory.h"
 
 namespace Menge {
 
@@ -67,14 +69,16 @@ namespace Menge {
 			/*!
 			 *	@brief		Constructor.
 			 *
-			 *	@param		scale			The scale factor to apply to the preferred velocity's speed.
+			 *	@param		scale			The scale factor to apply to the preferred velocity's
+			 *								speed.
 			 */
 			ScaleVelModifier( const float scale );
 
 			/*!
 			 *	@brief		Sets the scale factor.
 			 *
-			 *	@param		scale			The the scale factor to apply to the preferred velocity's speed.
+			 *	@param		scale			The the scale factor to apply to the preferred
+			 *								velocity's speed.
 			 */
 			void setScale( const float  scale );
 
@@ -100,14 +104,14 @@ namespace Menge {
 			 *	@returns	A unique, deep copy of this velocity modifier.	
 			 */
 			VelModifier * copy() const;
-
+#if 0
 			/*!
 			 *	@brief		Provides a display context for interacting with this velocity modifier.
 			 *
 			 *	@returns	A pointer to a context for this vel modifier.
 			 */
 			virtual VelModContext * getContext();    //TODO: Implement the context
-
+#endif
 			friend class ScaleVMFactory;
 
 		protected:
@@ -117,7 +121,7 @@ namespace Menge {
 			float _scale;
 
 		};
-
+#if 0
 		//////////////////////////////////////////////////////////////////////////////
 
 		/*!
@@ -160,7 +164,7 @@ namespace Menge {
 			 */
 			ScaleVelModifier * _vm;
 		};
-
+#endif
 		/////////////////////////////////////////////////////////////////////
 
 		/*!
@@ -199,9 +203,10 @@ namespace Menge {
 			 *	@brief		Create an instance of this class's velocity modifier.
 			 *
 			 *	All VelModFactory sub-classes must override this by creating (on the heap)
-			 *	a new instance of its corresponding velocity modifier type.  The various field values
-			 *	of the instance will be set in a subsequent call to VelModpFactory::setFromXML.
-			 *	The caller of this function takes ownership of the memory.
+			 *	a new instance of its corresponding velocity modifier type.  The various field
+			 *	values of the instance will be set in a subsequent call to
+			 *	VelModFactory::setFromXML. The caller of this function takes ownership of the
+			 *	memory.
 			 *
 			 *	@returns		A pointer to a newly instantiated VelModifier class.
 			 */
@@ -217,15 +222,17 @@ namespace Menge {
 			 *	sub-class should override this method but explicitly call the parent class's
 			 *	version.
 			 *
-			 *	@param		vm			A pointer to the velocity modifier whose attributes are to be set.
+			 *	@param		vm			A pointer to the velocity modifier whose attributes are to
+			 *							be set.
 			 *	@param		node		The XML node containing the velocity modifier attributes.
-			 *	@param		behaveFldr	The path to the behavior file.  If the velocity modifier references
-			 *							resources in the file system, it should be defined relative
-			 *							to the behavior file location.  This is the folder containing
-			 *							that path. 
+			 *	@param		behaveFldr	The path to the behavior file.  If the velocity modifier
+			 *							references resources in the file system, it should be
+			 *							defined relative to the behavior file location.  This is
+			 *							the folder containing that path. 
 			 *	@returns	A boolean reporting success (true) or failure (false).
 			 */
-			virtual bool setFromXML( VelModifier * vm, TiXmlElement * node, const std::string & behaveFldr ) const;
+			virtual bool setFromXML( VelModifier * vm, TiXmlElement * node,
+									 const std::string & behaveFldr ) const;
 		
 			// TODO: This should support a numerical distribution
 			/*!
@@ -236,4 +243,4 @@ namespace Menge {
 		
 	}	// namespace BFSM
 }	// namespace Menge
-#endif	// __VEL_MOD_SCALE_H
+#endif	// __VEL_MOD_SCALE_H__

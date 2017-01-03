@@ -47,9 +47,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __CONDITION_DATABASE_H__
 #define __CONDITION_DATABASE_H__
 
-#include "ElementDatabase.h"
-#include "Transitions/ConditionFactory.h"
-#include "Transitions/Condition.h"
+#include "MengeCore/PluginEngine/ElementDatabase.h"
+#include "MengeCore/BFSM/Transitions/ConditionFactory.h"
+#include "MengeCore/BFSM/Transitions/Condition.h"
 
 namespace Menge {
 

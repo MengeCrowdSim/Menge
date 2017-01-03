@@ -36,9 +36,10 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "ObstacleSetDatabase.h"
-#include "ExplicitObstacleSet.h"
-#include "NavMeshObstacleSet.h"
+#include "MengeCore/Agents/ObstacleSets/ObstacleSetDatabase.h"
+
+#include "MengeCore/Agents/ObstacleSets/ExplicitObstacleSet.h"
+#include "MengeCore/Agents/ObstacleSets/NavMeshObstacleSet.h"
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
@@ -51,7 +52,9 @@ namespace Menge {
 	 *	@returns	The string representation of the database name.
 	 */
 	template <>
-	std::string ElementDB< Agents::ObstacleSetFactory, Agents::ObstacleSet >::getElementName() { return "obstacle set"; }
+	std::string ElementDB< Agents::ObstacleSetFactory, Agents::ObstacleSet >::getElementName() {
+		return "obstacle set";
+	}
 
 	/*! 
 	 *	@brief		Initialization of built in database elements.

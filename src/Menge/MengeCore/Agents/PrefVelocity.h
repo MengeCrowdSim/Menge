@@ -44,7 +44,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __PREF_VELOCITY_H__
 #define __PREF_VELOCITY_H__
 
-#include "mengeCommon.h"
+#include "MengeCore/mengeCommon.h"
 
 namespace Menge {
 
@@ -79,7 +79,7 @@ namespace Menge {
 			 *	@param		speed	The preferred speed.
 			 *	@param		target	The target point from which the preferred direction arises.
 			 */
-			PrefVelocity( const Vector2 & dir, float speed, const Vector2 & target );
+			PrefVelocity( const Math::Vector2 & dir, float speed, const Math::Vector2 & target );
 
 			/*!
 			 *	@brief		Constructor for setting a full span.
@@ -90,7 +90,8 @@ namespace Menge {
 			 *	@param		speed	The preferred speed.
 			 *	@param		target	The target point from which the preferred direction arises.
 			 */
-			PrefVelocity( const Vector2 & left, const Vector2 & right, const Vector2 & pref, float speed, const Vector2 & target );
+			PrefVelocity( const Math::Vector2 & left, const Math::Vector2 & right,
+						  const Math::Vector2 & pref, float speed, const Math::Vector2 & target );
 
 			/*!
 			 *	@brief		Copy constructor.
@@ -112,21 +113,21 @@ namespace Menge {
 			 *
 			 *	@returns	The left extent.
 			 */
-			inline Vector2 getLeft() const { return _left; }
+			inline Math::Vector2 getLeft() const { return _left; }
 
 			/*!
 			 *	@brief		Returns the right extent of the span.
 			 *
 			 *	@returns	The right extent.
 			 */
-			inline Vector2 getRight() const { return _right; }
+			inline Math::Vector2 getRight() const { return _right; }
 
 			/*!
 			 *	@brief		Returns the preferred *direction* of the span.
 			 *
 			 *	@returns	The preferred direction.
 			 */
-			inline Vector2 getPreferred() const { return _preferred; }
+			inline Math::Vector2 getPreferred() const { return _preferred; }
 
 			/*!
 			 *	@brief		Returns the preferred *velocity" of the span.
@@ -135,7 +136,7 @@ namespace Menge {
 			 *	@returns	A vector pointing in the preferred direction at the
 			 *				given speed.
 			 */
-			inline Vector2 getPreferredVel() const { return _preferred * _speed; }
+			inline Math::Vector2 getPreferredVel() const { return _preferred * _speed; }
 
 			/*!
 			 *	@brief		Returns the speed of the preferred velocity.
@@ -156,21 +157,23 @@ namespace Menge {
 			 *
 			 *	@param		dir		The single preferred direction.
 			 */
-			inline void setSingle( const Vector2 & dir ) { _left = _preferred = _right = dir; }
+			inline void setSingle( const Math::Vector2 & dir ) {
+				_left = _preferred = _right = dir;
+			}
 
 			/*!
 			 *	@brief		Gets the target of the preferred velocity.
 			 *
 			 *	@returns	A singe point in space which corresponds to the preferred direction.
 			 */
-			inline Vector2 getTarget() const { return _target; }
+			inline Math::Vector2 getTarget() const { return _target; }
 
 			/*!
 			 *	@brief		Sets the target of the preferred velocity.
 			 *
 			 *	@param		target		The preferred velocity's target.
 			 */
-			inline void setTarget( const Vector2 & target ) { _target = target; }
+			inline void setTarget( const Math::Vector2 & target ) { _target = target; }
 
 			/*!
 			 *	@brief		Sets the preferred velocity span.
@@ -179,7 +182,8 @@ namespace Menge {
 			 *	@param		right		The direction of the right-most extent of the arc.
 			 *	@param		preferred	The single most-preferred direction in the span.
 			 */
-			void setSpan( const Vector2 & left, const Vector2 & right, const Vector2 & preferred );
+			void setSpan( const Math::Vector2 & left, const Math::Vector2 & right,
+						  const Math::Vector2 & preferred );
 
 			/*!
 			 *	@brief		Reports if the arc spans more than a single direction (by reporting 
@@ -196,14 +200,14 @@ namespace Menge {
 			 *				(i.e. det( right, left ) >= 0).  This direction has
 			 *				unit length.
 			 */
-			Vector2		_left;
+			Math::Vector2		_left;
 			
 			/*!
 			 *	@brief		The "right" extent of the preferred velocity span
 			 *				(i.e. det( right, left ) >= 0).  This direction has
 			 *				unit length.
 			 */
-			Vector2		_right;
+			Math::Vector2		_right;
 
 			/*!
 			 *	@brief		The preferred speed (also the radius of the arc.
@@ -216,14 +220,13 @@ namespace Menge {
 			 *				the "best".  This value must lie within the span
 			 *				(i.e., det( right, preferred ) > 0 and det( preferred, left) > 0).
 			 */
-			Vector2		_preferred;
+			Math::Vector2		_preferred;
 
 			/*!
 			 *	@brief		The immediate goal point -- this corresponds to the preferred
 			 *				direction.
 			 */
-			Vector2		_target;
-
+			Math::Vector2		_target;
 		};
 
 	}	// namespace Agents

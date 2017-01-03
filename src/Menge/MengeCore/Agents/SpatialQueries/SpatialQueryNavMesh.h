@@ -44,15 +44,11 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __SPATIAL_QUERY_NAV_MESH_H__
 #define __SPATIAL_QUERY_NAV_MESH_H__
 
-// Menge Base
-#include "SpatialQueries/SpatialQuery.h"
-#include "SpatialQueries/SpatialQueryFactory.h"
+#include "MengeCore/Agents/SpatialQueries/SpatialQuery.h"
+#include "MengeCore/Agents/SpatialQueries/SpatialQueryFactory.h"
+#include "MengeCore/resources/NavMesh.h"
+#include "MengeCore/resources/NavMeshLocalizer.h"
 
-// Resources
-#include "NavMesh.h"
-#include "NavMeshLocalizer.h"
-
-// STL
 #include <vector>
 
 namespace Menge {
@@ -208,16 +204,17 @@ namespace Menge {
 			 *
 			 *	All SpatialQueryFactory sub-classes must override this by creating (on the heap)
 			 *	a new instance of its corresponding spatial query type.  The various field values
-			 *	of the instance will be set in a subsequent call to SpatialQueryFactory::setFromXML.
-			 *	The caller of this function takes ownership of the memory.
+			 *	of the instance will be set in a subsequent call to
+			 *	SpatialQueryFactory::setFromXML. The caller of this function takes ownership of the
+			 *	memory.
 			 *
 			 *	@returns		A pointer to a newly instantiated SpatialQuery class.
 			 */
 			SpatialQuery * instance() const { return new NavMeshSpatialQuery(); }
 
 			/*!
-			 *	@brief		Given a pointer to an SpatialQuery instance, sets the appropriate fields
-			 *				from the provided XML node.
+			 *	@brief		Given a pointer to an SpatialQuery instance, sets the appropriate
+			 *				fields from the provided XML node.
 			 *
 			 *	It is assumed that the value of the `type` attribute is this SpatialQuery's type.
 			 *	(i.e. SpatialQueryFactory::thisFactory has already been called and returned true.)
@@ -225,15 +222,17 @@ namespace Menge {
 			 *	then the sub-class should override this method but explicitly call the parent 
 			 *	class's version.
 			 *
-			 *	@param		sq			A pointer to the spatial query whose attributes are to be set.
+			 *	@param		sq			A pointer to the spatial query whose attributes are to be
+			 *							set.
 			 *	@param		node		The XML node containing the elevation attributes.
 			 *	@param		specFldr	The path to the specification file.  If the SpatialQuery 
-			 *							references resources in the file system, it should be defined relative
-			 *							to the specification file location.  This is the folder containing
-			 *							that path. 
+			 *							references resources in the file system, it should be
+			 *							defined relative to the specification file location.  This
+			 *							is the folder containing that path. 
 			 *	@returns	A boolean reporting success (true) or failure (false).
 			 */
-			virtual bool setFromXML( SpatialQuery * sq, TiXmlElement * node, const std::string & specFldr ) const;
+			virtual bool setFromXML( SpatialQuery * sq, TiXmlElement * node,
+									 const std::string & specFldr ) const;
 		
 			/*!
 			 *	@brief		The identifier for the "file_name" string attribute.

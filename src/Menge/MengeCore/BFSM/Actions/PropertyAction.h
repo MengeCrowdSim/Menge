@@ -45,11 +45,11 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __PROPERTY_ACTION_H__
 #define __PROPERTY_ACTION_H__
 
-#include "CoreConfig.h"
-#include "Actions/Action.h"
-#include "Actions/ActionFactory.h"
-#include "fsmCommon.h"
-#include "AgentPropertyManipulator.h"
+#include "MengeCore/CoreConfig.h"
+#include "MengeCore/Agents/AgentPropertyManipulator.h"
+#include "MengeCore/BFSM/fsmCommon.h"
+#include "MengeCore/BFSM/Actions/Action.h"
+#include "MengeCore/BFSM/Actions/ActionFactory.h"
 
 namespace Menge {
 
@@ -148,21 +148,27 @@ namespace Menge {
 			 *	@param		node		The XML node containing the action attributes.
 			 *	@param		behaveFldr	The path to the behavior file.  If the action references
 			 *							resources in the file system, it should be defined relative
-			 *							to the behavior file location.  This is the folder containing
-			 *							that path. 
+			 *							to the behavior file location.  This is the folder
+			 *							containing that path. 
 			 *	@returns	A boolean reporting success (true) or failure (false).
 			 */
-			virtual bool setFromXML( Action * action, TiXmlElement * node, const std::string & behaveFldr ) const {
-				PropertyAction< Manipulator > * pAction = dynamic_cast< PropertyAction< Manipulator > * >( action );
-				assert( pAction != 0x0 && "Trying to set property action properties on an incompatible object" );
+			virtual bool setFromXML( Action * action, TiXmlElement * node,
+									 const std::string & behaveFldr ) const {
+				PropertyAction< Manipulator > * pAction = 
+					dynamic_cast< PropertyAction< Manipulator > * >( action );
+				assert( pAction != 0x0 &&
+						"Trying to set property action properties on an incompatible object" );
 				
 				if ( ! ActionFactory::setFromXML( action, node, behaveFldr ) ) return false;
 				Menge::AgentPropertyManipulator * manip = pAction->getManipulator();
 
-				PropertyOperand prop = Menge::parsePropertyName( _attrSet.getString( _propertyID ) );
+				PropertyOperand prop = 
+					Menge::parsePropertyName( _attrSet.getString( _propertyID ) );
 				manip->setProperty( prop );
 				if ( prop == NO_PROPERTY ) {
-					logger << Logger::ERR_MSG << "The property action defined on line " << node->Row() << " specified an invalid value for the \"property\" attribute";
+					logger << Logger::ERR_MSG << "The property action defined on line ";
+					logger << node->Row();
+					logger << " specified an invalid value for the \"property\" attribute";
 					return false;
 				}
 				manip->setGenerator( _attrSet.getFloatGenerator( _generatorID ) );
@@ -186,7 +192,8 @@ namespace Menge {
 		/*!
 		 *	@brief		Factory for the SetPropertyAction.
 		 */
-		class MENGE_API SetPropertyActFactory : public PropertyActFactory< Menge::SetPropertyManipulator > {
+		class MENGE_API SetPropertyActFactory : 
+			public PropertyActFactory< Menge::SetPropertyManipulator > {
 		public:
 			
 			/*!
@@ -221,7 +228,9 @@ namespace Menge {
 			 *
 			 *	@returns		A pointer to a newly instantiated Action class.
 			 */
-			Action * instance() const { return new PropertyAction< Menge::SetPropertyManipulator >(); }	
+			Action * instance() const {
+				return new PropertyAction< Menge::SetPropertyManipulator >();
+			}
 		};
 
 		/////////////////////////////////////////////////////////////////////
@@ -229,7 +238,8 @@ namespace Menge {
 		/*!
 		 *	@brief		Factory for the OffsetPropertyAction.
 		 */
-		class MENGE_API OffsetPropertyActFactory : public PropertyActFactory< Menge::OffsetPropertyManipulator > {
+		class MENGE_API OffsetPropertyActFactory :
+			public PropertyActFactory< Menge::OffsetPropertyManipulator > {
 		public:
 			
 			/*!
@@ -264,7 +274,9 @@ namespace Menge {
 			 *
 			 *	@returns		A pointer to a newly instantiated Action class.
 			 */
-			Action * instance() const { return new PropertyAction< Menge::OffsetPropertyManipulator >(); }	
+			Action * instance() const {
+				return new PropertyAction< Menge::OffsetPropertyManipulator >();
+			}
 		};
 
 		/////////////////////////////////////////////////////////////////////
@@ -272,7 +284,8 @@ namespace Menge {
 		/*!
 		 *	@brief		Factory for the ScalePropertyAction.
 		 */
-		class MENGE_API ScalePropertyActFactory : public PropertyActFactory< Menge::ScalePropertyManipulator > {
+		class MENGE_API ScalePropertyActFactory :
+			public PropertyActFactory< Menge::ScalePropertyManipulator > {
 		public:
 			
 			/*!
@@ -307,7 +320,9 @@ namespace Menge {
 			 *
 			 *	@returns		A pointer to a newly instantiated Action class.
 			 */
-			Action * instance() const { return new PropertyAction< Menge::ScalePropertyManipulator >(); }	
+			Action * instance() const {
+				return new PropertyAction< Menge::ScalePropertyManipulator >();
+			}
 		};
 		
 	}	//  namespace BFSM

@@ -57,11 +57,12 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __RAND_GENERATOR_H__
 #define __RAND_GENERATOR_H__
 
-#include "CoreConfig.h"
-#include "vector.h"
+#include "MengeCore/CoreConfig.h"
+#include "MengeCore/Math/vector.h"
+#include "MengeCore/Runtime/SimpleLock.h"
+
 #include <iostream>
 #include <vector>
-#include "SimpleLock.h"
 
 // Forward Declarations
 class	TiXmlElement;
@@ -250,27 +251,28 @@ namespace Menge {
 			 *
 			 *	@param		mean		The mean value of the distribution.
 			 *	@param		stddev		The standard deviation of the value
-			 *	@param		minVal		The lower clamped value, such that all values returned will be
-			 *							greater than or equal to minVal.  For largely "pure" normal
-			 *							distribution, minVal <= mean - 3 * stddev.
-			 *	@param		maxVal		The upper clamped value, such that all values returned will be
-			 *							less than or equal to maxVal.  For largely "pure" normal
+			 *	@param		minVal		The lower clamped value, such that all values returned will
+			 *							be greater than or equal to minVal.  For largely "pure"
+			 *							normal distribution, minVal <= mean - 3 * stddev.
+			 *	@param		maxVal		The upper clamped value, such that all values returned will
+			 *							be less than or equal to maxVal.  For largely "pure" normal
 			 *							distribution, maxVal >= mean + 3 * stddev.
 			 *	@param		seed		If the seed is zero, the global seed will be used otherwise
 			 *							the particular seed will be used.
 			 */
-			NormalFloatGenerator( float mean, float stddev, float minVal, float maxVal, int seed=0 );
+			NormalFloatGenerator( float mean, float stddev, float minVal, float maxVal,
+								  int seed=0 );
 
 			/*!
 			 *	@brief		Sets the distribution parameters.
 			 *
 			 *	@param		mean		The mean value of the distribution.
 			 *	@param		stddev		The standard deviation of the value
-			 *	@param		minVal		The lower clamped value, such that all values returned will be
-			 *							greater than or equal to minVal.  For largely "pure" normal
-			 *							distribution, minVal <= mean - 3 * stddev.
-			 *	@param		maxVal		The upper clamped value, such that all values returned will be
-			 *							less than or equal to maxVal.  For largely "pure" normal
+			 *	@param		minVal		The lower clamped value, such that all values returned will
+			 *							be greater than or equal to minVal.  For largely "pure"
+			 *							normal distribution, minVal <= mean - 3 * stddev.
+			 *	@param		maxVal		The upper clamped value, such that all values returned will
+			 *							be less than or equal to maxVal.  For largely "pure" normal
 			 *							distribution, maxVal >= mean + 3 * stddev.
 			 */
 			void set( float mean, float stddev, float minVal, float maxVal );
@@ -872,7 +874,8 @@ namespace Menge {
 		///////////////////////////////////////////////////////////////////////////////
 
 		/*!
-		 *	@brief		Generates a 2D float value uniformly distributed in an axis-aligned box (AAB).
+		 *	@brief		Generates a 2D float value uniformly distributed in an axis-aligned box
+		 *				(AAB).
 		 */
 		class MENGE_API AABBUniformPosGenerator : public Vec2DGenerator {
 		public:
@@ -967,7 +970,8 @@ namespace Menge {
 			 *	@param		seed		If the seed is zero, the global seed will be used otherwise
 			 *							the particular seed will be used.
 			 */
-			OBBUniformPosGenerator( const Vector2 & minPt, const Vector2 & size, float theta, int seed=0 );
+			OBBUniformPosGenerator( const Vector2 & minPt, const Vector2 & size, float theta,
+									int seed=0 );
 			
 			/*!
 			 *	@brief		Copy constructor.
@@ -1020,12 +1024,14 @@ namespace Menge {
 
 		protected:
 			/*!
-			 *	@brief		The random selector for the position of the return value along the *width* of the OB.
+			 *	@brief		The random selector for the position of the return value along the
+			 *				*width* of the OB.
 			 */
 			UniformFloatGenerator	_xRand;
 
 			/*!
-			 *	@brief		The random selector for the position of the return value along the *height* of the OB.
+			 *	@brief		The random selector for the position of the return value along the
+			 *				*height* of the OB.
 			 */
 			UniformFloatGenerator	_yRand;
 
@@ -1195,15 +1201,18 @@ namespace Menge {
 		 *	This function does not maintain responsibility for freeing up the object.
 		 *	The calling function is responsible for the memory.
 		 *
-		 *	@param		node		The tiny XML node containing the definition of a scalar float generator.
+		 *	@param		node		The tiny XML node containing the definition of a scalar float
+		 *							generator.
 		 *	@param		scale		Optional argument for changing the units of the input value.
 		 *							(e.g., specification commonly describes angles as degrees, 
 		 *							but internal representation is in radians).
-		 *	@param		prefix		An optional prefix which may be affixed to the float generator keywords.
+		 *	@param		prefix		An optional prefix which may be affixed to the float generator
+		 *							keywords.
 		 *	@returns	A pointer to a float generator, consistent with the XML definition.
 		 *				If there is an error in the definition, NULL is returned.
 		 */
-		MENGE_API FloatGenerator * createFloatGenerator( TiXmlElement * node, float scale=1.f, const std::string & prefix="" );
+		MENGE_API FloatGenerator * createFloatGenerator( TiXmlElement * node, float scale=1.f,
+														 const std::string & prefix="" );
 
 		/*!
 		 *	@brief		Creates an int generator from an xml node.
@@ -1211,12 +1220,15 @@ namespace Menge {
 		 *	This function does not maintain responsibility for freeing up the object.
 		 *	The calling function is responsible for the memory.
 		 *
-		 *	@param		node		The tiny XML node containing the definition of a scalar float generator.
-		 *	@param		prefix		An optional prefix which may be affixed to the float generator keywords.
+		 *	@param		node		The tiny XML node containing the definition of a scalar float
+		 *							generator.
+		 *	@param		prefix		An optional prefix which may be affixed to the float generator
+		 *							keywords.
 		 *	@returns	A pointer to an int generator, consistent with the XML definition.
 		 *				If there is an error in the definition, NULL is returned.
 		 */
-		MENGE_API IntGenerator * createIntGenerator( TiXmlElement * node, const std::string & prefix="" );
+		MENGE_API IntGenerator * createIntGenerator( TiXmlElement * node,
+													 const std::string & prefix="" );
 
 		/*!
 		 *	@brief		Creates a 2D vector generator from an xml node
@@ -1224,7 +1236,8 @@ namespace Menge {
 		 *	This function does not maintain responsibility for freeing up the object.
 		 *	The calling function is responsible for the memory.
 		 *
-		 *	@param		node		The tiny XML node containing the definition of a vector float generator.
+		 *	@param		node		The tiny XML node containing the definition of a vector float
+		 *							generator.
 		 *	@param		scale		Optional argument for changing the units of the input value.
 		 *							(e.g., specification commonly describes angles as degrees, 
 		 *							but internal representation is in radians).

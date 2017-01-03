@@ -36,8 +36,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "VelModifierDatabase.h"
-#include "VelocityModifiers/VelModifierScale.h"
+#include "MengeCore/BFSM/VelocityModifiers/VelModifierDatabase.h"
+
+#include "MengeCore/BFSM/VelocityModifiers/VelModifierScale.h"
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
@@ -45,7 +46,9 @@ namespace Menge {
 
 	// Specialization
 	template <> 
-	std::string ElementDB< BFSM::VelModFactory, BFSM::VelModifier >::getElementName() { return "velocity modifier"; }
+	std::string ElementDB< BFSM::VelModFactory, BFSM::VelModifier >::getElementName() {
+		return "velocity modifier";
+	}
 
 	template <> 
 	void ElementDB< BFSM::VelModFactory, BFSM::VelModifier >::addBuiltins() {

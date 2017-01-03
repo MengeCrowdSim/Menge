@@ -36,7 +36,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "StateSelectors/StateSelector.h"
+#include "MengeCore/Agents/StateSelectors/StateSelector.h"
 
 namespace Menge {
 

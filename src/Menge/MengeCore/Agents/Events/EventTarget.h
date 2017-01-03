@@ -45,10 +45,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __EVENT_TARGET_H__
 #define	__EVENT_TARGET_H__
 
-#include "CoreConfig.h"
-#include "Element.h"
-#include "Core.h"
-
+#include "MengeCore/Core.h"
+#include "MengeCore/CoreConfig.h"
+#include "MengeCore/PluginEngine/Element.h"
 
 namespace Menge {
 	// forward declaration

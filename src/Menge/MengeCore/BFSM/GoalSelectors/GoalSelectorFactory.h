@@ -45,12 +45,12 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __GOAL_SELECTOR_FACTORY_H__
 #define __GOAL_SELECTOR_FACTORY_H__
 
-#include "CoreConfig.h"
-#include "GoalSelectors/GoalSelector.h"
+#include "MengeCore/CoreConfig.h"
+#include "MengeCore/BFSM/GoalSelectors/GoalSelector.h"
+#include "MengeCore/PluginEngine/ElementFactory.h"
+
 #include <string>
 
-#include "ElementFactory.h"
-#include "GoalSelector.h"
 #include "tinyxml.h"
 
 namespace Menge {
@@ -69,24 +69,26 @@ namespace Menge {
 
 		protected:
 			/*!
-			 *	@brief		Given a pointer to a Goal Selector instance, sets the appropriate fields
-			 *				from the provided XML node.
+			 *	@brief		Given a pointer to a Goal Selector instance, sets the appropriate
+			 *				fields from the provided XML node.
 			 *
 			 *	It is assumed that the value of the `type` attribute is this Goal Selector's type.
 			 *	(i.e. GoalSelectorFactory::thisFactory has already been called and returned true.)
-			 *	If sub-classes of GoalSelectorFactory introduce *new* GoalSelector parameters, then the
-			 *	sub-class should override this method but explicitly call the parent class's
+			 *	If sub-classes of GoalSelectorFactory introduce *new* GoalSelector parameters, then
+			 *	the sub-class should override this method but explicitly call the parent class's
 			 *	version.
 			 *
-			 *	@param		selector		A pointer to the goal selector whose attributes are to be set.
+			 *	@param		selector		A pointer to the goal selector whose attributes are to
+			 *								be set.
 			 *	@param		node			The XML node containing the goal attributes.
-			 *	@param		behaveFldr		The path to the behavior file.  If the condition references
-			 *								resources in the file system, it should be defined relative
-			 *								to the behavior file location.  This is the folder containing
-			 *								that path. 
+			 *	@param		behaveFldr		The path to the behavior file.  If the condition
+			 *								references resources in the file system, it should be
+			 *								defined relative to the behavior file location.  This
+			 *								is the folder containing that path. 
 			 *	@returns	A boolean reporting success (true) or failure (false).
 			 */
-			virtual bool setFromXML( GoalSelector * selector, TiXmlElement * node, const std::string & behaveFldr ) const;
+			virtual bool setFromXML( GoalSelector * selector, TiXmlElement * node,
+									 const std::string & behaveFldr ) const;
 		
 			/*!
 			 *	@brief		The identifier for the "persistent" bool attribute.

@@ -44,10 +44,11 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __RESOURCE_H__
 #define	__RESOURCE_H__
 
-#include "CoreConfig.h"
-#include "ResourceManager.h"
-#include "SimpleLock.h"
-#include "MengeException.h"
+#include "MengeCore/CoreConfig.h"
+#include "MengeCore/MengeException.h"
+#include "MengeCore/resources/ResourceManager.h"
+#include "MengeCore/Runtime/SimpleLock.h"
+
 #include <string>
 
 namespace Menge {
@@ -85,7 +86,8 @@ namespace Menge {
 		 *
 		 *	@param		s		The exception-specific message.
 		 */
-		ResourceFatalException( const std::string & s ): MengeException(s), ResourceException(), MengeFatalException() {}
+		ResourceFatalException( const std::string & s ) : MengeException(s), ResourceException(),
+														  MengeFatalException() {}
 	};
 
 	/*!
@@ -167,7 +169,11 @@ namespace Menge {
 		 *	@returns	True if the underlying managed data is no longer referenced, false
 		 *				otherwise.
 		 */
-		bool isUnreferenced() const { _lock.lock(); bool val = _refCount <= 0; _lock.release(); return val; }
+		bool isUnreferenced() const {
+			_lock.lock();
+			bool val = _refCount <= 0;
+			_lock.release(); return val;
+		}
 
 		/*!
 		 *	@brief		Returns a unique resource label to be used to identify

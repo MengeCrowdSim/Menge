@@ -36,9 +36,10 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "AgentEventEffect.h"
-#include "AgentEventTarget.h"
-#include "BaseAgent.h"
+#include "MengeCore/Agents/Events/AgentEventEffect.h"
+
+#include "MengeCore/Agents/BaseAgent.h"
+#include "MengeCore/Agents/Events/AgentEventTarget.h"
 
 namespace Menge {
 
@@ -47,7 +48,8 @@ namespace Menge {
 	/////////////////////////////////////////////////////////////////////
 
 	void AgentEventEffect::apply( EventTarget * target ) {
-		assert( dynamic_cast< AgentEventTarget * >( target ) != 0x0 && "Incompatible target type passed to an AgentEventEffect instance" );
+		assert( dynamic_cast< AgentEventTarget * >( target ) != 0x0 &&
+				"Incompatible target type passed to an AgentEventEffect instance" );
 		// static cast assumes that the previous assertion is valid
 		AgentEventTarget * tgt = static_cast< AgentEventTarget * >( target );
 		// iterate through the target set, manipulating
@@ -62,6 +64,5 @@ namespace Menge {
 
 	bool AgentEventEffect::isCompatible( EventTarget * target ) {
 		return dynamic_cast< AgentEventTarget * >( target ) != 0x0;
-	}
-	
-}
+	}	
+}	// namespace Menge

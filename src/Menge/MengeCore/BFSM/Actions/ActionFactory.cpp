@@ -36,7 +36,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "ActionFactory.h"
+#include "MengeCore/BFSM/Actions/ActionFactory.h"
 
 namespace Menge {
 
@@ -48,12 +48,14 @@ namespace Menge {
 
 		ActionFactory::ActionFactory(): ElementFactory< Action >() {
 			// register attributes
-			_exitResetID = _attrSet.addBoolAttribute( "exit_reset", false/*required*/, true/*default*/ );
+			_exitResetID = _attrSet.addBoolAttribute( "exit_reset", false/*required*/,
+													  true/*default*/ );
 		}
 
 		/////////////////////////////////////////////////////////////////////
 
-		bool ActionFactory::setFromXML( Action * action, TiXmlElement * node, const std::string & behaveFldr ) const {
+		bool ActionFactory::setFromXML( Action * action, TiXmlElement * node,
+										const std::string & behaveFldr ) const {
 			if ( !ElementFactory< Action >::setFromXML( action, node, behaveFldr ) ) return false;
 
 			action->_undoOnExit = _attrSet.getBool( _exitResetID );

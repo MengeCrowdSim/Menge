@@ -44,12 +44,12 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __SIMULATOR_INTERFACE_H__
 #define __SIMULATOR_INTERFACE_H__
 
-#include "CoreConfig.h"
-#include "XMLSimulatorBase.h"
-#include "Math/Vector2.h"
-using namespace Menge::Math;
+#include "MengeCore/CoreConfig.h"
+#include "MengeCore/Agents/XMLSimulatorBase.h"
+#include "MengeCore/Math/Vector2.h"
+#include "MengeCore/Core.h"
+
 #include <vector>
-#include "Core.h"
 
 namespace Menge {
 
@@ -136,7 +136,9 @@ namespace Menge {
 			 *  @param      timeStep        The time step of the simulation.
 			 *                              Must be positive.
 			 */
-			inline void setTimeStep(float timeStep) { LOGICAL_TIME_STEP = timeStep; updateEffTimeStep(); }
+			inline void setTimeStep(float timeStep) {
+				LOGICAL_TIME_STEP = timeStep; updateEffTimeStep();
+			}
 			
 			/*!
 			 *  @brief      Sets the number of intermediate computation sub steps to take.
@@ -170,7 +172,7 @@ namespace Menge {
 			 *	@param			point		The x-z point.
 			 *	@returns		The elevation at the given point.
 			 */
-			float getElevation( const Vector2 & point ) const;
+			float getElevation( const Math::Vector2 & point ) const;
 
 			/*!
 			 *	@brief		Set the elevation instance of the simulator
@@ -232,7 +234,8 @@ namespace Menge {
 			 *              visible. Returns true when the obstacles have not been
 			 *              processed.
 			 */
-			bool queryVisibility(const Vector2& point1, const Vector2& point2, float radius = 0.0f) const;
+			bool queryVisibility( const Math::Vector2 & point1, const Math::Vector2 & point2,
+								  float radius = 0.0f) const;
 
 			/*!
 			 *	@brief		Reports the number of simulation substeps to take.
@@ -248,12 +251,14 @@ namespace Menge {
 			 *				step is due to computation sub-steps.
 			 *
 			 */
-			void updateEffTimeStep() { SIM_TIME_STEP = TIME_STEP = LOGICAL_TIME_STEP / ( 1.f + SUB_STEPS ); }
+			void updateEffTimeStep() {
+				SIM_TIME_STEP = TIME_STEP = LOGICAL_TIME_STEP / ( 1.f + SUB_STEPS );
+			}
 
 			/*!
-			 *	@brief		The logical simulation time step.  The simulation's state is communicated
-			 *				to the outside world at this time step.  In practice, sub-steps can decrease
-			 *				the effective time step.
+			 *	@brief		The logical simulation time step.  The simulation's state is
+			 *				communicated to the outside world at this time step.  In practice,
+			 *				sub-steps can decrease the effective time step.
 			 */
 			static float LOGICAL_TIME_STEP;
 

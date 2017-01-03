@@ -36,17 +36,18 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "VelocityComponents/VelCompNavMesh.h"
-#include "Tasks/NavMeshLocalizerTask.h"
-#include "NavMeshNode.h"
-#include "NavMeshEdge.h"
-#include "BaseAgent.h"
-#include "os.h"
-#include "Logger.h"
-#include "PathPlanner.h"
-#include "PortalPath.h"
-#include "Route.h"
-#include "Goals/Goal.h"
+#include "MengeCore/BFSM/VelocityComponents/VelCompNavMesh.h"
+
+#include "MengeCore/Agents/BaseAgent.h"
+#include "MengeCore/BFSM/Goals/Goal.h"
+#include "MengeCore/BFSM/Tasks/NavMeshLocalizerTask.h"
+#include "MengeCore/resources/NavMeshEdge.h"
+#include "MengeCore/resources/NavMeshNode.h"
+#include "MengeCore/resources/PathPlanner.h"
+#include "MengeCore/resources/PortalPath.h"
+#include "MengeCore/resources/Route.h"
+#include "MengeCore/Runtime/Logger.h"
+#include "MengeCore/Runtime/os.h"
 
 #include <sstream>
 #include <iomanip>
@@ -59,7 +60,8 @@ namespace Menge {
 		//                   Implementation of NavMeshVelComponent
 		/////////////////////////////////////////////////////////////////////
 
-		NavMeshVelComponent::NavMeshVelComponent():VelComponent(),_headingDevCos(-1.f),_navMesh(0x0),_localizer(0x0) {
+		NavMeshVelComponent::NavMeshVelComponent() : VelComponent(), _headingDevCos( -1.f ), 
+													 _navMesh( 0x0 ), _localizer( 0x0 ) {
 		}
 
 		/////////////////////////////////////////////////////////////////////
@@ -76,7 +78,9 @@ namespace Menge {
 
 		/////////////////////////////////////////////////////////////////////
 
-		void NavMeshVelComponent::setPrefVelocity( const Agents::BaseAgent * agent, const Goal * goal, Agents::PrefVelocity & pVel ) {
+		void NavMeshVelComponent::setPrefVelocity( const Agents::BaseAgent * agent,
+												   const Goal * goal,
+												   Agents::PrefVelocity & pVel ) {
 			// If agent does not have a path
 			PortalPath * path = _localizer->getPath( agent->_id );
 			if ( path == 0x0 ) {
@@ -84,10 +88,12 @@ namespace Menge {
 				Vector2 goalPoint = goal->getCentroid();
 				unsigned int goalNode = _localizer->getNode( goalPoint );
 				if ( goalNode == NavMeshLocation::NO_NODE ) {
-					throw VelCompFatalException( "Can't compute a path to a goal outside of the navigation mesh.  Bad NavMeshVelComponent!" );
+					throw VelCompFatalException( "Can't compute a path to a goal outside of the "
+												 "navigation mesh.  Bad NavMeshVelComponent!" );
 				}
 				unsigned int agtNode = _localizer->getNode( agent );
-				PortalRoute * route = _localizer->getPlanner()->getRoute( agtNode, goalNode, agent->_radius * 2.f );
+				PortalRoute * route = _localizer->getPlanner()->getRoute( agtNode, goalNode,
+																		  agent->_radius * 2.f );
 				// compute the path
 				path = new PortalPath( agent->_pos, goal, route, agent->_radius );
 				// assign it to the localizer
@@ -98,17 +104,17 @@ namespace Menge {
 		}
 
 		/////////////////////////////////////////////////////////////////////
-		
+#if 0
 		VelCompContext * NavMeshVelComponent::getContext() {
 			return new NavMeshVCContext( this );
 		}
-
+#endif
 		/////////////////////////////////////////////////////////////////////
 		
 		BFSM::Task * NavMeshVelComponent::getTask() {
 			return new NavMeshLocalizerTask( _navMesh->getName(), true /*usePlanner*/ );
 		}
-
+#if 0
 		/////////////////////////////////////////////////////////////////////
 		//                   Implementation of NavMeshVCContext
 		/////////////////////////////////////////////////////////////////////
@@ -335,35 +341,42 @@ namespace Menge {
 				writeText( ss.str(), p, true/*currColor*/ );
 			}
 		}
-		
+#endif
 		/////////////////////////////////////////////////////////////////////
 		//                   Implementation of NavMeshVCFactory
 		/////////////////////////////////////////////////////////////////////
 
 		NavMeshVCFactory::NavMeshVCFactory() : VelCompFactory() {
 			_fileNameID = _attrSet.addStringAttribute( "file_name", true /*required*/ );
-			_headingID = _attrSet.addFloatAttribute( "heading_threshold", false /*required*/, 180.f );
+			_headingID = _attrSet.addFloatAttribute( "heading_threshold", false /*required*/,
+													 180.f );
 		}
 
 		/////////////////////////////////////////////////////////////////////
 
-		bool NavMeshVCFactory::setFromXML( VelComponent * vc, TiXmlElement * node, const std::string & behaveFldr ) const {
+		bool NavMeshVCFactory::setFromXML( VelComponent * vc, TiXmlElement * node,
+										   const std::string & behaveFldr ) const {
 			NavMeshVelComponent * nmvc = dynamic_cast< NavMeshVelComponent * >( vc );
-			assert( nmvc != 0x0 && "Trying to set attributes of a navigation mesh velocity component on an incompatible object" );
+			assert( nmvc != 0x0 &&
+					"Trying to set attributes of a navigation mesh velocity component on an "
+					"incompatible object" );
 			
 			if ( ! VelCompFactory::setFromXML( nmvc, node, behaveFldr ) ) return false;
 
 			// get the absolute path to the file name
 
 			std::string fName;
-			std::string path = os::path::join( 2, behaveFldr.c_str(), _attrSet.getString( _fileNameID ).c_str() );
+			std::string path = os::path::join( 2, behaveFldr.c_str(),
+											   _attrSet.getString( _fileNameID ).c_str() );
 			os::path::absPath( path, fName );
 			// nav mesh
 			NavMeshPtr nmPtr;
 			try {
 				nmPtr = loadNavMesh( fName );
 			} catch ( ResourceException ) {
-				logger << Logger::ERR_MSG << "Couldn't instantiate the navigation mesh referenced on line " << node->Row() << ".";
+				logger << Logger::ERR_MSG;
+				logger << "Couldn't instantiate the navigation mesh referenced on line ";
+				logger << node->Row() << ".";
 				return false;
 			}
 			nmvc->setNavMesh( nmPtr );
@@ -372,7 +385,8 @@ namespace Menge {
 			try {
 				nmlPtr = loadNavMeshLocalizer( fName, true );
 			} catch ( ResourceException ) {
-				logger << Logger::ERR_MSG << "Couldn't instantiate the navigation mesh localizer required by the velocity component on line " << node->Row() << ".";
+				logger << Logger::ERR_MSG << "Couldn't instantiate the navigation mesh localizer "
+					"required by the velocity component on line " << node->Row() << ".";
 				return false;
 			}
 			nmvc->setNavMeshLocalizer( nmlPtr );

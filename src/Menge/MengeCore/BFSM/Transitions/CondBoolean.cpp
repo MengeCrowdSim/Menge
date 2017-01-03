@@ -36,10 +36,12 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "CondBoolean.h"
-#include "ConditionDatabase.h"
-#include "Logger.h"
-#include "BaseAgent.h"
+#include "MengeCore/BFSM/Transitions/CondBoolean.h"
+
+#include "MengeCore/Agents/BaseAgent.h"
+#include "MengeCore/BFSM/Transitions/ConditionDatabase.h"
+#include "MengeCore/Runtime/Logger.h"
+
 #include "tinyxml.h"
 
 namespace Menge {
@@ -85,19 +87,27 @@ namespace Menge {
 		//                   Implementation of Bool2CondFactory
 		///////////////////////////////////////////////////////////////////////////
 
-		bool Bool2CondFactory::setFromXML( Condition * condition, TiXmlElement * node, const std::string & behaveFldr ) const {
+		bool Bool2CondFactory::setFromXML( Condition * condition, TiXmlElement * node,
+										   const std::string & behaveFldr ) const {
 			Bool2Condition * bCond = dynamic_cast< Bool2Condition * >( condition );
-			assert( bCond != 0x0 && "Trying to set the properties of a binary boolean condition on an incompatible object" );
+			assert( bCond != 0x0 &&
+					"Trying to set the properties of a binary boolean condition on an "
+					"incompatible object" );
 
 			if ( !ConditionFactory::setFromXML( bCond, node, behaveFldr ) ) return false;
 
 			// There should be two xml tags for conditions.
 			int childCount = 0;
-			for ( TiXmlElement * child = node->FirstChildElement(); child; child = child->NextSiblingElement() ) {
+			for ( TiXmlElement * child = node->FirstChildElement();
+				  child;
+				  child = child->NextSiblingElement() ) {
 				if ( child->ValueStr() == "Condition" ) {
 					Condition * condition = ConditionDB::getInstance( child, behaveFldr );
 					if ( condition == 0x0 ) {
-						logger << Logger::ERR_MSG << "Unable to parse the child condition of a binary boolean condition on line " << child->Row() << ": " << child->ValueStr() << ".";
+						logger << Logger::ERR_MSG;
+						logger << "Unable to parse the child condition of a binary boolean "
+							"condition on line " << child->Row() << ": ";
+						logger << child->ValueStr() << ".";
 						return false;
 					}
 					if ( childCount == 0 ) {
@@ -107,16 +117,21 @@ namespace Menge {
 						bCond->_op2 = condition;
 						++childCount;
 					} else {
-						logger << Logger::ERR_MSG << "Too many child conditions for a binary boolean condition on line " << child->Row() << ": " << child->ValueStr() << ".";
+						logger << Logger::ERR_MSG;
+						logger << "Too many child conditions for a binary boolean condition on ";
+						logger << "line " << child->Row() << ": " << child->ValueStr() << ".";
 						return false;
 					}
 				} else {
-					logger << Logger::ERR_MSG << "Unrecognized child tag of a binary boolean condition on line " << child->Row() << ": " << child->ValueStr() << ".";
+					logger << Logger::ERR_MSG;
+					logger << "Unrecognized child tag of a binary boolean condition on line ";
+					logger << child->Row() << ": " << child->ValueStr() << ".";
 					return false;
 				}
 			}
 			if ( childCount != 2 ) {
-				logger << Logger::ERR_MSG << "The binary boolean condition on line " << node->Row() << " requires TWO child conditions.";
+				logger << Logger::ERR_MSG << "The binary boolean condition on line ";
+				logger << node->Row() << " requires TWO child conditions.";
 				return false;
 			}
 			return true;
@@ -219,31 +234,41 @@ namespace Menge {
 		//                   Implementation of NotCondFactory
 		///////////////////////////////////////////////////////////////////////////
 
-		bool NotCondFactory::setFromXML( Condition * condition, TiXmlElement * node, const std::string & behaveFldr ) const {
+		bool NotCondFactory::setFromXML( Condition * condition, TiXmlElement * node,
+										 const std::string & behaveFldr ) const {
 			NotCondition * bCond = dynamic_cast< NotCondition * >( condition );
-			assert( bCond != 0x0 && "Trying to set the properties of a NOT boolean condition on an incompatible object" );
+			assert( bCond != 0x0 &&
+					"Trying to set the properties of a NOT boolean condition on an "
+					"incompatible object" );
 
 			if ( !ConditionFactory::setFromXML( bCond, node, behaveFldr ) ) return false;
 
 			// There should be two xml tags for conditions.
 			TiXmlElement * child = node->FirstChildElement();
 			if ( child == 0x0 ) {
-				logger << Logger::ERR_MSG << "The NOT condition on line " << node->Row() << " requires one child condition -- none provided.";
+				logger << Logger::ERR_MSG << "The NOT condition on line " << node->Row();
+				logger << " requires one child condition -- none provided.";
 				return false;
 			} else if ( child->NextSiblingElement() != 0x0 ) {
-				logger << Logger::ERR_MSG << "The NOT condition on line " << node->Row() << " has too many children elements - it should get a single condition element.";
+				logger << Logger::ERR_MSG << "The NOT condition on line " << node->Row();
+				logger << " has too many children elements - "
+					"it should get a single condition element.";
 				return false;
 			} else {
 				if ( child->ValueStr() == "Condition" ) {
 					Condition * condition = ConditionDB::getInstance( child, behaveFldr );
 					if ( condition == 0x0 ) {
-						logger << Logger::ERR_MSG << "Unable to parse the child condition of the NOT condition on line " << child->Row() << ": " << child->ValueStr() << ".";
+						logger << Logger::ERR_MSG;
+						logger << "Unable to parse the child condition of the NOT condition "
+							"on line " << child->Row() << ": " << child->ValueStr() << ".";
 						return false;
 					} else {
 						bCond->_op = condition;
 					}
 				} else {
-					logger << Logger::ERR_MSG << "The NOT condition on line " << node->Row() << " requires a single child condition.  Found a " << child->ValueStr() << " on line " << child->Row() << ".";
+					logger << Logger::ERR_MSG << "The NOT condition on line " << node->Row();
+					logger << " requires a single child condition.  Found a " << child->ValueStr();
+					logger << " on line " << child->Row() << ".";
 					return false;
 				}
 			}

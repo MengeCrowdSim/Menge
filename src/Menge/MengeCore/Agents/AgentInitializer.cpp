@@ -36,11 +36,14 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "AgentInitializer.h"
-#include "BaseAgent.h"
-#include "Math/RandGenerator.h"
+#include "MengeCore/Agents/AgentInitializer.h"
+
+#include "MengeCore/Agents/BaseAgent.h"
+#include "MengeCore/Math/RandGenerator.h"
+#include "MengeCore/Runtime/Utils.h"
+
 #include "tinyxml.h"
-#include "Utils.h"
+
 #include <sstream>
 
 namespace Menge {
@@ -146,7 +149,8 @@ namespace Menge {
 
 		////////////////////////////////////////////////////////////////
 		
-		bool AgentInitializer::parseProperties( TiXmlElement * node, const std::string & sceneFldr) {
+		bool AgentInitializer::parseProperties( TiXmlElement * node,
+												const std::string & sceneFldr) {
 			//first let's decide if this is a velocity modifier
 			if (node->ValueStr() == "VelModifier"){
 				//this is, we need to find out if we can parse it
@@ -164,12 +168,15 @@ namespace Menge {
 					if ( result == FAILURE ) {
 						return false;
 					} else if ( result == IGNORED ) {
-						logger << Logger::WARN_MSG << "Encountered an unexpected per-agent attribute (" << attr->Name() << ") on line " << attr->Row() << ".";
+						logger << Logger::WARN_MSG << "Encountered an unexpected per-agent "
+							"attribute (" << attr->Name() << ") on line " << attr->Row() << ".";
 					}
 				}
 				// Now look for advanced property specifications
 				TiXmlElement* child;
-				for( child = node->FirstChildElement(); child; child = child->NextSiblingElement()) {
+				for( child = node->FirstChildElement();
+					 child;
+					 child = child->NextSiblingElement()) {
 					if ( ! parsePropertySpec( child ) ) {
 
 						return false;
@@ -211,7 +218,8 @@ namespace Menge {
 
 		////////////////////////////////////////////////////////////////
 		
-		AgentInitializer::ParseResult AgentInitializer::setFromXMLAttribute( const ::std::string & paramName, const ::std::string & value ) {
+		AgentInitializer::ParseResult AgentInitializer::setFromXMLAttribute(
+			const ::std::string & paramName, const ::std::string & value ) {
 			ParseResult result = IGNORED;
 
 			if ( paramName == "neighbor_dist" ) {
@@ -238,7 +246,8 @@ namespace Menge {
 
 			if ( result == FAILURE ) {
 				// Found an expected parameter name, but got a bad value.  That is failure
-				logger << Logger::WARN_MSG << "Attribute " << paramName << " had an incorrectly formed value: " << value << ".  Using default value.";
+				logger << Logger::WARN_MSG << "Attribute " << paramName << " had an incorrectly "
+					"formed value: " << value << ".  Using default value.";
 			}
 
 			return result;
@@ -250,13 +259,15 @@ namespace Menge {
 			if ( node->ValueStr() == "Property" ) {
 				const char * cName = node->Attribute( "name" );
 				if ( cName == 0x0 ) {
-					logger << Logger::ERR_MSG << "AgentSet Property tag specified on line " << node->Row() << " without a \"name\" attribute.";
+					logger << Logger::ERR_MSG << "AgentSet Property tag specified on line ";
+					logger << node->Row() << " without a \"name\" attribute.";
 					return false;
 				}
 				::std::string propName( cName );
 				return processProperty( propName, node ) != FAILURE;
 			} else if ( VERBOSE ) {
-				logger << Logger::WARN_MSG << "Unexpected tag when looking for a property of an AgentSet parameter set: " << node->ValueStr() << "\n";
+				logger << Logger::WARN_MSG << "Unexpected tag when looking for a property of an "
+					"AgentSet parameter set: " << node->ValueStr() << "\n";
 				TiXmlAttribute * attr;
 				for ( attr = node->FirstAttribute(); attr; attr = attr->Next() ) {
 					if ( setFromXMLAttribute( attr->Name(), attr->ValueStr() ) == FAILURE ) {
@@ -270,7 +281,8 @@ namespace Menge {
 
 		////////////////////////////////////////////////////////////////
 		
-		AgentInitializer::ParseResult AgentInitializer::processProperty( ::std::string propName, TiXmlElement * node ) {
+		AgentInitializer::ParseResult AgentInitializer::processProperty( ::std::string propName,
+																		 TiXmlElement * node ) {
 			ParseResult result = IGNORED;
 			if ( propName == "neighbor_dist" ) {
 				result = getFloatGenerator( _neighborDist, node );
@@ -288,17 +300,20 @@ namespace Menge {
 				result = getFloatGenerator( _maxAngVel, node, DEG_TO_RAD );
 			}
 			if ( result == FAILURE ) {
-				logger << Logger::ERR_MSG << "Error extracting value distribution from Property " << propName << ".";
+				logger << Logger::ERR_MSG << "Error extracting value distribution from Property ";
+				logger << propName << ".";
 				return result;
 			} else if ( result == IGNORED ) {
-				logger << Logger::WARN_MSG << "AgentSet Property had unexpected name: " << propName << ".  Ignored.\n";
+				logger << Logger::WARN_MSG << "AgentSet Property had unexpected name: ";
+				logger << propName << ".  Ignored.\n";
 			}
 			return result;
 		}
 
 		////////////////////////////////////////////////////////////////
 		
-		AgentInitializer::ParseResult AgentInitializer::constFloatGenerator( FloatGenerator * & gen, const ::std::string & valueStr, float scale ) {
+		AgentInitializer::ParseResult AgentInitializer::constFloatGenerator(
+			FloatGenerator * & gen, const ::std::string & valueStr, float scale ) {
 			try {
 				float f = toFloat( valueStr );
 				if ( gen ) delete gen;
@@ -311,7 +326,9 @@ namespace Menge {
 
 		////////////////////////////////////////////////////////////////
 		
-		AgentInitializer::ParseResult AgentInitializer::constFloat( float & numValue, const ::std::string & valueStr, float scale ) {
+		AgentInitializer::ParseResult AgentInitializer::constFloat( float & numValue,
+																	const ::std::string & valueStr,
+																	float scale ) {
 			try {
 				float f = toFloat( valueStr );
 				numValue = f * scale;
@@ -323,7 +340,8 @@ namespace Menge {
 
 		////////////////////////////////////////////////////////////////
 		
-		AgentInitializer::ParseResult AgentInitializer::constIntGenerator( IntGenerator * & gen, const ::std::string & valueStr ) {
+		AgentInitializer::ParseResult AgentInitializer::constIntGenerator(
+			IntGenerator * & gen, const ::std::string & valueStr ) {
 			try {
 				int i = toInt( valueStr );
 				if ( gen ) delete gen;
@@ -336,7 +354,8 @@ namespace Menge {
 
 		////////////////////////////////////////////////////////////////
 		
-		AgentInitializer::ParseResult AgentInitializer::constSizet( size_t & numValue, const ::std::string & valueStr ) {
+		AgentInitializer::ParseResult AgentInitializer::constSizet(
+			size_t & numValue, const ::std::string & valueStr ) {
 			try {
 				size_t i = toSize_t( valueStr );
 				numValue = i;
@@ -348,7 +367,8 @@ namespace Menge {
 
 		////////////////////////////////////////////////////////////////
 		
-		AgentInitializer::ParseResult AgentInitializer::getFloatGenerator( FloatGenerator * & gen, TiXmlElement * node, float scale ) {
+		AgentInitializer::ParseResult AgentInitializer::getFloatGenerator(
+			FloatGenerator * & gen, TiXmlElement * node, float scale ) {
 			FloatGenerator * newGen = createFloatGenerator( node, scale );
 			if ( newGen ) {
 				if ( gen ) delete gen;
@@ -361,7 +381,8 @@ namespace Menge {
 
 		////////////////////////////////////////////////////////////////
 		
-		AgentInitializer::ParseResult AgentInitializer::getIntGenerator( IntGenerator * & gen, TiXmlElement * node ) {
+		AgentInitializer::ParseResult AgentInitializer::getIntGenerator(
+			IntGenerator * & gen, TiXmlElement * node ) {
 			IntGenerator * newGen = createIntGenerator( node );
 			if ( newGen ) {
 				if ( gen ) delete gen;

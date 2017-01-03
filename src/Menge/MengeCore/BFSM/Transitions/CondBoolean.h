@@ -44,9 +44,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __COND_BOOLEAN_H__
 #define __COND_BOOLEAN_H__
 
-#include "CoreConfig.h"
-#include "Condition.h"
-#include "ConditionFactory.h"
+#include "MengeCore/CoreConfig.h"
+#include "MengeCore/BFSM/Transitions/Condition.h"
+#include "MengeCore/BFSM/Transitions/ConditionFactory.h"
 
 namespace Menge {
 
@@ -130,15 +130,17 @@ namespace Menge {
 			 *	sub-class should override this method but explicitly call the parent class's
 			 *	version.
 			 *
-			 *	@param		condition		A pointer to the condition whose attributes are to be set.
+			 *	@param		condition		A pointer to the condition whose attributes are to be
+			 *								set.
 			 *	@param		node			The XML node containing the condition attributes.
-			 *	@param		behaveFldr		The path to the behavior file.  If the condition references
-			 *								resources in the file system, it should be defined relative
-			 *								to the behavior file location.  This is the folder containing
-			 *								that path. 
+			 *	@param		behaveFldr		The path to the behavior file.  If the condition
+			 *								references resources in the file system, it should be
+			 *								defined relative to the behavior file location.  This
+			 *								is the folder containing that path. 
 			 *	@returns	A boolean reporting success (true) or failure (false).
 			 */
-			virtual bool setFromXML( Condition * condition, TiXmlElement * node, const std::string & behaveFldr ) const;
+			virtual bool setFromXML( Condition * condition, TiXmlElement * node,
+									 const std::string & behaveFldr ) const;
 		};
 
 		///////////////////////////////////////////////////////////////////////////
@@ -206,7 +208,7 @@ namespace Menge {
 			 *	@returns	A string containing the condition description.
 			 */
 			virtual const char * description() const {
-				return "The and condition.  This condition depends on the evaluation of "\
+				return "The and condition.  This condition depends on the evaluation of "
 					"two child conditions.  If both are met, this condition is met.";
 			}
 		protected:
@@ -288,7 +290,7 @@ namespace Menge {
 			 *	@returns	A string containing the condition description.
 			 */
 			virtual const char * description() const {
-				return "The or condition.  This condition depends on the evaluation of "\
+				return "The or condition.  This condition depends on the evaluation of "
 					"two child conditions.  If either are met, this condition is met.";
 			}
 		protected:
@@ -407,8 +409,8 @@ namespace Menge {
 			 *	@returns	A string containing the condition description.
 			 */
 			virtual const char * description() const {
-				return "The not condition.  This condition depends on the evaluation of "\
-					"a single child condition.  This condition is met when the child is not "\
+				return "The not condition.  This condition depends on the evaluation of "
+					"a single child condition.  This condition is met when the child is not "
 					" and vice versa.";
 			}
 		protected:
@@ -435,15 +437,17 @@ namespace Menge {
 			 *	sub-class should override this method but explicitly call the parent class's
 			 *	version.
 			 *
-			 *	@param		condition		A pointer to the condition whose attributes are to be set.
+			 *	@param		condition		A pointer to the condition whose attributes are to be
+			 *								set.
 			 *	@param		node			The XML node containing the condition attributes.
-			 *	@param		behaveFldr		The path to the behavior file.  If the condition references
-			 *								resources in the file system, it should be defined relative
-			 *								to the behavior file location.  This is the folder containing
-			 *								that path. 
+			 *	@param		behaveFldr		The path to the behavior file.  If the condition
+			 *								references resources in the file system, it should be
+			 *								defined relative to the behavior file location.  This
+			 *								is the folder containing that path. 
 			 *	@returns	A boolean reporting success (true) or failure (false).
 			 */
-			virtual bool setFromXML( Condition * condition, TiXmlElement * node, const std::string & behaveFldr ) const;
+			virtual bool setFromXML( Condition * condition, TiXmlElement * node,
+									 const std::string & behaveFldr ) const;
 		};	
 
 	}	// namespace BFSM

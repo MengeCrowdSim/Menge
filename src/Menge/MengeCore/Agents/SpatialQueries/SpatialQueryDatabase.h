@@ -47,9 +47,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __SPATIAL_QUERY_DATABASE_H__
 #define __SPATIAL_QUERY_DATABASE_H__
 
-#include "ElementDatabase.h"
-#include "SpatialQueries/SpatialQueryFactory.h"
-#include "SpatialQueries/SpatialQuery.h"
+#include "MengeCore/Agents/SpatialQueries/SpatialQuery.h"
+#include "MengeCore/Agents/SpatialQueries/SpatialQueryFactory.h"
+#include "MengeCore/PluginEngine/ElementDatabase.h"
 
 namespace Menge {
 
@@ -63,8 +63,10 @@ namespace Menge {
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
-	template<> void ElementDB< Agents::SpatialQueryFactory, Agents::SpatialQuery>::addBuiltins();
-	template<> std::string ElementDB< Agents::SpatialQueryFactory, Agents::SpatialQuery >::getElementName();
+	template<> void 
+		ElementDB< Agents::SpatialQueryFactory, Agents::SpatialQuery>::addBuiltins();
+	template<> std::string 
+		ElementDB< Agents::SpatialQueryFactory, Agents::SpatialQuery >::getElementName();
 
 #endif	// DOXYGEN_SHOULD_SKIP_THIS
 

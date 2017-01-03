@@ -36,13 +36,15 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "Transition.h"
-#include "Transitions/Condition.h"
-#include "Transitions/ConditionDatabase.h"
-#include "Transitions/Target.h"
-#include "Transitions/TargetDatabase.h"
-#include "BaseAgent.h"
-#include "FSM.h"
+#include "MengeCore/BFSM/Transitions/Transition.h"
+
+#include "MengeCore/Agents/BaseAgent.h"
+#include "MengeCore/BFSM/FSM.h"
+#include "MengeCore/BFSM/Transitions/Condition.h"
+#include "MengeCore/BFSM/Transitions/ConditionDatabase.h"
+#include "MengeCore/BFSM/Transitions/Target.h"
+#include "MengeCore/BFSM/Transitions/TargetDatabase.h"
+
 #include "tinyxml.h"
 
 namespace Menge {
@@ -53,12 +55,14 @@ namespace Menge {
 		//					Implementation of Transition
 		/////////////////////////////////////////////////////////////////////
 
-		Transition::Transition( const Transition & trans ):_condition(trans._condition->copy()), _target(trans._target->copy()) {
+		Transition::Transition( const Transition & trans ) :
+			_condition( trans._condition->copy() ), _target( trans._target->copy() ) {
 		}
 
 		/////////////////////////////////////////////////////////////////////
 
-		Transition::Transition( Condition * condition, TransitionTarget * target ):_condition(condition), _target(target) {
+		Transition::Transition( Condition * condition, TransitionTarget * target ) :
+			_condition( condition ), _target( target ) {
 		}
 
 		/////////////////////////////////////////////////////////////////////
@@ -117,12 +121,14 @@ namespace Menge {
 
 		/////////////////////////////////////////////////////////////////////
 		
-		Transition * parseTransition( TiXmlElement * node, const std::string & behaveFldr, std::string & fromName ) {
+		Transition * parseTransition( TiXmlElement * node, const std::string & behaveFldr,
+									  std::string & fromName ) {
 			// 1) test "from" name - store if valid
 			bool valid = true;
 			const char * fromCStr = node->Attribute( "from" );
 			if ( fromCStr == 0x0 ) {
-				logger << Logger::ERR_MSG << "Transition defined on line " << node->Row() << " missing \"from\" attribute.";
+				logger << Logger::ERR_MSG << "Transition defined on line " << node->Row();
+				logger << " missing \"from\" attribute.";
 				valid = false;
 			}
 			fromName = fromCStr;
@@ -135,22 +141,27 @@ namespace Menge {
 				target = new SingleTarget( std::string( toCStr ) );
 			}
 			// 3) Look for child tags: Condition and Target
-			for ( TiXmlElement * child = node->FirstChildElement(); child; child = child->NextSiblingElement() ) {
+			for ( TiXmlElement * child = node->FirstChildElement();
+				  child;
+				  child = child->NextSiblingElement() ) {
 				if ( child->ValueStr() == "Condition" ) {
 					condition = ConditionDB::getInstance( child, behaveFldr );
 				} else if ( child->ValueStr() == "Target" ) {
 					if ( target ) target->destroy();
 					target = TargetDB::getInstance( child, behaveFldr );
 				} else {
-					logger << Logger::ERR_MSG << "Unrecognized child tag of a Transition on line " << child->Row() << ": " << child->ValueStr() << ".";
+					logger << Logger::ERR_MSG << "Unrecognized child tag of a Transition on line ";
+					logger << child->Row() << ": " << child->ValueStr() << ".";
 					valid = false;
 				}
 			}
 
 			valid = valid && condition != 0x0 && target != 0x0;
-			// 4) If no Condition tag exists, it fails, if no Target tag exists && there was no to tag, it fails
+			// 4) If no Condition tag exists, it fails, if no Target tag exists && there was no to
+			//		tag, it fails
 			if ( ! valid ) {
-				logger << Logger::ERR_MSG << "Missing target and/or condition specification for the Transition defined on line " << node->Row() << ".";
+				logger << Logger::ERR_MSG << "Missing target and/or condition specification for "
+					"the Transition defined on line " << node->Row() << ".";
 				if ( condition ) condition->destroy();
 				if ( target ) target->destroy();
 				return 0x0;

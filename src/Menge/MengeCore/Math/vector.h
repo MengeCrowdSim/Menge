@@ -42,15 +42,16 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
  */
 
 
-#ifndef VECTOR_H
+#ifndef __VECTOR_H__
 
-#define VECTOR_H
+#define __VECTOR_H__
 #include <cassert>
 
 #include <math.h>
 #include <float.h>
-#include "consts.h"
-#include "Vector2.h"
-#include "Vector3.h"
 
-#endif
+#include "MengeCore/Math/consts.h"
+#include "MengeCore/Math/Vector2.h"
+#include "MengeCore/Math/Vector3.h"
+
+#endif	// __VECTOR_H__

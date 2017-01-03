@@ -45,16 +45,16 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __PROFILE_SELECTOR_FACTORY_H__
 #define __PROFILE_SELECTOR_FACTORY_H__
 
-#include "CoreConfig.h"
-#include "ElementFactory.h"
-#include "ProfileSelectors/ProfileSelector.h"
+#include "MengeCore/CoreConfig.h"
+#include "MengeCore/PluginEngine/ElementFactory.h"
+#include "MengeCore/Agents/ProfileSelectors/ProfileSelector.h"
 
 namespace Menge {
 
 	namespace Agents {
 		/*!
-		 *	@brief		A class for parsing the xml description of an agent profile selector elements
-		 *				and instantiating particular instances.
+		 *	@brief		A class for parsing the xml description of an agent profile selector
+		 *				elements and instantiating particular instances.
 		 */
 		class MENGE_API ProfileSelectorFactory : public ElementFactory< ProfileSelector > {
 		};

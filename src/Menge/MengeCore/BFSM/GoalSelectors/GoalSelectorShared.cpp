@@ -36,8 +36,10 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "GoalSelectors/GoalSelectorShared.h"
+#include "MengeCore/BFSM/GoalSelectors/GoalSelectorShared.h"
+
 #include "tinyxml.h"
+
 #include <cassert>
 
 namespace Menge {
@@ -53,7 +55,8 @@ namespace Menge {
 		/////////////////////////////////////////////////////////////////////
 		
 		Goal * SharedGoalSelector::getGoal( const Agents::BaseAgent * agent ) const {
-			logger << Logger::ERR_MSG << "SharedGoalSelector was left in place to create an agent goal!";
+			logger << Logger::ERR_MSG;
+			logger << "SharedGoalSelector was left in place to create an agent goal!";
 			throw GoalSelectorException();
 			return 0x0;
 		}
@@ -62,11 +65,14 @@ namespace Menge {
 		//                   Implementation of SharedGoalSelectorFactory
 		/////////////////////////////////////////////////////////////////////
 
-		bool SharedGoalSelectorFactory::setFromXML( GoalSelector * selector, TiXmlElement * node, const std::string & behaveFldr ) const {
+		bool SharedGoalSelectorFactory::setFromXML( GoalSelector * selector, TiXmlElement * node,
+													const std::string & behaveFldr ) const {
 			SharedGoalSelector * sgs = dynamic_cast< SharedGoalSelector * >( selector );
-			assert( sgs != 0x0 && "Trying to set attributes of a shared goal selector on an incompatible object" );
-			// NOTE: This does NOT call the parent's setFromXML because it is a special-purpose stub
-			//		It only sub-classes the GoalSelectorFactory so it can sit in the same factory database.
+			assert( sgs != 0x0 &&
+					"Trying to set attributes of a shared goal selector on an incompatible object" );
+			// NOTE: This does NOT call the parent's setFromXML because it is a special-purpose
+			//		stub. It only sub-classes the GoalSelectorFactory so it can sit in the same
+			//		factory database.
 
 			// get the file name
 			const char * sNameCStr = node->Attribute( "state_name" );
@@ -74,7 +80,8 @@ namespace Menge {
 				sgs->_stateName = sNameCStr;
 				sgs->_lineNo = node->Row();
 			} else {
-				logger << Logger::ERR_MSG << "Shared goal selector defined on line " << node->Row() << " is missing the \"state_name\" parameter.";
+				logger << Logger::ERR_MSG << "Shared goal selector defined on line ";
+				logger << node->Row() << " is missing the \"state_name\" parameter.";
 				return false;
 			}
 

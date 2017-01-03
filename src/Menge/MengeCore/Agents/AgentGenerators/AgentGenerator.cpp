@@ -36,13 +36,18 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "AgentGenerators/AgentGenerator.h"
-#include "Math/RandGenerator.h"
-#include "Math/consts.h"
+#include "MengeCore/Agents/AgentGenerators/AgentGenerator.h"
+
+#include "MengeCore/Math/consts.h"
+#include "MengeCore/Math/RandGenerator.h"
 
 namespace Menge {
 
 	namespace Agents {
+
+		using Math::FloatGenerator;
+		using Math::UniformFloatGenerator;
+		using Math::Vector2;
 
 		/////////////////////////////////////////////////////////////////////
 		//					Implementation of AgentGeneratorException

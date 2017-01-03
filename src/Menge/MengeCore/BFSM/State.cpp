@@ -36,15 +36,19 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "State.h"
-#include "BaseAgent.h"
-#include "FSM.h"
-#include "GoalSelectors/GoalSelector.h"
+#include "MengeCore/BFSM/State.h"
+
+#include "MengeCore/Agents/BaseAgent.h"
+#include "MengeCore/BFSM/FSM.h"
+#include "MengeCore/BFSM/GoalSelectors/GoalSelector.h"
+
 #include <sstream>
 
 namespace Menge {
 
 	namespace BFSM {
+
+		using Math::Vector2;
 
 		/////////////////////////////////////////////////////////////////////
 		//                   Implementation of State
@@ -55,7 +59,9 @@ namespace Menge {
 
 		/////////////////////////////////////////////////////////////////////
 
-		State::State( const std::string & name ): _velComponent(0x0), transitions_(),actions_(), _final(false), _goalSelector(0x0), _goals(), _name(name) {
+		State::State( const std::string & name ) : _velComponent( 0x0 ), transitions_(), 
+												   actions_(), _final( false ), 
+												   _goalSelector( 0x0 ), _goals(), _name( name ) {
 			_id = COUNT++;
 		}
 
@@ -102,7 +108,8 @@ namespace Menge {
 			goal = _goals[ agent->_id ];
 			_goalLock.releaseRead();
 
-			//this needs to get changed. Create a copy of the VelPref. Pass that in, and then pass it back
+			//this needs to get changed. Create a copy of the VelPref. Pass that in, and then pass
+			// it back
 
 			_velComponent->setPrefVelocity( agent, goal, velocity);
 
@@ -126,7 +133,8 @@ namespace Menge {
 		State * State::testTransitions( Agents::BaseAgent * agent, std::set< State * > &visited ) {
 	#ifdef _DEBUG
 			_goalLock.lockRead();
-			assert( _goals.count( agent->_id ) == 1 && "Testing transitions for an agent without a goal!" );
+			assert( _goals.count( agent->_id ) == 1 &&
+					"Testing transitions for an agent without a goal!" );
 			_goalLock.releaseRead();
 	#endif
 
@@ -164,7 +172,8 @@ namespace Menge {
 			try {
 				goal = _goalSelector->assignGoal( agent );
 			} catch ( GoalSelectorException ) {
-				logger << Logger::ERR_MSG << "State " << _name << " was unable to assign a goal to agent " << agent->_id << ".";
+				logger << Logger::ERR_MSG << "State " << _name;
+				logger << " was unable to assign a goal to agent " << agent->_id << ".";
 				throw StateException();
 			}
 
@@ -222,7 +231,8 @@ namespace Menge {
 
 		void State::setGoalSelector( GoalSelector * selector ) {
 			if ( _goalSelector != 0x0 ) {
-				logger << Logger::ERR_MSG << "The state \"" << _name << "\" has been assigned multiple goal selectors.";
+				logger << Logger::ERR_MSG << "The state \"" << _name;
+				logger << "\" has been assigned multiple goal selectors.";
 				throw GoalSelectorException();
 			}
 			_goalSelector = selector;

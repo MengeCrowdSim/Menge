@@ -45,13 +45,12 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
  *				Performs spatial queries for Obstacles
  */
 
-// STL
-#include <vector>
+#include "MengeCore/CoreConfig.h"
+#include "MengeCore/Agents/Obstacle.h"
+#include "MengeCore/Agents/SpatialQueries/ProximityQuery.h"
+#include "MengeCore/Math/Vector2.h"
 
-// PedModels
-#include "CoreConfig.h"
-#include "Obstacle.h"
-#include "SpatialQueries/ProximityQuery.h"
+#include <vector>
 
 namespace Menge {
 
@@ -130,7 +129,8 @@ namespace Menge {
 			 *  @returns    True if q1 and q2 are mutually visible within the radius;
 			 *              false otherwise.
 			 */
-			bool queryVisibility(const Vector2& q1, const Vector2& q2, float radius) const;
+			bool queryVisibility( const Math::Vector2& q1, const Math::Vector2& q2,
+								  float radius ) const;
 
 		protected:
 			/*!
@@ -151,18 +151,20 @@ namespace Menge {
 			 *  @param      node	        The current node in the obstacle tree
 			 
 			 */
-			void queryTreeRecursive( ProximityQuery *query, Vector2 pt, float& rangeSq, const ObstacleTreeNode* node) const;
+			void queryTreeRecursive( ProximityQuery *query, Math::Vector2 pt, float& rangeSq,
+									 const ObstacleTreeNode* node ) const;
 
 			/*!
-			 *	@brief		Perform the work, recursively, to determine if q1 can see q2, w.r.t. the obstacles.
+			 *	@brief		Perform the work, recursively, to determine if q1 can see q2, w.r.t.
+			 *				the obstacles.
 			 *
 			 *	@param		q1				The originating position.
 			 *	@param		q2				The target position.
 			 *	@param		radius			The radius within which visibility is to be tested.
 			 *	@param		node			The root of the tree to recursively search.
-			 *	@returns	True if q1 and q2 are mutually visible within the radius, false otherwise.
+			 *	@returns	True if q1 and q2 are mutually visible within the radius.
 			 */
-			bool queryVisibilityRecursive(const Vector2& q1, const Vector2& q2,
+			bool queryVisibilityRecursive( const Math::Vector2& q1, const Math::Vector2& q2,
 										  float radius, 
 										  const ObstacleTreeNode* node) const;
 

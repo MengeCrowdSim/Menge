@@ -37,12 +37,14 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 */
 
 // UTILS
-#include "KNearestQuery.h"
+#include "MengeCore/Agents/SpatialQueries/KNearestQuery.h"
 
 namespace Menge {
 
 	namespace Agents {
 		
+		using Math::Vector2;
+
 		////////////////////////////////////////////////////////////////////////
 		//                IMPLEMENTATION OF KNearestQuery CLASS
 		////////////////////////////////////////////////////////////////////////
@@ -51,7 +53,8 @@ namespace Menge {
 		void KNearestQuery::filterAgent(const BaseAgent * agent, float distanceSquared){
 			
 			//if the agent is too far, and we have enough agents, just exit
-			if (distanceSquared >= _maxAgentResultDistance && _agentResults.size() == _maxAgentResults)
+			if (distanceSquared >= _maxAgentResultDistance &&
+				 _agentResults.size() == _maxAgentResults)
 				return;
 
 			//if not, add the agent
@@ -80,7 +83,8 @@ namespace Menge {
 		void KNearestQuery::filterObstacle(const Obstacle * obstacle, float distanceSquared) {
 				
 			//make sure that the obstacle is not already disqualified
-			if (distanceSquared >= _maxObstacleResultDistance && _obstacleResults.size() == _maxObstacleResults)
+			if (distanceSquared >= _maxObstacleResultDistance &&
+				 _obstacleResults.size() == _maxObstacleResults)
 				return;
 
 			if (_obstacleResults.size() != _maxObstacleResults){
@@ -120,5 +124,3 @@ namespace Menge {
 
 	}	// namespace Agents
 }	// namespace Menge
-
-

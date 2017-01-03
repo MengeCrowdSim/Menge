@@ -45,13 +45,13 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __SPATIAL_QUERY_H__
 #define	__SPATIAL_QUERY_H__
 
+#include "MengeCore/CoreConfig.h"
+#include "MengeCore/MengeException.h"
+#include "MengeCore/Agents/Obstacle.h"
+#include "MengeCore/Agents/SpatialQueries/ProximityQuery.h"
+#include "MengeCore/Math/Vector2.h"
+#include "MengeCore/PluginEngine/Element.h"
 
-// UTILS
-#include "CoreConfig.h"
-#include "Element.h"
-#include "Obstacle.h"
-#include "SpatialQueries/ProximityQuery.h"
-#include "MengeException.h"
 #include <vector>
 
 namespace Menge {
@@ -79,19 +79,23 @@ namespace Menge {
 		/*!
 		 *	@brief		The fatal spatial query exception.
 		 */
-		class MENGE_API SpatialQueryFatalException : public SpatialQueryException, public MengeFatalException {
+		class MENGE_API SpatialQueryFatalException : public SpatialQueryException,
+													 public MengeFatalException {
 		public:
 			/*!
 			 *	@brief		Default constructor.
 			 */
-			SpatialQueryFatalException() : MengeException(), SpatialQueryException(), MengeFatalException() {}
+			SpatialQueryFatalException() : MengeException(), SpatialQueryException(),
+										   MengeFatalException() {}
 
 			/*!
 			 *	@brief		Constructor with message.
 			 *
 			 *	@param		s		The exception-specific message.
 			 */
-			SpatialQueryFatalException( const std::string & s ): MengeException(s), SpatialQueryException(), MengeFatalException() {}
+			SpatialQueryFatalException( const std::string & s ): MengeException(s),
+																 SpatialQueryException(),
+																 MengeFatalException() {}
 		};
 
 		// FORWARD DECLARATIONS
@@ -109,7 +113,8 @@ namespace Menge {
 		 *			// TODO: This should be done via a task.
 		 *      
 		 *      - The spatial query is also responsible for visiblity testing
-		 *      Spatial Queries work in tandem with a Filter. The query itself is agnostic of the filter or the results
+		 *      Spatial Queries work in tandem with a Filter. The query itself is agnostic of the
+		 *		filter or the results.
 		 */
 		class MENGE_API SpatialQuery : public Element {
 		public:
@@ -142,10 +147,11 @@ namespace Menge {
 			 *  @brief      adds an obstacle to the internal list of the spatial query
 			 *				
 			 */
-			virtual void addObstacle(Obstacle *obs);
+			virtual void addObstacle(Obstacle * obs);
 
 			/*!
-			 *  @brief      returns the collected obstacles of the spatial query for use in visualization
+			 *  @brief      returns the collected obstacles of the spatial query for use in
+			 *				visualization.
 			 *  @returns    const pointer to the obstacle set
 			 *				
 			 */
@@ -155,7 +161,7 @@ namespace Menge {
 			 *  @brief      performs an agent based proximity query
 			 *  @param      query          a pointer for the proximity query to be performed
 			 */
-			virtual void agentQuery( ProximityQuery *query) const = 0;
+			virtual void agentQuery( ProximityQuery * query) const = 0;
 
 			// Obstacle operations
 
@@ -169,7 +175,7 @@ namespace Menge {
 			 *  @brief      performs an obstacle based proximity query
 			 *  @param      query          a pointer for the proximity query to be performed
 			 */
-			virtual void obstacleQuery( ProximityQuery *query) const = 0;
+			virtual void obstacleQuery( ProximityQuery * query) const = 0;
 
 			/*!
 			 *  @brief      Queries the visibility between two points within a
@@ -183,7 +189,8 @@ namespace Menge {
 			 *  @returns    True if q1 and q2 are mutually visible within the radius;
 			 *              false otherwise.
 			 */
-			virtual bool queryVisibility(const Vector2& q1, const Vector2& q2, float radius) const = 0;
+			virtual bool queryVisibility( const Math::Vector2 & q1, const Math::Vector2 & q2,
+										  float radius) const = 0;
 
 			/*!
 			 *	@brief		Sets the spatial query to include visibility in finding agent neighbors.

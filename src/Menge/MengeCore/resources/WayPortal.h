@@ -44,7 +44,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __WAY_PORTAL_H__
 #define __WAY_PORTAL_H__
 
-#include "NavMeshEdge.h"
+#include "MengeCore/resources/NavMeshEdge.h"
 
 namespace Menge {
 
@@ -81,7 +81,9 @@ namespace Menge {
 		 *	@returns	The position of the left physical vertex, as viewed 
 		 *				from inside _nodeID.
 		 */
-		inline Vector2 getLeft() const { return _p0IsLeft ? _edge->getP0() : _edge->getP1(); }
+		inline Math::Vector2 getLeft() const {
+			return _p0IsLeft ? _edge->getP0() : _edge->getP1();
+		}
 
 		/*!
 		 *	@brief		Retrives the position in the portal offset from the left physical vertex.
@@ -90,7 +92,9 @@ namespace Menge {
 		 *	@returns	The position offset from the left physical vertex, as viewed 
 		 *				from inside _nodeID.
 		 */
-		inline Vector2 getLeft( float offset ) const { return _p0IsLeft ? _edge->getP0( offset ) : _edge->getP1( offset ); }
+		inline Math::Vector2 getLeft( float offset ) const {
+			return _p0IsLeft ? _edge->getP0( offset ) : _edge->getP1( offset );
+		}
 
 		/*!
 		 *	@brief		Retrives the right physical vertex of the portal.
@@ -98,7 +102,9 @@ namespace Menge {
 		 *	@returns	The position of the right physical vertex, as viewed 
 		 *				from inside _nodeID.
 		 */
-		inline Vector2 getRight() const { return _p0IsLeft ? _edge->getP1() : _edge->getP0(); }
+		inline Math::Vector2 getRight() const {
+			return _p0IsLeft ? _edge->getP1() : _edge->getP0();
+		}
 
 		/*!
 		 *	@brief		Retrives the position in the portal offset from the right physical vertex.
@@ -107,7 +113,9 @@ namespace Menge {
 		 *	@returns	The position offset from the right physical vertex, as viewed 
 		 *				from inside _nodeID.
 		 */
-		inline Vector2 getRight( float offset ) const { return _p0IsLeft ? _edge->getP1( offset ) : _edge->getP0( offset ); }
+		inline Math::Vector2 getRight( float offset ) const {
+			return _p0IsLeft ? _edge->getP1( offset ) : _edge->getP0( offset );
+		}
 
 		/*!
 		 *	@brief		Computes the intersection point of the given line with this portal.
@@ -119,7 +127,8 @@ namespace Menge {
 		 *	@param		dir				A direction vector defining the position of the line.
 		 *	@returns	A point, on the portal, at which the line intersects.
 		 */
-		Vector2 intersectionPoint( const Vector2 & point, const Vector2 & dir ) const;
+		Math::Vector2 intersectionPoint( const Math::Vector2 & point, 
+										 const Math::Vector2 & dir ) const;
 
 		/*!
 		 *	@brief		Sets the directions on the preferred velocity based on the wayportal.
@@ -130,7 +139,8 @@ namespace Menge {
 		 *							be of unit-length.
 		 *	@param		pVel		The preferred velocity 
 		 */
-		void setPreferredDirection( const Vector2 & pos, float radius, const Vector2 & dir, Agents::PrefVelocity & pVel ) const;
+		void setPreferredDirection( const Math::Vector2 & pos, float radius,
+									const Math::Vector2 & dir, Agents::PrefVelocity & pVel ) const;
 
 		friend class PortalRoute;
 		friend class PortalPath;

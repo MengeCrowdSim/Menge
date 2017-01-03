@@ -44,7 +44,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __READERS_WRITER_LOCK_H__
 #define __READERS_WRITER_LOCK_H__
 
-#include "CoreConfig.h"
+#include "MengeCore/CoreConfig.h"
 #ifdef _OPENMP
 #include <omp.h>
 #endif

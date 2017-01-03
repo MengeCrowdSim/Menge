@@ -38,30 +38,32 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 //#define PLUGIN_EXPORT 1
 
+#include "MengeCore/PluginEngine/PluginEngine.h"
+
+#include "MengeCore/Agents/AgentGenerators/AgentGeneratorDatabase.h"
+#include "MengeCore/Agents/Elevations/ElevationDatabase.h"
+#include "MengeCore/Agents/Events/EventEffectDB.h"
+#include "MengeCore/Agents/Events/EventTargetDB.h"
+#include "MengeCore/Agents/Events/EventTriggerDB.h"
+#include "MengeCore/Agents/ObstacleSets/ObstacleSetDatabase.h"
+#include "MengeCore/Agents/ProfileSelectors/ProfileSelectorDatabase.h"
+#include "MengeCore/Agents/SpatialQueries/SpatialQueryDatabase.h"
+#include "MengeCore/Agents/StateSelectors/StateSelectorDatabase.h"
+#include "MengeCore/BFSM/Actions/ActionDatabase.h"
+#include "MengeCore/BFSM/Goals/GoalDatabase.h"
+#include "MengeCore/BFSM/GoalSelectors/GoalSelectorDatabase.h"
+#include "MengeCore/BFSM/Tasks/TaskDatabase.h"
+#include "MengeCore/BFSM/Transitions/ConditionDatabase.h"
+#include "MengeCore/BFSM/Transitions/TargetDatabase.h"
+#include "MengeCore/BFSM/VelocityComponents/VelComponentDatabase.h"
+#include "MengeCore/BFSM/VelocityModifiers/VelModifierDatabase.h"
+#include "MengeCore/Orca/ORCADBEntry.h"
+#include "MengeCore/PedVO/PedVODBEntry.h"
+#include "MengeCore/Runtime/Logger.h"
+#include "MengeCore/Runtime/os.h"
+#include "MengeCore/Runtime/SimulatorDB.h"
+
 #include <iostream>
-#include "PluginEngine.h"
-#include "os.h"
-#include "SimulatorDB.h"
-#include "Orca/ORCADBEntry.h"
-#include "PedVO/PedVODBEntry.h"
-#include "Actions/ActionDatabase.h"
-#include "Transitions/ConditionDatabase.h"
-#include "Transitions/TargetDatabase.h"
-#include "VelocityComponents/VelComponentDatabase.h"
-#include "VelocityModifiers/VelModifierDatabase.h"
-#include "Tasks/TaskDatabase.h"
-#include "Goals/GoalDatabase.h"
-#include "GoalSelectors/GoalSelectorDatabase.h"
-#include "Elevations/ElevationDatabase.h"
-#include "SpatialQueries/SpatialQueryDatabase.h"
-#include "AgentGenerators/AgentGeneratorDatabase.h"
-#include "ProfileSelectors/ProfileSelectorDatabase.h"
-#include "StateSelectors/StateSelectorDatabase.h"
-#include "Events/EventTriggerDB.h"
-#include "Events/EventEffectDB.h"
-#include "Events/EventTargetDB.h"
-#include "ObstacleSets/ObstacleSetDatabase.h"
-#include "Logger.h"
 
 namespace Menge {
 
@@ -122,7 +124,8 @@ namespace Menge {
 		StringListCItr itr = files.begin();
 		for ( ; itr != files.end(); ++itr ) {
 			std::string fullPath;
-			if ( ! os::path::absPath( os::path::join( 2, pluginFldr.c_str(), (*itr).c_str() ), fullPath ) ) {
+			if ( ! os::path::absPath( os::path::join( 2, pluginFldr.c_str(), (*itr).c_str() ),
+				fullPath ) ) {
 				logger << Logger::ERR_MSG << "Unable to get absolute path for " << (*itr);
 				continue;
 			}

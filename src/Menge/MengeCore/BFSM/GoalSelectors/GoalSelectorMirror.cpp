@@ -36,9 +36,11 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "GoalSelectors/GoalSelectorMirror.h"
-#include "Goals/GoalPoint.h"
-#include "BaseAgent.h"
+#include "MengeCore/BFSM/GoalSelectors/GoalSelectorMirror.h"
+
+#include "MengeCore/Agents/BaseAgent.h"
+#include "MengeCore/BFSM/Goals/GoalPoint.h"
+
 #include <cassert>
 
 namespace Menge {
@@ -73,9 +75,11 @@ namespace Menge {
 
 		/////////////////////////////////////////////////////////////////////
 
-		bool MirrorGoalSelectorFactory::setFromXML( GoalSelector * selector, TiXmlElement * node, const std::string & behaveFldr ) const {
+		bool MirrorGoalSelectorFactory::setFromXML( GoalSelector * selector, TiXmlElement * node,
+													const std::string & behaveFldr ) const {
 			MirrorGoalSelector * mgs = dynamic_cast< MirrorGoalSelector * >( selector );
-			assert( mgs != 0x0 && "Trying to set mirror goal selector attributes on an incompatible object." );
+			assert( mgs != 0x0 &&
+					"Trying to set mirror goal selector attributes on an incompatible object." );
 
 			if ( ! GoalSelectorFactory::setFromXML( mgs, node, behaveFldr ) ) return false;
 

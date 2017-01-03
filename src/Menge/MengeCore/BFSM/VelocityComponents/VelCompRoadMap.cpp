@@ -36,11 +36,12 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "VelocityComponents/VelCompRoadMap.h"
-#include "BaseAgent.h"
-#include "os.h"
-#include "Graph.h"
-#include "Goals/Goal.h"
+#include "MengeCore/BFSM/VelocityComponents/VelCompRoadMap.h"
+
+#include "MengeCore/BFSM/Goals/Goal.h"
+#include "MengeCore/Agents/BaseAgent.h"
+#include "MengeCore/resources/Graph.h"
+#include "MengeCore/Runtime/os.h"
 
 #include <sstream>
 #include <iomanip>
@@ -58,7 +59,8 @@ namespace Menge {
 
 		/////////////////////////////////////////////////////////////////////
 
-		RoadMapVelComponent::RoadMapVelComponent( const GraphPtr & graph ):VelComponent(), _roadmap(graph) {
+		RoadMapVelComponent::RoadMapVelComponent( const GraphPtr & graph ) : VelComponent(),
+																			 _roadmap( graph ) {
 		}
 
 		/////////////////////////////////////////////////////////////////////
@@ -74,9 +76,9 @@ namespace Menge {
 		/////////////////////////////////////////////////////////////////////
 
 		void RoadMapVelComponent::onExit( Agents::BaseAgent * agent ) {
-			// This test is necessary.  Because state advancement can jump MULTIPLE states in a single
-			//	time step, it is possible to enter and exit a state with a roadmap velocity without
-			//	ever actually calling "setPrefVelocity" on that velocity component.
+			// This test is necessary.  Because state advancement can jump MULTIPLE states in a
+			//	singletime step, it is possible to enter and exit a state with a roadmap velocity
+			//	without ever actually calling "setPrefVelocity" on that velocity component.
 			//
 			//	Roadmap initializes the path in setPrefVelocity - so, things don't get properly
 			//	initialized.
@@ -91,7 +93,9 @@ namespace Menge {
 
 		/////////////////////////////////////////////////////////////////////
 
-		void RoadMapVelComponent::setPrefVelocity( const Agents::BaseAgent * agent, const Goal * goal, Agents::PrefVelocity & pVel ) {
+		void RoadMapVelComponent::setPrefVelocity( const Agents::BaseAgent * agent,
+												   const Goal * goal,
+												   Agents::PrefVelocity & pVel ) {
 			_lock.lockRead();
 			PathMap::iterator itr = _paths.find( agent->_id );
 			RoadMapPath * path = 0x0;
@@ -113,7 +117,7 @@ namespace Menge {
 		}
 
 		/////////////////////////////////////////////////////////////////////
-		
+#if 0
 		VelCompContext * RoadMapVelComponent::getContext() {
 			return new RoadMapVCContext( this );
 		}
@@ -215,7 +219,7 @@ namespace Menge {
 			
 			glPopAttrib();
 		}
-		
+#endif
 		/////////////////////////////////////////////////////////////////////
 		//                   Implementation of RoadMapVCFactory
 		/////////////////////////////////////////////////////////////////////
@@ -226,21 +230,27 @@ namespace Menge {
 
 		/////////////////////////////////////////////////////////////////////
 
-		bool RoadMapVCFactory::setFromXML( VelComponent * vc, TiXmlElement * node, const std::string & behaveFldr ) const {
+		bool RoadMapVCFactory::setFromXML( VelComponent * vc, TiXmlElement * node,
+										   const std::string & behaveFldr ) const {
 			RoadMapVelComponent * rmvc = dynamic_cast< RoadMapVelComponent * >( vc );
-			assert( rmvc != 0x0 && "Trying to set attributes of a road map velocity component on an incompatible object" );
+			assert( rmvc != 0x0 &&
+					"Trying to set attributes of a road map velocity component on an incompatible "
+					"object" );
 			
 			if ( ! VelCompFactory::setFromXML( rmvc, node, behaveFldr ) ) return false;
 
 			// get the file name
 			std::string fName;
-			std::string path = os::path::join( 2, behaveFldr.c_str(), _attrSet.getString( _fileNameID ).c_str() );
+			std::string path = os::path::join( 2, behaveFldr.c_str(),
+											   _attrSet.getString( _fileNameID ).c_str() );
 			os::path::absPath( path, fName );
 			GraphPtr gPtr;
 			try {
 				gPtr = loadGraph( fName );
 			} catch ( ResourceException ) {
-				logger << Logger::ERR_MSG << "Couldn't instantiate the road map referenced on line " << node->Row() << ".";
+				logger << Logger::ERR_MSG;
+				logger << "Couldn't instantiate the road map referenced on line ";
+				logger << node->Row() << ".";
 				return false;
 			}
 			rmvc->setRoadMap( gPtr );

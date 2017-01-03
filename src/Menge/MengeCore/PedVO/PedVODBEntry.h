@@ -44,8 +44,8 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __PEDVO_DB_ENTRY_H__
 #define	__PEDVO_DB_ENTRY_H__
 
-#include "SimulatorDBEntry.h"
-#include "PedVO.h"
+#include "MengeCore/Runtime/SimulatorDBEntry.h"
+#include "MengeCore/PedVO/PedVO.h"
 
 namespace PedVO {
 	/*!
@@ -105,7 +105,7 @@ namespace PedVO {
 		 *				freeing up the memory.
 		 */
 		virtual Menge::Agents::AgentInitializer * getAgentInitalizer() const;
-
+#if 0
 	protected:
 		/*!
 		 *	@brief		Returns a pointer to an agent context appropriate to
@@ -124,6 +124,7 @@ namespace PedVO {
 		 *				the wrong type (or if there is any other problem), NULL is returned.
 		 */
 		virtual Menge::BaseAgentContext * contextFromSystem( Menge::SimSystem * simSystem );
+#endif
 	};
 }	// namespace PedVO
 

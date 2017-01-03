@@ -44,8 +44,10 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __GOALSET_H__
 #define	__GOALSET_H__
 
-#include "fsmCommon.h"
-#include "ReadersWriterLock.h"
+#include "MengeCore/BFSM/fsmCommon.h"
+#include "MengeCore/Math/RandGenerator.h"
+#include "MengeCore/Runtime/ReadersWriterLock.h"
+
 #include <map>
 
 namespace Menge {
@@ -213,7 +215,7 @@ namespace Menge {
 			/*!
 			 *	@brief		The random die to select random and weighted goals
 			 */
-			UniformFloatGenerator _randVal;
+			Menge::Math::UniformFloatGenerator _randVal;
 
 			/*!
 			 *	@brief		The lock to maintain readers-writer access to the

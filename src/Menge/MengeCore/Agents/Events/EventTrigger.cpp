@@ -36,8 +36,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "EventTrigger.h"
-#include "Core.h"
+#include "MengeCore/Agents/Events/EventTrigger.h"
+
+#include "MengeCore/Core.h"
 
 namespace Menge {
 	/////////////////////////////////////////////////////////////////////
@@ -57,4 +58,4 @@ namespace Menge {
 	void EventTrigger::fired() {
 		_lastFire = SIM_TIME;
 	}
-}
+}	// namespace Menge

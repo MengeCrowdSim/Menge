@@ -45,9 +45,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __AGENT_PROPERT_EFFECT_H__
 #define __AGENT_PROPERT_EFFECT_H__
 
-#include "EventEffectFactory.h"
-#include "AgentEventEffect.h"
-#include "AgentPropertyManipulator.h"
+#include "MengeCore/Agents/AgentPropertyManipulator.h"
+#include "MengeCore/Agents/Events/EventEffectFactory.h"
+#include "MengeCore/Agents/Events/AgentEventEffect.h"
 
 namespace Menge {
 
@@ -112,11 +112,11 @@ namespace Menge {
 
 	protected:
 		/*!
-		 *	@brief		Given a pointer to an AgentPropertyEffect instance, sets the appropriate fields
-		 *				from the provided XML node.
+		 *	@brief		Given a pointer to an AgentPropertyEffect instance, sets the appropriate
+		 *				fields from the provided XML node.
 		 *
-		 *	It is assumed that the value of the `type` attribute is this AgentPropertyEffect's type.
-		 *	(i.e. EventEffectFactory::thisFactory has already been called and returned true.)
+		 *	It is assumed that the value of the `type` attribute is this AgentPropertyEffect's
+		 *	type. (i.e. EventEffectFactory::thisFactory has already been called and returned true.)
 		 *	If sub-classes of EventEffectFactory introduce *new* EventEffect parameters, then the
 		 *	sub-class should override this method but explicitly call the parent class's
 		 *	version.
@@ -129,9 +129,12 @@ namespace Menge {
 		 *							that path. 
 		 *	@returns	A boolean reporting success (true) or failure (false).
 		 */
-		virtual bool setFromXML( EventEffect * effect, TiXmlElement * node, const std::string & behaveFldr ) const {
-			AgentPropertyEffect< Manipulator > * aEffect = dynamic_cast< AgentPropertyEffect< Manipulator > * >( effect );
-			assert( aEffect != 0x0 && "Trying to set agent event effect properties on an incompatible object" );
+		virtual bool setFromXML( EventEffect * effect, TiXmlElement * node,
+								 const std::string & behaveFldr ) const {
+			AgentPropertyEffect< Manipulator > * aEffect = 
+				dynamic_cast< AgentPropertyEffect< Manipulator > * >( effect );
+			assert( aEffect != 0x0 && "Trying to set agent event effect properties on an "
+					"incompatible object" );
 			
 			// This parses the target
 			if ( ! EventEffectFactory::setFromXML( aEffect, node, behaveFldr ) ) return false;
@@ -142,7 +145,9 @@ namespace Menge {
 			BFSM::PropertyOperand prop = parsePropertyName( _attrSet.getString( _propertyID ) );
 			manip->setProperty( prop );
 			if ( prop == BFSM::NO_PROPERTY ) {
-				logger << Logger::ERR_MSG << "The property event effect defined on line " << node->Row() << " specified an invalid value for the \"property\" attribute";
+				logger << Logger::ERR_MSG << "The property event effect defined on line ";
+				logger << node->Row();
+				logger << " specified an invalid value for the \"property\" attribute";
 				return false;
 			}
 			manip->setGenerator( _attrSet.getFloatGenerator( _generatorID ) );
@@ -166,7 +171,8 @@ namespace Menge {
 	/*!
 	 *	@brief		Factory for the SetPropertyEffect.
 	 */
-	class MENGE_API SetAgentPropertyEffectFactory : public AgentPropertyEffectFactory< SetPropertyManipulator > {
+	class MENGE_API SetAgentPropertyEffectFactory : 
+		public AgentPropertyEffectFactory< SetPropertyManipulator > {
 	public:
 		
 		/*!
@@ -201,7 +207,9 @@ namespace Menge {
 		 *
 		 *	@returns		A pointer to a newly instantiated EventEffect class.
 		 */
-		EventEffect * instance() const { return new AgentPropertyEffect< SetPropertyManipulator >(); }	
+		EventEffect * instance() const {
+			return new AgentPropertyEffect< SetPropertyManipulator >();
+		}	
 	};
 
 	/////////////////////////////////////////////////////////////////////
@@ -209,7 +217,8 @@ namespace Menge {
 	/*!
 	 *	@brief		Factory for the OffsetPropertyEffect.
 	 */
-	class MENGE_API OffsetAgentPropertyEffectFactory : public AgentPropertyEffectFactory< OffsetPropertyManipulator > {
+	class MENGE_API OffsetAgentPropertyEffectFactory :
+		public AgentPropertyEffectFactory< OffsetPropertyManipulator > {
 	public:
 		
 		/*!
@@ -244,7 +253,9 @@ namespace Menge {
 		 *
 		 *	@returns		A pointer to a newly instantiated EventEffect class.
 		 */
-		EventEffect * instance() const { return new AgentPropertyEffect< OffsetPropertyManipulator >(); }	
+		EventEffect * instance() const {
+			return new AgentPropertyEffect< OffsetPropertyManipulator >();
+		}
 	};
 
 	/////////////////////////////////////////////////////////////////////
@@ -252,7 +263,8 @@ namespace Menge {
 	/*!
 	 *	@brief		Factory for the ScalePropertyEffect.
 	 */
-	class MENGE_API ScaleAgentPropertyEffectFactory : public AgentPropertyEffectFactory< ScalePropertyManipulator > {
+	class MENGE_API ScaleAgentPropertyEffectFactory :
+		public AgentPropertyEffectFactory< ScalePropertyManipulator > {
 	public:
 		
 		/*!
@@ -287,7 +299,9 @@ namespace Menge {
 		 *
 		 *	@returns		A pointer to a newly instantiated EventEffect class.
 		 */
-		EventEffect * instance() const { return new AgentPropertyEffect< ScalePropertyManipulator >(); }	
+		EventEffect * instance() const {
+			return new AgentPropertyEffect< ScalePropertyManipulator >();
+		}
 	};
 
 }	// namespace Menge

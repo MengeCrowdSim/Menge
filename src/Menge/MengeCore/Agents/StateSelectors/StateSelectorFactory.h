@@ -45,9 +45,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __STATE_SELECTOR_FACTORY_H__
 #define __STATE_SELECTOR_FACTORY_H__
 
-#include "CoreConfig.h"
-#include "ElementFactory.h"
-#include "StateSelectors/StateSelector.h"
+#include "MengeCore/CoreConfig.h"
+#include "MengeCore/PluginEngine/ElementFactory.h"
+#include "MengeCore/Agents/StateSelectors/StateSelector.h"
 
 namespace Menge {
 

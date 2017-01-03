@@ -36,10 +36,12 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "NavMeshLocalizerTask.h"
-#include "FSM.h"
-#include "NavMeshLocalizer.h"
-#include "SimulatorInterface.h"
+#include "MengeCore/BFSM/Tasks/NavMeshLocalizerTask.h"
+
+#include "MengeCore/Agents/SimulatorInterface.h"
+#include "MengeCore/BFSM/FSM.h"
+#include "MengeCore/resources/NavMeshLocalizer.h"
+
 #include <exception>
 
 namespace Menge {
@@ -50,7 +52,8 @@ namespace Menge {
 		//                   Implementation of NavMeshLocalizerTask
 		/////////////////////////////////////////////////////////////////////
 
-		NavMeshLocalizerTask::NavMeshLocalizerTask( const std::string & navMeshName, bool usePlanner ): Task() {
+		NavMeshLocalizerTask::NavMeshLocalizerTask( const std::string & navMeshName,
+													bool usePlanner ): Task() {
 			_localizer = loadNavMeshLocalizer( navMeshName, usePlanner );
 		}
 
@@ -70,7 +73,8 @@ namespace Menge {
 					logger << Logger::ERR_MSG << e.what() << "\n";
 					++exceptionCount;
 				} catch ( std::exception & e ) {
-					logger << Logger::ERR_MSG << "Unanticipated system exception: " << e.what() << ".";
+					logger << Logger::ERR_MSG << "Unanticipated system exception: ";
+					logger << e.what() << ".";
 					++exceptionCount;
 				}
 			}
@@ -88,14 +92,14 @@ namespace Menge {
 		/////////////////////////////////////////////////////////////////////
 
 		bool NavMeshLocalizerTask::isEquivalent( const Task * task ) const {
-			const NavMeshLocalizerTask * other = dynamic_cast< const NavMeshLocalizerTask * >( task );
+			const NavMeshLocalizerTask * other =
+				dynamic_cast< const NavMeshLocalizerTask * >( task );
 			if ( other == 0x0 ) {
 				return false;
 			} else {
 				return _localizer == other->_localizer;
 			}
 		}
-		
 
 	}	// namespace BFSM 
 }	// namespace Menge

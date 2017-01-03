@@ -44,11 +44,11 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __GOAL_SELECTOR_NEAREST_NM_H__
 #define __GOAL_SELECTOR_NEAREST_NM_H__
 
-#include "CoreConfig.h"
-#include "fsmCommon.h"
-#include "GoalSelectors/GoalSelectorSet.h"
-#include "NavMesh.h"
-#include "NavMeshLocalizer.h"
+#include "MengeCore/CoreConfig.h"
+#include "MengeCore/BFSM/fsmCommon.h"
+#include "MengeCore/BFSM/GoalSelectors/GoalSelectorSet.h"
+#include "MengeCore/resources/NavMesh.h"
+#include "MengeCore/resources/NavMeshLocalizer.h"
 
 namespace Menge {
 
@@ -152,8 +152,8 @@ namespace Menge {
 			 *	@returns	A string containing the goal selector description.
 			 */
 			virtual const char * description() const {
-				return  "A goal selector.  Assigns the agent the goal in the given " \
-						"goal set that is *nearest* to the agent based on shortest paths " \
+				return  "A goal selector.  Assigns the agent the goal in the given "
+						"goal set that is *nearest* to the agent based on shortest paths "
 						"through the navigation mesh.";
 			};
 
@@ -171,13 +171,14 @@ namespace Menge {
 			 *
 			 *	@param		selector	A pointer to the goal whose attributes are to be set.
 			 *	@param		node		The XML node containing the goal selector attributes.
-			 *	@param		behaveFldr	The path to the behavior file.  If the goal selector references
-			 *							resources in the file system, it should be defined relative
-			 *							to the behavior file location.  This is the folder containing
-			 *							that path. 
+			 *	@param		behaveFldr	The path to the behavior file.  If the goal selector
+			 *							references resources in the file system, it should be
+			 *							defined relative to the behavior file location.  This is
+			 *							the folder containing that path. 
 			 *	@returns	A boolean reporting success (true) or failure (false).
 			 */
-			virtual bool setFromXML( GoalSelector * selector, TiXmlElement * node, const std::string & behaveFldr ) const;
+			virtual bool setFromXML( GoalSelector * selector, TiXmlElement * node,
+									 const std::string & behaveFldr ) const;
 		
 			/*!
 			 *	@brief		The identifier for the "file_name" string attribute.

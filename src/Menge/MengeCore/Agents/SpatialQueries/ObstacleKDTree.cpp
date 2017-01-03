@@ -36,14 +36,19 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "ObstacleKDTree.h"
-#include "BaseAgent.h"
-#include "Math/consts.h"
+#include "MengeCore/Agents/SpatialQueries/ObstacleKDTree.h"
+
+#include "MengeCore/Agents/BaseAgent.h"
+#include "MengeCore/Math/consts.h"
+
 #include <algorithm>
 
 namespace Menge {
 
 	namespace Agents {
+
+		using Math::Vector2;
+		using Math::sqr;
 
 		/////////////////////////////////////////////////////////////////////////////
 		//                     Implementation of ObstacleKDTree
@@ -80,13 +85,15 @@ namespace Menge {
 
 		/////////////////////////////////////////////////////////////////////////////
 
-		bool ObstacleKDTree::queryVisibility(const Vector2& q1, const Vector2& q2, float radius) const {
+		bool ObstacleKDTree::queryVisibility(const Vector2& q1, const Vector2& q2,
+											  float radius) const {
 			return queryVisibilityRecursive(q1, q2, radius, _tree);
 		}
 
 		/////////////////////////////////////////////////////////////////////////////
 
-		ObstacleTreeNode* ObstacleKDTree::buildTreeRecursive( const std::vector<Obstacle*>& obstacles) {
+		ObstacleTreeNode* ObstacleKDTree::buildTreeRecursive(
+			const std::vector<Obstacle*>& obstacles) {
 			if ( obstacles.empty() ) {
 				return 0x0;
 			} else {
@@ -126,12 +133,18 @@ namespace Menge {
 							++rightSize;
 						}
 
-						if (std::make_pair(std::max(leftSize, rightSize), std::min(leftSize, rightSize)) >= std::make_pair(std::max(minLeft, minRight), std::min(minLeft, minRight))) {
+						if (std::make_pair(std::max(leftSize, rightSize),
+							std::min(leftSize, rightSize)) >=
+							std::make_pair(std::max(minLeft, minRight),
+							std::min(minLeft, minRight))) {
 							break;
 						}
 					}
 
-					if (std::make_pair(std::max(leftSize, rightSize), std::min(leftSize, rightSize)) < std::make_pair(std::max(minLeft, minRight), std::min(minLeft, minRight))) {
+					if (std::make_pair(std::max(leftSize, rightSize),
+						std::min(leftSize, rightSize)) <
+						std::make_pair(std::max(minLeft, minRight),
+						std::min(minLeft, minRight))) {
 						minLeft = leftSize;
 						minRight = rightSize;
 						optimalSplit = i;
@@ -210,7 +223,9 @@ namespace Menge {
 
 		/////////////////////////////////////////////////////////////////////////////
 
-		void ObstacleKDTree::queryTreeRecursive( ProximityQuery *filter, Vector2 pt, float& rangeSq, const ObstacleTreeNode* node) const {
+		void ObstacleKDTree::queryTreeRecursive( ProximityQuery *filter, Vector2 pt,
+												 float& rangeSq,
+												 const ObstacleTreeNode* node) const {
 			if (node == 0) {
 				return;
 			} else {
@@ -221,7 +236,8 @@ namespace Menge {
 
 				const float agentLeftOfLine = leftOf( P0, P1, pt);
 
-				queryTreeRecursive(filter, pt, rangeSq, (agentLeftOfLine >= 0.0f ? node->_left : node->_right));
+				queryTreeRecursive(filter, pt, rangeSq, (agentLeftOfLine >= 0.0f ?
+					node->_left : node->_right));
 
 				const float distSqLine = sqr(agentLeftOfLine) / absSq(P1 - P0);
 
@@ -231,7 +247,8 @@ namespace Menge {
 						* Try obstacle at this node only if agent is on right side of
 						* obstacle (and can see obstacle).
 						*/
-						float distSq = distSqPointLineSegment(node->_obstacle->getP0(), node->_obstacle->getP1(), pt);
+						float distSq = distSqPointLineSegment(node->_obstacle->getP0(),
+															   node->_obstacle->getP1(), pt);
 
 						filter->filterObstacle(node->_obstacle, distSq);
 						
@@ -239,7 +256,8 @@ namespace Menge {
 					}
 
 					/* Try other side of line. */
-					queryTreeRecursive(filter, pt, rangeSq, (agentLeftOfLine >= 0.0f ? node->_right : node->_left));
+					queryTreeRecursive(filter, pt, rangeSq,
+										(agentLeftOfLine >= 0.0f ? node->_right : node->_left));
 				}
 			}
 		}
@@ -260,18 +278,29 @@ namespace Menge {
 				const float invLengthI = 1.0f / absSq(obstacle2->_point - obstacle1->_point);
 
 				if (q1LeftOfI >= 0.0f && q2LeftOfI >= 0.0f) {
-					return queryVisibilityRecursive(q1, q2, radius, node->_left) && ((sqr(q1LeftOfI) * invLengthI >= sqr(radius) && sqr(q2LeftOfI) * invLengthI >= sqr(radius)) || queryVisibilityRecursive(q1, q2, radius, node->_right));
+					return queryVisibilityRecursive(q1, q2, radius, node->_left) &&
+						((sqr(q1LeftOfI) * invLengthI >= sqr(radius) &&
+						sqr(q2LeftOfI) * invLengthI >= sqr(radius)) ||
+						queryVisibilityRecursive(q1, q2, radius, node->_right));
 				} else if (q1LeftOfI <= 0.0f && q2LeftOfI <= 0.0f) {
-					return queryVisibilityRecursive(q1, q2, radius, node->_right) && ((sqr(q1LeftOfI) * invLengthI >= sqr(radius) && sqr(q2LeftOfI) * invLengthI >= sqr(radius)) || queryVisibilityRecursive(q1, q2, radius, node->_left));
+					return queryVisibilityRecursive(q1, q2, radius, node->_right) &&
+						((sqr(q1LeftOfI) * invLengthI >= sqr(radius) &&
+						sqr(q2LeftOfI) * invLengthI >= sqr(radius)) ||
+						queryVisibilityRecursive(q1, q2, radius, node->_left));
 				} else if (q1LeftOfI >= 0.0f && q2LeftOfI <= 0.0f) {
 					/* One can see through obstacle from left to right. */
-					return queryVisibilityRecursive(q1, q2, radius, node->_left) && queryVisibilityRecursive(q1, q2, radius, node->_right);
+					return queryVisibilityRecursive(q1, q2, radius, node->_left) &&
+						queryVisibilityRecursive(q1, q2, radius, node->_right);
 				} else {
 					const float point1LeftOfQ = leftOf(q1, q2, obstacle1->_point);
 					const float point2LeftOfQ = leftOf(q1, q2, obstacle2->_point);
 					const float invLengthQ = 1.0f / absSq(q2 - q1);
 
-					return (point1LeftOfQ * point2LeftOfQ >= 0.0f && sqr(point1LeftOfQ) * invLengthQ > sqr(radius) && sqr(point2LeftOfQ) * invLengthQ > sqr(radius) && queryVisibilityRecursive(q1, q2, radius, node->_left) && queryVisibilityRecursive(q1, q2, radius, node->_right));
+					return (point1LeftOfQ * point2LeftOfQ >= 0.0f &&
+							 sqr(point1LeftOfQ) * invLengthQ > sqr(radius) &&
+							 sqr(point2LeftOfQ) * invLengthQ > sqr(radius) &&
+							 queryVisibilityRecursive(q1, q2, radius, node->_left) &&
+							 queryVisibilityRecursive(q1, q2, radius, node->_right));
 				}
 			}
 		}

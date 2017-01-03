@@ -45,7 +45,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __ELEMENT_FACTORY_H__
 #define __ELEMENT_FACTORY_H__
 
-#include "AttributeSet.h"
+#include "MengeCore/PluginEngine/AttributeSet.h"
 
 // forward declaration
 class TiXmlElement;
@@ -125,7 +125,8 @@ namespace Menge {
 		 *	@param		behaveFldr	The path to the behavior file.  If the action references
 		 *							resources in the file system, it should be defined relative
 		 *							to the behavior file location.  This is the folder containing
-		 *							that path. It can be ignored if no file system resources are used.
+		 *							that path. It can be ignored if no file system resources are
+		 *							used.
 		 *	@returns	A pointer to a new condition instance for this data.
 		 *				If there is an error in the xml, NULL is returned.
 		 */
@@ -166,14 +167,15 @@ namespace Menge {
 		 *	@param		specFldr		The path to the defining file.  If the element references
 		 *								resources in the file system, it should be defined relative
 		 *								to this file location.  This is the folder containing
-		 *								that path. For elements defined in  behavior files, this will
-		 *                              be the path to that file; the same is true for those defined in
-		 *                              scene files
+		 *								that path. For elements defined in  behavior files, this
+		 *								will be the path to that file; the same is true for those
+		 *								defined in scene files
 		 *	@returns	A boolean reporting success (true) or failure (false).
 		 *	@throws		An AttributeException if there is a problem in extracting values from the
 		 *				attribute set.
 		 */
-		virtual bool setFromXML( Element * element, TiXmlElement * node, const std::string & specFldr ) const {
+		virtual bool setFromXML( Element * element, TiXmlElement * node,
+								 const std::string & specFldr ) const {
 			_attrSet.clear();
 			return _attrSet.extract( node );
 		}

@@ -44,10 +44,10 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __GOAL_SELECTOR_IDENTITY_H__
 #define __GOAL_SELECTOR_IDENTITY_H__
 
-#include "CoreConfig.h"
-#include "fsmCommon.h"
-#include "GoalSelectors/GoalSelector.h"
-#include "GoalSelectors/GoalSelectorFactory.h"
+#include "MengeCore/CoreConfig.h"
+#include "MengeCore/BFSM/fsmCommon.h"
+#include "MengeCore/BFSM/GoalSelectors/GoalSelector.h"
+#include "MengeCore/BFSM/GoalSelectors/GoalSelectorFactory.h"
 
 namespace Menge {
 
@@ -97,7 +97,7 @@ namespace Menge {
 			 *	@returns	A string containing the goal selector description.
 			 */
 			virtual const char * description() const {
-				return  "A goal selector.  The goal an agent gets is based on " \
+				return  "A goal selector.  The goal an agent gets is based on " 
 						"its current position when the goal is assigned.";
 			};
 

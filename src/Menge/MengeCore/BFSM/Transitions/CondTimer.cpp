@@ -36,9 +36,10 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "CondTimer.h"
-#include "Core.h"
-#include "BaseAgent.h"
+#include "MengeCore/BFSM/Transitions/CondTimer.h"
+
+#include "MengeCore/Core.h"
+#include "MengeCore/Agents/BaseAgent.h"
 
 namespace Menge {
 
@@ -77,7 +78,8 @@ namespace Menge {
 		void TimerCondition::onLeave( Agents::BaseAgent * agent ) {
 			_lock.lockWrite();
 			std::map< size_t, float >::iterator itr = _triggerTimes.find( agent->_id );
-			assert( itr != _triggerTimes.end() && "Agent exiting a timer condition that never entered" );
+			assert( itr != _triggerTimes.end() &&
+					"Agent exiting a timer condition that never entered" );
 			_triggerTimes.erase( itr );
 			_lock.releaseWrite();
 		}
@@ -108,22 +110,26 @@ namespace Menge {
 
 		///////////////////////////////////////////////////////////////////////////
 
-		bool TimerCondFactory::setFromXML( Condition * condition, TiXmlElement * node, const std::string & behaveFldr ) const {
+		bool TimerCondFactory::setFromXML( Condition * condition, TiXmlElement * node,
+										   const std::string & behaveFldr ) const {
 			TimerCondition * tCond = dynamic_cast< TimerCondition * >( condition );
-			assert( tCond != 0x0 && "Trying to set the properties of a timer condition on an incompatible object" );
+			assert( tCond != 0x0 &&
+					"Trying to set the properties of a timer condition on an incompatible "
+					"object" );
 
 			if ( !ConditionFactory::setFromXML( condition, node, behaveFldr ) ) return false;
 
 			bool useGlobal = !_attrSet.getBool( _perAgentID );
 			FloatGenerator * gen = _attrSet.getFloatGenerator( _durGenID );
 			if ( useGlobal ) {
-				// This allows for a randomly generated const value.  As opposed to simply specifying a global const.
+				// This allows for a randomly generated const value.  As opposed to simply
+				//	specifying a global const.
 				tCond->_durGen = new ConstFloatGenerator( gen->getValue() );
-				delete gen;	// TODO: determine if this is safe across dlls.  It may need to be a destroy.
+				// TODO: determine if this is safe across dlls.  It may need to be a destroy.
+				delete gen;	
 			} else {
 				tCond->_durGen = gen;
 			}
-
 			return true;
 		}
 	}	// namespace BFSM

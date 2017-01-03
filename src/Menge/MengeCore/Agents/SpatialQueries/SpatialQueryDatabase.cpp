@@ -36,9 +36,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "SpatialQueryDatabase.h"
-#include "SpatialQueries/SpatialQueryKDTree.h"
-#include "SpatialQueries/SpatialQueryNavMesh.h"
+#include "MengeCore/Agents/SpatialQueries/SpatialQueryDatabase.h"
+#include "MengeCore/Agents/SpatialQueries/SpatialQueryKDTree.h"
+#include "MengeCore/Agents/SpatialQueries/SpatialQueryNavMesh.h"
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
@@ -51,7 +51,9 @@ namespace Menge {
 	 *	@returns	The string representation of the database name.
 	 */
 	template <>
-	std::string ElementDB< Agents::SpatialQueryFactory, Agents::SpatialQuery >::getElementName() { return "spatial query"; }
+	std::string ElementDB< Agents::SpatialQueryFactory, Agents::SpatialQuery >::getElementName() {
+		return "spatial query";
+	}
 
 	/*! 
 	 *	@brief		Initialization of built in database elements.

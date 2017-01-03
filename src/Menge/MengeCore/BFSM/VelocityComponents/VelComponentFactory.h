@@ -45,11 +45,11 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __VEL_COMPONENT_FACTORY_H__
 #define __VEL_COMPONENT_FACTORY_H__
 
-#include "CoreConfig.h"
-#include <string>
+#include "MengeCore/CoreConfig.h"
+#include "MengeCore/BFSM/VelocityComponents/VelComponent.h"
+#include "MengeCore/PluginEngine/ElementFactory.h"
 
-#include "ElementFactory.h"
-#include "VelocityComponents/VelComponent.h"
+#include <string>
 
 namespace Menge {
 	namespace BFSM {

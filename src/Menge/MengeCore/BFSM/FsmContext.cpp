@@ -35,12 +35,12 @@ TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
-
-#include "FsmContext.h"
-#include "BaseAgent.h"
-#include "FSM.h"
-#include "State.h"
-#include "StateContext.h"
+#if 0
+#include "MengeCore/BFSM/FsmContext.h"
+#include "MengeCore/Agents/BaseAgent.h"
+#include "MengeCore/BFSM/FSM.h"
+#include "MengeCore/BFSM/State.h"
+#include "MengeCore/Agents/StateContext.h"
 #include <cassert>
 #include <sstream>
 
@@ -136,3 +136,4 @@ namespace Menge {
 
 	}	// namespace BFSM
 }	// namespace Menge
+#endif

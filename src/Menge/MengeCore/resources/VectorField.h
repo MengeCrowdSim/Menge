@@ -44,13 +44,11 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __VECTOR_FIELD_H__
 #define __VECTOR_FIELD_H__
 
-// A 2D vector field
-//	The field itself need not be square, but the cells are.
-// STL
+#include "MengeCore/mengeCommon.h"
+#include "MengeCore/resources/Resource.h"
+
 #include <string>
 #include <map>
-#include "Resource.h"
-#include "mengeCommon.h"
 
 namespace Menge {
 
@@ -95,7 +93,7 @@ namespace Menge {
 		 *	@param		c		A reference to the column index -- this is to be set by the
 		 *						function.
 		 */
-		void getCell( const Vector2 & pos, int & r, int & c );
+		void getCell( const Math::Vector2 & pos, int & r, int & c );
 
 		/*!
 		 *	@brief		Returns the value of the field for the given CELL address
@@ -106,7 +104,7 @@ namespace Menge {
 		 *	@param		col		The index of the column.
 		 *	@returns	The vector value of the cell at (row, col)
 		 */
-		Vector2 getFieldValue( int row, int col ) const;
+		Math::Vector2 getFieldValue( int row, int col ) const;
 
 		/*!
 		 *	@brief		Returns the value of the field for the given position.
@@ -118,7 +116,7 @@ namespace Menge {
 		 *	@param		pos		The position to read the field's vector value.
 		 *	@returns	The vector value of the cell center closest to pos.
 		 */
-		Vector2 getFieldValue( const Vector2 & pos );
+		Math::Vector2 getFieldValue( const Math::Vector2 & pos );
 
 		/*!
 		 *	@brief		Returns the value of the field for the given position.
@@ -130,7 +128,7 @@ namespace Menge {
 		 *	@param		pos		The position to read the field's vector value.
 		 *	@returns	The vector value of the cell center closest to pos.
 		 */
-		Vector2 getFieldValueInterp( const Vector2 & pos );
+		Math::Vector2 getFieldValueInterp( const Math::Vector2 & pos );
 
 		/*!
 		 *	@brief		Parses a vector field definition and returns a pointer to it.
@@ -151,21 +149,21 @@ namespace Menge {
 		 *
 		 *	@returns	The minimum extent of the field.
 		 */
-		Vector2 getMinimumPoint() const { return _minPoint; }
+		Math::Vector2 getMinimumPoint() const { return _minPoint; }
 
 		/*!
 		 *	@brief		Reports the maximum extent of the field.
 		 *
 		 *	@returns	The maximum extent of the field.
 		 */
-		Vector2 getMaximumPoint() const;
+		Math::Vector2 getMaximumPoint() const;
 
 		/*!
 		 *	@brief		Reports the size of the field (along both axes).
 		 *
 		 *	@returns	The size of the field.
 		 */
-		Vector2 getSize() const;
+		Math::Vector2 getSize() const;
 
 		/*!
 		 *	@brief		Reports the number of rows in the field.
@@ -208,7 +206,7 @@ namespace Menge {
 		/*!
 		 *	@brief		The minimum extent of the vector field.
 		 */
-		Vector2	_minPoint;
+		Math::Vector2	_minPoint;
 
 		/*!
 		 *	@brief		The resolution (in cells) of the field's grid (rowCount, colCount)
@@ -223,7 +221,7 @@ namespace Menge {
 		/*!
 		 *	@brief		The 2D array of vector data for each cell.
 		 */
-		Vector2	**	_data;
+		Math::Vector2	**	_data;
 
 		/*!
 		 *	@brief		Computes the appropriate resolution of the grid.

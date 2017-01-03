@@ -36,10 +36,13 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "NavMeshPoly.h"
-#include "Logger.h"
+#include "MengeCore/resources/NavMeshPoly.h"
+
+#include "MengeCore/Runtime/Logger.h"
 
 namespace Menge {
+
+	using Math::Vector2;
 
 	//////////////////////////////////////////////////////////////////////////////////////
 	//						Implementation of NavMeshPoly
@@ -166,19 +169,23 @@ namespace Menge {
 
 	bool NavMeshPoly::loadFromAscii( std::ifstream & f ) {
 		if ( !( f >> _vertCount ) )  {
-			logger << Logger::ERR_MSG << "Malformed navigation mesh polygon -- unable to determine number of vertices in polygon!" ;
+			logger << Logger::ERR_MSG;
+			logger << "Malformed navigation mesh polygon -- unable to determine number of "
+					  "vertices in polygon!";
 			return false;
 		}
 		if ( _vertIDs ) delete [] _vertIDs;
 		_vertIDs = new unsigned int[ _vertCount ];
 		for ( size_t i = 0; i < _vertCount; ++i ) {
 			if ( ! ( f >> _vertIDs[ i ] ) ) {
-				logger << Logger::ERR_MSG << "Malformed navigation mesh polygon -- number of vertices does not match declared number!" ;
+				logger << Logger::ERR_MSG << "Malformed navigation mesh polygon -- number of "
+					"vertices does not match declared number!" ;
 				return false;
 			}
 		}
 		if ( ! ( f >> _A >> _B >> _C ) ) {
-			logger << Logger::ERR_MSG << "Malformed navigation mesh polygon -- malformed plane definition!" ;
+			logger << Logger::ERR_MSG << "Malformed navigation mesh polygon -- malformed plane "
+				"definition!" ;
 			return false;
 		}
 
@@ -194,21 +201,25 @@ namespace Menge {
 		f.read( (char*)&data, sizeof( int ) );
 		_vertCount = static_cast< size_t >( data );
 		if ( f.fail() ) {
-			logger << Logger::ERR_MSG << "Malformed navigation mesh polygon -- unable to determine number of vertices in polygon!" ;
+			logger << Logger::ERR_MSG << "Malformed navigation mesh polygon -- unable to "
+				"determine number of vertices in polygon!";
 			return false;
 		}
 		if ( _vertIDs ) delete [] _vertIDs;
 		_vertIDs = new unsigned int[ _vertCount ];
-		f.read( (char*)&_vertIDs[0], static_cast< std::streamsize >( _vertCount ) * sizeof( unsigned int ) );
+		f.read( (char*)&_vertIDs[0],
+				static_cast< std::streamsize >( _vertCount ) * sizeof( unsigned int ) );
 		if ( f.fail() ) {
-			logger << Logger::ERR_MSG << "Malformed navigation mesh polygon -- number of vertices does not match declared number!" ;
+			logger << Logger::ERR_MSG << "Malformed navigation mesh polygon -- number of vertices "
+				"does not match declared number!" ;
 			return false;
 		}
 		const int FLOAT_COUNT = 3;
 		float fData[ FLOAT_COUNT ];
 		f.read( (char*)&fData[0], FLOAT_COUNT * sizeof( float ) );
 		if ( f.fail() ) {
-			logger << Logger::ERR_MSG << "Malformed navigation mesh polygon -- malformed plane definition!" ;
+			logger << Logger::ERR_MSG << "Malformed navigation mesh polygon -- malformed plane "
+				"definition!" ;
 			return false;
 		}
 		_A = fData[0];

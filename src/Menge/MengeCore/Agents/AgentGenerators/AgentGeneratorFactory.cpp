@@ -36,26 +36,34 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "AgentGeneratorFactory.h"
+#include "MengeCore/Agents/AgentGenerators/AgentGeneratorFactory.h"
+
+#include "MengeCore/Math/RandGenerator.h"
+
 #include "tinyxml.h"
-#include "Math/RandGenerator.h"
 
 namespace Menge {
 
 	namespace Agents {
 
+		using Math::FloatGenerator;
+
 		/////////////////////////////////////////////////////////////////////
 		//					Implementation of AgentGeneratorFactory
 		/////////////////////////////////////////////////////////////////////
 
-		bool AgentGeneratorFactory::setFromXML( AgentGenerator * gen, TiXmlElement * node, const std::string & behaveFldr ) const {
-			if ( !ElementFactory< AgentGenerator >::setFromXML( gen, node, behaveFldr ) ) return false;
+		bool AgentGeneratorFactory::setFromXML( AgentGenerator * gen, TiXmlElement * node,
+												const std::string & behaveFldr ) const {
+			if ( !ElementFactory< AgentGenerator >::setFromXML( gen, node, behaveFldr ) ) {
+				return false;
+			}
 
 			Math::FloatGenerator * fGen = createFloatGenerator( node, 1.f, "displace_" );
 			if ( fGen ) {
 				gen->setNoiseGenerator( fGen );
 			} else {
-				logger << Logger::WARN_MSG << "Agent generator on line " << node->Row() << " has no valid noise definition.  No noise applied.";
+				logger << Logger::WARN_MSG << "Agent generator on line " << node->Row() << " has "
+					"no valid noise definition.  No noise applied.";
 			}
 
 			return true;

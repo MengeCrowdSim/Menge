@@ -36,9 +36,12 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "Goals/GoalCircle.h"
+#include "MengeCore/BFSM/Goals/GoalCircle.h"
+#include "MengeCore/Agents/PrefVelocity.h"
+
+#if 0
 #include "shapes.h"
-#include "PrefVelocity.h"
+#endif
 
 namespace Menge {
 
@@ -46,7 +49,7 @@ namespace Menge {
 		/////////////////////////////////////////////////////////////////////
 		//                   Implementation of CircleGoal
 		/////////////////////////////////////////////////////////////////////
-
+#if 0
 		void CircleGoal::drawGLGeometry() const{
 			glPushMatrix();
 			const Vector2 & pos = static_cast<CircleShape*>(_geometry)->getCenter();
@@ -56,15 +59,17 @@ namespace Menge {
 			SceneGraph::Circle::drawUnit();
 			glPopMatrix();
 		}
-
+#endif
 		/////////////////////////////////////////////////////////////////////
 		//                   Implementation of CircleGoalFactory
 		/////////////////////////////////////////////////////////////////////
 
-		bool CircleGoalFactory::setFromXML( Goal * goal, TiXmlElement * node, const std::string & behaveFldr ) const {
+		bool CircleGoalFactory::setFromXML( Goal * goal, TiXmlElement * node,
+											const std::string & behaveFldr ) const {
 			
 			CircleGoal * cGoal = dynamic_cast< CircleGoal * >( goal );
-			assert( cGoal != 0x0 && "Trying to set circle goal attributes on an incompatible object." );
+			assert( cGoal != 0x0 &&
+					"Trying to set circle goal attributes on an incompatible object." );
 
 			if (!GoalFactory::setFromXML(cGoal, node, behaveFldr)) return false;
 

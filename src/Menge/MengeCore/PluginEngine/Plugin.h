@@ -44,8 +44,10 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __PLUGIN_H__
 #define	__PLUGIN_H__
 
+#include "MengeCore/CoreConfig.h"
+#include "MengeCore/PluginEngine/SharedLibrary.h"
+
 #include <string>
-#include "SharedLibrary.h"
 
 namespace Menge {
 

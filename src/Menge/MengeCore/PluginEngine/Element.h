@@ -44,14 +44,14 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __ELEMENT_H__
 #define	__ELEMENT_H__
 
-#include "CoreConfig.h"
+#include "MengeCore/CoreConfig.h"
 
 namespace Menge {
 
-	// forward declarations
-	namespace SceneGraph {
-		class GLNode;
-	}
+	//// forward declarations
+	//namespace SceneGraph {
+	//	class GLNode;
+	//}
 
 	namespace BFSM {
 		class Task;
@@ -96,6 +96,7 @@ namespace Menge {
 		 */
 		virtual BFSM::Task * getTask() { return 0x0; }
 
+#if 0
 		/*!
 		 *	@brief		Returns an optional visualization element associated with the element.
 		 *
@@ -105,6 +106,7 @@ namespace Menge {
 		 *	@returns		A pointer to the scene graph node element.
 		 */
 		virtual SceneGraph::GLNode * getSGNode() { return 0x0; }
+#endif
 	};
 }	// namespace Menge
 

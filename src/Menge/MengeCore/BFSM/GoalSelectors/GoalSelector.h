@@ -44,11 +44,12 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __GOAL_SELECTOR_H__
 #define	__GOAL_SELECTOR_H__
 
-#include "CoreConfig.h"
-#include "fsmCommon.h"
-#include "Element.h"
-#include "ReadersWriterLock.h"
-#include "MengeException.h"
+#include "MengeCore/CoreConfig.h"
+#include "MengeCore/MengeException.h"
+#include "MengeCore/BFSM/fsmCommon.h"
+#include "MengeCore/PluginEngine/Element.h"
+#include "MengeCore/Runtime/ReadersWriterLock.h"
+
 #include <map>
 
 // forward declaration
@@ -90,19 +91,23 @@ namespace Menge {
 		 *	@brief		Exception thrown when the goal selector has an error which cannot be
 		 *				recovered from.
 		 */
-		class GoalSelectorFatalException : public GoalSelectorException, public MengeFatalException {
+		class GoalSelectorFatalException : public GoalSelectorException,
+										   public MengeFatalException {
 		public:
 			/*!
 			 *	@brief		Default constructor.
 			 */
-			GoalSelectorFatalException() : MengeException(), GoalSelectorException(), MengeFatalException() {}
+			GoalSelectorFatalException() : MengeException(), GoalSelectorException(),
+										   MengeFatalException() {}
 
 			/*!
 			 *	@brief		Constructor with message.
 			 *
 			 *	@param		s		The exception-specific message.
 			 */
-			GoalSelectorFatalException( const std::string & s ): MengeException(s), GoalSelectorException(), MengeFatalException() {}
+			GoalSelectorFatalException( const std::string & s ): MengeException(s),
+																 GoalSelectorException(),
+																 MengeFatalException() {}
 		};
 
 		///////////////////////////////////////////////////////////////////
@@ -115,7 +120,7 @@ namespace Menge {
 			/*!
 			 *	@brief		Default constructor.
 			 */
-			GoalSelector():Element(), _persistent(false), _assignedGoals() {}
+			GoalSelector() : Element(), _persistent( false ), _assignedGoals() {}
 
 		protected:
 			/*!
@@ -234,8 +239,8 @@ namespace Menge {
 		 *	@brief		Parses a TinyXML element containing a goal selector specification
 		 *
 		 *	@param		node			The TinyXML element
-		 *	@param		behaveFldr		The folder in which the behavior is defined -- all resources
-		 *								are defined relative to this folder.
+		 *	@param		behaveFldr		The folder in which the behavior is defined -- all
+		 *								resources are defined relative to this folder.
 		 *	@returns	A pointer to the new goal selector.
 		 */
 		GoalSelector * parseGoalSelector( TiXmlElement * node, const std::string & behaveFldr );

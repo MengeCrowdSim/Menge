@@ -44,8 +44,8 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __OBSTACLE_SET_H__
 #define	__OBSTACLE_SET_H__
 
-#include "Element.h"
-#include "MengeException.h"
+#include "MengeCore/MengeException.h"
+#include "MengeCore/PluginEngine/Element.h"
 
 namespace Menge {
 
@@ -75,19 +75,23 @@ namespace Menge {
 		/*!
 		 *	@brief		The fatal obstacle set exception.
 		 */
-		class MENGE_API ObstacleSetFatalException : public ObstacleSetException, public MengeFatalException {
+		class MENGE_API ObstacleSetFatalException : public ObstacleSetException,
+													public MengeFatalException {
 		public:
 			/*!
 			 *	@brief		Default constructor.
 			 */
-			ObstacleSetFatalException() : MengeException(), ObstacleSetException(), MengeFatalException() {}
+			ObstacleSetFatalException() : MengeException(), ObstacleSetException(),
+										  MengeFatalException() {}
 
 			/*!
 			 *	@brief		Constructor with message.
 			 *
 			 *	@param		s		The exception-specific message.
 			 */
-			ObstacleSetFatalException( const std::string & s ): MengeException(s), ObstacleSetException(), MengeFatalException() {}
+			ObstacleSetFatalException( const std::string & s ) : MengeException(s),
+																 ObstacleSetException(),
+																 MengeFatalException() {}
 		};
 
 

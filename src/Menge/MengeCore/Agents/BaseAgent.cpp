@@ -36,12 +36,15 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "BaseAgent.h"
-#include "Obstacle.h"
+#include "MengeCore/Agents/BaseAgent.h"
+
+#include "MengeCore/Agents/Obstacle.h"
 
 namespace Menge {
 
 	namespace Agents {
+
+		using Math::Vector2;
 
 		////////////////////////////////////////////////////////////////
 		//					Implementation of BaseAgent
@@ -107,10 +110,12 @@ namespace Menge {
 					float maxSt = sin( MAX_ANGLE_CHANGE );
 					if ( det( _orient, newOrient ) > 0.f ) {
 						// rotate _orient left
-						_orient.set( maxCt * _orient._x - maxSt * _orient._y, maxSt * _orient._x + maxCt * _orient._y );
+						_orient.set( maxCt * _orient._x - maxSt * _orient._y,
+									 maxSt * _orient._x + maxCt * _orient._y );
 					} else {
 						// rotate _orient right
-						_orient.set( maxCt * _orient._x + maxSt * _orient._y, -maxSt * _orient._x + maxCt * _orient._y );
+						_orient.set( maxCt * _orient._x + maxSt * _orient._y,
+									 -maxSt * _orient._x + maxCt * _orient._y );
 					}
 				} else {
 					_orient.set( newOrient );

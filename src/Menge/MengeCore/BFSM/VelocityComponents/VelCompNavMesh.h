@@ -47,12 +47,15 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __VEL_COMP_NAV_MESH_H__
 #define __VEL_COMP_NAV_MESH_H__
 
-#include "CoreConfig.h"
-#include "VelocityComponents/VelComponent.h"
-#include "VelocityComponents/VelComponentFactory.h"
+#include "MengeCore/CoreConfig.h"
+#include "MengeCore/Agents/PrefVelocity.h"
+#include "MengeCore/BFSM/VelocityComponents/VelComponent.h"
+#include "MengeCore/BFSM/VelocityComponents/VelComponentFactory.h"
+#if 0
 #include "VelocityComponents/VelCompContext.h"
-#include "NavMesh.h"
-#include "NavMeshLocalizer.h"
+#endif
+#include "MengeCore/resources/NavMesh.h"
+#include "MengeCore/resources/NavMeshLocalizer.h"
 
 // forward declaration
 
@@ -78,7 +81,8 @@ namespace Menge {
 			NavMeshVelComponent();
 
 			/*!
-			 *	@brief		Called when the agent exits the state that uses this velocity component.
+			 *	@brief		Called when the agent exits the state that uses this velocity
+			 *				component.
 			 *
 			 *	@param		agent		The agent exiting the state.
 			 */
@@ -133,16 +137,20 @@ namespace Menge {
 			 *	@param		goal		The agent's goal (although this may be ignored).
 			 *	@param		pVel		The instance of Agents::PrefVelocity to set.
 			 */
-			virtual void setPrefVelocity( const Agents::BaseAgent * agent, const Goal * goal, Agents::PrefVelocity & pVel );
+			virtual void setPrefVelocity( const Agents::BaseAgent * agent, const Goal * goal,
+										  Agents::PrefVelocity & pVel );
 
+#if 0
 			/*!
-			 *	@brief		Provides a display context for interacting with this velocity component.
+			 *	@brief		Provides a display context for interacting with this velocity
+			 *				component.
 			 *
 			 *	It is the responsibility of the caller to delete the provided context.
 			 *
 			 *	@returns	A pointer to a context for this vel component.
 			 */
 			virtual VelCompContext * getContext();
+#endif
 
 			/*!
 			 *	@brief		Returns a pointer to the nav mesh localizer task.
@@ -153,7 +161,9 @@ namespace Menge {
 			 */
 			virtual Task * getTask();
 
+#if 0
 			friend class NavMeshVCContext;
+#endif
 
 		protected:
 			/*!
@@ -174,6 +184,7 @@ namespace Menge {
 			NavMeshLocalizerPtr _localizer;
 		};
 
+#if 0
 		//////////////////////////////////////////////////////////////////////////////
 
 		/*!
@@ -254,7 +265,7 @@ namespace Menge {
 			 */
 			bool	_drawNodeIDs;
 		};
-
+#endif
 		//////////////////////////////////////////////////////////////////////////////
 
 		/*!
@@ -285,8 +296,9 @@ namespace Menge {
 			 *	@returns	A string containing the velocity component description.
 			 */
 			virtual const char * description() const {
-				return "Provides a preferred velocity which is derived from a path along a "\
-					"polygonally decomposed representation of the traversable space (a navigaiton mesh).";
+				return "Provides a preferred velocity which is derived from a path along a "
+					"polygonally decomposed representation of the traversable space (a "
+					"navigaiton mesh).";
 			};
 
 		protected:
@@ -294,9 +306,10 @@ namespace Menge {
 			 *	@brief		Create an instance of this class's velocity component.
 			 *
 			 *	All VelCompFactory sub-classes must override this by creating (on the heap)
-			 *	a new instance of its corresponding velocity component type.  The various field values
-			 *	of the instance will be set in a subsequent call to VelCompFactory::setFromXML.
-			 *	The caller of this function takes ownership of the memory.
+			 *	a new instance of its corresponding velocity component type.  The various field
+			 *	values of the instance will be set in a subsequent call to
+			 *	VelCompFactory::setFromXML. The caller of this function takes ownership of the
+			 *	memory.
 			 *
 			 *	@returns		A pointer to a newly instantiated VelComponent class.
 			 */
@@ -312,15 +325,17 @@ namespace Menge {
 			 *	sub-class should override this method but explicitly call the parent class's
 			 *	version.
 			 *
-			 *	@param		vc			A pointer to the velocity component whose attributes are to be set.
+			 *	@param		vc			A pointer to the velocity component whose attributes are to
+			 *							be set.
 			 *	@param		node		The XML node containing the velocity component attributes.
-			 *	@param		behaveFldr	The path to the behavior file.  If the velocity component references
-			 *							resources in the file system, it should be defined relative
-			 *							to the behavior file location.  This is the folder containing
-			 *							that path. 
+			 *	@param		behaveFldr	The path to the behavior file.  If the velocity component
+			 *							references resources in the file system, it should be
+			 *							defined relative to the behavior file location.  This is
+			 *							the folder containing that path. 
 			 *	@returns	A boolean reporting success (true) or failure (false).
 			 */
-			virtual bool setFromXML( VelComponent * vc, TiXmlElement * node, const std::string & behaveFldr ) const;
+			virtual bool setFromXML( VelComponent * vc, TiXmlElement * node,
+									 const std::string & behaveFldr ) const;
 		
 			/*!
 			 *	@brief		The identifier for the "file_name" string attribute.

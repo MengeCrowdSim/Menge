@@ -36,22 +36,23 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "FSMDescrip.h"
-#include "Logger.h"
-#include "GoalSet.h"
-#include "Goals/Goal.h"
-#include "Tasks/Task.h"
-#include "State.h"
-#include "Transitions/Transition.h"
-#include "Transitions/Target.h"
-#include "Transitions/TargetDatabase.h"
-#include "Transitions/ConditionDatabase.h"
-#include "VelocityModifiers/VelModifier.h"
-#include "VelocityModifiers/VelModifierDatabase.h"
-#include "StateDescrip.h"
-#include "Events/EventSystem.h"
-#include "Events/Event.h"
-#include "Core.h"
+#include "MengeCore/BFSM/FSMDescrip.h"
+
+#include "MengeCore/Core.h"
+#include "MengeCore/Agents/Events/Event.h"
+#include "MengeCore/Agents/Events/EventSystem.h"
+#include "MengeCore/BFSM/GoalSet.h"
+#include "MengeCore/BFSM/Goals/Goal.h"
+#include "MengeCore/BFSM/State.h"
+#include "MengeCore/BFSM/StateDescrip.h"
+#include "MengeCore/BFSM/Tasks/Task.h"
+#include "MengeCore/BFSM/Transitions/ConditionDatabase.h"
+#include "MengeCore/BFSM/Transitions/Target.h"
+#include "MengeCore/BFSM/Transitions/TargetDatabase.h"
+#include "MengeCore/BFSM/Transitions/Transition.h"
+#include "MengeCore/BFSM/VelocityModifiers/VelModifier.h"
+#include "MengeCore/BFSM/VelocityModifiers/VelModifierDatabase.h"
+#include "MengeCore/Runtime/Logger.h"
 
 namespace Menge {
 
@@ -71,7 +72,8 @@ namespace Menge {
 			for ( ; sItr != _states.end(); ++sItr ) {
 				delete (*sItr );
 			}
-			std::map< std::string, std::list< Transition * > >::iterator stItr = _transitions.begin();
+			std::map< std::string, std::list< Transition * > >::iterator stItr =
+				_transitions.begin();
 			for ( ; stItr != _transitions.end(); ++stItr ) {
 				std::list< Transition * > & tList = stItr->second;
 				std::list< Transition * >::iterator tItr = tList.begin();
@@ -95,7 +97,8 @@ namespace Menge {
 
 		State * FSMDescrip::addState( StateDescrip * sData ) {
 			if ( _stateNameMap.find( sData->_name ) != _stateNameMap.end() ) {
-				logger << Logger::ERR_MSG << "Found multiple states with the same name: \"" << sData->_name << "\".";
+				logger << Logger::ERR_MSG << "Found multiple states with the same name: \"";
+				logger << sData->_name << "\".";
 				return 0x0;
 			}
 			State * node = new State( sData->_name );
@@ -112,7 +115,8 @@ namespace Menge {
 			bool loadOkay = xml.LoadFile();
 
 			if ( !loadOkay ) {
-				logger << Logger::ERR_MSG << "Could not load behavior configuration xml (" << xmlName << ") due to xml syntax errors.\n";
+				logger << Logger::ERR_MSG << "Could not load behavior configuration xml (";
+				logger << xmlName << ") due to xml syntax errors.\n";
 				logger << "\t" << xml.ErrorDesc();
 				return false;
 			}
@@ -134,7 +138,9 @@ namespace Menge {
 			logger << Logger::INFO_MSG << "Behavior root: " << _behaviorFldr;		
 
 			TiXmlElement* child;
-			for ( child = popNode->FirstChildElement(); child; child = child->NextSiblingElement() ) {
+			for ( child = popNode->FirstChildElement();
+				  child;
+				  child = child->NextSiblingElement() ) {
 				if ( child->ValueStr() == "GoalSet" ) {
 					int i;
 					if ( !child->Attribute( "id", &i ) ) {
@@ -144,12 +150,15 @@ namespace Menge {
 					size_t setID = static_cast< size_t >( i );
 					// confirm that the id doesn't already exist
 					if ( _goalSets.find( setID ) != _goalSets.end() ) {
-						logger << Logger::WARN_MSG << "Found multiple GoalSets with the same id: " << setID << ".\n\tGoal definitions will be merged!";
+						logger << Logger::WARN_MSG << "Found multiple GoalSets with the same id: ";
+						logger << setID << ".\n\tGoal definitions will be merged!";
 					} else {
 						_goalSets[ setID ] = new GoalSet();
 					}
 					TiXmlElement * goalNode;
-					for ( goalNode = child->FirstChildElement(); goalNode; goalNode = goalNode->NextSiblingElement() ) {
+					for ( goalNode = child->FirstChildElement();
+						  goalNode;
+						  goalNode = goalNode->NextSiblingElement() ) {
 						if ( goalNode->ValueStr() == "Goal" ) {
 							Goal * goal = parseGoal( goalNode, _behaviorFldr );
 							if ( goal == 0x0 ) {
@@ -158,11 +167,15 @@ namespace Menge {
 							}
 							// Make sure that this goal doesn't duplicate previous goal ids
 							if ( ! _goalSets[ setID ]->addGoal( goal->getID(), goal ) ) {
-								logger << Logger::ERR_MSG << "GoalSet " << setID << " has two goals with the identifier: " << goal->getID() << " (second appears on line " << goalNode->Row() << ").";
+								logger << Logger::ERR_MSG << "GoalSet " << setID;
+								logger << " has two goals with the identifier: " << goal->getID();
+								logger << " (second appears on line " << goalNode->Row() << ").";
 								return false;
 							}
 						} else {
-							logger << Logger::WARN_MSG << "Found a child tag of the GoalSet that is not a \"Goal\" tag on line " << goalNode->Row() << ". It will be ignored.";
+							logger << Logger::WARN_MSG << "Found a child tag of the GoalSet that "
+								"is not a \"Goal\" tag on line " << goalNode->Row() << ". "
+								"It will be ignored.";
 						}
 					}
 
@@ -190,7 +203,9 @@ namespace Menge {
 
 					Task * task = parseTask( child, _behaviorFldr );
 					if ( task == 0x0 ) {
-						logger << Logger::WARN_MSG << "User-specified Task on line " << child->Row() << " couldn't be instantiated.  It is being ignored.";
+						logger << Logger::WARN_MSG << "User-specified Task on line ";
+						logger << child->Row() << " couldn't be instantiated.  "
+							"It is being ignored.";
 					} else {
 						_tasks.push_back( task );
 					}
@@ -199,7 +214,8 @@ namespace Menge {
 						return false;
 					}
 				} else {
-					logger << Logger::ERR_MSG << "Unrecognized tag as child of <Population>: <" << child->ValueStr() << ">.";
+					logger << Logger::ERR_MSG << "Unrecognized tag as child of <Population>: <";
+					logger << child->ValueStr() << ">.";
 					return false;
 				}
 			}
@@ -232,7 +248,8 @@ namespace Menge {
 				out << "\n" << (*(*sItr) );
 			}
 			out << "\n\tTransitions:";
-			std::map< std::string, std::list< Transition * > >::const_iterator tItr = fsmDescrip._transitions.begin();
+			std::map< std::string, std::list< Transition * > >::const_iterator tItr =
+				fsmDescrip._transitions.begin();
 			for ( ; tItr != fsmDescrip._transitions.end(); ++tItr ) {
 				out << "\nNo Transition output supported.";
 			}

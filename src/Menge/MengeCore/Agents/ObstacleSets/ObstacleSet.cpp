@@ -36,7 +36,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "ObstacleSets/ObstacleSet.h"
+#include "MengeCore/Agents/ObstacleSets/ObstacleSet.h"
 
 namespace Menge {
 

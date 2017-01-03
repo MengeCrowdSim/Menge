@@ -44,7 +44,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __ORCA_H__
 #define __ORCA_H__
 
-#include "ORCASimulator.h"
-#include "ORCAAgent.h"
+#include "MengeCore/Orca/ORCASimulator.h"
+#include "MengeCore/Orca/ORCAAgent.h"
 
 #endif

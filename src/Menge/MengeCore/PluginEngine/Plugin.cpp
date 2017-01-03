@@ -36,9 +36,11 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "Plugin.h"
+#include "MengeCore/PluginEngine/Plugin.h"
+
+#include "MengeCore/Runtime/Logger.h"
+
 #include <iostream>
-#include "Logger.h"
 
 namespace Menge {
 
@@ -46,7 +48,8 @@ namespace Menge {
 	//					Implementation of Plugin
 	/////////////////////////////////////////////////////////////////////
 
-	Plugin::Plugin( const std::string & filename ):_handle(0), _registerFcnAddr(0x0), _getNameFcnAddr(0x0), _getDescFcnAddr(0x0) {
+	Plugin::Plugin( const std::string & filename ) : _handle(0), _registerFcnAddr(0x0),
+													 _getNameFcnAddr(0x0), _getDescFcnAddr(0x0) {
 		// This might throw a std::runtime_error which will immediately propagate upwards
 		try {
 			_handle = SharedLibrary::Load( filename );
@@ -56,9 +59,12 @@ namespace Menge {
 		}
 
 		try {
-			_registerFcnAddr = SharedLibrary::GetFunctionPointer< RegisterPluginFcn >( _handle, "registerPlugin" );
-			_getNameFcnAddr = SharedLibrary::GetFunctionPointer< GetCharPtrFcn >( _handle, "getName" );
-			_getDescFcnAddr = SharedLibrary::GetFunctionPointer< GetCharPtrFcn >( _handle, "getDescription" );
+			_registerFcnAddr = SharedLibrary::GetFunctionPointer< RegisterPluginFcn >( 
+				_handle, "registerPlugin" );
+			_getNameFcnAddr = SharedLibrary::GetFunctionPointer< GetCharPtrFcn >( 
+				_handle, "getName" );
+			_getDescFcnAddr = SharedLibrary::GetFunctionPointer< GetCharPtrFcn >( 
+				_handle, "getDescription" );
 		} catch( std::exception & e) {
 			logger << Logger::ERR_MSG << e.what();
 			SharedLibrary::Unload( _handle );

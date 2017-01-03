@@ -53,19 +53,16 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #endif
 
 // core configuration
-#include "macros.h"
-#include "CoreConfig.h"
-#include "Logger.h"
-#include "MengeException.h"
+#include "MengeCore/CoreConfig.h"
+#include "MengeCore/MengeException.h"
+#include "MengeCore/Math/vector.h"
+#include "MengeCore/Math/RandGenerator.h"
+#include "MengeCore/Math/consts.h"
+#include "MengeCore/Runtime/Logger.h"
 
-// convenient STL functionality
+#include "macros.h"
+
 #include <iostream>
 #include <cassert>
-
-// math functionality
-#include "Math/vector.h"
-#include "Math/RandGenerator.h"
-#include "Math/consts.h"
-using namespace Menge::Math;
 
 #endif	// __MENGE_COMMON_H__

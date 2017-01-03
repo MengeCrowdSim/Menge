@@ -36,12 +36,13 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "VelComponentDatabase.h"
-#include "VelocityComponents/VelCompConst.h"
-#include "VelocityComponents/VelCompGoal.h"
-#include "VelocityComponents/VelCompVF.h"
-#include "VelocityComponents/VelCompRoadMap.h"
-#include "VelocityComponents/VelCompNavMesh.h"
+#include "MengeCore/BFSM/VelocityComponents/VelComponentDatabase.h"
+
+#include "MengeCore/BFSM/VelocityComponents/VelCompConst.h"
+#include "MengeCore/BFSM/VelocityComponents/VelCompGoal.h"
+#include "MengeCore/BFSM/VelocityComponents/VelCompNavMesh.h"
+#include "MengeCore/BFSM/VelocityComponents/VelCompRoadMap.h"
+#include "MengeCore/BFSM/VelocityComponents/VelCompVF.h"
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
@@ -49,7 +50,9 @@ namespace Menge {
 
 	// Specialization
 	template <>
-	std::string ElementDB< BFSM::VelCompFactory, BFSM::VelComponent >::getElementName() { return "velocity component"; }
+	std::string ElementDB< BFSM::VelCompFactory, BFSM::VelComponent >::getElementName() {
+		return "velocity component";
+	}
 
 	template <>
 	void ElementDB< BFSM::VelCompFactory, BFSM::VelComponent >::addBuiltins() {

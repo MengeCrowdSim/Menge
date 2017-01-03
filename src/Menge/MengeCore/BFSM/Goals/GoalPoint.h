@@ -44,11 +44,10 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __GOAL_POINT_H__
 #define __GOAL_POINT_H__
 
-#include "CoreConfig.h"
-#include "fsmCommon.h"
-#include "Goals/Goal.h"
-#include "Goals/GoalFactory.h"
-//#include "Math/Geometry2D.h"
+#include "MengeCore/CoreConfig.h"
+#include "MengeCore/BFSM/fsmCommon.h"
+#include "MengeCore/BFSM/Goals/Goal.h"
+#include "MengeCore/BFSM/Goals/GoalFactory.h"
 
 namespace Menge {
 
@@ -69,17 +68,19 @@ namespace Menge {
 			PointGoal(const Vector2 & p);
 
 			/*!
-			*	@brief		Full constructor - component-wise.
-			*
-			*	@param		x		The x-position of the goal.
-			*	@param		y		The x-position of the goal.
-			*/
+			 *	@brief		Full constructor - component-wise.
+			 *
+			 *	@param		x		The x-position of the goal.
+			 *	@param		y		The x-position of the goal.
+			 */
 			PointGoal(float x, float y);
 
+#if 0
 			/*!
 			 *	@brief		Draws the goal into an OpenGL context.
 			 */
 			virtual void drawGL() const;
+#endif
 		};
 
 		/*!
@@ -125,8 +126,8 @@ namespace Menge {
 			 *	@param		node		The XML node containing the action attributes.
 			 *	@param		behaveFldr	The path to the behavior file.  If the action references
 			 *							resources in the file system, it should be defined relative
-			 *							to the behavior file location.  This is the folder containing
-			 *							that path. 
+			 *							to the behavior file location.  This is the folder
+			 *							containing that path. 
 			 *	@returns	A boolean reporting success (true) or failure (false).
 			 */
 			virtual bool setFromXML( Goal * goal, TiXmlElement * node, 

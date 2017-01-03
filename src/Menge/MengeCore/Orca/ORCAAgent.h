@@ -44,8 +44,10 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __ORCA_AGENT_H__
 #define __ORCA_AGENT_H__
 
-#include "BaseAgent.h"
-#include "Math/Line.h"
+#include "MengeCore/Agents/BaseAgent.h"
+#include "MengeCore/Math/Line.h"
+
+#include <vector>
 
 namespace ORCA {
 	/*!
@@ -130,9 +132,9 @@ namespace ORCA {
    *  @param      result        A reference to the result of the linear program.
    *  @returns    True if successful.
    */
-  bool linearProgram1(const std::vector<Menge::Math::Line>& lines, size_t lineNo,
-					  float radius, const Vector2& optVelocity,
-					  bool directionOpt, Vector2& result);
+  bool linearProgram1( const std::vector<Menge::Math::Line>& lines, size_t lineNo,
+					   float radius, const Menge::Math::Vector2 & optVelocity,
+					   bool directionOpt, Menge::Math::Vector2& result );
 
   /*!
    *  @brief      Solves a two-dimensional linear program subject to linear
@@ -145,9 +147,9 @@ namespace ORCA {
    *  @param      result        A reference to the result of the linear program.
    *  @returns    The number of the line it fails on, and the number of lines if successful.
    */  
-  size_t linearProgram2(const std::vector<Menge::Math::Line>& lines, float radius,
-					  const Vector2& optVelocity, bool directionOpt,
-					  Vector2& result);
+  size_t linearProgram2( const std::vector<Menge::Math::Line>& lines, float radius,
+						 const Menge::Math::Vector2& optVelocity, bool directionOpt,
+						 Menge::Math::Vector2& result );
 
   /*!
    *  @brief      Solves a two-dimensional linear program subject to linear
@@ -159,8 +161,8 @@ namespace ORCA {
    *  @param      radius        The radius of the circular constraint.
    *  @param      result        A reference to the result of the linear program.
    */
-  void linearProgram3(const std::vector<Menge::Math::Line>& lines, size_t numObstLines, size_t beginLine, 
-					  float radius, Vector2& result);
+  void linearProgram3( const std::vector<Menge::Math::Line>& lines, size_t numObstLines,
+					   size_t beginLine, float radius, Menge::Math::Vector2& result );
 }		// namespace ORCA
 
 #endif

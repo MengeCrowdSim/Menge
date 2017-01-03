@@ -36,7 +36,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "ConstStateSelector.h"
+#include "MengeCore/Agents/StateSelectors/ConstStateSelector.h"
 
 namespace Menge {
 
@@ -52,9 +52,11 @@ namespace Menge {
 
 		////////////////////////////////////////////////////////////////////////////
 
-		bool ConstStateSelectorFactory::setFromXML( StateSelector * sel, TiXmlElement * node, const std::string & specFldr ) const {
+		bool ConstStateSelectorFactory::setFromXML( StateSelector * sel, TiXmlElement * node,
+													const std::string & specFldr ) const {
 			ConstStateSelector * cSel = dynamic_cast< ConstStateSelector * >( sel );
-			assert( cSel != 0x0 && "Trying to set attributes of a const state selector element on an incompatible object" );
+			assert( cSel != 0x0 && "Trying to set attributes of a const state selector element on "
+					"an incompatible object" );
 
 			if ( ! StateSelectorFactory::setFromXML( cSel, node, specFldr ) ) return false;
 

@@ -36,6 +36,8 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
+#if 0
+
 /*!
  *  @file       PedVOAgentContext.h
  *  @brief      A basic context for interacting with and displaying
@@ -45,8 +47,8 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __PEDVO_AGENT_CONTEXT_H__
 #define	__PEDVO_AGENT_CONTEXT_H__
 
-#include "../Orca/ORCATypeAgentContext.h"
-#include "PedVOAgent.h"
+#include "MengeCore/Orca/ORCATypeAgentContext.h"
+#include "MengeCore/PedVO/PedVOAgent.h"
 
 namespace PedVO {
 	/*!
@@ -109,7 +111,9 @@ inline void ORCATypeAgentContext< PedVO::Agent >::drawOptVelocity( PedVO::Agent 
  *							true --> agent, false --> obstacle
  */
 template<>
-void ORCATypeAgentContext< PedVO::Agent >::drawORCALine( const PedVO::Agent * agent, const Menge::Math::Line & line, bool isAgent ) const {
+void ORCATypeAgentContext< PedVO::Agent >::drawORCALine( const PedVO::Agent * agent,
+														 const Menge::Math::Line & line,
+														 bool isAgent ) const {
 	if ( agent->_turningBias != 1.f ) {
 		// Transform line into new line
 		Menge::Math::Line lEuclid;	// the line transformed, fully, back into Euclidian space
@@ -151,7 +155,8 @@ void ORCATypeAgentContext< PedVO::Agent >::drawORCALine( const PedVO::Agent * ag
 				if ( ! _showOrcaLines ) drawHalfPlane( lEuclid, agent->_pos, 1.f, 0.f, 0.f, Y );
 			} else {
 				drawHalfPlane( lAffine, agent->_pos, 0.5f, 0.5f, 0.5f, Y );
-				if ( ! _showOrcaLines ) drawHalfPlane( lEuclid, agent->_pos, 0.75f, 0.75f, 0.75f, Y );
+				if ( ! _showOrcaLines ) drawHalfPlane( lEuclid, agent->_pos, 0.75f, 0.75f, 0.75f,
+													   Y );
 			}
 		} else {
 			if ( isAgent ) {
@@ -171,3 +176,4 @@ void ORCATypeAgentContext< PedVO::Agent >::drawORCALine( const PedVO::Agent * ag
 }
 
 #endif	// __PEDVO_AGENT_CONTEXT_H__
+#endif 0

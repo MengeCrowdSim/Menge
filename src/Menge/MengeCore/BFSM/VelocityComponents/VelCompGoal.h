@@ -45,10 +45,13 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __VEL_COMP_GOAL_H__
 #define __VEL_COMP_GOAL_H__
 
-#include "CoreConfig.h"
-#include "VelocityComponents/VelComponent.h"
-#include "VelocityComponents/VelComponentFactory.h"
+#include "MengeCore/CoreConfig.h"
+#include "MengeCore/Agents/PrefVelocity.h"
+#include "MengeCore/BFSM/VelocityComponents/VelComponent.h"
+#include "MengeCore/BFSM/VelocityComponents/VelComponentFactory.h"
+#if 0
 #include "VelocityComponents/VelCompContext.h"
+#endif
 
 namespace Menge {
 
@@ -79,8 +82,9 @@ namespace Menge {
 			 *	@param		goal		The agent's goal (although this may be ignored).
 			 *	@param		pVel		The instance of Agents::PrefVelocity to set.
 			 */
-			virtual void setPrefVelocity( const Agents::BaseAgent * agent, const Goal * goal, Agents::PrefVelocity & pVel );
-
+			virtual void setPrefVelocity( const Agents::BaseAgent * agent, const Goal * goal,
+										  Agents::PrefVelocity & pVel );
+#if 0
 			/*!
 			 *	@brief		Provides a display context for interacting with this velocity component.
 			 *
@@ -132,6 +136,7 @@ namespace Menge {
 			 *	@brief		The underlying finite state machine velocity component.
 			 */
 			GoalVelComponent * _vc;
+#endif
 		};
 
 		//////////////////////////////////////////////////////////////////////////////
@@ -159,8 +164,9 @@ namespace Menge {
 			 *	@returns	A string containing the velocity component description.
 			 */
 			virtual const char * description() const {
-				return "Provides a preferred velocity which always aims directly toward the goal (at the agent's preferred speed)"\
-					" unless it will overstep the goal in a single time step, then it is scaled down.";
+				return "Provides a preferred velocity which always aims directly toward the goal "
+					"(at the agent's preferred speed) unless it will overstep the goal in a "
+					"single time step, then it is scaled down.";
 			};
 
 		protected:
@@ -168,9 +174,10 @@ namespace Menge {
 			 *	@brief		Create an instance of this class's velocity component.
 			 *
 			 *	All VelCompFactory sub-classes must override this by creating (on the heap)
-			 *	a new instance of its corresponding velocity component type.  The various field values
-			 *	of the instance will be set in a subsequent call to VelCompFactory::setFromXML.
-			 *	The caller of this function takes ownership of the memory.
+			 *	a new instance of its corresponding velocity component type.  The various field
+			 *	values of the instance will be set in a subsequent call to
+			 *	VelCompFactory::setFromXML. The caller of this function takes ownership of the
+			 *	memory.
 			 *
 			 *	@returns		A pointer to a newly instantiated VelComponent class.
 			 */

@@ -36,14 +36,17 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "PedVODBEntry.h"
-#include "SimulatorDB.h"
-#include "PedVOAgentContext.h"
-#include "PedVODBEntry.h"
-#include "PedVOInitializer.h"
-#include "PedVOSimulator.h"
+#include "MengeCore/PedVO/PedVODBEntry.h"
+#include "MengeCore/Runtime/SimulatorDB.h"
+#include "MengeCore/PedVO/PedVODBEntry.h"
+#include "MengeCore/PedVO/PedVOInitializer.h"
+#include "MengeCore/PedVO/PedVOSimulator.h"
+
+#if 0
 #include "SimSystem.h"
 #include "BaseAgentContext.h"
+#include "PedVOAgentContext.h"
+#endif
 
 namespace PedVO {
 
@@ -76,11 +79,11 @@ namespace PedVO {
 	}
 
 	/////////////////////////////////////////////////////////////////////////////
-	 
+#if 0
 	Menge::BaseAgentContext * DBEntry::contextFromSystem( Menge::SimSystem * simSystem ) {
 		return new PedVOAgentContext( simSystem->getVisAgents(), (unsigned int)simSystem->getAgentCount() ); 
 	}
-
+#endif
 	/////////////////////////////////////////////////////////////////////////////
 	 
 	Menge::Agents::AgentInitializer * DBEntry::getAgentInitalizer() const {
