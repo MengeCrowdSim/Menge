@@ -287,6 +287,7 @@ xcopy /y $(TargetPath) $(ExeDir)
       <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Menge\MengeCore\Agents\AgentGenerators\NavMeshAgentGenerator.cpp" />
+    <ClCompile Include="..\..\..\src\Menge\MengeCore\Agents\Integrator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(SrcDir)\mengeCore\Core.h" />
@@ -487,6 +488,7 @@ xcopy /y $(TargetPath) $(ExeDir)
     <ClInclude Include="$(SrcDir)\mengeCore\resources\VectorField.h" />
     <ClInclude Include="$(SrcDir)\mengeCore\resources\WayPortal.h" />
     <ClInclude Include="..\..\..\src\Menge\MengeCore\Agents\AgentGenerators\NavMeshAgentGenerator.h" />
+    <ClInclude Include="..\..\..\src\Menge\MengeCore\Agents\Integrator.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="tinyxml_lib.vcxproj">

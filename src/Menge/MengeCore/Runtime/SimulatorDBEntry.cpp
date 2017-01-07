@@ -40,6 +40,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 #include "MengeCore/MengeException.h"
 #include "MengeCore/Agents/AgentInitializer.h"
+#include "MengeCore/Agents/Integrator.h"
 #include "MengeCore/Agents/SimulatorInterface.h"
 #include "MengeCore/BFSM/FSM.h"
 #include "MengeCore/BFSM/FSMDescrip.h"
@@ -136,6 +137,61 @@ namespace Menge {
 	}
 
 	////////////////////////////////////////////////////////////////////////////
+
+	Agents::Integrator * SimulatorDBEntry::getIntegrator( size_t & agentCount, float & simTimeStep,
+														  size_t subSteps, float simDuration,
+														  const std::string & behaveFile,
+														  const std::string & sceneFile,
+														  const std::string & outFile,
+														  const std::string & scbVersion,
+														  bool verbose) {
+		_sim = initSimulator( sceneFile, verbose );
+		if ( !_sim ) {
+			return 0x0;
+		}
+		// TODO: Remove time step from the simulator specification!
+		float specTimeStep = _sim->getTimeStep();
+
+		_fsm = initFSM( behaveFile, _sim, verbose );
+		if ( !_fsm ) {
+			return 0x0;
+		}
+		if ( !finalize( _sim, _fsm ) ) {
+			delete _sim;
+			delete _fsm;
+			return 0x0;
+		}
+
+		if ( simTimeStep > 0.f ) {
+			if ( verbose ) {
+				logger << Logger::INFO_MSG << "Simulation time step set by command-line argument: " << simTimeStep << ".";
+			}
+			_sim->setTimeStep( simTimeStep );
+		} else {
+			simTimeStep = specTimeStep;
+			if ( verbose ) {
+				logger << Logger::INFO_MSG << "Simulation time step set by specification file: " << specTimeStep << ".";
+			}		
+		}
+		_sim->setSubSteps( subSteps );
+		float effTimeStep = simTimeStep / ( 1.f + subSteps );
+		logger << Logger::INFO_MSG << "For logical time step: " << simTimeStep << " and " << subSteps << " sub step";
+		if ( subSteps !=1 ) {
+			logger << "s";
+		}
+		logger << ", effective time step is: " << effTimeStep;
+
+		Agents::Integrator * integrator = new Agents::Integrator( _sim, _fsm );
+		integrator->setMaxDuration( simDuration );
+		if ( outFile != "" ) {
+			integrator->setOutput( outFile, scbVersion );
+		}
+		agentCount = _sim->getNumAgents();
+		return integrator;
+	}
+
+	////////////////////////////////////////////////////////////////////////////
+
 #if 0
 	SimSystem * SimulatorDBEntry::getSimulatorSystem( size_t & agentCount,
 													  float & simTimeStep,

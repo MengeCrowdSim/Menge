@@ -59,6 +59,7 @@ namespace Menge {
 	class BaseAgentContext;
 	namespace Agents {
 		class AgentInitializer;
+		class Integrator;
 		class SimulatorInterface;
 	}
 	namespace SceneGraph {
@@ -141,6 +142,31 @@ namespace Menge {
 		 *				for this database entry.
 		 */
 		virtual Agents::SimulatorInterface * getNewSimulator() = 0;
+
+		/*!
+		 *	@brief		Returns a new integrator for the simulator.
+		 *
+		 *	@param		agentCount		The number of the agents in the system.
+		 *	@param		simTimeStep		The simulator's time step (for updating the sim system).
+		 *	@param		subSteps		The number of computation sub-steps to take.
+		 *	@param		simDuration		The maximum duration to allow the simulation to run.
+		 *	@param		behaveFile		The full path to the xml <i>behavior</i> specification.
+		 *	@param		sceneFile		The full path to the xml <i>scene</i> specification.
+		 *	@param		outFile			The full path to the output file to write the agent 
+		 *								trajectories.  If the empty string, no output file will
+		 *								be written.
+		 *	@param		scbVersion		The scb version to write.
+		 *	@param		verbose			Determines if the initialization process prints status
+		 *	@returns	A pointer to the resultant Integrator for running the simulation.
+		 *				If there is an error, NULL is returned.
+		 */
+		Agents::Integrator * getIntegrator( size_t & agentCount, float & simTimeStep,
+											size_t subSteps, float simDuration,
+											const std::string & behaveFile, 
+											const std::string & sceneFile, 
+											const std::string & outFile, 
+											const std::string & scbVersion,
+											bool verbose);
 #if 0
 		/*!
 		 *	@brief		Returns a simulator system that can be attached to a

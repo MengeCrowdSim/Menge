@@ -618,6 +618,9 @@
     <ClCompile Include="..\..\..\src\Menge\MengeCore\Agents\AgentGenerators\NavMeshAgentGenerator.cpp">
       <Filter>Source Files\Agents\AgentGenerators</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\Menge\MengeCore\Agents\Integrator.cpp">
+      <Filter>Source Files\Agents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(SrcDir)\mengeCore\Core.h">
@@ -1213,6 +1216,9 @@
     </ClInclude>
     <ClInclude Include="$(SrcDir)\mengeCore\MengeException.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Menge\MengeCore\Agents\Integrator.h">
+      <Filter>Header Files\Agents</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

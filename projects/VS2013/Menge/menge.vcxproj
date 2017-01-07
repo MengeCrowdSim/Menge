@@ -55,7 +55,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(SrcDir)\;$(SrcDir)\include;$(SrcDir)\MengeCore;$(SrcDir)\MengeCore\BFSM;$(SrcDir)\MengeCore\viewer;$(SrcDir)\MengeCore\SceneGraph;$(SrcDir)\MengeCore\Math;$(SrcDir)\MengeCore\Agents;$(SrcDir)\MengeCore\Runtime;$(SrcDir)\MengeCore\PluginEngine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SrcDir)\;$(SrcDir)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -79,7 +79,7 @@ xcopy "$(SolutionDir)..\..\resources\common\*.*" "$(ExeDir)" /d /y</Command>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
-      <AdditionalIncludeDirectories>$(SrcDir)\;$(SrcDir)\include;$(SrcDir)\MengeCore;$(SrcDir)\MengeCore\BFSM;$(SrcDir)\MengeCore\viewer;$(SrcDir)\MengeCore\SceneGraph;$(SrcDir)\MengeCore\Math;$(SrcDir)\MengeCore\Agents;$(SrcDir)\MengeCore\Runtime;$(SrcDir)\MengeCore\PluginEngine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SrcDir)\;$(SrcDir)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <OpenMPSupport>true</OpenMPSupport>

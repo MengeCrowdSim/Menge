@@ -36,33 +36,29 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-// STL
+#include "MengeCore/Agents/Integrator.h"
+#include "MengeCore/Math/RandGenerator.h"
+#include "MengeCore/PluginEngine/PluginEngine.h"
+#include "MengeCore/Runtime/Logger.h"
+#include "MengeCore/Runtime/os.h"
+#include "MengeCore/Runtime/SimulatorDB.h"
+#include "mengeMain/ProjectSpec.h"
+
+#include "tclap/CmdLine.h"
+
 #include <iostream>
 #include <algorithm>
 #include <string>
 #include <exception>
 
-// UTILS
-#include "ProjectSpec.h"
-// Command-line parser
-#include "tclap/CmdLine.h"
-// Visualization
-#include "GLScene.h"
-#include "GLViewer.h"
-#include "ViewConfig.h"
-#include "NullViewer.h"
-#include "ContextSwitcher.h"
-// Menge Runtime
-#include "SimSystem.h"
-#include "PluginEngine.h"
-#include "SimulatorDB.h"
-#include "os.h"
-#include "BaseAgentContext.h"
-#include "Logger.h"
-// SceneGraph
-#include "TextWriter.h"
-// Menge Math
-#include "RandGenerator.h"
+//#include "MengeVis/SceneGraph/ContextSwitcher.h"
+//#include "MengeVis/SceneGraph/GLScene.h"
+//#include "MengeVis/SceneGraph/SimSystem.h"
+//#include "MengeVis/SceneGraph/TextWriter.h"
+//#include "MengeVis/Viewer/GLViewer.h"
+//#include "MengeVis/Viewer/ViewConfig.h"
+//#include "MengeVis/Viewer/NullViewer.h"
+//#include "MengeVis/Runtime/BaseAgentContext.h"
 
 using namespace Menge;
 
@@ -82,6 +78,130 @@ bool VERBOSE = false;
 std::string ROOT;
 
 SimulatorDB simDB;
+
+#define SIM_ONLY
+
+#ifdef SIM_ONLY
+
+/*!
+*	@brief		Initialize and start the simulation.
+*
+*	@param		dbEntry			The SimulatorDBEntry that describes the simulator
+*								to be instantiated.
+*	@param		behaveFile		The path to a valid behavior specification file.
+*	@param		sceneFile		The path to a valid scene specification file.
+*	@param		outFile			The path to the output file to write.  If it is the
+*								empty string, no output file will be written.
+*	@param		scbVersion		The string indicating the version of scb file to write.
+*	@param		visualize		Determines if the simulation should be visualized.
+*								If true, an OpenGL visualizer is spawned, if false
+*								the simulation runs offline.
+*	@param		viewCfgFile		If visualizing, a path to an optional view configuration
+*								specification.  If none is provided, defaults are used.
+*	@param		dumpPath		The path to write screen grabs.  Only used in windows.
+*	@returns	0 for a successful run, non-zero otherwise.
+*/
+int simMain( SimulatorDBEntry * dbEntry, const std::string & behaveFile,
+			 const std::string & sceneFile, const std::string & outFile,
+			 const std::string & scbVersion, bool visualize, const std::string & viewCfgFile,
+			 const std::string & dumpPath ) {
+	size_t agentCount;
+	if ( outFile != "" ) {
+		logger << Logger::INFO_MSG << "Attempting to write scb file: " << outFile << "\n";
+	}
+
+	using Menge::Agents::Integrator;
+
+	Integrator * integrator = dbEntry->getIntegrator( agentCount, TIME_STEP, SUB_STEPS, SIM_DURATION,
+													behaveFile, sceneFile, outFile, scbVersion,
+													VERBOSE);
+	
+	if ( integrator == 0x0 ) {
+		return 1;
+	}
+
+	std::cout << "Starting...\n";
+	while ( true ) {
+		try {
+			integrator->step( TIME_STEP );
+		} catch ( Agents::IntegratorException ) {
+			break;
+		}
+	}
+	std::cout << "...Finished\n";
+	std::cout << "Simulation time: " << dbEntry->simDuration() << "\n";
+	logger << Logger::INFO_MSG << "Simulation time: " << dbEntry->simDuration() << "\n";
+
+	return 0;
+}
+
+int main( int argc, char* argv[] ) {
+	logger.setFile( "log.html" );
+	logger << Logger::INFO_MSG << "initialized logger";
+
+	std::string exePath( argv[ 0 ] );
+	std::string absExePath;
+	os::path::absPath( exePath, absExePath );
+	std::string tail;
+	os::path::split( absExePath, ROOT, tail );
+	PluginEngine plugins( &simDB );
+#ifdef _WIN32 
+#ifdef NDEBUG
+	std::string pluginPath = os::path::join( 2, ROOT.c_str(), "plugins" );
+#else	// NDEBUG
+	std::string pluginPath = os::path::join( 3, ROOT.c_str(), "plugins", "debug" );
+#endif	// NDEBUG
+#else	// _WIN32
+	std::string pluginPath = os::path::join( 2, ROOT.c_str(), "plugins" );
+#endif	// _WIN32
+	logger.line();
+	logger << Logger::INFO_MSG << "Plugin path: " << pluginPath;
+	plugins.loadPlugins( pluginPath );
+	if ( simDB.modelCount() == 0 ) {
+		logger << Logger::INFO_MSG << "There were no pedestrian models in the plugins folder\n";
+		return 1;
+	}
+
+	ProjectSpec projSpec;
+
+	if ( !projSpec.parseCommandParameters( argc, argv, &simDB ) ) {
+		return 0;
+	}
+
+	if ( !projSpec.fullySpecified() ) {
+		return 1;
+	}
+
+	VERBOSE = projSpec.getVerbosity();
+	TIME_STEP = projSpec.getTimeStep();
+	SUB_STEPS = projSpec.getSubSteps();
+	SIM_DURATION = projSpec.getDuration();
+	std::string dumpPath = projSpec.getDumpPath();
+	Menge::Math::setDefaultGeneratorSeed( projSpec.getRandomSeed() );
+	std::string outFile = projSpec.getOutputName();
+
+	std::string viewCfgFile = projSpec.getView();
+	bool useVis = viewCfgFile != "";
+	std::string model( projSpec.getModel() );
+
+	SimulatorDBEntry * simDBEntry = simDB.getDBEntry( model );
+	if ( simDBEntry == 0x0 ) {
+		std::cerr << "!!!  The specified model is not recognized: " << model << "\n";
+		logger.close();
+		return 1;
+	}
+
+	int result = simMain( simDBEntry, projSpec.getBehavior(), projSpec.getScene(),
+						  projSpec.getOutputName(), projSpec.getSCBVersion(), useVis,
+						  viewCfgFile, dumpPath );
+
+	if ( result ) {
+		std::cerr << "Simulation terminated through error.  See error log for details.\n";
+	}
+	logger.close();
+	return result;
+}
+#else
 
 /*!
  *	@brief		Initialize and start the simulation.
@@ -241,4 +361,4 @@ int main(int argc, char* argv[]) {
 	logger.close();
 	return result;
 }
-
+#endif // SIM_ONLY
