@@ -93,6 +93,9 @@ namespace MengeVis {
 #endif	// DOXYGEN_SHOULD_SKIP_THIS
 
 	namespace Viewer {
+
+		using Menge::logger;
+		using Menge::Logger;
 		
 		///////////////////////////////////////////////////////////////////////////
 		//				IMPLEMENTATION FOR GLViewer
@@ -690,9 +693,9 @@ namespace MengeVis {
 
 		void GLViewer::setDumpPath( const std::string & path ) {
 			std::string fullpath;
-			os::path::absPath( path, fullpath );
-			if ( ! os::path::exists( fullpath ) ) {
-				if ( ! os::makedirs( fullpath ) ) {
+			Menge::os::path::absPath( path, fullpath );
+			if ( !Menge::os::path::exists( fullpath ) ) {
+				if ( !Menge::os::makedirs( fullpath ) ) {
 					logger << Logger::WARN_MSG << "Unable to make path for dumping: ";
 					logger << fullpath << "\n";
 					_validDumpPath = false;
@@ -701,9 +704,9 @@ namespace MengeVis {
 			}
 			logger << Logger::INFO_MSG << "Dumping png to: " << fullpath << "\n";
 			_dumpPath = path;
-			size_t pos = path.rfind( os::path::pathSep() );
+			size_t pos = path.rfind( Menge::os::path::pathSep() );
 			if ( pos != path.size() - 1 ) {
-				_dumpPath += os::path::pathSep();
+				_dumpPath += Menge::os::path::pathSep();
 			}
 		}
 

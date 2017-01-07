@@ -52,6 +52,8 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 namespace MengeVis {
 	
+	using Menge::Agents::BaseAgent;
+	using Menge::Agents::Obstacle;
 	using namespace Menge::Math;
 
 	////////////////////////////////////////////////////////////////////////////
@@ -150,7 +152,7 @@ namespace MengeVis {
 		glPushAttrib( GL_ENABLE_BIT );
 		glDisable( GL_LIGHTING );
 		draw3DGL();
-		const Agents::BaseAgent * agt = 0x0;
+		const BaseAgent * agt = 0x0;
 		//if ( _fsmCtx ) {
 		//	agt = ( _selected ) ? _selected->getAgent() : 0x0;
 		//	_fsmCtx->draw3DGL( agt );
@@ -205,7 +207,7 @@ namespace MengeVis {
 			glLineWidth( 2.f );
 			glDepthMask( GL_FALSE );
 			glDisable( GL_DEPTH_TEST );
-			const Agents::BaseAgent * agt = _selected->getAgent();
+			const BaseAgent * agt = _selected->getAgent();
 			drawNeighbors( agt );
 			drawNbrRadius( agt );
 			drawMaxSpeed( agt );
@@ -218,7 +220,7 @@ namespace MengeVis {
 
 	////////////////////////////////////////////////////////////////////////////
 
-	void BaseAgentContext::drawNbrRadius( const Agents::BaseAgent * agt ) {
+	void BaseAgentContext::drawNbrRadius( const BaseAgent * agt ) {
 		if ( _showNbrRadius ) {
 			glPushAttrib( GL_POLYGON_BIT );
 			glEnable( GL_BLEND );
@@ -237,7 +239,7 @@ namespace MengeVis {
 
 	////////////////////////////////////////////////////////////////////////////
 
-	void BaseAgentContext::drawNeighbors( const Agents::BaseAgent * agt ) {
+	void BaseAgentContext::drawNeighbors( const BaseAgent * agt ) {
 		if ( _showNbr ) {
 			glColor4f( 1.f, 1.f, 1.f, 1.f );
 
@@ -246,7 +248,7 @@ namespace MengeVis {
 				std::stringstream ss;
 				ss << std::setiosflags(std::ios::fixed) <<  std::setprecision( 2 );
 				ss << sqrtf( agt->_nearAgents[i].distanceSquared );
-				const Agents::BaseAgent * nbr = agt->_nearAgents[i].agent;
+				const BaseAgent * nbr = agt->_nearAgents[i].agent;
 				const Vector2 & p = nbr->_pos;
 				writeAlignedText( ss.str(), p, SceneGraph::TextWriter::CENTERED, true );
 			}
@@ -255,7 +257,7 @@ namespace MengeVis {
 			const size_t OBST_COUNT = agt->_nearObstacles.size();
 			for ( size_t i = 0; i < OBST_COUNT; ++i ) {
 				std::stringstream ss;
-				const Agents::Obstacle * obst = agt->_nearObstacles[ i ].obstacle;
+				const Obstacle * obst = agt->_nearObstacles[ i ].obstacle;
 				ss << i;
 				writeAlignedText( ss.str(), obst->midPt(), SceneGraph::TextWriter::CENTERED, true );
 			}
@@ -264,7 +266,7 @@ namespace MengeVis {
 
 	////////////////////////////////////////////////////////////////////////////
 
-	void BaseAgentContext::drawMaxSpeed( const Agents::BaseAgent * agt ) {
+	void BaseAgentContext::drawMaxSpeed( const BaseAgent * agt ) {
 		if ( _showMaxSpd ) {
 			glPushAttrib( GL_POLYGON_BIT );
 			glEnable( GL_BLEND );
@@ -283,7 +285,7 @@ namespace MengeVis {
 
 	////////////////////////////////////////////////////////////////////////////
 
-	void BaseAgentContext::drawVelocity( const Agents::BaseAgent * agt ) {
+	void BaseAgentContext::drawVelocity( const BaseAgent * agt ) {
 		if ( _showVel ) {
 			Vector2 vel = agt->_pos + agt->_vel;
 			glDisable( GL_BLEND );
@@ -299,7 +301,7 @@ namespace MengeVis {
 
 	////////////////////////////////////////////////////////////////////////////
 
-	void BaseAgentContext::drawPrefVelocity( const Agents::BaseAgent * agt ) {
+	void BaseAgentContext::drawPrefVelocity( const BaseAgent * agt ) {
 		if ( _showPrefVel ) {
 			Vector2 vel = agt->_pos + agt->_velPref.getPreferredVel();
 			glDisable( GL_BLEND );
@@ -315,7 +317,7 @@ namespace MengeVis {
 
 	////////////////////////////////////////////////////////////////////////////
 
-	void BaseAgentContext::drawOrientation( const Agents::BaseAgent * agt ) {
+	void BaseAgentContext::drawOrientation( const BaseAgent * agt ) {
 		if ( _showOrient ) {
 			Vector2 orient = agt->_pos + agt->_orient;
 			glDisable( GL_BLEND );
@@ -330,7 +332,7 @@ namespace MengeVis {
 	}
 	////////////////////////////////////////////////////////////////////////////
 
-	std::string BaseAgentContext::agentText( const Agents::BaseAgent * agt ) const {
+	std::string BaseAgentContext::agentText( const BaseAgent * agt ) const {
 		std::stringstream ss;
 		ss << std::setiosflags(std::ios::fixed) <<  std::setprecision( 3 );
 

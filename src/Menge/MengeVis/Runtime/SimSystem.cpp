@@ -35,7 +35,7 @@ TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
-
+#if 0
 #include "MengeVis/Runtime/SimSystem.h"
 
 #include "MengeCore/Agents/Obstacle.h"
@@ -43,6 +43,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include "MengeCore/Agents/SimulatorInterface.h"
 #include "MengeCore/Agents/SpatialQueries/SpatialQuery.h"
 #include "MengeCore/BFSM/FSM.h"
+#include "MengeCore/Runtime/Logger.h"
 #include "MengeVis/Runtime/VisAgent.h"
 #include "MengeVis/Runtime/VisObstacle.h"
 #include "MengeVis/SceneGraph/GLScene.h"
@@ -51,6 +52,8 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 namespace MengeVis {
 
+	using Menge::logger;
+	using Menge::Logger;
 	using Menge::Agents::BaseAgent;
 	using Menge::Agents::Obstacle;
 	using Menge::Agents::SCBWriter;
@@ -236,3 +239,4 @@ namespace MengeVis {
 	////////////////////////////////////////////////////////////////////////////
 
 }	// namespace MengeVis
+#endif // 0

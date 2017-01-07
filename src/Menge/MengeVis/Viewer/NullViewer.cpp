@@ -38,7 +38,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 #include "MengeVis/Viewer/NullViewer.h"
 
-#include "NengeVis/SceneGraph/GLScene.h"
+#include "MengeVis/SceneGraph/GLScene.h"
 
 namespace MengeVis {
 

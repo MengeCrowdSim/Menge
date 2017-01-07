@@ -43,6 +43,9 @@ namespace MengeVis {
 
 	namespace SceneGraph {
 
+		using Menge::TWOPI;
+		using Menge::PI;
+
 		void initShapes() {
 			Circle::init();
 			Cylinder::init();

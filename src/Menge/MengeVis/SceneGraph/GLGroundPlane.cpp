@@ -41,7 +41,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include "MengeVis/SceneGraph/graphCommon.h"
 #include <math.h>
 
-namespace Menge {
+namespace MengeVis {
 
 	namespace SceneGraph {
 

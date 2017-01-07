@@ -112,7 +112,7 @@ namespace MengeVis {
 			 *						in degrees.
 			 */
 			void setRotationDeg( const Menge::Math::Vector3 & vec ) {
-				_rot = vec * DEG_TO_RAD; setDirty();
+				_rot = vec * Menge::DEG_TO_RAD; setDirty();
 			}
 
 			/*!
@@ -140,7 +140,7 @@ namespace MengeVis {
 			 *						in degrees.
 			 */
 			void addRotationDeg( const Menge::Math::Vector3 & vec ) {
-				_rot.SumScale( DEG_TO_RAD, vec ); setDirty();
+				_rot.SumScale( Menge::DEG_TO_RAD, vec ); setDirty();
 			}
 			
 			/*!

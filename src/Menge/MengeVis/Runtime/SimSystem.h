@@ -41,7 +41,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
  *	@brief		The system which runs the simulation, coordinating
  *				the FSM and simulator.
  */
-
+#if 0
 #ifndef __SIM_SYSTEM_H__
 #define	__SIM_SYSTEM_H__
 
@@ -297,3 +297,4 @@ namespace MengeVis {
 	};
 }	// namespace MengeVis
 #endif	// __VIS_RVO_SIM_H__
+#endif // 0

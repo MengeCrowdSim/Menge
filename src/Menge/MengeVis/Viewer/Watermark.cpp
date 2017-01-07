@@ -57,6 +57,11 @@ namespace MengeVis {
 
 	namespace Viewer {
 
+		using Menge::logger;
+		using Menge::Logger;
+		using Menge::toFloat;
+		using Menge::UtilException;
+
 		////////////////////////////////////////////////////////////////////////////
 		//			Implementation of Watermark helper function
 		////////////////////////////////////////////////////////////////////////////
@@ -184,9 +189,9 @@ namespace MengeVis {
 			Image * img = 0x0;
 			if ( fNameCStr ) {
 				std::string fName;
-				std::string path = os::path::join( 2, viewFldr.c_str(), fNameCStr );
-				os::path::absPath( path, fName );
-				if ( ! os::path::exists( fName ) ) {
+				std::string path = Menge::os::path::join( 2, viewFldr.c_str(), fNameCStr );
+				Menge::os::path::absPath( path, fName );
+				if ( !Menge::os::path::exists( fName ) ) {
 					logger << Logger::WARN_MSG << "Watermark specification on line ";
 					logger << node->Row() << " references a file that doesn't exist: " << fName;
 					logger << ".  No watermark will be created.";

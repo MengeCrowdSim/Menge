@@ -61,7 +61,7 @@ namespace MengeVis {
 		///////////////////////////////////////////////////////////////////////////
 
 		void XformMatrix::setRotAxisDeg( const Vector3 & vec ) { 
-			_rotAxis = vec * DEG_TO_RAD; 
+			_rotAxis = vec * Menge::DEG_TO_RAD; 
 			updateRotAxisMat();
 		}
 

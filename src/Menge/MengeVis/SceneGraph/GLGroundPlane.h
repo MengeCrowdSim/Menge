@@ -203,7 +203,7 @@ namespace MengeVis {
 			/*!
 			 *	@brief		The line color for this plane.
 			 */
-			Vector3	_lineColor;
+			Menge::Math::Vector3	_lineColor;
 		};
 
 	}	// namespace SceneGraph

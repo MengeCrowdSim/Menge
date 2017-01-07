@@ -50,6 +50,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 namespace MengeVis {
 
+	using Menge::PI;
+	using Menge::Math::Vector3;
+
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
 	const Vector3 DEFAULT_POS = Vector3( 0.f, 1.f, -5.f );

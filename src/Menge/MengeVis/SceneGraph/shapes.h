@@ -104,7 +104,9 @@ namespace MengeVis {
 			 *
 			 *	@param		vec		The rgb color, where each channel lies in the range [0, 1].
 			 */
-			void setColor( const Vector3 & vec ) { _r=vec.x(); _g=vec.y(); _b=vec.z(); }
+			void setColor( const Menge::Math::Vector3 & vec ) {
+				_r = vec.x(); _g = vec.y(); _b = vec.z();
+			}
 
 			/*!
 			 *	@brief		Set the shape color from three separate values.

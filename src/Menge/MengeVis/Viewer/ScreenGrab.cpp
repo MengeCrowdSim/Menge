@@ -53,6 +53,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 namespace MengeVis {
 
+	using Menge::logger;
+	using Menge::Logger;
+
 	bool snapshotPNG(int width, int height, const char* path) {
 		static int oldHeight = 0;
 		static int oldWidth = 0;

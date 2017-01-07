@@ -375,7 +375,7 @@ namespace MengeVis {
 			/*!
 			 *	@brief		The viewer's background color.
 			 */
-			Vector3	_bgColor;
+			Menge::Math::Vector3	_bgColor;
 
 			/*!
 			 *	@brief		The step size for fixed-step simulation.

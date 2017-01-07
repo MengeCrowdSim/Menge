@@ -425,7 +425,7 @@ namespace MengeVis {
 			 *
 			 *	@returns	Direction to target in world space.
 			 */
-			Vector3 targetDir() const;
+			Menge::Math::Vector3 targetDir() const;
 
 			/*!
 			 *	@brief	Returns the ACTUAL up dir -- as opposed to the desired up.
@@ -435,7 +435,7 @@ namespace MengeVis {
 			 *
 			 *	@returns	Camera's current, local up vector in world space.
 			 */
-			Vector3 getActualUpDir() const;
+			Menge::Math::Vector3 getActualUpDir() const;
 
 			/*!
 			 *	@brief	Returns the normalized vector representing the camera's horizontal axis

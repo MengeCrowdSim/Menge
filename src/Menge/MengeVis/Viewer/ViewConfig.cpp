@@ -47,6 +47,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 namespace MengeVis {
 
+	using Menge::logger;
+	using Menge::Logger;
+
 	namespace Viewer {
 
 		////////////////////////////////////////////////////////////////////////////
@@ -128,9 +131,9 @@ namespace MengeVis {
 			}
 
 			std::string absPath;
-			os::path::absPath( fileName, absPath );
+			Menge::os::path::absPath( fileName, absPath );
 			std::string junk;
-			os::path::split( absPath, _viewFldr, junk );
+			Menge::os::path::split( absPath, _viewFldr, junk );
 			logger.line();
 			logger << Logger::INFO_MSG << "View root: " << _viewFldr << "\n";
 
@@ -158,8 +161,8 @@ namespace MengeVis {
 
 			const char * name = rootNode->Attribute( "bgImg" );
 			if ( name != 0x0 ) {
-				std::string tmp = os::path::join( 2, _viewFldr.c_str(), name );
-				os::path::absPath( tmp, _bgImg );
+				std::string tmp = Menge::os::path::join( 2, _viewFldr.c_str(), name );
+				Menge::os::path::absPath( tmp, _bgImg );
 			}
 
 			_camSpecs.clear();
@@ -434,7 +437,7 @@ namespace MengeVis {
 
 	////////////////////////////////////////////////////////////////////////////
 
-	Logger & operator<< ( Logger & out, const Vis::ViewConfig & cfg ) {
+	Logger & operator<< ( Logger & out, const Viewer::ViewConfig & cfg ) {
 		out << "View configuration:";
 		out << "\n\twidth:              " << cfg._width;
 		out << "\n\theight:             " << cfg._height;

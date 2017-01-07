@@ -315,7 +315,7 @@ namespace MengeVis {
 	 *	@param		cfg		The configuration to convert to a string.
 	 *	@returns	The output stream.
 	 */
-	MENGEVIS_API Logger & operator<< ( Logger & out, const Viewer::ViewConfig & cfg ); 
+	MENGEVIS_API Menge::Logger & operator<< ( Menge::Logger & out, const Viewer::ViewConfig & cfg ); 
 
 }	// namespace MengeVis
 

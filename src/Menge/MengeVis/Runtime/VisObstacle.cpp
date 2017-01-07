@@ -42,7 +42,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 namespace MengeVis {
 
-	using Menge::Math::Vector3d;
+	using Menge::Math::Vector3;
 	using SceneGraph::GLNode;
 
 	////////////////////////////////////////////////////////////////////////////
