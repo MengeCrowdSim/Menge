@@ -36,12 +36,13 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "MengeCore/Agents/Integrator.h"
+#include "MengeCore/Agents/SimulatorInterface.h"
 #include "MengeCore/Math/RandGenerator.h"
 #include "MengeCore/PluginEngine/PluginEngine.h"
 #include "MengeCore/Runtime/Logger.h"
 #include "MengeCore/Runtime/os.h"
 #include "MengeCore/Runtime/SimulatorDB.h"
+
 #include "mengeMain/ProjectSpec.h"
 
 #include "tclap/CmdLine.h"
@@ -110,23 +111,20 @@ int simMain( SimulatorDBEntry * dbEntry, const std::string & behaveFile,
 		logger << Logger::INFO_MSG << "Attempting to write scb file: " << outFile << "\n";
 	}
 
-	using Menge::Agents::Integrator;
+	using Menge::Agents::SimulatorInterface;
 
-	Integrator * integrator = dbEntry->getIntegrator( agentCount, TIME_STEP, SUB_STEPS, SIM_DURATION,
-													behaveFile, sceneFile, outFile, scbVersion,
-													VERBOSE);
+	SimulatorInterface * sim = dbEntry->getSimulator( agentCount, TIME_STEP, SUB_STEPS,
+													  SIM_DURATION, behaveFile, sceneFile, outFile,
+													  scbVersion, VERBOSE);
 	
-	if ( integrator == 0x0 ) {
+	if ( sim == 0x0 ) {
 		return 1;
 	}
 
 	std::cout << "Starting...\n";
-	while ( true ) {
-		try {
-			integrator->step( TIME_STEP );
-		} catch ( Agents::IntegratorException ) {
-			break;
-		}
+	bool running = true;
+	while ( running ) {
+		running = sim->step();
 	}
 	std::cout << "...Finished\n";
 	std::cout << "Simulation time: " << dbEntry->simDuration() << "\n";

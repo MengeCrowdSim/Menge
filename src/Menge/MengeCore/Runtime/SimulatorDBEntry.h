@@ -144,7 +144,7 @@ namespace Menge {
 		virtual Agents::SimulatorInterface * getNewSimulator() = 0;
 
 		/*!
-		 *	@brief		Returns a new integrator for the simulator.
+		 *	@brief		Returns a new simulator.
 		 *
 		 *	@param		agentCount		The number of the agents in the system.
 		 *	@param		simTimeStep		The simulator's time step (for updating the sim system).
@@ -157,70 +157,17 @@ namespace Menge {
 		 *								be written.
 		 *	@param		scbVersion		The scb version to write.
 		 *	@param		verbose			Determines if the initialization process prints status
-		 *	@returns	A pointer to the resultant Integrator for running the simulation.
+		 *	@returns	A pointer to the resultant SimulatorInterface.
 		 *				If there is an error, NULL is returned.
 		 */
-		Agents::Integrator * getIntegrator( size_t & agentCount, float & simTimeStep,
-											size_t subSteps, float simDuration,
-											const std::string & behaveFile, 
-											const std::string & sceneFile, 
-											const std::string & outFile, 
-											const std::string & scbVersion,
-											bool verbose);
-#if 0
-		/*!
-		 *	@brief		Returns a simulator system that can be attached to a
-		 *				SceneGraph::GLScene and advanced by a Viewer.
-		 *
-		 *	@param		agentCount		The number of the agents in the system.
-		 *	@param		simTimeStep		The simulator's time step (for updating the sim system).
-		 *	@param		subSteps		The number of computation sub-steps to take.
-		 *	@param		simDuration		The maximum duration to allow the simulation to run.
-		 *	@param		behaveFile		The full path to the xml <i>behavior</i> specification.
-		 *	@param		sceneFile		The full path to the xml <i>scene</i> specification.
-		 *	@param		outFile			The full path to the output file to write the agent 
-		 *								trajectories.  If the empty string, no output file will
-		 *								be written.
-		 *	@param		scbVersion		The scb version to write.
-		 *	@param		visualize		Determines if this simulator is to be visualized.
-		 *	@param		VERBOSE			Determines if the initialization process prints status
-		 *								and information to the console. True ouputs, false doesn't.
-		 *	@returns	A pointer to the resultant System for running the simulation.
-		 *				If there is an error, NULL is returned.
-		 */
-		SimSystem * getSimulatorSystem( size_t & agentCount,
-										 float & simTimeStep,
-										 size_t subSteps,
-										 float simDuration,
-										 const std::string & behaveFile, 
-										 const std::string & sceneFile, 
-										 const std::string & outFile, 
-										 const std::string & scbVersion, 
-										 bool visualize, 
-										 bool VERBOSE );
+		Agents::SimulatorInterface * getSimulator( size_t & agentCount, float & simTimeStep,
+												   size_t subSteps, float simDuration,
+												   const std::string & behaveFile,
+												   const std::string & sceneFile,
+												   const std::string & outFile,
+												   const std::string & scbVersion,
+												   bool verbose);
 
-		/*!
-		 *	@brief		Populates the given GLScene with visualization entities tracked 
-		 *				in the system.
-		 *
-		 *	@param		system		The system which tracks the agents.  This should be
-		 *							the same system which was returned by a call to 
-		 *							SimulatorDBEntry::getSimulatorSystem.
-		 *	@param		scene		The scene to populate with visual elements.
-		 */
-		void populateScene( SimSystem * system, SceneGraph::GLScene * scene );
-
-		/*!
-		 *	@brief		Returns a pointer to an agent context appropriate to
-		 *				the corresponding simulator.
-		 *
-		 *	@param		system		The system which tracks the agents.  This should be
-		 *							the same system which was returned by a call to 
-		 *							SimulatorDBEntry::getSimulatorSystem.
-		 *	@returns	A pointer to the appropriate agent context.  
-		 */
-		BaseAgentContext * getAgentContext( SimSystem * system );
-#endif
 		/*!
 		 *	@brief		Reports the current run-time of an instantiated simulation.
 		 *
@@ -298,22 +245,7 @@ namespace Menge {
 		 *	@returns	A boolean reporting if finalization was successful (true) or not (false).
 		 */
 		bool finalize( Agents::SimulatorInterface * sim, BFSM::FSM * fsm );
-#if 0
-		/*! 
-		 *	@brief		Creates an instance of a SimSystem to populate.
-		 *
-		 *	This is the mechanism by which pedestrian plug-ins can override the behavior
-		 *	of the SimSystem based on models, by sub-classing the SimSystem and providing
-		 *	an alternative implementation.
-		 *
-		 *	@param		visualize		True if the SimSystem will be connected to
-		 *								a visualizer (such as a Vis::GLViewer).
-		 *	@param		duration		The maximum duration (in simulation time)
-		 *								the system will run.
-		 *	@returns	A pointer to a new SimSystem.
-		 */
-		virtual SimSystem * createSimSystem(  bool visualize, float duration );
-#endif
+
 		/*!
 		 *	@brief		A pointer to the simulator.  The database entry is not responsible for
 		 *				deleting it unless there is an error in initialization.

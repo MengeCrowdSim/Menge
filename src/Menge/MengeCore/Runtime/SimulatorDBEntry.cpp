@@ -40,32 +40,19 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 #include "MengeCore/MengeException.h"
 #include "MengeCore/Agents/AgentInitializer.h"
-#include "MengeCore/Agents/Integrator.h"
 #include "MengeCore/Agents/SimulatorInterface.h"
 #include "MengeCore/BFSM/FSM.h"
 #include "MengeCore/BFSM/FSMDescrip.h"
 #include "MengeCore/Runtime/Logger.h"
-#if 0
-#include "SimSystem.h"
-#include "BaseAgentContext.h"
-#include "GLScene.h"
-#endif
 
 namespace Menge {
 
 	/////////////////////////////////////////////////////////////////////////////
 	//                     Implementation of SimulatorDBEntry
 	////////////////////////////////////////////////////////////////////////////
-#if 0
-	SimSystem * SimulatorDBEntry::createSimSystem(  bool visualize, float duration ) {
-		return new SimSystem( visualize, duration );
-	}
 
-#endif
-
-	////////////////////////////////////////////////////////////////////////////
-
-	Agents::SimulatorInterface * SimulatorDBEntry::initSimulator( const std::string & sceneFileName, bool VERBOSE ) {
+	Agents::SimulatorInterface * SimulatorDBEntry::initSimulator(
+		const std::string & sceneFileName, bool VERBOSE ) {
 		Agents::SimulatorInterface * sim = getNewSimulator();
 		Agents::AgentInitializer * agentInit = getAgentInitalizer();
 		Agents::SimXMLLoader loader( sim );
@@ -106,6 +93,7 @@ namespace Menge {
 	////////////////////////////////////////////////////////////////////////////
 
 	bool SimulatorDBEntry::finalize( Agents::SimulatorInterface * sim, BFSM::FSM * fsm ) {
+		sim->setBFSM( fsm );
 		// older versions of OpenMP require signed for loop counters
 		int agtCount = (int)sim->getNumAgents();
 		#pragma omp parallel for
@@ -138,13 +126,15 @@ namespace Menge {
 
 	////////////////////////////////////////////////////////////////////////////
 
-	Agents::Integrator * SimulatorDBEntry::getIntegrator( size_t & agentCount, float & simTimeStep,
-														  size_t subSteps, float simDuration,
-														  const std::string & behaveFile,
-														  const std::string & sceneFile,
-														  const std::string & outFile,
-														  const std::string & scbVersion,
-														  bool verbose) {
+	Agents::SimulatorInterface * SimulatorDBEntry::getSimulator( size_t & agentCount,
+																 float & simTimeStep,
+																 size_t subSteps,
+																 float simDuration,
+																 const std::string & behaveFile,
+																 const std::string & sceneFile,
+																 const std::string & outFile,
+																 const std::string & scbVersion,
+																 bool verbose) {
 		_sim = initSimulator( sceneFile, verbose );
 		if ( !_sim ) {
 			return 0x0;
@@ -164,114 +154,35 @@ namespace Menge {
 
 		if ( simTimeStep > 0.f ) {
 			if ( verbose ) {
-				logger << Logger::INFO_MSG << "Simulation time step set by command-line argument: " << simTimeStep << ".";
+				logger << Logger::INFO_MSG;
+				logger << "Simulation time step set by command-line argument: ";
+				logger << simTimeStep << ".";
 			}
 			_sim->setTimeStep( simTimeStep );
 		} else {
 			simTimeStep = specTimeStep;
 			if ( verbose ) {
-				logger << Logger::INFO_MSG << "Simulation time step set by specification file: " << specTimeStep << ".";
+				logger << Logger::INFO_MSG << "Simulation time step set by specification file: ";
+				logger << specTimeStep << ".";
 			}		
 		}
 		_sim->setSubSteps( subSteps );
 		float effTimeStep = simTimeStep / ( 1.f + subSteps );
-		logger << Logger::INFO_MSG << "For logical time step: " << simTimeStep << " and " << subSteps << " sub step";
+		logger << Logger::INFO_MSG << "For logical time step: " << simTimeStep << " and ";
+		logger << subSteps << " sub step";
 		if ( subSteps !=1 ) {
 			logger << "s";
 		}
 		logger << ", effective time step is: " << effTimeStep;
 
-		Agents::Integrator * integrator = new Agents::Integrator( _sim, _fsm );
-		integrator->setMaxDuration( simDuration );
+		_sim->setMaxDuration( simDuration );
 		if ( outFile != "" ) {
-			integrator->setOutput( outFile, scbVersion );
+			_sim->setOutput( outFile, scbVersion );
 		}
 		agentCount = _sim->getNumAgents();
-		return integrator;
+		return _sim;
 	}
 
-	////////////////////////////////////////////////////////////////////////////
-
-#if 0
-	SimSystem * SimulatorDBEntry::getSimulatorSystem( size_t & agentCount,
-													  float & simTimeStep,
-													  size_t subSteps,
-													  float simDuration,
-													  const std::string & behaveFile, 
-													  const std::string & sceneFile, 
-													  const std::string & outFile, 
-													  const std::string & scbVersion, 
-													  bool visualize, 
-													  bool VERBOSE ) 
-	{
-
-		_sim = initSimulator( sceneFile, VERBOSE );
-		if ( !_sim ) {
-			return 0x0;
-		}
-		// TODO: Remove time step from the simulator specification!
-		float specTimeStep = _sim->getTimeStep();
-
-		_fsm = initFSM( behaveFile, _sim, VERBOSE );
-		if ( !_fsm ) {
-			return 0x0;
-		}
-		if ( !finalize( _sim, _fsm ) ) {
-			return 0x0;
-		}
-
-		if ( simTimeStep > 0.f ) {
-			if ( VERBOSE ) {
-				logger << Logger::INFO_MSG << "Simulation time step set by command-line argument: " << simTimeStep << ".";
-			}
-			_sim->setTimeStep( simTimeStep );
-		} else {
-			simTimeStep = specTimeStep;
-			if ( VERBOSE ) {
-				logger << Logger::INFO_MSG << "Simulation time step set by specification file: " << specTimeStep << ".";
-			}		
-		}
-		_sim->setSubSteps( subSteps );
-		float effTimeStep = simTimeStep / ( 1.f + subSteps );
-		logger << Logger::INFO_MSG << "For logical time step: " << simTimeStep << " and " << subSteps << " sub step";
-		if ( subSteps !=1 ) {
-			logger << "s";
-		}
-		logger << ", effective time step is: " << effTimeStep;
-
-		SimSystem * system = createSimSystem( visualize, simDuration );
-		try {
-			if ( outFile != "" ) {
-				system->setSimulator( _sim, _fsm, outFile, scbVersion );
-			} else {
-				system->setSimulator( _sim, _fsm );
-			}
-		} catch ( SimSystemFatalException & e ) {
-			logger << Logger::ERR_MSG << e.what();
-			delete system;
-			delete _fsm;
-			delete _sim;
-			_sim = 0x0;
-			return 0x0;
-		}
-		agentCount = _sim->getNumAgents();
-		return system;
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-
-	void SimulatorDBEntry::populateScene( SimSystem * system, SceneGraph::GLScene * scene ) {
-		system->populateScene( scene );
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-
-	BaseAgentContext * SimulatorDBEntry::getAgentContext( SimSystem * simSystem ) {
-		BaseAgentContext * ctx = contextFromSystem( simSystem );
-		if ( ctx ) ctx->setFSMContext( _fsm->getContext() );
-		return ctx;
-	}
-#endif
 	////////////////////////////////////////////////////////////////////////////
 
 	float SimulatorDBEntry::simDuration() const { 
