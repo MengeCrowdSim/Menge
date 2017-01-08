@@ -308,15 +308,16 @@ namespace MengeVis {
 		};
 	}	// namespace Viewer
 
-	/*!
-	 *	@brief		Streaming output operator to display configuration specification.
-	 *
-	 *	@param		out		The output stream to which to write the view configuration.
-	 *	@param		cfg		The configuration to convert to a string.
-	 *	@returns	The output stream.
-	 */
-	MENGEVIS_API Menge::Logger & operator<< ( Menge::Logger & out, const Viewer::ViewConfig & cfg ); 
-
 }	// namespace MengeVis
+
+/*!
+ *	@brief		Streaming output operator to display configuration specification.
+ *
+ *	@param		out		The output stream to which to write the view configuration.
+ *	@param		cfg		The configuration to convert to a string.
+ *	@returns	The output stream.
+ */
+MENGEVIS_API Menge::Logger & operator<< ( Menge::Logger & out,
+										  const MengeVis::Viewer::ViewConfig & cfg );
 
 #endif // __VIEW_CONFIG_H__

@@ -45,10 +45,11 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include <fstream>
 #include <iostream>
 
+using Menge::Logger;
+
 namespace MengeVis {
 
 	using Menge::logger;
-	using Menge::Logger;
 
 	namespace Viewer {
 
@@ -434,24 +435,24 @@ namespace MengeVis {
 		}
 
 	}	// namespace Viewer
-
-	////////////////////////////////////////////////////////////////////////////
-
-	Logger & operator<< ( Logger & out, const Viewer::ViewConfig & cfg ) {
-		out << "View configuration:";
-		out << "\n\twidth:              " << cfg._width;
-		out << "\n\theight:             " << cfg._height;
-		for ( size_t i = 0; i < cfg._camSpecs.size(); ++i ) {
-			out << "\n\t" << i << " " << cfg._camSpecs[i];
-		}
-		for ( size_t i = 0; i < cfg._lightSpecs.size(); ++i ) {
-			out << "\n\t" << i << " " << cfg._lightSpecs[i];
-		}
-		out << "\n\tBackground image:   " << cfg._bgImg;
-		if ( cfg._waterMark ) {
-			out << "\n\tWatermark image: " << cfg._waterMark->getFilename() ;
-		}
-
-		return out;
-	}
 }	// namespace MengeVis
+
+////////////////////////////////////////////////////////////////////////////
+
+Logger & operator<< ( Logger & out, const MengeVis::Viewer::ViewConfig & cfg ) {
+	out << "View configuration:";
+	out << "\n\twidth:              " << cfg._width;
+	out << "\n\theight:             " << cfg._height;
+	for ( size_t i = 0; i < cfg._camSpecs.size(); ++i ) {
+		out << "\n\t" << i << " " << cfg._camSpecs[i];
+	}
+	for ( size_t i = 0; i < cfg._lightSpecs.size(); ++i ) {
+		out << "\n\t" << i << " " << cfg._lightSpecs[i];
+	}
+	out << "\n\tBackground image:   " << cfg._bgImg;
+	if ( cfg._waterMark ) {
+		out << "\n\tWatermark image: " << cfg._waterMark->getFilename() ;
+	}
+
+	return out;
+}
