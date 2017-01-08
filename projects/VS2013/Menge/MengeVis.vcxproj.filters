@@ -31,11 +31,14 @@
     <Filter Include="Source Files\SceneGraph">
       <UniqueIdentifier>{b151c591-4481-4bf8-8c8d-eafb9753ec6b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Runtime\AgentContext">
+      <UniqueIdentifier>{497cbaa1-c8db-4b65-bcfc-2d5724390f67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Runtime\AgentContext">
+      <UniqueIdentifier>{3265aaaa-8a45-4194-a42d-475762fa609f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\BaseAgentContext.cpp">
-      <Filter>Source Files\Runtime</Filter>
-    </ClCompile>
     <ClCompile Include="$(SrcDir)\MengeVis\Runtime\SimSystem.cpp">
       <Filter>Source Files\Runtime</Filter>
     </ClCompile>
@@ -114,11 +117,11 @@
     <ClCompile Include="$(SrcDir)\MengeVis\Runtime\VelCompContext.cpp">
       <Filter>Source Files\Runtime</Filter>
     </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\BaseAgentContext.cpp">
+      <Filter>Source Files\Runtime\AgentContext</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\BaseAgentContext.h">
-      <Filter>Header Files\Runtime</Filter>
-    </ClInclude>
     <ClInclude Include="$(SrcDir)\MengeVis\Runtime\SimSystem.h">
       <Filter>Header Files\Runtime</Filter>
     </ClInclude>
@@ -208,6 +211,9 @@
     </ClInclude>
     <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VelCompContext.h">
       <Filter>Header Files\Runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\BaseAgentContext.h">
+      <Filter>Header Files\Runtime\AgentContext</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
