@@ -35,14 +35,13 @@ TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
-#if 0
+
 #include "MengeVis/Runtime/SimSystem.h"
 
+#include "MengeCore\Agents\BaseAgent.h"
 #include "MengeCore/Agents/Obstacle.h"
-#include "MengeCore/Agents/SCBWriter.h"
 #include "MengeCore/Agents/SimulatorInterface.h"
 #include "MengeCore/Agents/SpatialQueries/SpatialQuery.h"
-#include "MengeCore/BFSM/FSM.h"
 #include "MengeCore/Runtime/Logger.h"
 #include "MengeVis/Runtime/VisAgent.h"
 #include "MengeVis/Runtime/VisObstacle.h"
@@ -57,10 +56,7 @@ namespace MengeVis {
 	using Menge::Agents::BaseAgent;
 	using Menge::Agents::Obstacle;
 	using Menge::Agents::SCBWriter;
-	using Menge::Agents::SCBFileException;
 	using Menge::Agents::SimulatorInterface;
-	using Menge::BFSM::FSM;
-	using Menge::BFSM::FSMFatalException;
 	using Menge::Math::Vector2;
 	using Menge::Math::Vector3;
 	using SceneGraph::SystemStopException;
@@ -70,99 +66,24 @@ namespace MengeVis {
 	//			Implementation of SimSystem
 	////////////////////////////////////////////////////////////////////////////
 
-	SimSystem::SimSystem( bool visualize ): SceneGraph::System(), _forVis(visualize), _sim(0x0),
-											_fsm(0x0), _scbWriter(0x0),_lastUpdate(0.f),
-											_isRunning(true), _maxDuration(100.f) {
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-
-	SimSystem::SimSystem( bool visualize, float duration ): SceneGraph::System(),
-															_forVis(visualize), _sim(0x0),
-															_fsm(0x0), _scbWriter(0x0),
-															_lastUpdate(0.f), _isRunning(true),
-															_maxDuration(duration) {
+	SimSystem::SimSystem( SimulatorInterface * sim ) : SceneGraph::System(),  _sim( sim ),
+													   _lastUpdate( 0.f ), _isRunning( true ) {
 	}
 
 	////////////////////////////////////////////////////////////////////////////
 
 	SimSystem::~SimSystem() {
 			if ( _sim ) delete _sim;
-			if ( _fsm ) delete _fsm;
-			if ( _scbWriter ) delete _scbWriter;
 		}
 
 	////////////////////////////////////////////////////////////////////////////
 
 	bool SimSystem::updateScene( float time ) {
-		const int agtCount = static_cast<int>( _sim->getNumAgents() );
-		if ( _isRunning ) {
-			if ( _scbWriter ) _scbWriter->writeFrame( _fsm );	
-			_lastUpdate = _sim->getGlobalTime();
-			if ( _lastUpdate > _maxDuration ) {
-				_isRunning = false;
-			} else {
-				for ( size_t i = 0; i <= _sim->getSubSteps(); ++i ) {
-					try {
-						_isRunning = !_fsm->doStep();
-					} catch ( FSMFatalException & e ) {
-						logger << Logger::ERR_MSG << "Error in updating the finite state machine";
-						logger << " -- stopping!\n";
-						logger << "\t" << e.what() << "\n";
-						throw SystemStopException();
-					}
-
-					_sim->doStep();
-					if ( _forVis ) {
-						updateAgentPosition( agtCount );
-					}
-					try {
-						_fsm->doTasks();
-					} catch ( FSMFatalException &e ) {
-						logger << Logger::ERR_MSG << e.what() << "\n";
-						throw SystemStopException();
-					}
-				}
-			}
-		}
-		if ( !_isRunning ) {
-			// TODO: WHy is this here??
-			throw SystemStopException();
-			return false;
-		}
-		return true;
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-
-	bool SimSystem::isFinished() const { 
-		return _fsm->allFinal(); 
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-
-	void SimSystem::setSimulator( SimulatorInterface * sim, FSM * fsm ) {
-		if ( _sim ) {
-			std::string msg( "Simulator already assigned to SimSystem" );
-			throw SimSystemFatalException( msg );
-		}
-		_sim = sim;
-		_fsm = fsm;
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-
-	void SimSystem::setSimulator( SimulatorInterface * sim, FSM * fsm, 
-								  const std::string & outFileName, 
-								  const std::string & scbVersion ) {
-		setSimulator( sim, fsm );
-		try {
-			_scbWriter = new SCBWriter( outFileName, scbVersion, sim );
-		} catch ( SCBFileException ) {
-			std::string msg( "Unable to create SCB file: ");
-			msg += outFileName;
-			throw SimSystemFatalException( msg );
-		}
+		if ( _sim->step() ) {
+			updateAgentPosition( static_cast<int>( _sim->getNumAgents() ) );
+			return true;
+		} 
+		throw SystemStopException();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -239,4 +160,3 @@ namespace MengeVis {
 	////////////////////////////////////////////////////////////////////////////
 
 }	// namespace MengeVis
-#endif // 0

@@ -41,7 +41,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
  *	@brief		The system which runs the simulation, coordinating
  *				the FSM and simulator.
  */
-#if 0
+
 #ifndef __SIM_SYSTEM_H__
 #define	__SIM_SYSTEM_H__
 
@@ -53,11 +53,6 @@ namespace Menge {
 
 	namespace Agents {
 		class SimulatorInterface;
-		class SCBWriter;
-	}
-
-	namespace BFSM {
-		class FSM;
 	}
 }
 
@@ -125,34 +120,14 @@ namespace MengeVis {
 		/*!
 		 *	@brief		Constructor
 		 *
-		 *	@param		visualize		True if the SimSystem will be connected to
-		 *								a visualizer (such as a Vis::GLViewer).
+		 *	@param	sim		A pointer to the simulator.
 		 */
-		SimSystem( bool visualize );
-
-		/*!
-		 *	@brief		Constructor with duration limit
-		 *
-		 *	@param		visualize		True if the SimSystem will be connected to
-		 *								a visualizer (such as a Vis::GLViewer).
-		 *	@param		duration		The maximum duration (in simulation time)
-		 *								the system will run.
-		 */
-		SimSystem( bool visualize, float duration );
+		SimSystem( Menge::Agents::SimulatorInterface * sim );
 
 		/*!
 		 *	@brief		Destructor.
 		 */
 		~SimSystem();
-
-		/*!
-		 *	@brief		Sets the maximum length allowed for the simulation to run.
-		 *
-		 *	@param		duration		The maximum duration of the simulation
-		 *								(in simulation time).  After this time has
-		 *								elapsed, the system no longer updates.
-		 */
-		inline void setMaxDuration( float duration ) {_maxDuration = duration; }
 
 		/*!
 		 *	@brief		Update the simulation (and possibly visual elements) to the
@@ -162,50 +137,6 @@ namespace MengeVis {
 		 *	@returns	True if the system has changed such that it requires a redraw.
 		 */
 		virtual bool updateScene( float time );
-
-		/*!
-		 *	@brief		Reports if the SimSystem is finished updating.
-		 *
-		 *	@returns	True if the system will no longer update.  False if still
-		 *				willing to evalute.
-		 */
-		bool isFinished() const;
-
-		/*!
-		 *	@brief		Set the simulator and corresponding FSM for the simulator.
-		 *
-		 *	This assumes that no output file (scb file) will be written.  
-		 *	Once the simulator and finite state machine have been given to the SimSystem,
-		 *	the SimSystem is repsonsible for managing the memory (i.e. freeing up the memory.)
-		 *
-		 *	Throws a SimSystemStateException if the simulator/fsm can't be set.  
-		 *	It remains the responsibility of the caller to delete the sim and fsm in this case.
-		 *
-		 *	@param	sim		A pointer to the simulator.
-		 *	@param	fsm		A pointer to the behavior finite state machine.
-		 *	@throws	SimSystemFatalException		If there is an error in assigning the simulator.
-		 */
-		void setSimulator( Menge::Agents::SimulatorInterface * sim, Menge::BFSM::FSM * fsm );
-
-		/*!
-		 *	@brief		Set the simulator and corresponding FSM for the simulator.
-		 *
-		 *	This is used if an output file (scb file) *is* to be written.
-		 *	Once the simulator and finite state machine have been given to the SimSystem,
-		 *	the SimSystem is repsonsible for managing the memory (i.e. freeing up the memory.)
-		 *
-		 *	Throws a SimSystemStateException if the simulator/fsm can't be set.  
-		 *	It remains the responsibility of the caller to delete the sim and fsm in this case.
-		 *
-		 *	@param	sim				A pointer to the simulator.
-		 *	@param	fsm				A pointer to the behavior finite state machine.
-		 *	@param	outFileName		The name of the scb file to write.
-		 *	@param	scbVersion		The version of scb file to write.
-		 *	@throws	SimSystemFatalException		If there is an error in assigning the simulator,
-		 *										or in initializing the output file.
-		 */
-		void setSimulator( Menge::Agents::SimulatorInterface * sim, Menge::BFSM::FSM * fsm, 
-						   const std::string & outFileName, const std::string & scbVersion );
 
 		/*!
 		 *	@brief		Add visual representations of the simulation obstcles to the GLScene.
@@ -227,7 +158,6 @@ namespace MengeVis {
 		 *	@param		scene		The scene which receives nodes for drawing agents.
 		 */
 		void populateScene( SceneGraph::GLScene * scene );
-
 		
 		/*!
 		 *	@brief		Update the position of the *visual* agents from the simulation data.
@@ -253,12 +183,6 @@ namespace MengeVis {
 	protected:
 
 		/*!
-		 *	@brief		Determines if the system is actually for driving
-		 *				a visual scene.
-		 */
-		bool	_forVis;
-
-		/*!
 		 *	@brief		Simulator to run and (possibly) visualize.
 		 */
 		Menge::Agents::SimulatorInterface * _sim;
@@ -270,17 +194,6 @@ namespace MengeVis {
 		VisAgent **	_visAgents;
 
 		/*!
-		 *	@brief		The behavior finite state machine for the simulator.
-		 */
-		Menge::BFSM::FSM * _fsm;
-
-		/*!
-		 *	@brief		The optional scb writer (if an output file has been
-		 *				successfully specified.
-		 */
-		Menge::Agents::SCBWriter * _scbWriter;
-
-		/*!
 		 *	@brief		The global time of last system update.
 		 */
 		float	_lastUpdate;
@@ -289,12 +202,6 @@ namespace MengeVis {
 		 *	@brief		Indicates if the simulation is running.
 		 */
 		bool	_isRunning;
-
-		/*!
-		 *	@brief		Maximum length of simulation time to compute (in simulation time).
-		 */
-		float	_maxDuration;
 	};
 }	// namespace MengeVis
 #endif	// __VIS_RVO_SIM_H__
-#endif // 0
