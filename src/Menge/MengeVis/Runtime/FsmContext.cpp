@@ -35,24 +35,30 @@ TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
-#if 0
-#include "MengeCore/BFSM/FsmContext.h"
+
+#include "MengeVis/Runtime/FsmContext.h"
+
 #include "MengeCore/Agents/BaseAgent.h"
 #include "MengeCore/BFSM/FSM.h"
 #include "MengeCore/BFSM/State.h"
-#include "MengeCore/Agents/StateContext.h"
+#include "MengeVis/Runtime/StateContext.h"
+
 #include <cassert>
 #include <sstream>
 
-namespace Menge {
+namespace MengeVis {
+	namespace Runtime {
 
-	namespace BFSM {
+		using Menge::Agents::BaseAgent;
+		using Menge::BFSM::FSM;
+		using Menge::BFSM::State;
 
 		/////////////////////////////////////////////////////////////////////
 		//                   Implementation of FsmContext
 		/////////////////////////////////////////////////////////////////////
 
-		FsmContext::FsmContext( FSM * fsm ):_fsm(fsm), _currStateCtx(0x0), _drawVC(true), _drawTrans(true) {
+		FsmContext::FsmContext( FSM * fsm ) :_fsm( fsm ), _currStateCtx( 0x0 ), _drawVC( true ),
+			_drawTrans( true ) {
 		}
 
 		/////////////////////////////////////////////////////////////////////
@@ -93,7 +99,8 @@ namespace Menge {
 
 		/////////////////////////////////////////////////////////////////////
 
-		void FsmContext::drawUIGL( const Agents::BaseAgent * agt, int vWidth, int vHeight, bool select ) {
+		void FsmContext::drawUIGL( const BaseAgent * agt, int vWidth, int vHeight,
+								   bool select ) {
 			if ( !select ) {
 				std::stringstream ss;
 				if ( agt ) {
@@ -101,7 +108,8 @@ namespace Menge {
 					const State * state = _fsm->getCurrentState( agt );
 					StateContextMap::const_iterator itr = _states.find( state->getID() );
 					if ( itr == _states.end() ) {
-						ss << "\n   in state with no context: " << state->getName() << "(" << state->getID() << ")";
+						ss << "\n   in state with no context: " << state->getName() << "(";
+						ss << state->getID() << ")";
 						_currStateCtx = 0x0;
 					} else { 
 						_currStateCtx = itr->second;
@@ -117,7 +125,7 @@ namespace Menge {
 
 		/////////////////////////////////////////////////////////////////////
 
-		void FsmContext::draw3DGL( const Agents::BaseAgent * agt, bool select ) {
+		void FsmContext::draw3DGL( const BaseAgent * agt, bool select ) {
 			if ( !select && agt ) {
 				const State * state = _fsm->getCurrentState( agt );
 				StateContextMap::const_iterator itr = _states.find( state->getID() );
@@ -130,10 +138,11 @@ namespace Menge {
 		/////////////////////////////////////////////////////////////////////
 
 		void FsmContext::addStateContext( size_t id, StateContext * context ) {
-			assert( _states.find( id ) == _states.end() && "Tried to register multiple contexts for one state" );
+			assert( _states.find( id ) == _states.end() &&
+					"Tried to register multiple contexts for one state" );
 			_states[ id ] = context;
 		}
 
-	}	// namespace BFSM
-}	// namespace Menge
-#endif
+	}	// namespace Runtime
+}	// namespace MengeVis
+

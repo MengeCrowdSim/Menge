@@ -152,7 +152,8 @@ namespace MengeVis {
 			void setTarget( const Menge::Math::Vector3 & p );
 			
 			/*!
-			 *	@brief		Set the position of the camera's view target explicitly from three values.
+			 *	@brief		Set the position of the camera's view target explicitly from three
+			 *				values.
 			 *
 			 *	@param		x		The position of the camera's view target along the x-axis.
 			 *	@param		y		The position of the camera's view target along the y-axis.
@@ -525,4 +526,4 @@ namespace MengeVis {
 	}	// namespace SceneGraph
 }	// namespace MengeVis
 
-#endif
+#endif	// __GLCAMERA_H__

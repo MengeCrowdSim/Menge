@@ -50,45 +50,46 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include <set>
 
 namespace MengeVis {
+	namespace Runtime {
 
-	using Menge::logger;
-	using Menge::Logger;
-	using Menge::Agents::BaseAgent;
-	using Menge::Agents::Obstacle;
-	using Menge::Agents::SCBWriter;
-	using Menge::Agents::SimulatorInterface;
-	using Menge::Math::Vector2;
-	using Menge::Math::Vector3;
-	using SceneGraph::SystemStopException;
-	using SceneGraph::GLScene;
+		using Menge::logger;
+		using Menge::Logger;
+		using Menge::Agents::BaseAgent;
+		using Menge::Agents::Obstacle;
+		using Menge::Agents::SCBWriter;
+		using Menge::Agents::SimulatorInterface;
+		using Menge::Math::Vector2;
+		using Menge::Math::Vector3;
+		using SceneGraph::SystemStopException;
+		using SceneGraph::GLScene;
 
-	////////////////////////////////////////////////////////////////////////////
-	//			Implementation of SimSystem
-	////////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////////
+		//			Implementation of SimSystem
+		////////////////////////////////////////////////////////////////////////////
 
-	SimSystem::SimSystem( SimulatorInterface * sim ) : SceneGraph::System(),  _sim( sim ),
-													   _lastUpdate( 0.f ), _isRunning( true ) {
-	}
+		SimSystem::SimSystem( SimulatorInterface * sim ) : SceneGraph::System(), _sim( sim ),
+			_lastUpdate( 0.f ), _isRunning( true ) {
+		}
 
-	////////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////////
 
-	SimSystem::~SimSystem() {
+		SimSystem::~SimSystem() {
 			if ( _sim ) delete _sim;
 		}
 
-	////////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////////
 
-	bool SimSystem::updateScene( float time ) {
-		if ( _sim->step() ) {
-			updateAgentPosition( static_cast<int>( _sim->getNumAgents() ) );
-			return true;
-		} 
-		throw SystemStopException();
-	}
+		bool SimSystem::updateScene( float time ) {
+			if ( _sim->step() ) {
+				updateAgentPosition( static_cast<int>( _sim->getNumAgents() ) );
+				return true;
+			}
+			throw SystemStopException();
+		}
 
-	////////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////////
 
-	void SimSystem::addObstacleToScene( GLScene * scene ) {
+		void SimSystem::addObstacleToScene( GLScene * scene ) {
 			// TODO: If the bsptree (ObstacleKDTree.h) chops up the obstacles, this isn't doing the
 			//		right thing.  Currently, the bsptree chops them
 			//	THIS IS A HACK to address the issues of the ObstacleKDTree
@@ -96,7 +97,7 @@ namespace MengeVis {
 			std::set< const Obstacle * > handled;
 			const std::vector< Obstacle * > & obstacles = _sim->getSpatialQuery()->getObstacles();
 			for ( size_t o = 0; o < obstacles.size(); ++o ) {
-				
+
 				const Obstacle * obst = obstacles[ o ];
 				if ( handled.find( obst ) == handled.end() ) {
 					Vector2 p0a = obst->getP0();
@@ -110,53 +111,53 @@ namespace MengeVis {
 					Vector3 p0( p0a.x(), _sim->getElevation( p0a ), p0a.y() );
 					Vector3 p1( p1a.x(), _sim->getElevation( p1a ), p1a.y() );
 					VisObstacle * vo = new VisObstacle( p0, p1 );
-					
+
 					scene->addNode( vo );
 					handled.insert( obst );
 				}
 			}
 		}
 
-	////////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////////
 
-	void SimSystem::addAgentsToScene( GLScene * scene ) {
-		_visAgents = new VisAgent * [ _sim->getNumAgents() ];
-		for ( size_t a = 0; a < _sim->getNumAgents(); ++a ) {
-			BaseAgent * agt =  _sim->getAgent( a );
-			VisAgent * agtNode = new VisAgent( agt );
-			float h = _sim->getElevation( agt );
-			agtNode->setPosition( agt->_pos.x(), h, agt->_pos.y() );
-			scene->addNode( agtNode );
-			_visAgents[ a ] = agtNode;
+		void SimSystem::addAgentsToScene( GLScene * scene ) {
+			_visAgents = new VisAgent *[ _sim->getNumAgents() ];
+			for ( size_t a = 0; a < _sim->getNumAgents(); ++a ) {
+				BaseAgent * agt = _sim->getAgent( a );
+				VisAgent * agtNode = new VisAgent( agt );
+				float h = _sim->getElevation( agt );
+				agtNode->setPosition( agt->_pos.x(), h, agt->_pos.y() );
+				scene->addNode( agtNode );
+				_visAgents[ a ] = agtNode;
+			}
 		}
-	}
 
-	////////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////////
 
-	void SimSystem::populateScene( GLScene * scene ) {
-		assert( _sim !=  0x0 && "Can't add SimSystem to scene when no simulator is connected" );
+		void SimSystem::populateScene( GLScene * scene ) {
+			assert( _sim != 0x0 && "Can't add SimSystem to scene when no simulator is connected" );
 
-		addAgentsToScene( scene );
-		addObstacleToScene( scene );
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-
-	void SimSystem::updateAgentPosition( int agtCount ) {
-		#pragma omp parallel for
-		for ( int a = 0; a < agtCount; ++a ) {
-			const BaseAgent * agt = _visAgents[ a ]->getAgent();
-			float h = _sim->getElevation( agt );
-			_visAgents[ a ]->setPosition( agt->_pos.x(), h, agt->_pos.y() );
+			addAgentsToScene( scene );
+			addObstacleToScene( scene );
 		}
-	}
 
-	////////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////////
 
-	size_t SimSystem::getAgentCount() const { 
-		return _sim->getNumAgents(); 
-	}
+		void SimSystem::updateAgentPosition( int agtCount ) {
+#pragma omp parallel for
+			for ( int a = 0; a < agtCount; ++a ) {
+				const BaseAgent * agt = _visAgents[ a ]->getAgent();
+				float h = _sim->getElevation( agt );
+				_visAgents[ a ]->setPosition( agt->_pos.x(), h, agt->_pos.y() );
+			}
+		}
 
-	////////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////////
 
+		size_t SimSystem::getAgentCount() const {
+			return _sim->getNumAgents();
+		}
+
+		////////////////////////////////////////////////////////////////////////////
+	}	// namespace Runtime
 }	// namespace MengeVis

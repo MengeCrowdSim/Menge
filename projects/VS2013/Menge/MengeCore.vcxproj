@@ -180,12 +180,10 @@ xcopy /y $(TargetPath) $(ExeDir)
     <ClCompile Include="$(SrcDir)\mengeCore\BFSM\buildFSM.cpp" />
     <ClCompile Include="$(SrcDir)\mengeCore\BFSM\FSM.cpp" />
     <ClCompile Include="$(SrcDir)\mengeCore\BFSM\fsmCommon.cpp" />
-    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\FsmContext.cpp" />
     <ClCompile Include="$(SrcDir)\mengeCore\BFSM\FSMDescrip.cpp" />
     <ClCompile Include="$(SrcDir)\mengeCore\BFSM\FSMEnumeration.cpp" />
     <ClCompile Include="$(SrcDir)\mengeCore\BFSM\GoalSet.cpp" />
     <ClCompile Include="$(SrcDir)\mengeCore\BFSM\State.cpp" />
-    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\StateContext.cpp" />
     <ClCompile Include="$(SrcDir)\mengeCore\BFSM\StateDescrip.cpp" />
     <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Actions\Action.cpp" />
     <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Actions\ActionDatabase.cpp" />
@@ -203,7 +201,6 @@ xcopy /y $(TargetPath) $(ExeDir)
     <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Transitions\TargetReturn.cpp" />
     <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Transitions\Transition.cpp" />
     <ClCompile Include="$(SrcDir)\mengeCore\BFSM\VelocityComponents\VelCompConst.cpp" />
-    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\VelocityComponents\VelCompContext.cpp" />
     <ClCompile Include="$(SrcDir)\mengeCore\BFSM\VelocityComponents\VelCompGoal.cpp" />
     <ClCompile Include="$(SrcDir)\mengeCore\BFSM\VelocityComponents\VelCompNavMesh.cpp" />
     <ClCompile Include="$(SrcDir)\mengeCore\BFSM\VelocityComponents\VelComponent.cpp" />
@@ -385,12 +382,10 @@ xcopy /y $(TargetPath) $(ExeDir)
     <ClInclude Include="$(SrcDir)\mengeCore\Runtime\Utils.h" />
     <ClInclude Include="$(SrcDir)\mengeCore\BFSM\FSM.h" />
     <ClInclude Include="$(SrcDir)\mengeCore\BFSM\fsmCommon.h" />
-    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\FsmContext.h" />
     <ClInclude Include="$(SrcDir)\mengeCore\BFSM\FSMDescrip.h" />
     <ClInclude Include="$(SrcDir)\mengeCore\BFSM\FSMEnumeration.h" />
     <ClInclude Include="$(SrcDir)\mengeCore\BFSM\GoalSet.h" />
     <ClInclude Include="$(SrcDir)\mengeCore\BFSM\State.h" />
-    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\StateContext.h" />
     <ClInclude Include="$(SrcDir)\mengeCore\BFSM\StateDescrip.h" />
     <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Actions\Action.h" />
     <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Actions\ActionDatabase.h" />
@@ -413,7 +408,6 @@ xcopy /y $(TargetPath) $(ExeDir)
     <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Transitions\TargetReturn.h" />
     <ClInclude Include="$(SrcDir)\mengeCore\BFSM\Transitions\Transition.h" />
     <ClInclude Include="$(SrcDir)\mengeCore\BFSM\VelocityComponents\VelCompConst.h" />
-    <ClInclude Include="$(SrcDir)\mengeCore\BFSM\VelocityComponents\VelCompContext.h" />
     <ClInclude Include="$(SrcDir)\mengeCore\BFSM\VelocityComponents\VelCompGoal.h" />
     <ClInclude Include="$(SrcDir)\mengeCore\BFSM\VelocityComponents\VelCompNavMesh.h" />
     <ClInclude Include="$(SrcDir)\mengeCore\BFSM\VelocityComponents\VelComponent.h" />

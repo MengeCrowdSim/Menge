@@ -49,79 +49,81 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include "MengeVis/SceneGraph/GLNode.h"
 #include "MengeVis/SceneGraph/Select.h"
 
+// forward declaration
 namespace Menge {
-	// forward declaration
 	namespace Agents {
 		class BaseAgent;
 	}
 }
 
 namespace MengeVis {
-	/*!
-	 *	@brief		The basic agent visualization class: a selectable cylinder.
-	 *
-	 *	This is the basic visualization of simulation agents in the visualization 
-	 *  context.  The agents are drawn as 3D cylinders by default.  This class can
-	 *	be sub-classed adn the drawGL method can be overridden to provide a different
-	 *	visualization mechanism.
-	 */
-	class MENGEVIS_API VisAgent : public SceneGraph::GLNode, public SceneGraph::Selectable {
-	public:
+	namespace Runtime {
 		/*!
-		 *	@brief		Constructor.
+		 *	@brief		The basic agent visualization class: a selectable cylinder.
 		 *
-		 *	@param		agent		The agent to be visualized.
+		 *	This is the basic visualization of simulation agents in the visualization
+		 *  context.  The agents are drawn as 3D cylinders by default.  This class can
+		 *	be sub-classed adn the drawGL method can be overridden to provide a different
+		 *	visualization mechanism.
 		 */
-		VisAgent( Menge::Agents::BaseAgent * agent );
+		class MENGEVIS_API VisAgent : public SceneGraph::GLNode, public SceneGraph::Selectable {
+		public:
+			/*!
+			 *	@brief		Constructor.
+			 *
+			 *	@param		agent		The agent to be visualized.
+			 */
+			VisAgent( Menge::Agents::BaseAgent * agent );
 
-		/*!
-		 *	@brief		Draw the agent into the 3D world.
-		 *
-		 *	@param		select		Defines if the drawing is being done for selection
-		 *							purposes (true) or visualization (false).
-		 */
-		virtual void drawGL( bool select=false );
+			/*!
+			 *	@brief		Draw the agent into the 3D world.
+			 *
+			 *	@param		select		Defines if the drawing is being done for selection
+			 *							purposes (true) or visualization (false).
+			 */
+			virtual void drawGL( bool select = false );
 
-		/*! 
-		 *	@brief		Returns a Agents::BaseAgent pointer of the associated simulation
-		 *				agent.
-		 *
-		 *	@returns	A pointer to the visualization agent's simulation agent.
-		 */
-		Menge::Agents::BaseAgent * getAgent() { return _agent; }
+			/*!
+			 *	@brief		Returns a Agents::BaseAgent pointer of the associated simulation
+			 *				agent.
+			 *
+			 *	@returns	A pointer to the visualization agent's simulation agent.
+			 */
+			Menge::Agents::BaseAgent * getAgent() { return _agent; }
 
-		/*!
-		 *	@brief		Set the 3D position of the visual agent.
-		 *
-		 *	@param		x		The x-position of the agent (in world coordinates).
-		 *	@param		y		The y-position of the agent (in world coordinates).
-		 *	@param		z		The z-position of the agent (in world coordinates).
-		 */
-		inline void setPosition( float x, float y, float z ) { _pos.set( x, y, z ); }
+			/*!
+			 *	@brief		Set the 3D position of the visual agent.
+			 *
+			 *	@param		x		The x-position of the agent (in world coordinates).
+			 *	@param		y		The y-position of the agent (in world coordinates).
+			 *	@param		z		The z-position of the agent (in world coordinates).
+			 */
+			inline void setPosition( float x, float y, float z ) { _pos.set( x, y, z ); }
 
-	protected:
-		/*!
-		 *	@brief		Defines the color of the cylinder.
-		 *
-		 *	The color is computed and returned via the three floats passed in as
-		 *	parameters.
-		 *
-		 *	@param		r		The red component of the cylinder.  
-		 *	@param		g		The green component of the cylinder.  
-		 *	@param		b		The blue component of the cylinder.  
-		 */
-		void getColor( float & r, float & g, float & b );
+		protected:
+			/*!
+			 *	@brief		Defines the color of the cylinder.
+			 *
+			 *	The color is computed and returned via the three floats passed in as
+			 *	parameters.
+			 *
+			 *	@param		r		The red component of the cylinder.
+			 *	@param		g		The green component of the cylinder.
+			 *	@param		b		The blue component of the cylinder.
+			 */
+			void getColor( float & r, float & g, float & b );
 
-		/*!
-		 *	@brief		The logical agent being visualized.
-		 */
-		Menge::Agents::BaseAgent *	_agent;
+			/*!
+			 *	@brief		The logical agent being visualized.
+			 */
+			Menge::Agents::BaseAgent *	_agent;
 
-		/*!
-		 *	@brief		The position in R3 of the logical agent.
-		 */
-		Menge::Math::Vector3	_pos;
-	};
+			/*!
+			 *	@brief		The position in R3 of the logical agent.
+			 */
+			Menge::Math::Vector3	_pos;
+		};
+	}	// namespace Runtime
 }	// namespace MengeVis
 
 #endif //__VIS_AGENT_H__

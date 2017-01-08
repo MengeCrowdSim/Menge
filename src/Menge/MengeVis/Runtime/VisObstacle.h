@@ -48,39 +48,40 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include "MengeVis/SceneGraph/GLNode.h"
 
 namespace MengeVis {
-
-	/*!
-	 *	@brief		A simple class for drawing a simulation obstacle (line segment).
-	 *				The obstacle is drawn with lines in 3D space.
-	 */
-	class MENGEVIS_API VisObstacle : public SceneGraph::GLNode {
-	public:
+	namespace Runtime {
 		/*!
-		 *	@brief		Constructor.
-		 *
-		 *	@param		p0		The first end point of the line segment.
-		 *	@param		p1		The second end point of the line segment.
+		 *	@brief		A simple class for drawing a simulation obstacle (line segment).
+		 *				The obstacle is drawn with lines in 3D space.
 		 */
-		VisObstacle( const Menge::Math::Vector3 & p0, const Menge::Math::Vector3 & p1 );
+		class MENGEVIS_API VisObstacle : public SceneGraph::GLNode {
+		public:
+			/*!
+			 *	@brief		Constructor.
+			 *
+			 *	@param		p0		The first end point of the line segment.
+			 *	@param		p1		The second end point of the line segment.
+			 */
+			VisObstacle( const Menge::Math::Vector3 & p0, const Menge::Math::Vector3 & p1 );
 
-		/*!
-		 *	@brief		Draws the object into the OpenGL context.
-		 *
-		 *	@param		select		Determines if the object is being drawn
-		 *							in a selection context (true) or visualization (false).
-		 */
-		void drawGL( bool select=false );
+			/*!
+			 *	@brief		Draws the object into the OpenGL context.
+			 *
+			 *	@param		select		Determines if the object is being drawn
+			 *							in a selection context (true) or visualization (false).
+			 */
+			void drawGL( bool select = false );
 
-	protected:
-		/*!
-		 *	@brief		The line segment's first end point.
-		 */
-		Menge::Math::Vector3 _p0;
+		protected:
+			/*!
+			 *	@brief		The line segment's first end point.
+			 */
+			Menge::Math::Vector3 _p0;
 
-		/*!
-		 *	@brief		The line segment's second end point.
-		 */
-		Menge::Math::Vector3 _p1;
-	};
+			/*!
+			 *	@brief		The line segment's second end point.
+			 */
+			Menge::Math::Vector3 _p1;
+		};
+	}	// namespace Runtime
 }	// namespace Menge
 #endif	//__VIS_OBSTACLE_H__

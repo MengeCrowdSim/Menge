@@ -41,36 +41,39 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include "MengeVis/SceneGraph/graphCommon.h"
 
 namespace MengeVis {
+	namespace Runtime {
 
-	using Menge::Math::Vector3;
-	using SceneGraph::GLNode;
+		using Menge::Math::Vector3;
+		using SceneGraph::GLNode;
 
-	////////////////////////////////////////////////////////////////////////////
-	//			Implementation of VisObstacle
-	////////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////////
+		//			Implementation of VisObstacle
+		////////////////////////////////////////////////////////////////////////////
 
-	VisObstacle::VisObstacle( const Vector3 & p0, const Vector3 & p1 ): GLNode(), _p0(p0), _p1(p1) {
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-
-	void VisObstacle::drawGL( bool select ) {
-		// TODO: remove this from here place it somewhere where it gets called upon
-		//	context initialization
-		if ( !select ) {
-			glPushAttrib( GL_LINE_BIT | GL_ENABLE_BIT );
-			glDisable( GL_LIGHTING );
-			glLineWidth( 3.f );
-			glColor3f( 0.75f, 0.75f, 0.75f );
-
-			//Vector2 p0 = _obst->getP0();
-			//Vector2 p1 = _obst->getP1();
-			glBegin( GL_LINES );
-			glVertex3f( _p0.x(), _p0.y(), _p0.z() );
-			glVertex3f( _p1.x(), _p1.y(), _p1.z() );
-			glEnd();
-			glPopMatrix();
-			glPopAttrib();
+		VisObstacle::VisObstacle( const Vector3 & p0, const Vector3 & p1 ) : GLNode(), _p0( p0 ),
+			                                                                 _p1( p1 ) {
 		}
-	}
+
+		////////////////////////////////////////////////////////////////////////////
+
+		void VisObstacle::drawGL( bool select ) {
+			// TODO: remove this from here place it somewhere where it gets called upon
+			//	context initialization
+			if ( !select ) {
+				glPushAttrib( GL_LINE_BIT | GL_ENABLE_BIT );
+				glDisable( GL_LIGHTING );
+				glLineWidth( 3.f );
+				glColor3f( 0.75f, 0.75f, 0.75f );
+
+				//Vector2 p0 = _obst->getP0();
+				//Vector2 p1 = _obst->getP1();
+				glBegin( GL_LINES );
+				glVertex3f( _p0.x(), _p0.y(), _p0.z() );
+				glVertex3f( _p1.x(), _p1.y(), _p1.z() );
+				glEnd();
+				glPopMatrix();
+				glPopAttrib();
+			}
+		}
+	}	// namespace Runtime
 }	// namespace MengeVis

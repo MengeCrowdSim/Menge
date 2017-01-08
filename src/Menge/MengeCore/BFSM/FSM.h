@@ -124,7 +124,7 @@ namespace Menge {
 		/*!
 		 *	@brief		Templated class for the behavior finite state machine.
 		 */
-		class FSM {
+		class MENGE_API FSM {
 		public:
 			/*!
 			 *	@brief		Constructor.

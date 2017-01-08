@@ -35,11 +35,13 @@ TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
-#if 0
-#include "MengeCore/Agents/StateContext.h"
+
+#include "MengeVis/Runtime/StateContext.h"
+
 #include "MengeCore/Agents/BaseAgent.h"
 #include "MengeCore/BFSM/State.h"
 #include "MengeCore/BFSM/Goals/Goal.h"
+
 #include <sstream>
 #include <limits>
 
@@ -47,9 +49,13 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #undef max
 #endif
 
-namespace Menge {
+namespace MengeVis {
 
-	namespace BFSM {
+	namespace Runtime {
+
+		using Menge::Agents::BaseAgent;
+		using Menge::BFSM::State;
+		using Menge::BFSM::Goal;
 
 		/////////////////////////////////////////////////////////////////////
 		//                   Implementation of StateContext
@@ -59,9 +65,11 @@ namespace Menge {
 
 		/////////////////////////////////////////////////////////////////////
 
-		StateContext::StateContext( State * state ):_state(state) {
-			_vcContext = _state->_velComponent->getContext();
-			_activeTransition = _state->transitions_.size() == 1 ? 0 : NO_ACTIVE_ID;
+		StateContext::StateContext( State * state ) :_state(state) {
+			// TODO: Query the vel component for its *name* so I can instantiate the right
+			//	context for the velocity component.
+			//_vcContext = _state->_velComponent->getContext();
+			_activeTransition = _state->getTransitions().size() == 1 ? 0 : NO_ACTIVE_ID;
 		}
 
 		/////////////////////////////////////////////////////////////////////
@@ -74,7 +82,7 @@ namespace Menge {
 		SceneGraph::ContextResult StateContext::handleKeyboard( SDL_Event & e ) { 
 			SceneGraph::ContextResult result( false, false ); 
 
-			result = _vcContext->handleKeyboard( e );
+			//result = _vcContext->handleKeyboard( e );
 			if ( ! result.isHandled() && _activeTransition != NO_ACTIVE_ID ) {
 				SDLMod mods = e.key.keysym.mod;
 				bool hasCtrl = ( mods & KMOD_CTRL ) > 0;
@@ -105,7 +113,7 @@ namespace Menge {
 			std::string childIndent = indent + "    ";
 
 			ss << "\n" << childIndent << "Display (Ctrl-V)elocity Component";
-			ss << "\n" << _vcContext->getUIText( childIndent + "    " );
+			//ss << "\n" << _vcContext->getUIText( childIndent + "    " );
 
 	#if 1
 			ss << "\n" << childIndent << "Transitions not yet supported";
@@ -122,15 +130,15 @@ namespace Menge {
 
 		/////////////////////////////////////////////////////////////////////
 
-		void StateContext::draw3DGL( const Agents::BaseAgent * agt, bool drawVC, bool drawTrans ) {
-			Goal * goal = _state->_goals[ agt->_id ];
-			goal->drawGL();
+		void StateContext::draw3DGL( const BaseAgent * agt, bool drawVC, bool drawTrans ) {
+			const Goal * goal = _state->getGoal( agt->_id );
+			// Need a goal renderer
+			//goal->drawGL();
 			if ( drawVC ) {
-				_vcContext->draw3DGL( agt, goal );
+				//_vcContext->draw3DGL( agt, goal );
 			}
 			if ( drawTrans && _activeTransition != NO_ACTIVE_ID ) {
 			}
 		}
-	}	// namespace BFSM
-}	// namespace Menge
-#endif 
+	}	// namespace Runtime
+}	// namespace MengeVis

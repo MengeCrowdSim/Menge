@@ -42,83 +42,85 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include "MengeVis/SceneGraph/shapes.h"
 
 namespace MengeVis {
+	namespace Runtime {
 
-	using Menge::Agents::BaseAgent;
-	using Menge::Math::Vector2;
-	using MengeVis::SceneGraph::GLNode;
-	using MengeVis::SceneGraph::Selectable;
+		using Menge::Agents::BaseAgent;
+		using Menge::Math::Vector2;
+		using MengeVis::SceneGraph::GLNode;
+		using MengeVis::SceneGraph::Selectable;
 
-	/////////////////////////////////////////////////////////////////////////////
-	//                     Implementation of VisAgent
-	/////////////////////////////////////////////////////////////////////////////
+		/////////////////////////////////////////////////////////////////////////////
+		//                     Implementation of VisAgent
+		/////////////////////////////////////////////////////////////////////////////
 
-	VisAgent::VisAgent( BaseAgent * agent ) : GLNode(), Selectable(), _agent(agent) {
-		const Vector2 & pos = _agent->_pos;
-		_pos.set( pos.x(), 0.f, pos.y() );
-	}
-
-	/////////////////////////////////////////////////////////////////////////////
-
-	void VisAgent::drawGL( bool select ) {
-		float r=0.5f, g=0.5f, b=0.5f;
-		if ( select ) {
-			loadSelectName();
-		} else {
-			getColor( r, g, b );
+		VisAgent::VisAgent( BaseAgent * agent ) : GLNode(), Selectable(), _agent( agent ) {
+			const Vector2 & pos = _agent->_pos;
+			_pos.set( pos.x(), 0.f, pos.y() );
 		}
-		float radius = _agent->_radius;
-		glPushMatrix();
-		glTranslatef( _pos.x(), _pos.y(), _pos.z() );
-		SceneGraph::Cylinder::drawCylinder( radius, 1.72f, r, g, b, 1.f );
-		
-		glPopMatrix();
-	}
 
-	///////////////////////////////////////////////////////////////////////////////
+		/////////////////////////////////////////////////////////////////////////////
 
-	void VisAgent::getColor( float & r, float & g, float & b ) {
-		if ( _selected ) {
-			r = 1.f;
-			g = 1.f;
-			b = 1.f;
-		} else {
-			// TODO: this is bad.  I only support six classes 
-			//		Ultimately, replace this with a class that determines colors based
-			//		on arbitrary rules
-			size_t colorClass = _agent->_class % 6;
-			switch( colorClass ) {
-				case 0:
-					r = 0.9f;	// red
-					g = 0.1f;
-					b = 0.1f;
-					break;
-				case 1:
-					r = 0.25f;	// blue
-					g = 0.25f;
-					b = 0.9f;
-					break;
-				case 2:
-					r = 0.1f;	// green
-					g = 0.9f;
-					b = 0.1f;
-					break;
-				case 3:
-					r = 0.9f;	// orange-yellow
-					g = 0.75f;
-					b = 0.1f;
-					break;
-				case 4:
-					r = 0.25f;	// cyan
-					g = 0.9f;
-					b = 0.9f;	
-					break;
-				case 5:
-					r = 0.9f;	// magenta
-					g = 0.1f;
-					b = 0.9f;
-				default:
-					break;
+		void VisAgent::drawGL( bool select ) {
+			float r = 0.5f, g = 0.5f, b = 0.5f;
+			if ( select ) {
+				loadSelectName();
+			} else {
+				getColor( r, g, b );
+			}
+			float radius = _agent->_radius;
+			glPushMatrix();
+			glTranslatef( _pos.x(), _pos.y(), _pos.z() );
+			SceneGraph::Cylinder::drawCylinder( radius, 1.72f, r, g, b, 1.f );
+
+			glPopMatrix();
+		}
+
+		///////////////////////////////////////////////////////////////////////////////
+
+		void VisAgent::getColor( float & r, float & g, float & b ) {
+			if ( _selected ) {
+				r = 1.f;
+				g = 1.f;
+				b = 1.f;
+			} else {
+				// TODO: this is bad.  I only support six classes 
+				//		Ultimately, replace this with a class that determines colors based
+				//		on arbitrary rules
+				size_t colorClass = _agent->_class % 6;
+				switch ( colorClass ) {
+					case 0:
+						r = 0.9f;	// red
+						g = 0.1f;
+						b = 0.1f;
+						break;
+					case 1:
+						r = 0.25f;	// blue
+						g = 0.25f;
+						b = 0.9f;
+						break;
+					case 2:
+						r = 0.1f;	// green
+						g = 0.9f;
+						b = 0.1f;
+						break;
+					case 3:
+						r = 0.9f;	// orange-yellow
+						g = 0.75f;
+						b = 0.1f;
+						break;
+					case 4:
+						r = 0.25f;	// cyan
+						g = 0.9f;
+						b = 0.9f;
+						break;
+					case 5:
+						r = 0.9f;	// magenta
+						g = 0.1f;
+						b = 0.9f;
+					default:
+						break;
+				}
 			}
 		}
-	}
+	}	// namespace Runtime
 }	// namespace MengeVis

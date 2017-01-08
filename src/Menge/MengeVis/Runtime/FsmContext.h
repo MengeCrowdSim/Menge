@@ -37,61 +37,53 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 */
 
 /*!
- *	@file		StateContext.h
+ *	@file		FsmContext.h
  *	@brief		The definition of a basic UI context for finite
- *				state machine *states*.
+ *				state machine objects.
  */
-#if 0
 
-#ifndef __STATE_CONTEXT_H__
-#define	__STATE_CONTEXT_H__
+#ifndef __FSM_CONTEXT_H__
+#define	__FSM_CONTEXT_H__
 
 #include "MengeCore/CoreConfig.h"
-#include "MengeCore/BFSM/fsmCommon.h"
-#include "Context.h"
-#include "VelocityComponents/VelCompContext.h"
+#include "MengeVis/Runtime/StateContext.h"
+#include "MengeVis/SceneGraph/Context.h"
 
+// forward declarations
 namespace Menge {
-
-	// forward declaration
-	namespace BFSM {
-		class StateContext;
-	}
-
-	/*!
-	 *  @brief  A map from state ids to statecontexts to facilitate lookups for a visualized agent
-	 */
-	typedef HASH_MAP< size_t, BFSM::StateContext * > StateContextMap;
-
 	namespace Agents {
 		class BaseAgent;
 	}
 
 	namespace BFSM {
+		class FSM;
+		class StateContext;
+	}
+}
 
-		// Forward declarations
-		class State;
+namespace MengeVis {
+	namespace Runtime {
 
 		/*!
-		 *	@brief		Base context for finite state machine states.
+		 *	@brief		Base context for finite state machine elements.
 		 *
 		 *	This differs from the standard scene graph context by being
 		 *	dependent on an input agent.  
 		 */
-		class StateContext : public SceneGraph::Context {
+		class MENGEVIS_API FsmContext : public SceneGraph::Context {
 		public:
 			/*!
 			 *	@brief		Constructor.
 			 *
-			 *	@param		state		A pointer to the underlying fsm state.
-			 *							The context will *not* delete the state.
+			 *	@param		fsm		A pointer to the underlying fsm.
+			 *						The context will *not* delete the fsm.
 			 */
-			StateContext( State * state );
+			FsmContext( Menge::BFSM::FSM * fsm );
 
 			/*!
 			 *	@brief		Destructor.
 			 */
-			virtual ~StateContext();
+			virtual ~FsmContext();
 
 			/*!
 			 *	@brief		Give the context the opportunity to respond to a keyboard
@@ -104,53 +96,67 @@ namespace Menge {
 			virtual SceneGraph::ContextResult handleKeyboard( SDL_Event & e );
 
 			/*!
-			 *	@brief		Provides a string to be printed in the display as a UI element
-			 *				detailing state information.
+			 *	@brief		Draw UI elements into the context.
 			 *
-			 *	@param		indent		An optional string representing indentation to be
-			 *							applied to the text.  It is prefixed at the start
-			 *							of each line.
-			 *	@returns	The string for printing on the UI layer.
+			 *	@param		agt			The particular agent for which the FSM is being visualized.
+			 *	@param		vWidth		The width of the viewport (in pixels).
+			 *	@param		vHeight		The height of the viewport (in pixels).
+			 *	@param		select		Defines if the drawing is being done for selection
+			 *							purposes (true) or visualization (false).
 			 */
-			std::string getUIText( const std::string & indent="" ) const;
+			virtual void drawUIGL( const Menge::Agents::BaseAgent * agt, int vWidth, int vHeight,
+								   bool select=false );
 
 			/*!
 			 *	@brief		Draw context elements into the 3D world.
 			 *
 			 *	@param		agt			The particular agent for which the FSM is being visualized.
-			 *	@param		drawVC		Draw the velocity component
-			 *	@param		drawTrans	Draw the transition
+			 *	@param		select		Defines if the drawing is being done for selection
+			 *							purposes (true) or visualization (false).
 			 */
-			virtual void draw3DGL( const Agents::BaseAgent * agt, bool drawVC, bool drawTrans );
+			virtual void draw3DGL( const Menge::Agents::BaseAgent * agt, bool select=false );
+
+			/*!
+			 *	@brief		Adds a state context to the fsm context.
+			 *
+			 *	Each call should provide a unique state.  In debug mode, this is tested using an
+			 *	assertion.
+			 *
+			 *	These contexts will be deleted when the FsmContext is deleted.
+			 *
+			 *	@param		id			The globally unique id of the state.
+			 *	@param		context		A pointer to the context for the given state.
+			 */
+			void addStateContext( size_t id, StateContext * context );
 
 		protected:
 			/*!
-			 *	@brief		The underlying finite state machine state.
+			 *	@brief		The underlying finite state machine.
 			 */
-			State * _state;
+			Menge::BFSM::FSM * _fsm;
 
 			/*!
-			 *	@brief		The value used to indicate that no id is selected.
-			 *		
-			 *	Used in conjunction with the _activeVC and _activeTransition
+			 *	@brief		Determines if the velocity component is displayed in the 3D context.
 			 */
-			static size_t NO_ACTIVE_ID;
+			bool	_drawVC;
 
 			/*!
-			 *	@brief		The velocity component context for this state.
+			 *	@brief		Determines if the transition is displayed in the 3D context.
 			 */
-			VelCompContext * _vcContext;
+			bool	_drawTrans;
 
 			/*!
-			 *	@brief		The id of the "active" transition.
-			 *				
-			 *	This is the index of the transition which is currently being
-			 *	visualized in the context.
+			 *	@brief		The context for the state currently being displayed.
 			 */
-			size_t _activeTransition;
-			
+			StateContext *	_currStateCtx;
+
+			/*!
+			 *	@brief		The contexts for the given states.
+			 */
+			StateContextMap	_states;
+
 		};
-	}	// namespace BFSM
+	}	// namespace Runtime
 }	// namespace Menge
-#endif	// __STATE_CONTEXT_H__
-#endif // 0
+
+#endif	// __FSM_CONTEXT_H__

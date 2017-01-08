@@ -284,10 +284,22 @@ namespace Menge {
 			 *	@brief		Clears the state's current goal selector.
 			 */
 			void clearGoalSelector();
+
+			/*!
+			 *	@brief		Get access to the state transitions.
+			 *
+			 *	@returns	The transitions.
+			 */
+			const std::vector< Transition * > getTransitions() const { return transitions_; }
+
+			/*!
+			 *	@brief		Acquire a state goal.
+			 *
+			 *	@param		goalId		The identifier for the desired goal
+			 *	@returns	The goal mapped to the id.
+			 */
+			const Goal * getGoal( size_t goalId ) { return _goals[ goalId ]; }
 			
-			friend class StateContext;
-
-
 		protected:
 			/*!
 			 *	@brief		Test the transitions out of this state, tracking cycles.

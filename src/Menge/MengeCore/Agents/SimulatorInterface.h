@@ -89,6 +89,13 @@ namespace Menge {
 			void setBFSM( BFSM::FSM * fsm );
 
 			/*!
+			 *	@brief		Get a pointer to the simulator's BFSM.
+			 *
+			 *	@returns	The simulator's BFSM.
+			 */
+			BFSM::FSM * getBFSM() { return _fsm; }
+
+			/*!
 			 *	@brief		Advances the simulator state the logical time step.
 			 *
 			 *	@returns	True if the simulator can advance further (e.g., agents not in final

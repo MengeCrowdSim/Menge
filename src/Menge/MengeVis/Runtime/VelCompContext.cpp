@@ -35,20 +35,33 @@ TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
-#if 0
-#include "VelCompContext.h"
+
+#include "MengeVis/Runtime/VelCompContext.h"
+
 #include "MengeCore/Agents/BaseAgent.h"
 #include "MengeCore/Agents/PrefVelocity.h"
-#include "MengeCore/BFSM/VelocityComponents/VelComponent.h"
-#include "shapes.h"
 #include "MengeCore/BFSM/Goals/Goal.h"
+#include "MengeCore/BFSM/VelocityComponents/VelComponent.h"
+#include "MengeVis/SceneGraph/shapes.h"
+#include "MengeVis/SceneGraph/TextWriter.h"
+#ifdef __APPLE__
+#include <OpenGL/gl.h>
+#else
+#include "GL/gl.h"
+#endif
+
 #include <sstream>
-#include "TextWriter.h"
 #include <iomanip>
 
-namespace Menge {
+namespace MengeVis {
+	namespace Runtime {
 
-	namespace BFSM {
+		using Menge::DEG_TO_RAD;
+		using Menge::RAD_TO_DEG;
+		using Menge::Agents::BaseAgent;
+		using Menge::Agents::PrefVelocity;
+		using Menge::Math::Vector2;
+		using Menge::Math::Vector3;
 
 		/////////////////////////////////////////////////////////////////////
 		//                   Implementation of VelCompContext
@@ -62,9 +75,11 @@ namespace Menge {
 
 		/////////////////////////////////////////////////////////////////////
 
-		void VelCompContext::drawPrefVel( const Agents::PrefVelocity & pVel, const Vector2 & pos, float elevation ) {
+		void VelCompContext::drawPrefVel( const PrefVelocity & pVel, const Vector2 & pos,
+										  float elevation ) {
 
-			glPushAttrib( GL_LINE_BIT | GL_COLOR_BUFFER_BIT | GL_ENABLE_BIT | GL_DEPTH_BUFFER_BIT | GL_POLYGON_BIT );
+			glPushAttrib( GL_LINE_BIT | GL_COLOR_BUFFER_BIT | GL_ENABLE_BIT | GL_DEPTH_BUFFER_BIT |
+						  GL_POLYGON_BIT );
 			glDepthMask( GL_FALSE );
 			glDisable( GL_DEPTH_TEST );
 			const float length = pVel.getSpeed();
@@ -130,7 +145,7 @@ namespace Menge {
 
 		/////////////////////////////////////////////////////////////////////
 		
-		void VelCompContext::drawGoal( const Vector2 & goalPoint, const Agents::BaseAgent * agent ) const {
+		void VelCompContext::drawGoal( const Vector2 & goalPoint, const BaseAgent * agent ) const {
 			drawGoal( Vector3( goalPoint.x(), 0.f, goalPoint.y() ), agent->_radius );
 		}
 
@@ -151,6 +166,5 @@ namespace Menge {
 			glPopAttrib();
 		}
 
-	}	// namespace BFSM
-}	// namespace Menge
-#endif // 0
+	}	// namespace Runtime
+}	// namespace MengeVis

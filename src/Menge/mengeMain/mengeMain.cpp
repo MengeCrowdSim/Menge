@@ -44,6 +44,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include "MengeCore/Runtime/SimulatorDB.h"
 
 #include "MengeVis/Runtime/BaseAgentContext.h"
+#include "MengeVis/Runtime/FsmContext.h"
 #include "MengeVis/Runtime/SimSystem.h"
 #include "MengeVis/SceneGraph/ContextSwitcher.h"
 #include "MengeVis/SceneGraph/GLScene.h"
@@ -103,8 +104,9 @@ int simMain( SimulatorDBEntry * dbEntry, const std::string & behaveFile,
 	}
 
 	using Menge::Agents::SimulatorInterface;
-	using MengeVis::BaseAgentContext;
-	using MengeVis::SimSystem;
+	using MengeVis::Runtime::BaseAgentContext;
+	using MengeVis::Runtime::FsmContext;
+	using MengeVis::Runtime::SimSystem;
 	using MengeVis::SceneGraph::Context;
 	using MengeVis::SceneGraph::ContextSwitcher;
 	using MengeVis::SceneGraph::GLScene;
@@ -167,7 +169,8 @@ int simMain( SimulatorDBEntry * dbEntry, const std::string & behaveFile,
 			view.setFixedStep( TIME_STEP );
 			view.setBGColor( 0.1f, 0.1f, 0.1f );
 			ContextSwitcher * switcher = new ContextSwitcher();
-			Context * ctx = new BaseAgentContext(system->getVisAgents(), system->getAgentCount());
+			BaseAgentContext * ctx = new BaseAgentContext( system->getVisAgents(), system->getAgentCount() );
+			ctx->setFSMContext( new FsmContext( sim->getBFSM() ) );
 			// TODO: Set the fsm context, as available.
 			// TODO: Use AgentContextDatabase to look up targeted agent context.
 			switcher->addContext( ctx, SDLK_a );

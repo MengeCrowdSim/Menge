@@ -35,6 +35,9 @@
     <ClCompile Include="$(SrcDir)\MengeVis\Viewer\ScreenGrab.cpp" />
     <ClCompile Include="$(SrcDir)\MengeVis\Viewer\ViewConfig.cpp" />
     <ClCompile Include="$(SrcDir)\MengeVis\Viewer\Watermark.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\FsmContext.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\StateContext.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\VelCompContext.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(SrcDir)\MengeVis\Runtime\BaseAgentContext.h" />
@@ -64,7 +67,10 @@
     <ClInclude Include="$(SrcDir)\MengeVis\Viewer\ScreenGrab.h" />
     <ClInclude Include="$(SrcDir)\MengeVis\Viewer\ViewConfig.h" />
     <ClInclude Include="$(SrcDir)\MengeVis\Viewer\Watermark.h" />
-    <ClInclude Include="..\..\..\src\Menge\MengeVis\VisConfig.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\FsmContext.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\StateContext.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VelCompContext.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\VisConfig.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{57FA5E04-F7D0-47B7-900D-CA2BA94E9D52}</ProjectGuid>

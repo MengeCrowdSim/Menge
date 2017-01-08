@@ -36,119 +36,118 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#if 0
-
 /*!
- *	@file		VelCompContext.h
+ *	@file		StateContext.h
  *	@brief		The definition of a basic UI context for finite
- *				state machine *velocity components*.
+ *				state machine *states*.
  */
 
-#ifndef __VEL_COMP_CONTEXT_H__
-#define	__VEL_COMP_CONTEXT_H__
+#ifndef __STATE_CONTEXT_H__
+#define	__STATE_CONTEXT_H__
 
-#include "Context.h"
-#include <vector>
+#include "MengeCore/mengeCommon.h"
+#include "MengeVis/VisConfig.h"
+#include "MengeVis/Runtime/VelCompContext.h"
+#include "MengeVis/SceneGraph/Context.h"
 
 namespace Menge {
-
+	namespace BFSM {
+		class State;
+	}
 	namespace Agents {
 		class BaseAgent;
-		class PrefVelocity;
 	}
+}
 
-	namespace BFSM {
+namespace MengeVis {
 
-		// Forward declarations
-		class VelComponent;
-		class Goal;
+	// forward declaration
+	namespace Runtime {
+		class StateContext;
 
 		/*!
-		 *	@brief		Base context for finite state machine velocity components.
+		 *  @brief  A map from state ids to statecontexts to facilitate lookups for a visualized agent
+		 */
+		typedef HASH_MAP< size_t, Runtime::StateContext * > StateContextMap;
+
+		/*!
+		 *	@brief		Base context for finite state machine states.
 		 *
 		 *	This differs from the standard scene graph context by being
 		 *	dependent on an input agent.  
 		 */
-		class MENGE_API VelCompContext : public SceneGraph::Context {
+		class StateContext : public SceneGraph::Context {
 		public:
 			/*!
 			 *	@brief		Constructor.
-			 */
-			VelCompContext(){}
-
-			/*!
-			 *	@brief		This supplants the destructor.
 			 *
-			 *	In order to preserve potential problems in windows when
-			 *	dlls do not share the same c-runtime library, the destructor
-			 *	is held to be private.  To garbage collect an VelComponent,
-			 *	the destroy method should be called (which in turn, will call
-			 *	the destructor from its own memory space, averting run-time
-			 *  crashes).
-			 *
-			 *	Once this has been called, the VelComponent no longer exists.  Calling
-			 *	methods or accessing members will produce indetermine behavior 
-			 *	(most likely errors).
+			 *	@param		state		A pointer to the underlying fsm state.
+			 *							The context will *not* delete the state.
 			 */
-			void destroy() { delete this; }
+			StateContext( Menge::BFSM::State * state );
 
-		protected:
 			/*!
 			 *	@brief		Destructor.
 			 */
-			virtual ~VelCompContext(){}
+			virtual ~StateContext();
 
-		public:
+			/*!
+			 *	@brief		Give the context the opportunity to respond to a keyboard
+			 *				event.
+			 *
+			 *	@param		e		The SDL event with the keyboard event data.
+			 *	@returns	A ContextResult instance reporting if the event was handled and
+			 *				if redrawing is necessary.
+			 */
+			virtual SceneGraph::ContextResult handleKeyboard( SDL_Event & e );
+
 			/*!
 			 *	@brief		Provides a string to be printed in the display as a UI element
-			 *				detailing velocity component information.
+			 *				detailing state information.
 			 *
 			 *	@param		indent		An optional string representing indentation to be
 			 *							applied to the text.  It is prefixed at the start
 			 *							of each line.
 			 *	@returns	The string for printing on the UI layer.
 			 */
-			virtual std::string getUIText( const std::string & indent="" ) const;
+			std::string getUIText( const std::string & indent="" ) const;
 
 			/*!
 			 *	@brief		Draw context elements into the 3D world.
 			 *
-			 *	This should never be called in select mode.
-			 *
 			 *	@param		agt			The particular agent for which the FSM is being visualized.
-			 *	@param		goal		The agent's goal (although this may be ignored).
+			 *	@param		drawVC		Draw the velocity component
+			 *	@param		drawTrans	Draw the transition
 			 */
-			virtual void draw3DGL( const Agents::BaseAgent * agt, const Goal * goal ){}
+			virtual void draw3DGL( const Menge::Agents::BaseAgent * agt, bool drawVC,
+								   bool drawTrans );
 
 		protected:
 			/*!
-			 *	@brief		Draws the preferred velocity in a consistent way
-			 *
-			 *	@param		pVel		The preferred velocity of the agent computed by the vel component.
-			 *	@param		pos			The position of the velocity vector's origin.
-			 *	@param		elevation	The optional elevation of the velocity.
- 			 */
-			void drawPrefVel( const Agents::PrefVelocity & pVel, const Vector2 & pos, float elevation=0.f );
-	 
-			/*!
-			 *	@brief		Draws the 2d goal point in a consistent manner
-			 *
-			 *	@param		goalPoint		The position of the agent's goal
-			 *	@param		agent			The agent
+			 *	@brief		The underlying finite state machine state.
 			 */
-			void drawGoal( const Vector2 & goalPoint, const Agents::BaseAgent * agent ) const;
+			Menge::BFSM::State * _state;
 
 			/*!
-			 *	@brief		Draws the 3d goal point in a consistent manner
-			 *
-			 *	@param		agtRadius		The agent's radius
-			 *	@param		goalPoint		The position of the goal
+			 *	@brief		The value used to indicate that no id is selected.
+			 *		
+			 *	Used in conjunction with the _activeVC and _activeTransition
 			 */
-			void drawGoal( const Vector3 & goalPoint, float agtRadius=0.19f ) const;
+			static size_t NO_ACTIVE_ID;
+
+			/*!
+			 *	@brief		The velocity component context for this state.
+			 */
+			VelCompContext * _vcContext;
+
+			/*!
+			 *	@brief		The id of the "active" transition.
+			 *				
+			 *	This is the index of the transition which is currently being
+			 *	visualized in the context.
+			 */
+			size_t _activeTransition;
 		};
-
-	}	// namespace BFSM
-}	// namespace Menge
-
-#endif	// __VEL_COMP_CONTEXT_H__
-#endif // 0
+	}	// namespace Runtime
+}	// namespace MengeVis
+#endif	// __STATE_CONTEXT_H__
