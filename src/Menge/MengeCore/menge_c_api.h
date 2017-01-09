@@ -65,6 +65,33 @@ extern "C" {
 	 *	@returns			True if the values were successfully set.
 	 */
 	MENGE_API bool  GetAgentVelocity( size_t i, float * x, float * y, float * z );
+
+	/*!
+	 *	@brief		Reports the 2D orientation of the indicated agent.  It is the facing direction
+	 *				of the agent, projected onto the xz plane.
+	 *
+	 *	@param		i		The index of the desired agent.
+	 *	@param[out]	x		The orient's x-component.
+	 *	@param[out]	y		The orient's y-component.
+	 *	@returns			True if the values were successfully set.
+	 */
+	MENGE_API bool  GetAgentOrient( size_t i, float * x, float * y );
+
+	/*!
+	*	@brief		Reports the agent class for this particular class.
+	*
+	*	@param		i		The index of the desired agent.
+	*	@returns			The agent's class (-1 if it can't be found).
+	*/
+	MENGE_API int GetAgentClass( size_t i );
+
+	/*!
+	*	@brief		Reports the radius of the given agent.
+	*
+	*	@param		i		The index of the desired agent.
+	*	@returns			The agent's radius (negative for errors).
+	*/
+	MENGE_API float GetAgentRadius( size_t i );
 }
 
 #endif	// __MENGE_C_API__
