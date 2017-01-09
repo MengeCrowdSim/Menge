@@ -271,8 +271,6 @@ namespace Menge {
 		return logger;
 	}
 	 
-	#if defined(_MSC_VER)
-
 	/////////////////////////////////////////////////////////////////////
 
 	Logger & operator<<( Logger & logger, size_t value ) {
@@ -284,7 +282,6 @@ namespace Menge {
 		return logger;
 	}
 
-	#else 
 	/////////////////////////////////////////////////////////////////////
 
 	Logger & operator<<( Logger & logger, unsigned int value ) {
@@ -296,7 +293,6 @@ namespace Menge {
 		return logger;
 	}
 
-	#endif
 	/////////////////////////////////////////////////////////////////////
 
 

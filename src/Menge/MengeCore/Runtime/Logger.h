@@ -119,7 +119,7 @@ namespace Menge {
 		friend MENGE_API Logger & operator<<( Logger & logger, const char * msg );
 
 
-			/*!
+		/*!
 		 *	@brief		Writes long unsigned int to the logger based on current status.
 		 *
 		 *	@param		logger		A reference to a logger.
@@ -128,8 +128,7 @@ namespace Menge {
 		 */
 		friend MENGE_API Logger & operator<<( Logger & logger, long unsigned int value );
 	        
-		#if defined(_MSC_VER)
-		   /*!
+	    /*!
 		 *	@brief		Writes a size_t to the logger based on current status. Only done in
 		 *				windows, as GCC complains.
 		 *
@@ -138,8 +137,7 @@ namespace Menge {
 		 *	@returns	A reference to the logger streamed to.
 		 */
 		friend MENGE_API Logger & operator<<( Logger & logger, size_t value );
-		#endif
-
+		
 		/*!
 		 *	@brief		Writes long unsigned int to the logger based on current status.
 		 *
