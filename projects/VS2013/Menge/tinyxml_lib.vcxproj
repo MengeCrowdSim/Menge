@@ -74,12 +74,18 @@
     <OutDir>$(BuildRoot)\lib\</OutDir>
     <IntDir>$(BuildRoot)\$(ProjectName)\$(Configuration)\</IntDir>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(BuildRoot)\lib\x64\</OutDir>
+    <IntDir>$(BuildRoot)\$(ProjectName)\$(Configuration)_x64\</IntDir>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(BuildRoot)\lib\</OutDir>
     <IntDir>$(BuildRoot)\$(ProjectName)\$(Configuration)\</IntDir>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(BuildRoot)\lib\x64\</OutDir>
+    <IntDir>$(BuildRoot)\$(ProjectName)\$(Configuration)_x64\</IntDir>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <PreBuildEvent>
       <Command />
@@ -137,7 +143,7 @@
       <Culture>0x0407</Culture>
     </ResourceCompile>
     <Lib>
-      <OutputFile>$(BuildRoot)\lib\tinyxml.lib</OutputFile>
+      <OutputFile>$(OutDir)tinyxml.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
     <Bscmake>
@@ -200,7 +206,7 @@
       <Culture>0x0407</Culture>
     </ResourceCompile>
     <Lib>
-      <OutputFile>$(BuildRoot)\lib\tinyxml_d.lib</OutputFile>
+      <OutputFile>$(OutDir)tinyxml_d.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
     <Bscmake>

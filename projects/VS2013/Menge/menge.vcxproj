@@ -76,6 +76,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(ExeDir)\</OutDir>
+    <IntDir>$(BuildRoot)\$(ProjectName)\$(Configuration)_x64\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(ExeDir)\</OutDir>
@@ -84,6 +86,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(ExeDir)\</OutDir>
+    <IntDir>$(BuildRoot)\$(ProjectName)\$(Configuration)_x64\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -123,7 +127,7 @@ xcopy "$(SolutionDir)..\..\resources\common\*.*" "$(ExeDir)" /d /y</Command>
     </ClCompile>
     <Link>
       <AdditionalDependencies>tinyxml_d.lib;MengeCore_d.lib;MengeVis_d.lib;OpenGL32.Lib;GlU32.lib;SDL.lib;SDLmain.lib;SDL_image.lib;SDL_ttf.lib;libpng.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\..\resources\winlib;$(BuildRoot)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\resources\winlib;$(BuildRoot)\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
     </Link>
@@ -173,7 +177,7 @@ xcopy "$(SolutionDir)..\..\resources\common\*.*" "$(ExeDir)" /d /y</Command>
     </ClCompile>
     <Link>
       <AdditionalDependencies>tinyxml.lib;MengeCore.lib;MengeVis.lib;OpenGL32.Lib;GlU32.lib;SDL.lib;SDLmain.lib;SDL_image.lib;SDL_ttf.lib;libpng.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\..\resources\winlib;$(BuildRoot)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\resources\winlib;$(BuildRoot)\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
