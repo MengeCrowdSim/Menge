@@ -137,7 +137,7 @@ namespace Menge {
 		 *	@returns	A reference to the logger streamed to.
 		 */
 		friend MENGE_API Logger & operator<<( Logger & logger, size_t value );
-		
+#if !defined _MSC_VER || defined _M_X64		
 		/*!
 		 *	@brief		Writes long unsigned int to the logger based on current status.
 		 *
@@ -146,7 +146,7 @@ namespace Menge {
 		 *	@returns	A reference to the logger streamed to.
 		 */
 		friend MENGE_API Logger & operator<<( Logger & logger, unsigned int value );
-
+#endif
 		/*!
 		 *	@brief		Writes int to the logger based on current status.
 		 *

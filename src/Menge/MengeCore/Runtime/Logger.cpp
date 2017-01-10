@@ -283,7 +283,7 @@ namespace Menge {
 	}
 
 	/////////////////////////////////////////////////////////////////////
-
+#if !defined _MSC_VER || defined _M_X64
 	Logger & operator<<( Logger & logger, unsigned int value ) {
 		if ( logger._validFile ) {
 			logger._file << value;
@@ -292,7 +292,7 @@ namespace Menge {
 		}
 		return logger;
 	}
-
+#endif
 	/////////////////////////////////////////////////////////////////////
 
 
