@@ -36,7 +36,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "MengeVis/Runtime/BaseAgentContext.h"
+#include "MengeVis/Runtime/AgentContext/BaseAgentContext.h"
 
 #include "MengeCore/Agents/BaseAgent.h"
 #include "MengeCore/Agents/Obstacle.h"
@@ -69,22 +69,14 @@ namespace MengeVis {
 
 		////////////////////////////////////////////////////////////////////////////
 
-		BaseAgentContext::BaseAgentContext( VisAgent ** agents, size_t agtCount,
-											FsmContext * fsmCtx ) : 
-			SceneGraph::SelectContext(), _selected( 0x0 ),
-			_state( DEFAULT_ST ), _showNbrRadius( false ), _showNbr( false ),
-			_showMaxSpd( false ), _showVel( false ), _showPrefVel( false ),
-			_showOrient( false ), _visAgents( agents ),
-			_agtCount( agtCount ), _digitCount( 0 )
-			, _fsmCtx(fsmCtx)
-		{
-			_digits[ MAX_TYPE_DIGITS ] = '\0';
-		}
+		BaseAgentContext::BaseAgentContext() : SceneGraph::SelectContext(), _selected( 0x0 ),
+											   _showNbrRadius( false ), _showNbr( false ),
+											   _showMaxSpd( false ), _showVel( false ),
+											   _showPrefVel( false ), _showOrient( false ) {}
 
 		////////////////////////////////////////////////////////////////////////////
 
 		BaseAgentContext::~BaseAgentContext() {
-			if ( _fsmCtx ) delete _fsmCtx;
 		}
 
 		////////////////////////////////////////////////////////////////////////////
@@ -96,56 +88,31 @@ namespace MengeVis {
 			bool hasAlt = ( mods & KMOD_ALT ) > 0;
 			bool hasShift = ( mods & KMOD_SHIFT ) > 0;
 			bool noMods = !( hasCtrl || hasAlt || hasShift );
-			if ( _fsmCtx ) {
-				result = _fsmCtx->handleKeyboard( e );
-			}
-			if ( !result.isHandled() ) {
-				if ( e.type == SDL_KEYDOWN ) {
-					if ( noMods ) {
-						if ( _state == DEFAULT_ST ) {
-							if ( e.key.keysym.sym == SDLK_r ) {
-								_showNbrRadius = !_showNbrRadius;
-								result.set( true, true );
-							} else if ( e.key.keysym.sym == SDLK_n ) {
-								_showNbr = !_showNbr;
-								result.set( true, true );
-							} else if ( e.key.keysym.sym == SDLK_m ) {
-								_showMaxSpd = !_showMaxSpd;
-								result.set( true, true );
-							} else if ( e.key.keysym.sym == SDLK_v ) {
-								_showVel = !_showVel;
-								result.set( true, true );
-							} else if ( e.key.keysym.sym == SDLK_p ) {
-								_showPrefVel = !_showPrefVel;
-								result.set( true, true );
-							} else if ( e.key.keysym.sym == SDLK_RETURN ) {
-								beginIDTyping();
-								result.set( true, true );
-							} else if ( e.key.keysym.sym == SDLK_o ) {
-								_showOrient = !_showOrient;
-								result.set( true, true );
-							}
-						} else if ( _state == TYPE_AGENT_ID_ST ) {
-							result.set( true, false );
-							if ( ( e.key.keysym.sym >= SDLK_0 && e.key.keysym.sym <= SDLK_9 ) ||
-								 ( e.key.keysym.sym >= SDLK_KP0 && e.key.keysym.sym <= SDLK_KP9 ) ) {
-								int offset;
-								if ( e.key.keysym.sym <= SDLK_9 ) offset = e.key.keysym.sym - SDLK_0;
-								else offset = e.key.keysym.sym - SDLK_KP0;
-								char digit = '0' + offset;
-								addIDDigit( digit );
-								result.set( true, true );
-							} else if ( e.key.keysym.sym == SDLK_RETURN ) {
-								finishIDTyping();
-								result.set( true, true );
-							} else if ( e.key.keysym.sym == SDLK_SPACE ) {
-								cancelIDTyping();
-								result.set( true, true );
-							}
-						}
+
+			if ( e.type == SDL_KEYDOWN ) {
+				if ( noMods ) {
+					if ( e.key.keysym.sym == SDLK_r ) {
+						_showNbrRadius = !_showNbrRadius;
+						result.set( true, true );
+					} else if ( e.key.keysym.sym == SDLK_n ) {
+						_showNbr = !_showNbr;
+						result.set( true, true );
+					} else if ( e.key.keysym.sym == SDLK_m ) {
+						_showMaxSpd = !_showMaxSpd;
+						result.set( true, true );
+					} else if ( e.key.keysym.sym == SDLK_v ) {
+						_showVel = !_showVel;
+						result.set( true, true );
+					} else if ( e.key.keysym.sym == SDLK_p ) {
+						_showPrefVel = !_showPrefVel;
+						result.set( true, true );
+					} else if ( e.key.keysym.sym == SDLK_o ) {
+						_showOrient = !_showOrient;
+						result.set( true, true );
 					}
 				}
 			}
+
 			return result;
 		}
 
@@ -156,54 +123,7 @@ namespace MengeVis {
 			glPushAttrib( GL_ENABLE_BIT );
 			glDisable( GL_LIGHTING );
 			draw3DGL();
-			const BaseAgent * agt = 0x0;
-			if ( _fsmCtx ) {
-				agt = ( _selected ) ? _selected->getAgent() : 0x0;
-				_fsmCtx->draw3DGL( agt );
-			}
-			drawUIGL( vWidth, vHeight );
-			if ( _fsmCtx ) {
-				_fsmCtx->drawUIGL( agt, vWidth, vHeight );
-			}
 			glPopAttrib();
-		}
-
-		////////////////////////////////////////////////////////////////////////////
-
-		bool BaseAgentContext::selectGL( const GLScene * scene, const GLCamera & camera,
-										 int vWidth, int vHeight, int * selectPoint ) {
-			bool val = SceneGraph::SelectContext::selectGL( scene, camera, vWidth, vHeight,
-															selectPoint );
-			if ( val ) {
-				VisAgent * s = 
-					dynamic_cast<VisAgent *>( SceneGraph::Selectable::getSelectedObject() );
-				val = s != _selected;
-				_selected = s;
-			} else if ( _selected ) {
-				_selected = 0x0;
-				val = true;
-			}
-			return val;
-		}
-
-		////////////////////////////////////////////////////////////////////////////
-
-		void BaseAgentContext::drawUIGL( int vWidth, int vHeight, bool select ) {
-			if ( !select ) {
-				std::stringstream ss;
-				ss << contextName();
-				if ( _visAgents != 0x0 ) {
-					// Only print the help if the support is possible
-					ss << "\n<Enter> to select by id";
-				}
-
-				if ( _selected ) {
-					ss << agentText( _selected->getAgent() );
-				}
-				writeToScreen( ss.str(), SceneGraph::TextWriter::LEFT_TOP, 15, 10.f, 10.f );
-
-				drawIDTyping();
-			}
 		}
 
 		////////////////////////////////////////////////////////////////////////////
@@ -365,67 +285,6 @@ namespace MengeVis {
 				_maxAngVel
 				*/
 			return ss.str();
-		}
-
-		////////////////////////////////////////////////////////////////////////////
-
-		void BaseAgentContext::beginIDTyping() {
-			if ( _visAgents != 0x0 ) {
-				_state = TYPE_AGENT_ID_ST;
-				_digitCount = 0;
-				_digits[ 0 ] = '\0';
-			}
-		}
-
-		////////////////////////////////////////////////////////////////////////////
-
-		void BaseAgentContext::finishIDTyping() {
-			_state = DEFAULT_ST;
-			size_t id = (size_t)atoi( &_digits[ 0 ] );	// I know it must be non-negative
-			if ( id < _agtCount ) {
-				VisAgent * s = _visAgents[ id ];
-				if ( s != _selected ) {
-					SceneGraph::Selectable::setSelectedObject( s );
-					_selected = s;
-				}
-			}
-		}
-
-		////////////////////////////////////////////////////////////////////////////
-
-		void BaseAgentContext::cancelIDTyping() {
-			_state = DEFAULT_ST;
-		}
-
-		////////////////////////////////////////////////////////////////////////////
-
-		void BaseAgentContext::drawIDTyping() {
-			if ( _state == TYPE_AGENT_ID_ST ) {
-				std::stringstream ss;
-				ss << "Type an id to select: " << ( &_digits[ 0 ] );
-				ss << "\n   (Enter to finish, Space to cancel)";
-				writeToScreen( ss.str(), SceneGraph::TextWriter::CENTERED, 15 );
-			}
-		}
-
-		////////////////////////////////////////////////////////////////////////////
-
-		void BaseAgentContext::addIDDigit( const char digit ) {
-			if ( _digitCount < MAX_TYPE_DIGITS ) {
-				// Room to add another digit.
-				_digits[ _digitCount ] = digit;
-				_digits[ _digitCount + 1 ] = '\0';
-				++_digitCount;
-			}
-		}
-
-		////////////////////////////////////////////////////////////////////////////
-
-		void BaseAgentContext::activate() {
-			VisAgent * s = dynamic_cast<VisAgent *>( SceneGraph::Selectable::getSelectedObject() );
-			if ( s != _selected ) {
-				_selected = s;
-			}
 		}
 	}	// namespace Runtime
 }	// namespace MengeVis

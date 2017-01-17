@@ -77,6 +77,12 @@ namespace MengeVis {
 
 		///////////////////////////////////////////////////////////////////////////////
 
+		std::string VisAgent::getStringId() const {
+			return _agent->getStringId();
+		}
+
+		///////////////////////////////////////////////////////////////////////////////
+
 		void VisAgent::getColor( float & r, float & g, float & b ) {
 			if ( _selected ) {
 				r = 1.f;

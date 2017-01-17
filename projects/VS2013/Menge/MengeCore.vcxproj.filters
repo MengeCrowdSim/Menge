@@ -1097,9 +1097,6 @@
     <ClInclude Include="$(SrcDir)\mengeCore\Orca\ORCAAgent.h">
       <Filter>Header Files\orca</Filter>
     </ClInclude>
-    <ClInclude Include="$(SrcDir)\mengeCore\Orca\ORCAAgentContext.h">
-      <Filter>Header Files\orca</Filter>
-    </ClInclude>
     <ClInclude Include="$(SrcDir)\mengeCore\Orca\ORCADBEntry.h">
       <Filter>Header Files\orca</Filter>
     </ClInclude>
@@ -1109,16 +1106,10 @@
     <ClInclude Include="$(SrcDir)\mengeCore\Orca\ORCASimulator.h">
       <Filter>Header Files\orca</Filter>
     </ClInclude>
-    <ClInclude Include="$(SrcDir)\mengeCore\Orca\ORCATypeAgentContext.h">
-      <Filter>Header Files\orca</Filter>
-    </ClInclude>
     <ClInclude Include="$(SrcDir)\mengeCore\PedVO\PedVO.h">
       <Filter>Header Files\pedvo</Filter>
     </ClInclude>
     <ClInclude Include="$(SrcDir)\mengeCore\PedVO\PedVOAgent.h">
-      <Filter>Header Files\pedvo</Filter>
-    </ClInclude>
-    <ClInclude Include="$(SrcDir)\mengeCore\PedVO\PedVOAgentContext.h">
       <Filter>Header Files\pedvo</Filter>
     </ClInclude>
     <ClInclude Include="$(SrcDir)\mengeCore\PedVO\PedVODBEntry.h">

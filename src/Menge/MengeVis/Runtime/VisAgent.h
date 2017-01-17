@@ -100,6 +100,15 @@ namespace MengeVis {
 			 */
 			inline void setPosition( float x, float y, float z ) { _pos.set( x, y, z ); }
 
+			/*!
+			 *	@brief		String identifier of the underlying agent.
+			 *
+			 *	This permits mapping of visual element to the appropriate agent context.
+			 *
+			 *	@returns	The string identifier for the agent this visualization agent contains.
+			 */
+			std::string getStringId() const;
+
 		protected:
 			/*!
 			 *	@brief		Defines the color of the cylinder.

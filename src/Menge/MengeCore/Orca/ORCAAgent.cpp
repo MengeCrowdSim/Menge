@@ -441,6 +441,12 @@ namespace ORCA {
 
 	/////////////////////////////////////////////////////////////////////////////
 
+	std::string Agent::getStringId() const {
+		return "orca";
+	}
+
+	/////////////////////////////////////////////////////////////////////////////
+
 	bool linearProgram1(const std::vector<Menge::Math::Line>& lines, size_t lineNo, float radius,
 						 const Vector2& optVelocity, bool directionOpt, Vector2& result) {
 		const float dotProduct = lines[lineNo]._point * lines[lineNo]._direction;

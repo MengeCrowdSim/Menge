@@ -19,7 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\BaseAgentContext.cpp" />
     <ClCompile Include="$(SrcDir)\MengeVis\Runtime\SimSystem.cpp" />
     <ClCompile Include="$(SrcDir)\MengeVis\Runtime\VisAgent.cpp" />
     <ClCompile Include="$(SrcDir)\MengeVis\Runtime\VisObstacle.cpp" />
@@ -46,9 +45,11 @@
     <ClCompile Include="$(SrcDir)\MengeVis\Runtime\FsmContext.cpp" />
     <ClCompile Include="$(SrcDir)\MengeVis\Runtime\StateContext.cpp" />
     <ClCompile Include="$(SrcDir)\MengeVis\Runtime\VelCompContext.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\AgentContextDatabase.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\AgentContext\BaseAgentContext.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\MengeContext.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\BaseAgentContext.h" />
     <ClInclude Include="$(SrcDir)\MengeVis\Runtime\SimSystem.h" />
     <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VisAgent.h" />
     <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VisObstacle.h" />
@@ -79,6 +80,14 @@
     <ClInclude Include="$(SrcDir)\MengeVis\Runtime\StateContext.h" />
     <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VelCompContext.h" />
     <ClInclude Include="$(SrcDir)\MengeVis\VisConfig.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\AgentContext\AgentContextDatabase.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\AgentContext\BaseAgentContext.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\AgentContext\ORCAAgentContext.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\AgentContext\ORCATypeAgentContext.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\AgentContext\PedVOAgentContext.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\MengeContext.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VisElementDatabase.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VisElementException.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{57FA5E04-F7D0-47B7-900D-CA2BA94E9D52}</ProjectGuid>

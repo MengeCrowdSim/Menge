@@ -71,12 +71,12 @@ namespace Menge {
 		 *
 		 *	In order to avoid potential problems in windows when
 		 *	dlls do not share the same c-runtime library, the destructor
-		 *	is held to be protected.  To garbage collect a Condition,
+		 *	is held to be protected.  To garbage collect an Element,
 		 *	the destroy method should be called (which in turn, will call
 		 *	the destructor from its own memory space, averting run-time
 		 *  crashes).
 		 *
-		 *	Once this has been called, the TransitionTarget no longer exists.  
+		 *	Once this has been called, the Element no longer exists.  
 		 *	Calling methods or accessing members will produce indetermine behavior 
 		 *	(most likely errors).
 		 */

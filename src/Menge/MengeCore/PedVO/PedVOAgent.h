@@ -54,7 +54,7 @@ namespace PedVO {
 	/*!
 	 *  @brief      Defines an agent in the simulation.
 	 */
-	class Agent : public Menge::Agents::BaseAgent {
+	class MENGE_API Agent : public Menge::Agents::BaseAgent {
 	public:
 		/*!
 		 *	@brief		A variant of the copy constructor.
@@ -70,6 +70,13 @@ namespace PedVO {
 		 *  @brief      Computes the new velocity of this agent.
 		 */
 		void computeNewVelocity();
+
+		/*!
+		 *	@brief		Used by the plugin system to know what artifacts to associate with
+		 *				agents of this type.  Every sub-class of must return a globally
+		 *				unique value if it should be associated with unique artifacts.
+		 */
+		virtual std::string getStringId() const;
 
 		/*!
 		 *	@brief			Based on the neighbors, computes the ORCA lines

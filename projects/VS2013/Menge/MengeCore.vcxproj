@@ -558,14 +558,11 @@ xcopy /y $(TargetPath) $(ExeDir)
     <ClInclude Include="$(SrcDir)\mengeCore\BFSM\VelocityModifiers\VelModifierScale.h" />
     <ClInclude Include="$(SrcDir)\mengeCore\Orca\ORCA.h" />
     <ClInclude Include="$(SrcDir)\mengeCore\Orca\ORCAAgent.h" />
-    <ClInclude Include="$(SrcDir)\mengeCore\Orca\ORCAAgentContext.h" />
     <ClInclude Include="$(SrcDir)\mengeCore\Orca\ORCADBEntry.h" />
     <ClInclude Include="$(SrcDir)\mengeCore\Orca\ORCAInitializer.h" />
     <ClInclude Include="$(SrcDir)\mengeCore\Orca\ORCASimulator.h" />
-    <ClInclude Include="$(SrcDir)\mengeCore\Orca\ORCATypeAgentContext.h" />
     <ClInclude Include="$(SrcDir)\mengeCore\PedVO\PedVO.h" />
     <ClInclude Include="$(SrcDir)\mengeCore\PedVO\PedVOAgent.h" />
-    <ClInclude Include="$(SrcDir)\mengeCore\PedVO\PedVOAgentContext.h" />
     <ClInclude Include="$(SrcDir)\mengeCore\PedVO\PedVODBEntry.h" />
     <ClInclude Include="$(SrcDir)\mengeCore\PedVO\PedVOInitializer.h" />
     <ClInclude Include="$(SrcDir)\mengeCore\PedVO\PedVOSimSystem.h" />

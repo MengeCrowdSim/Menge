@@ -65,7 +65,6 @@ namespace MengeVis {
 
 	namespace Runtime {
 		// forward declarations
-		class FsmContext;
 		class VisAgent;
 
 		/*!
@@ -74,34 +73,16 @@ namespace MengeVis {
 		 */
 		class MENGEVIS_API BaseAgentContext : public SceneGraph::SelectContext {
 		public:
-			/*!
-			 *	@brief		Definition of the state of the context.
-			 */
-			enum BACState {
-				DEFAULT_ST,			///< The default operating state
-				TYPE_AGENT_ID_ST	///< Typing in an agent selection
-			};
 
 			/*!
-			 *	@brief		Construtor
-			 *
-			 *	@param		agents		An array of pointers to VisAgent instances.
-			 *	@param		agtCount	The number of agents contained in the array.
-			 *	@param		fsmCtx		A context to visualize an agent's BFSM state.
+			 *	@brief		Default constructor
 			 */
-			BaseAgentContext( VisAgent ** agents, size_t agtCount, FsmContext * fsmCtx = 0x0 );
+			BaseAgentContext();
 
 			/*!
 			 *	@brief		Virtual destructor.
 			 */
 			virtual ~BaseAgentContext();
-
-			/*!
-			 *	@brief		Sets the fsm context
-			 *
-			 *	@param		ctx			The context for the finite state machine.
-			 */
-			void setFSMContext( FsmContext * ctx ) { _fsmCtx = ctx; }
 
 			/*!
 			 *	@brief		Give the context the opportunity to respond to a keyboard
@@ -122,37 +103,40 @@ namespace MengeVis {
 			virtual void drawGL( int vWidth, int vHeight );
 
 			/*!
-			 *	@brief		Performs selection based on a click on screen space.
-			 *				Uses the OpenGL selection mechanism.
+			 *	@brief		Sets the agent for this context.
 			 *
-			 *	@param		scene			The scene to select in.
-			 *	@param		camera			The camera.
-			 *	@param		vWidth			The width of the viewport.
-			 *	@param		vHeight			The height of the viewport.
-			 *	@param		selectPoint		The point (in screen space) at which object selection
-			 *								should take place.
-			 *	@returns	A boolean indicating whether a redraw needs to take place.
+			 *	This method works in conjunction with the VisElementDatabase. When this
+			 *	visualization element is triggered, the database will supply the triggering
+			 *	element.
+			 *
+			 *	@param		agent		The agent to interact with.
 			 */
-			virtual bool selectGL( const SceneGraph::GLScene * scene,
-								   const SceneGraph::GLCamera & camera,
-								   int vWidth, int vHeight, int * selectPoint );
+			virtual void setElement( VisAgent * agent ) { _selected = agent; }
 
 			/*!
-			 *	@brief		Called when the context is activated.
+			*	@brief		Returns the name of the context for display.
+			*
+			*	@returns		The name of this context.
+			*/
+			virtual std::string contextName() const { return "BaseAgent"; }
+
+			/*!
+			 *	@brief		The value used to store this element in the visual element database.
+			 *				This string value should correspond to the getStringId method of the
+			 *				corresponding simulation element.
 			 */
-			virtual void activate();
+			virtual std::string getElementName() const { return "base_agent"; }
+
+			/*!
+			*	@brief		Creates a formatted string to be printed in the context
+			*				for a particular agent
+			*
+			*	@param		agent		The agent whose data is to be displayed.
+			*	@returns	A formatted string for display in the context's 2D gui.
+			*/
+			virtual std::string agentText( const  Menge::Agents::BaseAgent * agent ) const;
 
 		protected:
-			/*!
-			 *	@brief		Draw UI elements into the context.
-			 *
-			 *	@param		vWidth		The width of the viewport (in pixels).
-			 *	@param		vHeight		The height of the viewport (in pixels).
-			 *	@param		select		Defines if the drawing is being done for selection
-			 *							purposes (true) or visualization (false).
-			 */
-			virtual void drawUIGL( int vWidth, int vHeight, bool select = false );
-
 			/*!
 			 *	@brief		Draw context elements into the 3D world.
 			 *
@@ -160,22 +144,6 @@ namespace MengeVis {
 			 *							purposes (true) or visualization (false).
 			 */
 			virtual void draw3DGL( bool select = false );
-
-			/*!
-			 *	@brief		Returns the name of the context for display.
-			 *
-			 *	@returns		The name of this context.
-			 */
-			virtual std::string contextName() const { return "BaseAgent"; }
-
-			/*!
-			 *	@brief		Creates a formatted string to be printed in the context
-			 *				for a particular agent
-			 *
-			 *	@param		agent		The agent whose data is to be displayed.
-			 *	@returns	A formatted string for display in the context's 2D gui.
-			 */
-			virtual std::string agentText( const  Menge::Agents::BaseAgent * agent ) const;
 
 			/*!
 			 *	@brief		The drawing depth for the 3D elements
@@ -186,11 +154,6 @@ namespace MengeVis {
 			 *	@brief		The currently selected visualization agent.
 			 */
 			VisAgent * _selected;
-
-			/*!
-			 *	@brief		The state of the context.
-			 */
-			BACState	_state;
 
 			/*!
 			 *	@brief		Determines if the neighbor distance is rendered
@@ -251,62 +214,6 @@ namespace MengeVis {
 			 *	@brief		Function for drawing current orientation
 			 */
 			void drawOrientation( const Menge::Agents::BaseAgent * agt );
-
-			/*!
-			 *	@brief		A pointer to the agents in the scene
-			 */
-			VisAgent **	_visAgents;
-
-			/*!
-			 *	@brief		The number of agents in the scene
-			 */
-			size_t	_agtCount;
-
-			/*!
-			 *	@brief		The maximum number of digits for typing.
-			 */
-			static const unsigned int MAX_TYPE_DIGITS = 10;
-
-			/*!
-			 *	@brief		The character array for typing numbers into.
-			 */
-			char	_digits[ MAX_TYPE_DIGITS + 1 ];
-
-			/*!
-			 *	@brief		Number of typed digits.
-			 */
-			unsigned int	_digitCount;
-
-			/*!
-			 *	@brief		Begins the agent typing state.
-			 */
-			void beginIDTyping();
-
-			/*!
-			 *	@brief		Finish agent typing state.
-			 */
-			void finishIDTyping();
-
-			/*!
-			 *	@brief		Cancels the agent typing state.
-			 */
-			void cancelIDTyping();
-
-			/*!
-			 *	@brief		Draws the id typing state
-			 */
-			void drawIDTyping();
-
-			/*!
-			 *	@brief		Adds a digit to the typed value
-			 */
-			void addIDDigit( const char digit );
-
-			/*!
-			 *	@brief		An optional finite state machine context to visualize
-			 *				the computation of agent behavior.
-			 */
-			FsmContext * _fsmCtx;
 		};
 	}	// namespace Runtime
 }	// namespace MengeVis

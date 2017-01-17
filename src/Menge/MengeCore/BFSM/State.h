@@ -62,7 +62,6 @@ namespace Menge {
 	namespace BFSM {
 
 		// forward declaration
-		class StateContext;
 		class GoalSelector;
 		class Goal;
 		class FSM;

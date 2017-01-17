@@ -84,12 +84,19 @@ namespace MengeVis {
 			 *	@param		state		A pointer to the underlying fsm state.
 			 *							The context will *not* delete the state.
 			 */
-			StateContext( Menge::BFSM::State * state );
+			StateContext();
 
 			/*!
 			 *	@brief		Destructor.
 			 */
 			virtual ~StateContext();
+
+			/*!
+			 *	@brief		Sets the state this context works on.
+			 *
+			 *	@param		The state to represent with this context.
+			 */
+			void setState( Menge::BFSM::State * state );
 
 			/*!
 			 *	@brief		Give the context the opportunity to respond to a keyboard

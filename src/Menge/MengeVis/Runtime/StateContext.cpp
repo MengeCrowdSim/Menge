@@ -65,16 +65,25 @@ namespace MengeVis {
 
 		/////////////////////////////////////////////////////////////////////
 
-		StateContext::StateContext( State * state ) :_state(state) {
-			// TODO: Query the vel component for its *name* so I can instantiate the right
-			//	context for the velocity component.
-			//_vcContext = _state->_velComponent->getContext();
-			_activeTransition = _state->getTransitions().size() == 1 ? 0 : NO_ACTIVE_ID;
+		StateContext::StateContext() : _state(0x0) {
+			
 		}
 
 		/////////////////////////////////////////////////////////////////////
 
 		StateContext::~StateContext() {
+		}
+
+		/////////////////////////////////////////////////////////////////////
+
+		void StateContext::setState( State * state ) {
+			if ( _state == 0x0 || _state->getID() != state->getID() ) {
+				_state = state;
+				// TODO: Query the vel component for its *name* so I can instantiate the right
+				//	context for the velocity component.
+				//_vcContext = _state->_velComponent->getContext();
+				_activeTransition = _state->getTransitions().size() == 1 ? 0 : NO_ACTIVE_ID;
+			}
 		}
 
 		/////////////////////////////////////////////////////////////////////

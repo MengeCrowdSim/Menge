@@ -36,8 +36,6 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-# if 0
-
 /*!
  *  @file       ORCAAgentContext.h
  *  @brief      A basic context for interacting with and displaying
@@ -47,24 +45,30 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __ORCA_AGENT_CONTEXT_H__
 #define __ORCA_AGENT_CONTEXT_H__
 
-#include "ORCATypeAgentContext.h"
 #include "MengeCore/Orca/ORCAAgent.h"
+#include "MengeVis/Runtime/AgentContext/ORCATypeAgentContext.h"
 
-namespace ORCA {
-	/*!
-	 *	@brief		Specialization of the ORCA context for ORCA::Agent.
-	 */
-	typedef ORCATypeAgentContext< Agent > AgentContext;
+namespace MengeVis {
+	namespace Runtime {
+		/*!
+		 *	@brief		Specialization of the ORCA context for ORCA::Agent.
+		 */
+		typedef ORCATypeAgentContext< ORCA::Agent > OrcaAgentContext;
+
+		////////////////////////////////////////////////////////////////
+		//			Implementation of ORCAAgentContext
+		////////////////////////////////////////////////////////////////
+
+		// Specialization
+		template <>
+		inline std::string ORCATypeAgentContext< ORCA::Agent >::contextName() const {
+			return "ORCA";
+		}
+
+		////////////////////////////////////////////////////////////////
+
+		template <>
+		std::string ORCATypeAgentContext< ORCA::Agent >::getElementName() const { return "orca"; }
+	}
 }
-
-////////////////////////////////////////////////////////////////
-//			Implementation of ORCAAgentContext
-////////////////////////////////////////////////////////////////
-
-// Specialization
-template <>
-inline std::string ORCATypeAgentContext< ORCA::Agent >::contextName() const { return "ORCA"; }
-
 #endif	// __ORCA_AGENT_CONTEXT_H__
-
-#endif // 0

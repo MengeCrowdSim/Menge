@@ -174,7 +174,6 @@ namespace Menge {
 			const Obstacle * getObstacle( int idx ) const {
 				return _nearObstacles[ idx ].obstacle;
 			}
-
 			
 			/*!
 			 *	@brief			set the agents preferred velocity to the input velocity. 
@@ -190,6 +189,12 @@ namespace Menge {
 			 */
 			void addVelModifier( BFSM::VelModifier * v );
 
+			/*!
+			 *	@brief		Used by the plugin system to know what artifacts to associate with
+			 *				agents of this type.  Every sub-class of must return a globally
+			 *				unique value if it should be associated with unique artifacts.
+			 */
+			virtual std::string getStringId() const = 0;
 
 			// Properties of a basic agent
 			/*!

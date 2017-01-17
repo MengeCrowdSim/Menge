@@ -657,6 +657,12 @@ namespace PedVO {
 		}
 	}
 
+	/////////////////////////////////////////////////////////////////////////////
+
+	std::string Agent::getStringId() const {
+		return "pedvo";
+	}
+
 	///////////////////////////////////////////////////////////////////////
 
 	bool linearProgram1(const std::vector<Menge::Math::Line>& lines, size_t lineNo, float radius,
