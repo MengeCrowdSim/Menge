@@ -50,9 +50,6 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include "MengeCore/BFSM/VelocityComponents/VelComponent.h"
 #include "MengeCore/BFSM/VelocityComponents/VelComponentFactory.h"
 #include "MengeCore/resources/VectorField.h"
-#if 0
-#include "VelocityComponents/VelCompContext.h"
-#endif
 
 namespace Menge {
 
@@ -124,18 +121,14 @@ namespace Menge {
 			 */
 			virtual void setPrefVelocity( const Agents::BaseAgent * agent, const Goal * goal,
 										  Agents::PrefVelocity & pVel );
-#if 0
-			/*!
-			 *	@brief		Provides a display context for interacting with this velocity component.
-			 *
-			 *	It is the responsibility of the caller to delete the provided context.
-			 *
-			 *	@returns	A pointer to a context for this vel component.
-			 */
-			virtual VelCompContext * getContext();
 
-			friend class VecFieldVCContext;
-#endif
+			/*!
+			 *	@brief		Used by the plugin system to know what artifacts to associate with
+			 *				agents of this type.  Every sub-class of must return a globally
+			 *				unique value if it should be associated with unique artifacts.
+			 */
+			virtual std::string getStringId() const { return "vel_field"; }
+
 		protected:
 			/*!
 			 *	@brief		The vector field resource which provides preferred velocity vectors.

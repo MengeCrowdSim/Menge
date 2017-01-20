@@ -41,6 +41,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include "MengeCore/Agents/BaseAgent.h"
 #include "MengeCore/BFSM/State.h"
 #include "MengeCore/BFSM/Goals/Goal.h"
+#include "MengeVis/Runtime/VCContext/VelCompContextDatabase.h"
 
 #include <sstream>
 #include <limits>
@@ -56,6 +57,7 @@ namespace MengeVis {
 		using Menge::Agents::BaseAgent;
 		using Menge::BFSM::State;
 		using Menge::BFSM::Goal;
+		using MengeVis::Runtime::VCContext::VCContextDB;
 
 		/////////////////////////////////////////////////////////////////////
 		//                   Implementation of StateContext
@@ -82,6 +84,7 @@ namespace MengeVis {
 				// TODO: Query the vel component for its *name* so I can instantiate the right
 				//	context for the velocity component.
 				//_vcContext = _state->_velComponent->getContext();
+				_vcContext = VCContextDB::getInstance( _state->getVelComponent() );
 				_activeTransition = _state->getTransitions().size() == 1 ? 0 : NO_ACTIVE_ID;
 			}
 		}
@@ -122,7 +125,7 @@ namespace MengeVis {
 			std::string childIndent = indent + "    ";
 
 			ss << "\n" << childIndent << "Display (Ctrl-V)elocity Component";
-			//ss << "\n" << _vcContext->getUIText( childIndent + "    " );
+			ss << "\n" << _vcContext->getUIText( childIndent + "    " );
 
 	#if 1
 			ss << "\n" << childIndent << "Transitions not yet supported";
@@ -144,7 +147,7 @@ namespace MengeVis {
 			// Need a goal renderer
 			//goal->drawGL();
 			if ( drawVC ) {
-				//_vcContext->draw3DGL( agt, goal );
+				_vcContext->draw3DGL( agt, goal );
 			}
 			if ( drawTrans && _activeTransition != NO_ACTIVE_ID ) {
 			}

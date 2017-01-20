@@ -49,12 +49,8 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include "MengeCore/Agents/PrefVelocity.h"
 #include "MengeCore/BFSM/VelocityComponents/VelComponent.h"
 #include "MengeCore/BFSM/VelocityComponents/VelComponentFactory.h"
-#if 0
-#include "VelocityComponents/VelCompContext.h"
-#endif
 
 namespace Menge {
-
 	namespace BFSM {
 
 		/*!
@@ -84,18 +80,17 @@ namespace Menge {
 			 */
 			virtual void setPrefVelocity( const Agents::BaseAgent * agent, const Goal * goal,
 										  Agents::PrefVelocity & pVel );
-#if 0
+
 			/*!
-			 *	@brief		Provides a display context for interacting with this velocity component.
-			 *
-			 *	It is the responsibility of the caller to delete the provided context.
-			 *
-			 *	@returns	A pointer to a context for this vel component.
+			 *	@brief		Used by the plugin system to know what artifacts to associate with
+			 *				agents of this type.  Every sub-class of must return a globally
+			 *				unique value if it should be associated with unique artifacts.
 			 */
-			virtual VelCompContext * getContext();
+			virtual std::string getStringId() const { return "goal"; }
 		};
 
 		//////////////////////////////////////////////////////////////////////////////
+#if 0
 
 		/*!
 		 *	@brief		The context for the GoalVelComponent.
@@ -136,8 +131,8 @@ namespace Menge {
 			 *	@brief		The underlying finite state machine velocity component.
 			 */
 			GoalVelComponent * _vc;
-#endif
 		};
+#endif
 
 		//////////////////////////////////////////////////////////////////////////////
 

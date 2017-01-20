@@ -132,6 +132,9 @@
     <ClCompile Include="$(SrcDir)\MengeVis\Runtime\VCContext\VelCompContext.cpp">
       <Filter>Source Files\Runtime\VCContext</Filter>
     </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\VCContext\VelCompContextDatabase.cpp">
+      <Filter>Source Files\Runtime\VCContext</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(SrcDir)\MengeVis\Runtime\SimSystem.h">
@@ -246,6 +249,9 @@
       <Filter>Header Files\Runtime</Filter>
     </ClInclude>
     <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VCContext\VelCompContext.h">
+      <Filter>Header Files\Runtime\VCContext</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VCContext\VelCompContextDatabase.h">
       <Filter>Header Files\Runtime\VCContext</Filter>
     </ClInclude>
   </ItemGroup>

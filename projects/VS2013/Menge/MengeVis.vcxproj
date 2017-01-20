@@ -48,6 +48,7 @@
     <ClCompile Include="$(SrcDir)\MengeVis\Runtime\AgentContextDatabase.cpp" />
     <ClCompile Include="$(SrcDir)\MengeVis\Runtime\AgentContext\BaseAgentContext.cpp" />
     <ClCompile Include="$(SrcDir)\MengeVis\Runtime\MengeContext.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\VCContext\VelCompContextDatabase.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(SrcDir)\MengeVis\Runtime\SimSystem.h" />
@@ -88,6 +89,7 @@
     <ClInclude Include="$(SrcDir)\MengeVis\Runtime\MengeContext.h" />
     <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VisElementDatabase.h" />
     <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VisElementException.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VCContext\VelCompContextDatabase.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{57FA5E04-F7D0-47B7-900D-CA2BA94E9D52}</ProjectGuid>

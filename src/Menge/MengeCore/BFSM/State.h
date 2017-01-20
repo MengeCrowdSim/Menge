@@ -225,6 +225,11 @@ namespace Menge {
 			void setVelComponent( VelComponent * vc ) { _velComponent = vc; }
 
 			/*!
+			 *	@brief		Retrieves the velocity component.
+			 */
+			VelComponent * getVelComponent() { return _velComponent; }
+
+			/*!
 			 *	@brief		Add an action to the state.
 			 *
 			 *	@param		a		The action to add.

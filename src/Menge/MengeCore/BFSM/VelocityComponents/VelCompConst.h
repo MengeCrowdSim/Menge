@@ -49,7 +49,6 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include "MengeCore/Agents/PrefVelocity.h"
 #include "MengeCore/BFSM/VelocityComponents/VelComponent.h"
 #include "MengeCore/BFSM/VelocityComponents/VelComponentFactory.h"
-//#include "VelocityComponents/VelCompContext.h"
 
 namespace Menge {
 
@@ -104,17 +103,14 @@ namespace Menge {
 			 *	@returns	The velocity computed by this constant velocity component.
 			 */
 			Vector2 getConstVelocity() const { return _dir * _speed; }
-#if 0
+
 			/*!
-			 *	@brief		Provides a display context for interacting with this velocity
-			 *				component.
-			 *
-			 *	It is the responsibility of the caller to delete the provided context.
-			 *
-			 *	@returns	A pointer to a context for this vel component.
+			 *	@brief		Used by the plugin system to know what artifacts to associate with
+			 *				agents of this type.  Every sub-class of must return a globally
+			 *				unique value if it should be associated with unique artifacts.
 			 */
-			virtual VelCompContext * getContext();
-#endif
+			virtual std::string getStringId() const { return "const"; }
+
 			friend class ConstVCFactory;
 		protected:
 			/*!
@@ -253,12 +249,6 @@ namespace Menge {
 			size_t	_yID;
 		};
 
-#if 0
-		/////////////////////////////////////////////////////////////////////
-
-		// forward declaration
-		class ConstDirVCContext;
-#endif
 		/*!
 		 *	@brief		A velocity component that always returns a constant direction but
 		 *				leaves the preferred speed unchanged.
@@ -303,17 +293,14 @@ namespace Menge {
 			 *							by this function.
 			 */
 			void setDirection( const Vector2 & dir );
-#if 0
+
 			/*!
-			 *	@brief		Provides a display context for interacting with this velocity
-			 *				component.
-			 *
-			 *	It is the responsibility of the caller to delete the provided context.
-			 *
-			 *	@returns	A pointer to a context for this vel component.
+			 *	@brief		Used by the plugin system to know what artifacts to associate with
+			 *				agents of this type.  Every sub-class of must return a globally
+			 *				unique value if it should be associated with unique artifacts.
 			 */
-			virtual VelCompContext * getContext();
-#endif
+			virtual std::string getStringId() const { return "const_dir"; }
+
 			friend class ConstDirVCContext;
 		protected:
 			/*!
@@ -475,17 +462,12 @@ namespace Menge {
 			virtual void setPrefVelocity( const Agents::BaseAgent * agent, const Goal * goal,
 										  Agents::PrefVelocity & pVel );
 
-#if 0
 			/*!
-			 *	@brief		Provides a display context for interacting with this velocity
-			 *				component.
-			 *
-			 *	It is the responsibility of the caller to delete the provided context.
-			 *
-			 *	@returns	A pointer to a context for this vel component.
+			 *	@brief		Used by the plugin system to know what artifacts to associate with
+			 *				agents of this type.  Every sub-class of must return a globally
+			 *				unique value if it should be associated with unique artifacts.
 			 */
-			virtual VelCompContext * getContext();
-#endif
+			virtual std::string getStringId() const { return "zero"; }
 		};
 #if 0
 		/////////////////////////////////////////////////////////////////////

@@ -59,9 +59,6 @@ namespace Menge {
 	namespace BFSM {
 
 		// FORWARD DECLARATIONS
-#if 0
-		class VelCompContext;
-#endif
 		class Goal;
 
 		/*!
@@ -163,17 +160,14 @@ namespace Menge {
 			 */
 			virtual void setPrefVelocity( const Agents::BaseAgent * agent, const Goal * goal,
 										  Agents::PrefVelocity & pVel ) = 0;
-#if 0
+
 			/*!
-			 *	@brief		Provides a display context for interacting with this velocity
-			 *			component.
-			 *
-			 *	It is the responsibility of the caller to delete the provided context.
-			 *
-			 *	@returns	A pointer to a context for this vel component.
+			 *	@brief		Used by the plugin system to know what artifacts to associate with
+			 *				agents of this type.  Every sub-class of must return a globally
+			 *				unique value if it should be associated with unique artifacts.
 			 */
-			virtual VelCompContext * getContext();
-#endif
+			virtual std::string getStringId() const = 0;
+
 			friend class ElementFactory< VelComponent >;
 		};
 
@@ -187,7 +181,6 @@ namespace Menge {
 		 *				instance could be created).
 		 */
 		VelComponent * parseVelComponent( TiXmlElement * node, const std::string & behaveFldr );
-
 
 	}	// namespace BFSM
 }	// namespace Menge

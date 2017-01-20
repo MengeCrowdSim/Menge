@@ -145,7 +145,7 @@ namespace MengeVis {
 			/*!
 			 *	@brief		The velocity component context for this state.
 			 */
-			VelCompContext * _vcContext;
+			VCContext::VelCompContext * _vcContext;
 
 			/*!
 			 *	@brief		The id of the "active" transition.
