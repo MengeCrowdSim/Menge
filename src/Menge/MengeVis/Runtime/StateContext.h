@@ -47,7 +47,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 #include "MengeCore/mengeCommon.h"
 #include "MengeVis/VisConfig.h"
-#include "MengeVis/Runtime/VelCompContext.h"
+#include "MengeVis/Runtime/VCContext/VelCompContext.h"
 #include "MengeVis/SceneGraph/Context.h"
 
 namespace Menge {
