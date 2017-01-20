@@ -120,11 +120,7 @@ namespace MengeVis {
 			bool val = SceneGraph::SelectContext::selectGL( scene, camera, vWidth, vHeight,
 															selectPoint );
 			if ( val ) {
-				VisAgent * s =
-					dynamic_cast<VisAgent *>( SceneGraph::Selectable::getSelectedObject() );
-				val = s != _selected;
-				_selected = s;
-				_agentContext = AgentContextDB::getInstance( s );
+				val = updateSelected();
 			} else if ( _selected ) {
 				_selected = 0x0;
 				val = true;
@@ -135,11 +131,20 @@ namespace MengeVis {
 		////////////////////////////////////////////////////////////////////////////
 
 		void MengeContext::activate() {
+			updateSelected();
+		}
+
+		////////////////////////////////////////////////////////////////////////////
+
+		bool MengeContext::updateSelected() {
+			bool changed = false;
 			VisAgent * s = dynamic_cast<VisAgent *>( SceneGraph::Selectable::getSelectedObject() );
+			changed = s != _selected;
 			_selected = s;
-			if ( s != 0x0 ) {
+			if ( changed && s != 0x0 ) {
 				_agentContext = AgentContextDB::getInstance( s );
 			}
+			return changed;
 		}
 
 		////////////////////////////////////////////////////////////////////////////

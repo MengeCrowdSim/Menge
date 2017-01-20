@@ -93,6 +93,14 @@ namespace MengeVis {
 			 */
 			virtual void drawUIGL( int vWidth, int vHeight, bool select = false );
 
+			/*!
+			 *	@brief		Causes the context to update its state based on the current 
+			 *				selected state.
+			 *
+			 *	@returns	True if the update caused the context to change what it operates on.
+			 */
+			bool updateSelected();
+
 		private:
 			/*! @brief	The simulator interface the context works on. */
 			Menge::Agents::SimulatorInterface * _sim;
