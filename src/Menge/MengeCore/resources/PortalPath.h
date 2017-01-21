@@ -66,7 +66,7 @@ namespace Menge {
 	 *	The path is repsonsible for computing instantaneous preferred velocity for an agent
 	 *	based on a PortalRoute and an optimized path through the portals.
 	 */
-	class PortalPath {
+	class MENGE_API PortalPath {
 	public:
 		/*!
 		 *	@brief		Constructor

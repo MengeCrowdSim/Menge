@@ -135,7 +135,7 @@ namespace Menge {
 	/*!
 	 *	@brief		Class for computing paths through a navigation mesh.
 	 */
-	class PathPlanner {
+	class MENGE_API PathPlanner {
 	public:
 		/*!
 		 *	@brief		Constructor.

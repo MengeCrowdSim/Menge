@@ -57,7 +57,7 @@ namespace Menge {
 	 *	@brief		The definition of a route through a navigation mesh from a 
 	 *				start to an end node.
 	 */
-	class PortalRoute {
+	class MENGE_API PortalRoute {
 	public:
 		/*!
 		 *	@brief		Constructor

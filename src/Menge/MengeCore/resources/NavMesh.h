@@ -124,7 +124,7 @@ namespace Menge {
 	 *				on the ground plane.  The nodes themselves include a definition of the
 	 *				polygon's plane off the plane.  Likewise, the vertices all lie on the plane.
 	 */
-	class NavMesh : public Resource {
+	class MENGE_API NavMesh : public Resource {
 	public:
 		/*!
 		 *	@brief		Constructor

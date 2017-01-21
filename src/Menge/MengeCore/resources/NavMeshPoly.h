@@ -59,7 +59,7 @@ namespace Menge {
 	/*!
 	 *	@brief		The polygon used in each node of a navigation mesh graph
 	 */
-	class NavMeshPoly {
+	class MENGE_API NavMeshPoly {
 	public:
 		/*!
 		 *	@brief		Constructor

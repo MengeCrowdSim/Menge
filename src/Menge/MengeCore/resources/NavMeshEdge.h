@@ -69,7 +69,7 @@ namespace Menge {
 	 *	The graph connectivity indicates that the two mesh polygons (nodes) are  connected in the
 	 *	logical graph.
 	 */
-	class NavMeshEdge {
+	class MENGE_API NavMeshEdge {
 	public:
 		/*!
 		 *	@brief		Constructor

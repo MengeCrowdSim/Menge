@@ -61,7 +61,7 @@ namespace Menge {
 	 *				edge to pass through and the node one should be in while heading
 	 *				to the edge.
 	 */
-	class WayPortal {
+	class MENGE_API WayPortal {
 	public:
 		/*!
 		 *	@brief		Constructor

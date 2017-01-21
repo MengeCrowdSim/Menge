@@ -61,7 +61,7 @@ namespace Menge {
 	 *	@brief		The navigation mesh adjacency graph node.  It corresponds to
 	 *				a convex polygon in the navigation mesh.
 	 */
-	class NavMeshNode {
+	class MENGE_API NavMeshNode {
 	public:
 		/*!
 		 *	@brief		Constructor

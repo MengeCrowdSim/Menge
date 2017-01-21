@@ -54,7 +54,7 @@ namespace Menge {
 	 *
 	 *	A portal is simply a line segment - a region through which agents can pass.
 	 */
-	class Portal {
+	class MENGE_API Portal {
 	public:
 		/*!
 		 *	@brief		Default constructor.

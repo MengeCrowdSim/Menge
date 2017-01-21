@@ -68,7 +68,7 @@ namespace Menge {
 	 *	@brief		Class for indicating how the location of the agent is defined.
 	 *				Either by a portal path or a node. 
 	 */
-	class NavMeshLocation {
+	class MENGE_API NavMeshLocation {
 	public:
 		/*!
 		 *	@brief		Default constructor

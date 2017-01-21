@@ -58,7 +58,7 @@ namespace Menge {
 	 *				specification but includes a pointer to a node to which it is
 	 *				attached.
 	 */
-	class NavMeshObstacle : public Agents::Obstacle {
+	class MENGE_API NavMeshObstacle : public Agents::Obstacle {
 	public:
 		/*!
 		 *	@brief		The index value if the obstacle has no neighboring obstacle

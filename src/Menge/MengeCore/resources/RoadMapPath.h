@@ -67,7 +67,7 @@ namespace Menge {
 	/*!
 	 *	@brief		A path on a roadmap between vertices
 	 */
-	class RoadMapPath {
+	class MENGE_API RoadMapPath {
 	public:
 		/*!
 		 *	@brief		Constructor
