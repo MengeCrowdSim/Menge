@@ -124,50 +124,6 @@ namespace Menge {
 			float _speed;
 		};
 
-#if 0
-		//////////////////////////////////////////////////////////////////////////////
-
-		/*!
-		 *	@brief		The context for the ConstVelComponent.
-		 */
-		class MENGE_API ConstVCContext : public VelCompContext {
-		public:
-			/*!
-			 *	@brief		Constructor.
-			 *
-			 *	@param		vc			A pointer to the underlying fsm velocity component.
-			 *							The context will *not* delete the velocity component.
-			 */
-			ConstVCContext( ConstVelComponent * vc );
-
-			/*!
-			 *	@brief		Provides a string to be printed in the display as a UI element
-			 *				detailing velocity component information.
-			 *
-			 *	@param		indent		An optional string representing indentation to be
-			 *							applied to the text.  It is prefixed at the start
-			 *							of each line.
-			 *	@returns	The string for printing on the UI layer.
-			 */
-			virtual std::string getUIText( const std::string & indent="" ) const;
-
-			/*!
-			 *	@brief		Draw context elements into the 3D world.
-			 *
-			 *	This should never be called in select mode.
-			 *
-			 *	@param		agt			The particular agent for which the FSM is being visualized.
-			 *	@param		goal		The agent's goal (although this may be ignored).
-			 */
-			virtual void draw3DGL( const Agents::BaseAgent * agt, const Goal * goal );
-
-		protected:
-			/*!
-			 *	@brief		The underlying finite state machine velocity component.
-			 */
-			ConstVelComponent * _vc;
-		};
-#endif
 		/////////////////////////////////////////////////////////////////////
 
 		/*!
@@ -295,6 +251,13 @@ namespace Menge {
 			void setDirection( const Vector2 & dir );
 
 			/*!
+			 *	@brief		Reports the direction of this velocity component.
+			 *
+			 *	@returns	The direction.
+			 */
+			const Vector2& getDirection() const { return _dir; }
+
+			/*!
 			 *	@brief		Used by the plugin system to know what artifacts to associate with
 			 *				agents of this type.  Every sub-class of must return a globally
 			 *				unique value if it should be associated with unique artifacts.
@@ -309,50 +272,6 @@ namespace Menge {
 			Vector2 _dir;
 		};
 
-#if 0
-		/////////////////////////////////////////////////////////////////////
-
-		/*!
-		 *	@brief		The context for the ConstVelDirComponent.
-		 */
-		class MENGE_API ConstDirVCContext : public VelCompContext {
-		public:
-			/*!
-			 *	@brief		Constructor.
-			 *
-			 *	@param		vc			A pointer to the underlying fsm velocity component.
-			 *							The context will *not* delete the velocity component.
-			 */
-			ConstDirVCContext( ConstVelDirComponent * vc );
-
-			/*!
-			 *	@brief		Provides a string to be printed in the display as a UI element
-			 *				detailing velocity component information.
-			 *
-			 *	@param		indent		An optional string representing indentation to be
-			 *							applied to the text.  It is prefixed at the start
-			 *							of each line.
-			 *	@returns	The string for printing on the UI layer.
-			 */
-			virtual std::string getUIText( const std::string & indent="" ) const;
-
-			/*!
-			 *	@brief		Draw context elements into the 3D world.
-			 *
-			 *	This should never be called in select mode.
-			 *
-			 *	@param		agt			The particular agent for which the FSM is being visualized.
-			 *	@param		goal		The agent's goal (although this may be ignored).
-			 */
-			virtual void draw3DGL( const Agents::BaseAgent * agt, const Goal * goal );
-
-		protected:
-			/*!
-			 *	@brief		The underlying finite state machine velocity component.
-			 */
-			ConstVelDirComponent * _vc;
-		};
-#endif
 		/////////////////////////////////////////////////////////////////////
 
 		/*!
@@ -469,32 +388,7 @@ namespace Menge {
 			 */
 			virtual std::string getStringId() const { return "zero"; }
 		};
-#if 0
-		/////////////////////////////////////////////////////////////////////
 
-		/*!
-		 *	@brief		The context for the ZeroVelComponent.
-		 */
-		class MENGE_API ZeroVCContext : public VelCompContext {
-		public:
-			/*!
-			 *	@brief		Constructor.
-			 */
-			ZeroVCContext();
-
-			/*!
-			 *	@brief		Provides a string to be printed in the display as a UI element
-			 *				detailing velocity component information.
-			 *
-			 *	@param		indent		An optional string representing indentation to be
-			 *							applied to the text.  It is prefixed at the start
-			 *							of each line.
-			 *	@returns	The string for printing on the UI layer.
-			 */
-			virtual std::string getUIText( const std::string & indent="" ) const;
-
-		};
-#endif
 		/////////////////////////////////////////////////////////////////////
 
 		/*!

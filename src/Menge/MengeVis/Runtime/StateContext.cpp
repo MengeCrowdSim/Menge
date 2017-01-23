@@ -81,9 +81,6 @@ namespace MengeVis {
 		void StateContext::setState( State * state ) {
 			if ( _state == 0x0 || _state->getID() != state->getID() ) {
 				_state = state;
-				// TODO: Query the vel component for its *name* so I can instantiate the right
-				//	context for the velocity component.
-				//_vcContext = _state->_velComponent->getContext();
 				_vcContext = VCContextDB::getInstance( _state->getVelComponent() );
 				_activeTransition = _state->getTransitions().size() == 1 ? 0 : NO_ACTIVE_ID;
 			}
@@ -94,7 +91,7 @@ namespace MengeVis {
 		SceneGraph::ContextResult StateContext::handleKeyboard( SDL_Event & e ) { 
 			SceneGraph::ContextResult result( false, false ); 
 
-			//result = _vcContext->handleKeyboard( e );
+			result = _vcContext->handleKeyboard( e );
 			if ( ! result.isHandled() && _activeTransition != NO_ACTIVE_ID ) {
 				SDLMod mods = e.key.keysym.mod;
 				bool hasCtrl = ( mods & KMOD_CTRL ) > 0;

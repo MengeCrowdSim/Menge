@@ -106,6 +106,13 @@ namespace Menge {
 			void setVectorField( const VectorFieldPtr & vf ) { _vf = vf; }
 
 			/*!
+			 *	@brief		Provides access to the underlying vector field.
+			 *
+			 *	@returns	A pointer to the vector field.
+			 */
+			VectorFieldPtr getVectorField() { return _vf; }
+
+			/*!
 			 *	@brief		Computes and sets the agent's preferred velocity.
 			 *
 			 *	The velocity component directly sets preferred velocity values in the
@@ -141,70 +148,7 @@ namespace Menge {
 			 */
 			bool	_nearest;
 		};
-#if 0
-		//////////////////////////////////////////////////////////////////////////////
 
-		/*!
-		 *	@brief		The context for the VFVelComponent.
-		 */
-		class MENGE_API VecFieldVCContext : public VelCompContext {
-		public:
-			/*!
-			 *	@brief		Constructor.
-			 *
-			 *	@param		vc			A pointer to the underlying fsm velocity component.
-			 *							The context will *not* delete the velocity component.
-			 */
-			VecFieldVCContext( VFVelComponent * vc );
-
-			/*!
-			 *	@brief		Provides a string to be printed in the display as a UI element
-			 *				detailing velocity component information.
-			 *
-			 *	@param		indent		An optional string representing indentation to be
-			 *							applied to the text.  It is prefixed at the start
-			 *							of each line.
-			 *	@returns	The string for printing on the UI layer.
-			 */
-			virtual std::string getUIText( const std::string & indent="" ) const;
-
-			/*!
-			 *	@brief		Give the context the opportunity to respond to a keyboard
-			 *				event.
-			 *
-			 *	@param		e		The SDL event with the keyboard event data.
-			 *	@returns	A ContextResult instance reporting if the event was handled and
-			 *				if redrawing is necessary.
-			 */
-			virtual SceneGraph::ContextResult handleKeyboard( SDL_Event & e );
-
-			/*!
-			 *	@brief		Draw context elements into the 3D world.
-			 *
-			 *	This should never be called in select mode.
-			 *
-			 *	@param		agt			The particular agent for which the FSM is being visualized.
-			 *	@param		goal		The agent's goal (although this may be ignored).
-			 */
-			virtual void draw3DGL( const Agents::BaseAgent * agt, const Goal * goal );
-
-		protected:
-			/*!
-			 *	@brief		The underlying finite state machine velocity component.
-			 */
-			VFVelComponent * _vc;
-
-			/*!
-			 *	@brief		Displays only the local area around the agent
-			 */
-			bool	_showLocal;
-
-			/*!
-			 *	@brief		Size of the local neighborhood to visualize
-			 */
-			int	_neighborhood;
-		};
-#endif
 		//////////////////////////////////////////////////////////////////////////////
 
 		/*!

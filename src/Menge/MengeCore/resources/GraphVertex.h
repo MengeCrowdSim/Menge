@@ -55,7 +55,7 @@ namespace Menge {
 	/*!
 	 *	@brief		A graph vertex.
 	 */
-	class GraphVertex {
+	class MENGE_API GraphVertex {
 	public:
 		/*!
 		 *	@brief		Constructor

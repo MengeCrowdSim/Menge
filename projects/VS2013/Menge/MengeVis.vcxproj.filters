@@ -135,6 +135,21 @@
     <ClCompile Include="$(SrcDir)\MengeVis\Runtime\VCContext\VelCompContextDatabase.cpp">
       <Filter>Source Files\Runtime\VCContext</Filter>
     </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\VCContext\VCConstContext.cpp">
+      <Filter>Source Files\Runtime\VCContext</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\VCContext\VCGoalContext.cpp">
+      <Filter>Source Files\Runtime\VCContext</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\VCContext\NavMeshVCContext.cpp">
+      <Filter>Source Files\Runtime\VCContext</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\VCContext\RoadMapVCContext.cpp">
+      <Filter>Source Files\Runtime\VCContext</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\Menge\MengeVis\Runtime\VCContext\VecFieldVCContext.cpp">
+      <Filter>Source Files\Runtime\VCContext</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(SrcDir)\MengeVis\Runtime\SimSystem.h">
@@ -252,6 +267,21 @@
       <Filter>Header Files\Runtime\VCContext</Filter>
     </ClInclude>
     <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VCContext\VelCompContextDatabase.h">
+      <Filter>Header Files\Runtime\VCContext</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VCContext\VCConstContext.h">
+      <Filter>Header Files\Runtime\VCContext</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VCContext\VCGoalContext.h">
+      <Filter>Header Files\Runtime\VCContext</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VCContext\NavMeshVCContext.h">
+      <Filter>Header Files\Runtime\VCContext</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VCContext\RoadMapVCContext.h">
+      <Filter>Header Files\Runtime\VCContext</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VCContext\VecFieldVCContext.h">
       <Filter>Header Files\Runtime\VCContext</Filter>
     </ClInclude>
   </ItemGroup>

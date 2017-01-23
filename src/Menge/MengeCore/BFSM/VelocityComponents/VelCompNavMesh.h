@@ -93,7 +93,7 @@ namespace Menge {
 			void setNavMesh( const NavMeshPtr & nm ) { _navMesh = nm; }
 
 			/*!
-			 *	@brief		Returns a resource pointer to the underlying navigation mesh
+			 *	@brief		Returns a resource pointer to the underlying navigation mesh.
 			 *
 			 *	@returns	The navigation mesh.
 			 */
@@ -172,88 +172,6 @@ namespace Menge {
 			NavMeshLocalizerPtr _localizer;
 		};
 
-#if 0
-		//////////////////////////////////////////////////////////////////////////////
-
-		/*!
-		 *	@brief		The context for the NavMeshVelComponent.
-		 */
-		class MENGE_API NavMeshVCContext : public VelCompContext {
-		public:
-			/*!
-			 *	@brief		Constructor.
-			 *
-			 *	@param		vc			A pointer to the underlying fsm velocity component.
-			 *							The context will *not* delete the velocity component.
-			 */
-			NavMeshVCContext( NavMeshVelComponent * vc );
-
-			/*!
-			 *	@brief		Provides a string to be printed in the display as a UI element
-			 *				detailing velocity component information.
-			 *
-			 *	@param		indent		An optional string representing indentation to be
-			 *							applied to the text.  It is prefixed at the start
-			 *							of each line.
-			 *	@returns	The string for printing on the UI layer.
-			 */
-			virtual std::string getUIText( const std::string & indent="" ) const;
-
-			/*!
-			 *	@brief		Give the context the opportunity to respond to a keyboard
-			 *				event.
-			 *
-			 *	@param		e		The SDL event with the keyboard event data.
-			 *	@returns	A ContextResult instance reporting if the event was handled and
-			 *				if redrawing is necessary.
-			 */
-			virtual SceneGraph::ContextResult handleKeyboard( SDL_Event & e );
-
-			/*!
-			 *	@brief		Draw context elements into the 3D world.
-			 *
-			 *	This should never be called in select mode.
-			 *
-			 *	@param		agt			The particular agent for which the FSM is being visualized.
-			 *	@param		goal		The agent's goal (although this may be ignored).
-			 */
-			virtual void draw3DGL( const Agents::BaseAgent * agt, const Goal * goal );
-
-		protected:
-			/*!
-			 *	@brief		Draws the navigation mesh to the 3D context based on current settings.
-			 */
-			void drawNavMesh() const;
-
-			/*!
-			 *	@brief		Draws the path for the selected agent.
-			 *
-			 *	@param		agt			The particular agent for which the FSM is being visualized.
-			 *	@param		goal		The agent's goal (although this may be ignored).
-			 */
-			void drawPath( const Agents::BaseAgent * agt, const Goal * goal ) const;
-
-			/*!
-			 *	@brief		Draws the ids on the polygon mesh centers.
-			 */
-			void drawNodeIDs() const;
-
-			/*!
-			 *	@brief		The underlying finite state machine velocity component.
-			 */
-			NavMeshVelComponent * _vc;
-
-			/*!
-			 *	@brief		Visualization flag - controls if polygon centers are drawn.
-			 */
-			bool	_drawCenters;
-
-			/*!
-			 *	@brief		Visualizaton flag - controls if polygon ids are drawn.
-			 */
-			bool	_drawNodeIDs;
-		};
-#endif
 		//////////////////////////////////////////////////////////////////////////////
 
 		/*!

@@ -49,6 +49,11 @@
     <ClCompile Include="$(SrcDir)\MengeVis\Runtime\AgentContext\BaseAgentContext.cpp" />
     <ClCompile Include="$(SrcDir)\MengeVis\Runtime\MengeContext.cpp" />
     <ClCompile Include="$(SrcDir)\MengeVis\Runtime\VCContext\VelCompContextDatabase.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\VCContext\NavMeshVCContext.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\VCContext\VCConstContext.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\VCContext\VCGoalContext.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\VCContext\RoadMapVCContext.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\VCContext\VecFieldVCContext.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(SrcDir)\MengeVis\Runtime\SimSystem.h" />
@@ -90,6 +95,11 @@
     <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VisElementDatabase.h" />
     <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VisElementException.h" />
     <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VCContext\VelCompContextDatabase.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VCContext\NavMeshVCContext.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VCContext\VCConstContext.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VCContext\VCGoalContext.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VCContext\RoadMapVCContext.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VCContext\VecFieldVCContext.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{57FA5E04-F7D0-47B7-900D-CA2BA94E9D52}</ProjectGuid>

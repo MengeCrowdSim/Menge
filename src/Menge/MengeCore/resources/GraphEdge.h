@@ -55,7 +55,7 @@ namespace Menge {
 	/*!
 	 *	@brief		A graph edge.
 	 */
-	class GraphEdge {
+	class MENGE_API GraphEdge {
 	public:
 		/*!
 		 *	@brief		Constructor.

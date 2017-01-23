@@ -85,39 +85,5 @@ namespace Menge {
 		}
 
 		/////////////////////////////////////////////////////////////////////
-#if 0
-		VelCompContext * GoalVelComponent::getContext() {
-			return new GoalVCContext( this );
-		}
-
-		/////////////////////////////////////////////////////////////////////
-		//                   Implementation of GoalVCContext
-		/////////////////////////////////////////////////////////////////////
-
-		GoalVCContext::GoalVCContext( GoalVelComponent * vc ):VelCompContext(),_vc(vc) {
-		}
-
-		/////////////////////////////////////////////////////////////////////
-
-		std::string GoalVCContext::getUIText( const std::string & indent ) const {
-			std::stringstream ss;
-			ss << indent << "Goal velocity component";
-			return ss.str();
-		}
-
-		/////////////////////////////////////////////////////////////////////
-
-		void GoalVCContext::draw3DGL( const Agents::BaseAgent * agt, const Goal * goal ) {
-			// draw goal point
-			// TODO: Get the elevation of the goalPoint
-			Vector2 goalPoint = goal->getTargetPoint( agt->_pos, agt->_radius );
-			drawGoal( goalPoint, agt );
-			
-			// draw preferred velocity
-			Agents::PrefVelocity pVel;
-			_vc->setPrefVelocity( agt, goal, pVel );
-			drawPrefVel( pVel, agt->_pos );
-		}
-#endif
 	} // namespace BFSM
 }	// namespace Menge

@@ -109,6 +109,20 @@ namespace Menge {
 			void setRoadMap( const GraphPtr & graph ) { _roadmap = graph; }
 
 			/*!
+			 *	@brief		Returns a resource pointer to the underlying raod map.
+			 *
+			 *	@returns	The road map.
+			 */
+			GraphPtr getRoadMap() { return _roadmap; }
+
+			/*!
+			 *	@brief		Returns a reference to the path data for the velocity component.
+			 *
+			 *	@returns	A const reference to the underlying pathdata.
+			 */
+			const PathMap & getPathMap() const { return _paths; }
+
+			/*!
 			 *	@brief		Called when the agent leaves the state which possesses this velocity
 			 *				component.
 			 *
@@ -159,50 +173,7 @@ namespace Menge {
 			 */
 			ReadersWriterLock	_lock;
 		};
-#if 0
-		//////////////////////////////////////////////////////////////////////////////
 
-		/*!
-		 *	@brief		The context for the RoadMapVelComponent.
-		 */
-		class MENGE_API RoadMapVCContext : public VelCompContext {
-		public:
-			/*!
-			 *	@brief		Constructor.
-			 *
-			 *	@param		vc			A pointer to the underlying fsm velocity component.
-			 *							The context will *not* delete the velocity component.
-			 */
-			RoadMapVCContext( RoadMapVelComponent * vc );
-
-			/*!
-			 *	@brief		Provides a string to be printed in the display as a UI element
-			 *				detailing velocity component information.
-			 *
-			 *	@param		indent		An optional string representing indentation to be
-			 *							applied to the text.  It is prefixed at the start
-			 *							of each line.
-			 *	@returns	The string for printing on the UI layer.
-			 */
-			virtual std::string getUIText( const std::string & indent="" ) const;
-
-			/*!
-			 *	@brief		Draw context elements into the 3D world.
-			 *
-			 *	This should never be called in select mode.
-			 *
-			 *	@param		agt			The particular agent for which the FSM is being visualized.
-			 *	@param		goal		The agent's goal (although this may be ignored).
-			 */
-			virtual void draw3DGL( const Agents::BaseAgent * agt, const Goal * goal );
-
-		protected:
-			/*!
-			 *	@brief		The underlying finite state machine velocity component.
-			 */
-			RoadMapVelComponent * _vc;
-		};
-#endif
 		//////////////////////////////////////////////////////////////////////////////
 
 		/*!

@@ -76,37 +76,7 @@ namespace Menge {
 			_dir.set( norm( velocity ) );
 			_speed = abs( velocity );
 		}
-#if 0
-		/////////////////////////////////////////////////////////////////////
 
-		VelCompContext * ConstVelComponent::getContext() { 
-			return new ConstVCContext( this ); 
-		}
-
-		/////////////////////////////////////////////////////////////////////
-		//                   Implementation of ConstVCContext
-		/////////////////////////////////////////////////////////////////////
-
-		ConstVCContext::ConstVCContext( ConstVelComponent * vc ):VelCompContext(),_vc(vc) {
-		}
-
-		/////////////////////////////////////////////////////////////////////
-
-		std::string ConstVCContext::getUIText( const std::string & indent ) const {
-			std::stringstream ss;
-			ss << indent << "Const: " << _vc->getConstVelocity();
-			return ss.str();
-		}
-
-		/////////////////////////////////////////////////////////////////////
-
-		void ConstVCContext::draw3DGL( const Agents::BaseAgent * agt, const Goal * goal ) {
-			// draw preferred velocity
-			Agents::PrefVelocity pVel;
-			_vc->setPrefVelocity( agt, goal, pVel );
-			drawPrefVel( pVel, agt->_pos );
-		}
-#endif
 		/////////////////////////////////////////////////////////////////////
 		//                   Implementation of ConstVCFactory
 		/////////////////////////////////////////////////////////////////////
@@ -160,37 +130,7 @@ namespace Menge {
 		void ConstVelDirComponent::setDirection( const Vector2 & dir ) {
 			_dir.set( norm( dir ) );
 		}
-#if 0
-		/////////////////////////////////////////////////////////////////////
 
-		VelCompContext * ConstVelDirComponent::getContext() {
-			return new ConstDirVCContext( this );
-		}
-
-		/////////////////////////////////////////////////////////////////////
-		//                   Implementation of ConstDirVCContext
-		/////////////////////////////////////////////////////////////////////
-
-		ConstDirVCContext::ConstDirVCContext( ConstVelDirComponent * vc ):VelCompContext(),_vc(vc) {
-		}
-
-		/////////////////////////////////////////////////////////////////////
-
-		std::string ConstDirVCContext::getUIText( const std::string & indent ) const {
-			std::stringstream ss;
-			ss << indent << "Const direction: " << _vc->_dir;
-			return ss.str();
-		}
-
-		/////////////////////////////////////////////////////////////////////
-
-		void ConstDirVCContext::draw3DGL( const Agents::BaseAgent * agt, const Goal * goal ) {
-			// draw preferred velocity
-			Agents::PrefVelocity pVel;
-			_vc->setPrefVelocity( agt, goal, pVel );
-			drawPrefVel( pVel, agt->_pos );
-		}
-#endif
 		/////////////////////////////////////////////////////////////////////
 		//                   Implementation of ConstDirVCFactory
 		/////////////////////////////////////////////////////////////////////
@@ -229,29 +169,5 @@ namespace Menge {
 			pVel.setSpeed( 0.f );
 			pVel.setTarget( agent->_pos );
 		}
-#if 0
-		/////////////////////////////////////////////////////////////////////
-
-		VelCompContext * ZeroVelComponent::getContext() {
-			return new ZeroVCContext();
-		}
-
-		/////////////////////////////////////////////////////////////////////
-		//                   Implementation of ZeroVCContext
-		/////////////////////////////////////////////////////////////////////
-
-		ZeroVCContext::ZeroVCContext():VelCompContext() {
-		}
-
-		/////////////////////////////////////////////////////////////////////
-
-		std::string ZeroVCContext::getUIText( const std::string & indent ) const {
-			std::stringstream ss;
-			ss << indent << "Zero velocity";
-			return ss.str();
-		}
-
-		
-#endif
 	}	// namespace BFSM
 }	// namespace Menge
