@@ -41,7 +41,6 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include "MengeCore/Agents/BaseAgent.h"
 #include "MengeCore/Agents/Obstacle.h"
 #include "MengeCore/Math/Vector2.h"
-#include "MengeVis/Runtime/FsmContext.h"
 #include "MengeVis/Runtime/VisAgent.h"
 #include "MengeVis/SceneGraph/GLScene.h"
 #include "MengeVis/SceneGraph/Select.h"

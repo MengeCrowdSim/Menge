@@ -1,18 +1,16 @@
+/*!
+ *	@file		AgentContextDatabase.h
+ *	@brief		The definition of the database for all agent contexts.
+ */
+
 #ifndef __AGENT_CONTEXT_DATABASE_H__
 #define __AGENT_CONTEXT_DATABASE_H__
 
 #include "MengeVis/Runtime/VisElementDatabase.h"
-#include "MengeVis/Runtime/AgentContext/BaseAgentContext.h"
-
-// forward declaration
-namespace Menge {
-	namespace Agents {
-		class BaseAgent;
-	}
-}
 
 namespace MengeVis {
 	namespace Runtime {
+		// forward declaration
 		class BaseAgentContext;
 		class VisAgent;
 

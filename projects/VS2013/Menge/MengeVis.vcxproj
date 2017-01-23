@@ -42,7 +42,6 @@
     <ClCompile Include="$(SrcDir)\MengeVis\Viewer\ScreenGrab.cpp" />
     <ClCompile Include="$(SrcDir)\MengeVis\Viewer\ViewConfig.cpp" />
     <ClCompile Include="$(SrcDir)\MengeVis\Viewer\Watermark.cpp" />
-    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\FsmContext.cpp" />
     <ClCompile Include="$(SrcDir)\MengeVis\Runtime\StateContext.cpp" />
     <ClCompile Include="$(SrcDir)\MengeVis\Runtime\VCContext\VelCompContext.cpp" />
     <ClCompile Include="$(SrcDir)\MengeVis\Runtime\AgentContextDatabase.cpp" />
@@ -82,7 +81,6 @@
     <ClInclude Include="$(SrcDir)\MengeVis\Viewer\ScreenGrab.h" />
     <ClInclude Include="$(SrcDir)\MengeVis\Viewer\ViewConfig.h" />
     <ClInclude Include="$(SrcDir)\MengeVis\Viewer\Watermark.h" />
-    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\FsmContext.h" />
     <ClInclude Include="$(SrcDir)\MengeVis\Runtime\StateContext.h" />
     <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VCContext\VelCompContext.h" />
     <ClInclude Include="$(SrcDir)\MengeVis\VisConfig.h" />
