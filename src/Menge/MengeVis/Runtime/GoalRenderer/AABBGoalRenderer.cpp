@@ -1,0 +1,39 @@
+#include "MengeVis/Runtime/GoalRenderer/AABBGoalRenderer.h"
+
+#include "MengeCore/BFSM/Goals/GoalAABB.h"
+#include "MengeCore/Math/Geometry2D.h"
+#include "MengeVis/Runtime/VisElementException.h"
+#include "MengeVis/SceneGraph/graphCommon.h"
+
+namespace MengeVis {
+	namespace Runtime {
+		namespace GoalVis {
+
+			using Menge::BFSM::AABBGoal;
+			using Menge::Math::AABBShape;
+			using Menge::Math::Vector2;
+
+			/////////////////////////////////////////////////////////////////////
+			//					Implementation of AABBGoalRenderer
+			/////////////////////////////////////////////////////////////////////
+
+			void AABBGoalRenderer::doDrawGeometry() const {
+				AABBGoal * goal = dynamic_cast<AABBGoal *>( _goal );
+				if ( goal == 0x0 ) {
+					throw VisElementException( "Attempting to draw goal of type " +
+											   _goal->getStringId() + " with AABB goal renderer." );
+				}
+				const AABBShape * shape = static_cast<const AABBShape *>( goal->getGeometry() );
+				const Vector2 & minPt = shape->getMinPoint();
+				const Vector2 & size = shape->getSize();;
+				glBegin( GL_POLYGON );
+				glVertex3f( minPt.x(), 0.f, minPt.y() );
+				glVertex3f( minPt.x() + size.x(), 0.f, minPt.y() );
+				glVertex3f( minPt.x() + size.x(), 0.f, minPt.y() + size.y() );
+				glVertex3f( minPt.x(), 0.f, minPt.y() + size.y() );
+				glVertex3f( minPt.x(), 0.f, minPt.y() );
+				glEnd();
+			}
+		}	// namespace GoalVis
+	}	// namespace Runtime
+}	// namespace MengeVis

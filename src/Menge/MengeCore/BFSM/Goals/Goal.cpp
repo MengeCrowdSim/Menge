@@ -43,10 +43,6 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include "MengeCore/BFSM/Goals/GoalDatabase.h"
 #include "MengeCore/Math/consts.h"
 
-#if 0
-#include "graphCommon.h"
-#endif
-
 #include <cassert>
 #include <cmath>
 
@@ -98,25 +94,7 @@ namespace Menge {
 			--_population;		
 			_lock.releaseWrite();
 		}
-#if 0
-		/////////////////////////////////////////////////////////////////////
 
-		void Goal::drawGL() const {
-			glPushAttrib( GL_ENABLE_BIT | GL_COLOR_BUFFER_BIT | GL_POLYGON_BIT | GL_DEPTH_BUFFER_BIT);
-			glDepthMask( GL_FALSE );
-			glColor4f( 0.75f, 0.1f, 0.75f, 0.25f );
-			glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
-			glEnable( GL_BLEND );
-			glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
-			drawGLGeometry();
-
-			glDisable( GL_BLEND );
-			glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
-			drawGLGeometry();
-
-			glPopAttrib();
-		}
-#endif
 		/////////////////////////////////////////////////////////////////////
 		//					Implementation of Helpers
 		/////////////////////////////////////////////////////////////////////

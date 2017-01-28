@@ -39,27 +39,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include "MengeCore/BFSM/Goals/GoalCircle.h"
 #include "MengeCore/Agents/PrefVelocity.h"
 
-#if 0
-#include "shapes.h"
-#endif
-
 namespace Menge {
 
 	namespace BFSM {
-		/////////////////////////////////////////////////////////////////////
-		//                   Implementation of CircleGoal
-		/////////////////////////////////////////////////////////////////////
-#if 0
-		void CircleGoal::drawGLGeometry() const{
-			glPushMatrix();
-			const Vector2 & pos = static_cast<CircleShape*>(_geometry)->getCenter();
-			float radius = static_cast<CircleShape*>(_geometry)->getRadius();
-			glTranslatef(pos.x(), 0.f, pos.y());
-			glScalef(radius, radius, radius);
-			SceneGraph::Circle::drawUnit();
-			glPopMatrix();
-		}
-#endif
 		/////////////////////////////////////////////////////////////////////
 		//                   Implementation of CircleGoalFactory
 		/////////////////////////////////////////////////////////////////////

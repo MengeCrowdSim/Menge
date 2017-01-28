@@ -124,6 +124,14 @@ namespace Menge {
 			virtual ~Goal();
 
 		public:
+
+			/*!
+			 *	@brief		Used by the plugin system to know what artifacts to associate with
+			 *				agents of this type.  Every sub-class of must return a globally
+			 *				unique value if it should be associated with unique artifacts.
+			 */
+			virtual std::string getStringId() const { return "undefined"; }// = 0;
+
 			/*!
 			 *	@brief		Reports the *squared* distance from the given point to the goal.
 			 *
@@ -280,12 +288,13 @@ namespace Menge {
 			 *	@returns	The goal's id.
 			 */
 			inline size_t getID() const { return _id; }
-#if 0
+
 			/*!
-			 *	@brief		Draws the goal into an OpenGL context.
+			 *	@brief		Provides access to the underlying geometry.
+			 *
+			 *	@returns	The underlying geometry structure.
 			 */
-			virtual void drawGL() const;
-#endif
+			inline const Math::Geometry2D * getGeometry() const { return _geometry; }
 
 			/*!
 			 *	@brief		The maximum capacity any goal can hold.
@@ -295,12 +304,6 @@ namespace Menge {
 			friend class GoalSet;
 
 		protected:
-#if 0
-			/*!
-			 *	@brief		Draws the goal geometry.
-			 */
-			virtual void drawGLGeometry() const {}
-#endif
 			/*!
 			 *	@brief		The relative weight of this goal.
 			 */

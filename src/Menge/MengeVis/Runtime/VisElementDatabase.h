@@ -79,6 +79,7 @@ namespace MengeVis {
 			 *	@returns	A pointer to a compatible visualization element, targeted to the given
 			 *				@p element.  Guaranteed to return a non-null pointer.
 			 */
+			// TODO: Why is this not const?
 			static VisElement * getInstance( SimElement * element ) {
 				// extract type name
 				const std::string stringId = element->getStringId();

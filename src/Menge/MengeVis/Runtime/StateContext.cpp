@@ -41,6 +41,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include "MengeCore/Agents/BaseAgent.h"
 #include "MengeCore/BFSM/State.h"
 #include "MengeCore/BFSM/Goals/Goal.h"
+#include "MengeVis/Runtime/GoalRenderer/GoalRendererDatabase.h"
 #include "MengeVis/Runtime/VCContext/VelCompContextDatabase.h"
 
 #include <sstream>
@@ -57,6 +58,7 @@ namespace MengeVis {
 		using Menge::Agents::BaseAgent;
 		using Menge::BFSM::State;
 		using Menge::BFSM::Goal;
+		using MengeVis::Runtime::GoalVis::GoalRendererDB;
 		using MengeVis::Runtime::VCContext::VCContextDB;
 
 		/////////////////////////////////////////////////////////////////////
@@ -141,8 +143,9 @@ namespace MengeVis {
 
 		void StateContext::draw3DGL( const BaseAgent * agt, bool drawVC, bool drawTrans ) {
 			const Goal * goal = _state->getGoal( agt->_id );
-			// Need a goal renderer
-			//goal->drawGL();
+			// TODO: this should not be a const cast
+			_goalRenderer = GoalRendererDB::getInstance( const_cast<Goal *>( goal ) );
+			_goalRenderer->drawGL();
 			if ( drawVC ) {
 				_vcContext->draw3DGL( agt, goal );
 			}

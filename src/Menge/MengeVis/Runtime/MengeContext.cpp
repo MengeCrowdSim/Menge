@@ -8,6 +8,7 @@
 #include "MengeVis/Runtime/VisAgent.h"
 #include "MengeVis/Runtime/AgentContext/AgentContextDatabase.h"
 #include "MengeVis/Runtime/AgentContext/BaseAgentContext.h"
+#include "MengeVis/Runtime/GoalRenderer/GoalRendererDatabase.h"
 #include "MengeVis/Runtime/VCContext/VelCompContextDatabase.h"
 
 #include "MengeVis/SceneGraph/Select.h"
@@ -31,6 +32,7 @@ namespace MengeVis {
 			_digits[ MAX_TYPE_DIGITS ] = '\0';
 			AgentContextDB::initialize();
 			VCContext::VCContextDB::initialize();
+			GoalVis::GoalRendererDB::initialize();
 		}
 
 		////////////////////////////////////////////////////////////////////////////

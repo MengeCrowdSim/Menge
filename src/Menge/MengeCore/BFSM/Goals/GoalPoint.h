@@ -73,14 +73,14 @@ namespace Menge {
 			 *	@param		x		The x-position of the goal.
 			 *	@param		y		The x-position of the goal.
 			 */
-			PointGoal(float x, float y);
+			PointGoal( float x, float y );
 
-#if 0
 			/*!
-			 *	@brief		Draws the goal into an OpenGL context.
+			 *	@brief		Used by the plugin system to know what artifacts to associate with
+			 *				agents of this type.  Every sub-class of must return a globally
+			 *				unique value if it should be associated with unique artifacts.
 			 */
-			virtual void drawGL() const;
-#endif
+			virtual std::string getStringId() const { return "point"; }
 		};
 
 		/*!

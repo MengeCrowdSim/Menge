@@ -56,13 +56,13 @@ namespace Menge {
 		 *	@brief		A axis-aligned bounding box goal region with uniform probability
 		 */
 		class MENGE_API AABBGoal : public Goal {
-#if 0
-		protected:
+		public:
 			/*!
-			 *	@brief		Draws the goal geometry.
+			 *	@brief		Used by the plugin system to know what artifacts to associate with
+			 *				agents of this type.  Every sub-class of must return a globally
+			 *				unique value if it should be associated with unique artifacts.
 			 */
-			virtual void drawGLGeometry() const;
-#endif
+			virtual std::string getStringId() const { return "aabb"; }
 		};
 
 		/*!

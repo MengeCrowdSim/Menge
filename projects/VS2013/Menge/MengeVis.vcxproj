@@ -53,6 +53,11 @@
     <ClCompile Include="$(SrcDir)\MengeVis\Runtime\VCContext\VCGoalContext.cpp" />
     <ClCompile Include="$(SrcDir)\MengeVis\Runtime\VCContext\RoadMapVCContext.cpp" />
     <ClCompile Include="$(SrcDir)\MengeVis\Runtime\VCContext\VecFieldVCContext.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\GoalRenderer\AABBGoalRenderer.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\GoalRenderer\CircleGoalRenderer.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\GoalRenderer\GoalRenderer.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\GoalRenderer\GoalRendererDatabase.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\GoalRenderer\OBBGoalRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(SrcDir)\MengeVis\Runtime\SimSystem.h" />
@@ -98,6 +103,12 @@
     <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VCContext\VCGoalContext.h" />
     <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VCContext\RoadMapVCContext.h" />
     <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VCContext\VecFieldVCContext.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\GoalRenderer\AABBGoalRenderer.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\GoalRenderer\CircleGoalRenderer.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\GoalRenderer\GoalRenderer.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\GoalRenderer\GoalRendererDatabase.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\GoalRenderer\OBBGoalRenderer.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\GoalRenderer\PointGoalRenderer.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{57FA5E04-F7D0-47B7-900D-CA2BA94E9D52}</ProjectGuid>

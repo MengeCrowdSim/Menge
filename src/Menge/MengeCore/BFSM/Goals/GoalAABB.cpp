@@ -40,30 +40,10 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 #include "MengeCore/Agents/PrefVelocity.h"
 
-#if 0
-#include "graphCommon.h"
-#endif
-
 namespace Menge {
 
 	namespace BFSM {
 
-		/////////////////////////////////////////////////////////////////////
-		//                   Implementation of AABBGoal
-		/////////////////////////////////////////////////////////////////////
-#if 0
-		void AABBGoal::drawGLGeometry() const {
-			const Vector2 & minPt = static_cast<AABBShape*>(_geometry)->getMinPoint();
-			const Vector2 & size = static_cast<AABBShape*>(_geometry)->getSize();;
-			glBegin( GL_POLYGON );
-				glVertex3f(minPt.x(), 0.f, minPt.y());
-				glVertex3f(minPt.x() + size.x(), 0.f, minPt.y());
-				glVertex3f(minPt.x() + size.x(), 0.f, minPt.y() + size.y());
-				glVertex3f(minPt.x(), 0.f, minPt.y() + size.y());
-				glVertex3f(minPt.x(), 0.f, minPt.y());
-			glEnd();
-		}
-#endif
 		/////////////////////////////////////////////////////////////////////
 		//                   Implementation of AABBGoalFactory
 		/////////////////////////////////////////////////////////////////////

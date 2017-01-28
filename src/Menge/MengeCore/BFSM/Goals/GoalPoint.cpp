@@ -39,10 +39,6 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include "MengeCore/BFSM/Goals/GoalPoint.h"
 #include "MengeCore/Agents/PrefVelocity.h"
 
-#if 0
-#include "graphCommon.h"
-#endif
-
 namespace Menge {
 
 	namespace BFSM {
@@ -65,16 +61,7 @@ namespace Menge {
 		PointGoal::PointGoal(float x, float y) : Goal() {
 			_geometry = new PointShape(Vector2(x, y));
 		}
-#if 0
-		/////////////////////////////////////////////////////////////////////
-		
-		void PointGoal::drawGL() const{
-			glBegin( GL_POINTS );
-			const Vector2 & p = static_cast<Math::PointShape*>(_geometry)->getPosition();
-			glVertex3f( p.x(), 0.f, p.y() );
-			glEnd();
-		}
-#endif
+
 		/////////////////////////////////////////////////////////////////////
 		//                   Implementation of PointGoalFactory
 		/////////////////////////////////////////////////////////////////////

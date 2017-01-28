@@ -47,6 +47,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 #include "MengeCore/mengeCommon.h"
 #include "MengeVis/VisConfig.h"
+#include "MengeVis/Runtime/GoalRenderer/GoalRenderer.h"
 #include "MengeVis/Runtime/VCContext/VelCompContext.h"
 #include "MengeVis/SceneGraph/Context.h"
 
@@ -146,6 +147,11 @@ namespace MengeVis {
 			 *	@brief		The velocity component context for this state.
 			 */
 			VCContext::VelCompContext * _vcContext;
+
+			/*!
+			 *	@brief		The goal renderer for this state.
+			 */
+			GoalVis::GoalRenderer * _goalRenderer;
 
 			/*!
 			 *	@brief		The id of the "active" transition.
