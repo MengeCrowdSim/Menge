@@ -44,7 +44,6 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include "MengeCore/Runtime/SimulatorDB.h"
 
 #include "MengeVis/Runtime/AgentContext/BaseAgentContext.h"
-#include "MengeVis/Runtime/FsmContext.h"
 #include "MengeVis/Runtime/MengeContext.h"
 #include "MengeVis/Runtime/SimSystem.h"
 #include "MengeVis/SceneGraph/ContextSwitcher.h"
@@ -106,7 +105,6 @@ int simMain( SimulatorDBEntry * dbEntry, const std::string & behaveFile,
 
 	using Menge::Agents::SimulatorInterface;
 	using MengeVis::Runtime::BaseAgentContext;
-	using MengeVis::Runtime::FsmContext;
 	using MengeVis::Runtime::SimSystem;
 	using MengeVis::SceneGraph::Context;
 	using MengeVis::SceneGraph::ContextSwitcher;

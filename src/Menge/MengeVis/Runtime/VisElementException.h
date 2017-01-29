@@ -12,34 +12,34 @@ namespace MengeVis {
 		class MENGEVIS_API VisElementException : public virtual Menge::MengeException {
 		public:
 			/*!
-			*	@brief		Default constructor.
-			*/
+			 *	@brief		Default constructor.
+			 */
 			VisElementException() : MengeException() {}
 
 			/*!
-			*	@brief		Constructor with message.
-			*
-			*	@param		s		The exception-specific message.
-			*/
+			 *	@brief		Constructor with message.
+			 *
+			 *	@param		s		The exception-specific message.
+			 */
 			VisElementException( const std::string & s ) : Menge::MengeException( s ) {}
 		};
 
 		/*!
-		*	@brief		The fatal vis element exception.
-		*/
+		 *	@brief		The fatal vis element exception.
+		 */
 		class MENGEVIS_API VisElementFatalException : public VisElementException,
 			public Menge::MengeFatalException {
 		public:
 			/*!
-			*	@brief		Default constructor.
-			*/
+			 *	@brief		Default constructor.
+			 */
 			VisElementFatalException() : VisElementException(), Menge::MengeFatalException() {}
 
 			/*!
-			*	@brief		Constructor with message.
-			*
-			*	@param		s		The exception-specific message.
-			*/
+			 *	@brief		Constructor with message.
+			 *
+			 *	@param		s		The exception-specific message.
+			 */
 			VisElementFatalException( const std::string & s ) : VisElementException(s),
 				Menge::MengeFatalException() {}
 		};
