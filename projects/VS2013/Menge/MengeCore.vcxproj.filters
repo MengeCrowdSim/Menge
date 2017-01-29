@@ -1118,9 +1118,6 @@
     <ClInclude Include="$(SrcDir)\mengeCore\PedVO\PedVOInitializer.h">
       <Filter>Header Files\pedvo</Filter>
     </ClInclude>
-    <ClInclude Include="$(SrcDir)\mengeCore\PedVO\PedVOSimSystem.h">
-      <Filter>Header Files\pedvo</Filter>
-    </ClInclude>
     <ClInclude Include="$(SrcDir)\mengeCore\PedVO\PedVOSimulator.h">
       <Filter>Header Files\pedvo</Filter>
     </ClInclude>

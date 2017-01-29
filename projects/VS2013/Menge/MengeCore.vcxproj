@@ -565,7 +565,6 @@ xcopy /y $(TargetPath) $(ExeDir)
     <ClInclude Include="$(SrcDir)\mengeCore\PedVO\PedVOAgent.h" />
     <ClInclude Include="$(SrcDir)\mengeCore\PedVO\PedVODBEntry.h" />
     <ClInclude Include="$(SrcDir)\mengeCore\PedVO\PedVOInitializer.h" />
-    <ClInclude Include="$(SrcDir)\mengeCore\PedVO\PedVOSimSystem.h" />
     <ClInclude Include="$(SrcDir)\mengeCore\PedVO\PedVOSimulator.h" />
     <ClInclude Include="$(SrcDir)\mengeCore\resources\Funnel.h" />
     <ClInclude Include="$(SrcDir)\mengeCore\resources\Graph.h" />

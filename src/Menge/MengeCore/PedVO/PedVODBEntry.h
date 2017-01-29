@@ -105,26 +105,6 @@ namespace PedVO {
 		 *				freeing up the memory.
 		 */
 		virtual Menge::Agents::AgentInitializer * getAgentInitalizer() const;
-#if 0
-	protected:
-		/*!
-		 *	@brief		Returns a pointer to an agent context appropriate to
-		 *				the corresponding simulator.
-		 *
-		 *	If the provided system is not, in fact, a pointer to a SimSystem for the
-		 *	appropriate simulator type, this function will report failure.  Furthermore,
-		 *	the default implementation is to return a BaseAgentContext.  If the
-		 *	simulator comes with a novel context, this function should be overridden
-		 *	in the derived SimulatorDBEntry.
-		 *
-		 *	@param		simSystem	The system which tracks the agents.  This should be
-		 *							the same system which was returned by a call to 
-		 *							SimulatorDBEntry::getSimulatorSystem.
-		 *	@returns	A pointer to the appropriate agent context.  If the system is of
-		 *				the wrong type (or if there is any other problem), NULL is returned.
-		 */
-		virtual Menge::BaseAgentContext * contextFromSystem( Menge::SimSystem * simSystem );
-#endif
 	};
 }	// namespace PedVO
 

@@ -42,12 +42,6 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include "MengeCore/Orca/ORCASimulator.h"
 #include "MengeCore/Runtime/SimulatorDB.h"
 
-#if 0
-#include "ORCAAgentContext.h"
-#include "SimSystem.h"
-#include "BaseAgentContext.h"
-#endif
-
 namespace ORCA {
 	/////////////////////////////////////////////////////////////////////////////
 	//                     Implementation of ORCAD::BEntry
@@ -76,13 +70,7 @@ namespace ORCA {
 	}
 
 	/////////////////////////////////////////////////////////////////////////////
-#if 0
-	Menge::BaseAgentContext * DBEntry::contextFromSystem( Menge::SimSystem * simSystem ) {
-		return new AgentContext( simSystem->getVisAgents(), (unsigned int)simSystem->getAgentCount() ); 
-	}
 
-	/////////////////////////////////////////////////////////////////////////////
-#endif
 	Menge::Agents::AgentInitializer * DBEntry::getAgentInitalizer() const {
 		return new AgentInitializer();
 	}
