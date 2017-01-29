@@ -64,7 +64,7 @@ namespace Menge {
 		/////////////////////////////////////////////////////////////////////
 
 		void GoalVelComponent::setPrefVelocity( const Agents::BaseAgent * agent, const Goal * goal,
-												Agents::PrefVelocity & pVel ) {
+												Agents::PrefVelocity & pVel ) const {
 			// directions
 			goal->setDirections( agent->_pos, agent->_radius, pVel );
 			

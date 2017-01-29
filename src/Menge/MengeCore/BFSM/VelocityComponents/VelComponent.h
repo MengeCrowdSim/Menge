@@ -159,7 +159,7 @@ namespace Menge {
 			 *	@param		pVel		The instance of Agents::PrefVelocity to set.
 			 */
 			virtual void setPrefVelocity( const Agents::BaseAgent * agent, const Goal * goal,
-										  Agents::PrefVelocity & pVel ) = 0;
+										  Agents::PrefVelocity & pVel ) const = 0;
 
 			/*!
 			 *	@brief		Used by the plugin system to know what artifacts to associate with

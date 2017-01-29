@@ -70,7 +70,7 @@ namespace Menge {
 		/////////////////////////////////////////////////////////////////////
 
 		void VFVelComponent::setPrefVelocity( const Agents::BaseAgent * agent, const Goal * goal,
-											  Agents::PrefVelocity & pVel ) {
+											  Agents::PrefVelocity & pVel ) const {
 			Vector2 dir;
 			if ( _nearest ) {
 				dir.set( _vf->getFieldValue( agent->_pos ) );

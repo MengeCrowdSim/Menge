@@ -95,7 +95,7 @@ namespace Menge {
 			 *	@param		pVel		The instance of Agents::PrefVelocity to set.
 			 */
 			virtual void setPrefVelocity( const Agents::BaseAgent * agent, const Goal * goal,
-										  Agents::PrefVelocity & pVel );
+										  Agents::PrefVelocity & pVel ) const;
 
 			/*!
 			 *	@brief		Returns the constant velocity.
@@ -242,7 +242,7 @@ namespace Menge {
 			 *	@param		pVel		The instance of Agents::PrefVelocity to set.
 			 */
 			virtual void setPrefVelocity( const Agents::BaseAgent * agent, const Goal * goal,
-										  Agents::PrefVelocity & pVel );
+										  Agents::PrefVelocity & pVel ) const;
 
 			/*!
 			 *	@brief		Sets the direction of the velocity component.
@@ -385,7 +385,7 @@ namespace Menge {
 			 *	@param		pVel		The instance of Agents::PrefVelocity to set.
 			 */
 			virtual void setPrefVelocity( const Agents::BaseAgent * agent, const Goal * goal,
-										  Agents::PrefVelocity & pVel );
+										  Agents::PrefVelocity & pVel ) const;
 
 			/*!
 			 *	@brief		Used by the plugin system to know what artifacts to associate with

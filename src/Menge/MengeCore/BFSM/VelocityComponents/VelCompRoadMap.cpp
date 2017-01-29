@@ -99,9 +99,9 @@ namespace Menge {
 
 		void RoadMapVelComponent::setPrefVelocity( const Agents::BaseAgent * agent,
 												   const Goal * goal,
-												   Agents::PrefVelocity & pVel ) {
+												   Agents::PrefVelocity & pVel ) const {
 			_lock.lockRead();
-			PathMap::iterator itr = _paths.find( agent->_id );
+			PathMap::const_iterator itr = _paths.find( agent->_id );
 			RoadMapPath * path = 0x0;
 			if ( itr == _paths.end() ) {
 				_lock.releaseRead();

@@ -82,7 +82,7 @@ namespace Menge {
 
 		void NavMeshVelComponent::setPrefVelocity( const Agents::BaseAgent * agent,
 												   const Goal * goal,
-												   Agents::PrefVelocity & pVel ) {
+												   Agents::PrefVelocity & pVel ) const {
 			// If agent does not have a path
 			PortalPath * path = _localizer->getPath( agent->_id );
 			if ( path == 0x0 ) {

@@ -68,7 +68,8 @@ namespace Menge {
 		/////////////////////////////////////////////////////////////////////
 
 		void ConstVelComponent::setPrefVelocity( const Agents::BaseAgent * agent,
-												 const Goal * goal, Agents::PrefVelocity & pVel ) {
+												 const Goal * goal,
+												 Agents::PrefVelocity & pVel ) const {
 			pVel.setSingle( _dir );
 			pVel.setSpeed( _speed );
 			pVel.setTarget( _dir * ( _speed * 5.f ) + agent->_pos );
@@ -127,7 +128,7 @@ namespace Menge {
 
 		void ConstVelDirComponent::setPrefVelocity( const Agents::BaseAgent * agent,
 													const Goal * goal,
-													Agents::PrefVelocity & pVel ) {
+													Agents::PrefVelocity & pVel ) const {
 			pVel.setSingle( _dir );
 			pVel.setSpeed( agent->_prefSpeed );
 			pVel.setTarget( _dir * ( agent->_prefSpeed * 5.f ) + agent->_pos );
@@ -176,7 +177,7 @@ namespace Menge {
 		/////////////////////////////////////////////////////////////////////
 
 		void ZeroVelComponent::setPrefVelocity( const Agents::BaseAgent * agent, const Goal * goal,
-												Agents::PrefVelocity & pVel ) {
+												Agents::PrefVelocity & pVel ) const {
 			pVel.setSingle( Vector2(1.f,0.f) );
 			pVel.setSpeed( 0.f );
 			pVel.setTarget( agent->_pos );

@@ -148,7 +148,7 @@ namespace Menge {
 			 *	@param		pVel		The instance of Agents::PrefVelocity to set.
 			 */
 			virtual void setPrefVelocity( const Agents::BaseAgent * agent, const Goal * goal,
-										  Agents::PrefVelocity & pVel );
+										  Agents::PrefVelocity & pVel ) const;
 
 			/*!
 			 *	@brief		Used by the plugin system to know what artifacts to associate with
@@ -167,9 +167,12 @@ namespace Menge {
 			GraphPtr	_roadmap;
 
 			/*!
-			 *	@brief		The paths for all agents in this state.
+			 *	@brief		The paths for all agents in this state.  Performing otherwise const
+			 *				queries, may cause this to update.
 			 */
-			PathMap	_paths;
+			// TODO: Perform these updates in a non-const context so that this does *not* have to
+			// be mutable.
+			mutable PathMap	_paths;
 
 			/*!
 			 *	@brief		Lock to protect _paths;
