@@ -49,7 +49,7 @@ namespace MengeVis {
 				 *				This string value should correspond to the getStringId method of the
 				 *				corresponding simulation element.
 				 */
-				virtual std::string getElementName() const { return "vec_field"; }
+				virtual std::string getElementName() const;
 
 				/*!
 				 *	@brief		Provides a string to be printed in the display as a UI element

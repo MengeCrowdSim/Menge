@@ -68,6 +68,12 @@ namespace MengeVis {
 			//                   Implementation of VelCompContext
 			/////////////////////////////////////////////////////////////////////
 
+			std::string VelCompContext::getElementName() const {
+				return "default";
+			}
+
+			/////////////////////////////////////////////////////////////////////
+
 			std::string VelCompContext::getUIText( const std::string & indent ) const {
 				std::stringstream ss;
 				ss << indent << "Default context";

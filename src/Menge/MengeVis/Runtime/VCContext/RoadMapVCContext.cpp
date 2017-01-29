@@ -49,6 +49,12 @@ namespace MengeVis {
 
 			/////////////////////////////////////////////////////////////////////
 
+			std::string RoadMapVCContext::getElementName() const {
+				return RoadMapVelComponent::NAME;
+			}
+
+			/////////////////////////////////////////////////////////////////////
+
 			std::string RoadMapVCContext::getUIText( const std::string & indent ) const {
 				std::stringstream ss;
 				ss << indent << "Roadmap velocity component";

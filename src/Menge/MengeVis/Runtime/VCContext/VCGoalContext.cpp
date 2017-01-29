@@ -37,6 +37,12 @@ namespace MengeVis {
 
 			/////////////////////////////////////////////////////////////////////
 
+			std::string GoalVCContext::getElementName() const {
+				return GoalVelComponent::NAME;
+			}
+
+			/////////////////////////////////////////////////////////////////////
+
 			std::string GoalVCContext::getUIText( const std::string & indent ) const {
 				std::stringstream ss;
 				ss << indent << "Goal velocity component";

@@ -134,7 +134,10 @@ namespace Menge {
 			 *				agents of this type.  Every sub-class of must return a globally
 			 *				unique value if it should be associated with unique artifacts.
 			 */
-			virtual std::string getStringId() const { return "vel_field"; }
+			virtual std::string getStringId() const { return NAME; }
+
+			/*! The unique identifier used to register this type with run-time components. */
+			static const std::string NAME;
 
 		protected:
 			/*!
@@ -169,7 +172,7 @@ namespace Menge {
 			 *
 			 *	@returns	A string containing the unique velocity component name.
 			 */
-			virtual const char * name() const { return "vel_field"; }
+			virtual const char * name() const { return VFVelComponent::NAME.c_str(); }
 
 			/*!
 			 *	@brief		A description of the velocity component.

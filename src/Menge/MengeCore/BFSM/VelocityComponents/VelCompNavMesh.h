@@ -142,7 +142,10 @@ namespace Menge {
 			 *				agents of this type.  Every sub-class of must return a globally
 			 *				unique value if it should be associated with unique artifacts.
 			 */
-			virtual std::string getStringId() const { return "nav_mesh"; }
+			virtual std::string getStringId() const { return NAME; }
+
+			/*! The unique identifier used to register this type with run-time components. */
+			static const std::string NAME;
 
 			/*!
 			 *	@brief		Returns a pointer to the nav mesh localizer task.
@@ -192,7 +195,7 @@ namespace Menge {
 			 *
 			 *	@returns	A string containing the unique velocity component name.
 			 */
-			virtual const char * name() const { return "nav_mesh"; }
+			virtual const char * name() const { return NavMeshVelComponent::NAME.c_str(); }
 
 			/*!
 			 *	@brief		A description of the velocity component.

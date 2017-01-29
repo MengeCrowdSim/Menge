@@ -54,6 +54,10 @@ namespace Menge {
 		//                   Implementation of VFVelComponent
 		/////////////////////////////////////////////////////////////////////
 
+		const std::string VFVelComponent::NAME = "vel_field";
+
+		/////////////////////////////////////////////////////////////////////
+
 		VFVelComponent::VFVelComponent() : VelComponent(), _vf( 0x0 ), _nearest( true ) {
 		}
 

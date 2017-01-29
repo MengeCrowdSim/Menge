@@ -86,53 +86,11 @@ namespace Menge {
 			 *				agents of this type.  Every sub-class of must return a globally
 			 *				unique value if it should be associated with unique artifacts.
 			 */
-			virtual std::string getStringId() const { return "goal"; }
+			virtual std::string getStringId() const { return NAME; }
+
+			/*! The unique identifier used to register this type with run-time components. */
+			static const std::string NAME;
 		};
-
-		//////////////////////////////////////////////////////////////////////////////
-#if 0
-
-		/*!
-		 *	@brief		The context for the GoalVelComponent.
-		 */
-		class MENGE_API GoalVCContext : public VelCompContext {
-		public:
-			/*!
-			 *	@brief		Constructor.
-			 *
-			 *	@param		vc			A pointer to the underlying fsm velocity component.
-			 *							The context will *not* delete the velocity component.
-			 */
-			GoalVCContext( GoalVelComponent * vc );
-
-			/*!
-			 *	@brief		Provides a string to be printed in the display as a UI element
-			 *				detailing velocity component information.
-			 *
-			 *	@param		indent		An optional string representing indentation to be
-			 *							applied to the text.  It is prefixed at the start
-			 *							of each line.
-			 *	@returns	The string for printing on the UI layer.
-			 */
-			virtual std::string getUIText( const std::string & indent="" ) const;
-
-			/*!
-			 *	@brief		Draw context elements into the 3D world.
-			 *
-			 *	This should never be called in select mode.
-			 *
-			 *	@param		agt			The particular agent for which the FSM is being visualized.
-			 *	@param		goal		The agent's goal (although this may be ignored).
-			 */
-			virtual void draw3DGL( const Agents::BaseAgent * agt, const Goal * goal );
-
-		protected:
-			/*!
-			 *	@brief		The underlying finite state machine velocity component.
-			 */
-			GoalVelComponent * _vc;
-		};
-#endif
 
 		//////////////////////////////////////////////////////////////////////////////
 
@@ -149,7 +107,7 @@ namespace Menge {
 			 *
 			 *	@returns	A string containing the unique velocity component name.
 			 */
-			virtual const char * name() const { return "goal"; }
+			virtual const char * name() const { return GoalVelComponent::NAME.c_str(); }
 
 			/*!
 			 *	@brief		A description of the velocity component.

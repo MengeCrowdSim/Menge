@@ -58,6 +58,10 @@ namespace Menge {
 		//                   Implementation of NavMeshVelComponent
 		/////////////////////////////////////////////////////////////////////
 
+		const std::string NavMeshVelComponent::NAME = "nav_mesh";
+
+		/////////////////////////////////////////////////////////////////////
+
 		NavMeshVelComponent::NavMeshVelComponent() : VelComponent(), _headingDevCos( -1.f ), 
 													 _navMesh( 0x0 ), _localizer( 0x0 ) {
 		}

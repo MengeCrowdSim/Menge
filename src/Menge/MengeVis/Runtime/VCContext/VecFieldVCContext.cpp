@@ -42,6 +42,12 @@ namespace MengeVis {
 
 			/////////////////////////////////////////////////////////////////////
 
+			std::string VecFieldVCContext::getElementName() const {
+				return VFVelComponent::NAME;
+			}
+
+			/////////////////////////////////////////////////////////////////////
+
 			std::string VecFieldVCContext::getUIText( const std::string & indent ) const {
 				std::stringstream ss;
 				ss << indent << "Vector field velocity component";

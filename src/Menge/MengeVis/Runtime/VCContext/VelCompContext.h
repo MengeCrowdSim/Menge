@@ -105,7 +105,7 @@ namespace MengeVis {
 				 *				This string value should correspond to the getStringId method of the
 				 *				corresponding simulation element.
 				 */
-				virtual std::string getElementName() const { return "base_vel_comp"; }
+				virtual std::string getElementName() const;
 
 				/*!
 				 *	@brief		Sets the agent for this context.

@@ -49,6 +49,12 @@ namespace MengeVis {
 
 			/////////////////////////////////////////////////////////////////////
 
+			std::string NavMeshVCContext::getElementName() const {
+				return NavMeshVelComponent::NAME;
+			}
+
+			/////////////////////////////////////////////////////////////////////
+
 			std::string NavMeshVCContext::getUIText( const std::string & indent ) const {
 				std::stringstream ss;
 				ss << indent << "Navigation mesh velocity component";

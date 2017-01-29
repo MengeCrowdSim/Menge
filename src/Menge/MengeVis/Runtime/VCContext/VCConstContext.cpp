@@ -38,6 +38,12 @@ namespace MengeVis {
 
 			/////////////////////////////////////////////////////////////////////
 
+			std::string ConstVCContext::getElementName() const {
+				return ConstVelComponent::NAME;
+			}
+
+			/////////////////////////////////////////////////////////////////////
+
 			std::string ConstVCContext::getUIText( const std::string & indent ) const {
 				std::stringstream ss;
 				ss << indent << "Const: " << _vc->getConstVelocity();
@@ -73,6 +79,12 @@ namespace MengeVis {
 
 			/////////////////////////////////////////////////////////////////////
 
+			std::string ConstDirVCContext::getElementName() const {
+				return ConstVelDirComponent::NAME;
+			}
+
+			/////////////////////////////////////////////////////////////////////
+
 			std::string ConstDirVCContext::getUIText( const std::string & indent ) const {
 				std::stringstream ss;
 				ss << indent << "Const direction: " << _vc->getDirection();
@@ -101,6 +113,12 @@ namespace MengeVis {
 				std::stringstream ss;
 				ss << indent << "Zero velocity";
 				return ss.str();
+			}
+
+			/////////////////////////////////////////////////////////////////////
+
+			std::string ZeroVCContext::getElementName() const {
+				return ZeroVelComponent::NAME;
 			}
 		}	// namespace VCContext
 	}	// namespace Runtime

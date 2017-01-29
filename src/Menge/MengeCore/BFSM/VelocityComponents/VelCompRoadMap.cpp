@@ -54,6 +54,10 @@ namespace Menge {
 		//                   Implementation of RoadMapVelComponent
 		/////////////////////////////////////////////////////////////////////
 
+		const std::string RoadMapVelComponent::NAME = "road_map";
+
+		/////////////////////////////////////////////////////////////////////
+
 		RoadMapVelComponent::RoadMapVelComponent():VelComponent(), _roadmap(0x0) {
 		}
 

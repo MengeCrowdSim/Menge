@@ -50,8 +50,12 @@ namespace Menge {
 		/////////////////////////////////////////////////////////////////////
 		//                   Implementation of ConstVelComponent
 		/////////////////////////////////////////////////////////////////////
+		
+		const std::string ConstVelComponent::NAME = "const";
 
-		ConstVelComponent::ConstVelComponent(): VelComponent() {
+		/////////////////////////////////////////////////////////////////////
+
+		ConstVelComponent::ConstVelComponent() : VelComponent() {
 			setVelocity( Vector2( 1.f, 0.f ) );
 		}
 
@@ -105,6 +109,10 @@ namespace Menge {
 		//                   Implementation of ConstVelDirComponent
 		/////////////////////////////////////////////////////////////////////
 
+		const std::string ConstVelDirComponent::NAME = "const_dir";
+
+		/////////////////////////////////////////////////////////////////////
+
 		ConstVelDirComponent::ConstVelDirComponent(): VelComponent() {
 			setDirection( Vector2( 1.f, 0.f ) );
 		}
@@ -156,6 +164,10 @@ namespace Menge {
 		
 		/////////////////////////////////////////////////////////////////////
 		//                   Implementation of ZeroVelComponent
+		/////////////////////////////////////////////////////////////////////
+
+		const std::string ZeroVelComponent::NAME = "zero";
+
 		/////////////////////////////////////////////////////////////////////
 
 		ZeroVelComponent::ZeroVelComponent(): VelComponent() {

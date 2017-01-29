@@ -150,9 +150,6 @@
     <ClCompile Include="$(SrcDir)\MengeVis\Runtime\VCContext\RoadMapVCContext.cpp">
       <Filter>Source Files\Runtime\VCContext</Filter>
     </ClCompile>
-    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\VCContext\VecFieldVCContext.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="$(SrcDir)\MengeVis\Runtime\GoalRenderer\GoalRendererDatabase.cpp">
       <Filter>Source Files\Runtime\GoalRenderer</Filter>
     </ClCompile>
@@ -167,6 +164,9 @@
     </ClCompile>
     <ClCompile Include="$(SrcDir)\MengeVis\Runtime\GoalRenderer\CircleGoalRenderer.cpp">
       <Filter>Source Files\Runtime\GoalRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\VCContext\VecFieldVCContext.cpp">
+      <Filter>Source Files\Runtime\VCContext</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

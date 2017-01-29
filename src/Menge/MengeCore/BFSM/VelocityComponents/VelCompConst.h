@@ -109,7 +109,10 @@ namespace Menge {
 			 *				agents of this type.  Every sub-class of must return a globally
 			 *				unique value if it should be associated with unique artifacts.
 			 */
-			virtual std::string getStringId() const { return "const"; }
+			virtual std::string getStringId() const { return NAME; }
+
+			/*! The unique identifier used to register this type with run-time components. */
+			static const std::string NAME;
 
 			friend class ConstVCFactory;
 		protected:
@@ -144,7 +147,7 @@ namespace Menge {
 			 *
 			 *	@returns	A string containing the unique velocity component name.
 			 */
-			virtual const char * name() const { return "const"; }
+			virtual const char * name() const { return ConstVelComponent::NAME.c_str(); }
 
 			/*!
 			 *	@brief		A description of the velocity component.
@@ -262,7 +265,10 @@ namespace Menge {
 			 *				agents of this type.  Every sub-class of must return a globally
 			 *				unique value if it should be associated with unique artifacts.
 			 */
-			virtual std::string getStringId() const { return "const_dir"; }
+			virtual std::string getStringId() const { return NAME; }
+
+			/*! The unique identifier used to register this type with run-time components. */
+			static const std::string NAME;
 
 			friend class ConstDirVCContext;
 		protected:
@@ -292,7 +298,7 @@ namespace Menge {
 			 *
 			 *	@returns	A string containing the unique velocity component name.
 			 */
-			virtual const char * name() const { return "const_dir"; }
+			virtual const char * name() const { return ConstVelDirComponent::NAME.c_str(); }
 
 			/*!
 			 *	@brief		A description of the velocity component.
@@ -386,7 +392,10 @@ namespace Menge {
 			 *				agents of this type.  Every sub-class of must return a globally
 			 *				unique value if it should be associated with unique artifacts.
 			 */
-			virtual std::string getStringId() const { return "zero"; }
+			virtual std::string getStringId() const { return NAME; }
+
+			/*! The unique identifier used to register this type with run-time components. */
+			static const std::string NAME;
 		};
 
 		/////////////////////////////////////////////////////////////////////
@@ -404,7 +413,7 @@ namespace Menge {
 			 *
 			 *	@returns	A string containing the unique velocity component name.
 			 */
-			virtual const char * name() const { return "zero"; }
+			virtual const char * name() const { return ZeroVelComponent::NAME.c_str(); }
 
 			/*!
 			 *	@brief		A description of the velocity component.
