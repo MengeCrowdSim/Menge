@@ -25,10 +25,10 @@ namespace MengeVis {
 	template<> void
 		Runtime::VisElementDB<Runtime::GoalVis::GoalRenderer,
 		                      Menge::BFSM::Goal>::addBuiltins() {
-		addVisElement( "aabb", new Runtime::GoalVis::AABBGoalRenderer() );
-		addVisElement( "point", new Runtime::GoalVis::PointGoalRenderer() );
-		addVisElement( "obb", new Runtime::GoalVis::OBBGoalRenderer() );
-		addVisElement( "circle", new Runtime::GoalVis::CircleGoalRenderer() );
+		addVisElement( new Runtime::GoalVis::AABBGoalRenderer() );
+		addVisElement( new Runtime::GoalVis::PointGoalRenderer() );
+		addVisElement( new Runtime::GoalVis::OBBGoalRenderer() );
+		addVisElement( new Runtime::GoalVis::CircleGoalRenderer() );
 	}
 
 	template<> std::string

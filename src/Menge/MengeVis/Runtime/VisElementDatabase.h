@@ -130,11 +130,11 @@ namespace MengeVis {
 			 *	must be unique relative all previously defined visualization elements *in this
 			 *	database*.  If the @visElement cannot be added, it will be deleted.
 			 *
-			 *	@param		elementName		The unique identifier of the element type.
 			 *	@param		visElement		The visualization element for the named element type.
 			 *	@returns	True if the visualization element is successfully added.
 			 */
-			static bool addVisElement( const std::string & elementName, VisElement * visElement ) {
+			static bool addVisElement( VisElement * visElement ) {
+				std::string & elementName = visElement->getElementName();
 				typename  HASH_MAP<std::string, VisElement * >::iterator itr =
 					_visElements.find( elementName );
 				if ( itr != _visElements.end() ) {

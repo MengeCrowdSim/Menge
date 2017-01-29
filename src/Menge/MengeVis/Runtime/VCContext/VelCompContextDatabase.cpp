@@ -26,13 +26,13 @@ namespace MengeVis {
 	template<> void
 		Runtime::VisElementDB<Runtime::VCContext::VelCompContext,
 		                      Menge::BFSM::VelComponent>::addBuiltins() {
-		addVisElement( "const", new Runtime::VCContext::ConstVCContext() );
-		addVisElement( "const_dir", new Runtime::VCContext::ConstDirVCContext() );
-		addVisElement( "zero", new Runtime::VCContext::ZeroVCContext() );
-		addVisElement( "goal", new Runtime::VCContext::GoalVCContext() );
-		addVisElement( "nav_mesh", new Runtime::VCContext::NavMeshVCContext() );
-		addVisElement( "road_map", new Runtime::VCContext::RoadMapVCContext() );
-		addVisElement( "vel_field", new Runtime::VCContext::VecFieldVCContext() );
+		addVisElement( new Runtime::VCContext::ConstVCContext() );
+		addVisElement( new Runtime::VCContext::ConstDirVCContext() );
+		addVisElement( new Runtime::VCContext::ZeroVCContext() );
+		addVisElement( new Runtime::VCContext::GoalVCContext() );
+		addVisElement( new Runtime::VCContext::NavMeshVCContext() );
+		addVisElement( new Runtime::VCContext::RoadMapVCContext() );
+		addVisElement( new Runtime::VCContext::VecFieldVCContext() );
 	}
 
 	template<> std::string

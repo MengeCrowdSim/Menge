@@ -17,8 +17,8 @@ namespace MengeVis {
 
 	template<> void
 		Runtime::VisElementDB<Runtime::BaseAgentContext, Runtime::VisAgent>::addBuiltins() {
-		addVisElement( "orca", new Runtime::OrcaAgentContext() );
-		addVisElement( "pedvo", new Runtime::PedVOAgentContext() );
+		addVisElement( new Runtime::OrcaAgentContext() );
+		addVisElement( new Runtime::PedVOAgentContext() );
 	}
 
 	template<> std::string
