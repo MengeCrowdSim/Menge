@@ -45,6 +45,13 @@ namespace MengeVis {
 				virtual void setElement( Menge::BFSM::VelComponent * vc );
 
 				/*!
+				 *	@brief		The value used to store this element in the visual element database.
+				 *				This string value should correspond to the getStringId method of the
+				 *				corresponding simulation element.
+				 */
+				virtual std::string getElementName() const { return "road_map"; }
+
+				/*!
 				 *	@brief		Provides a string to be printed in the display as a UI element
 				 *				detailing velocity component information.
 				 *

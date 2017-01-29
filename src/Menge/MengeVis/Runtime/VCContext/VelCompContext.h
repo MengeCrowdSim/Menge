@@ -101,6 +101,13 @@ namespace MengeVis {
 			public:
 
 				/*!
+				 *	@brief		The value used to store this element in the visual element database.
+				 *				This string value should correspond to the getStringId method of the
+				 *				corresponding simulation element.
+				 */
+				virtual std::string getElementName() const { return "base_vel_comp"; }
+
+				/*!
 				 *	@brief		Sets the agent for this context.
 				 *
 				 *	This method works in conjunction with the VisElementDatabase. When this

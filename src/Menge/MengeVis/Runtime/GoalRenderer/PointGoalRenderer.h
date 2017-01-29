@@ -15,7 +15,13 @@ namespace MengeVis {
 			 *	@brief		Class responsible for rendering point goals to the OpenGL context.
 			 */
 			class MENGEVIS_API PointGoalRenderer : public GoalRenderer {
-				// Currently does nothing special beyond the base implementation.
+			public:
+				/*!
+				 *	@brief		The value used to store this element in the visual element database.
+				 *				This string value should correspond to the getStringId method of the
+				 *				corresponding simulation element.
+				 */
+				virtual std::string getElementName() const { return "point"; }
 			};
 		}	// namespace GoalVis
 	}	// namespace Runtime

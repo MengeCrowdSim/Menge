@@ -15,6 +15,14 @@ namespace MengeVis {
 			 *	@brief		Class responsible for rendering OBB goals to the OpenGL context.
 			 */
 			class MENGEVIS_API OBBGoalRenderer : public GoalRenderer {
+			public:
+				/*!
+				*	@brief		The value used to store this element in the visual element database.
+				*				This string value should correspond to the getStringId method of the
+				*				corresponding simulation element.
+				*/
+				virtual std::string getElementName() const { return "obb"; }
+
 			protected:
 				/*!
 				 *	@brief		The method for handling the details of a particular goal.

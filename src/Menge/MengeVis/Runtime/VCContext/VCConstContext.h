@@ -45,6 +45,13 @@ namespace MengeVis {
 				virtual void setElement( Menge::BFSM::VelComponent * vc );
 
 				/*!
+				 *	@brief		The value used to store this element in the visual element database.
+				 *				This string value should correspond to the getStringId method of the
+				 *				corresponding simulation element.
+				 */
+				virtual std::string getElementName() const { return "const"; }
+
+				/*!
 				 *	@brief		Provides a string to be printed in the display as a UI element
 				 *				detailing velocity component information.
 				 *
@@ -96,6 +103,13 @@ namespace MengeVis {
 				virtual void setElement( Menge::BFSM::VelComponent * vc );
 
 				/*!
+				 *	@brief		The value used to store this element in the visual element database.
+				 *				This string value should correspond to the getStringId method of the
+				 *				corresponding simulation element.
+				 */
+				virtual std::string getElementName() const { return "const_dir"; }
+
+				/*!
 				*	@brief		Provides a string to be printed in the display as a UI element
 				*				detailing velocity component information.
 				*
@@ -145,6 +159,13 @@ namespace MengeVis {
 				 *	@param		agent		The agent to interact with.
 				 */
 				virtual void setElement( Menge::BFSM::VelComponent * vc ) {}
+
+				/*!
+				 *	@brief		The value used to store this element in the visual element database.
+				 *				This string value should correspond to the getStringId method of the
+				 *				corresponding simulation element.
+				 */
+				virtual std::string getElementName() const { return "zero"; }
 
 				/*!
 				 *	@brief		Provides a string to be printed in the display as a UI element

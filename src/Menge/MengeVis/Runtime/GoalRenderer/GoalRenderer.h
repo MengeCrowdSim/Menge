@@ -3,6 +3,8 @@
 
 #include "MengeVis/VisConfig.h"
 
+#include <string>
+
 // Forward declaration
 
 namespace Menge {
@@ -23,7 +25,6 @@ namespace MengeVis {
 			 */
 			class MENGEVIS_API GoalRenderer {
 			public:
-
 				/*!
 				 *	@brief		Sets the agent for this context.
 				 *
@@ -34,6 +35,13 @@ namespace MengeVis {
 				 *	@param		agent		The agent to interact with.
 				 */
 				virtual void setElement( Menge::BFSM::Goal * goal ) { _goal = goal; }
+
+				/*!
+				 *	@brief		The value used to store this element in the visual element database.
+				 *				This string value should correspond to the getStringId method of the
+				 *				corresponding simulation element.
+				 */
+				virtual std::string getElementName() const { return "default"; }
 
 				/*! 
 				 *	@brief		The method to draw the associated geometry to the 3D context.
