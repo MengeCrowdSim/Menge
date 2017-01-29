@@ -31,8 +31,8 @@ namespace MengeVis {
 
 			/////////////////////////////////////////////////////////////////////
 
-			void VecFieldVCContext::setElement( Menge::BFSM::VelComponent * vc ) {
-				_vc = dynamic_cast<VFVelComponent *>( vc );
+			void VecFieldVCContext::setElement( const Menge::BFSM::VelComponent * vc ) {
+				_vc = dynamic_cast<const VFVelComponent *>( vc );
 				if ( _vc == 0x0 ) {
 					throw VisElementException( "Trying to set a velocity field velocity component "
 											   "context with an invalid value: either null or "
@@ -96,7 +96,7 @@ namespace MengeVis {
 				glDepthMask( GL_FALSE );
 				// draw the grid
 				int rowZero = 0;
-				VectorFieldPtr vf = _vc->getVectorField();
+				const VectorFieldPtr vf = _vc->getVectorField();
 				int lastRow = vf->getRowCount();
 				int colZero = 0;
 				int lastCol = vf->getColCount();

@@ -27,8 +27,8 @@ namespace MengeVis {
 
 			/////////////////////////////////////////////////////////////////////
 
-			void ConstVCContext::setElement( Menge::BFSM::VelComponent * vc ) {
-				_vc = dynamic_cast<ConstVelComponent *>( vc );
+			void ConstVCContext::setElement( const Menge::BFSM::VelComponent * vc ) {
+				_vc = dynamic_cast<const ConstVelComponent *>( vc );
 				if ( _vc == 0x0 ) {
 					throw VisElementException( "Trying to set a const velocity component context "
 											   "with an invalid value: either null or wrong "
@@ -68,8 +68,8 @@ namespace MengeVis {
 
 			/////////////////////////////////////////////////////////////////////
 
-			void ConstDirVCContext::setElement( Menge::BFSM::VelComponent * vc ) {
-				_vc = dynamic_cast<ConstVelDirComponent *>( vc );
+			void ConstDirVCContext::setElement( const Menge::BFSM::VelComponent * vc ) {
+				_vc = dynamic_cast<const ConstVelDirComponent *>( vc );
 				if ( _vc == 0x0 ) {
 					throw VisElementException( "Trying to set a const direciton velocity component"
 											   " context with an invalid value: either null or "

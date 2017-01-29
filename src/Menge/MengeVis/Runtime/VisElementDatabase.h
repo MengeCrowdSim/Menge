@@ -80,7 +80,7 @@ namespace MengeVis {
 			 *				@p element.  Guaranteed to return a non-null pointer.
 			 */
 			// TODO: Why is this not const?
-			static VisElement * getInstance( SimElement * element ) {
+			static VisElement * getInstance( const SimElement * element ) {
 				// extract type name
 				const std::string stringId = element->getStringId();
 				typename HASH_MAP<std::string, VisElement * >::iterator itr =

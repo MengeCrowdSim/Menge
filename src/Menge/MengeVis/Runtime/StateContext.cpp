@@ -144,7 +144,7 @@ namespace MengeVis {
 		void StateContext::draw3DGL( const BaseAgent * agt, bool drawVC, bool drawTrans ) {
 			const Goal * goal = _state->getGoal( agt->_id );
 			// TODO: this should not be a const cast
-			_goalRenderer = GoalRendererDB::getInstance( const_cast<Goal *>( goal ) );
+			_goalRenderer = GoalRendererDB::getInstance( goal );
 			_goalRenderer->drawGL();
 			if ( drawVC ) {
 				_vcContext->draw3DGL( agt, goal );

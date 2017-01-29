@@ -42,7 +42,7 @@ namespace MengeVis {
 				 *
 				 *	@param		agent		The agent to interact with.
 				 */
-				virtual void setElement( Menge::BFSM::VelComponent * vc );
+				virtual void setElement( const Menge::BFSM::VelComponent * vc );
 
 				/*!
 				 *	@brief		The value used to store this element in the visual element database.
@@ -76,9 +76,9 @@ namespace MengeVis {
 
 			protected:
 				/*!
-				*	@brief		The underlying finite state machine velocity component.
-				*/
-				Menge::BFSM::RoadMapVelComponent * _vc;
+				 *	@brief		The underlying finite state machine velocity component.
+				 */
+				const Menge::BFSM::RoadMapVelComponent * _vc;
 			};
 		}	// namespace VCContext
 	}	// namespace Runtime

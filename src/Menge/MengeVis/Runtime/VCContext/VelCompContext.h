@@ -116,7 +116,7 @@ namespace MengeVis {
 				 *
 				 *	@param		agent		The agent to interact with.
 				 */
-				virtual void setElement( Menge::BFSM::VelComponent * vc ) { _vc = vc; }
+				virtual void setElement( const Menge::BFSM::VelComponent * vc ) { _vc = vc; }
 
 				/*!
 				 *	@brief		Provides a string to be printed in the display as a UI element
@@ -173,7 +173,7 @@ namespace MengeVis {
 							   float agtRadius = 0.19f ) const;
 
 				/*! The velocity component interacting with this context. */
-				Menge::BFSM::VelComponent * _vc;
+				const Menge::BFSM::VelComponent * _vc;
 			};
 		}	// namespace VCContext
 	}	// namespace Runtime

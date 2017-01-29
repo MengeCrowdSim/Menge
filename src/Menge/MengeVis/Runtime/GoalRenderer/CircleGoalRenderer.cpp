@@ -25,7 +25,7 @@ namespace MengeVis {
 			/////////////////////////////////////////////////////////////////////
 
 			void CircleGoalRenderer::doDrawGeometry() const {
-				CircleGoal * goal = dynamic_cast<CircleGoal *>( _goal );
+				const CircleGoal * goal = dynamic_cast<const CircleGoal *>( _goal );
 				if ( goal == 0x0 ) {
 					throw VisElementException( "Attempting to draw goal of type " +
 											   _goal->getStringId() + " with circle goal renderer." );

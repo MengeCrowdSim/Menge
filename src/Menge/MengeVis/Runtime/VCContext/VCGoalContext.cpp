@@ -26,8 +26,8 @@ namespace MengeVis {
 
 			/////////////////////////////////////////////////////////////////////
 
-			void GoalVCContext::setElement( Menge::BFSM::VelComponent * vc ) {
-				_vc = dynamic_cast<GoalVelComponent *>( vc );
+			void GoalVCContext::setElement( const Menge::BFSM::VelComponent * vc ) {
+				_vc = dynamic_cast<const GoalVelComponent *>( vc );
 				if ( _vc == 0x0 ) {
 					throw VisElementException( "Trying to set a goal velocity component context "
 											   "with an invalid value: either null or wrong "

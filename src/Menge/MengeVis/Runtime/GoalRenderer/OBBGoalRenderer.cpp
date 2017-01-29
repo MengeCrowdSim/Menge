@@ -24,7 +24,7 @@ namespace MengeVis {
 			/////////////////////////////////////////////////////////////////////
 
 			void OBBGoalRenderer::doDrawGeometry() const {
-				OBBGoal * goal = dynamic_cast<OBBGoal *>( _goal );
+				const OBBGoal * goal = dynamic_cast<const OBBGoal *>( _goal );
 				if ( goal == 0x0 ) {
 					throw VisElementException( "Attempting to draw goal of type " +
 											   _goal->getStringId() + " with OBB goal renderer." );

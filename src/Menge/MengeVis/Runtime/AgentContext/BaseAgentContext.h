@@ -111,7 +111,7 @@ namespace MengeVis {
 			 *
 			 *	@param		agent		The agent to interact with.
 			 */
-			virtual void setElement( VisAgent * agent ) { _selected = agent; }
+			virtual void setElement( const VisAgent * agent ) { _selected = agent; }
 
 			/*!
 			*	@brief		Returns the name of the context for display.
@@ -153,7 +153,7 @@ namespace MengeVis {
 			/*!
 			 *	@brief		The currently selected visualization agent.
 			 */
-			VisAgent * _selected;
+			const VisAgent * _selected;
 
 			/*!
 			 *	@brief		Determines if the neighbor distance is rendered

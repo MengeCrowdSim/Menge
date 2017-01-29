@@ -38,8 +38,8 @@ namespace MengeVis {
 
 			/////////////////////////////////////////////////////////////////////
 
-			void RoadMapVCContext::setElement( Menge::BFSM::VelComponent * vc ) {
-				_vc = dynamic_cast<RoadMapVelComponent *>( vc );
+			void RoadMapVCContext::setElement( const Menge::BFSM::VelComponent * vc ) {
+				_vc = dynamic_cast<const RoadMapVelComponent *>( vc );
 				if ( _vc == 0x0 ) {
 					throw VisElementException( "Trying to set a road map velocity component "
 											   "context with an invalid value: either null or "
@@ -69,7 +69,7 @@ namespace MengeVis {
 							  GL_DEPTH_BUFFER_BIT );
 				glDepthMask( GL_FALSE );
 
-				GraphPtr & graph = _vc->getRoadMap();
+				const GraphPtr graph = _vc->getRoadMap();
 
 				// draw edges
 				glColor3f( 0.2f, 0.2f, 1.f );

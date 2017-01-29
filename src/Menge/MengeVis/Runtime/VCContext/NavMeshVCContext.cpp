@@ -38,8 +38,8 @@ namespace MengeVis {
 
 			/////////////////////////////////////////////////////////////////////
 
-			void NavMeshVCContext::setElement( Menge::BFSM::VelComponent * vc ) {
-				_vc = dynamic_cast<NavMeshVelComponent *>( vc );
+			void NavMeshVCContext::setElement( const Menge::BFSM::VelComponent * vc ) {
+				_vc = dynamic_cast<const NavMeshVelComponent *>( vc );
 				if ( _vc == 0x0 ) {
 					throw VisElementException( "Trying to set a navmesh velocity component context"
 											   " with an invalid value: either null or wrong "
@@ -110,7 +110,7 @@ namespace MengeVis {
 				drawPath( agt, goal );
 
 				// draw the preferred velocity
-				NavMeshPtr navMesh = _vc->getLocalizer()->getNavMesh();
+				const NavMeshPtr navMesh = _vc->getLocalizer()->getNavMesh();
 				unsigned int NODE_ID = _vc->getLocalizer()->getNode( agt );
 				float elevation = navMesh->getElevation( NODE_ID, agt->_pos );
 				PrefVelocity pVel;

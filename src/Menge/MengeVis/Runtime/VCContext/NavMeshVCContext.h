@@ -42,7 +42,7 @@ namespace MengeVis {
 				 *
 				 *	@param		agent		The agent to interact with.
 				 */
-				virtual void setElement( Menge::BFSM::VelComponent * vc );
+				virtual void setElement( const Menge::BFSM::VelComponent * vc );
 
 				/*!
 				 *	@brief		The value used to store this element in the visual element database.
@@ -109,7 +109,7 @@ namespace MengeVis {
 				/*!
 				 *	@brief		The underlying finite state machine velocity component.
 				 */
-				Menge::BFSM::NavMeshVelComponent * _vc;
+				const Menge::BFSM::NavMeshVelComponent * _vc;
 
 				/*!
 				 *	@brief		Visualization flag - controls if polygon centers are drawn.

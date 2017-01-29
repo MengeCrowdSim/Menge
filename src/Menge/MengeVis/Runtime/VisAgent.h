@@ -89,7 +89,7 @@ namespace MengeVis {
 			 *
 			 *	@returns	A pointer to the visualization agent's simulation agent.
 			 */
-			Menge::Agents::BaseAgent * getAgent() { return _agent; }
+			const Menge::Agents::BaseAgent * getAgent() const { return _agent; }
 
 			/*!
 			 *	@brief		Set the 3D position of the visual agent.

@@ -34,7 +34,7 @@ namespace MengeVis {
 				 *
 				 *	@param		agent		The agent to interact with.
 				 */
-				virtual void setElement( Menge::BFSM::Goal * goal ) { _goal = goal; }
+				virtual void setElement( const Menge::BFSM::Goal * goal ) { _goal = goal; }
 
 				/*!
 				 *	@brief		The value used to store this element in the visual element database.
@@ -63,7 +63,7 @@ namespace MengeVis {
 				virtual void doDrawGeometry() const;
 
 				/*! The goal to visualize. */
-				Menge::BFSM::Goal * _goal;
+				const Menge::BFSM::Goal * _goal;
 			};
 		}	// namespace GoalVis
 	}	// namespace Runtime
