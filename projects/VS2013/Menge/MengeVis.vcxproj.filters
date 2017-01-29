@@ -168,6 +168,9 @@
     <ClCompile Include="$(SrcDir)\MengeVis\Runtime\VCContext\VecFieldVCContext.cpp">
       <Filter>Source Files\Runtime\VCContext</Filter>
     </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\GoalRenderer\PointGoalRenderer.cpp">
+      <Filter>Source Files\Runtime\GoalRenderer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(SrcDir)\MengeVis\Runtime\SimSystem.h">

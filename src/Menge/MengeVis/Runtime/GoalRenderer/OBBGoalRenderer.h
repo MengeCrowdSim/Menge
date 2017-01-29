@@ -21,7 +21,7 @@ namespace MengeVis {
 				*				This string value should correspond to the getStringId method of the
 				*				corresponding simulation element.
 				*/
-				virtual std::string getElementName() const { return "obb"; }
+				virtual std::string getElementName() const;
 
 			protected:
 				/*!

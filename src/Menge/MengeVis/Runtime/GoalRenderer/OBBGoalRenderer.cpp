@@ -14,7 +14,13 @@ namespace MengeVis {
 			using Menge::Math::Vector2;
 
 			/////////////////////////////////////////////////////////////////////
-			//					Implementation of AABBGoalRenderer
+			//					Implementation of OBBGoalRenderer
+			/////////////////////////////////////////////////////////////////////
+
+			std::string OBBGoalRenderer::getElementName() const {
+				return OBBGoal::NAME;
+			}
+
 			/////////////////////////////////////////////////////////////////////
 
 			void OBBGoalRenderer::doDrawGeometry() const {

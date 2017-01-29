@@ -17,6 +17,12 @@ namespace MengeVis {
 			//					Implementation of AABBGoalRenderer
 			/////////////////////////////////////////////////////////////////////
 
+			std::string AABBGoalRenderer::getElementName() const {
+				return AABBGoal::NAME;
+			}
+
+			/////////////////////////////////////////////////////////////////////
+
 			void AABBGoalRenderer::doDrawGeometry() const {
 				AABBGoal * goal = dynamic_cast<AABBGoal *>( _goal );
 				if ( goal == 0x0 ) {

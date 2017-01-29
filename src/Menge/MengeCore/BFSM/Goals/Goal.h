@@ -130,7 +130,7 @@ namespace Menge {
 			 *				agents of this type.  Every sub-class of must return a globally
 			 *				unique value if it should be associated with unique artifacts.
 			 */
-			virtual std::string getStringId() const { return "undefined"; }// = 0;
+			virtual std::string getStringId() const = 0;
 
 			/*!
 			 *	@brief		Reports the *squared* distance from the given point to the goal.

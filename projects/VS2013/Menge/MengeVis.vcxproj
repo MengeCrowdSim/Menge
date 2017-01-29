@@ -58,6 +58,7 @@
     <ClCompile Include="$(SrcDir)\MengeVis\Runtime\GoalRenderer\GoalRenderer.cpp" />
     <ClCompile Include="$(SrcDir)\MengeVis\Runtime\GoalRenderer\GoalRendererDatabase.cpp" />
     <ClCompile Include="$(SrcDir)\MengeVis\Runtime\GoalRenderer\OBBGoalRenderer.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\GoalRenderer\PointGoalRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(SrcDir)\MengeVis\Runtime\SimSystem.h" />

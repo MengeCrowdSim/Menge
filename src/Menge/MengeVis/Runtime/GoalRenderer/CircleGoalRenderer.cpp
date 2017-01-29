@@ -18,6 +18,12 @@ namespace MengeVis {
 			//					Implementation of CircleGoalRenderer
 			/////////////////////////////////////////////////////////////////////
 
+			std::string CircleGoalRenderer::getElementName() const {
+				return CircleGoal::NAME;
+			}
+
+			/////////////////////////////////////////////////////////////////////
+
 			void CircleGoalRenderer::doDrawGeometry() const {
 				CircleGoal * goal = dynamic_cast<CircleGoal *>( _goal );
 				if ( goal == 0x0 ) {

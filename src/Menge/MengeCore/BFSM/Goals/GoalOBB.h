@@ -67,7 +67,10 @@ namespace Menge {
 			 *				agents of this type.  Every sub-class of must return a globally
 			 *				unique value if it should be associated with unique artifacts.
 			 */
-			virtual std::string getStringId() const { return "obb"; }
+			virtual std::string getStringId() const { return NAME; }
+
+			/*! The unique identifier used to register this type with run-time components. */
+			static const std::string NAME;
 		};
 
 		/*!
@@ -84,7 +87,7 @@ namespace Menge {
 			 *
 			 *	@returns	A string containing the unique goal name.
 			 */
-			virtual const char * name() const { return "OBB"; }
+			virtual const char * name() const { return OBBGoal::NAME.c_str(); }
 
 			/*!
 			 *	@brief		A description of the goal.
