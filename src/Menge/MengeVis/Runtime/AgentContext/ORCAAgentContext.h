@@ -68,7 +68,9 @@ namespace MengeVis {
 		////////////////////////////////////////////////////////////////
 
 		template <>
-		std::string ORCATypeAgentContext< ORCA::Agent >::getElementName() const { return "orca"; }
+		std::string ORCATypeAgentContext< ORCA::Agent >::getElementName() const {
+			return ORCA::Agent::NAME;
+		}
 	}
 }
 #endif	// __ORCA_AGENT_CONTEXT_H__

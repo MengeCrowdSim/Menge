@@ -60,6 +60,7 @@ namespace PedVO {
 	const float Agent::TURN_BIAS = 1.f;
 	const float Agent::STRIDE_FACTOR = 1.57f;
 	const float Agent::STRIDE_BUFFER = 0.5f;
+	const std::string Agent::NAME = "pedvo";
 
 	///////////////////////////////////////////////////////////////////////
 

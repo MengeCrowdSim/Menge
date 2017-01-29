@@ -59,7 +59,8 @@ namespace ORCA {
 	///< The default value for tau (the time horizon w.r.t. other agents).
 	const float Agent::TAU = 2.5f;				
 	///< The default value for tau obstacles (the time horizon w.r.t. obstacles).
-	const float Agent::TAU_OBST = 0.15f;		
+	const float Agent::TAU_OBST = 0.15f;
+	const std::string Agent::NAME = "orca";
 	
 	/////////////////////////////////////////////////////////////////////////////
 

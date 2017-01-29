@@ -66,7 +66,9 @@ namespace MengeVis {
 		////////////////////////////////////////////////////////////////
 
 		template <>
-		std::string ORCATypeAgentContext< PedVO::Agent >::getElementName() const { return "pedvo"; }
+		std::string ORCATypeAgentContext< PedVO::Agent >::getElementName() const {
+			return PedVO::Agent::NAME; 
+		}
 
 		////////////////////////////////////////////////////////////////
 

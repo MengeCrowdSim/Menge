@@ -199,6 +199,9 @@ namespace PedVO {
 		 */
 		static const float STRIDE_BUFFER;
 
+		/*! @brief	The name identifier for this agent type. */	
+		static const std::string NAME;
+
 		friend class Simulator;
 
 	protected:

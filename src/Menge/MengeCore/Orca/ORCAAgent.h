@@ -110,6 +110,9 @@ namespace ORCA {
 		 */
 		static const float TAU_OBST;
 
+		/*! @brief	The name identifier for this agent type. */
+		static const std::string NAME;
+
 		friend class Simulator;
 
   protected:
