@@ -97,14 +97,14 @@ namespace Menge {
 			 *
 			 *	@returns	The navigation mesh.
 			 */
-			NavMeshPtr getNavMesh() { return _navMesh; }
+			const NavMeshPtr getNavMesh() const { return _navMesh; }
 
 			/*!
 			 *	@brief		Returns a resource pointer to the underlying navigation mesh localizer
 			 *
 			 *	@returns	The navigation mesh localizer.
 			 */
-			NavMeshLocalizerPtr getLocalizer() { return _localizer; }
+			const NavMeshLocalizerPtr getLocalizer() const { return _localizer; }
 
 			/*!
 			 *	@brief		Sets the navigation mesh localizer pointer.

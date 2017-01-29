@@ -110,7 +110,7 @@ namespace Menge {
 			 *
 			 *	@returns	A pointer to the vector field.
 			 */
-			VectorFieldPtr getVectorField() { return _vf; }
+			const VectorFieldPtr getVectorField() const { return _vf; }
 
 			/*!
 			 *	@brief		Computes and sets the agent's preferred velocity.

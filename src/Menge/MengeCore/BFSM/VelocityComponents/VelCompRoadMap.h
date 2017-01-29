@@ -113,7 +113,7 @@ namespace Menge {
 			 *
 			 *	@returns	The road map.
 			 */
-			GraphPtr getRoadMap() { return _roadmap; }
+			const GraphPtr getRoadMap() const { return _roadmap; }
 
 			/*!
 			 *	@brief		Returns a reference to the path data for the velocity component.
