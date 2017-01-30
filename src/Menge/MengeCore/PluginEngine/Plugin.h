@@ -85,7 +85,6 @@ namespace Menge {
 				}
 
 				try {
-					logger << Logger::INFO_MSG << "Looking for " << getRegisterName() << "\n";
 					_registerFcnAddr = SharedLibrary::GetFunctionPointer< RegisterPluginFcn >(
 						_handle, getRegisterName() );
 					_getNameFcnAddr = SharedLibrary::GetFunctionPointer< GetCharPtrFcn >(

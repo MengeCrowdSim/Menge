@@ -59,6 +59,7 @@
     <ClCompile Include="$(SrcDir)\MengeVis\Runtime\GoalRenderer\GoalRendererDatabase.cpp" />
     <ClCompile Include="$(SrcDir)\MengeVis\Runtime\GoalRenderer\OBBGoalRenderer.cpp" />
     <ClCompile Include="$(SrcDir)\MengeVis\Runtime\GoalRenderer\PointGoalRenderer.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\PluginEngine\VisPluginEngine.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(SrcDir)\MengeVis\Runtime\SimSystem.h" />
@@ -110,6 +111,7 @@
     <ClInclude Include="$(SrcDir)\MengeVis\Runtime\GoalRenderer\GoalRendererDatabase.h" />
     <ClInclude Include="$(SrcDir)\MengeVis\Runtime\GoalRenderer\OBBGoalRenderer.h" />
     <ClInclude Include="$(SrcDir)\MengeVis\Runtime\GoalRenderer\PointGoalRenderer.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\PluginEngine\VisPluginEngine.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{57FA5E04-F7D0-47B7-900D-CA2BA94E9D52}</ProjectGuid>

@@ -43,6 +43,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include "MengeCore/Runtime/os.h"
 #include "MengeCore/Runtime/SimulatorDB.h"
 
+#include "MengeVis/PluginEngine/VisPluginEngine.h"
 #include "MengeVis/Runtime/AgentContext/BaseAgentContext.h"
 #include "MengeVis/Runtime/MengeContext.h"
 #include "MengeVis/Runtime/SimSystem.h"
@@ -63,6 +64,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 using namespace Menge;
 using Menge::PluginEngine::CorePluginEngine;
+using MengeVis::PluginEngine::VisPluginEngine;
 
 // Time step (in seconds)
 float TIME_STEP = 0.2f;
@@ -76,6 +78,23 @@ bool VERBOSE = false;
 std::string ROOT;
 
 SimulatorDB simDB;
+
+/*!
+ *	@brief		Utility function for defining the plugin directory.
+ *
+ *	@param		The path to the plugins.
+ */
+std::string getPluginPath() {
+#ifdef _WIN32 
+#ifdef NDEBUG
+	return os::path::join( 2, ROOT.c_str(), "plugins" );
+#else	// NDEBUG
+	return os::path::join( 3, ROOT.c_str(), "plugins", "debug" );
+#endif	// NDEBUG
+#else	// _WIN32
+	return os::path::join( 2, ROOT.c_str(), "plugins" );
+#endif	// _WIN32
+}
 
 /*!
  *	@brief		Initialize and start the simulation.
@@ -125,6 +144,11 @@ int simMain( SimulatorDBEntry * dbEntry, const std::string & behaveFile,
 	std::cout << "Starting...\n";
 
 	if ( visualize ) {
+		logger.line();
+		logger << Logger::INFO_MSG << "Initializing visualization...";
+		VisPluginEngine visPlugins;
+		visPlugins.loadPlugins( getPluginPath() );
+
 		TextWriter::setDefaultFont( os::path::join( 2, ROOT.c_str(), "arial.ttf" ) );
 
 		ViewConfig viewCfg;
@@ -206,16 +230,8 @@ int main( int argc, char* argv[] ) {
 	std::string tail;
 	os::path::split( absExePath, ROOT, tail );
 	CorePluginEngine plugins( &simDB );
-#ifdef _WIN32 
-#ifdef NDEBUG
-	std::string pluginPath = os::path::join( 2, ROOT.c_str(), "plugins" );
-#else	// NDEBUG
-	std::string pluginPath = os::path::join( 3, ROOT.c_str(), "plugins", "debug" );
-#endif	// NDEBUG
-#else	// _WIN32
-	std::string pluginPath = os::path::join( 2, ROOT.c_str(), "plugins" );
-#endif	// _WIN32
 	logger.line();
+	std::string pluginPath = getPluginPath();
 	logger << Logger::INFO_MSG << "Plugin path: " << pluginPath;
 	plugins.loadPlugins( pluginPath );
 	if ( simDB.modelCount() == 0 ) {
