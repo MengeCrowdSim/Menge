@@ -44,17 +44,14 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __DUMMY_DB_ENTRY_H__
 #define	__DUMMY_DB_ENTRY_H__
 
-#include "SimulatorDBEntry.h"
+#include "MengeCore/Runtime/SimulatorDBEntry.h"
 #include "Dummy.h"
-
-using namespace Menge;
-
 
 namespace Dummy {
 	/*!
 	 *	@brief		The simulator database entry for the Dummy simulator.
 	 */
-	class DummyDBEntry : public SimulatorDBEntry {
+	class DummyDBEntry : public Menge::SimulatorDBEntry {
 	public:
 		/*!
 		 *	@brief	Gives a brief description of the simulator.
@@ -89,7 +86,7 @@ namespace Dummy {
 		 *	@returns	A single string (with no spaces) that can be used as
 		 *				a command line parameter to uniquely identify this model.
 		 */
-		virtual ::std::string commandLineName() const { return "dummy"; }
+		virtual ::std::string commandLineName() const { return Agent::NAME; }
 
 		/*!
 		 *	@brief		Returns a pointer to this model's Simulator instance.
@@ -99,7 +96,7 @@ namespace Dummy {
 		 *	@returns	A newly instantiated simulator instance of a type appropriate
 		 *				for this database entry.
 		 */
-		virtual Agents::SimulatorInterface * getNewSimulator();
+		virtual Menge::Agents::SimulatorInterface * getNewSimulator();
 
 		/*!
 		 *	@brief		Provides an AgentInitializer appropriate to this simulator class.
@@ -107,7 +104,7 @@ namespace Dummy {
 		 *	@returns	A pointer to an agent initializer.  The caller is responsible for
 		 *				freeing up the memory.
 		 */
-		virtual Agents::AgentInitializer * getAgentInitalizer() const;
+		virtual Menge::Agents::AgentInitializer * getAgentInitalizer() const;
 	};
 }	// namespace Dummy
 #endif	// __DUMMY_DB_ENTRY_H__
