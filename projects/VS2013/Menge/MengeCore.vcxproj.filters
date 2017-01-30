@@ -321,12 +321,6 @@
     <ClCompile Include="$(SrcDir)\mengeCore\PluginEngine\AttributeSet.cpp">
       <Filter>Source Files\PluginEngine</Filter>
     </ClCompile>
-    <ClCompile Include="$(SrcDir)\mengeCore\PluginEngine\Plugin.cpp">
-      <Filter>Source Files\PluginEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="$(SrcDir)\mengeCore\PluginEngine\PluginEngine.cpp">
-      <Filter>Source Files\PluginEngine</Filter>
-    </ClCompile>
     <ClCompile Include="$(SrcDir)\mengeCore\Runtime\Logger.cpp">
       <Filter>Source Files\Runtime</Filter>
     </ClCompile>
@@ -612,6 +606,9 @@
     <ClCompile Include="$(SrcDir)\MengeCore\menge_c_api.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeCore\PluginEngine\CorePluginEngine.cpp">
+      <Filter>Source Files\PluginEngine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(SrcDir)\mengeCore\Core.h">
@@ -864,9 +861,6 @@
       <Filter>Header Files\PluginEngine</Filter>
     </ClInclude>
     <ClInclude Include="$(SrcDir)\mengeCore\PluginEngine\Plugin.h">
-      <Filter>Header Files\PluginEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="$(SrcDir)\mengeCore\PluginEngine\PluginEngine.h">
       <Filter>Header Files\PluginEngine</Filter>
     </ClInclude>
     <ClInclude Include="$(SrcDir)\mengeCore\PluginEngine\SharedLibrary.h">
@@ -1189,6 +1183,12 @@
     </ClInclude>
     <ClInclude Include="$(SrcDir)\MengeCore\menge_c_api.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeCore\PluginEngine\BasePluginEngine.h">
+      <Filter>Header Files\PluginEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeCore\PluginEngine\CorePluginEngine.h">
+      <Filter>Header Files\PluginEngine</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

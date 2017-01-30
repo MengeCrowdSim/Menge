@@ -38,7 +38,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 #include "MengeCore/Agents/SimulatorInterface.h"
 #include "MengeCore/Math/RandGenerator.h"
-#include "MengeCore/PluginEngine/PluginEngine.h"
+#include "MengeCore/PluginEngine/CorePluginEngine.h"
 #include "MengeCore/Runtime/Logger.h"
 #include "MengeCore/Runtime/os.h"
 #include "MengeCore/Runtime/SimulatorDB.h"
@@ -62,6 +62,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include <exception>
 
 using namespace Menge;
+using Menge::PluginEngine::CorePluginEngine;
 
 // Time step (in seconds)
 float TIME_STEP = 0.2f;
@@ -77,23 +78,23 @@ std::string ROOT;
 SimulatorDB simDB;
 
 /*!
-*	@brief		Initialize and start the simulation.
-*
-*	@param		dbEntry			The SimulatorDBEntry that describes the simulator
-*								to be instantiated.
-*	@param		behaveFile		The path to a valid behavior specification file.
-*	@param		sceneFile		The path to a valid scene specification file.
-*	@param		outFile			The path to the output file to write.  If it is the
-*								empty string, no output file will be written.
-*	@param		scbVersion		The string indicating the version of scb file to write.
-*	@param		visualize		Determines if the simulation should be visualized.
-*								If true, an OpenGL visualizer is spawned, if false
-*								the simulation runs offline.
-*	@param		viewCfgFile		If visualizing, a path to an optional view configuration
-*								specification.  If none is provided, defaults are used.
-*	@param		dumpPath		The path to write screen grabs.  Only used in windows.
-*	@returns	0 for a successful run, non-zero otherwise.
-*/
+ *	@brief		Initialize and start the simulation.
+ *
+ *	@param		dbEntry			The SimulatorDBEntry that describes the simulator
+ *								to be instantiated.
+ *	@param		behaveFile		The path to a valid behavior specification file.
+ *	@param		sceneFile		The path to a valid scene specification file.
+ *	@param		outFile			The path to the output file to write.  If it is the
+ *								empty string, no output file will be written.
+ *	@param		scbVersion		The string indicating the version of scb file to write.
+ *	@param		visualize		Determines if the simulation should be visualized.
+ *								If true, an OpenGL visualizer is spawned, if false
+ *								the simulation runs offline.
+ *	@param		viewCfgFile		If visualizing, a path to an optional view configuration
+ *								specification.  If none is provided, defaults are used.
+ *	@param		dumpPath		The path to write screen grabs.  Only used in windows.
+ *	@returns	0 for a successful run, non-zero otherwise.
+ */
 int simMain( SimulatorDBEntry * dbEntry, const std::string & behaveFile,
 			 const std::string & sceneFile, const std::string & outFile,
 			 const std::string & scbVersion, bool visualize, const std::string & viewCfgFile,
@@ -204,7 +205,7 @@ int main( int argc, char* argv[] ) {
 	os::path::absPath( exePath, absExePath );
 	std::string tail;
 	os::path::split( absExePath, ROOT, tail );
-	PluginEngine plugins( &simDB );
+	CorePluginEngine plugins( &simDB );
 #ifdef _WIN32 
 #ifdef NDEBUG
 	std::string pluginPath = os::path::join( 2, ROOT.c_str(), "plugins" );

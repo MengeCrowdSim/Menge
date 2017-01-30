@@ -3,7 +3,7 @@
 #include "MengeCore/Agents/BaseAgent.h"
 #include "MengeCore/Agents/SimulatorInterface.h"
 #include "MengeCore/BFSM/FSM.h"
-#include "MengeCore/PluginEngine/PluginEngine.h"
+#include "MengeCore/PluginEngine/CorePluginEngine.h"
 #include "MengeCore/Runtime/SimulatorDB.h"
 
 /////////////////////////////////////////////////////////////////////
@@ -26,7 +26,7 @@ extern "C" {
 		if ( _simulator != 0x0 ) delete _simulator;
 		Menge::SimulatorDB simDB;
 		// TODO: Plugin engine is *not* public.  I can't get plugins.
-		Menge::PluginEngine engine( &simDB );
+		Menge::PluginEngine::CorePluginEngine engine( &simDB );
 		if ( pluginPath != 0x0 ) {
 			engine.loadPlugins( pluginPath );
 		}

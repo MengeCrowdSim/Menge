@@ -261,8 +261,6 @@ xcopy /y $(TargetPath) $(ExeDir)
     <ClCompile Include="$(SrcDir)\mengeCore\Math\SimRandom.cpp" />
     <ClCompile Include="$(SrcDir)\mengeCore\PluginEngine\Attribute.cpp" />
     <ClCompile Include="$(SrcDir)\mengeCore\PluginEngine\AttributeSet.cpp" />
-    <ClCompile Include="$(SrcDir)\mengeCore\PluginEngine\Plugin.cpp" />
-    <ClCompile Include="$(SrcDir)\mengeCore\PluginEngine\PluginEngine.cpp" />
     <ClCompile Include="$(SrcDir)\mengeCore\Runtime\Logger.cpp" />
     <ClCompile Include="$(SrcDir)\mengeCore\Runtime\os.cpp" />
     <ClCompile Include="$(SrcDir)\mengeCore\Runtime\ReadersWriterLock.cpp" />
@@ -394,6 +392,7 @@ xcopy /y $(TargetPath) $(ExeDir)
     </ClCompile>
     <ClCompile Include="$(SrcDir)\MengeCore\Agents\AgentGenerators\NavMeshAgentGenerator.cpp" />
     <ClCompile Include="$(SrcDir)\MengeCore\menge_c_api.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeCore\PluginEngine\CorePluginEngine.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(SrcDir)\mengeCore\Core.h" />
@@ -481,7 +480,6 @@ xcopy /y $(TargetPath) $(ExeDir)
     <ClInclude Include="$(SrcDir)\mengeCore\PluginEngine\ElementDatabase.h" />
     <ClInclude Include="$(SrcDir)\mengeCore\PluginEngine\ElementFactory.h" />
     <ClInclude Include="$(SrcDir)\mengeCore\PluginEngine\Plugin.h" />
-    <ClInclude Include="$(SrcDir)\mengeCore\PluginEngine\PluginEngine.h" />
     <ClInclude Include="$(SrcDir)\mengeCore\PluginEngine\SharedLibrary.h" />
     <ClInclude Include="$(SrcDir)\mengeCore\Runtime\Logger.h" />
     <ClInclude Include="$(SrcDir)\mengeCore\Runtime\os.h" />
@@ -588,6 +586,8 @@ xcopy /y $(TargetPath) $(ExeDir)
     <ClInclude Include="$(SrcDir)\mengeCore\resources\WayPortal.h" />
     <ClInclude Include="$(SrcDir)\MengeCore\Agents\AgentGenerators\NavMeshAgentGenerator.h" />
     <ClInclude Include="$(SrcDir)\MengeCore\menge_c_api.h" />
+    <ClInclude Include="$(SrcDir)\MengeCore\PluginEngine\BasePluginEngine.h" />
+    <ClInclude Include="$(SrcDir)\MengeCore\PluginEngine\CorePluginEngine.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="tinyxml_lib.vcxproj">
