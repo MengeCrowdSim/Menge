@@ -44,9 +44,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __JOHANSSON_AGENT_H__
 #define	__JOHANSSON_AGENT_H__
 
-#include "BaseAgent.h"
-
-using namespace Menge;
+#include "MengeCore/Agents/BaseAgent.h"
 
 namespace Johansson {
 	/*!
@@ -55,7 +53,7 @@ namespace Johansson {
 	 *	A social-force agent model. This assumes that all agents
 	 *	have unit-weight.
 	 */
-	class Agent : public Agents::BaseAgent {
+	class Agent : public Menge::Agents::BaseAgent {
 	public:
 		/*!
 		 *	@brief		Default constructor.
@@ -71,6 +69,16 @@ namespace Johansson {
 		 *  @brief      Computes the new velocity of this agent.
 		 */
 		void computeNewVelocity();
+
+		/*!
+		 *	@brief		Used by the plugin system to know what artifacts to associate with
+		 *				agents of this type.  Every sub-class of must return a globally
+		 *				unique value if it should be associated with unique artifacts.
+		 */
+		virtual std::string getStringId() const { return NAME; }
+
+		/*! @brief	The name identifier for this agent type. */
+		static const std::string NAME;
 
 		/*!
 		 *	@brief		The directional weight - repulsive force depends on direction to agent

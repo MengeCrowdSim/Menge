@@ -43,32 +43,35 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 #include "JohanssonConfig.h"
 #include "JohanssonDBEntry.h"
-#include "PluginEngine.h"
+#include "MengeCore/PluginEngine/CorePluginEngine.h"
 
-/*!
- *	@brief		Retrieves the name of the plug-in.
- *
- *	@returns	The name of the plug in.
- */
-extern "C" JOHANSSON_API const char * getName() {
-	return "Johansson 2007 Pedestrian Model";
+using Menge::PluginEngine::CorePluginEngine;
+
+extern "C" {
+	/*!
+	 *	@brief		Retrieves the name of the plug-in.
+	 *
+	 *	@returns	The name of the plug in.
+	 */
+	JOHANSSON_API const char * getName() {
+		return "Johansson 2007 Pedestrian Model";
+	}
+
+	/*!
+	 *	@brief		Description of the plug-in.
+	 *
+	 *	@returns	A description of the plugin.
+	 */
+	JOHANSSON_API const char * getDescription() {
+		return	"A pedestran plugin based on the model proposed in 2007 by Johansson et al.";
+	}
+
+	/*!
+	 *	@brief		Registers the plug-in with the PluginEngine
+	 *
+	 *	@param		engine		A pointer to the plugin engine.
+	 */
+	JOHANSSON_API void registerCorePlugin( CorePluginEngine * engine ) {
+		engine->registerModelDBEntry( new Johansson::DBEntry() );
+	}
 }
-
-/*!
- *	@brief		Description of the plug-in.
- *
- *	@returns	A description of the plugin.
- */
-extern "C" JOHANSSON_API const char * getDescription() {
-	return	"A pedestran plugin based on the model proposed in 2007 by Johansson et al.";
-}
-
-/*!
- *	@brief		Registers the plug-in with the PluginEngine
- *
- *	@param		engine		A pointer to the plugin engine.
- */
-extern "C" JOHANSSON_API void registerPlugin( PluginEngine * engine ) {
-	engine->registerModelDBEntry( new Johansson::DBEntry() );
-}
-
