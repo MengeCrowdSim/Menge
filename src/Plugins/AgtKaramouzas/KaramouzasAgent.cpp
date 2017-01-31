@@ -38,17 +38,26 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 #include "KaramouzasAgent.h"
 #include "KaramouzasSimulator.h"
-#include "Math/geomQuery.h"
+#include "MengeCore/Math/geomQuery.h"
 
 #include <algorithm>
 #include <list>
 
 namespace Karamouzas {
+
+	using Menge::Agents::BaseAgent;
+	using Menge::Agents::Obstacle;
+	using Menge::Math::Vector2;
+
 	////////////////////////////////////////////////////////////////
 	//					Implementation of Karamouzas::Agent
 	////////////////////////////////////////////////////////////////
 
-	Agent::Agent(): Agents::BaseAgent() { 
+	const std::string Agent::NAME = "karamouzas";
+
+	////////////////////////////////////////////////////////////////
+
+	Agent::Agent() : BaseAgent() { 
 		_perSpace = 1.f;
 		_anticipation = 3.f;
 	}
@@ -72,10 +81,10 @@ namespace Karamouzas {
 			//	by COLLISIONS.  Only if I'm going to collide with an obstacle is
 			//	a force applied.  This may be too naive.
 			//	I'll have to investigate this.
-			const Agents::Obstacle * obst = _nearObstacles[ o ].obstacle;
+			const Obstacle * obst = _nearObstacles[ o ].obstacle;
 			Vector2 nearPt;		// set by distanceSqToPoint
 			float sqDist;		// set by distanceSqToPoint
-			if ( obst->distanceSqToPoint( _pos, nearPt, sqDist ) == Agents::Obstacle::LAST ) continue;
+			if ( obst->distanceSqToPoint( _pos, nearPt, sqDist ) == Obstacle::LAST ) continue;
 			if ( SAFE_DIST2 > sqDist ) {
 				// A repulsive force is actually possible
 				float dist = sqrtf( sqDist );
@@ -102,7 +111,7 @@ namespace Karamouzas {
 		float totalTime = 1.f;
 		std::list< std::pair< float, const Agent  * > > collidingSet;
 		for ( size_t j = 0; j < _nearAgents.size(); ++j ) {
-			const Agents::BaseAgent * otherBase = _nearAgents[j].agent;
+			const BaseAgent * otherBase = _nearAgents[j].agent;
 			const Agent * const other = static_cast< const Agent *>( otherBase );
 			float circRadius = _perSpace + other->_radius;
 			Vector2 relVel = desVel - other->_vel;
@@ -127,7 +136,8 @@ namespace Karamouzas {
 				if ( VERBOSE ) std::cout << "\tAgent " << other->_id << " t_c: " << tc << "\n";
 				//totalTime += tc;
 				// insert into colliding set (in order)
-				std::list< std::pair< float, const Agent  * > >::iterator itr = collidingSet.begin();
+				std::list< std::pair< float, const Agent  * > >::iterator itr =
+					collidingSet.begin();
 				while ( itr != collidingSet.end() && tc > itr->first ) ++itr;
 				collidingSet.insert( itr, std::pair< float, const Agent * >( tc, other ) );
 			}
@@ -161,13 +171,20 @@ namespace Karamouzas {
 			} else if ( D < Simulator::D_MAX ) {
 				//D -= Simulator::D_MID;
 				//mag =  D * Simulator::AGENT_FORCE / ( Simulator::D_MAX - Simulator::D_MID ) + Simulator::D_MID ;
-				mag =  Simulator::AGENT_FORCE * ( Simulator::D_MAX - D ) / ( Simulator::D_MAX - Simulator::D_MID ) ;
+				mag =  Simulator::AGENT_FORCE * ( Simulator::D_MAX - D ) /
+					( Simulator::D_MAX - Simulator::D_MID ) ;
 			} else {
 				continue;	// magnitude is zero
 			}
 			float weight = pow( colliding ? 1.f : 0.8f, count++ );
 			//float weight = ( totalTime - tc  ) / totalTime; //1.f / ( tc * totalTime );
-			if ( VERBOSE ) std::cout << "\tAgent " << other->_id << " magnitude: " << mag << " weight: " << weight << " total force: " << ( mag * weight ) << " D: " << D << "\n";
+			if ( VERBOSE ) {
+				std::cout << "\tAgent " << other->_id;
+				std::cout << " magnitude: " << mag;
+				std::cout << " weight: " << weight;
+				std::cout << " total force: " << ( mag * weight );
+				std::cout << " D: " << D << "\n";
+			}
 			force += forceDir * ( mag * weight );
 		}
 		// Add some noise to avoid deadlocks and introduce variation
@@ -182,5 +199,4 @@ namespace Karamouzas {
 	
 	    _velNew = desVel + force * Simulator::TIME_STEP;	// assumes unit mass
 	}
-
 }	// namespace Karamouzas

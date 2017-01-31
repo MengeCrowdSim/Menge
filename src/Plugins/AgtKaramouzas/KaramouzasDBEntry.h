@@ -44,16 +44,14 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __KARAMOUZAS_DB_ENTRY_H__
 #define	__KARAMOUZAS_DB_ENTRY_H__
 
-#include "SimulatorDBEntry.h"
 #include "Karamouzas.h"
-
-using namespace Menge;
+#include "MengeCore/Runtime/SimulatorDBEntry.h"
 
 namespace Karamouzas {
 	/*!
 	 *	@brief		The simulator database entry for the Karamouzas 2009 simulator.
 	 */
-	class DBEntry : public SimulatorDBEntry {
+	class DBEntry : public Menge::SimulatorDBEntry {
 	public:
 		/*!
 		 *	@brief	Gives a brief description of the simulator.
@@ -88,7 +86,7 @@ namespace Karamouzas {
 		 *	@returns	A single string (with no spaces) that can be used as
 		 *				a command line parameter to uniquely identify this model.
 		 */
-		virtual ::std::string commandLineName() const { return "karamouzas"; }
+		virtual ::std::string commandLineName() const { return Agent::NAME; }
 
 		/*!
 		 *	@brief		Returns a pointer to this model's Simulator instance.
@@ -98,7 +96,7 @@ namespace Karamouzas {
 		 *	@returns	A newly instantiated simulator instance of a type appropriate
 		 *				for this database entry.
 		 */
-		virtual Agents::SimulatorInterface * getNewSimulator();
+		virtual Menge::Agents::SimulatorInterface * getNewSimulator();
 
 		/*!
 		 *	@brief		Provides an AgentInitializer appropriate to this simulator class.
@@ -106,7 +104,7 @@ namespace Karamouzas {
 		 *	@returns	A pointer to an agent initializer.  The caller is responsible for
 		 *				freeing up the memory.
 		 */
-		virtual Agents::AgentInitializer * getAgentInitalizer() const;
+		virtual Menge::Agents::AgentInitializer * getAgentInitalizer() const;
 	};
 }	// namespace Karamouzas
 #endif // __KARAMOUZAS_DB_ENTRY_H__

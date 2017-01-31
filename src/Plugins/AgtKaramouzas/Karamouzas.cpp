@@ -43,32 +43,35 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 #include "KaramouzasConfig.h"
 #include "KaramouzasDBEntry.h"
-#include "PluginEngine.h"
+#include "MengeCore/PluginEngine/CorePluginEngine.h"
 
-/*!
- *	@brief		Retrieves the name of the plug-in.
- *
- *	@returns	The name of the plug in.
- */
-extern "C" KARAMOUZAS_API const char * getName() {
-	return "Karamouzas 2009 Pedestrian Model";
+using Menge::PluginEngine::CorePluginEngine;
+
+extern "C" {
+	/*!
+	 *	@brief		Retrieves the name of the plug-in.
+	 *
+	 *	@returns	The name of the plug in.
+	 */
+	KARAMOUZAS_API const char * getName() {
+		return "Karamouzas 2009 Pedestrian Model";
+	}
+
+	/*!
+	 *	@brief		Description of the plug-in.
+	 *
+	 *	@returns	A description of the plugin.
+	 */
+	KARAMOUZAS_API const char * getDescription() {
+		return	"A pedestran plugin based on the model proposed in 2009 by Karamouzas et al.";
+	}
+
+	/*!
+	 *	@brief		Registers the plug-in with the PluginEngine
+	 *
+	 *	@param		engine		A pointer to the plugin engine.
+	 */
+	KARAMOUZAS_API void registerCorePlugin( CorePluginEngine * engine ) {
+		engine->registerModelDBEntry( new Karamouzas::DBEntry() );
+	}
 }
-
-/*!
- *	@brief		Description of the plug-in.
- *
- *	@returns	A description of the plugin.
- */
-extern "C" KARAMOUZAS_API const char * getDescription() {
-	return	"A pedestran plugin based on the model proposed in 2009 by Karamouzas et al.";
-}
-
-/*!
- *	@brief		Registers the plug-in with the PluginEngine
- *
- *	@param		engine		A pointer to the plugin engine.
- */
-extern "C" KARAMOUZAS_API void registerPlugin( PluginEngine * engine ) {
-	engine->registerModelDBEntry( new Karamouzas::DBEntry() );
-}
-
