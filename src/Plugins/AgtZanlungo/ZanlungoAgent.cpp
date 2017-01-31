@@ -38,15 +38,25 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 #include "ZanlungoAgent.h"
 #include "ZanlungoSimulator.h"
-#include "Math/geomQuery.h"
-#include "Math/consts.h"
+#include "MengeCore/Math/geomQuery.h"
+#include "MengeCore/Math/consts.h"
 
 namespace Zanlungo {
+
+	using Menge::INFTY;
+	using Menge::Agents::BaseAgent;
+	using Menge::Agents::Obstacle;
+	using Menge::Math::Vector2;
+
 	////////////////////////////////////////////////////////////////
 	//					Implementation of Zanlungo::Agent
 	////////////////////////////////////////////////////////////////
 
-	Agent::Agent(): Agents::BaseAgent() {
+	const std::string Agent::NAME = "zanlungo";
+
+	////////////////////////////////////////////////////////////////
+
+	Agent::Agent() : BaseAgent() {
 		_mass = 80.f;
 	}
 
@@ -72,7 +82,7 @@ namespace Zanlungo {
 			//const float MAG = Simulator::AGENT_SCALE * SPEED / T_i;
 			for ( size_t j = 0; j < _nearAgents.size(); ++j ) {
 				// 2. Use T_i to compute the direction
-				const Agents::BaseAgent * otherBase = _nearAgents[j].agent;
+				const BaseAgent * otherBase = _nearAgents[j].agent;
 				const Agent * const other = static_cast< const Agent *>( otherBase );
 				force += agentForce( other, T_i );
 			}
@@ -82,7 +92,8 @@ namespace Zanlungo {
 			for ( size_t obs = 0; obs < _nearObstacles.size(); ++obs ) {
 				Vector2 nearPt;		// set by call to distanceSqToPoint
 				float d2;			// set by call to distanceSqToPoint
-				if ( _nearObstacles[ obs ].obstacle->distanceSqToPoint( futurePos, nearPt, d2 ) == Agents::Obstacle::LAST ) continue;
+				if ( _nearObstacles[ obs ].obstacle->distanceSqToPoint( futurePos, nearPt, d2 ) ==
+					 Obstacle::LAST ) continue;
 				Vector2 D_ij = futurePos - nearPt;
 				float dist = abs( D_ij );
 				D_ij /= dist;
@@ -102,7 +113,8 @@ namespace Zanlungo {
 		// Right of way-dependent calculations
 		Vector2 myVel = _vel;
 		Vector2 hisVel = other->_vel;
-		float weight = 1.f - rightOfWayVel( hisVel, other->_velPref.getPreferredVel(), other->_priority, myVel );
+		float weight = 1.f - rightOfWayVel( hisVel, other->_velPref.getPreferredVel(),
+											other->_priority, myVel );
 		
 		const Vector2 relVel = myVel - hisVel;
 
@@ -129,7 +141,8 @@ namespace Zanlungo {
 				// of travel.  
 				const Vector2 prefDir( other->_velPref.getPreferred() );
 				if ( prefDir * D_ij > 0.f ) {
-					perpDir.set( -prefDir.y(), prefDir.x() );	// perpendicular to preferred velocity
+					// perpendicular to preferred velocity
+					perpDir.set( -prefDir.y(), prefDir.x() );
 					if ( perpDir * D_ij < 0.f ) perpDir.negate();
 				} else {
 					interpolate = false;
@@ -164,13 +177,12 @@ namespace Zanlungo {
 		const float COS_FOV = -0.8f;// cos( HALFPI );// cos( PI / 4.f ); // 
 		bool interacts = false;
 		T_i = INFTY;
-		//std::cout << "\n";
 #define COLLIDE_PRIORITY
 #ifdef COLLIDE_PRIORITY
 		float t_collision = T_i;
 #endif
 		for ( size_t j = 0; j < _nearAgents.size(); ++j ) {
-			const Agents::BaseAgent * otherBase = _nearAgents[j].agent;
+			const BaseAgent * otherBase = _nearAgents[j].agent;
 			const Agent * const other = static_cast< const Agent *>( otherBase );
 
 			// Right of way-dependent calculations
@@ -224,7 +236,8 @@ namespace Zanlungo {
 					}
 				}
 #else
-				// note: relPos points from other agent to this agent, so they need to point in OPPOSITE directions for convergence
+				// note: relPos points from other agent to this agent, so they need to point in
+				// OPPOSITE directions for convergence
 				float dp = -( relPos * relVel );  
 				if ( dp > 0.f ) { 
 					float t_ij = dp / absSq( relVel );
@@ -262,7 +275,8 @@ namespace Zanlungo {
 
 	////////////////////////////////////////////////////////////////
 
-	float Agent::rightOfWayVel( Vector2 & otherVel, const Vector2 & otherPrefVel, float otherPriority, Vector2 & vel ) const {
+	float Agent::rightOfWayVel( Vector2 & otherVel, const Vector2 & otherPrefVel,
+								float otherPriority, Vector2 & vel ) const {
 		float rightOfWay = _priority - otherPriority;
 		rightOfWay = ( rightOfWay < -1.f ) ? -1.f : (rightOfWay > 1.f) ? 1.f : rightOfWay;
 		if ( rightOfWay < 0.f ) {
@@ -279,5 +293,4 @@ namespace Zanlungo {
 			return 0.f;
 		}
 	}
-
 }	// namespace Zanlungo

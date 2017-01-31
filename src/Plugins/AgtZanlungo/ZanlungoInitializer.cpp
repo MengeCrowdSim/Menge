@@ -38,9 +38,16 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 #include "ZanlungoInitializer.h"
 #include "ZanlungoAgent.h"
-#include "Math/RandGenerator.h"
+#include "MengeCore/Math/RandGenerator.h"
+#include "MengeCore/Runtime/Logger.h"
 
 namespace Zanlungo {
+
+	using Menge::Agents::BaseAgent;
+	using Menge::Math::ConstFloatGenerator;
+	using Menge::Logger;
+	using Menge::logger;
+
 	////////////////////////////////////////////////////////////////
 	//			Implementation of Zanlungo::AgentInitializer
 	////////////////////////////////////////////////////////////////
@@ -50,13 +57,14 @@ namespace Zanlungo {
 	
 	////////////////////////////////////////////////////////////////
 
-	AgentInitializer::AgentInitializer() : Agents::AgentInitializer() { 
+	AgentInitializer::AgentInitializer() : Menge::Agents::AgentInitializer() { 
 		_mass = new ConstFloatGenerator( MASS );
 	}
 
 	////////////////////////////////////////////////////////////////
 
-	AgentInitializer::AgentInitializer( const AgentInitializer & init ) : Agents::AgentInitializer(init) { 
+	AgentInitializer::AgentInitializer( const AgentInitializer & init ) :
+		Menge::Agents::AgentInitializer( init ) {
 		_mass = init._mass->copy();
 	}
 
@@ -68,39 +76,43 @@ namespace Zanlungo {
 
 	////////////////////////////////////////////////////////////////
 
-	bool AgentInitializer::setProperties( Agents::BaseAgent * agent ) {
+	bool AgentInitializer::setProperties( BaseAgent * agent ) {
 		Agent * a = dynamic_cast< Agent * >( agent );
 		if ( a == 0x0 ) return false;
 		a->_mass = _mass->getValue();
-		return Agents::AgentInitializer::setProperties( agent );
+		return Menge::Agents::AgentInitializer::setProperties( agent );
 	}
 
 	////////////////////////////////////////////////////////////////
 
 	bool AgentInitializer::isRelevant( const ::std::string & tagName ) {
-		return ( tagName == "Zanlungo" ) || Agents::AgentInitializer::isRelevant( tagName );
+		return ( tagName == "Zanlungo" ) || Menge::Agents::AgentInitializer::isRelevant( tagName );
 	}
 
 	////////////////////////////////////////////////////////////////
 
-	Agents::AgentInitializer::ParseResult AgentInitializer::setFromXMLAttribute( const ::std::string & paramName, const ::std::string & value ) {
+	Menge::Agents::AgentInitializer::ParseResult AgentInitializer::setFromXMLAttribute(
+		const ::std::string & paramName, const ::std::string & value ) {
 		ParseResult result = IGNORED;
 		if ( paramName == "mass" ) {
 			result = constFloatGenerator( _mass, value );
 		}
 
 		if ( result == FAILURE ) {
-			logger << Logger::WARN_MSG << "Attribute \"" << paramName << "\" had an incorrectly formed value: \"" << value << "\".  Using default value.";
+			logger << Logger::WARN_MSG << "Attribute \"" << paramName;
+			logger << "\" had an incorrectly formed value: \"" << value;
+			logger << "\".  Using default value.";
 			result = ACCEPTED;
 		} else if ( result == IGNORED ){
-			return Agents::AgentInitializer::setFromXMLAttribute( paramName, value );
+			return Menge::Agents::AgentInitializer::setFromXMLAttribute( paramName, value );
 		} 
 		return result;
 	}
 
 	////////////////////////////////////////////////////////////////
 
-	AgentInitializer::ParseResult AgentInitializer::processProperty( ::std::string propName, TiXmlElement * node ) {
+	AgentInitializer::ParseResult AgentInitializer::processProperty( ::std::string propName,
+																	 TiXmlElement * node ) {
 		ParseResult result = IGNORED;
 		if ( propName == "mass" ) {
 			result = getFloatGenerator( _mass, node );
@@ -110,7 +122,7 @@ namespace Zanlungo {
 			logger << Logger::ERR_MSG << "Error extracting value distribution from Property " << propName << ".";
 			return result;
 		} else if ( result == IGNORED ) {
-			return Agents::AgentInitializer::processProperty( propName, node );
+			return Menge::Agents::AgentInitializer::processProperty( propName, node );
 		}
 		return result;
 	}
@@ -120,7 +132,7 @@ namespace Zanlungo {
 	void AgentInitializer::setDefaults() {
 		if ( _mass ) delete _mass;
 		_mass = new ConstFloatGenerator( MASS );
-		Agents::AgentInitializer::setDefaults();
+		Menge::Agents::AgentInitializer::setDefaults();
 	}
 
 	////////////////////////////////////////////////////////////////

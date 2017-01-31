@@ -41,34 +41,49 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
  *	@brief		Plugin for Zanlungo pedestrian.
  */
 
+#include "ZanlungoAgentContext.h"
 #include "ZanlungoConfig.h"
 #include "ZanlungoDBEntry.h"
-#include "PluginEngine.h"
+#include "MengeCore/PluginEngine/CorePluginEngine.h"
+#include "MengeVis/PluginEngine/VisPluginEngine.h"
 
-/*!
- *	@brief		Retrieves the name of the plug-in.
- *
- *	@returns	The name of the plug in.
- */
-extern "C" ZANLUNGO_API const char * getName() {
-	return "Zanlungo Pedestrian Model";
+using Menge::PluginEngine::CorePluginEngine;
+using MengeVis::PluginEngine::VisPluginEngine;
+
+extern "C" {
+	/*!
+	 *	@brief		Retrieves the name of the plug-in.
+	 *
+	 *	@returns	The name of the plug in.
+	 */
+	ZANLUNGO_API const char * getName() {
+		return "Zanlungo Pedestrian Model";
+	}
+
+	/*!
+	 *	@brief		Description of the plug-in.
+	 *
+	 *	@returns	A description of the plugin.
+	 */
+	ZANLUNGO_API const char * getDescription() {
+		return	"A pedestran plugin based on the model proposed in 2011 by Zanlungo et al.";
+	}
+
+	/*!
+	 *	@brief		Registers the plug-in with the PluginEngine
+	 *
+	 *	@param		engine		A pointer to the plugin engine.
+	 */
+	ZANLUNGO_API void registerCorePlugin( CorePluginEngine * engine ) {
+		engine->registerModelDBEntry( new Zanlungo::DBEntry() );
+	}
+
+	/*!
+	 *	@brief		Registers the plug-in with the visualization plug-in engine.
+	 *
+	 *	@param		engine		A pointer to the vis engine.
+	 */
+	ZANLUNGO_API void registerVisPlugin( VisPluginEngine * engine ) {
+		engine->registerAgentContext( new Zanlungo::AgentContext() );
+	}
 }
-
-/*!
- *	@brief		Description of the plug-in.
- *
- *	@returns	A description of the plugin.
- */
-extern "C" ZANLUNGO_API const char * getDescription() {
-	return	"A pedestran plugin based on the model proposed in 2011 by Zanlungo et al.";
-}
-
-/*!
- *	@brief		Registers the plug-in with the PluginEngine
- *
- *	@param		engine		A pointer to the plugin engine.
- */
-extern "C" ZANLUNGO_API void registerPlugin( PluginEngine * engine ) {
-	engine->registerModelDBEntry( new Zanlungo::DBEntry() );
-}
-

@@ -37,12 +37,14 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 */
 
 #include "ZanlungoDBEntry.h"
-#include "SimulatorDB.h"
 #include "ZanlungoAgentContext.h"
 #include "ZanlungoInitializer.h"
-#include "SimSystem.h"
+#include "MengeCore/Runtime/SimulatorDB.h"
 
 namespace Zanlungo {
+
+	using Menge::Agents::SimulatorInterface;
+
 	/////////////////////////////////////////////////////////////////////////////
 	//                     Implementation of ZanlungoDBEntry
 	/////////////////////////////////////////////////////////////////////////////
@@ -69,19 +71,13 @@ namespace Zanlungo {
 
 	/////////////////////////////////////////////////////////////////////////////
 	 
-	BaseAgentContext * DBEntry::contextFromSystem( SimSystem * system ) {
-		return new AgentContext( system->getVisAgents(), (unsigned int)system->getAgentCount() ); 
-	}
-
-	/////////////////////////////////////////////////////////////////////////////
-	 
-	Agents::SimulatorInterface * DBEntry::getNewSimulator() {
+	SimulatorInterface * DBEntry::getNewSimulator() {
 		return new Simulator();
 	}
 
 	/////////////////////////////////////////////////////////////////////////////
 	 
-	Agents::AgentInitializer * DBEntry::getAgentInitalizer() const {
+	Menge::Agents::AgentInitializer * DBEntry::getAgentInitalizer() const {
 		return new AgentInitializer();
 	}
 

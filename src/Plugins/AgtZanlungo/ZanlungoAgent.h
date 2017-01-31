@@ -46,15 +46,13 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __ZANLUNGO_AGENT_H__
 #define	__ZANLUNGO_AGENT_H__
 
-#include "BaseAgent.h"
-
-using namespace Menge;
+#include "MengeCore/Agents/BaseAgent.h"
 
 namespace Zanlungo {
 	/*!
 	 *	@brief		Agent definition for the Zanlungo pedestrian model.
 	 */
-	class Agent : public Agents::BaseAgent {
+	class Agent : public Menge::Agents::BaseAgent {
 	public:
 		/*!
 		 *	@brief		Default constructor.
@@ -81,12 +79,22 @@ namespace Zanlungo {
 		 *	@param		T_i				The time to interaction
 		 *	@returns	The force imparted by the other agent on this agent
 		 */
-		Vector2 agentForce( const Agent * other, float T_i ) const;
+		Menge::Math::Vector2 agentForce( const Agent * other, float T_i ) const;
 
 		/*!
 		 *  @brief      Computes the new velocity of this agent.
 		 */
 		void computeNewVelocity();
+
+		/*!
+		 *	@brief		Used by the plugin system to know what artifacts to associate with
+		 *				agents of this type.  Every sub-class of must return a globally
+		 *				unique value if it should be associated with unique artifacts.
+		 */
+		virtual std::string getStringId() const { return NAME; }
+
+		/*! @brief	The name identifier for this agent type. */
+		static const std::string NAME;
 
 		/*!
 		 *	@brief		Reports the field of view for the agent
@@ -105,13 +113,14 @@ namespace Zanlungo {
 		 *	@returns		The signed right of way value. (Negative implies other has
 		 *					right of way, positive implies this agent has right of way.)
 		 */
-		float rightOfWayVel( Vector2 & otherVel, const Vector2 & otherPrefVel, float otherPriority, Vector2 & vel ) const;
+		float rightOfWayVel( Menge::Math::Vector2 & otherVel,
+							 const Menge::Math::Vector2 & otherPrefVel,
+							 float otherPriority, Menge::Math::Vector2 & vel ) const;
 
 		/*!
 		 *	@brief		The mass of the agent
 		 */
 		float		_mass;
-
 	};
 }	// namespace Zanlungo
 

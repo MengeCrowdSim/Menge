@@ -38,23 +38,40 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 #include "ZanlungoAgentContext.h"
 #include "ZanlungoAgent.h"
-#include "VisAgent.h"
-#include "shapes.h"
+#include "MengeVis/Runtime/VisAgent.h"
+#include "MengeVis/SceneGraph/shapes.h"
+
 #include <iomanip>
 
 namespace Zanlungo {
+
+	using Menge::Agents::BaseAgent;
+	using Menge::Agents::Obstacle;
+	using Menge::Math::Vector2;
+	using MengeVis::Runtime::BaseAgentContext;
+	using MengeVis::SceneGraph::ContextResult;
+	using MengeVis::SceneGraph::TextWriter;
+	using MengeVis::SceneGraph::Circle;
 
 	////////////////////////////////////////////////////////////////
 	//			Implementation of ZanlungoAgentContext
 	////////////////////////////////////////////////////////////////
 
-	AgentContext::AgentContext( VisAgent ** agents, unsigned int agtCount ):BaseAgentContext(agents,agtCount), _showTTI(false), _ttiObject(0), _showForce(false) {
+	AgentContext::AgentContext() : BaseAgentContext(), _showTTI( false ), _ttiObject( 0 ),
+		_showForce( false ) {
 	}
 
 	////////////////////////////////////////////////////////////////
 
-	SceneGraph::ContextResult AgentContext::handleKeyboard( SDL_Event & e ) {
-		SceneGraph::ContextResult result = BaseAgentContext::handleKeyboard( e );
+	void AgentContext::setElement( MengeVis::Runtime::VisAgent * agent ) {
+		BaseAgentContext::setElement( agent );
+		_ttiObject = 0;
+	}
+
+	////////////////////////////////////////////////////////////////
+
+	ContextResult AgentContext::handleKeyboard( SDL_Event & e ) {
+		ContextResult result = BaseAgentContext::handleKeyboard( e );
 		if ( !result.isHandled() ) {
 			SDLMod mods = e.key.keysym.mod;
 			bool hasCtrl = ( mods & KMOD_CTRL ) > 0;
@@ -71,7 +88,8 @@ namespace Zanlungo {
 						result.set( true, true );
 					} else if ( e.key.keysym.sym == SDLK_UP ) {
 						if ( ( _showTTI || _showForce ) && _selected ) {
-							const Agent * agt = dynamic_cast< Agent * >( _selected->getAgent() );
+							const Agent * agt =
+								dynamic_cast< const Agent * >( _selected->getAgent() );
 							int NBRS = (int)agt->_nearAgents.size();
 							int OBST = (int)agt->_nearObstacles.size();
 							if ( NBRS | OBST ) {
@@ -88,7 +106,8 @@ namespace Zanlungo {
 						}
 					} else if ( e.key.keysym.sym == SDLK_DOWN ) {
 						if ( ( _showTTI || _showForce ) && _selected ) {
-							const Agent * agt = dynamic_cast< Agent * >( _selected->getAgent() );
+							const Agent * agt =
+								dynamic_cast< const Agent * >( _selected->getAgent() );
 							int NBRS = (int)agt->_nearAgents.size();
 							int OBST = (int)agt->_nearObstacles.size();
 							if ( NBRS | OBST ) {
@@ -115,9 +134,10 @@ namespace Zanlungo {
 	void AgentContext::draw3DGL( bool select ) {
 		BaseAgentContext::draw3DGL( select );
 		if ( !select && _selected ) {
-			glPushAttrib( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_ENABLE_BIT | GL_LINE_BIT | GL_POLYGON_BIT );
+			glPushAttrib( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_ENABLE_BIT | GL_LINE_BIT |
+						  GL_POLYGON_BIT );
 			glDepthMask( GL_FALSE );
-			const Agent * agt = dynamic_cast< Agent * >( _selected->getAgent() );
+			const Agent * agt = dynamic_cast< const Agent * >( _selected->getAgent() );
 			drawTTI( agt );
 			drawForce( agt );
 			drawOrientationFan( agt );
@@ -127,7 +147,7 @@ namespace Zanlungo {
 
 	////////////////////////////////////////////////////////////////
 
-	std::string AgentContext::agentText( const Agents::BaseAgent * agent ) const {
+	std::string AgentContext::agentText( const BaseAgent * agent ) const {
 		const Agent * agt = dynamic_cast< const Agent * >( agent );
 		std::string m = BaseAgentContext::agentText( agt );
 
@@ -167,7 +187,7 @@ namespace Zanlungo {
 				glEnd();
 				glPushMatrix();
 				glTranslatef( futurePos.x(), Y, futurePos.y() );
-				SceneGraph::Circle::drawCircle( agt->_radius, 1.f, 1.f, 1.f, 0.75f, GL_LINE );
+				Circle::drawCircle( agt->_radius, 1.f, 1.f, 1.f, 0.75f, GL_LINE );
 				glPopMatrix();
 				
 				if ( _ttiObject == 0 ) {
@@ -184,12 +204,13 @@ namespace Zanlungo {
 						glEnd();
 						glPushMatrix();
 						glTranslatef( futurePos2.x(), Y, futurePos2.y() );
-						SceneGraph::Circle::drawCircle( other->_radius, 1.f, 0.f, 0.f, 0.75f, GL_LINE );
+						Circle::drawCircle( other->_radius, 1.f, 0.f, 0.f, 0.75f, GL_LINE );
 						glPopMatrix();
 					}
 				} else if ( _ttiObject > 0 ) {
 					// Draw the future position of _ttiObject
-					const Agent * other = static_cast< const Agent *>( agt->getNeighbor( _ttiObject - 1 ) );
+					const Agent * other =
+						static_cast< const Agent *>( agt->getNeighbor( _ttiObject - 1 ) );
 					Vector2 futurePos2 = other->_pos + other->_vel * TTI;
 					glColor3f( 1.f, 0.f, 0.f );
 					glBegin( GL_LINES );
@@ -198,7 +219,7 @@ namespace Zanlungo {
 					glEnd();
 					glPushMatrix();
 					glTranslatef( futurePos2.x(), Y, futurePos2.y() );
-					SceneGraph::Circle::drawCircle( other->_radius, 1.f, 0.f, 0.f, 0.75f, GL_LINE );
+					Circle::drawCircle( other->_radius, 1.f, 0.f, 0.f, 0.75f, GL_LINE );
 					glPopMatrix();
 				
 				} else if ( _ttiObject < 0 ){
@@ -225,7 +246,8 @@ namespace Zanlungo {
 						singleAgentForce( agt, other, TTI );
 					}
 				} else if ( _ttiObject > 0 ) {
-					const Agent * other = static_cast< const Agent *>( agt->getNeighbor( _ttiObject - 1 ) );
+					const Agent * other =
+						static_cast< const Agent *>( agt->getNeighbor( _ttiObject - 1 ) );
 					singleAgentForce( agt, other, TTI );
 				} else if ( _ttiObject < 0 ){
 					// draw obstacle
@@ -239,7 +261,7 @@ namespace Zanlungo {
 
 	void AgentContext::singleAgentForce( const Agent * agt, const Agent * other, float TTI ) {
 		// This is for printing force magnitude and source
-		SceneGraph::TextWriter * writer = SceneGraph::TextWriter::Instance();
+		TextWriter * writer = TextWriter::Instance();
 		// Get screen coordintes of source and force
 		double modViewMat[16], projMat[16];
 		int viewMat[4];
@@ -264,7 +286,7 @@ namespace Zanlungo {
 			ss << std::setiosflags(std::ios::fixed) << std::setprecision( 2 );
 			ss << other->_id;
 			// Label the source agent
-			writeAlignedText( ss.str(), other->_pos, SceneGraph::TextWriter::LEFT_BOTTOM, true );
+			writeAlignedText( ss.str(), other->_pos, TextWriter::LEFT_BOTTOM, true );
 			// Label the fource
 			ss << ": " << abs( force ) << " N";
 			Vector2 forceDir( norm( force ) * ( 4 * agt->_radius ) + agt->_pos );
@@ -306,9 +328,7 @@ namespace Zanlungo {
 				float x = dir * dX;
 				float y = dir * dY;
 				dir.set( x, y );
-				
 			}
-			
 			glEnd();
 		}
 	}
