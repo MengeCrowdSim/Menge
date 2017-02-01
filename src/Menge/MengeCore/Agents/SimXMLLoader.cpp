@@ -381,7 +381,7 @@ namespace Menge {
 			std::string name( nameCStr );
 			if ( _profiles.find( name ) != _profiles.end() ) {
 				logger << Logger::ERR_MSG << "The AgentProfile defined on line " << node->Row();
-				logger << " has a name value (\"" << name << "\")that has previously been used.";
+				logger << " has a name value (\"" << name << "\") that has previously been used.";
 				return false;
 			}
 
