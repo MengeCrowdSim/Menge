@@ -44,13 +44,16 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __FORMATIONS_TASK_H__
 #define	__FORMATIONS_TASK_H__
 
-#include "Tasks/Task.h"
-#include "fsmCommon.h"
-#include <string>
-#include "Tasks/TaskFactory.h"
-#include "tinyxml.h"
 #include "FreeFormation.h"
 #include "FormationsModifier.h"
+
+#include "MengeCore/BFSM/fsmCommon.h"
+#include "MengeCore/BFSM/Tasks/Task.h"
+#include "MengeCore/BFSM/Tasks/TaskFactory.h"
+
+#include <string>
+
+#include "tinyxml.h"
 
 using namespace Menge;
 
@@ -58,7 +61,7 @@ namespace Formations {
     /*!
 	 *	@brief	Task responsible for updating agent data for maintaining a formation.
 	 */
-	class FormationsTask : public BFSM::Task {
+	class FormationsTask : public Menge::BFSM::Task {
 	public:
 		/*!
 		 *	@brief		Constructor 
@@ -77,7 +80,7 @@ namespace Formations {
 		 *	@throws		A TaskFatalException if there is a fatal error that
 		 *				should arrest execution of the simulation.
 		 */
-		virtual void doWork( const BFSM::FSM * fsm ) throw( BFSM::TaskException );
+		virtual void doWork( const Menge::BFSM::FSM * fsm ) throw( Menge::BFSM::TaskException );
 
 		/*!
 		 *	@brief		String representation of the task
@@ -96,7 +99,7 @@ namespace Formations {
 		 *	@returns	A boolean reporting if the two tasks are equivalent (true)
 		 *				or unique (false).
 		 */
-		virtual bool isEquivalent( const BFSM::Task * task ) const;
+		virtual bool isEquivalent( const Menge::BFSM::Task * task ) const;
 
 		/*!
 		 *	@brief   Get the formation represented in this task
@@ -110,10 +113,6 @@ namespace Formations {
 		 *	@brief		The underlying formation data.
 		 */
 		Formations::FormationPtr _formation; //the formation
-
 	};
-
-
-
-}
+}	// namespace Formation
 #endif // __DENSITY_GRID_TASK_H__

@@ -36,13 +36,19 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#ifndef __FORMATIONS_MODIFIER_CPP__
-#define __FORMATIONS_MODIFIER_CPP__
-
 #include "FormationsModifier.h"
 #include "FormationsTask.h"
 
 namespace Formations {
+
+	using Menge::logger;
+	using Menge::Logger;
+	using Menge::Agents::BaseAgent;
+	using Menge::Agents::PrefVelocity;
+	using Menge::BFSM::Task;
+	using Menge::BFSM::VelModifier;
+	using Menge::BFSM::VelModFactory;
+	using Menge::Math::Vector2;
 
 	/////////////////////////////////////////////////////////////////////
 	//                   Implementation of FormationModifier
@@ -64,13 +70,13 @@ namespace Formations {
 
 	/////////////////////////////////////////////////////////////////////
 
-	BFSM::VelModifier* FormationModifier::copy() const{
+	VelModifier* FormationModifier::copy() const{
 		return new FormationModifier( _formation );
 	};
 
 	/////////////////////////////////////////////////////////////////////
 
-	void FormationModifier::adaptPrefVelocity( const Agents::BaseAgent * agent, Agents::PrefVelocity & pVel ){
+	void FormationModifier::adaptPrefVelocity( const BaseAgent * agent, PrefVelocity & pVel ) {
 		//adapt the agent's velocity according to the formation
 		Vector2 target = Vector2( 0.f, 0.f );
 		_lock.lockRead();
@@ -100,13 +106,13 @@ namespace Formations {
 
 	/////////////////////////////////////////////////////////////////////
 
-	BFSM::Task * FormationModifier::getTask(){
+	Task * FormationModifier::getTask(){
 		return new FormationsTask( _formation );
 	};
 
 	/////////////////////////////////////////////////////////////////////
 
-	void FormationModifier::registerAgent(const Agents::BaseAgent * agent){
+	void FormationModifier::registerAgent(const BaseAgent * agent) {
 		_lock.lockWrite();
 	    _formation->addAgent(agent);
 		_lock.releaseWrite();
@@ -114,7 +120,7 @@ namespace Formations {
 
 	/////////////////////////////////////////////////////////////////////
 
-	void FormationModifier::unregisterAgent(const Agents::BaseAgent * agent){
+	void FormationModifier::unregisterAgent(const BaseAgent * agent){
 		_lock.lockWrite();
 		_formation->removeAgent(agent);
 		_lock.releaseWrite();
@@ -124,30 +130,34 @@ namespace Formations {
 	//                   Implementation of FormationModFactory
 	/////////////////////////////////////////////////////////////////////
 
-	FormationModifierFactory::FormationModifierFactory():BFSM::VelModFactory() {
+	FormationModifierFactory::FormationModifierFactory() : VelModFactory() {
 		//no properties yet
 		_fileNameID = _attrSet.addStringAttribute( "file_name", true /*required*/ );
 	}
 
 	/////////////////////////////////////////////////////////////////////
 
-	bool FormationModifierFactory::setFromXML( BFSM::VelModifier * modifier, TiXmlElement * node, const std::string & behaveFldr ) const { 
+	bool FormationModifierFactory::setFromXML( VelModifier * modifier, TiXmlElement * node,
+											   const std::string & behaveFldr ) const { 
 		FormationModifier * formationMod = dynamic_cast<FormationModifier *>(modifier);
-        assert( formationMod != 0x0 && "Trying to set property modifier properties on an incompatible object" );
+        assert( formationMod != 0x0 &&
+				"Trying to set property modifier properties on an incompatible object" );
 
 		if ( ! BFSM::VelModFactory::setFromXML( modifier, node, behaveFldr ) ) return false;
 		
 		// get the absolute path to the file name
 
 		std::string fName;
-		std::string path = os::path::join( 2, behaveFldr.c_str(), _attrSet.getString( _fileNameID ).c_str() );
+		std::string path = os::path::join( 2, behaveFldr.c_str(),
+										   _attrSet.getString( _fileNameID ).c_str() );
 		os::path::absPath( path, fName );
 		// nav mesh
 		FormationPtr formPtr;
 		try {
 			formationMod->setFormation(loadFormation( fName ));
 		} catch ( ResourceException ) {
-			logger << Logger::ERR_MSG << "Couldn't instantiate the formation referenced on line " << node->Row() << ".";
+			logger << Logger::ERR_MSG << "Couldn't instantiate the formation referenced on line ";
+			logger << node->Row() << ".";
 			return false;
 		}
 
@@ -155,5 +165,4 @@ namespace Formations {
 	}
 
 	/////////////////////////////////////////////////////////////////////
-};
-#endif
+}	// namespace Formations
