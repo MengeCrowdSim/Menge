@@ -44,37 +44,40 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include "AircraftConfig.h"
 #include "AircraftAction.h"
 #include "AircraftTransition.h"
-#include "PluginEngine.h"
+#include "MengeCore/PluginEngine/CorePluginEngine.h"
 
-/*!
- *	@brief		Retrieves the name of the plug-in.
- *
- *	@returns	The name of the plug in.
- */
-extern "C" EXPORT_API const char * getName() {
-	return "Aircraft_utils";
-}
+using Menge::PluginEngine::CorePluginEngine;
 
-/*!
- *	@brief		Description of the plug-in.
- *
- *	@returns	A description of the plugin.
- */
-extern "C" EXPORT_API const char * getDescription() {
-	return	"Utilties for simulating aircraft loading and unloading " \
+extern "C" {
+	/*!
+	 *	@brief		Retrieves the name of the plug-in.
+	 *
+	 *	@returns	The name of the plug in.
+	 */
+	EXPORT_API const char * getName() {
+		return "Aircraft_utils";
+	}
+
+	/*!
+	 *	@brief		Description of the plug-in.
+	 *
+	 *	@returns	A description of the plugin.
+	 */
+	EXPORT_API const char * getDescription() {
+		return	"Utilties for simulating aircraft loading and unloading " \
 			"including the following:\n"\
 			"\tAction \"set_xproperty\" - which sets properties according to the " \
 			"agent's position along the x-axis\n"\
-			"\tCondition \"clear_AABB\" - Transition into a state according to whether or not an AABB is clear ";		
-}
+			"\tCondition \"clear_AABB\" - Transition into a state according to whether or not an AABB is clear ";
+	}
 
-/*!
- *	@brief		Registers the plug-in with the PluginEngine
- *
- *	@param		engine		A pointer to the plugin engine.
- */
-extern "C" EXPORT_API void registerPlugin( PluginEngine * engine ) {
-	engine->registerActionFactory( new Aircraft::PropertyXActFactory() );
-	engine->registerConditionFactory(new Aircraft::ClearAABBCondFactory());
+	/*!
+	 *	@brief		Registers the plug-in with the PluginEngine
+	 *
+	 *	@param		engine		A pointer to the plugin engine.
+	 */
+	EXPORT_API void registerCorePlugin( CorePluginEngine * engine ) {
+		engine->registerActionFactory( new Aircraft::PropertyXActFactory() );
+		engine->registerConditionFactory( new Aircraft::ClearAABBCondFactory() );
+	}
 }
-

@@ -45,13 +45,12 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #define __Aircraft_ACTION_H__
 
 #include "AircraftConfig.h"
-#include "Actions/Action.h"
-#include "Actions/ActionFactory.h"
-#include "SimpleLock.h"
-#include "FSMEnumeration.h"
-#include <map>
 
-using namespace Menge;
+#include "MengeCore/BFSM/FSMEnumeration.h"
+#include "MengeCore/BFSM/Actions/Action.h"
+#include "MengeCore/BFSM/Actions/ActionFactory.h"
+#include "MengeCore/Runtime/SimpleLock.h"
+#include <map>
 
 //forward declaration
 class TiXmlElement;
@@ -69,7 +68,7 @@ namespace Aircraft {
 	 *	@brief		An action that sets agent properties based on the
 	 *				agent's position along the x-axis.
 	 */
-	class EXPORT_API PropertyXAction : public BFSM::Action {
+	class EXPORT_API PropertyXAction : public Menge::BFSM::Action {
 	public:
 		/*!
 		 *	@brief		Constructor
@@ -87,7 +86,7 @@ namespace Aircraft {
 		 *
 		 *	@param		agent		The agent to act on.
 		 */
-		void onEnter( Agents::BaseAgent * agent );
+		void onEnter( Menge::Agents::BaseAgent * agent );
 
 		friend class PropertyXActFactory;
 
@@ -98,7 +97,7 @@ namespace Aircraft {
 		 *
 		 *	@param		agent		The agent to act on.
 		 */
-		void leaveAction( Agents::BaseAgent * agent );
+		void leaveAction( Menge::Agents::BaseAgent * agent );
 
 	protected:
 		/*!
@@ -122,7 +121,7 @@ namespace Aircraft {
 		/*!
 		 *	@brief		The property to operate on.
 		 */
-		BFSM::PropertyOperand _property;
+		Menge::BFSM::PropertyOperand _property;
 
 		/*!
 		 *	@brief		A mapping from agent id to the agent's property
@@ -133,13 +132,13 @@ namespace Aircraft {
 		/*!
 		 *	@brief		Lock to protect _originalMap.
 		 */
-		SimpleLock	_lock;
+		Menge::SimpleLock	_lock;
 	};
 
 	/*!
 	 *	@brief		Factory for instantiating PropertyXAction instances.
 	 */
-	class EXPORT_API PropertyXActFactory : public BFSM::ActionFactory {
+	class EXPORT_API PropertyXActFactory : public Menge::BFSM::ActionFactory {
 	public:
 		/*!
 		 *	@brief		The name of the action.
@@ -159,7 +158,8 @@ namespace Aircraft {
 		 *	@returns	A string containing the action description.
 		 */
 		virtual const char * description() const {
-			return "Sets an agent property's value from a simple linear equation dependent on the agent's x-position.";
+			return "Sets an agent property's value from a simple linear equation dependent on the "
+				"agent's x-position.";
 		};
 
 	protected:
@@ -173,7 +173,7 @@ namespace Aircraft {
 		 *
 		 *	@returns		A pointer to a newly instantiated Action class.
 		 */
-		BFSM::Action * instance() const { return new PropertyXAction(); }	
+		Menge::BFSM::Action * instance() const { return new PropertyXAction(); }
 		
 		/*!
 		 *	@brief		Given a pointer to an Action instance, sets the appropriate fields
@@ -193,11 +193,9 @@ namespace Aircraft {
 		 *							that path. 
 		 *	@returns	A boolean reporting success (true) or failure (false).
 		 */
-		virtual bool setFromXML( BFSM::Action * action, TiXmlElement * node, const std::string & behaveFldr ) const;
+		virtual bool setFromXML( Menge::BFSM::Action * action, TiXmlElement * node,
+								 const std::string & behaveFldr ) const;
 	};
-
-
-
 }	// namespace Aircraft
 
 #endif	// __Aircraft_ACTION_H__

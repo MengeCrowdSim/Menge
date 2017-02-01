@@ -45,13 +45,12 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #define __AIRLINE_TRANSITION_H__
 
 #include "AircraftConfig.h"
-#include "Transitions/Condition.h"
-#include "Transitions/ConditionFactory.h"
-#include "FSMEnumeration.h"
-#include "Math/Geometry2D.h"
-#include <map>
 
-using namespace Menge;
+#include "MengeCore/BFSM/FSMEnumeration.h"
+#include "MengeCore/BFSM/Transitions/Condition.h"
+#include "MengeCore/BFSM/Transitions/ConditionFactory.h"
+#include "MengeCore/Math/Geometry2D.h"
+#include <map>
 
 //forward declaration
 class TiXmlElement;
@@ -64,12 +63,13 @@ namespace Aircraft {
 	 *	@brief		An action that sets agent properties based on the
 	 *				agent's position along the x-axis.
 	 */
-	class EXPORT_API ClearAABBCondition : public BFSM::Condition {
+	class EXPORT_API ClearAABBCondition : public Menge::BFSM::Condition {
 	public:
 		/*!
 		 *	@brief		Constructor
 		 */
-		ClearAABBCondition(): BFSM::Condition(), _relative(false), _agentClass(-1), _baseBox(){} // -1 is maximum agent class value
+		ClearAABBCondition() : Menge::BFSM::Condition(), _relative( false ),
+			_agentClass( -1 ), _baseBox(){} // -1 is maximum agent class value
 
 		/*!
 		 *	@brief		Copy constructor
@@ -92,7 +92,8 @@ namespace Aircraft {
 		 *	@param		goal		The agent's goal (although this may be ignored).
 		 *	@returns	True if the condition has been met, false otherwise.
 		 */
-		virtual bool conditionMet( Agents::BaseAgent * agent, const BFSM::Goal * goal );
+		virtual bool conditionMet( Menge::Agents::BaseAgent * agent,
+								   const Menge::BFSM::Goal * goal );
 
 		/*!
 		 *	@brief		Create a copy of this condition.
@@ -102,7 +103,7 @@ namespace Aircraft {
 		 *	@returns:	A "deep copy" of this condition - such that there is no shared
 		 *				objects between this and its copy.
 		 */
-		virtual BFSM::Condition * copy();
+		virtual Menge::BFSM::Condition * copy();
 
 		friend class ClearAABBCondFactory;
 	
@@ -118,11 +119,13 @@ namespace Aircraft {
 		 *	@param		agentClass	The class of the agents which are tested.  If -1
 		 *							all agents are considered.
 		 */
-		void setParams(float xMin, float xMax, float yMin, float yMax, bool relative, int agentClass);
+		void setParams(float xMin, float xMax, float yMin, float yMax, bool relative,
+						int agentClass);
 
 	protected:
 		/*!
-		 *	@brief		Indicates whether the box is defined relative to the agent's position (true) or not (false).
+		 *	@brief		Indicates whether the box is defined relative to the agent's position
+		 *				(true) or not (false).
 		 */
 		bool _relative; 
 
@@ -135,13 +138,13 @@ namespace Aircraft {
 		/*!
 		 *	@brief		The definition of the underlying AABB.
 		 */
-		AABBShape _baseBox;
+		Menge::AABBShape _baseBox;
 	};
 
 	/*!
 	 *	@brief		The factory for creating the ClearAABBCondition
 	 */
-	class EXPORT_API ClearAABBCondFactory : public BFSM::ConditionFactory {
+	class EXPORT_API ClearAABBCondFactory : public Menge::BFSM::ConditionFactory {
 	public:
 		/*!
 		 *	@brief		The name of the action.
@@ -161,8 +164,9 @@ namespace Aircraft {
 		 *	@returns	A string containing the action description.
 		 */
 		const char * description() const {
-			return "The clear axis-aligned bounding box (AABB) condition.  It becomes active when no agents are in a box "\
-				"defined in either an absolute position, or relative to the agent.";
+			return "The clear axis-aligned bounding box (AABB) condition.  It becomes active when "
+				"no agents are in a box defined in either an absolute position, or relative to "
+				"the agent.";
 		}
 		
 	protected:
@@ -192,11 +196,12 @@ namespace Aircraft {
 		 *	@param		node			The XML node containing the condition attributes.
 		 *	@param		behaveFldr		The path to the behavior file.  If the condition references
 		 *								resources in the file system, it should be defined relative
-		 *								to the behavior file location.  This is the folder containing
-		 *								that path. 
+		 *								to the behavior file location.  This is the folder
+		 *								containing that path. 
 		 *	@returns	A boolean reporting success (true) or failure (false).
 		 */
-		virtual bool setFromXML( BFSM::Condition * condition, TiXmlElement * node, const std::string & behaveFldr ) const;
+		virtual bool setFromXML( Menge::BFSM::Condition * condition, TiXmlElement * node,
+								 const std::string & behaveFldr ) const;
 	};
 
 }	// namespace Aircraft
