@@ -43,34 +43,38 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 #include "FundamentalDiagramConfig.h"
 #include "FundamentalDiagramModifier.h"
-#include "PluginEngine.h"
+#include "MengeCore/PluginEngine/CorePluginEngine.h"
 
-/*!
- *	@brief		Retrieves the name of the plug-in.
- *
- *	@returns	The name of the plug in.
- */
-extern "C" FDMODIFIER_API const char * getName() {
-	return "fundamental_diagram";
-}
+using Menge::PluginEngine::CorePluginEngine;
 
-/*!
- *	@brief		Description of the plug-in.
- *
- *	@returns	A description of the plugin.
- */
-extern "C"  FDMODIFIER_API  const char * getDescription() {
-	return	"Velocity Modifier plugin for adherence to the Fundamental Diagram" \
+extern "C" {
+
+	/*!
+	 *	@brief		Retrieves the name of the plug-in.
+	 *
+	 *	@returns	The name of the plug in.
+	 */
+	extern "C" FDMODIFIER_API const char * getName() {
+		return "fundamental_diagram";
+	}
+
+	/*!
+	 *	@brief		Description of the plug-in.
+	 *
+	 *	@returns	A description of the plugin.
+	 */
+	extern "C"  FDMODIFIER_API  const char * getDescription() {
+		return	"Velocity Modifier plugin for adherence to the Fundamental Diagram" \
 			"including the following:\n"\
-			"\tModifier \"fundamantal_diagram\" - adjusts the agent's preferred velocity to match the FD. " ;
-}
+			"\tModifier \"fundamantal_diagram\" - adjusts the agent's preferred velocity to match the FD. ";
+	}
 
-/*!
- *	@brief		Registers the plug-in with the PluginEngine
- *
- *	@param		engine		A pointer to the plugin engine.
- */
-extern "C"  FDMODIFIER_API void registerPlugin( PluginEngine * engine ) {
-	engine->registerVelModFactory( new FDModifier::FDModifierFactory() );
+	/*!
+	 *	@brief		Registers the plug-in with the PluginEngine
+	 *
+	 *	@param		engine		A pointer to the plugin engine.
+	 */
+	extern "C"  FDMODIFIER_API void registerCorePlugin( CorePluginEngine * engine ) {
+		engine->registerVelModFactory( new FDModifier::FDModifierFactory() );
+	}
 }
-

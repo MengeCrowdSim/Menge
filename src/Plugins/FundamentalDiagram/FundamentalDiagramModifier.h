@@ -46,19 +46,19 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #define __FDMODIFIER_MODIFIER_H__
 
 #include "FundamentalDiagramConfig.h"
-#include "VelocityModifiers/VelModifier.h"
-#include "VelocityModifiers/VelModifierFactory.h"
-#include "FSMEnumeration.h"
-#include "SimpleLock.h"
-#include "mengeCommon.h"
 
-using namespace Menge;
+#include "MengeCore/mengeCommon.h"
+#include "MengeCore/BFSM/FSMEnumeration.h"
+#include "MengeCore/BFSM/VelocityModifiers/VelModifier.h"
+#include "MengeCore/BFSM/VelocityModifiers/VelModifierFactory.h"
+#include "MengeCore/Runtime/SimpleLock.h"
 
 /*!
  *	@namespace		FDModifier
  *	@brief			The name space for the Fundamental Diagram adherence model
  *
- *	This namespace contains a velocity modifier which varies preferred speed based on local density conditions.
+ *	This namespace contains a velocity modifier which varies preferred speed based on local density
+ *	conditions.
  */
 namespace FDModifier {
 
@@ -70,7 +70,7 @@ namespace FDModifier {
 	 *				which can conform to the fundamental diagram (depending on the
 	 *				settings.)
 	 */
-	class FDMODIFIER_API FDModifier : public BFSM::VelModifier {
+	class FDMODIFIER_API FDModifier : public Menge::BFSM::VelModifier {
 	public:
 
 		/*!
@@ -88,34 +88,43 @@ namespace FDModifier {
 		 *	@param		sigmaAgent      Sigma for agent density estimation
 		 *	@param		sigmaObstacle   Sigma for obstacle density estimation
 		 */
-		FDModifier( FloatGenerator * buffer, FloatGenerator * factor, float sigmaAgent, float sigmaObstacle );
+		FDModifier( Menge::Math::FloatGenerator * buffer, Menge::Math::FloatGenerator * factor,
+					float sigmaAgent, float sigmaObstacle );
 
 		/*!
 		 *	@brief		Copy method for this velocity modifier.
 		 */
-		BFSM::VelModifier* copy() const;
+		Menge::BFSM::VelModifier* copy() const;
 
 		/*!
-		 *	@brief		Adapts the given agent's preferred velocity to adhere to the fundamental diagram.
+		 *	@brief		Adapts the given agent's preferred velocity to adhere to the fundamental
+		 *				diagram.
 		 *
 		 *	@param		agent		The agent on whom we are operating.
 		 *	@param		pVel		The input preferred velocity of the agent.
 		 */
-		void adaptPrefVelocity( const Agents::BaseAgent * agent, Agents::PrefVelocity & pVel );
+		void adaptPrefVelocity( const Menge::Agents::BaseAgent * agent,
+								Menge::Agents::PrefVelocity & pVel );
 
 		/*!
 		 *	@brief		Sets the stride buffer.
 		 *
 		 *	@param		buffer          The stride buffer for the adherence model
 		 */
-		void setBuffer( FloatGenerator * buffer) { if ( _bufferGen ) delete _bufferGen; _bufferGen = buffer; }
+		void setBuffer( Menge::Math::FloatGenerator * buffer ) {
+			if ( _bufferGen ) delete _bufferGen;
+			_bufferGen = buffer;
+		}
 
 		/*!
 		 *	@brief		Sets the stride factor.
 		 *
 	     *	@param		factor          The stride factor for the adherence model
 		 */
-		void setFactor( FloatGenerator * factor ) {if ( _factorGen ) delete _factorGen; _factorGen = factor; }
+		void setFactor( Menge::Math::FloatGenerator * factor ) {
+			if ( _factorGen ) delete _factorGen;
+			_factorGen = factor;
+		}
 
 		/*!
 		 *	@brief		Sets the agent sigma.
@@ -172,7 +181,7 @@ namespace FDModifier {
 		 *	@brief		The readers-writer lock to preserve thread-safety
 		 *				on _strideParams.
 		 */
-		SimpleLock _paramLock;
+		Menge::SimpleLock _paramLock;
 
 		/*!
 		 *	@brief		The per-agent parameters.
@@ -182,12 +191,12 @@ namespace FDModifier {
 	    /*!
 		 *	@brief		The Stride buffer value generator.
 		 */
-		FloatGenerator * _bufferGen;
+		Menge::Math::FloatGenerator * _bufferGen;
 
 		/*!
 		 *	@brief		The Stride factor value generator.
 		 */
-		FloatGenerator * _factorGen;
+		Menge::Math::FloatGenerator * _factorGen;
 
 		/*!
 		 *	@brief		Agent sigma for density calculation
@@ -205,7 +214,7 @@ namespace FDModifier {
 	/*!
 	 *	@brief		The factory for the FDModifier class.
 	 */
-	class FDMODIFIER_API FDModifierFactory : public BFSM::VelModFactory {
+	class FDMODIFIER_API FDModifierFactory : public Menge::BFSM::VelModFactory {
 	public:
 		/*!
 		 *	@brief		Constructor.
@@ -244,7 +253,7 @@ namespace FDModifier {
 		 *
 		 *	@returns		A pointer to a newly instantiated modifier class.
 		 */
-		BFSM::VelModifier * instance() const { return new FDModifier(); }	
+		Menge::BFSM::VelModifier * instance() const { return new FDModifier(); }
 		
 		/*!
 		 *	@brief		Given a pointer to an modifier instance, sets the appropriate fields
@@ -264,7 +273,8 @@ namespace FDModifier {
 		 *							that path. 
 		 *	@returns	A boolean reporting success (true) or failure (false).
 		 */
-		virtual bool setFromXML( BFSM::VelModifier * modifier, TiXmlElement * node, const std::string & behaveFldr ) const;
+		virtual bool setFromXML( Menge::BFSM::VelModifier * modifier, TiXmlElement * node,
+								 const std::string & behaveFldr ) const;
 
 		/*!
 		 *	@brief		The identifier for the "stride_buffer" float attribute
@@ -286,5 +296,5 @@ namespace FDModifier {
 		 */
 		size_t	_sigmaObstacleID;
 	};
-};
+}	// namespace FDModifier
 #endif	// __FDMODIFIER_MODIFIER_H__

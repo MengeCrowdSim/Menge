@@ -36,35 +36,47 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#ifndef __FORMATIONS_MODIFIER_CPP__
-#define __FORMATIONS_MODIFIER_CPP__
-
 #include "FundamentalDiagramModifier.h"
-#include "BaseAgent.h"
-#include "Obstacle.h"
+
+#include "MengeCore/Agents/BaseAgent.h"
+#include "MengeCore/Agents/Obstacle.h"
 
 namespace FDModifier {
+
+	using Menge::TWOPI;
+	using Menge::Agents::BaseAgent;
+	using Menge::Agents::Obstacle;
+	using Menge::Agents::PrefVelocity;
+	using Menge::BFSM::VelModifier;
+	using Menge::BFSM::VelModFactory;
+	using Menge::Math::FloatGenerator;
+	using Menge::Math::Vector2;
+
 	/////////////////////////////////////////////////////////////////////
 	//                   Implementation of FDModifier
 	/////////////////////////////////////////////////////////////////////
 
-	FDModifier::FDModifier(): BFSM::VelModifier(), _bufferGen(0x0), _factorGen(0x0), _sigmaAgent(1.5f), _sigmaObstacle(0.75f) {
+	FDModifier::FDModifier() : VelModifier(), _bufferGen(0x0), _factorGen(0x0), _sigmaAgent(1.5f),
+		_sigmaObstacle(0.75f) {
 	}
 
 	/////////////////////////////////////////////////////////////////////
 
-	FDModifier::FDModifier( FloatGenerator * buffer, FloatGenerator * factor, float sigmaAgent, float sigmaObstacle ): BFSM::VelModifier(), _bufferGen(buffer), _factorGen(factor), _sigmaAgent(sigmaAgent), _sigmaObstacle(sigmaObstacle) {
+	FDModifier::FDModifier( FloatGenerator * buffer, FloatGenerator * factor, float sigmaAgent,
+							float sigmaObstacle ) : VelModifier(), _bufferGen(buffer),
+							_factorGen(factor), _sigmaAgent(sigmaAgent),
+							_sigmaObstacle(sigmaObstacle) {
 	}
 
 	/////////////////////////////////////////////////////////////////////
 
-	BFSM::VelModifier* FDModifier::copy() const{
+	VelModifier* FDModifier::copy() const{
 		return new FDModifier( _bufferGen->copy(), _factorGen->copy(), _sigmaAgent, _sigmaAgent );
 	};
 
 	/////////////////////////////////////////////////////////////////////
 
-	void FDModifier::adaptPrefVelocity(const Agents::BaseAgent * agent, Agents::PrefVelocity & pVel ){
+	void FDModifier::adaptPrefVelocity(const BaseAgent * agent, PrefVelocity & pVel ){
 		float strideConst, speedConst;
 		_paramLock.lock();
 		HASH_MAP< size_t, FDParam >::iterator itr = _strideParams.find( agent->_id );
@@ -96,7 +108,7 @@ namespace FDModifier {
 
 		// AGENTS
 		for ( size_t i = 0; i < agent->_nearAgents.size(); ++i ) {
-			const Agents::BaseAgent* const other = agent->_nearAgents[i].agent;
+			const BaseAgent* const other = agent->_nearAgents[i].agent;
 			Vector2 critDisp = other->_pos - critPt;
 			Vector2 yComp = ( critDisp * prefDir ) * prefDir;	// dot project gets projection, in the preferred direction
 			Vector2 xComp = ( critDisp - yComp ) * 2.5f;			// penalize displacement perpindicular to the preferred direction
@@ -110,10 +122,10 @@ namespace FDModifier {
 		const float OBST_NORM = 1.f / ( _sigmaObstacle * sqrt2Pi );
 		const float OBST_SCALE = norm;// * 6.25f;	// what is the "density" of an obstacle?
 		for ( size_t i = 0; i < agent->_nearObstacles.size(); ++i ) {
-			const Agents::Obstacle* const obst = agent->_nearObstacles[i].obstacle;
+			const Obstacle* const obst = agent->_nearObstacles[i].obstacle;
 			Vector2 nearPt;
 			float distSq;	// set by distanceSqToPoint
-			if ( obst->distanceSqToPoint( critPt, nearPt, distSq ) == Agents::Obstacle::LAST ) continue;
+			if ( obst->distanceSqToPoint( critPt, nearPt, distSq ) == Obstacle::LAST ) continue;
 
 			if ( ( nearPt - agent->_pos ) * prefDir < 0.f ) continue;
 			density += OBST_SCALE * expf( -distSq * OBST_AREA_SQ_INV );
@@ -135,7 +147,7 @@ namespace FDModifier {
 	//                   Implementation of FDModFactory
 	/////////////////////////////////////////////////////////////////////
 
-	FDModifierFactory::FDModifierFactory():BFSM::VelModFactory() {
+	FDModifierFactory::FDModifierFactory() : VelModFactory() {
 		_factorID = _attrSet.addFloatDistAttribute( "factor_", true, 0.f, 1.f );
 		_bufferID = _attrSet.addFloatDistAttribute( "buffer_", true, 0.f, 1.f );
 		_sigmaAgentID = _attrSet.addFloatAttribute( "sigma_agent", false, 1.5f );
@@ -144,11 +156,12 @@ namespace FDModifier {
 
 	/////////////////////////////////////////////////////////////////////
 
-	bool FDModifierFactory::setFromXML( BFSM::VelModifier * modifier, TiXmlElement * node, const std::string & behaveFldr ) const { 
+	bool FDModifierFactory::setFromXML( VelModifier * modifier, TiXmlElement * node,
+										const std::string & behaveFldr ) const { 
 		FDModifier * FDMod = dynamic_cast<FDModifier *>( modifier );
         assert( FDMod != 0x0 && "Trying to set property modifier properties on an incompatible object" );
 
-		if ( ! BFSM::VelModFactory::setFromXML( modifier, node, behaveFldr ) ) return false;
+		if ( ! VelModFactory::setFromXML( modifier, node, behaveFldr ) ) return false;
 		
 		//set the params we need
 		FDMod->setBuffer( _attrSet.getFloatGenerator( _bufferID ) );
@@ -157,6 +170,4 @@ namespace FDModifier {
 		FDMod->setSigmaObstacle( _attrSet.getFloat( _sigmaObstacleID ) );
 		return true;
 	}
-};
-
-#endif
+}	// namespace FDModifier
