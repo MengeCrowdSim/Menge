@@ -17,5 +17,5 @@ add_library(
 	${source_files}
 )
 
-target_link_libraries (karamouzasPed mengeCore ${OPENGL_LIBRARIES} ${SDL_LIBRARY} ${SDLIMAGE_LIBRARY} ${SDLTTF_LIBRARY} )
+target_link_libraries (karamouzasPed mengeCore )
 
