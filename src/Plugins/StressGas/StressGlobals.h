@@ -8,11 +8,10 @@
 #include "StressGasConfig.h"
 #include "StressManager.h"
 
-
 //Define the global static proxy unit
 namespace StressGAS {
 	// TODO(curds01) 10/4/2016 - This is not particularly thread safe
 	extern EXPORT_API StressManager *STRESS_MANAGER;
-}
+}	// namespace StressGAS
 
 #endif

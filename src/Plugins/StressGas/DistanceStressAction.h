@@ -10,10 +10,15 @@
 #include "DistanceStressFunction.h"
 #include "StressGasConfig.h"
 
-#include "Actions/ActionFactory.h"
-#include "Math/Geometry2D.h"
+#include "MengeCore/BFSM/Actions/ActionFactory.h"
 
-using namespace Menge;
+// forward declaration
+namespace Menge {
+	namespace Math {
+		class Geometry2D;
+		class FloatGenerator;
+	}
+}
 
 namespace StressGAS {
 	// forward declaration
@@ -76,7 +81,7 @@ namespace StressGAS {
 		 *							full stress to no stress  (in simulation seconds).
 		 *	@returns	An instance of the appropriate stress function.
 		 */
-		virtual StressFunction * makeStressFunction( Agents::BaseAgent * agent,
+		virtual StressFunction * makeStressFunction( Menge::Agents::BaseAgent * agent,
 													 AgentStressor * stressor,
 													 float coolDuration );
 
@@ -84,16 +89,16 @@ namespace StressGAS {
 
 	protected:
 		/*! @brief	The distance beyond which no stress is accumulated. */
-		FloatGenerator * _outerDist;
+		Menge::Math::FloatGenerator * _outerDist;
 
 		/*! @brief  The distance inside which stress level is 100%. */
-		FloatGenerator * _innerDist;
+		Menge::Math::FloatGenerator * _innerDist;
 
 		/*! @brief  The function interpolator to use. */
 		DistanceStressFunction::StressInterpEnum _func;
 
 		/*! @brief  The region with respect to which stress is defined. */
-		Math::Geometry2D * _geometry;
+		Menge::Math::Geometry2D * _geometry;
 	};
 
 	/*!
@@ -122,10 +127,10 @@ namespace StressGAS {
 		 *	@returns	A string containing the action description.
 		 */
 		virtual const char * description() const {
-			return "Sets an agent to have a stress level based on proximity to a region.  The " \
-				"region is defined as well as two distances.  Out side the \"outer\" distance " \
-				"the stress level is zero.  Inside the \"inner\" stress level, the stress " \
-				"level is 100%.  Between, the stress level is increased according to the " \
+			return "Sets an agent to have a stress level based on proximity to a region.  The "
+				"region is defined as well as two distances.  Out side the \"outer\" distance "
+				"the stress level is zero.  Inside the \"inner\" stress level, the stress "
+				"level is 100%.  Between, the stress level is increased according to the "
 				"specified function: linear or quadratic.";
 		};
 
@@ -140,7 +145,7 @@ namespace StressGAS {
 		 *
 		 *	@returns		A pointer to a newly instantiated Action class.
 		 */
-		BFSM::Action * instance() const { return new DistanceStressAction(); }
+		Menge::BFSM::Action * instance() const { return new DistanceStressAction(); }
 
 		/*!
 		 *	@brief		Given a pointer to an Action instance, sets the appropriate fields
@@ -160,7 +165,7 @@ namespace StressGAS {
 		 *							that path.
 		 *	@returns	A boolean reporting success (true) or failure (false).
 		 */
-		virtual bool setFromXML( BFSM::Action * action, TiXmlElement * node,
+		virtual bool setFromXML( Menge::BFSM::Action * action, TiXmlElement * node,
 								 const std::string & behaveFldr ) const;
 
 		/** @brief	Identifier for the outer boundary float attribute. */
@@ -173,5 +178,5 @@ namespace StressGAS {
 		size_t _funcId;
 	};
 
-};
+}	// namespace StressGAS
 #endif	// __DISTANCE_STRESS_ACTION_H__

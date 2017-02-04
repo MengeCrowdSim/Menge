@@ -14,4 +14,3 @@ namespace StressGAS {
 	 */
 	StressManager *STRESS_MANAGER = new StressManager();
 }	// namespace StressGAS
-

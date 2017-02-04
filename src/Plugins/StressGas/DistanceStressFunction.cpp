@@ -1,18 +1,24 @@
 #include "DistanceStressFunction.h"
 #include "AgentStressor.h"
 
-#include "Core.h"
+#include "MengeCore/Core.h"
+#include "MengeCore/Agents/BaseAgent.h"
+#include "MengeCore/Math/Geometry2D.h"
 
 namespace StressGAS {
+
+	using Menge::SIM_TIME_STEP;
+	using Menge::Agents::BaseAgent;
+	using Menge::Math::Geometry2D;
 
 	/////////////////////////////////////////////////////////////////////
 	//                   Implementation of DistanceStressFunction
 	/////////////////////////////////////////////////////////////////////
 
-	DistanceStressFunction::DistanceStressFunction( Math::Geometry2D const * const region,
+	DistanceStressFunction::DistanceStressFunction( Geometry2D const * const region,
 													float inner, float outer, 
 													StressInterpEnum funcType,
-													Agents::BaseAgent * agent, 
+													BaseAgent * agent, 
 													AgentStressor * stressor,
 													float coolDuration ) :
 													StressFunction( agent, stressor, coolDuration ),
@@ -24,7 +30,7 @@ namespace StressGAS {
 
 	float DistanceStressFunction::updateStress() {
 		// natural cool down
-		_stressLevel -= _coolDownRate * Menge::SIM_TIME_STEP;
+		_stressLevel -= _coolDownRate * SIM_TIME_STEP;
 
 		// increase to distance if greater
 		float target = 0.f;

@@ -1,9 +1,12 @@
 #include "AgentStressor.h"
-#include "BaseAgent.h"
-#include "Orca/ORCAAgent.h"
-#include "PedVO/PedVOAgent.h"
+
+#include "MengeCore/Agents/BaseAgent.h"
+#include "MengeCore/Orca/ORCAAgent.h"
+#include "MengeCore/PedVO/PedVOAgent.h"
 
 namespace StressGAS {
+
+	using Menge::Agents::BaseAgent;
 
 	// These values come from the GAS paper
 	//	Interactive Simulation of Dynamic Crowd Behaviors using General Adaptation Syndrome Theory
@@ -52,7 +55,7 @@ namespace StressGAS {
 
 	/////////////////////////////////////////////////////////////////////
 
-	void AgentStressor::applyBaseline(Agents::BaseAgent * agt) {
+	void AgentStressor::applyBaseline(BaseAgent * agt) {
 		agt->_neighborDist = _baseNeighborDist;
 		agt->_maxNeighbors = static_cast<size_t>(_baseMaxNeighbors);
 		agt->_radius = _baseRadius;
@@ -83,7 +86,7 @@ namespace StressGAS {
 
 	/////////////////////////////////////////////////////////////////////
 
-	void AgentStressor::setBaseline(const Agents::BaseAgent * agt) {
+	void AgentStressor::setBaseline(const BaseAgent * agt) {
 		_baseNeighborDist = agt->_neighborDist;
 		_baseMaxNeighbors = static_cast<float>(agt->_maxNeighbors);
 		_baseRadius = agt->_radius;
@@ -104,7 +107,7 @@ namespace StressGAS {
 
 	/////////////////////////////////////////////////////////////////////
 
-	void AgentStressor::applyStress(float stressLevel, Agents::BaseAgent * agt) {
+	void AgentStressor::applyStress(float stressLevel, BaseAgent * agt) {
 		agt->_neighborDist = _baseNeighborDist + stressLevel * _deltaNeighborDist;
 		// the additional 0.5f uses truncation to do rounding.
 		agt->_maxNeighbors = static_cast<size_t>(_baseMaxNeighbors +
@@ -126,18 +129,5 @@ namespace StressGAS {
 	}
 
 	/////////////////////////////////////////////////////////////////////
-
-
-	/////////////////////////////////////////////////////////////////////
-
-
-	/////////////////////////////////////////////////////////////////////
-
-
-	/////////////////////////////////////////////////////////////////////
-
-
-	/////////////////////////////////////////////////////////////////////
-
-	
+		
 }	// namespace StressGAS

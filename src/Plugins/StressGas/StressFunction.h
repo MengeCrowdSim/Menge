@@ -9,9 +9,12 @@
 #include "AgentStressor.h"
 #include "StressGasConfig.h"
 
-#include "Agents/BaseAgent.h"
-
-using namespace Menge;
+// forward declaration
+namespace Menge {
+	namespace Agents {
+		class BaseAgent;
+	}
+}
 
 namespace StressGAS {
 
@@ -49,7 +52,8 @@ namespace StressGAS {
 		 *	@param	coolDuration		The amount of time (in seconds) required to cool down from
 		 *								100% stress to 0%.
 		 */
-		StressFunction( Agents::BaseAgent * agent, AgentStressor * stressor, float coolDuration ) : 
+		StressFunction( Menge::Agents::BaseAgent * agent, AgentStressor * stressor,
+						float coolDuration ) :
 			_agent( agent ), _mode( ACTIVE ), _stressor( stressor ),
 			_coolDownRate( 1.f / coolDuration ), _stressLevel(0.f) {
 			stressor->setBaseline( agent );
@@ -125,7 +129,7 @@ namespace StressGAS {
 
 	protected:
 		/*! @brief	The agent to operate on. */
-		Agents::BaseAgent * _agent;
+		Menge::Agents::BaseAgent * _agent;
 
 		/*! @brief	The stressor to apply to the agent. */
 		AgentStressor * _stressor;

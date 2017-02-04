@@ -11,11 +11,15 @@
 
 #include "StressFunction.h"
 
-#include "BaseAgent.h"
-#include "FSM.h"
-#include "ReadersWriterLock.h"
+#include "macros.h"
+#include "MengeCore/Runtime/ReadersWriterLock.h"
 
-using namespace Menge;
+// Forward declration
+namespace Menge {
+	namespace Agents {
+		class BaseAgent;
+	}
+}
 
 namespace StressGAS {
 
@@ -56,7 +60,7 @@ namespace StressGAS {
 		 * @param	agent	The BaseAgent to check.
 		 * @returns	True if the given agent is in the system
 		 */
-		bool isInSystem(const Agents::BaseAgent  * agent);
+		bool isInSystem( const Menge::Agents::BaseAgent  * agent );
 
 		/*!
 		 * @brief	Reports the stress function for the given agent.
@@ -66,7 +70,7 @@ namespace StressGAS {
 		 * @return	Null if there is no stress function for this agent, otherwise a pointer to that
 		 * 			agent's stress function.
 		 */
-		StressFunction * getStressFunction( const Agents::BaseAgent * agent );
+		StressFunction * getStressFunction( const Menge::Agents::BaseAgent * agent );
 
 		/*!
 		 * @brief	Sets stress function for the given agent. If there is currently a function it
@@ -76,7 +80,7 @@ namespace StressGAS {
 		 * @param [in,out]	func 	The function to register for this agent; must be non-null but
 		 * 							this is not tested.
 		 */
-		void setStressFunction( const Agents::BaseAgent * agent, StressFunction * func );
+		void setStressFunction( const Menge::Agents::BaseAgent * agent, StressFunction * func );
 
 		/*!
 		 * @brief	Pops the stress function described by agent.
@@ -86,15 +90,15 @@ namespace StressGAS {
 		 * @return	Null if the agent has no registered function; otherwise the registered stress
 		 * 			function will be removed from the manager.
 		 */
-		StressFunction * popStressFunction( const Agents::BaseAgent * agent );
+		StressFunction * popStressFunction( const Menge::Agents::BaseAgent * agent );
 
 	protected:
 		
 		/*! The set of agents which receive stress and their corresponding stress functions. */
-		HASH_MAP< const Agents::BaseAgent *, StressFunction *> _stressFunctions;
+		HASH_MAP< const Menge::Agents::BaseAgent *, StressFunction *> _stressFunctions;
 
 		/*! A lock for managing access to the function map. */
-		ReadersWriterLock _lock;
+		Menge::ReadersWriterLock _lock;
 	}; 
-};
+}	// namespace StressGAS
 #endif	// __STRESS_MANAGER_H__

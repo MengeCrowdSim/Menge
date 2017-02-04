@@ -9,14 +9,16 @@
 #include "StressFunction.h"
 #include "StressGasConfig.h"
 
-#include "Actions/Action.h"
-#include "Actions/ActionFactory.h"
-#include "Math/RandGenerator.h"
+#include "MengeCore/BFSM/Actions/Action.h"
+#include "MengeCore/BFSM/Actions/ActionFactory.h"
 
 //forward declaration
 class TiXmlElement;
-
-using namespace Menge;
+namespace Menge {
+	namespace Math {
+		class FloatGenerator;
+	}
+}
 
 namespace StressGAS {
 	// forward declaration
@@ -92,7 +94,7 @@ namespace StressGAS {
 	 *	
 	 *	Individual sub-clases can include additional parameters.
 	 */
-	class EXPORT_API BaseStressAction : public BFSM::Action {
+	class EXPORT_API BaseStressAction : public Menge::BFSM::Action {
 	public:
 		/*! The default time to cool down from 100% stress. */
 		const static float DEFAULT_COOL_DURATION;
@@ -100,7 +102,8 @@ namespace StressGAS {
 		/*!
 		 *	@brief		Constructor
 		 */
-		BaseStressAction() : Action(), _exitBehavior( RESET ), _deltaNeighborDist( 0x0 ),
+		BaseStressAction() : Menge::BFSM::Action(), _exitBehavior( RESET ),
+			                _deltaNeighborDist( 0x0 ),
 							_deltaMaxNeighbors( 0x0 ), _deltaRadius(0x0), _deltaTimeHorizon(0x0),
 							_deltaPrefSpeed(0x0), _coolDuration(0x0) {}
 
@@ -121,7 +124,7 @@ namespace StressGAS {
 		 *							full stress to no stress  (in simulation seconds).
 		 *	@returns	An instance of the appropriate stress function.
 		 */
-		virtual StressFunction * makeStressFunction( Agents::BaseAgent * agent, 
+		virtual StressFunction * makeStressFunction( Menge::Agents::BaseAgent * agent, 
 													 AgentStressor * stressor, 
 													 float coolDuration ) = 0;
 
@@ -131,14 +134,14 @@ namespace StressGAS {
 		 *
 		 *	@param		agent		The agent to act on.
 		 */
-		void onEnter(Agents::BaseAgent * agent);
+		void onEnter( Menge::Agents::BaseAgent * agent );
 
 		/*!
 		 *	@brief		Returns the task for managing stress accumulation.
 		 *
 		 *	@returns   The StressTask instance
 		 */
-		virtual BFSM::Task * getTask();
+		virtual Menge::BFSM::Task * getTask();
 
 		friend class BaseStressActionFactory;
 
@@ -148,28 +151,28 @@ namespace StressGAS {
 		 *
 		 *	@param		agent		The agent to act on.
 		 */
-		void leaveAction(Agents::BaseAgent * agent);
+		void leaveAction( Menge::Agents::BaseAgent * agent );
 
 		/*! @brief	The exit behavior the action takes. */
 		ExitBehavior _exitBehavior;
 
 		/*! @brief	The value for the change in neighbor distance. */
-		FloatGenerator * _deltaNeighborDist;
+		Menge::Math::FloatGenerator * _deltaNeighborDist;
 
 		/*! @brief	The value for the change in maximum neighbors. */
-		FloatGenerator * _deltaMaxNeighbors;
+		Menge::Math::FloatGenerator * _deltaMaxNeighbors;
 
 		/*! @brief	The value for the change in radius. */
-		FloatGenerator * _deltaRadius;
+		Menge::Math::FloatGenerator * _deltaRadius;
 
 		/*! @brief	The value for the change in time horizon. */
-		FloatGenerator * _deltaTimeHorizon;
+		Menge::Math::FloatGenerator * _deltaTimeHorizon;
 
 		/*! @brief	The value for the change in preference speed. */
-		FloatGenerator * _deltaPrefSpeed;
+		Menge::Math::FloatGenerator * _deltaPrefSpeed;
 
 		/*! @brief  The value for the cool down duration. */
-		FloatGenerator * _coolDuration;
+		Menge::Math::FloatGenerator * _coolDuration;
 
 	protected:
 
@@ -178,7 +181,7 @@ namespace StressGAS {
 	/*!
 	 *	@brief		Factory for instantiating BaseStressAction instances.
 	 */
-	class EXPORT_API BaseStressActionFactory : public BFSM::ActionFactory {
+	class EXPORT_API BaseStressActionFactory : public Menge::BFSM::ActionFactory {
 	public:
 		
 		/*!
@@ -204,8 +207,8 @@ namespace StressGAS {
 		 *							path.
 		 *	@returns	A boolean reporting success (true) or failure (false).
 		 */
-		virtual bool setFromXML(BFSM::Action * action, TiXmlElement * node, 
-								const std::string & behaveFldr) const;
+		virtual bool setFromXML( Menge::BFSM::Action * action, TiXmlElement * node,
+								 const std::string & behaveFldr) const;
 
 		/** @brief	Identifier for the neighbor distance change float attribute. */
 		size_t _neighborDistId;

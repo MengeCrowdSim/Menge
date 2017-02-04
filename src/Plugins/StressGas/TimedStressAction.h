@@ -7,9 +7,18 @@
 
 #include "BaseStressAction.h"
 #include "StressGasConfig.h"
-#include "Actions/ActionFactory.h"
 
-using namespace Menge;
+#include "MengeCore/BFSM/Actions/ActionFactory.h"
+
+// forward declarations
+namespace Menge {
+	namespace Agents {
+		class BaseAgent;
+	}
+	namespace Math {
+		class FloatGenerator;
+	}
+}
 
 namespace StressGAS {
 	// forward declaration
@@ -35,7 +44,7 @@ namespace StressGAS {
 		 *							full stress to no stress  (in simulation seconds).
 		 *	@returns	An instance of the appropriate stress function.
 		*/
-		virtual StressFunction * makeStressFunction( Agents::BaseAgent * agent, 
+		virtual StressFunction * makeStressFunction( Menge::Agents::BaseAgent * agent, 
 													 AgentStressor * stressor, 
 													 float coolDuration );
 
@@ -43,9 +52,7 @@ namespace StressGAS {
 
 	protected:
 		/*! @brief	The value for the duration of time to reach full stress. */
-		FloatGenerator * _duration;
-
-		
+		Menge::Math::FloatGenerator * _duration;
 	};
 
 	/*!
@@ -76,8 +83,8 @@ namespace StressGAS {
 		 *	@returns	A string containing the action description.
 		 */
 		virtual const char * description() const {
-			return "Sets an agent to begin accumulating stress with the passage of time. " \
-				"Configured by setting the amount of time it will take the agent to reach " \
+			return "Sets an agent to begin accumulating stress with the passage of time. "
+				"Configured by setting the amount of time it will take the agent to reach "
 				"100% stress (\"duration\").";
 		};
 
@@ -92,7 +99,7 @@ namespace StressGAS {
 		 *
 		 *	@returns		A pointer to a newly instantiated Action class.
 		 */
-		BFSM::Action * instance() const { return new TimedStressAction(); }
+		Menge::BFSM::Action * instance() const { return new TimedStressAction(); }
 		
 		/*!
 		 *	@brief		Given a pointer to an Action instance, sets the appropriate fields
@@ -112,12 +119,11 @@ namespace StressGAS {
 		 *							that path. 
 		 *	@returns	A boolean reporting success (true) or failure (false).
 		 */
-		virtual bool setFromXML( BFSM::Action * action, TiXmlElement * node, 
+		virtual bool setFromXML( Menge::BFSM::Action * action, TiXmlElement * node, 
 								 const std::string & behaveFldr ) const;
 
 		/** @brief	Identifier for the stress duration float attribute. */
 		size_t _durationId;
 	};
-
-};
+}	// namespace StressGAS
 #endif	// __TIMED_STRESS_ACTION_H__

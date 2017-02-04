@@ -1,8 +1,12 @@
 #include "StressTask.h"
 #include "StressGlobals.h"
-#include "BaseAgent.h"
+
+#include "MengeCore/BFSM/FSM.h"
 
 namespace StressGAS {
+
+	using Menge::BFSM::FSM;
+	using Menge::BFSM::TaskException;
 
 	/////////////////////////////////////////////////////////////////////
 	//                   Implementation of DensityGridTask
@@ -13,7 +17,7 @@ namespace StressGAS {
 
 	/////////////////////////////////////////////////////////////////////
 
-	void StressTask::doWork( const BFSM::FSM * fsm ) throw( BFSM::TaskException ) {
+	void StressTask::doWork( const FSM * fsm ) throw( TaskException ) {
 		StressGAS::STRESS_MANAGER->updateStress();
 	}
 

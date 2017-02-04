@@ -2,15 +2,18 @@
 
 #include "TimedStressFunction.h"
 
-#include "BaseAgent.h"
+#include "MengeCore/Agents/BaseAgent.h"
 
 namespace StressGAS {
+
+	using Menge::Agents::BaseAgent;
+	using Menge::BFSM::Action;
 
 	/////////////////////////////////////////////////////////////////////
 	//                   Implementation of TimedStressAction
 	/////////////////////////////////////////////////////////////////////
 
-	StressFunction * TimedStressAction::makeStressFunction( Agents::BaseAgent * agent, 
+	StressFunction * TimedStressAction::makeStressFunction( BaseAgent * agent, 
 															AgentStressor * stressor,
 															float coolDuration ) 
 	{
@@ -29,7 +32,7 @@ namespace StressGAS {
 
 	/////////////////////////////////////////////////////////////////////
 	// 
-	bool TimedStressActionFactory::setFromXML( BFSM::Action * action, TiXmlElement * node,
+	bool TimedStressActionFactory::setFromXML( Action * action, TiXmlElement * node,
 											   const std::string & behaveFldr ) const {
 		TimedStressAction * pAction = dynamic_cast< TimedStressAction * >( action );
 		assert( pAction != 0x0 && 

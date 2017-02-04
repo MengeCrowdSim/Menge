@@ -8,16 +8,12 @@
 
 #include "StressGasConfig.h"
 
-#include "Agents/BaseAgent.h"
-
 // forward declarations
 namespace Menge {
 	namespace Agents {
 		class BaseAgent;
 	}
 }
-
-using namespace Menge;
 
 namespace StressGAS {
 
@@ -76,7 +72,7 @@ namespace StressGAS {
 		 *
 		 * @param [in]	agt	If non-null, the agt.
 		 */
-		void setBaseline( const Agents::BaseAgent * agt );
+		void setBaseline( const Menge::Agents::BaseAgent * agt );
 
 		/**
 		 * @brief	Applies the stressor's baseline values to the given agent.
@@ -84,7 +80,7 @@ namespace StressGAS {
 		 * @param [in,out]	agt		If non-null, the agent's stress-related parametes are set to
 		 * 							the stressor's baseline values.
 		 */
-		void applyBaseline(Agents::BaseAgent * agt);
+		void applyBaseline( Menge::Agents::BaseAgent * agt );
 
 		/**
 		 *	@brief	Applies the stress level to the given agent.
@@ -98,7 +94,7 @@ namespace StressGAS {
 		 *								without guarantee as to the impact.
 		 * @param[in,out]	agt			The agent to apply the stress to.
 		 */
-		void applyStress( float stressLevel, Agents::BaseAgent * agt );
+		void applyStress( float stressLevel, Menge::Agents::BaseAgent * agt );
 
 	private:
 		// Baseline values

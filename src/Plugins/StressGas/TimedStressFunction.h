@@ -4,6 +4,13 @@
 #include "StressGasConfig.h"
 #include "StressFunction.h"
 
+// forward declaration
+namespace Menge {
+	namespace Agents {
+		class BaseAgent;
+	}
+}
+
 namespace StressGAS {
 
 	/**
@@ -27,8 +34,8 @@ namespace StressGAS {
 		 *	@param	stressor			The agent stressor to use on the agent.
 		 *	@param	coolDuration		The amount of time (in seconds) required to cool down from
 		 */
-		TimedStressFunction( float duration, Agents::BaseAgent * agent, AgentStressor * stressor,
-							 float coolDuration );
+		TimedStressFunction( float duration, Menge::Agents::BaseAgent * agent,
+							 AgentStressor * stressor, float coolDuration );
 
 		/*!
 		 *	@brief		Updates the stress level for this agent.
