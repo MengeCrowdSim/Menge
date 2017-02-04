@@ -39,41 +39,49 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 /*!
  *	@file		Terrain.cpp  
  *	@brief		Plugin for height-field-based elements.
+ *
+ *	This plug-in makes use of the image-loading functionality of the MengeVis library.  To use
+ *	this plug-in, MengeVis has to be compiled.
  */
+
+// TODO: Refactor so that this isn't dependent on the MengeVis library
 
 #include "TerrainConfig.h"
 #include "ElevationHeightField.h"
 #include "VelModHeightField.h"
-#include "PluginEngine.h"
+#include "MengeCore/PluginEngine/CorePluginEngine.h"
 
-/*!
- *	@brief		Retrieves the name of the plug-in.
- *
- *	@returns	The name of the plug in.
- */
-extern "C" EXPORT_API const char * getName() {
-	return "Terrain_utils";
+using Menge::PluginEngine::CorePluginEngine;
+
+extern "C" {
+	/*!
+	 *	@brief		Retrieves the name of the plug-in.
+	 *
+	 *	@returns	The name of the plug in.
+	 */
+	EXPORT_API const char * getName() {
+		return "Terrain_utils";
+	}
+
+	/*!
+	 *	@brief		Description of the plug-in.
+	 *
+	 *	@returns	A description of the plugin.
+	 */
+	EXPORT_API const char * getDescription() {
+		return	"Simulation elements based on a height field including:\n" \
+			"\tElevation element\n"\
+			"\tHeightField resource\n"\
+			"\tHeightField velocity  modifier";
+	}
+
+	/*!
+	 *	@brief		Registers the plug-in with the PluginEngine
+	 *
+	 *	@param		engine		A pointer to the plugin engine.
+	 */
+	EXPORT_API void registerCorePlugin( CorePluginEngine * engine ) {
+		engine->registerElevationFactory( new Terrain::HeightFieldElevationFactory() );
+		engine->registerVelModFactory( new Terrain::HeightFieldModifierFactory() );
+	}
 }
-
-/*!
- *	@brief		Description of the plug-in.
- *
- *	@returns	A description of the plugin.
- */
-extern "C" EXPORT_API const char * getDescription() {
-	return	"Simulation elements based on a height field including:\n" \
-		"\tElevation element\n"\
-		"\tHeightField resource\n"\
-		"\tHeightField velocity  modifier";
-}
-
-/*!
- *	@brief		Registers the plug-in with the PluginEngine
- *
- *	@param		engine		A pointer to the plugin engine.
- */
-extern "C" EXPORT_API void registerPlugin( PluginEngine * engine ) {
-	engine->registerElevationFactory( new Terrain::HeightFieldElevationFactory() );
-	engine->registerVelModFactory( new Terrain::HeightFieldModifierFactory() );
-}
-

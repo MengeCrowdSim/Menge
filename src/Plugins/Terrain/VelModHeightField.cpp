@@ -37,35 +37,47 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 */
 
 #include "VelModHeightField.h"
-#include "BaseAgent.h"
-#include "tinyxml.h"
-#include "os.h"
+#include "MengeCore/Agents/BaseAgent.h"
+#include "MengeCore/Runtime/os.h"
 
+#include "tinyxml.h"
 
 namespace Terrain {
+
+	using Menge::logger;
+	using Menge::Logger;
+	using Menge::ResourceException;
+	using Menge::Agents::BaseAgent;
+	using Menge::Agents::PrefVelocity;
+	using Menge::BFSM::VelModifier;
+	using Menge::BFSM::VelModFactory;
+	using Menge::Math::Vector2;
+	using Menge::Math::Vector3;
 
 	////////////////////////////////////////////////////////////////
 	//					Implementation of HeightFieldVelModifier
 	////////////////////////////////////////////////////////////////
 
-	HeightFieldModifier::HeightFieldModifier(): BFSM::VelModifier(), _field(0x0), _turnWeight(1.f), _upHillScale(1.f), _downHillScale(1.f) {
+	HeightFieldModifier::HeightFieldModifier() : VelModifier(), _field(0x0), _turnWeight(1.f),
+		_upHillScale(1.f), _downHillScale(1.f) {
 	}
 
 
 	////////////////////////////////////////////////////////////////
 
-	HeightFieldModifier::HeightFieldModifier( HeightFieldPtr hfPtr ): BFSM::VelModifier(), _field(hfPtr) {
+	HeightFieldModifier::HeightFieldModifier( HeightFieldPtr hfPtr ) : VelModifier(),
+		_field(hfPtr) {
 	}
 
 	////////////////////////////////////////////////////////////////
 
-	BFSM::VelModifier* HeightFieldModifier::copy() const{
+	VelModifier* HeightFieldModifier::copy() const{
 		return new HeightFieldModifier(_field);
 	};
 
 	////////////////////////////////////////////////////////////////
 
-	void HeightFieldModifier::adaptPrefVelocity(const Agents::BaseAgent * agent, Agents::PrefVelocity & pVel ){
+	void HeightFieldModifier::adaptPrefVelocity(const BaseAgent * agent, PrefVelocity & pVel ){
 		Vector2 pref = pVel.getPreferred();
 		// This code is derived from fsm Hacks
 
@@ -91,7 +103,7 @@ namespace Terrain {
 	//                   Implementation of FormationModFactory
 	/////////////////////////////////////////////////////////////////////
 
-	HeightFieldModifierFactory::HeightFieldModifierFactory(): BFSM::VelModFactory() {
+	HeightFieldModifierFactory::HeightFieldModifierFactory(): VelModFactory() {
 		_fileNameID = _attrSet.addStringAttribute( "file_name", true /*required*/ );
 		_turnID = _attrSet.addFloatAttribute( "dir_weight", false /*required*/, 1.2f );
 		_uphillID = _attrSet.addFloatAttribute( "up_hill_scale", false /*required*/, 1.f );
@@ -100,23 +112,29 @@ namespace Terrain {
 
 	/////////////////////////////////////////////////////////////////////
 
-	bool HeightFieldModifierFactory::setFromXML( BFSM::VelModifier * modifier, TiXmlElement * node, const std::string & behaveFldr ) const { 
+	bool HeightFieldModifierFactory::setFromXML( VelModifier * modifier, TiXmlElement * node,
+												 const std::string & behaveFldr ) const { 
 		HeightFieldModifier * hfm = dynamic_cast< HeightFieldModifier * >( modifier );
-		assert( hfm != 0x0 && "Trying to set attributes of a height field velocity modifier on an incompatible object" );
+		assert( hfm != 0x0 &&
+				"Trying to set attributes of a height field velocity modifier on an incompatible "
+				"object" );
 
-		if ( ! BFSM::VelModFactory::setFromXML( hfm, node, behaveFldr ) ) return false;
+		if ( ! VelModFactory::setFromXML( hfm, node, behaveFldr ) ) return false;
 
 		// get the file name
 		std::string fName;
-		std::string path = os::path::join( 2, behaveFldr.c_str(), _attrSet.getString( _fileNameID ).c_str() );
-		os::path::absPath( path, fName );
+		std::string path = Menge::os::path::join( 2, behaveFldr.c_str(),
+												  _attrSet.getString( _fileNameID ).c_str() );
+		Menge::os::path::absPath( path, fName );
 		
 		// height field
 		HeightFieldPtr hfPtr;
 		try {
 			hfPtr = loadHeightField( fName );
 		} catch ( ResourceException ) {
-			logger << Logger::ERR_MSG << "Couldn't instantiate the height field elevation referenced on line " << node->Row() << ".";
+			logger << Logger::ERR_MSG;
+			logger << "Couldn't instantiate the height field elevation referenced on line ";
+			logger << node->Row() << ".";
 			return false;
 		}
 		hfm->setHeightField( hfPtr );
@@ -128,4 +146,3 @@ namespace Terrain {
 	}
 
 } //namespace Terrain
-
