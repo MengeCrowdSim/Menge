@@ -175,5 +175,14 @@ namespace Menge {
 		std::string CorePluginEngine::getIntroMessage() {
 			return "Loading Menge core-simulation plugins...";
 		}
+
+		/////////////////////////////////////////////////////////////////////
+		//					Implementation of CorePluginEngine
+		/////////////////////////////////////////////////////////////////////
+
+		template<> 
+		const char * Plugin< CorePluginEngine >::getRegisterName() const {
+			return "registerCorePlugin";
+		}
 	}
 }	// namespace Menge
