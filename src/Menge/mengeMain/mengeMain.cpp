@@ -193,13 +193,6 @@ int simMain( SimulatorDBEntry * dbEntry, const std::string & behaveFile,
 			view.setFixedStep( TIME_STEP );
 			view.setBGColor( 0.1f, 0.1f, 0.1f );
 			MengeVis::Runtime::MengeContext * ctx = new MengeVis::Runtime::MengeContext( sim );
-			//ContextSwitcher * switcher = new ContextSwitcher();
-			//BaseAgentContext * ctx = new BaseAgentContext( system->getVisAgents(), system->getAgentCount() );
-			//ctx->setFSMContext( new FsmContext( sim->getBFSM() ) );
-			// TODO: Set the fsm context, as available.
-			// TODO: Use AgentContextDatabase to look up targeted agent context.
-			//switcher->addContext( ctx, SDLK_a );
-			//scene->setContext( switcher );
 			scene->setContext( ctx );
 			view.newGLContext();
 			logger.line();
