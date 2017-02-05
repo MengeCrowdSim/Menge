@@ -4,8 +4,6 @@ project(MENGE_CORE)
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${MENGE_EXE_DIR})
 
-INCLUDE_DIRECTORIES (${MENGE_SRC_DIR}/MengeCore/resources)
-
 file(
 	GLOB_RECURSE
 	source_files
@@ -21,6 +19,6 @@ add_library(
 	${source_files}
 )
 
-target_link_libraries ( mengeCore  dl tinyxml ${OPENGL_LIBRARIES} ${SDL_LIBRARY} ${PNG_LIBRARY}  ${SDLIMAGE_LIBRARY}  ${SDLTTF_LIBRARY} )
+target_link_libraries ( mengeCore  dl tinyxml )
 
 install( TARGETS mengeCore DESTINATION ${LIBRARY_OUTPUT_PATH} )
