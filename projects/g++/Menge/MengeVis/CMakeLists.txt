@@ -58,4 +58,4 @@ add_library(
 
 target_link_libraries ( mengeVis  dl tinyxml ${OPENGL_LIBRARIES} ${SDL_LIBRARY} ${PNG_LIBRARY}  ${SDLIMAGE_LIBRARY}  ${SDLTTF_LIBRARY} )
 
-install( TARGETS mengeCore DESTINATION ${LIBRARY_OUTPUT_PATH} )
+install( TARGETS mengeVis DESTINATION ${LIBRARY_OUTPUT_PATH} )

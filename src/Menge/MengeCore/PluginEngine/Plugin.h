@@ -45,6 +45,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #define	__PLUGIN_H__
 
 #include "MengeCore/CoreConfig.h"
+#include "MengeCore/MengeException.h"
 #include "MengeCore/PluginEngine/SharedLibrary.h"
 #include "MengeCore/Runtime/Logger.h"
 

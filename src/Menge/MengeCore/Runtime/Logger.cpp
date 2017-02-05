@@ -40,6 +40,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 #include "MengeCore/Runtime/os.h"
 
+#ifndef _WIN32
+#include <cstddef>
+#endif
 #include <iostream>
 
 namespace Menge {
@@ -270,7 +273,7 @@ namespace Menge {
 		}
 		return logger;
 	}
-	 
+#ifdef _WIN32	 
 	/////////////////////////////////////////////////////////////////////
 
 	Logger & operator<<( Logger & logger, size_t value ) {
@@ -281,7 +284,7 @@ namespace Menge {
 		}
 		return logger;
 	}
-
+#endif  // _WIN32
 	/////////////////////////////////////////////////////////////////////
 #if !defined _MSC_VER || defined _M_X64
 	Logger & operator<<( Logger & logger, unsigned int value ) {

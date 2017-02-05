@@ -134,7 +134,7 @@ namespace MengeVis {
 			 *	@returns	True if the visualization element is successfully added.
 			 */
 			static bool addVisElement( VisElement * visElement ) {
-				std::string & elementName = visElement->getElementName();
+				std::string elementName = visElement->getElementName();
 				typename  HASH_MAP<std::string, VisElement * >::iterator itr =
 					_visElements.find( elementName );
 				if ( itr != _visElements.end() ) {
@@ -161,11 +161,11 @@ namespace MengeVis {
 			 *	@brief		Removes all registered visualization elements from the database.
 			 */
 			static void clear() {
-				typename  HASH_MAP<std::string, VisElement * >::iterator itr = _visElement.begin();
-				for ( ; itr != _visElement.end(); ++itr ) {
+				typename  HASH_MAP<std::string, VisElement * >::iterator itr = _visElements.begin();
+				for ( ; itr != _visElements.end(); ++itr ) {
 					itr.second->destroy();
 				}
-				_visElement.clear();
+				_visElements.clear();
 			}
 
 		protected:

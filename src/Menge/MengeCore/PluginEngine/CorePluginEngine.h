@@ -206,11 +206,10 @@ namespace Menge {
 		//					Specialization of Plugin
 		/////////////////////////////////////////////////////////////////////
 
-		extern template class Plugin< CorePluginEngine >;
-
 		template<>
 		const char * Plugin< CorePluginEngine >::getRegisterName() const;
 
+		extern template class Plugin< CorePluginEngine >;
 	}	// namespace PluginEngine
 }	// namespace Menge
 

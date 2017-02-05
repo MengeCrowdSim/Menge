@@ -38,7 +38,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 #include "MengeVis/Runtime/SimSystem.h"
 
-#include "MengeCore\Agents\BaseAgent.h"
+#include "MengeCore/Agents/BaseAgent.h"
 #include "MengeCore/Agents/Obstacle.h"
 #include "MengeCore/Agents/SimulatorInterface.h"
 #include "MengeCore/Agents/SpatialQueries/SpatialQuery.h"

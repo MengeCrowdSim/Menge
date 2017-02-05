@@ -127,7 +127,8 @@ namespace Menge {
 		 *	@returns	A reference to the logger streamed to.
 		 */
 		friend MENGE_API Logger & operator<<( Logger & logger, long unsigned int value );
-	        
+
+#ifdef _WIN32	       
 	    /*!
 		 *	@brief		Writes a size_t to the logger based on current status. Only done in
 		 *				windows, as GCC complains.
@@ -137,6 +138,7 @@ namespace Menge {
 		 *	@returns	A reference to the logger streamed to.
 		 */
 		friend MENGE_API Logger & operator<<( Logger & logger, size_t value );
+#endif  // _WIN32		
 #if !defined _MSC_VER || defined _M_X64		
 		/*!
 		 *	@brief		Writes long unsigned int to the logger based on current status.

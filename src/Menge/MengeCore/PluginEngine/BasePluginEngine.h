@@ -80,7 +80,7 @@ namespace Menge {
 					logger << Logger::INFO_MSG << "Loaded: " << plugin->getName() << "\n";;
 					logger << "\t" << plugin->getDescription();
 					plugin->registerPlugin( static_cast<EngineType *>(this) );
-					_plugins.insert( PluginMap::value_type( ( *itr ), plugin ) );
+					_plugins.insert( typename PluginMap::value_type( ( *itr ), plugin ) );
 				}
 
 				return files.size();

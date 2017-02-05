@@ -7,6 +7,9 @@
 #define __MENGE_C_API__
 
 #include "MengeCore/CoreConfig.h"
+#ifndef _WIN32
+#include <cstddef>
+#endif
 
 extern "C" {
 	/*!
