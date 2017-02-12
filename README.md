@@ -1,7 +1,10 @@
 # Menge
 
+See [Menge home page](http://gamma.cs.unc.edu/Menge/) for details.
 
-## Mac OSX
+## Build instructions
+
+### Mac OSX
 
 Steps to follow in order to get `Menge` compiled:
 
@@ -11,6 +14,3 @@ Steps to follow in order to get `Menge` compiled:
 - cmake -D CMAKE_MACOSX_RPATH=1 .. 
 - make
 ```
-
-
-@todo: with `g++` there are some linking errors. See also the discussion in [#28](https://github.com/MengeCrowdSim/Menge/issues/28). 
