@@ -74,7 +74,7 @@ namespace Menge {
 		size_t result;
 		std::stringstream ss( value, std::ios_base::in );
 		ss >> result;
-		if ( ss.fail() || result < 0 ) {
+		if ( ss.fail() ) {
 			throw UtilException();
 		}
 		return result;

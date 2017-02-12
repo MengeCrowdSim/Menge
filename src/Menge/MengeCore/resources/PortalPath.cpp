@@ -117,7 +117,7 @@ namespace Menge {
 					planner.computeCrossing( agent->_radius, agent->_pos, this, _currPortal );
 					goalDir = _waypoints[ _currPortal ] - agent->_pos;
 					dist = abs( goalDir );
-					if ( bigEnough = ( dist >= EPS ) ) {
+					if ( ( bigEnough = ( dist >= EPS ) ) ) {
 						goalDir /= dist;
 					}
 				}

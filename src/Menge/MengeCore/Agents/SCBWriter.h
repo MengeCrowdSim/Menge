@@ -239,6 +239,11 @@ namespace Menge {
 			static const int ZERO;
 
 			/*!
+			 *  @brief    Virtual destructor.
+			 */
+			virtual ~SCBFrameWriter() {}
+
+			/*!
 			 *	@brief		Function to write current frame's state to the file.
 			 *
 			 *	@param		file		The file object to write to.

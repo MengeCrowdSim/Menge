@@ -97,6 +97,11 @@ namespace Menge {
 	class MENGE_API SimulatorDBEntry {
 	public:
 		/*!
+		 *  @brief    Virtual destructor.
+		 */
+		virtual ~SimulatorDBEntry() {}
+		
+		/*!
 		 *	@brief		Gives a brief description of the simulator.
 		 *
 		 *	@returns	A brief description of the simulator and pedestrian

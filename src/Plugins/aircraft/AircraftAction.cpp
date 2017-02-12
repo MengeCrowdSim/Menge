@@ -110,6 +110,9 @@ namespace Aircraft {
 				if ( _undoOnExit ) _originalMap[ agent->_id ] = agent->_radius;
 				agent->_radius = value;
 				break;
+  		case NO_PROPERTY:
+				// NO_PROPERTY is considered a no-op.
+				break;
 		}
 		_lock.release();
 	}
@@ -145,6 +148,9 @@ namespace Aircraft {
 				break;
 			case RADIUS:
 				agent->_radius = value;
+				break;
+  		case NO_PROPERTY:
+				// NO_PROPERTY is considered a no-op.
 				break;
 		}
 	}

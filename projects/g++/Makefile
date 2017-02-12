@@ -19,6 +19,16 @@ debug:
 #	ctags -R  --language-force=c++ *.*
 #	ctags -eR  --language-force=c++ *.*
 
+release-clang:
+	( cd build/release && cmake -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_CC_COMPILER=clang -DCMAKE_BUILD_TYPE=release ../.. && $(MAKE) --no-print-directory  && make --no-print-directory install)
+#	ctags -R  --language-force=c++ *.*
+#	ctags -eR  --language-force=c++ *.*
+
+debug-clang:
+	( cd build/debug && cmake -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_CC_COMPILER=clang -DCMAKE_BUILD_TYPE=debug ../.. && $(MAKE) --no-print-directory && make --no-print-directory install)
+#	ctags -R  --language-force=c++ *.*
+#	ctags -eR  --language-force=c++ *.*
+
 clean: clean-release clean-debug
 
 clean-release:
