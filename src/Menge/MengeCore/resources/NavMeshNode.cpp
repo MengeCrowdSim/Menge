@@ -154,7 +154,7 @@ namespace Menge {
 		}
 		_edges = new NavMeshEdge*[ _edgeCount ];
 		for ( size_t e = 0; e < _edgeCount; ++e ) {
-			unsigned int eID;
+			size_t eID;
 			if ( ! ( f >> eID ) ) {
 				logger << Logger::ERR_MSG << "Error in parsing nav mesh: unable to read the ";
 				logger << ( e + 1 ) << "th edge for a node.\n";
@@ -172,7 +172,7 @@ namespace Menge {
 		}
 		_obstacles = new NavMeshObstacle*[ _obstCount ];
 		for ( size_t o = 0; o < _obstCount; ++o ) {
-			unsigned int oID;
+			size_t oID;
 			if ( ! ( f >> oID ) ) {
 				logger << Logger::ERR_MSG << "Error in parsing nav mesh: unable to read the ";
 				logger << ( o + 1 ) << "th adjacent obstacle.\n";

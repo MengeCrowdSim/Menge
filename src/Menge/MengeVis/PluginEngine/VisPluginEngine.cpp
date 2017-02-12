@@ -14,9 +14,9 @@ namespace MengeVis {
 		using Menge::PluginEngine::Plugin;
 		using MengeVis::Runtime::AgentContextDB;
 		using MengeVis::Runtime::BaseAgentContext;
-		using MengeVis::Runtime::VCContext::VCContextDB;
+		using MengeVis::Runtime::VCContextDB;
 		using MengeVis::Runtime::VCContext::VelCompContext;
-		using MengeVis::Runtime::GoalVis::GoalRendererDB;
+		using MengeVis::Runtime::GoalRendererDB;
 		using MengeVis::Runtime::GoalVis::GoalRenderer;
 
 		/////////////////////////////////////////////////////////////////////

@@ -63,18 +63,24 @@ namespace Menge {
 	 *	@brief		Creates unique keys for a route based on start and end nodes.
 	 *
 	 *	Mangles the start and end node identifiers into a RouteKey for
-	 *	using in the map.
+	 *	using in the map.  The map is a single, unsigned int of the same
+	 *	size as size_t.  The value is cut in half with the upper bits
+	 *	containing the start value, and the lower bits containing the 
+	 *	end value.
 	 *	This limits the number of nodes in the navigation mesh to the
-	 *	size of size_t (on a 64-bit machine it is most likely 8 bytes which
-	 *	means it can support 4 billion nodes in the mesh.
+	 *	size of size_t.  On a 32-bit machine, that's 16 bits per node index
+	 *	(for 65K total nodes). On a 64-bit machine, it is 32 bits per node
+	 *	index, allowing 4 billion nodes.
 	 *
 	 *	@param		start		ID of start node.
 	 *	@param		end			ID of end node.
 	 *	@returns	A unique node key based on the start and end nodes.
 	 */
 	RouteKey makeRouteKey( unsigned int start, unsigned int end ) {
-		const int SHIFT = sizeof( size_t ) * 4;	// this assumes 8-bit byte
-		const size_t MASK = (1 << SHIFT) - 1;
+		const int SHIFT = sizeof( size_t ) * 4;	// size in bytes * 8 bits/byte / 2
+		const size_t MASK = (1UL << SHIFT) - 1;
+		assert( (size_t)start & ((size_t)start & MASK) );
+		assert( (size_t)end & ((size_t)endt & MASK) );
 		return ( (size_t)start << SHIFT ) | ( (size_t)end & MASK );
 	}
 

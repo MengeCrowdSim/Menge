@@ -58,8 +58,8 @@ namespace MengeVis {
 		using Menge::Agents::BaseAgent;
 		using Menge::BFSM::State;
 		using Menge::BFSM::Goal;
-		using MengeVis::Runtime::GoalVis::GoalRendererDB;
-		using MengeVis::Runtime::VCContext::VCContextDB;
+		using MengeVis::Runtime::GoalRendererDB;
+		using MengeVis::Runtime::VCContextDB;
 
 		/////////////////////////////////////////////////////////////////////
 		//                   Implementation of StateContext

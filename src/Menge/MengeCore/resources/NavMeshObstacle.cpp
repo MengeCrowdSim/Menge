@@ -52,7 +52,7 @@ namespace Menge {
 	 */
 	const float MIN_EDGE_WIDTH = 0.00001f;
 
-	unsigned int NavMeshObstacle::NO_NEIGHBOR_OBST = std::numeric_limits< unsigned int >::max();
+	size_t NavMeshObstacle::NO_NEIGHBOR_OBST = std::numeric_limits< size_t >::max();
 
 	////////////////////////////////////////////////////////////////
 	//			Implementation of NavMeshObstacle
@@ -69,7 +69,7 @@ namespace Menge {
 
 	bool NavMeshObstacle::loadFromAscii( std::ifstream & f, Vector2 * vertices ) {
 		size_t v0, v1, node;
-		int nextObst;
+		long int nextObst;
 		if ( ! ( f >> v0 >> v1 >> node >> nextObst ) ) {
 			logger << Logger::ERR_MSG << "\tError in parsing nav mesh: missing edge data.\n";
 			return false;

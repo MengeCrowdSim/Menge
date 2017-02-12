@@ -20,28 +20,28 @@ namespace MengeVis {
 		class VisAgent;
 		namespace GoalVis {
 			class GoalRenderer;
-
-			/*!
-			*	@brief		The database of registered agent contexts.
-			*/
-			typedef VisElementDB<GoalRenderer, Menge::BFSM::Goal> GoalRendererDB;
-		}	// namespace VCContext
-	}	// namespace Runtime
+		}
+		/*!
+		 *	@brief		The database of registered agent contexts.
+		 */
+		typedef VisElementDB<GoalVis::GoalRenderer, Menge::BFSM::Goal> GoalRendererDB;
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-	// Declrations of explicit specializations
-	template<> Runtime::GoalVis::GoalRenderer *
-		Runtime::VisElementDB<Runtime::GoalVis::GoalRenderer,
-		                      Menge::BFSM::Goal>::getDefaultElement();
+		// Declrations of explicit specializations
+		template<> GoalVis::GoalRenderer *
+		Runtime::VisElementDB<GoalVis::GoalRenderer,
+													Menge::BFSM::Goal>::getDefaultElement();
 
-	template<> void
-		Runtime::VisElementDB<Runtime::GoalVis::GoalRenderer,
-		                      Menge::BFSM::Goal>::addBuiltins();
+		template<> void
+		Runtime::VisElementDB<GoalVis::GoalRenderer,
+													Menge::BFSM::Goal>::addBuiltins();
 
-	template<> std::string
-		Runtime::VisElementDB<Runtime::GoalVis::GoalRenderer,
-		                      Menge::BFSM::Goal>::getElementName();
+		template<> std::string
+		Runtime::VisElementDB<GoalVis::GoalRenderer,
+													Menge::BFSM::Goal>::getElementName();
 #endif	// DOXYGEN_SHOULD_SKIP_THIS
-}
+		
+	}	// namespace VCContext
+}	// namespace Runtime
 
 #endif	// __GOAL_RENDERER_DATABASE_H__

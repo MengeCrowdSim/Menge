@@ -65,6 +65,12 @@ namespace Menge {
 	 *	elements.
 	 */
 	class MENGE_API Element {
+	protected:
+		/*!
+		 *	@brief		Protected destructor; virtual to work with
+		 *			subclassing.
+		 */
+		virtual ~Element() {}
 	public:
 		/*!
 		 *	@brief		This supplants the destructor.

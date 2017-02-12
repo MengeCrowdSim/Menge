@@ -63,7 +63,7 @@ namespace Menge {
 		/*!
 		 *	@brief		The index value if the obstacle has no neighboring obstacle
 		 */
-		static unsigned int NO_NEIGHBOR_OBST;
+		static size_t NO_NEIGHBOR_OBST;
 
 		/*!
 		 *	@brief		Constructor

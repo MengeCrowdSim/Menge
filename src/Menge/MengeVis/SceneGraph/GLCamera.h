@@ -495,13 +495,13 @@ namespace MengeVis {
 			 *	@brief		The viewport's width.  (It is assumed that the viewport's origin is
 			 *				at (0,0).  Mutable because it changes during screen resizes.
 			 */
-			mutable unsigned int _viewWidth;
+			mutable int _viewWidth;
 			
 			/*!
 			 *	@brief		The viewport's height.  (It is assumed that the viewport's origin is
 			 *				at (0,0).  Mutable because it changes during screen resizes.
 			 */
-			mutable unsigned int _viewHeight;
+			mutable int _viewHeight;
 
 			/*!
 			 *	@brief		Deterimines if the projection matrix needs to be recomputed.

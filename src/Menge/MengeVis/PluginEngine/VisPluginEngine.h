@@ -78,10 +78,14 @@ namespace MengeVis {
 //					Implementation of Plugin
 /////////////////////////////////////////////////////////////////////
 
-template<>
-const char * 
-Menge::PluginEngine::Plugin< MengeVis::PluginEngine::VisPluginEngine >::getRegisterName() const {
-	return "registerVisPlugin";
-}
+namespace Menge {
+	namespace PluginEngine {
+		template<>
+		const char * 
+		Plugin< MengeVis::PluginEngine::VisPluginEngine >::getRegisterName() const {
+			return "registerVisPlugin";
+		}
+	}  // namespace PluginEngine
+}  // namespace Menge
 
 #endif // __VIS_PLUGIN_ENGINE_H__

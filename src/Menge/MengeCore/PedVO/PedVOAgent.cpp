@@ -119,7 +119,6 @@ namespace PedVO {
 			//// OBSTACLES
 			const float OBST_AREA = 0.75f;
 			const float OBST_AREA_SQ_INV = 1.f / ( 2 * OBST_AREA * OBST_AREA );
-			const float OBST_NORM = 1.f / ( OBST_AREA * sqrt2Pi );
 			const float OBST_SCALE = norm;// * 6.25f;	// what is the "density" of an obstacle?
 			for ( size_t i = 0; i < _nearObstacles.size(); ++i ) {
 				const Menge::Agents::Obstacle* const obst = _nearObstacles[i].obstacle;
