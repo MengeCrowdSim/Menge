@@ -29,7 +29,7 @@ namespace Menge {
 		/////////////////////////////////////////////////////////////////////
 
 		CorePluginEngine::CorePluginEngine( SimulatorDB	* simDB ) : 
-			BasePluginEngine<CorePluginEngine, Plugin<CorePluginEngine>>(), _simDB( simDB ) {
+			BasePluginEngine< CorePluginEngine, Plugin<CorePluginEngine> >(), _simDB( simDB ) {
 			registerModelDBEntry( new ORCA::DBEntry() );
 			registerModelDBEntry( new PedVO::DBEntry() );
 			BFSM::ActionDB::initialize();

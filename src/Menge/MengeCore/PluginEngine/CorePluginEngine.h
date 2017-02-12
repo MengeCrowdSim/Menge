@@ -46,8 +46,8 @@ namespace Menge {
 		 *	@brief		The definition of the plugin engine for Menge's core simulation
 		 *				functionality.
 		 */
-		class MENGE_API CorePluginEngine : public BasePluginEngine<CorePluginEngine, 
-																   Plugin<CorePluginEngine>> {
+		class MENGE_API CorePluginEngine : public BasePluginEngine< CorePluginEngine, 
+																    Plugin< CorePluginEngine > > {
 		public:
 			/*!
 			 *	@brief		Default constructor.

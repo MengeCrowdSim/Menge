@@ -79,8 +79,8 @@ namespace Menge {
 	RouteKey makeRouteKey( unsigned int start, unsigned int end ) {
 		const int SHIFT = sizeof( size_t ) * 4;	// size in bytes * 8 bits/byte / 2
 		const size_t MASK = (1UL << SHIFT) - 1;
-		assert( (size_t)start & ((size_t)start & MASK) );
-		assert( (size_t)end & ((size_t)endt & MASK) );
+		assert( (size_t)start == ((size_t)start & MASK) );
+		assert( (size_t)end == ((size_t)end & MASK) );
 		return ( (size_t)start << SHIFT ) | ( (size_t)end & MASK );
 	}
 
