@@ -24,7 +24,7 @@ namespace MengeVis {
 		/////////////////////////////////////////////////////////////////////
 
 		VisPluginEngine::VisPluginEngine() : 
-			BasePluginEngine<VisPluginEngine, Plugin<VisPluginEngine>>() {
+			BasePluginEngine<VisPluginEngine, Plugin<VisPluginEngine> >() {
 			AgentContextDB::initialize();
 			VCContextDB::initialize();
 			GoalRendererDB::initialize();

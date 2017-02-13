@@ -28,7 +28,7 @@ namespace MengeVis {
 		 */
 		class MENGEVIS_API VisPluginEngine : 
 			public Menge::PluginEngine::BasePluginEngine<VisPluginEngine, 
-							               Menge::PluginEngine::Plugin<VisPluginEngine>> {
+							               Menge::PluginEngine::Plugin<VisPluginEngine> > {
 		public:
 			/*!
 			 *	@brief		Default constructor.
