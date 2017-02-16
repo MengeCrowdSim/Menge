@@ -17,4 +17,4 @@ add_library(
 	${source_files}
 )
 
-target_link_libraries (zanlungoPed mengeCore )
+target_link_libraries (zanlungoPed mengeCore mengeVis )

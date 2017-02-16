@@ -17,4 +17,4 @@ add_library(
 	${source_files}
 )
 
-target_link_libraries (helbingPed mengeCore )
+target_link_libraries (helbingPed mengeCore mengeVis )
