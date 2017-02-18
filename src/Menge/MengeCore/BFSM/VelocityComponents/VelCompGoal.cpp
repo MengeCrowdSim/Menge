@@ -36,11 +36,12 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "VelocityComponents/VelCompGoal.h"
-#include "BaseAgent.h"
-#include "PrefVelocity.h"
-#include "Goals/Goal.h"
-#include "Core.h"
+#include "MengeCore/BFSM/VelocityComponents/VelCompGoal.h"
+
+#include "MengeCore/Core.h"
+#include "MengeCore/Agents/BaseAgent.h"
+#include "MengeCore/Agents/PrefVelocity.h"
+#include "MengeCore/BFSM/Goals/Goal.h"
 
 #include <sstream>
 #include <iomanip>
@@ -53,12 +54,17 @@ namespace Menge {
 		//                   Implementation of GoalVelComponent
 		/////////////////////////////////////////////////////////////////////
 
-		GoalVelComponent::GoalVelComponent(): VelComponent() {
+		const std::string GoalVelComponent::NAME = "goal";
+
+		/////////////////////////////////////////////////////////////////////
+
+		GoalVelComponent::GoalVelComponent() : VelComponent() {
 		}
 
 		/////////////////////////////////////////////////////////////////////
 
-		void GoalVelComponent::setPrefVelocity( const Agents::BaseAgent * agent, const Goal * goal, Agents::PrefVelocity & pVel ) {
+		void GoalVelComponent::setPrefVelocity( const Agents::BaseAgent * agent, const Goal * goal,
+												Agents::PrefVelocity & pVel ) const {
 			// directions
 			goal->setDirections( agent->_pos, agent->_radius, pVel );
 			
@@ -83,39 +89,5 @@ namespace Menge {
 		}
 
 		/////////////////////////////////////////////////////////////////////
-		
-		VelCompContext * GoalVelComponent::getContext() {
-			return new GoalVCContext( this );
-		}
-
-		/////////////////////////////////////////////////////////////////////
-		//                   Implementation of GoalVCContext
-		/////////////////////////////////////////////////////////////////////
-
-		GoalVCContext::GoalVCContext( GoalVelComponent * vc ):VelCompContext(),_vc(vc) {
-		}
-
-		/////////////////////////////////////////////////////////////////////
-
-		std::string GoalVCContext::getUIText( const std::string & indent ) const {
-			std::stringstream ss;
-			ss << indent << "Goal velocity component";
-			return ss.str();
-		}
-
-		/////////////////////////////////////////////////////////////////////
-
-		void GoalVCContext::draw3DGL( const Agents::BaseAgent * agt, const Goal * goal ) {
-			// draw goal point
-			// TODO: Get the elevation of the goalPoint
-			Vector2 goalPoint = goal->getTargetPoint( agt->_pos, agt->_radius );
-			drawGoal( goalPoint, agt );
-			
-			// draw preferred velocity
-			Agents::PrefVelocity pVel;
-			_vc->setPrefVelocity( agt, goal, pVel );
-			drawPrefVel( pVel, agt->_pos );
-		}
-		
 	} // namespace BFSM
 }	// namespace Menge

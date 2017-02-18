@@ -36,13 +36,15 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "EventResponse.h"
-#include "EventEffect.h"
-#include "EventTarget.h"
-#include "Logger.h"
-#include "EventException.h"
-#include "EventSystem.h"
-#include "Core.h"
+#include "MengeCore/Agents/Events/EventResponse.h"
+
+#include "MengeCore/Core.h"
+#include "MengeCore/Agents/Events/EventEffect.h"
+#include "MengeCore/Agents/Events/EventException.h"
+#include "MengeCore/Agents/Events/EventTarget.h"
+#include "MengeCore/Agents/Events/EventSystem.h"
+#include "MengeCore/Runtime/Logger.h"
+
 #include <sstream>
 #include <cassert>
 
@@ -57,27 +59,33 @@ namespace Menge {
 
 	/////////////////////////////////////////////////////////////////////
 
-	EventResponse::EventResponse( const std::string & effect, const std::string & target ) : _effectName(effect), _effect(0x0), _targetName(target), _target(0x0) {
+	EventResponse::EventResponse( const std::string & effect, const std::string & target ) :
+		_effectName(effect), _effect(0x0), _targetName(target), _target(0x0) {
 	}
 
 	/////////////////////////////////////////////////////////////////////
 
 	void EventResponse::finalize() {
 		// Find the target and effect from the event system
-		HASH_MAP< std::string, EventEffect * >::iterator eItr = EVENT_SYSTEM->_effects.find( _effectName );
+		HASH_MAP< std::string, EventEffect * >::iterator eItr =
+			EVENT_SYSTEM->_effects.find( _effectName );
 		// Only asserting this reasonable because I tested the names
 		//	at parse time.
-		assert ( eItr != EVENT_SYSTEM->_effects.end() && "Missing effect at response finalization" );
+		assert ( eItr != EVENT_SYSTEM->_effects.end() &&
+				 "Missing effect at response finalization" );
 
-		HASH_MAP< std::string, EventTarget * >::iterator tItr = EVENT_SYSTEM->_targets.find( _targetName );
-		assert ( tItr != EVENT_SYSTEM->_targets.end() && "Missing target at response finalization" );
+		HASH_MAP< std::string, EventTarget * >::iterator tItr =
+			EVENT_SYSTEM->_targets.find( _targetName );
+		assert ( tItr != EVENT_SYSTEM->_targets.end() &&
+				 "Missing target at response finalization" );
 
 		_effect = eItr->second;
 		_target = tItr->second;
 		// confirm compatability
 		if ( ! _effect->isCompatible( _target ) ) {
 			std::stringstream ss;
-			ss << "The target " << _targetName << " is incompatible with the event effect " << _effectName << ".";
+			ss << "The target " << _targetName;
+			ss << " is incompatible with the event effect " << _effectName << ".";
 			EventSystem::finalizeException( ss.str() );
 		}
 	}
@@ -91,7 +99,5 @@ namespace Menge {
 	}
 
 	/////////////////////////////////////////////////////////////////////
-
-	
 
 }	//namespace Menge

@@ -37,10 +37,12 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 */
 
 #include "KaramouzasDBEntry.h"
-#include "SimulatorDB.h"
 #include "KaramouzasInitializer.h"
+#include "MengeCore/Runtime/SimulatorDB.h"
 
 namespace Karamouzas {
+
+	using Menge::Agents::SimulatorInterface;
 
 	/////////////////////////////////////////////////////////////////////////////
 	//                     Implementation of KaramouzasDBEntry
@@ -67,13 +69,13 @@ namespace Karamouzas {
 
 	/////////////////////////////////////////////////////////////////////////////
 	 
-	Agents::SimulatorInterface * DBEntry::getNewSimulator() {
+	SimulatorInterface * DBEntry::getNewSimulator() {
 		return new Simulator();
 	}
 
 	/////////////////////////////////////////////////////////////////////////////
 	 
-	Agents::AgentInitializer * DBEntry::getAgentInitalizer() const {
+	Menge::Agents::AgentInitializer * DBEntry::getAgentInitalizer() const {
 		return new AgentInitializer();
 	}
 

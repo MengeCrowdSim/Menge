@@ -36,11 +36,12 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "AgentGeneratorDatabase.h"
-#include "AgentGenerators/ExplicitAgentGenerator.h"
-#include "AgentGenerators/RectGridGenerator.h"
-#include "AgentGenerators/HexLatticeGenerator.h"
-#include "AgentGenerators/NavMeshAgentGenerator.h"
+#include "MengeCore/Agents/AgentGenerators/AgentGeneratorDatabase.h"
+
+#include "MengeCore/Agents/AgentGenerators/ExplicitAgentGenerator.h"
+#include "MengeCore/Agents/AgentGenerators/RectGridGenerator.h"
+#include "MengeCore/Agents/AgentGenerators/HexLatticeGenerator.h"
+#include "MengeCore/Agents/AgentGenerators/NavMeshAgentGenerator.h"
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS 
 
@@ -48,7 +49,10 @@ namespace Menge {
 
 	// Specialization
 	template <>
-	std::string ElementDB< Agents::AgentGeneratorFactory, Agents::AgentGenerator >::getElementName() { return "agent generator"; }
+	std::string 
+		ElementDB< Agents::AgentGeneratorFactory, Agents::AgentGenerator >::getElementName() {
+		return "agent generator";
+	}
 
 	template <>
 	void ElementDB< Agents::AgentGeneratorFactory, Agents::AgentGenerator >::addBuiltins() {

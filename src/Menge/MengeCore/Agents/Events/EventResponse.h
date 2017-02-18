@@ -106,4 +106,3 @@ namespace Menge {
 }	// namespace Menge
 
 #endif	// __EVENT_RESPONSE_H__
-

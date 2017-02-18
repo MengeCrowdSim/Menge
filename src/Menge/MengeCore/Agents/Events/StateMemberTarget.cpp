@@ -36,12 +36,14 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "StateMemberTarget.h"
-#include "Core.h"
-#include "FSM.h"
-#include "State.h"
-#include "EventSystem.h"
-#include "SimulatorInterface.h"
+#include "MengeCore/Agents/Events/StateMemberTarget.h"
+
+#include "MengeCore/Core.h"
+#include "MengeCore/Agents/SimulatorInterface.h"
+#include "MengeCore/Agents/Events/EventSystem.h"
+#include "MengeCore/BFSM/FSM.h"
+#include "MengeCore/BFSM/State.h"
+
 #include <sstream>
 
 namespace Menge {
@@ -87,9 +89,11 @@ namespace Menge {
 
 	/////////////////////////////////////////////////////////////////////
 
-	bool NamedStateMemberTargetFactory::setFromXML( EventTarget * target, TiXmlElement * node, const std::string & specFldr ) const {
+	bool NamedStateMemberTargetFactory::setFromXML( EventTarget * target, TiXmlElement * node,
+													const std::string & specFldr ) const {
 		NamedStateMemberTarget * sTarget = dynamic_cast< NamedStateMemberTarget * >( target );
-		assert( sTarget != 0x0 && "Trying to set attributes of a state-membership event target on an incompatible object" );
+		assert( sTarget != 0x0 && "Trying to set attributes of a state-membership event target "
+				"on an incompatible object" );
 
 		if ( ! AgentEventTargetFactory::setFromXML( target, node, specFldr ) ) return false;
 

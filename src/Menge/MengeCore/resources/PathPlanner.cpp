@@ -36,11 +36,13 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "PathPlanner.h"
-#include "Route.h"
-#include "NavMesh.h"
-#include "MinHeap.h"
-#include "NavMeshNode.h"
+#include "MengeCore/resources/PathPlanner.h"
+
+#include "MengeCore/resources/MinHeap.h"
+#include "MengeCore/resources/NavMesh.h"
+#include "MengeCore/resources/NavMeshNode.h"
+#include "MengeCore/resources/Route.h"
+
 #include <iostream>
 #include <cassert>
 #include <sstream>
@@ -51,6 +53,8 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 namespace Menge {
 
+	using Math::Vector2;
+
 	/////////////////////////////////////////////////////////////////////
 	//					Implementation of PathPlanner - HELPER
 	/////////////////////////////////////////////////////////////////////
@@ -59,18 +63,24 @@ namespace Menge {
 	 *	@brief		Creates unique keys for a route based on start and end nodes.
 	 *
 	 *	Mangles the start and end node identifiers into a RouteKey for
-	 *	using in the map.
+	 *	using in the map.  The map is a single, unsigned int of the same
+	 *	size as size_t.  The value is cut in half with the upper bits
+	 *	containing the start value, and the lower bits containing the 
+	 *	end value.
 	 *	This limits the number of nodes in the navigation mesh to the
-	 *	size of size_t (on a 64-bit machine it is most likely 8 bytes which
-	 *	means it can support 4 billion nodes in the mesh.
+	 *	size of size_t.  On a 32-bit machine, that's 16 bits per node index
+	 *	(for 65K total nodes). On a 64-bit machine, it is 32 bits per node
+	 *	index, allowing 4 billion nodes.
 	 *
 	 *	@param		start		ID of start node.
 	 *	@param		end			ID of end node.
 	 *	@returns	A unique node key based on the start and end nodes.
 	 */
 	RouteKey makeRouteKey( unsigned int start, unsigned int end ) {
-		const int SHIFT = sizeof( size_t ) * 4;	// this assumes 8-bit byte
-		const size_t MASK = (1 << SHIFT) - 1;
+		const int SHIFT = sizeof( size_t ) * 4;	// size in bytes * 8 bits/byte / 2
+		const size_t MASK = (1UL << SHIFT) - 1;
+		assert( (size_t)start == ((size_t)start & MASK) );
+		assert( (size_t)end == ((size_t)end & MASK) );
 		return ( (size_t)start << SHIFT ) | ( (size_t)end & MASK );
 	}
 
@@ -78,7 +88,8 @@ namespace Menge {
 	//					Implementation of PathPlanner
 	/////////////////////////////////////////////////////////////////////
 
-	PathPlanner::PathPlanner( NavMeshPtr ptr ):_navMesh(ptr), DATA_SIZE(0), STATE_SIZE(0), _HEAP(0x0), _DATA(0x0), _STATE(0x0) {
+	PathPlanner::PathPlanner( NavMeshPtr ptr ) : _navMesh(ptr), DATA_SIZE(0), STATE_SIZE(0),
+												 _HEAP(0x0), _DATA(0x0), _STATE(0x0) {
 		size_t nCount = _navMesh->getNodeCount();
 		initHeapMemory( nCount );
 	}
@@ -91,7 +102,8 @@ namespace Menge {
 
 	/////////////////////////////////////////////////////////////////////
 
-	PortalRoute * PathPlanner::getRoute( unsigned int startID, unsigned int endID, float minWidth ) {
+	PortalRoute * PathPlanner::getRoute( unsigned int startID, unsigned int endID,
+										 float minWidth ) {
 		RouteKey key = makeRouteKey( startID, endID );
 
 		PortalRoute * route = 0x0;
@@ -120,12 +132,14 @@ namespace Menge {
 
 	/////////////////////////////////////////////////////////////////////
 
-	PortalRoute * PathPlanner::computeRoute( unsigned int startID, unsigned int endID, float minWidth ) {
+	PortalRoute * PathPlanner::computeRoute( unsigned int startID, unsigned int endID
+											 , float minWidth ) {
 		const size_t N = _navMesh->getNodeCount();
 	#ifdef _OPENMP
 		// Assuming that threadNum \in [0, omp_get_max_threads() )
 		const unsigned int threadNum = omp_get_thread_num();
-		AStarMinHeap heap( _HEAP + threadNum * N, _DATA + threadNum * DATA_SIZE, _STATE + threadNum * STATE_SIZE, _PATH + threadNum * N, N );
+		AStarMinHeap heap( _HEAP + threadNum * N, _DATA + threadNum * DATA_SIZE,
+						   _STATE + threadNum * STATE_SIZE, _PATH + threadNum * N, N );
 	#else
 
 		AStarMinHeap heap( _HEAP, _DATA, _STATE, _PATH, N );
@@ -142,23 +156,19 @@ namespace Menge {
 		while ( !heap.empty() ) {
 			unsigned int x = heap.pop();
 
-			//std::cout << "\tTesting node " << x << "\n";
 			if ( x == endID ) {
 				found = true;
 				break;
 			}
 
 			NavMeshNode & node = _navMesh->_nodes[ x ];
-			//std::cout << "\t\tNeighbors:\n";
 			for ( size_t e = 0; e < node._edgeCount; ++e ) {
 				NavMeshEdge * edge = node._edges[ e ];
 				unsigned int y = edge->getOtherByID( x )->_id;
-				//std::cout << "\t\t\t" << y << "\n";
 				if ( heap.isVisited( y ) ) continue;
 				float distance = edge->getNodeDistance( minWidth );
 				if ( distance < 0.f ) continue;
 				float tempG = heap.g( x ) + distance;
-				//std::cout << "\t\t\t\ttemp G: " << tempG << ", old g = " << heap.g(y) << "\n";
 				
 				bool isOld = true;
 				if ( ! heap.isInHeap( y ) ) {
@@ -169,12 +179,9 @@ namespace Menge {
 					heap.setReachedFrom( y, x );
 					heap.g( y, tempG );
 					heap.f( y, tempG + heap.h( y ) );
-					//std::cout << "\t\t\t\tIMPROVED: g = " << heap.g(y) << ", f = " << heap.f(y) << "\n";
-					//std::cout << "\t\t\t\t" << y << " came from " << x << "\n";
 				}
 				if ( ! heap.isInHeap( y ) ) {
 					heap.push( y );
-					//std::cout << "\t\t\t\tAdding to open with h = " << heap.h(y) << "\n";
 				}
 			}
 		}
@@ -182,7 +189,8 @@ namespace Menge {
 		// reconstruct the path
 		if ( !found ) {
 			std::stringstream ss;
-			ss << "Trying to find a path from " << startID << " to " << endID << ".  A* finished without a route!";
+			ss << "Trying to find a path from " << startID << " to " << endID;
+			ss << ".  A* finished without a route!";
 			throw PathPlannerException( ss.str() );
 		}
 
@@ -261,13 +269,15 @@ namespace Menge {
 	//////////////////////////////////////////////////////////////////////////////////////
 		
 	float PathPlanner::computeH( unsigned int node, const Vector2 & goal ) {
-		assert( node >= 0 && node < _navMesh->getNodeCount() && "Trying to compute h for invalid node id" );
+		assert( node >= 0 && node < _navMesh->getNodeCount() &&
+				"Trying to compute h for invalid node id" );
 		return abs( _navMesh->_nodes[ node ]._center - goal );
 	}
 
 	//////////////////////////////////////////////////////////////////////////////////////
 		
-	PortalRoute * PathPlanner::cacheRoute( unsigned int startID, unsigned int endID, PortalRoute * route ) {
+	PortalRoute * PathPlanner::cacheRoute( unsigned int startID, unsigned int endID,
+										   PortalRoute * route ) {
 		_routeLock.lockWrite();
 		PortalRoute * result = route;
 		RouteKey key = makeRouteKey( startID, endID );
@@ -290,7 +300,9 @@ namespace Menge {
 					//	Test to see if it is the same route
 					if ( route->isEquivalent( (*rItr) ) ) {
 						result = *rItr;
-						assert( route->_bestSmallest < result->_bestSmallest && "Recomputed an equivalent path which was already shown to be sufficiently wide and optimal" );
+						assert( route->_bestSmallest < result->_bestSmallest &&
+								"Recomputed an equivalent path which was already shown to be "
+								"sufficiently wide and optimal" );
 						result->_bestSmallest = route->_bestSmallest;
 					} else {
 						routeList.insert( rItr, route );

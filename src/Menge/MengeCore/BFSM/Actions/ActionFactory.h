@@ -45,12 +45,13 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __ACTION_FACTORY_H__
 #define __ACTION_FACTORY_H__
 
-#include "CoreConfig.h"
-#include <string>
+#include "MengeCore/CoreConfig.h"
+#include "MengeCore/BFSM/Actions/Action.h"
+#include "MengeCore/PluginEngine/ElementFactory.h"
 
-#include "ElementFactory.h"
-#include "Actions/Action.h"
 #include "tinyxml.h"
+
+#include <string>
 
 namespace Menge {
 
@@ -79,13 +80,14 @@ namespace Menge {
 			 *
 			 *	@param		action			A pointer to the action whose attributes are to be set.
 			 *	@param		node			The XML node containing the action attributes.
-			 *	@param		behaveFldr		The path to the behavior file.  If the action references
-			 *								resources in the file system, it should be defined relative
-			 *								to the behavior file location.  This is the folder containing
-			 *								that path. 
+			 *	@param		behaveFldr		The path to the behavior file.  If the action
+			 *								references resources in the file system, it should be
+			 *								defined relative to the behavior file location.  This
+			 *								is the folder containing that path. 
 			 *	@returns	A boolean reporting success (true) or failure (false).
 			 */
-			virtual bool setFromXML( Action * action, TiXmlElement * node, const std::string & behaveFldr ) const;
+			virtual bool setFromXML( Action * action, TiXmlElement * node,
+									 const std::string & behaveFldr ) const;
 
 			/*!
 			 *	@brief		The identifier for the "exit_reset" boolean attribute.

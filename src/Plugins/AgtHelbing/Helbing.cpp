@@ -41,34 +41,49 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
  *	@brief		Plugin for helbing pedestrian.
  */
 
+#include "HelbingAgentContext.h"
 #include "HelbingConfig.h"
 #include "HelbingDBEntry.h"
-#include "PluginEngine.h"
+#include "MengeCore/PluginEngine/CorePluginEngine.h"
+#include "MengeVis/PluginEngine/VisPluginEngine.h"
 
-/*!
- *	@brief		Retrieves the name of the plug-in.
- *
- *	@returns	The name of the plug in.
- */
-extern "C" HELBING_API const char * getName() {
-	return "Helbing 2000 Pedestrian Model";
+using Menge::PluginEngine::CorePluginEngine;
+using MengeVis::PluginEngine::VisPluginEngine;
+
+extern "C" {
+	/*!
+	 *	@brief		Retrieves the name of the plug-in.
+	 *
+	 *	@returns	The name of the plug in.
+	 */
+	HELBING_API const char * getName() {
+		return "Helbing 2000 Pedestrian Model";
+	}
+
+	/*!
+	 *	@brief		Description of the plug-in.
+	 *
+	 *	@returns	A description of the plugin.
+	 */
+	HELBING_API const char * getDescription() {
+		return	"A pedestran plugin based on the model proposed in 2000 by Helbing et al.";
+	}
+
+	/*!
+	 *	@brief		Registers the plug-in with the core simulation plug-in engine.
+	 *
+	 *	@param		engine		A pointer to the core plugin engine.
+	 */
+	HELBING_API void registerCorePlugin( CorePluginEngine * engine ) {
+		engine->registerModelDBEntry( new Helbing::DBEntry() );
+	}
+
+	/*!
+	 *	@brief		Registers the plug-in with the visualization plug-in engine.
+	 *
+	 *	@param		engine		A pointer to the vis engine.
+	 */
+	HELBING_API void registerVisPlugin( VisPluginEngine * engine ) {
+		engine->registerAgentContext( new Helbing::AgentContext() );
+	}
 }
-
-/*!
- *	@brief		Description of the plug-in.
- *
- *	@returns	A description of the plugin.
- */
-extern "C" HELBING_API const char * getDescription() {
-	return	"A pedestran plugin based on the model proposed in 2000 by Helbing et al.";
-}
-
-/*!
- *	@brief		Registers the plug-in with the PluginEngine
- *
- *	@param		engine		A pointer to the plugin engine.
- */
-extern "C" HELBING_API void registerPlugin( PluginEngine * engine ) {
-	engine->registerModelDBEntry( new Helbing::DBEntry() );
-}
-

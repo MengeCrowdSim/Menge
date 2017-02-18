@@ -44,7 +44,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __NAV_MESH_OBSTACLE__
 #define	__NAV_MESH_OBSTACLE__
 
-#include "Obstacle.h"
+#include "MengeCore/Agents/Obstacle.h"
 #include <fstream>
 
 namespace Menge {
@@ -58,12 +58,12 @@ namespace Menge {
 	 *				specification but includes a pointer to a node to which it is
 	 *				attached.
 	 */
-	class NavMeshObstacle : public Agents::Obstacle {
+	class MENGE_API NavMeshObstacle : public Agents::Obstacle {
 	public:
 		/*!
 		 *	@brief		The index value if the obstacle has no neighboring obstacle
 		 */
-		static unsigned int NO_NEIGHBOR_OBST;
+		static size_t NO_NEIGHBOR_OBST;
 
 		/*!
 		 *	@brief		Constructor
@@ -80,7 +80,7 @@ namespace Menge {
 		 *	@returns	A boolean indicating successful parsing (true) or failure
 		 *				(false).
 		 */
-		bool loadFromAscii( std::ifstream & f, Vector2 * vertices );
+		bool loadFromAscii( std::ifstream & f, Math::Vector2 * vertices );
 
 		/*!
 		 *	@brief		Retrieve the nav mesh node to which this obstacle is adjacent.

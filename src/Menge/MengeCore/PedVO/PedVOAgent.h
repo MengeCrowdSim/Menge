@@ -44,14 +44,17 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __PEDVO_AGENT_H__
 #define __PEDVO_AGENT_H__
 
-#include "BaseAgent.h"
-#include "Math/Line.h"
+#include "MengeCore/Agents/BaseAgent.h"
+#include "MengeCore/Math/Line.h"
+#include "MengeCore/Math/vector.h"
+
+#include <vector>
 
 namespace PedVO {
 	/*!
 	 *  @brief      Defines an agent in the simulation.
 	 */
-	class Agent : public Menge::Agents::BaseAgent {
+	class MENGE_API Agent : public Menge::Agents::BaseAgent {
 	public:
 		/*!
 		 *	@brief		A variant of the copy constructor.
@@ -67,6 +70,13 @@ namespace PedVO {
 		 *  @brief      Computes the new velocity of this agent.
 		 */
 		void computeNewVelocity();
+
+		/*!
+		 *	@brief		Used by the plugin system to know what artifacts to associate with
+		 *				agents of this type.  Every sub-class of must return a globally
+		 *				unique value if it should be associated with unique artifacts.
+		 */
+		virtual std::string getStringId() const;
 
 		/*!
 		 *	@brief			Based on the neighbors, computes the ORCA lines
@@ -90,7 +100,8 @@ namespace PedVO {
 		 *								This value is only set if the agent is turning.
 		 *	@returns		The total number of obstacle lines
 		 */
-		size_t computeORCALines( Vector2 & optVel, Vector2 & prefDir, float & prefSpeed );
+		size_t computeORCALines( Menge::Math::Vector2 & optVel, Menge::Math::Vector2 & prefDir,
+								 float & prefSpeed );
 
 		/*!
 		 *	@brief		The set of ORCA constraints.
@@ -188,6 +199,9 @@ namespace PedVO {
 		 */
 		static const float STRIDE_BUFFER;
 
+		/*! @brief	The name identifier for this agent type. */	
+		static const std::string NAME;
+
 		friend class Simulator;
 
 	protected:
@@ -218,9 +232,9 @@ namespace PedVO {
    * @param     result			A reference to the result of the linear program.
    * @returns   True if successful.
    */
-  bool linearProgram1(const std::vector<Menge::Math::Line>& lines, size_t lineNo,
-					  float radius, const Vector2& optVelocity,
-					  bool directionOpt, float turnBias, Vector2& result);
+  bool linearProgram1( const std::vector<Menge::Math::Line>& lines, size_t lineNo,
+					   float radius, const Menge::Math::Vector2& optVelocity,
+					   bool directionOpt, float turnBias, Menge::Math::Vector2& result );
 
   /*!
    * @brief		Solves a two-dimensional linear program subject to linear
@@ -234,10 +248,9 @@ namespace PedVO {
    * @param		result			A reference to the result of the linear program.
    * @returns   The number of the line it fails on, and the number of lines if successful.
    */  
-  size_t linearProgram2(const std::vector<Menge::Math::Line>& lines, float radius,
-					  const Vector2& optVelocity, bool directionOpt,
-					  float turnBias,
-					  Vector2& result);
+  size_t linearProgram2( const std::vector<Menge::Math::Line> & lines, float radius,
+						 const Menge::Math::Vector2 & optVelocity, bool directionOpt,
+						 float turnBias, Menge::Math::Vector2 & result );
 
   /*!
    * @brief		Solves a two-dimensional linear program subject to linear
@@ -250,7 +263,8 @@ namespace PedVO {
    * @param		turnBias		The agent's turn bias.
    * @param     result			A reference to the result of the linear program.
    */
-  void linearProgram3(const std::vector<Menge::Math::Line>& lines, size_t numObstLines, size_t beginLine, 
-					  float radius, float turnBias, Vector2& result);
+  void linearProgram3( const std::vector<Menge::Math::Line>& lines, size_t numObstLines,
+					   size_t beginLine, float radius, float turnBias,
+					   Menge::Math::Vector2& result );
 }	// namespace PedVO
 #endif

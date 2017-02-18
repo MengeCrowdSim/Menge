@@ -36,11 +36,13 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "EventSystem.h"
-#include "Event.h"
-#include "EventTargetDB.h"
-#include "EventEffectDB.h"
-#include "EventException.h"
+#include "MengeCore/Agents/Events/EventSystem.h"
+
+#include "MengeCore/Agents/Events/Event.h"
+#include "MengeCore/Agents/Events/EventEffectDB.h"
+#include "MengeCore/Agents/Events/EventException.h"
+#include "MengeCore/Agents/Events/EventTargetDB.h"
+
 #include <sstream>
 
 namespace Menge {
@@ -89,10 +91,12 @@ namespace Menge {
 				tgtItr->second->finalize();
 				++tgtItr;
 			} catch ( Menge::EventFatalException & ex ) {
-				logger << Logger::ERR_MSG << "Fatal exception finalizing event target: " << tgtItr->first << "\n" << ex._msg;
+				logger << Logger::ERR_MSG << "Fatal exception finalizing event target: ";
+				logger << tgtItr->first << "\n" << ex._msg;
 				throw ex;
 			} catch ( Menge::EventException & ex ) {
-				logger << Logger::WARN_MSG << "Removing invalid event target " << tgtItr->first << "!\n" << ex._msg;
+				logger << Logger::WARN_MSG << "Removing invalid event target ";
+				logger << tgtItr->first << "!\n" << ex._msg;
 				tgtItr = _targets.erase( tgtItr );
 			}
 		}
@@ -103,10 +107,12 @@ namespace Menge {
 				effItr->second->finalize();
 				++effItr;
 			} catch ( Menge::EventFatalException & ex ) {
-				logger << Logger::ERR_MSG << "Fatal exception finalizing event effect: " << effItr->first << "\n" << ex._msg;
+				logger << Logger::ERR_MSG << "Fatal exception finalizing event effect: ";
+				logger << effItr->first << "\n" << ex._msg;
 				throw ex;
 			} catch ( Menge::EventException & ex ) {
-				logger << Logger::WARN_MSG << "Removing invalid event effect " << effItr->first << "!\n" << ex._msg;
+				logger << Logger::WARN_MSG << "Removing invalid event effect ";
+				logger << effItr->first << "!\n" << ex._msg;
 				effItr = _effects.erase( effItr );
 			}
 		}
@@ -120,7 +126,8 @@ namespace Menge {
 				logger << Logger::ERR_MSG << "Fatal exception finalizing events\n" << ex._msg;
 				throw ex;
 			} catch ( Menge::EventException & ex ) {
-				logger << Logger::WARN_MSG << "Removing event " << (*itr)->_name << "!\n" << ex._msg;
+				logger << Logger::WARN_MSG << "Removing event " << ( *itr )->_name;
+				logger << "!\n" << ex._msg;
 				itr = _events.erase( itr );
 			}
 		}
@@ -160,12 +167,14 @@ namespace Menge {
 					if ( pass == TARGET_PASS ) {
 						const char * cStr = child->Attribute( "name" );
 						if ( cStr == 0x0 ) {
-							logger << Logger::ERR_MSG << "Event target on line " << child->Row() << " requires a \"name\" attribute.";
+							logger << Logger::ERR_MSG << "Event target on line ";
+							logger << child->Row() << " requires a \"name\" attribute.";
 							return false;
 						}  else {
 							std::string name( cStr );
 							if ( _targets.find( name ) != _targets.end() ) {
-								logger << Logger::ERR_MSG << "Found multiple event targets with the same name: " << name << ".";
+								logger << Logger::ERR_MSG << "Found multiple event targets with "
+									"the same name: " << name << ".";
 								return false;
 							}
 							EventTarget * target = EventTargetDB::getInstance( child, behaveFldr );
@@ -177,12 +186,14 @@ namespace Menge {
 					} else if ( pass == EFFECT_PASS ) {
 						const char * cStr = child->Attribute( "name" );
 						if ( cStr == 0x0 ) {
-							logger << Logger::ERR_MSG << "Event effect on line " << child->Row() << " requires a \"name\" attribute.";
+							logger << Logger::ERR_MSG << "Event effect on line " << child->Row();
+							logger << " requires a \"name\" attribute.";
 							return false;
 						}  else {
 							std::string name( cStr );
 							if ( _effects.find( name ) != _effects.end() ) {
-								logger << Logger::ERR_MSG << "Found multiple event effects with the same name: " << name << ".";
+								logger << Logger::ERR_MSG << "Found multiple event effects with "
+									"the same name: " << name << ".";
 								return false;
 							}
 							EventEffect * effect = EventEffectDB::getInstance( child, behaveFldr );
@@ -199,7 +210,8 @@ namespace Menge {
 						_events.push_back( evt );
 					} else {
 						std::stringstream ss;
-						ss << "Found invalid child of EventSystem tag: " << child->ValueStr() << ".";
+						ss << "Found invalid child of EventSystem tag: " << child->ValueStr();
+						ss << ".";
 						if ( CONSERVATIVE_SETUP ) {
 							logger << Logger::ERR_MSG << ss.str();
 							throw EventFatalException( ss.str() );
@@ -213,7 +225,4 @@ namespace Menge {
 		}
 		return true;
 	}
-
-	
-	
-}
+}	// namespace Menge

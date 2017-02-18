@@ -36,8 +36,10 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "os.h"
-#include "Logger.h"
+#include "MengeCore/Runtime/os.h"
+
+#include "MengeCore/Runtime/Logger.h"
+
 #include <iostream>
 #include <cstdarg>
 #include <sstream>
@@ -60,7 +62,8 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 namespace Menge {
 
 	namespace os {
-		bool listdir( const std::string & path, StringList & contents, const std::string & wildcard ) {
+		bool listdir( const std::string & path, StringList & contents,
+					  const std::string & wildcard ) {
 			if ( ! path::exists( path ) ) {
 				logger << Logger::ERR_MSG << "Path does not exist: " << path << "\n";
 				return false;
@@ -192,10 +195,12 @@ namespace Menge {
 				if ( err == ERROR_ALREADY_EXISTS ) {
 					// This is a funny case -- it prints an error message bug reports true
 					//		because the folder actually exists.
-					logger << Logger::ERR_MSG << "Cannot make directory.  Path already exists: " << path << "\n";
+					logger << Logger::ERR_MSG << "Cannot make directory.  Path already exists: ";
+					logger << path << "\n";
 					return true;
 				} else if ( err == ERROR_PATH_NOT_FOUND ) {
-					logger << Logger::ERR_MSG << "Cannot make directory.  Intermediate directories missing: " << path << "\n";
+					logger << Logger::ERR_MSG << "Cannot make directory.  Intermediate ";
+					logger << "directories missing : " << path << "\n";
 					return false;
 				}
 			}
@@ -279,14 +284,16 @@ namespace Menge {
 
 				if ( !exists( path ) ) {
 				  // TODO (curds01): 10/3/16 - this is a horrible hack.
-				  // g++ version 5.4.0 hangs on the call to realpath if the file does *not* exist (instead of returning)
-				  // the appropriate signal.  This hack handles it.
-				  // The code below suggests that it *should* return and processes the string appropriately.  But if realpath
-				  // hangs, it can't be used.  Find out what's going on.
+				  // g++ version 5.4.0 hangs on the call to realpath if the file does *not* exist
+				  // (instead of returning) the appropriate signal.  This hack handles it.
+				  // The code below suggests that it *should* return and processes the string
+				  // appropriately.  But if realpath hangs, it can't be used.  Find out what's
+				  // going on.
 				  std::fstream fs;
 				  fs.open(path.c_str(), std::ios::out);
 				  if ( !fs.is_open() ) {
-				    logger << Logger::ERR_MSG << "Unable to create the requested path: " << path << "\n";
+					  logger << Logger::ERR_MSG << "Unable to create the requested path: ";
+					  logger << path << "\n";
 				    return false;
 				  }
 				  fs.close();

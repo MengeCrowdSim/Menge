@@ -36,11 +36,14 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "Portal.h"
+#include "MengeCore/resources/Portal.h"
+
 #include <cassert>
 #include <iostream>
 
 namespace Menge {
+
+	using Math::Vector2;
 
 	/////////////////////////////////////////////////////////////////////
 	//                   Implementation of Portal
@@ -73,7 +76,8 @@ namespace Menge {
 	/////////////////////////////////////////////////////////////////////
 
 	Vector2 Portal::nearestPoint( const Vector2 & pos, float radius ) {
-		assert( _mag > radius && "Agent's with radius bigger than the portal width can't pass through" );
+		assert( _mag > radius &&
+				"Agent's with radius bigger than the portal width can't pass through" );
 		// Be smart about this
 		//	If the position projects onto the portal, then simply find the closest point to the
 		//		"effective" portal

@@ -36,9 +36,12 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "CondSpace.h"
-#include "BaseAgent.h"
-#include "Logger.h"
+#include "MengeCore/BFSM/Transitions/CondSpace.h"
+
+#include "MengeCore/Agents/BaseAgent.h"
+#include "MengeCore/Runtime/Logger.h"
+
+#include <cassert>
 
 namespace Menge {
 
@@ -53,7 +56,8 @@ namespace Menge {
 
 		///////////////////////////////////////////////////////////////////////////
 
-		SpaceCondition::SpaceCondition( const SpaceCondition & cond ):Condition(cond), _outsideActive(cond._outsideActive) {
+		SpaceCondition::SpaceCondition( const SpaceCondition & cond ):Condition(cond),
+			_outsideActive(cond._outsideActive) {
 		}
 
 		///////////////////////////////////////////////////////////////////////////
@@ -78,9 +82,12 @@ namespace Menge {
 
 		///////////////////////////////////////////////////////////////////////////
 
-		bool SpaceCondFactory::setFromXML( Condition * condition, TiXmlElement * node, const std::string & behaveFldr ) const {
+		bool SpaceCondFactory::setFromXML( Condition * condition, TiXmlElement * node,
+										   const std::string & behaveFldr ) const {
 			SpaceCondition * sCond = dynamic_cast< SpaceCondition * >( condition );
-			assert( sCond != 0x0 && "Trying to set the properties of a space condition on an incompatible object" );
+			assert( sCond != 0x0 &&
+					"Trying to set the properties of a space condition on an incompatible "
+					"object" );
 
 			if ( !ConditionFactory::setFromXML( condition, node, behaveFldr ) ) return false;
 
@@ -97,7 +104,8 @@ namespace Menge {
 
 		/////////////////////////////////////////////////////////////////////
 
-		CircleCondition::CircleCondition( const CircleCondition & cond ):SpaceCondition(cond),CircleShape() {
+		CircleCondition::CircleCondition( const CircleCondition & cond ) : SpaceCondition(cond),
+																		   CircleShape() {
 			_center = cond._center;
 			_radius = cond._radius;
 		}
@@ -120,14 +128,18 @@ namespace Menge {
 
 		///////////////////////////////////////////////////////////////////////////
 
-		bool CircleCondFactory::setFromXML( Condition * condition, TiXmlElement * node, const std::string & behaveFldr ) const {
+		bool CircleCondFactory::setFromXML( Condition * condition, TiXmlElement * node,
+											const std::string & behaveFldr ) const {
 			CircleCondition * cCond = dynamic_cast< CircleCondition * >( condition );
-			assert( cCond != 0x0 && "Trying to set the properties of a circle condition on an incompatible object" );
+			assert( cCond != 0x0 &&
+					"Trying to set the properties of a circle condition on an incompatible "
+					"object" );
 
 			if ( !SpaceCondFactory::setFromXML( cCond, node, behaveFldr ) ) return false;
 
-			cCond->set( Vector2( _attrSet.getFloat( _centerXID ), _attrSet.getFloat( _centerYID ) ), 
-						_attrSet.getFloat( _radiusID ) );
+			cCond->set( Vector2( _attrSet.getFloat( _centerXID ),
+				_attrSet.getFloat( _centerYID ) ),
+				_attrSet.getFloat( _radiusID ) );
 			return true;		
 		}
 
@@ -140,7 +152,8 @@ namespace Menge {
 
 		/////////////////////////////////////////////////////////////////////
 
-		AABBCondition::AABBCondition( const AABBCondition & cond ):SpaceCondition(cond),AABBShape(cond._minPt,cond._maxPt) {
+		AABBCondition::AABBCondition( const AABBCondition & cond ) : 
+			SpaceCondition( cond ), AABBShape( cond._minPt, cond._maxPt ) {
 		}
 
 		/////////////////////////////////////////////////////////////////////
@@ -162,9 +175,11 @@ namespace Menge {
 
 		///////////////////////////////////////////////////////////////////////////
 
-		bool AABBCondFactory::setFromXML( Condition * condition, TiXmlElement * node, const std::string & behaveFldr ) const {
+		bool AABBCondFactory::setFromXML( Condition * condition, TiXmlElement * node,
+										  const std::string & behaveFldr ) const {
 			AABBCondition * cond = dynamic_cast< AABBCondition * >( condition );
-			assert( cond != 0x0 && "Trying to set the properties of a AABB condition on an incompatible object" );
+			assert( cond != 0x0 &&
+					"Trying to set the properties of a AABB condition on an incompatible object" );
 
 			if ( !SpaceCondFactory::setFromXML( cond, node, behaveFldr ) ) return false;
 
@@ -211,9 +226,11 @@ namespace Menge {
 
 		///////////////////////////////////////////////////////////////////////////
 
-		bool OBBCondFactory::setFromXML( Condition * condition, TiXmlElement * node, const std::string & behaveFldr ) const {
+		bool OBBCondFactory::setFromXML( Condition * condition, TiXmlElement * node
+										 , const std::string & behaveFldr ) const {
 			OBBCondition * cond = dynamic_cast< OBBCondition * >( condition );
-			assert( cond != 0x0 && "Trying to set the properties of a OBB condition on an incompatible object" );
+			assert( cond != 0x0 &&
+					"Trying to set the properties of a OBB condition on an incompatible object" );
 
 			if ( !SpaceCondFactory::setFromXML( cond, node, behaveFldr ) ) return false;
 			

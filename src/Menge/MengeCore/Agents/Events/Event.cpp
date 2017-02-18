@@ -36,15 +36,18 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "Event.h"
-#include "EventTrigger.h"
-#include "EventResponse.h"
-#include "Logger.h"
-#include "EventException.h"
-#include "EventSystem.h"
-#include "EventTriggerDB.h"
-#include "Core.h"
+#include "MengeCore/Agents/Events/Event.h"
+
+#include "MengeCore/Core.h"
+#include "MengeCore/Agents/Events/EventException.h"
+#include "MengeCore/Agents/Events/EventResponse.h"
+#include "MengeCore/Agents/Events/EventSystem.h"
+#include "MengeCore/Agents/Events/EventTrigger.h"
+#include "MengeCore/Agents/Events/EventTriggerDB.h"
+#include "MengeCore/Runtime/Logger.h"
+
 #include "tinyxml.h"
+
 #include <sstream>
 #include <cassert>
 
@@ -69,7 +72,8 @@ namespace Menge {
 	/////////////////////////////////////////////////////////////////////
 
 	void Event::finalize() {
-		Logger::LogType logType = EventSystem::CONSERVATIVE_SETUP ? Logger::ERR_MSG : Logger::WARN_MSG;
+		Logger::LogType logType =
+			EventSystem::CONSERVATIVE_SETUP ? Logger::ERR_MSG : Logger::WARN_MSG;
 		bool error = false;
 		if ( _trigger ) {
 			try {
@@ -77,7 +81,8 @@ namespace Menge {
 			} catch ( EventException & e ) {
 				_trigger->destroy();
 				_trigger = 0x0;
-				logger << logType << "Event " << _name << " had problems finalizing its target: " << e._msg << "\n";
+				logger << logType << "Event " << _name << " had problems finalizing its "
+					"target: " << e._msg << "\n";
 				error = true;
 			}
 		} else {
@@ -94,7 +99,8 @@ namespace Menge {
 				} catch ( EventException & e ) {
 					delete *itr;
 					itr = _responses.erase( itr );
-					logger << logType << "Event " << _name << " had problems finalizing a response: " << e._msg << "\n";
+					logger << logType << "Event " << _name << " had problems finalizing a "
+						"response: " << e._msg << "\n";
 					error = true;
 				}
 			}
@@ -139,7 +145,8 @@ namespace Menge {
 			std::string name( cName );
 			evt = new Event( name );
 		} else {
-			logger << Logger::ERR_MSG << "Event defined on line " << node->Row() << " is missing the \"name\" attribute.";
+			logger << Logger::ERR_MSG << "Event defined on line " << node->Row() << " is missing "
+				"the \"name\" attribute.";
 			return 0x0;
 		}
 		
@@ -155,24 +162,28 @@ namespace Menge {
 			} else if ( child->ValueStr() == "Response" ) {
 				const char * eStr = child->Attribute( "effect" );
 				if ( eStr == 0x0 ) {
-					logger << Logger::ERR_MSG << "Event response on line " << child->Row() << " requires an \"effect\" attribute.";
+					logger << Logger::ERR_MSG << "Event response on line " << child->Row();
+					logger << " requires an \"effect\" attribute.";
 					delete evt;
 					return 0x0;
 				}
 				const char * tStr = child->Attribute( "target" );
 				if ( tStr == 0x0 ) {
-					logger << Logger::ERR_MSG << "Event response on line " << child->Row() << " requires an \"target\" attribute.";
+					logger << Logger::ERR_MSG << "Event response on line " << child->Row();
+					logger << " requires an \"target\" attribute.";
 					delete evt;
 					return 0x0;
 				}
 				bool valid = true;
 				// test the names against the database
 				if ( EVENT_SYSTEM->_targets.find( tStr ) == EVENT_SYSTEM->_targets.end() ) {
-					logger << Logger::ERR_MSG << "An event has been assigned a target which doesn't exist in the system: " << tStr << ".";
+					logger << Logger::ERR_MSG << "An event has been assigned a target which "
+						"doesn't exist in the system: " << tStr << ".";
 					valid = false;
 				}
 				if ( EVENT_SYSTEM->_effects.find( eStr ) == EVENT_SYSTEM->_effects.end() ) {
-					logger << Logger::ERR_MSG << "An event has been assigned an effect which doesn't exist in the system: " << eStr << ".";
+					logger << Logger::ERR_MSG << "An event has been assigned an effect which "
+						"doesn't exist in the system: " << eStr << ".";
 					valid = false;
 				}
 				if ( valid ) {
@@ -182,12 +193,12 @@ namespace Menge {
 					return 0x0;
 				}
 			} else {
-				logger << Logger::ERR_MSG << "Encountered unexpected child tag of Effects on line " << child->Row() << ": " << child->ValueStr() << ".";
+				logger << Logger::ERR_MSG << "Encountered unexpected child tag of Effects on "
+					"line " << child->Row() << ": " << child->ValueStr() << ".";
 				delete evt;
 				return 0x0;
 			}
 		}
 		return evt;
 	}
-
-}
+}	// namespace Menge

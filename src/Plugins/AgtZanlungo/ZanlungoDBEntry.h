@@ -44,16 +44,14 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __ZANLUNGO_DB_ENTRY_H__
 #define	__ZANLUNGO_DB_ENTRY_H__
 
-#include "SimulatorDBEntry.h"
 #include "Zanlungo.h"
-
-using namespace Menge;
+#include "MengeCore/Runtime/SimulatorDBEntry.h"
 
 namespace Zanlungo {
 	/*!
 	 *	@brief		The simulator database entry for the Zanlungo 2011 simulator.
 	 */
-	class DBEntry : public SimulatorDBEntry {
+	class DBEntry : public Menge::SimulatorDBEntry {
 	public:
 		/*!
 		 *	@brief	Gives a brief description of the simulator.
@@ -88,7 +86,7 @@ namespace Zanlungo {
 		 *	@returns	A single string (with no spaces) that can be used as
 		 *				a command line parameter to uniquely identify this model.
 		 */
-		virtual ::std::string commandLineName() const { return "zanlungo"; }
+		virtual ::std::string commandLineName() const { return Agent::NAME; }
 
 		/*!
 		 *	@brief		Returns a pointer to this model's Simulator instance.
@@ -98,7 +96,7 @@ namespace Zanlungo {
 		 *	@returns	A newly instantiated simulator instance of a type appropriate
 		 *				for this database entry.
 		 */
-		virtual Agents::SimulatorInterface * getNewSimulator();
+		virtual Menge::Agents::SimulatorInterface * getNewSimulator();
 
 		/*!
 		 *	@brief		Provides an AgentInitializer appropriate to this simulator class.
@@ -106,28 +104,8 @@ namespace Zanlungo {
 		 *	@returns	A pointer to an agent initializer.  The caller is responsible for
 		 *				freeing up the memory.
 		 */
-		virtual Agents::AgentInitializer * getAgentInitalizer() const;
-
-	protected:
-		/*!
-		 *	@brief		Returns a pointer to an agent context appropriate to
-		 *				the corresponding simulator.
-		 *
-		 *	If the provided system is not, in fact, a pointer to a SimSystem for the
-		 *	appropriate simulator type, this function will report failure.  Furthermore,
-		 *	the default implementation is to return a BaseAgentContext.  If the
-		 *	simulator comes with a novel context, this function should be overridden
-		 *	in the derived SimulatorDBEntry.
-		 *
-		 *	@param		system		The system which tracks the agents.  This should be
-		 *							the same system which was returned by a call to 
-		 *							SimulatorDBEntryBase::getSimulatorSystem.
-		 *	@returns	A pointer to the appropriate agent context.  If the system is of
-		 *				the wrong type (or if there is any other problem), NULL is returned.
-		 */
-		virtual BaseAgentContext * contextFromSystem( SimSystem * system );
+		virtual Menge::Agents::AgentInitializer * getAgentInitalizer() const;
 	};
 }	// namespace Zanlungo
 
 #endif // __ZANLUNGO_DB_ENTRY_H__
-

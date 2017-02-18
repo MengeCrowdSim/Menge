@@ -45,12 +45,12 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __AGENT_PROPERTY_MANIPULATOR_H__
 #define __AGENT_PROPERTY_MANIPULATOR_H__
 
-#include "Element.h"
-#include "mengeCommon.h"
-#include "FSMEnumeration.h"
-#include <map>
-#include "SimpleLock.h"
+#include "MengeCore/mengeCommon.h"
+#include "MengeCore/BFSM/FSMEnumeration.h"
+#include "MengeCore/PluginEngine/Element.h"
+#include "MengeCore/Runtime/SimpleLock.h"
 
+#include <map>
 
 namespace Menge {
 	// Forward declarations
@@ -120,7 +120,7 @@ namespace Menge {
 		 *						it is assumed that the generator is *not* shared
 		 *						with any other entity.
 		 */
-		void setGenerator( FloatGenerator * gen );
+		void setGenerator( Math::FloatGenerator * gen );
 
 		/*!
 		 *	@brief		Sets the property operand.
@@ -142,7 +142,7 @@ namespace Menge {
 		/*!
 		 *	@brief		The generator for determining the operand value.
 		 */
-		FloatGenerator * _operandGen;
+		Math::FloatGenerator * _operandGen;
 
 		/*!
 		 *	@brief		The property to operate on.

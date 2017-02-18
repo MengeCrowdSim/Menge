@@ -44,9 +44,10 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __RESOURCE_MANAGER_H__
 #define	__RESOURCE_MANAGER_H__
 
+#include "MengeCore/mengeCommon.h"
+
 #include <string>
 #include <map>
-#include "mengeCommon.h"
 
 namespace Menge {
 
@@ -78,7 +79,9 @@ namespace Menge {
 		 *				The caller is responsible for knowing what type of resource it
 		 *				should be and test it using a dynamic-cast.
 		 */
-		static Resource * getResource( const std::string & fileName, Resource * (*reader)(const std::string & ), const std::string & suffix );
+		static Resource * getResource( const std::string & fileName,
+									   Resource * (*reader)(const std::string & ),
+									   const std::string & suffix );
 
 		/*!
 		 *	@brief		Passes through the resources and removes all unreferenced resources.

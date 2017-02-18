@@ -44,11 +44,12 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __EXPLICIT_OBSTACLE_SET_H__
 #define __EXPLICIT_OBSTACLE_SET_H__
 
-#include "mengeCommon.h"
-#include "ObstacleSets/ListObstacleSet.h"
-#include "ObstacleSets/ObstacleSetFactory.h"
-#include "Obstacle.h"
-#include "ObstacleSets/ObstacleVertexList.h"
+#include "MengeCore/mengeCommon.h"
+#include "MengeCore/Agents/Obstacle.h"
+#include "MengeCore/Agents/ObstacleSets/ListObstacleSet.h"
+#include "MengeCore/Agents/ObstacleSets/ObstacleSetFactory.h"
+#include "MengeCore/Agents/ObstacleSets/ObstacleVertexList.h"
+
 #include <vector>
 
 namespace Menge {
@@ -94,7 +95,8 @@ namespace Menge {
 			 *	@returns	A string containing the obstacleset description.
 			 */
 			virtual const char * description() const {
-				return "Obstacle definitions given by explicit vertex lists in the XML specification.";
+				return "Obstacle definitions given by explicit vertex lists in the XML "
+					"specification.";
 			};
 
 		protected:
@@ -116,19 +118,20 @@ namespace Menge {
 			 *
 			 *	It is assumed that the value of the `type` attribute is this ObstacleSet's type.
 			 *	(i.e. ObstacleSetFactory::thisFactory has already been called and returned true.)
-			 *	If sub-classes of ObstacleSetFactory introduce *new* ObstacleSet parameters, then the
-			 *	sub-class should override this method but explicitly call the parent class's
+			 *	If sub-classes of ObstacleSetFactory introduce *new* ObstacleSet parameters, then
+			 *	the sub-class should override this method but explicitly call the parent class's
 			 *	version.
 			 *
 			 *	@param		gen			A pointer to the ObstacleSet whose attributes are to be set.
 			 *	@param		node		The XML node containing the ObstacleSet attributes.
-			 *	@param		specFldr	The path to the specification file.  If the ObstacleSet references
-			 *							resources in the file system, it should be defined relative
-			 *							to the specification file location.  This is the folder containing
-			 *							that path. 
+			 *	@param		specFldr	The path to the specification file.  If the ObstacleSet
+			 *							references resources in the file system, it should be
+			 *							defined relative to the specification file location.  This
+			 *							is the folder containing that path. 
 			 *	@returns	A boolean reporting success (true) or failure (false).
 			 */
-			virtual bool setFromXML( ObstacleSet * gen, TiXmlElement * node, const std::string & specFldr ) const;
+			virtual bool setFromXML( ObstacleSet * gen, TiXmlElement * node,
+									 const std::string & specFldr ) const;
 
 			/*!
 			 *	@brief		Parses an obstacle position from an \<Obstacle\> tag.

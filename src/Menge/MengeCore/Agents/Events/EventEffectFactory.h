@@ -44,9 +44,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __EVENT_EFFECT_FACTORY_H__
 #define __EVENT_EFFECT_FACTORY_H__
 
-#include "CoreConfig.h"
-#include "ElementFactory.h"
-#include "Events/EventEffect.h"
+#include "MengeCore/CoreConfig.h"
+#include "MengeCore/PluginEngine/ElementFactory.h"
+#include "MengeCore/Agents/Events/EventEffect.h"
 
 namespace Menge {
 

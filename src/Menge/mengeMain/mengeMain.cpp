@@ -36,57 +36,70 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-// STL
+#include "MengeCore/Agents/SimulatorInterface.h"
+#include "MengeCore/Math/RandGenerator.h"
+#include "MengeCore/PluginEngine/CorePluginEngine.h"
+#include "MengeCore/Runtime/Logger.h"
+#include "MengeCore/Runtime/os.h"
+#include "MengeCore/Runtime/SimulatorDB.h"
+
+#include "MengeVis/PluginEngine/VisPluginEngine.h"
+#include "MengeVis/Runtime/AgentContext/BaseAgentContext.h"
+#include "MengeVis/Runtime/MengeContext.h"
+#include "MengeVis/Runtime/SimSystem.h"
+#include "MengeVis/SceneGraph/ContextSwitcher.h"
+#include "MengeVis/SceneGraph/GLScene.h"
+#include "MengeVis/SceneGraph/TextWriter.h"
+#include "MengeVis/Viewer/GLViewer.h"
+#include "MengeVis/Viewer/ViewConfig.h"
+
+#include "mengeMain/ProjectSpec.h"
+
+#include "tclap/CmdLine.h"
+
 #include <iostream>
 #include <algorithm>
 #include <string>
 #include <exception>
 
-// UTILS
-#include "ProjectSpec.h"
-// Command-line parser
-#include "tclap/CmdLine.h"
-// Visualization
-#include "GLScene.h"
-#include "GLViewer.h"
-#include "ViewConfig.h"
-#include "NullViewer.h"
-#include "ContextSwitcher.h"
-// Menge Runtime
-#include "SimSystem.h"
-#include "PluginEngine.h"
-#include "SimulatorDB.h"
-#include "os.h"
-#include "BaseAgentContext.h"
-#include "Logger.h"
-// SceneGraph
-#include "TextWriter.h"
-// Menge Math
-#include "RandGenerator.h"
-
 using namespace Menge;
+using Menge::PluginEngine::CorePluginEngine;
+using MengeVis::PluginEngine::VisPluginEngine;
 
-// Time step (gets set by the scene.xml file
+// Time step (in seconds)
 float TIME_STEP = 0.2f;
 // The number of uniform simulation steps to take between logical time steps
 size_t SUB_STEPS = 0;
-
 // Maximum duration of simulation (in seconds)
-//		Can be set on command line.
 float SIM_DURATION = 800.f;
-
 // Controls whether the simulation is verbose or not
 bool VERBOSE = false;
-
 // The location of the executable - for basic executable resources
 std::string ROOT;
 
 SimulatorDB simDB;
 
 /*!
+ *	@brief		Utility function for defining the plugin directory.
+ *
+ *	@param		The path to the plugins.
+ */
+std::string getPluginPath() {
+#ifdef _WIN32 
+#ifdef NDEBUG
+	return os::path::join( 2, ROOT.c_str(), "plugins" );
+#else	// NDEBUG
+	return os::path::join( 3, ROOT.c_str(), "plugins", "debug" );
+#endif	// NDEBUG
+#else	// _WIN32
+	return os::path::join( 2, ROOT.c_str(), "plugins" );
+#endif	// _WIN32
+}
+
+/*!
  *	@brief		Initialize and start the simulation.
  *
- *	@param		dbEntry			The SimulatorDBEntry that describes the simulator 
+ *	@param		dbEntry			The SimulatorDBEntry that describes the simulator
  *								to be instantiated.
  *	@param		behaveFile		The path to a valid behavior specification file.
  *	@param		sceneFile		The path to a valid scene specification file.
@@ -101,20 +114,44 @@ SimulatorDB simDB;
  *	@param		dumpPath		The path to write screen grabs.  Only used in windows.
  *	@returns	0 for a successful run, non-zero otherwise.
  */
-int simMain( SimulatorDBEntry * dbEntry, const std::string & behaveFile, const std::string & sceneFile, const std::string & outFile, const std::string & scbVersion, bool visualize, const std::string & viewCfgFile, const std::string & dumpPath ) {
+int simMain( SimulatorDBEntry * dbEntry, const std::string & behaveFile,
+			 const std::string & sceneFile, const std::string & outFile,
+			 const std::string & scbVersion, bool visualize, const std::string & viewCfgFile,
+			 const std::string & dumpPath ) {
 	size_t agentCount;
-	if ( outFile != "" ) logger << Logger::INFO_MSG << "Attempting to write scb file: " << outFile << "\n";
-	SimSystem * system = dbEntry->getSimulatorSystem( agentCount, TIME_STEP, SUB_STEPS, SIM_DURATION, behaveFile, sceneFile, outFile, scbVersion, visualize, VERBOSE );
+	if ( outFile != "" ) {
+		logger << Logger::INFO_MSG << "Attempting to write scb file: " << outFile << "\n";
+	}
 
-	if ( system == 0x0 ) {
+	using Menge::Agents::SimulatorInterface;
+	using MengeVis::Runtime::BaseAgentContext;
+	using MengeVis::Runtime::SimSystem;
+	using MengeVis::SceneGraph::Context;
+	using MengeVis::SceneGraph::ContextSwitcher;
+	using MengeVis::SceneGraph::GLScene;
+	using MengeVis::SceneGraph::TextWriter;
+	using MengeVis::Viewer::GLViewer;
+	using MengeVis::Viewer::ViewConfig;
+
+	SimulatorInterface * sim = dbEntry->getSimulator( agentCount, TIME_STEP, SUB_STEPS,
+													  SIM_DURATION, behaveFile, sceneFile, outFile,
+													  scbVersion, VERBOSE );
+
+	if ( sim == 0x0 ) {
 		return 1;
 	}
 
-	SceneGraph::GLScene * scene = new SceneGraph::GLScene();
-	scene->addSystem( system );
-	
+	std::cout << "Starting...\n";
+
 	if ( visualize ) {
-		Vis::ViewConfig viewCfg;
+		logger.line();
+		logger << Logger::INFO_MSG << "Initializing visualization...";
+		VisPluginEngine visPlugins;
+		visPlugins.loadPlugins( getPluginPath() );
+
+		TextWriter::setDefaultFont( os::path::join( 2, ROOT.c_str(), "arial.ttf" ) );
+
+		ViewConfig viewCfg;
 		if ( VERBOSE ) {
 			logger << Logger::INFO_MSG << "Using visualizer!";
 		}
@@ -134,7 +171,7 @@ int simMain( SimulatorDBEntry * dbEntry, const std::string & behaveFile, const s
 				return 1;
 			}
 		}
-		Vis::GLViewer view( viewCfg );
+		GLViewer view( viewCfg );
 
 		view.setDumpPath( dumpPath );
 
@@ -147,55 +184,47 @@ int simMain( SimulatorDBEntry * dbEntry, const std::string & behaveFile, const s
 			std::cerr << "Unable to initialize the viewer\n\n";
 			visualize = false;
 		} else {
+			GLScene * scene = new GLScene();
+			SimSystem * system = new SimSystem( sim );
+			system->populateScene( scene );
+			scene->addSystem( system );
 			view.setScene( scene );
+
 			view.setFixedStep( TIME_STEP );
 			view.setBGColor( 0.1f, 0.1f, 0.1f );
-			dbEntry->populateScene( system, scene );
-			SceneGraph::ContextSwitcher * switcher = new SceneGraph::ContextSwitcher();
-			SceneGraph::Context * ctx = dbEntry->getAgentContext( system );
-			switcher->addContext( ctx, SDLK_a );
-			scene->setContext( switcher );
+			MengeVis::Runtime::MengeContext * ctx = new MengeVis::Runtime::MengeContext( sim );
+			scene->setContext( ctx );
 			view.newGLContext();
 			logger.line();
-		
+
 			view.run();
-			logger << Logger::INFO_MSG << "Simulation time: " << dbEntry->simDuration() << "\n";
 		}
-	} else  {
-		logger << Logger::INFO_MSG << "NO VISUALIZATION!\n";
-		Vis::NullViewer view;	// need the call back
-		view.setScene( scene );
-		view.setFixedStep( TIME_STEP );
-		logger.line();
-		
-		view.run();
-		std::cout << "Simulation time: " << dbEntry->simDuration() << "\n";
-		logger << Logger::INFO_MSG << "Simulation time: " << dbEntry->simDuration() << "\n";
+	} else {
+		bool running = true;
+		while ( running ) {
+			running = sim->step();
+		}
 	}
+
+	std::cout << "...Finished\n";
+	std::cout << "Simulation time: " << dbEntry->simDuration() << "\n";
+	logger << Logger::INFO_MSG << "Simulation time: " << dbEntry->simDuration() << "\n";
 
 	return 0;
 }
 
-int main(int argc, char* argv[]) {
+int main( int argc, char* argv[] ) {
 	logger.setFile( "log.html" );
 	logger << Logger::INFO_MSG << "initialized logger";
 
-	std::string exePath( argv[0] );
+	std::string exePath( argv[ 0 ] );
 	std::string absExePath;
 	os::path::absPath( exePath, absExePath );
 	std::string tail;
 	os::path::split( absExePath, ROOT, tail );
-	PluginEngine plugins( &simDB );
-#ifdef _WIN32 
-	#ifdef NDEBUG
-	std::string pluginPath = os::path::join( 2, ROOT.c_str(), "plugins" );
-	#else	// NDEBUG
-	std::string pluginPath = os::path::join( 3, ROOT.c_str(), "plugins", "debug" );
-	#endif	// NDEBUG
-#else	// _WIN32
-	std::string pluginPath = os::path::join( 2, ROOT.c_str(), "plugins" );
-#endif	// _WIN32
+	CorePluginEngine plugins( &simDB );
 	logger.line();
+	std::string pluginPath = getPluginPath();
 	logger << Logger::INFO_MSG << "Plugin path: " << pluginPath;
 	plugins.loadPlugins( pluginPath );
 	if ( simDB.modelCount() == 0 ) {
@@ -203,12 +232,11 @@ int main(int argc, char* argv[]) {
 		return 1;
 	}
 
-	SceneGraph::TextWriter::setDefaultFont( os::path::join( 2, ROOT.c_str(), "arial.ttf" ) );
 	ProjectSpec projSpec;
 
-	if (! projSpec.parseCommandParameters( argc, argv, &simDB ) ) {
+	if ( !projSpec.parseCommandParameters( argc, argv, &simDB ) ) {
 		return 0;
-	}	
+	}
 
 	if ( !projSpec.fullySpecified() ) {
 		return 1;
@@ -219,7 +247,7 @@ int main(int argc, char* argv[]) {
 	SUB_STEPS = projSpec.getSubSteps();
 	SIM_DURATION = projSpec.getDuration();
 	std::string dumpPath = projSpec.getDumpPath();
-	setDefaultGeneratorSeed( projSpec.getRandomSeed() );
+	Menge::Math::setDefaultGeneratorSeed( projSpec.getRandomSeed() );
 	std::string outFile = projSpec.getOutputName();
 
 	std::string viewCfgFile = projSpec.getView();
@@ -233,7 +261,9 @@ int main(int argc, char* argv[]) {
 		return 1;
 	}
 
-	int result = simMain( simDBEntry, projSpec.getBehavior(), projSpec.getScene(), projSpec.getOutputName(), projSpec.getSCBVersion(), useVis, viewCfgFile, dumpPath );
+	int result = simMain( simDBEntry, projSpec.getBehavior(), projSpec.getScene(),
+						  projSpec.getOutputName(), projSpec.getSCBVersion(), useVis,
+						  viewCfgFile, dumpPath );
 
 	if ( result ) {
 		std::cerr << "Simulation terminated through error.  See error log for details.\n";
@@ -241,4 +271,3 @@ int main(int argc, char* argv[]) {
 	logger.close();
 	return result;
 }
-

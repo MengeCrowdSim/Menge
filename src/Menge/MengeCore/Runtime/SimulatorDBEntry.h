@@ -48,9 +48,10 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __SIMULATOR_DB_ENTRY_H__
 #define	__SIMULATOR_DB_ENTRY_H__
 
+#include "MengeCore/CoreConfig.h"
+
 #include <string>
 #include <iostream>
-#include "CoreConfig.h"
 
 namespace Menge {
 
@@ -58,6 +59,7 @@ namespace Menge {
 	class BaseAgentContext;
 	namespace Agents {
 		class AgentInitializer;
+		class Integrator;
 		class SimulatorInterface;
 	}
 	namespace SceneGraph {
@@ -94,6 +96,11 @@ namespace Menge {
 	 */
 	class MENGE_API SimulatorDBEntry {
 	public:
+		/*!
+		 *  @brief    Virtual destructor.
+		 */
+		virtual ~SimulatorDBEntry() {}
+		
 		/*!
 		 *	@brief		Gives a brief description of the simulator.
 		 *
@@ -142,8 +149,7 @@ namespace Menge {
 		virtual Agents::SimulatorInterface * getNewSimulator() = 0;
 
 		/*!
-		 *	@brief		Returns a simulator system that can be attached to a
-		 *				SceneGraph::GLScene and advanced by a Viewer.
+		 *	@brief		Returns a new simulator.
 		 *
 		 *	@param		agentCount		The number of the agents in the system.
 		 *	@param		simTimeStep		The simulator's time step (for updating the sim system).
@@ -155,44 +161,17 @@ namespace Menge {
 		 *								trajectories.  If the empty string, no output file will
 		 *								be written.
 		 *	@param		scbVersion		The scb version to write.
-		 *	@param		visualize		Determines if this simulator is to be visualized.
-		 *	@param		VERBOSE			Determines if the initialization process prints status
-		 *								and information to the console.  True ouputs, false does not.
-		 *	@returns	A pointer to the resultant System for running the simulation.
+		 *	@param		verbose			Determines if the initialization process prints status
+		 *	@returns	A pointer to the resultant SimulatorInterface.
 		 *				If there is an error, NULL is returned.
 		 */
-		SimSystem * getSimulatorSystem( size_t & agentCount,
-										 float & simTimeStep,
-										 size_t subSteps,
-										 float simDuration,
-										 const std::string & behaveFile, 
-										 const std::string & sceneFile, 
-										 const std::string & outFile, 
-										 const std::string & scbVersion, 
-										 bool visualize, 
-										 bool VERBOSE );
-
-		/*!
-		 *	@brief		Populates the given GLScene with visualization entities tracked 
-		 *				in the system.
-		 *
-		 *	@param		system		The system which tracks the agents.  This should be
-		 *							the same system which was returned by a call to 
-		 *							SimulatorDBEntry::getSimulatorSystem.
-		 *	@param		scene		The scene to populate with visual elements.
-		 */
-		void populateScene( SimSystem * system, SceneGraph::GLScene * scene );
-
-		/*!
-		 *	@brief		Returns a pointer to an agent context appropriate to
-		 *				the corresponding simulator.
-		 *
-		 *	@param		system		The system which tracks the agents.  This should be
-		 *							the same system which was returned by a call to 
-		 *							SimulatorDBEntry::getSimulatorSystem.
-		 *	@returns	A pointer to the appropriate agent context.  
-		 */
-		BaseAgentContext * getAgentContext( SimSystem * system );
+		Agents::SimulatorInterface * getSimulator( size_t & agentCount, float & simTimeStep,
+												   size_t subSteps, float simDuration,
+												   const std::string & behaveFile,
+												   const std::string & sceneFile,
+												   const std::string & outFile,
+												   const std::string & scbVersion,
+												   bool verbose);
 
 		/*!
 		 *	@brief		Reports the current run-time of an instantiated simulation.
@@ -205,6 +184,7 @@ namespace Menge {
 		float simDuration() const;
 
 	protected:
+#if 0
 		/*!
 		 *	@brief		Returns a pointer to an agent context appropriate to
 		 *				the corresponding simulator.
@@ -222,7 +202,7 @@ namespace Menge {
 		 *				the wrong type (or if there is any other problem), NULL is returned.
 		 */
 		virtual BaseAgentContext * contextFromSystem( SimSystem * simSystem );
-
+#endif
 		/*!
 		 *	@brief		Provides an AgentInitializer appropriate to this simulator class.
 		 *
@@ -245,18 +225,21 @@ namespace Menge {
 		 *	@returns	A pointer to the instantiated simulator.
 		 *				If there is an error, NULL is returned.
 		 */
-		Agents::SimulatorInterface * initSimulator( const std::string & sceneFileName, bool VERBOSE );
+		Agents::SimulatorInterface * initSimulator( const std::string & sceneFileName,
+													bool VERBOSE );
 
 		/*!
 		 *	@brief		Creates the finite state machine and finalizes simulator and fsm
 		 *
 		 *	@param		behaveFile		string containing the full path to the behavior file
-		 *	@param		sim				pointer to the simulator interface to be used in conjunction with the FSM
+		 *	@param		sim				pointer to the simulator interface to be used in
+		 *								conjunction with the FSM
 		 *	@param		VERBOSE			boolean flag for verbose output
 		 *	@returns	A pointer to the instantiated finite state machine for the simulator.
 		 *				If there is an error, NULL is returned.
 		 */
-		BFSM::FSM * initFSM( const std::string & behaveFile, Agents::SimulatorInterface * sim, bool VERBOSE );
+		BFSM::FSM * initFSM( const std::string & behaveFile, Agents::SimulatorInterface * sim,
+							 bool VERBOSE );
 
 		/*! 
 		 *	@brief		Finalizes the finite state machine and simulator in preparation for
@@ -268,21 +251,6 @@ namespace Menge {
 		 */
 		bool finalize( Agents::SimulatorInterface * sim, BFSM::FSM * fsm );
 
-		/*! 
-		 *	@brief		Creates an instance of a SimSystem to populate.
-		 *
-		 *	This is the mechanism by which pedestrian plug-ins can override the behavior
-		 *	of the SimSystem based on models, by sub-classing the SimSystem and providing
-		 *	an alternative implementation.
-		 *
-		 *	@param		visualize		True if the SimSystem will be connected to
-		 *								a visualizer (such as a Vis::GLViewer).
-		 *	@param		duration		The maximum duration (in simulation time)
-		 *								the system will run.
-		 *	@returns	A pointer to a new SimSystem.
-		 */
-		virtual SimSystem * createSimSystem(  bool visualize, float duration );
-
 		/*!
 		 *	@brief		A pointer to the simulator.  The database entry is not responsible for
 		 *				deleting it unless there is an error in initialization.
@@ -290,8 +258,9 @@ namespace Menge {
 		Agents::SimulatorInterface * _sim;
 
 		/*!
-		 *	@brief		A pointer to the behavior finite state machine.  The database entry is *not*
-		 *				responsible for deleting it unless there is an error in initialization.
+		 *	@brief		A pointer to the behavior finite state machine.  The database entry is
+		 *				*not* responsible for deleting it unless there is an error in
+		 *				initialization.
 		 */
 		BFSM::FSM * _fsm;
 	};

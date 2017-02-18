@@ -51,8 +51,8 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include "HeightField.h"
 
 // Menge Base
-#include "Elevations/Elevation.h"
-#include "Elevations/ElevationFactory.h"
+#include "MengeCore/Agents/Elevations/Elevation.h"
+#include "MengeCore/Agents/Elevations/ElevationFactory.h"
 
 // forward declaration
 namespace Menge {
@@ -60,8 +60,6 @@ namespace Menge {
 		class BaseAgent;
 	}
 }
-
-using namespace Menge;
 
 /*!
  * @namespace Terrain
@@ -73,7 +71,7 @@ namespace Terrain {
 	/*!
 	 *	@brief		Elevation definition based on a height field.
 	 */
-	class EXPORT_API HeightFieldElevation : public Agents::Elevation {
+	class EXPORT_API HeightFieldElevation : public Menge::Agents::Elevation {
 	public:
 		/*!
 		 *	@brief		Constructor
@@ -87,7 +85,7 @@ namespace Terrain {
 		 *	@param		point		A point on the x-z cartesian plane.
 		 *	@returns	The elevation at the given point.
 		 */
-		virtual float getElevation( const Vector2 & point ) const;
+		virtual float getElevation( const Menge::Math::Vector2 & point ) const;
 
 		/*!
 		 *	@brief		Reports the elevation of the simulation domain for the given agent
@@ -95,7 +93,7 @@ namespace Terrain {
 		 *	@param		agent		A pointer to the agent for which elevation should be reported.
 		 *	@returns	The elevation (position on the y-axis) based on current agent state/position.
 		 */
-		virtual float getElevation( const Agents::BaseAgent * agent ) const;
+		virtual float getElevation( const Menge::Agents::BaseAgent * agent ) const;
 
 		/*!	@brief		Reports the gradient of the simulation domain at the given point.
 		 *				The domain may have more than one valid gradient for the point.
@@ -104,7 +102,7 @@ namespace Terrain {
 		 *	@param		point		A point on the x-z cartesian plane.
 		 *	@returns	The gradient at the given point.
 		 */
-		virtual Vector2 getGradient( const Vector2 & point ) const;
+		virtual Menge::Math::Vector2 getGradient( const Menge::Math::Vector2 & point ) const;
 
 		/*!
 		 *	@brief		Reports the gradient of the simulation domain for the given agent
@@ -112,7 +110,7 @@ namespace Terrain {
 		 *	@param		agent		A pointer to the agent for which gradient should be reported.
 		 *	@returns	The gradient of the domain based on current agent state/position.
 		 */
-		virtual Vector2 getGradient( const Agents::BaseAgent * agent ) const;
+		virtual Menge::Math::Vector2 getGradient( const Menge::Agents::BaseAgent * agent ) const;
 
 		/*!
 		 *	@brief		Sets the height field for this elevation object to use.
@@ -133,7 +131,7 @@ namespace Terrain {
 	/*!
 	 *	@brief		Factory for the HeightFieldElevation.
 	 */
-	class EXPORT_API HeightFieldElevationFactory : public Agents::ElevationFactory {
+	class EXPORT_API HeightFieldElevationFactory : public Menge::Agents::ElevationFactory {
 	public:
 		/*!
 		 *	@brief		Constructor.
@@ -172,7 +170,7 @@ namespace Terrain {
 		 *
 		 *	@returns		A pointer to a newly instantiated Elevation class.
 		 */
-		Agents::Elevation * instance() const { return new HeightFieldElevation(); }
+		Menge::Agents::Elevation * instance() const { return new HeightFieldElevation(); }
 
 		/*!
 		 *	@brief		Given a pointer to an Elevation instance, sets the appropriate fields
@@ -186,13 +184,14 @@ namespace Terrain {
 		 *
 		 *	@param		e			A pointer to the elevation whose attributes are to be set.
 		 *	@param		node		The XML node containing the elevation attributes.
-		 *	@param		specFldr	The path to the specification file.  If the Elevation references
-		 *							resources in the file system, it should be defined relative
-		 *							to the specification file location.  This is the folder containing
-		 *							that path. 
+		 *	@param		specFldr	The path to the specification file.  If the Elevation
+		 *							references resources in the file system, it should be defined
+		 *							relative to the specification file location.  This is the
+		 *							folder containing that path. 
 		 *	@returns	A boolean reporting success (true) or failure (false).
 		 */
-		virtual bool setFromXML( Agents::Elevation * e, TiXmlElement * node, const std::string & specFldr ) const;
+		virtual bool setFromXML( Menge::Agents::Elevation * e, TiXmlElement * node,
+								 const std::string & specFldr ) const;
 	
 		/*!
 		 *	@brief		The identifier for the "file_name" string attribute.
@@ -201,4 +200,3 @@ namespace Terrain {
 	};
 }	// namespace Terrain
 #endif	// __ELEVATION_HEIGHT_FIELD_H__
-

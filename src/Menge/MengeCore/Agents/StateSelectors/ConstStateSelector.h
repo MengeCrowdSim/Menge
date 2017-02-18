@@ -45,9 +45,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __CONST_STATE_SELECTOR_H__
 #define __CONST_STATE_SELECTOR_H__
 
-#include "mengeCommon.h"
-#include "StateSelectors/StateSelector.h"
-#include "StateSelectors/StateSelectorFactory.h"
+#include "MengeCore/mengeCommon.h"
+#include "MengeCore/Agents/StateSelectors/StateSelector.h"
+#include "MengeCore/Agents/StateSelectors/StateSelectorFactory.h"
 
 namespace Menge {
 
@@ -101,8 +101,8 @@ namespace Menge {
 			/*!
 			 *	@brief		The name of the state selector type.
 			 *
-			 *	The state selector's name must be unique among all registered state selector elements.  
-			 *	Each state selector factory must override this function.
+			 *	The state selector's name must be unique among all registered state selector
+			 *	elements. Each state selector factory must override this function.
 			 *
 			 *	@returns	A string containing the unique state selector name.
 			 */
@@ -125,32 +125,35 @@ namespace Menge {
 			 *
 			 *	All StateSelectorFactory sub-classes must override this by creating (on the heap)
 			 *	a new instance of its corresponding selector type.  The various field values
-			 *	of the instance will be set in a subsequent call to StateSelectorFactory::setFromXML.
-			 *	The caller of this function takes ownership of the memory.
+			 *	of the instance will be set in a subsequent call to
+			 *	StateSelectorFactory::setFromXML. The caller of this function takes ownership of
+			 *	the memory.
 			 *
 			 *	@returns		A pointer to a newly instantiated StateSelector class.
 			 */
 			StateSelector * instance() const { return new ConstStateSelector(); }
 
 			/*!
-			 *	@brief		Given a pointer to a StateSelector instance, sets the appropriate fields
-			 *				from the provided XML node.
+			 *	@brief		Given a pointer to a StateSelector instance, sets the appropriate
+			 *				fieldsfrom the provided XML node.
 			 *
 			 *	It is assumed that the value of the `type` attribute is this StateSelector's type.
 			 *	(i.e. StateSelectorFactory::thisFactory has already been called and returned true.)
-			 *	If sub-classes of StateSelectorFactory introduce *new* StateSelector parameters, then the
-			 *	sub-class should override this method but explicitly call the parent class's
-			 *	version.
+			 *	If sub-classes of StateSelectorFactory introduce *new* StateSelector parameters,
+			 *	then the sub-class should override this method but explicitly call the parent
+			 *	class's version.
 			 *
-			 *	@param		sel				A pointer to the state selector whose attributes are to be set.
+			 *	@param		sel				A pointer to the state selector whose attributes are to
+			 *								be set.
 			 *	@param		node			The XML node containing the goal attributes.
-			 *	@param		specFldr		The path to the specification file.  If the condition references
-			 *								resources in the file system, it should be defined relative
-			 *								to the behavior file location.  This is the folder containing
-			 *								that path. 
+			 *	@param		specFldr		The path to the specification file.  If the condition
+			 *								references resources in the file system, it should be
+			 *								defined relative to the behavior file location.  This
+			 *								is the folder containing that path. 
 			 *	@returns	A boolean reporting success (true) or failure (false).
 			 */
-			virtual bool setFromXML( StateSelector * sel, TiXmlElement * node, const std::string & specFldr ) const;
+			virtual bool setFromXML( StateSelector * sel, TiXmlElement * node,
+									 const std::string & specFldr ) const;
 
 			/*!
 			 *	@brief		The identifier for the "name" string parameter.

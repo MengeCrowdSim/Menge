@@ -47,9 +47,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __OBSTACLE_SET_DATABASE_H__
 #define __OBSTACLE_SET_DATABASE_H__
 
-#include "ElementDatabase.h"
-#include "ObstacleSets/ObstacleSetFactory.h"
-#include "ObstacleSets/ObstacleSet.h"
+#include "MengeCore/Agents/ObstacleSets/ObstacleSet.h"
+#include "MengeCore/Agents/ObstacleSets/ObstacleSetFactory.h"
+#include "MengeCore/PluginEngine/ElementDatabase.h"
 
 namespace Menge {
 
@@ -64,8 +64,11 @@ namespace Menge {
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
 	// Declarations of explicit specialization
-	template<> void ElementDB< Agents::ObstacleSetFactory, Agents::ObstacleSet >::addBuiltins();
-	template<> std::string ElementDB< Agents::ObstacleSetFactory, Agents::ObstacleSet >::getElementName();
+	template<> 
+	void ElementDB< Agents::ObstacleSetFactory, Agents::ObstacleSet >::addBuiltins();
+
+	template<> 
+	std::string ElementDB< Agents::ObstacleSetFactory, Agents::ObstacleSet >::getElementName();
 
 #endif	 // DOXYGEN_SHOULD_SKIP_THIS
 

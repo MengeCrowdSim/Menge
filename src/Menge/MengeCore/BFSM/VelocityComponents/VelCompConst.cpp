@@ -36,8 +36,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "VelocityComponents/VelCompConst.h"
-#include "BaseAgent.h"
+#include "MengeCore/BFSM/VelocityComponents/VelCompConst.h"
+
+#include "MengeCore/Agents/BaseAgent.h"
 
 #include <sstream>
 #include <iomanip>
@@ -49,8 +50,12 @@ namespace Menge {
 		/////////////////////////////////////////////////////////////////////
 		//                   Implementation of ConstVelComponent
 		/////////////////////////////////////////////////////////////////////
+		
+		const std::string ConstVelComponent::NAME = "const";
 
-		ConstVelComponent::ConstVelComponent(): VelComponent() {
+		/////////////////////////////////////////////////////////////////////
+
+		ConstVelComponent::ConstVelComponent() : VelComponent() {
 			setVelocity( Vector2( 1.f, 0.f ) );
 		}
 
@@ -62,7 +67,9 @@ namespace Menge {
 
 		/////////////////////////////////////////////////////////////////////
 
-		void ConstVelComponent::setPrefVelocity( const Agents::BaseAgent * agent, const Goal * goal, Agents::PrefVelocity & pVel ) {
+		void ConstVelComponent::setPrefVelocity( const Agents::BaseAgent * agent,
+												 const Goal * goal,
+												 Agents::PrefVelocity & pVel ) const {
 			pVel.setSingle( _dir );
 			pVel.setSpeed( _speed );
 			pVel.setTarget( _dir * ( _speed * 5.f ) + agent->_pos );
@@ -76,36 +83,6 @@ namespace Menge {
 		}
 
 		/////////////////////////////////////////////////////////////////////
-
-		VelCompContext * ConstVelComponent::getContext() { 
-			return new ConstVCContext( this ); 
-		}
-
-		/////////////////////////////////////////////////////////////////////
-		//                   Implementation of ConstVCContext
-		/////////////////////////////////////////////////////////////////////
-
-		ConstVCContext::ConstVCContext( ConstVelComponent * vc ):VelCompContext(),_vc(vc) {
-		}
-
-		/////////////////////////////////////////////////////////////////////
-
-		std::string ConstVCContext::getUIText( const std::string & indent ) const {
-			std::stringstream ss;
-			ss << indent << "Const: " << _vc->getConstVelocity();
-			return ss.str();
-		}
-
-		/////////////////////////////////////////////////////////////////////
-
-		void ConstVCContext::draw3DGL( const Agents::BaseAgent * agt, const Goal * goal ) {
-			// draw preferred velocity
-			Agents::PrefVelocity pVel;
-			_vc->setPrefVelocity( agt, goal, pVel );
-			drawPrefVel( pVel, agt->_pos );
-		}
-		
-		/////////////////////////////////////////////////////////////////////
 		//                   Implementation of ConstVCFactory
 		/////////////////////////////////////////////////////////////////////
 
@@ -116,9 +93,12 @@ namespace Menge {
 
 		/////////////////////////////////////////////////////////////////////
 
-		bool ConstVCFactory::setFromXML( VelComponent * vc, TiXmlElement * node, const std::string & behaveFldr ) const {
+		bool ConstVCFactory::setFromXML( VelComponent * vc, TiXmlElement * node,
+										 const std::string & behaveFldr ) const {
 			ConstVelComponent * cvc = dynamic_cast< ConstVelComponent * >( vc );
-			assert( cvc != 0x0 && "Trying to set attributes of a const velocity component on an incompatible object" );
+			assert( cvc != 0x0 &&
+					"Trying to set attributes of a const velocity component on an incompatible "
+					"object" );
 
 			if ( ! VelCompFactory::setFromXML( vc, node, behaveFldr ) ) return false;
 
@@ -128,6 +108,10 @@ namespace Menge {
 		
 		/////////////////////////////////////////////////////////////////////
 		//                   Implementation of ConstVelDirComponent
+		/////////////////////////////////////////////////////////////////////
+
+		const std::string ConstVelDirComponent::NAME = "const_dir";
+
 		/////////////////////////////////////////////////////////////////////
 
 		ConstVelDirComponent::ConstVelDirComponent(): VelComponent() {
@@ -142,7 +126,9 @@ namespace Menge {
 		
 		/////////////////////////////////////////////////////////////////////
 
-		void ConstVelDirComponent::setPrefVelocity( const Agents::BaseAgent * agent, const Goal * goal, Agents::PrefVelocity & pVel ) {
+		void ConstVelDirComponent::setPrefVelocity( const Agents::BaseAgent * agent,
+													const Goal * goal,
+													Agents::PrefVelocity & pVel ) const {
 			pVel.setSingle( _dir );
 			pVel.setSpeed( agent->_prefSpeed );
 			pVel.setTarget( _dir * ( agent->_prefSpeed * 5.f ) + agent->_pos );
@@ -153,37 +139,7 @@ namespace Menge {
 		void ConstVelDirComponent::setDirection( const Vector2 & dir ) {
 			_dir.set( norm( dir ) );
 		}
-		
-		/////////////////////////////////////////////////////////////////////
 
-		VelCompContext * ConstVelDirComponent::getContext() {
-			return new ConstDirVCContext( this );
-		}
-
-		/////////////////////////////////////////////////////////////////////
-		//                   Implementation of ConstDirVCContext
-		/////////////////////////////////////////////////////////////////////
-
-		ConstDirVCContext::ConstDirVCContext( ConstVelDirComponent * vc ):VelCompContext(),_vc(vc) {
-		}
-
-		/////////////////////////////////////////////////////////////////////
-
-		std::string ConstDirVCContext::getUIText( const std::string & indent ) const {
-			std::stringstream ss;
-			ss << indent << "Const direction: " << _vc->_dir;
-			return ss.str();
-		}
-
-		/////////////////////////////////////////////////////////////////////
-
-		void ConstDirVCContext::draw3DGL( const Agents::BaseAgent * agt, const Goal * goal ) {
-			// draw preferred velocity
-			Agents::PrefVelocity pVel;
-			_vc->setPrefVelocity( agt, goal, pVel );
-			drawPrefVel( pVel, agt->_pos );
-		}
-		
 		/////////////////////////////////////////////////////////////////////
 		//                   Implementation of ConstDirVCFactory
 		/////////////////////////////////////////////////////////////////////
@@ -195,9 +151,11 @@ namespace Menge {
 
 		/////////////////////////////////////////////////////////////////////
 
-		bool ConstDirVCFactory::setFromXML( VelComponent * vc, TiXmlElement * node, const std::string & behaveFldr ) const {
+		bool ConstDirVCFactory::setFromXML( VelComponent * vc, TiXmlElement * node,
+											const std::string & behaveFldr ) const {
 			ConstVelDirComponent * cvc = dynamic_cast< ConstVelDirComponent * >( vc );
-			assert( cvc != 0x0 && "Trying to set attributes of a const direction velocity component on an incompatible object" );
+			assert( cvc != 0x0 && "Trying to set attributes of a const direction velocity "
+					"component on an incompatible object" );
 
 			if ( ! VelCompFactory::setFromXML( cvc, node, behaveFldr ) ) return false;
 			
@@ -209,39 +167,20 @@ namespace Menge {
 		//                   Implementation of ZeroVelComponent
 		/////////////////////////////////////////////////////////////////////
 
+		const std::string ZeroVelComponent::NAME = "zero";
+
+		/////////////////////////////////////////////////////////////////////
+
 		ZeroVelComponent::ZeroVelComponent(): VelComponent() {
 		}
 
 		/////////////////////////////////////////////////////////////////////
 
-		void ZeroVelComponent::setPrefVelocity( const Agents::BaseAgent * agent, const Goal * goal, Agents::PrefVelocity & pVel ) {
+		void ZeroVelComponent::setPrefVelocity( const Agents::BaseAgent * agent, const Goal * goal,
+												Agents::PrefVelocity & pVel ) const {
 			pVel.setSingle( Vector2(1.f,0.f) );
 			pVel.setSpeed( 0.f );
 			pVel.setTarget( agent->_pos );
 		}
-
-		/////////////////////////////////////////////////////////////////////
-
-		VelCompContext * ZeroVelComponent::getContext() {
-			return new ZeroVCContext();
-		}
-
-		/////////////////////////////////////////////////////////////////////
-		//                   Implementation of ZeroVCContext
-		/////////////////////////////////////////////////////////////////////
-
-		ZeroVCContext::ZeroVCContext():VelCompContext() {
-		}
-
-		/////////////////////////////////////////////////////////////////////
-
-		std::string ZeroVCContext::getUIText( const std::string & indent ) const {
-			std::stringstream ss;
-			ss << indent << "Zero velocity";
-			return ss.str();
-		}
-
-		
-		
 	}	// namespace BFSM
 }	// namespace Menge

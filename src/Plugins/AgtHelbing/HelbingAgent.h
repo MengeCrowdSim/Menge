@@ -45,16 +45,13 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __HELBING_AGENT_H__
 #define	__HELBING_AGENT_H__
 
-#include "BaseAgent.h"
-
-using namespace Menge;
-
+#include "MengeCore/Agents/BaseAgent.h"
 
 namespace Helbing {
 	/*!
 	 *	@brief		Agent definition for the Helbing pedestrian model.
 	 */
-	class Agent : public Agents::BaseAgent {
+	class Agent : public Menge::Agents::BaseAgent {
 	public:
 		/*!
 		 *	@brief		A variant of the copy constructor.
@@ -72,24 +69,34 @@ namespace Helbing {
 		void computeNewVelocity();
 
 		/*!
+		*	@brief		Used by the plugin system to know what artifacts to associate with
+		*				agents of this type.  Every sub-class of must return a globally
+		*				unique value if it should be associated with unique artifacts.
+		*/
+		virtual std::string getStringId() const { return NAME; }
+
+		/*! @brief	The name identifier for this agent type. */
+		static const std::string NAME;
+
+		/*!
 		 *	@brief		Compute the force due to another agent
 		 *	@param		other			A pointer to a neighboring agent
 		 *	@returns	The force imparted by the other agent on this agent
 		 */
-		Vector2 agentForce( const Agent * other ) const;
+		Menge::Math::Vector2 agentForce( const Agent * other ) const;
 
 		/*!
 		 *	@brief		Compute the force due to a nearby obstacle
 		 *	@param		obst			A pointer to the obstacle
 		 *	@returns	The force imparted by the obstacle on this agent
 		 */
-		Vector2 obstacleForce( const Agents::Obstacle * obst ) const;
+		Menge::Math::Vector2 obstacleForce( const Menge::Agents::Obstacle * obst ) const;
 
 		/*!
 		 *	@brief		Computes the driving force for the agent
 		 *	@returns	The vector corresponding to the agent's driving force.
 		 */
-		Vector2 drivingForce() const;
+		Menge::Math::Vector2 drivingForce() const;
 
 		/*!
 		 *	@brief		The mass of the agent
@@ -98,4 +105,4 @@ namespace Helbing {
 	};
 }	// namespace Helbing
 
-#endif
+#endif	// __HELBING_AGENT_H__

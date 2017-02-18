@@ -48,9 +48,10 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __SIMULATOR_DB_H__
 #define	__SIMULATOR_DB_H__
 
-#include "SimulatorDBEntry.h"
-#include "CoreConfig.h"
-#include "MengeException.h"
+#include "MengeCore/CoreConfig.h"
+#include "MengeCore/MengeException.h"
+#include "MengeCore/Runtime/SimulatorDBEntry.h"
+
 #include <list>
 #include <algorithm>
 #include <iostream>
@@ -95,7 +96,8 @@ namespace Menge {
 		 *
 		 *	@param		s		The exception-specific message.
 		 */
-		SimDBFatalException( const std::string & s ): MengeException(s), SimDBException(), MengeFatalException() {}
+		SimDBFatalException( const std::string & s ) : MengeException(s), SimDBException(),
+													   MengeFatalException() {}
 	};
 
 	//////////////////////////////////////////////////////////////////////////////
@@ -167,7 +169,8 @@ namespace Menge {
 		 *	It returns the database entry with a command line parameter value that is the
 		 *	same as the provided string.  The test is case <i>in</i>sensitive. 
 		 *
-		 *	@param		modelName		The command-line parameter for the desired pedestrian model.
+		 *	@param		modelName		The command-line parameter for the desired pedestrian
+		 *								model.
 		 *	@returns	A pointer to the summary entity.  If the name does not match
 		 *				a registered model, NULL is returned
 		 */

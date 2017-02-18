@@ -36,10 +36,11 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "CondGoal.h"
-#include "BaseAgent.h"
-#include "Logger.h"
-#include "Goals/Goal.h"
+#include "MengeCore/BFSM/Transitions/CondGoal.h"
+
+#include "MengeCore/Agents/BaseAgent.h"
+#include "MengeCore/BFSM/Goals/Goal.h"
+#include "MengeCore/Runtime/Logger.h"
 
 namespace Menge {
 
@@ -76,14 +77,17 @@ namespace Menge {
 		/////////////////////////////////////////////////////////////////////
 
 		GoalCondFactory::GoalCondFactory() : ConditionFactory() {
-			_distanceID = _attrSet.addFloatAttribute( "distance", false /*required*/, 0.f /*default*/ );
+			_distanceID = _attrSet.addFloatAttribute( "distance", false /*required*/,
+													  0.f /*default*/ );
 		}
 
 		///////////////////////////////////////////////////////////////////////////
 
-		bool GoalCondFactory::setFromXML( Condition * condition, TiXmlElement * node, const std::string & behaveFldr ) const {
+		bool GoalCondFactory::setFromXML( Condition * condition, TiXmlElement * node,
+										  const std::string & behaveFldr ) const {
 			GoalCondition * gCond = dynamic_cast< GoalCondition * >( condition );
-			assert( gCond != 0x0 && "Trying to set the properties of a goal condition on an incompatible object" );
+			assert( gCond != 0x0 &&
+					"Trying to set the properties of a goal condition on an incompatible object" );
 
 			if ( !ConditionFactory::setFromXML( gCond, node, behaveFldr ) ) return false;
 

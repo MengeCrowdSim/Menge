@@ -47,16 +47,14 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __FREE_FORMATION_H__
 #define __FREE_FORMATION_H__
 
+#include "MengeCore/mengeCommon.h"
+#include "MengeCore/Agents/BaseAgent.h"
+#include "MengeCore/Agents/PrefVelocity.h"
+#include "MengeCore/BFSM/FSM.h"
+#include "MengeCore/resources/Resource.h"
+
 #include <map>
 #include <vector>
-#include "FSM.h"
-#include "BaseAgent.h"
-#include "resources/Resource.h"
-#include "mengeCommon.h"
-#include "PrefVelocity.h"
-
-using namespace Menge;
-
 
 /*!
  *	@namespace		Formations
@@ -76,9 +74,9 @@ namespace Formations {
 	 */
 	struct FormationPoint {
 		size_t _id;		///< The id of the sentinel point
-		Vector2 _pos;	///< The position of the sentinel point (in formation space) 
+		Menge::Math::Vector2 _pos;	///< The position of the sentinel point (in formation space) 
 		float _dist;	///< The distance of the sentinel point to the formation center
-		Vector2 _dir;	///< The direction of the sentinel point to the formation center
+		Menge::Math::Vector2 _dir;	///< The direction of the sentinel point to the formation center
 		bool _border;	///< Flag indicating if this is a border point (true) or not (false).
 		float _weight;	///< The weight of the sentinel point 
 	};
@@ -86,7 +84,7 @@ namespace Formations {
 	/*!
 	 * @brief		The class for modeling a freestyle formation. 
 	 */
-	class FreeFormation : public Resource{
+	class FreeFormation : public Menge::Resource {
 	public:
 		/*!
 		 *  @brief		Constructor
@@ -119,7 +117,7 @@ namespace Formations {
 		 *	@returns	A pointer to the new Formation (if the file is valid), NULL if
 		 *				invalid.
 		 */
-		static Resource * load( const std::string & fileName );
+		static Menge::Resource * load( const std::string & fileName );
 
 		/*!
 		 *	@brief		The unique label for this data type to be used with 
@@ -135,14 +133,14 @@ namespace Formations {
 		 *
 		 *	@param		agt		The agent to add to the formation.
 		 */
-		void addAgent( const Agents::BaseAgent * agt );
+		void addAgent( const Menge::Agents::BaseAgent * agt );
 
 		/*!
 		 *	@brief		Removes an agent from the formation.
 		 *
 		 *	@param		agt		The agent to remove.
 		 */
-		void removeAgent(const Agents::BaseAgent *agt);
+		void removeAgent( const Menge::Agents::BaseAgent *agt );
 		
 		/*!
 		 *	@brief		Computes the mapping from tracked agents to formation points.
@@ -150,7 +148,7 @@ namespace Formations {
 		 *	@param		fsm		A pointer to the FSM.
 		 *
 		 */
-		void mapAgentsToFormation(const BFSM::FSM * fsm);
+		void mapAgentsToFormation( const Menge::BFSM::FSM * fsm );
 		
 		/*!
 		 *	@brief		Provides an intermediate goal for the agent.
@@ -161,9 +159,10 @@ namespace Formations {
 		 *	@param		agt		The agent for whom the goal is provided.
 		 *	@param		pVel	The agent's preferred velocity...does it change??
 		 *	@param		target	The intermediate goal value is stored in this vector.
-		 *	@returns	True if the an intermediate goal exists and is set in target, false otherwise.
+		 *	@returns	True if the an intermediate goal exists and is set in target.
 		 */
-		bool getGoalForAgent(const Agents::BaseAgent * agt, Agents::PrefVelocity &pVel, Vector2 &target);
+		bool getGoalForAgent( const Menge::Agents::BaseAgent * agt,
+							  Menge::Agents::PrefVelocity &pVel, Menge::Math::Vector2 &target );
 
 	protected:
 
@@ -173,7 +172,7 @@ namespace Formations {
 		 *	@param		agt		The agent to map to a sentinel point.
 		 *
 		 */
-		void mapAgentToPoint(const Agents::BaseAgent *agt);
+		void mapAgentToPoint( const Menge::Agents::BaseAgent *agt );
 
 		/*!
 		 *	@brief		Maps a border point to one of the agents in the formation.
@@ -187,17 +186,17 @@ namespace Formations {
 		 *	@brief		Adds a point to the formation.
 		 *
 		 *	@param		pt				A point (in formation space).
-		 *	@param		borderPoint		True if the point should be considered a border point (false otherwise).
+		 *	@param		borderPoint		True if the point should be considered a border point.
 		 *	@param		weight			The weight of the point.
 		 */
-		void addFormationPoint(Vector2 pt, bool borderPoint, float weight ); 
+		void addFormationPoint( Menge::Math::Vector2 pt, bool borderPoint, float weight );
 
 		/*!
 		 *	@brief		Adds an agent to the formation.
 		 *
 		 *	@param		agt		The agent to add to the formation.
 		 */
-		void addAgentPoint(const Agents::BaseAgent *agt); 
+		void addAgentPoint( const Menge::Agents::BaseAgent *agt );
 
 		/*!
 		 *	@brief		Finalize the formation representation for use.
@@ -251,7 +250,7 @@ namespace Formations {
 		/*!
 		 *	@brief		The formation's direction of travel.
 		 */
-		Vector2 _direction;
+		Menge::Math::Vector2 _direction;
 
 		/*!
 		 *	@brief		The preferred speed of the formation.
@@ -261,7 +260,7 @@ namespace Formations {
 		/*!
 		 *	@brief		The location of the formation center in world space (0,0).
 		 */
-		Vector2 _pos;
+		Menge::Math::Vector2 _pos;
 
 		/*!
 		 *	@brief		The instantaneous max distance from the center of the formation to normalized agent positions
@@ -273,13 +272,13 @@ namespace Formations {
 		 *	@brief		A cache of previoius agent preferred directions.
 		 *				Maps agent identifiers to directions.
 		 */
-		std::map< size_t, Vector2 > _agentPrefDirs;
+		std::map< size_t, Menge::Math::Vector2 > _agentPrefDirs;
 
 		/*!
 		 *	@brief		A cache of previoius agent preferred velocities.
 		 *				Maps agent identifiers to velocities.
 		 */
-		std::map< size_t, Vector2 > _agentPrefVels;
+		std::map< size_t, Menge::Math::Vector2 > _agentPrefVels;
 
 		/*!
 		 *	@brief		A cache of previoius agent preferred weights.
@@ -294,13 +293,13 @@ namespace Formations {
 		 *	@brief		A cache of previoius agent preferred directions.
 		 *				Maps agent identifiers to agents.
 		 */
-		std::map< size_t, const Agents::BaseAgent * > _agents;
+		std::map< size_t, const Menge::Agents::BaseAgent * > _agents;
 	};
 
 	/*!
 	 *	@brief		The definition of the managed pointer for formation data
 	 */
-	typedef ResourcePtr< FreeFormation > FormationPtr;
+	typedef Menge::ResourcePtr< FreeFormation > FormationPtr;
 
 	/*!
 	 *  @brief       load a formation
@@ -308,7 +307,6 @@ namespace Formations {
      *	@returns	The FormationPtr containing the data.
      *	@throws		A ResourceException if the data is unable to be instantiated.
 	 */
-	FormationPtr loadFormation( const std::string & fileName ) throw ( ResourceException );
-};
-
-#endif
+	FormationPtr loadFormation( const std::string & fileName ) throw ( Menge::ResourceException );
+}	// namespace Formations
+#endif	// __FREE_FORMATION_H__

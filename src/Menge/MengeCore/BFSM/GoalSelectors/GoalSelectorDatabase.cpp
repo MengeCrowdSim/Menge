@@ -36,18 +36,19 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "GoalSelectorDatabase.h"
-#include "GoalSelectors/GoalSelectorIdentity.h"
-#include "GoalSelectors/GoalSelectorExplicit.h"
-#include "GoalSelectors/GoalSelectorMirror.h"
-#include "GoalSelectors/GoalSelectorOffset.h"
-#include "GoalSelectors/GoalSelectorRandom.h"
-#include "GoalSelectors/GoalSelectorWeighted.h"
-#include "GoalSelectors/GoalSelectorNearest.h"
-#include "GoalSelectors/GoalSelectorNearestNM.h"
-#include "GoalSelectors/GoalSelectorFarthest.h"
-#include "GoalSelectors/GoalSelectorFarthestNM.h"
-#include "GoalSelectors/GoalSelectorShared.h"
+#include "MengeCore/BFSM/GoalSelectors/GoalSelectorDatabase.h"
+
+#include "MengeCore/BFSM/GoalSelectors/GoalSelectorExplicit.h"
+#include "MengeCore/BFSM/GoalSelectors/GoalSelectorFarthest.h"
+#include "MengeCore/BFSM/GoalSelectors/GoalSelectorFarthestNM.h"
+#include "MengeCore/BFSM/GoalSelectors/GoalSelectorIdentity.h"
+#include "MengeCore/BFSM/GoalSelectors/GoalSelectorMirror.h"
+#include "MengeCore/BFSM/GoalSelectors/GoalSelectorNearest.h"
+#include "MengeCore/BFSM/GoalSelectors/GoalSelectorNearestNM.h"
+#include "MengeCore/BFSM/GoalSelectors/GoalSelectorOffset.h"
+#include "MengeCore/BFSM/GoalSelectors/GoalSelectorRandom.h"
+#include "MengeCore/BFSM/GoalSelectors/GoalSelectorShared.h"
+#include "MengeCore/BFSM/GoalSelectors/GoalSelectorWeighted.h"
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
@@ -55,7 +56,9 @@ namespace Menge {
 
 	// Specialization
 	template <>
-	std::string ElementDB< BFSM::GoalSelectorFactory, BFSM::GoalSelector >::getElementName() { return "goal selector"; }
+	std::string ElementDB< BFSM::GoalSelectorFactory, BFSM::GoalSelector >::getElementName() {
+		return "goal selector";
+	}
 
 	template <>
 	void ElementDB< BFSM::GoalSelectorFactory, BFSM::GoalSelector >::addBuiltins() {

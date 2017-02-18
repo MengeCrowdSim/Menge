@@ -37,9 +37,15 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 */
 
 #include "JohanssonSimulator.h"
-#include "Utils.h"
+#include "MengeCore/Runtime/Utils.h"
 
 namespace Johansson {
+
+	using Menge::toFloat;
+	using Menge::UtilException;
+	using Menge::Agents::SimulatorBase;
+	using Menge::Agents::XMLParamException;
+
 	////////////////////////////////////////////////////////////////
 	//					Implementation of Johansson::Simulator
 	////////////////////////////////////////////////////////////////
@@ -53,7 +59,8 @@ namespace Johansson {
 
 	////////////////////////////////////////////////////////////////
 
-	bool Simulator::setExpParam( const std::string & paramName, const std::string & value ) throw( Agents::XMLParamException ) {
+	bool Simulator::setExpParam( const std::string & paramName, const std::string & value )
+		throw( XMLParamException ) {
 		try {
 			if ( paramName == "agent_scale" ) {
 				AGENT_SCALE = toFloat( value );
@@ -65,12 +72,14 @@ namespace Johansson {
 				STRIDE_TIME = toFloat( value );
 			} else if ( paramName == "force_distance" ) {
 				FORCE_DISTANCE = toFloat( value );
-			} else if ( ! Agents::SimulatorBase<Agent>::setExpParam( paramName, value ) ) {
+			} else if ( ! SimulatorBase<Agent>::setExpParam( paramName, value ) ) {
 				// Simulator base didn't recognize the parameter either
 				return false;
 			}
 		} catch ( UtilException ) {
-			throw Agents::XMLParamException( std::string( "Johansson parameter \"") + paramName + std::string("\" value couldn't be converted to the correct type.  Found the value: " ) + value );
+			throw XMLParamException( std::string( "Johansson parameter \"") + paramName +
+									 std::string("\" value couldn't be converted to the correct "
+									 "type.  Found the value: " ) + value );
 		}
 		return true;
 	}

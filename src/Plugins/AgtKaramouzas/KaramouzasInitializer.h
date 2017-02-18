@@ -43,15 +43,13 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __KARAMOUZAS_INITIALIZER_H__
 #define	__KARAMOUZAS_INITIALIZER_H__
 
-#include "AgentInitializer.h"
-
-using namespace Menge;
+#include "MengeCore/Agents/AgentInitializer.h"
 
 namespace Karamouzas {
 	/*!
 	 *	@brief		Class which determines the agent properties for each new Karamouzas agent.
 	 */
-	class AgentInitializer : public Agents::AgentInitializer {
+	class AgentInitializer : public Menge::Agents::AgentInitializer {
 	public:
 		/*!
 		 *	@brief		Constructor.
@@ -85,7 +83,7 @@ namespace Karamouzas {
 		 *	@param		agent		The agent whose properties are to be set.
 		 *	@returns	True if the properties were set successfully, false otherwise.
 		 */
-		virtual bool setProperties( Agents::BaseAgent * agent );
+		virtual bool setProperties( Menge::Agents::BaseAgent * agent );
 
 		/*!
 		 *	@brief		Sets all generators to default values.
@@ -138,7 +136,8 @@ namespace Karamouzas {
 		 *	@param			value			A string containing the value for the parameter.
 		 *	@returns		The result of the parse: failure, ignored, or accepted.
 		 */
-		virtual Agents::AgentInitializer::ParseResult setFromXMLAttribute( const ::std::string & paramName, const ::std::string & value );
+		virtual Menge::Agents::AgentInitializer::ParseResult setFromXMLAttribute(
+			const ::std::string & paramName, const ::std::string & value );
 
 		/*!
 		 *	@brief		Process the given <Property .../> tag.  
@@ -161,15 +160,14 @@ namespace Karamouzas {
 		/*!
 		 *	@brief		The personal space (in meters) of the agent
 		 */
-		FloatGenerator *		_perSpace;
+		Menge::Math::FloatGenerator *		_perSpace;
 
 		/*!
 		 *	@brief		The anticipation time (in seconds) of the agent
 		 */
-		FloatGenerator *		_anticipation;
+		Menge::Math::FloatGenerator *		_anticipation;
 
 	};
 }	// namespace Karamouzas
-
 
 #endif	// __KARAMOUZAS_INITIALIZER_H__

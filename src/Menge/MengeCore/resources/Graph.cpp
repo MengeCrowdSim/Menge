@@ -36,14 +36,16 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "Graph.h"
-#include "GraphEdge.h"
-#include "RoadMapPath.h"
-#include "MinHeap.h"
-#include "Core.h"
-#include "BaseAgent.h"
-#include "SpatialQueries/SpatialQuery.h"
-#include "Goals/Goal.h"
+#include "MengeCore/resources/Graph.h"
+
+#include "MengeCore/Core.h"
+#include "MengeCore/Agents/BaseAgent.h"
+#include "MengeCore/Agents/SpatialQueries/SpatialQuery.h"
+#include "MengeCore/BFSM/Goals/Goal.h"
+#include "MengeCore/resources/GraphEdge.h"
+#include "MengeCore/resources/MinHeap.h"
+#include "MengeCore/resources/RoadMapPath.h"
+
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -62,7 +64,9 @@ namespace Menge {
 
 	/////////////////////////////////////////////////////////////////////
 
-	Graph::Graph( const std::string & fileName ): Resource(fileName), _vCount(0), _vertices(0x0), DATA_SIZE(0), STATE_SIZE(0), _HEAP(0x0), _DATA(0x0), _STATE(0x0) {
+	Graph::Graph( const std::string & fileName ) : Resource(fileName), _vCount(0), _vertices(0x0),
+												   DATA_SIZE(0), STATE_SIZE(0), _HEAP(0x0),
+												   _DATA(0x0), _STATE(0x0) {
 	}
 
 	//////////////////////////////////////////////////////////////////////////////////////
@@ -96,7 +100,8 @@ namespace Menge {
 
 		// load vertices
 		if ( ! ( f >> graph->_vCount ) ) {
-			logger << Logger::ERR_MSG << "Error parsing roadmap: file didn't start with an int (vertex count).\n";
+			logger << Logger::ERR_MSG;
+			logger << "Error parsing roadmap: file didn't start with an int (vertex count).\n";
 			graph->destroy();
 			return 0x0;
 		}
@@ -106,7 +111,8 @@ namespace Menge {
 		float x, y;
 		for ( size_t i = 0; i < graph->_vCount; ++i ) {
 			if ( ! ( f >> degree >> x >> y ) ) {
-				logger << Logger::ERR_MSG << "Error parsing roadmap: format error for vertex " << (i + 1) << ".\n";
+				logger << Logger::ERR_MSG << "Error parsing roadmap: format error for vertex ";
+				logger << ( i + 1 ) << ".\n";
 				graph->destroy();
 				delete [] vertNbr;
 				return 0x0;
@@ -120,7 +126,8 @@ namespace Menge {
 		// load edges
 		size_t eCount;
 		if ( ! ( f >> eCount ) ) {
-			logger << Logger::ERR_MSG << "Error parsing roadmap: didn't find edge count when expected.\n";
+			logger << Logger::ERR_MSG;
+			logger << "Error parsing roadmap: didn't find edge count when expected.\n";
 			delete [] vertNbr;
 			graph->destroy();
 			return 0x0;
@@ -132,7 +139,8 @@ namespace Menge {
 			GraphEdge edge;
 			int from, to;
 			if ( ! ( f >> from >> to ) ) {
-				logger << Logger::ERR_MSG << "Error parsing roadmap: format error for edge " << ( e + 1 ) << ".\n";
+				logger << Logger::ERR_MSG << "Error parsing roadmap: format error for edge ";
+				logger << ( e + 1 ) << ".\n";
 				delete [] vertNbr;
 				graph->destroy();
 				return 0x0;
@@ -141,13 +149,19 @@ namespace Menge {
 			edge.setNeighbor( &graph->_vertices[ to ] );
 			if (!graph->_vertices[from].setEdge(edge, vertNbr[from])) {
 				validEdges = false;
-				logger << Logger::ERR_MSG << "Vertex " << from << " declared to have " << graph->_vertices[from].getEdgeCount() << " edges.  Attempting to add the " << (vertNbr[from] + 1) << "th edge.\n";
+				logger << Logger::ERR_MSG << "Vertex " << from << " declared to have ";
+				logger << graph->_vertices[ from ].getEdgeCount();
+				logger << " edges.  Attempting to add the " << ( vertNbr[ from ] + 1 );
+				logger << "th edge.\n";
 			}
 			++vertNbr[ from ];
 			edge.setNeighbor( &graph->_vertices[ from ] );
 			if (!graph->_vertices[to].setEdge(edge, vertNbr[to])) {
 				validEdges = false;
-				logger << Logger::ERR_MSG << "Vertex " << to << " declared to have " << graph->_vertices[to].getEdgeCount() << " edges.  Attempting to add the " << (vertNbr[to] + 1) << "th edge.\n";
+				logger << Logger::ERR_MSG << "Vertex " << to << " declared to have ";
+				logger << graph->_vertices[ to ].getEdgeCount();
+				logger << " edges.  Attempting to add the " << ( vertNbr[ to ] + 1 );
+				logger << "th edge.\n";
 			}
 			++vertNbr[ to ];
 		}
@@ -160,7 +174,9 @@ namespace Menge {
 
 		for (size_t v = 0; v < graph->_vCount; ++v) {
 			if (vertNbr[v] != graph->_vertices[v].getEdgeCount()) {
-				logger << Logger::ERR_MSG << "Vertex " << v << " declared to have " << graph->_vertices[v].getEdgeCount() << " edges.  Only " << vertNbr[v] << " assigned.\n";
+				logger << Logger::ERR_MSG << "Vertex " << v << " declared to have ";
+				logger << graph->_vertices[ v ].getEdgeCount() << " edges.  Only ";
+				logger << vertNbr[ v ] << " assigned.\n";
 				valid = false;
 			}
 		}
@@ -209,7 +225,8 @@ namespace Menge {
 		for ( size_t i = 0; i < _vCount; ++i ) {
 			float testDistSq = absSq( _vertices[i].getPosition() - point );
 			if ( testDistSq < bestDistSq ) {
-				if ( Menge::SPATIAL_QUERY->queryVisibility( point, _vertices[i].getPosition(), radius ) ) {
+				if ( Menge::SPATIAL_QUERY->queryVisibility( point, _vertices[i].getPosition(),
+															radius ) ) {
 					bestDistSq = testDistSq;
 					bestID = i;
 				}
@@ -228,7 +245,10 @@ namespace Menge {
 	#ifdef _OPENMP
 		// Assuming that threadNum \in [0, omp_get_max_threads() )
 		const unsigned int threadNum = omp_get_thread_num();
-		AStarMinHeap heap( _HEAP + threadNum * N, _DATA + threadNum * DATA_SIZE, _STATE + threadNum * STATE_SIZE, _PATH + threadNum * N, N );
+		AStarMinHeap heap( _HEAP + threadNum * N,
+						   _DATA + threadNum * DATA_SIZE,
+						   _STATE + threadNum * STATE_SIZE,
+						   _PATH + threadNum * N, N );
 	#else
 		AStarMinHeap heap( _HEAP, _DATA, _STATE, _PATH, N );
 	#endif
@@ -274,7 +294,8 @@ namespace Menge {
 			}
 		}
 		if ( !found ) {
-			logger << Logger::ERR_MSG << "Was unable to find a path from " << startID << " to " << endID << "\n";
+			logger << Logger::ERR_MSG << "Was unable to find a path from " << startID;
+			logger << " to " << endID << "\n";
 			return 0x0;
 		}
 
@@ -304,7 +325,8 @@ namespace Menge {
 		logger << Logger::INFO_MSG << "OMP ENABLED!\n";
 		threadCount = omp_get_max_threads();
 	#endif
-		logger << Logger::INFO_MSG << "Caching roadmap A* data for " << threadCount << " threads\n";
+		logger << Logger::INFO_MSG << "Caching roadmap A* data for " << threadCount;
+		logger << " threads\n";
 		if ( _DATA ) {
 			delete [] _DATA;
 			_DATA = 0x0;

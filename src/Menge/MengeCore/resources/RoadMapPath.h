@@ -44,7 +44,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __ROADMAP_PATH_H__
 #define __ROADMAP_PATH_H__
 
-#include "mengeCommon.h"
+#include "MengeCore/mengeCommon.h"
 
 namespace Menge {
 
@@ -67,7 +67,7 @@ namespace Menge {
 	/*!
 	 *	@brief		A path on a roadmap between vertices
 	 */
-	class RoadMapPath {
+	class MENGE_API RoadMapPath {
 	public:
 		/*!
 		 *	@brief		Constructor
@@ -87,7 +87,7 @@ namespace Menge {
 		 *	@param		i		The index of the waypoint.
 		 *	@param		pos		The location of the ith waypoint.
 		 */
-		void setWayPoint( size_t i, const Vector2 & pos );
+		void setWayPoint( size_t i, const Math::Vector2 & pos );
 
 		/*!
 		 *	@brief		Sets the ultimate goal.
@@ -121,7 +121,7 @@ namespace Menge {
 		 *	@param		i		The index of the desired waypoint.
 		 *	@returns	The position of the ith waypoint.
 		 */
-		Vector2 getWayPoint( size_t i ) const;
+		Math::Vector2 getWayPoint( size_t i ) const;
 
 		/*!
 		 *	@brief		Returns the ultimate goal.
@@ -147,7 +147,7 @@ namespace Menge {
 		 *	@brief		The last valid position -- validity means the target 
 		 *				goal was visible.
 		 */
-		Vector2	_validPos;
+		Math::Vector2	_validPos;
 
 		/*!
 		 *	@brief		The index of the current target.
@@ -162,7 +162,7 @@ namespace Menge {
 		/*!
 		 *	@brief		The way points along the path.
 		 */
-		Vector2 * _wayPoints;
+		Math::Vector2 * _wayPoints;
 
 	};
 }	// namespace Menge

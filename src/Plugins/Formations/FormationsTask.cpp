@@ -38,20 +38,25 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 #include "FormationsTask.h"
 #include "FreeFormation.h"
-#include "FSM.h"
+#include "MengeCore/BFSM/FSM.h"
 
 namespace Formations {
+
+	using Menge::BFSM::FSM;
+	using Menge::BFSM::Task;
+	using Menge::BFSM::TaskException;
+	using Menge::BFSM::TaskFactory;
 
 	/////////////////////////////////////////////////////////////////////
 	//                   Implementation of FormationsTask
 	/////////////////////////////////////////////////////////////////////
 
-	FormationsTask::FormationsTask( Formations::FormationPtr & f): BFSM::Task(), _formation(f) {
+	FormationsTask::FormationsTask( Formations::FormationPtr & f) : Task(), _formation(f) {
 	}
 
 	/////////////////////////////////////////////////////////////////////
 
-	void FormationsTask::doWork( const BFSM::FSM * fsm ) throw( BFSM::TaskException ) {
+	void FormationsTask::doWork( const FSM * fsm ) throw( TaskException ) {
 		_formation->mapAgentsToFormation(fsm);
 	}
 	/////////////////////////////////////////////////////////////////////
@@ -62,13 +67,12 @@ namespace Formations {
 
 	/////////////////////////////////////////////////////////////////////
 
-	bool FormationsTask::isEquivalent( const BFSM::Task * task ) const {
+	bool FormationsTask::isEquivalent( const Task * task ) const {
 		const FormationsTask * other = dynamic_cast< const FormationsTask * >( task );
 		if ( other == 0x0 ) {
 			return false;
 		} else {
 			other->getFormation();
-			
 			if ( other->getFormation() == _formation){
 				return true;
 			} else {
@@ -79,4 +83,4 @@ namespace Formations {
 
 	/////////////////////////////////////////////////////////////////////
 
-}	// namespace BFSM 
+}	// namespace Formations 

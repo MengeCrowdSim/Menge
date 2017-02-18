@@ -36,9 +36,11 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "SimulatorDB.h"
-#include "SimulatorDBEntry.h"
-#include "Logger.h"
+#include "MengeCore/Runtime/SimulatorDB.h"
+
+#include "MengeCore/Runtime/Logger.h"
+#include "MengeCore/Runtime/SimulatorDBEntry.h"
+
 #include <sstream>
 
 namespace Menge {
@@ -132,10 +134,12 @@ namespace Menge {
 			std::string name = (*itr)->commandLineName();
 			std::transform( name.begin(), name.end(), name.begin(), ::tolower );
 			if ( entryName == name ) {
-				logger << Logger::ERR_MSG << "Failed to register a pedestrian model\n" \
-											"\tIt's command-line parameter name (" << name << ") matches the name\n" \
-											"\tof a previously registered pedestrian model.\n" \
-											"\tThe database entry, " << typeid( entry ).name() << ", will not be registered.\n";
+				logger << Logger::ERR_MSG << "Failed to register a pedestrian model\n" 
+					"\tIt's command-line parameter name (" << name;
+				logger << ") matches the name\n"
+					"\tof a previously registered pedestrian model.\n"
+					"\tThe database entry, " << typeid( entry ).name();
+				logger << ", will not be registered.\n";
 				delete entry;	// TODO: DBEntries should probably be "destroyed" and not deleted.
 				return 0x0;
 			}

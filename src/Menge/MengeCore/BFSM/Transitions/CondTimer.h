@@ -44,11 +44,12 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __COND_TIMER_H__
 #define __COND_TIMER_H__
 
-#include "CoreConfig.h"
-#include "Transitions/Condition.h"
-#include "Transitions/ConditionFactory.h"
-#include "fsmCommon.h"
-#include "ReadersWriterLock.h"
+#include "MengeCore/CoreConfig.h"
+#include "MengeCore/BFSM/fsmCommon.h"
+#include "MengeCore/BFSM/Transitions/Condition.h"
+#include "MengeCore/BFSM/Transitions/ConditionFactory.h"
+#include "MengeCore/Runtime/ReadersWriterLock.h"
+
 #include <map>	//TODO: Replace this with a hash_map
 
 namespace Menge {
@@ -174,7 +175,7 @@ namespace Menge {
 			 *	@returns	A string containing the action description.
 			 */
 			virtual const char * description() const {
-				return "The timer condition.  It becomes active when the agent has "\
+				return "The timer condition.  It becomes active when the agent has "
 					"remained in the state at least a user-specified length of time.";
 			}
 			
@@ -201,15 +202,17 @@ namespace Menge {
 			 *	sub-class should override this method but explicitly call the parent class's
 			 *	version.
 			 *
-			 *	@param		condition		A pointer to the condition whose attributes are to be set.
+			 *	@param		condition		A pointer to the condition whose attributes are to be
+			 *								set.
 			 *	@param		node			The XML node containing the condition attributes.
-			 *	@param		behaveFldr		The path to the behavior file.  If the condition references
-			 *								resources in the file system, it should be defined relative
-			 *								to the behavior file location.  This is the folder containing
-			 *								that path. 
+			 *	@param		behaveFldr		The path to the behavior file.  If the condition
+			 *								references resources in the file system, it should be
+			 *								defined relative to the behavior file location.  This
+			 *								is the folder containing that path. 
 			 *	@returns	A boolean reporting success (true) or failure (false).
 			 */
-			virtual bool setFromXML( Condition * condition, TiXmlElement * node, const std::string & behaveFldr ) const;
+			virtual bool setFromXML( Condition * condition, TiXmlElement * node,
+									 const std::string & behaveFldr ) const;
 		
 			/*!
 			 *	@brief		The identifier for the "per_agent" boolean attribute.

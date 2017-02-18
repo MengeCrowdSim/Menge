@@ -6,7 +6,16 @@
 #include "StressGlobals.h"
 #include "StressTask.h"
 
+#include "MengeCore/Agents/BaseAgent.h"
+
 namespace StressGAS {
+
+	using Menge::logger;
+	using Menge::Logger;
+	using Menge::Agents::BaseAgent;
+	using Menge::BFSM::Action;
+	using Menge::BFSM::ActionFactory;
+	using Menge::BFSM::Task;
 
 	/////////////////////////////////////////////////////////////////////
 	//                   Implementation of BaseStressAction
@@ -27,7 +36,7 @@ namespace StressGAS {
 
 	/////////////////////////////////////////////////////////////////////
 
-	void BaseStressAction::onEnter( Agents::BaseAgent * agent ) {
+	void BaseStressAction::onEnter( BaseAgent * agent ) {
 		AgentStressor * stressor = new AgentStressor(
 			_deltaNeighborDist->getValue(), _deltaMaxNeighbors->getValue(),
 			_deltaRadius->getValue(), _deltaPrefSpeed->getValue(), _deltaTimeHorizon->getValue()
@@ -45,7 +54,7 @@ namespace StressGAS {
 
 	/////////////////////////////////////////////////////////////////////
 
-	void BaseStressAction::leaveAction( Agents::BaseAgent * agent ) {
+	void BaseStressAction::leaveAction( BaseAgent * agent ) {
 		StressFunction * func = 0x0;
 		switch ( _exitBehavior ) {
 			case RESET:
@@ -68,7 +77,7 @@ namespace StressGAS {
 
 	/////////////////////////////////////////////////////////////////////
 	
-	BFSM::Task * BaseStressAction::getTask(){
+	Task * BaseStressAction::getTask(){
 		return new StressTask();
 	};
 
@@ -99,12 +108,12 @@ namespace StressGAS {
 
 	/////////////////////////////////////////////////////////////////////
 
-	bool BaseStressActionFactory::setFromXML( BFSM::Action * action, TiXmlElement * node,
+	bool BaseStressActionFactory::setFromXML( Action * action, TiXmlElement * node,
 											  const std::string & behaveFldr ) const {
 		BaseStressAction * sAction = dynamic_cast<BaseStressAction *>( action );
 		assert( sAction != 0x0 &&
 				"Trying to set stress action properties on an incompatible object" );
-		if ( !BFSM::ActionFactory::setFromXML( action, node, behaveFldr ) ) {
+		if ( !ActionFactory::setFromXML( action, node, behaveFldr ) ) {
 			return false;
 		}
 
@@ -143,7 +152,4 @@ namespace StressGAS {
 
 		return true;
 	}
-
-
-
 }	 // namespace StressGAS

@@ -36,10 +36,13 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "AgentPropertyManipulator.h"
-#include "BaseAgent.h"
+#include "MengeCore/Agents/AgentPropertyManipulator.h"
+
+#include "MengeCore/Agents/BaseAgent.h"
 
 namespace Menge {
+
+	using Math::FloatGenerator;
 
 	/////////////////////////////////////////////////////////////////////
 	//                   Implementation of helper function
@@ -79,7 +82,9 @@ namespace Menge {
 	//					Implementation of AgentPropertyManipulator
 	/////////////////////////////////////////////////////////////////////
 
-	AgentPropertyManipulator::AgentPropertyManipulator(): Element(), _operandGen(0x0),_property(BFSM::NO_PROPERTY),_originalMap() {
+	AgentPropertyManipulator::AgentPropertyManipulator() : Element(), _operandGen( 0x0 ),
+														   _property( BFSM::NO_PROPERTY ),
+														   _originalMap() {
 	}
 
 	/////////////////////////////////////////////////////////////////////
@@ -124,6 +129,9 @@ namespace Menge {
 				_originalMap[ agent->_id ] = agent->_radius;
 				agent->_radius = newValue( agent->_radius, agent->_id );
 				break;
+		  case BFSM::NO_PROPERTY:
+				// No-op for NO_PROPERTY.
+			  break;
 		}
 		_lock.release();
 	}
@@ -162,6 +170,9 @@ namespace Menge {
 			case BFSM::RADIUS:
 				agent->_radius = value;
 				break;
+		  case BFSM::NO_PROPERTY:
+				// No-op for NO_PROPERTY.
+			  break;
 		}
 	}
 

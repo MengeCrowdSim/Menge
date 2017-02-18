@@ -44,11 +44,12 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __SCB_WRITER_H__
 #define __SCB_WRITER_H__
 
+#include "MengeCore/mengeCommon.h"
+#include "MengeCore/Agents/BaseAgent.h"
+#include "MengeCore/BFSM/FSM.h"
+
 #include <string>
 #include <fstream>
-#include "mengeCommon.h"
-#include "FSM.h"
-#include "BaseAgent.h"
 
 namespace Menge {
 
@@ -77,19 +78,22 @@ namespace Menge {
 		/*!
 		 *	@brief		The fatal scb writers exception.
 		 */
-		class MENGE_API SCBFatalException : public SCBException, public Menge::MengeFatalException {
+		class MENGE_API SCBFatalException : public SCBException,
+											public Menge::MengeFatalException {
 		public:
 			/*!
 			 *	@brief		Default constructor.
 			 */
-			SCBFatalException() : Menge::MengeException(), SCBException(), Menge::MengeFatalException() {}
+			SCBFatalException() : Menge::MengeException(), SCBException(),
+								  Menge::MengeFatalException() {}
 
 			/*!
 			 *	@brief		Constructor with message.
 			 *
 			 *	@param		s		The exception-specific message.
 			 */
-			SCBFatalException( const std::string & s ): Menge::MengeException(s), SCBException(), Menge::MengeFatalException() {}
+			SCBFatalException( const std::string & s ) : Menge::MengeException(s), SCBException(),
+														 Menge::MengeFatalException() {}
 		};
 
 		/////////////////////////////////////////////////////////////////////
@@ -155,7 +159,8 @@ namespace Menge {
 			 *	@throws		SCBFileException		If there is a problem opening the given path
 			 *										for writing.
 			 */
-			SCBWriter( const std::string & pathName, const std::string & version, SimulatorInterface * sim );
+			SCBWriter( const std::string & pathName, const std::string & version,
+					   SimulatorInterface * sim );
 
 			/*!
 			 *	@brief		Destructor.
@@ -193,7 +198,8 @@ namespace Menge {
 
 			/*!
 			 *	@brief		Confirms that the given version is valid.
-			 *				Function has side-effects.  This must be called for the SCBWriter to work.
+			 *				Function has side-effects.  This must be called for the SCBWriter to
+			 *				work.
 			 *
 			 *	@param		version		A string of the format "major"."minor" (e.g., 2.1)
 			 *							for the desired output format.
@@ -233,13 +239,19 @@ namespace Menge {
 			static const int ZERO;
 
 			/*!
+			 *  @brief    Virtual destructor.
+			 */
+			virtual ~SCBFrameWriter() {}
+
+			/*!
 			 *	@brief		Function to write current frame's state to the file.
 			 *
 			 *	@param		file		The file object to write to.
 			 *	@param		sim			A pointer to the simulator.
 			 *	@param		fsm			A pointer to the behavior fsm for the simulator.
 			 */
-			virtual void writeFrame( std::ofstream & file, SimulatorInterface * sim, BFSM::FSM * fsm ) = 0;
+			virtual void writeFrame( std::ofstream & file, SimulatorInterface * sim,
+									 BFSM::FSM * fsm ) = 0;
 		};
 
 		
@@ -255,7 +267,8 @@ namespace Menge {
 		 */
 		class SCBFrameWriter1_0 : public SCBFrameWriter{
 		public:
-			virtual void writeFrame( std::ofstream & file, SimulatorInterface * sim, BFSM::FSM * fsm );
+			virtual void writeFrame( std::ofstream & file, SimulatorInterface * sim,
+									 BFSM::FSM * fsm );
 		};
 
 		/////////////////////////////////////////////////////////////////////
@@ -270,7 +283,8 @@ namespace Menge {
 		 */
 		class SCBFrameWriter2_0 : public SCBFrameWriter {
 		public:
-			virtual void writeFrame( std::ofstream & file, SimulatorInterface * sim, BFSM::FSM * fsm );
+			virtual void writeFrame( std::ofstream & file, SimulatorInterface * sim,
+									 BFSM::FSM * fsm );
 		};
 
 		/////////////////////////////////////////////////////////////////////
@@ -287,7 +301,8 @@ namespace Menge {
 		 */
 		class SCBFrameWriter2_1 : public SCBFrameWriter {
 		public:
-			virtual void writeFrame( std::ofstream & file, SimulatorInterface * sim, BFSM::FSM * fsm );
+			virtual void writeFrame( std::ofstream & file, SimulatorInterface * sim,
+									 BFSM::FSM * fsm );
 		};
 
 		/////////////////////////////////////////////////////////////////////
@@ -301,14 +316,15 @@ namespace Menge {
 		 *					4-byte float orientation (radians)
 		 *					4-byte float stateID - although stored as a float, the value will be
 		 *						an integer value.
-		 *					4-byte float x-vPref (the x-component of the agent's preferred velocity).
-		 *					4-byte float y-vPref (the y-component of the agent's preferred velocity).
+		 *					4-byte float x-vPref (the x-component of the agent's pref. velocity).
+		 *					4-byte float y-vPref (the y-component of the agent's pref. velocity).
 		 *					4-byte float x-vel (the x-component of the agent's current velocity).
 		 *					4-byte float y-vel (the y-component of the agent's current velocity).
 		 */
 		class SCBFrameWriter2_2 : public SCBFrameWriter {
 		public:
-			virtual void writeFrame( std::ofstream & file, SimulatorInterface * sim, BFSM::FSM * fsm );
+			virtual void writeFrame( std::ofstream & file, SimulatorInterface * sim,
+									 BFSM::FSM * fsm );
 		};
 
 		/////////////////////////////////////////////////////////////////////
@@ -326,7 +342,8 @@ namespace Menge {
 		 */
 		class SCBFrameWriter2_3 : public SCBFrameWriter {
 		public:
-			virtual void writeFrame( std::ofstream & file, SimulatorInterface * sim, BFSM::FSM * fsm );
+			virtual void writeFrame( std::ofstream & file, SimulatorInterface * sim,
+									 BFSM::FSM * fsm );
 		};
 
 		/////////////////////////////////////////////////////////////////////
@@ -342,7 +359,8 @@ namespace Menge {
 		 */
 		class SCBFrameWriter2_4 : public SCBFrameWriter {
 		public:
-			virtual void writeFrame( std::ofstream & file, SimulatorInterface * sim, BFSM::FSM * fsm );
+			virtual void writeFrame( std::ofstream & file, SimulatorInterface * sim,
+									 BFSM::FSM * fsm );
 		};
 
 	}	// namespace Agents

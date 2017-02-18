@@ -46,13 +46,13 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
  */
 
 // UTILS
-#include "mengeCommon.h"
-#include "XMLSimulatorBase.h"
-#include "PrefVelocity.h"
-#include "VelocityModifiers/VelModifier.h"
-#include "SpatialQueries/ProximityQuery.h"
-#include "SpatialQueries/SpatialQueryStructs.h"
-// STL
+#include "MengeCore/mengeCommon.h"
+#include "MengeCore/Agents/PrefVelocity.h"
+#include "MengeCore/Agents/SpatialQueries/ProximityQuery.h"
+#include "MengeCore/Agents/XMLSimulatorBase.h"
+#include "MengeCore/BFSM/VelocityModifiers/VelModifier.h"
+#include "MengeCore/Agents/SpatialQueries/SpatialQueryStructs.h"
+
 #include <vector>
 #include <list>
 
@@ -95,7 +95,8 @@ namespace Menge {
 			 *
 			 *	@param		s		The exception-specific message.
 			 */
-			AgentFatalException( const std::string & s ): MengeException(s), AgentException(), MengeFatalException() {}
+			AgentFatalException( const std::string & s ) : MengeException(s), AgentException(),
+														   MengeFatalException() {}
 		};
 
 		/*!
@@ -157,7 +158,8 @@ namespace Menge {
 			/*!
 			 *	@brief			Returns a pointer to the neighbor with given index
 			 *
-			 *	@param			idx		The index of the desired agent.  This index is *not* validated.
+			 *	@param			idx		The index of the desired agent.  This index is *not*
+			 *							validated.
 			 *	@returns		Pointer to the neighboring agent.
 			 */
 			const BaseAgent * getNeighbor( int idx ) const { return _nearAgents[ idx ].agent; }
@@ -165,11 +167,13 @@ namespace Menge {
 			/*!
 			 *	@brief			Returns a pointer to the obstacle with given index
 			 *
-			 *	@param			idx		The index of the desired obstacle.  This index is *not* validated.
+			 *	@param			idx		The index of the desired obstacle.  This index is *not*
+			 *							validated.
 			 *	@returns		Pointer to the nearby obstacle.
 			 */
-			const Obstacle * getObstacle( int idx ) const { return _nearObstacles[ idx ].obstacle; }
-
+			const Obstacle * getObstacle( int idx ) const {
+				return _nearObstacles[ idx ].obstacle;
+			}
 			
 			/*!
 			 *	@brief			set the agents preferred velocity to the input velocity. 
@@ -185,6 +189,12 @@ namespace Menge {
 			 */
 			void addVelModifier( BFSM::VelModifier * v );
 
+			/*!
+			 *	@brief		Used by the plugin system to know what artifacts to associate with
+			 *				agents of this type.  Every sub-class of must return a globally
+			 *				unique value if it should be associated with unique artifacts.
+			 */
+			virtual std::string getStringId() const = 0;
 
 			// Properties of a basic agent
 			/*!
@@ -193,7 +203,8 @@ namespace Menge {
 			float _maxSpeed;
 
 			/*!
-			 *	@brief		The maximum acceleration the agent can experience (interpreted isotropically).
+			 *	@brief		The maximum acceleration the agent can experience (interpreted
+			 *				isotropically).
 			 */
 			float _maxAccel;
 
@@ -205,12 +216,12 @@ namespace Menge {
 			/*!
 			 *	@brief		The current 2D position of the agent
 			 */
-			Vector2	_pos;	
+			Math::Vector2	_pos;
 
 			/*!
 			 *	@brief		The current 2D velocity of the agent
 			 */
-			Vector2	_vel;	
+			Math::Vector2	_vel;
 
 			/*!
 			 *	@brief		The 2D preferred velocity of the agent
@@ -223,7 +234,7 @@ namespace Menge {
 			 *	This exists to allow the agents to be updated
 			 *	in parallel while preserving order-of-evaluation independence.
 			 */
-			Vector2	_velNew;	
+			Math::Vector2	_velNew;
 
 			/*!
 			 *	@brief		The orientation vector (the direction the agent is facing which is not
@@ -238,7 +249,7 @@ namespace Menge {
 			 *      - Second, it provides orientation information to the output trajectories for
 			 *		  later visualization.
 			 */
-			Vector2	_orient;
+			Math::Vector2	_orient;
 
 			/*!
 			 *	@brief		The agent's maximum angular velocity (in radians/sec) -- 
@@ -299,7 +310,8 @@ namespace Menge {
 			float _radius;
 
 			/*!
-			 *	@brief  a set of velocity modifiers to be set with the agent. Allows for intermediate velocity changes
+			 *	@brief  a set of velocity modifiers to be set with the agent. Allows for
+			 *			intermediate velocity changes
 			 *
 			 */
 			std::vector<BFSM::VelModifier *> _velModifiers;
@@ -343,9 +355,10 @@ namespace Menge {
 			 *	@brief		Sets the density sensitivity parameters.
 			 *
 			 *	@param		stride		The stride factor.  The physical component capturing height
-			 *							and the physicl relationship between speed and stride length.
-			 *	@param		buffer		The stride buffer.  The psychological buffer required beyond
-			 *							that needed for stride length.
+			 *							and the physical relationship between speed and stride
+			 *							length.
+			 *	@param		buffer		The stride buffer.  The psychological buffer required
+			 *							beyond that needed for stride length.
 			 */
 			virtual void setStrideParameters( float stride, float buffer ) {}
 
@@ -378,11 +391,12 @@ namespace Menge {
 			 *
 			 *   @returns    the query point for this filter
 			 */
-			virtual Vector2 getQueryPoint(){ return _pos;};
+			virtual Math::Vector2 getQueryPoint(){ return _pos; };
 
 			/*!
-			 *  @brief      updates the max agent query range if conditions inside the filter are met
-			 *              typically, we don't shrink the query range until the result set is full
+			 *  @brief      updates the max agent query range if conditions inside the filter are
+			 *              met typically, we don't shrink the query range until the result set is
+			 *				full.
 			 *
 			 *	@returns	The Max query range. Typically this is the initial range unless some 
 			 *              special conditions are met
@@ -390,8 +404,9 @@ namespace Menge {
 			virtual float getMaxAgentRange();
 
 			/*!
-			 *  @brief      updates the max query obstacle range if conditions inside the filter are met
-			 *              typically, we don't shrink the query range until the result set is full
+			 *  @brief      updates the max query obstacle range if conditions inside the filter
+			 *              are met. typically, we don't shrink the query range until the result
+			 *				set is full.
 			 *
 			 *	@returns	The Max query range. Typically this is the initial range unless some 
 			 *              special conditions are met

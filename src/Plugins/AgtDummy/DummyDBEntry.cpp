@@ -38,11 +38,15 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 #include "DummyDBEntry.h"
 #include "DummySimulator.h"
-#include "AgentInitializer.h"
-#include "SimulatorDB.h"
+#include "MengeCore/Agents/AgentInitializer.h"
+#include "MengeCore/Runtime/SimulatorDB.h"
 #include <iostream>
 
 namespace Dummy {
+
+	using Menge::Agents::SimulatorInterface;
+	using Menge::Agents::AgentInitializer;
+
 	/////////////////////////////////////////////////////////////////////////////
 	//                     Implementation of DummyDBEntry
 	/////////////////////////////////////////////////////////////////////////////
@@ -66,17 +70,16 @@ namespace Dummy {
 
 	/////////////////////////////////////////////////////////////////////////////
 	 
-	Agents::SimulatorInterface * DummyDBEntry::getNewSimulator() {
+	SimulatorInterface * DummyDBEntry::getNewSimulator() {
 		return new Simulator();
 	}
 
 	/////////////////////////////////////////////////////////////////////////////
 
-	Agents::AgentInitializer * DummyDBEntry::getAgentInitalizer() const {
-		return new Agents::AgentInitializer();
+	AgentInitializer * DummyDBEntry::getAgentInitalizer() const {
+		return new AgentInitializer();
 	}
 
 	/////////////////////////////////////////////////////////////////////////////
 	 
 }	// namespace Dummy
-

@@ -36,7 +36,8 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "Utils.h"
+#include "MengeCore/Runtime/Utils.h"
+
 #include <sstream>
 
 namespace Menge {
@@ -73,7 +74,7 @@ namespace Menge {
 		size_t result;
 		std::stringstream ss( value, std::ios_base::in );
 		ss >> result;
-		if ( ss.fail() || result < 0 ) {
+		if ( ss.fail() ) {
 			throw UtilException();
 		}
 		return result;

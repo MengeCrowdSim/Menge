@@ -44,12 +44,13 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __NAV_MESH_DATA_H__
 #define	__NAV_MESH_DATA_H__
 
-#include "mengeCommon.h"
-#include "NavMeshObstacle.h"
-#include "Resource.h"
+#include "MengeCore/mengeCommon.h"
+#include "MengeCore/Agents/ObstacleSets/ObstacleVertexList.h"
+#include "MengeCore/resources/NavMeshObstacle.h"
+#include "MengeCore/resources/Resource.h"
+
 #include <map>
 #include <vector>
-#include "ObstacleSets/ObstacleVertexList.h"
 
 namespace Menge {
 
@@ -67,9 +68,8 @@ namespace Menge {
 	/*!
 	 *	@brief		A navigation mesh node group.
 	 *
-	 *				It is a partitioning of the nodes in the navigation mesh
-	 *				into named groups.  Each group contains a contiguous block of
-	 *				node identifiers.
+	 *				It is a partitioning of the nodes in the navigation mesh into named groups.
+	 *				Each group contains a contiguous block of node identifiers.
 	 */
 	class NMNodeGroup {
 	public:
@@ -115,18 +115,16 @@ namespace Menge {
 	class NavMeshFactory;
 
 	/*!
-	 *	@brief		The class for defining a navigation mesh.  
-	 *				A decomposition of the free space into a connected mesh
-	 *				of convex (or near convex) polygons used for global
+	 *	@brief		The class for defining a navigation mesh. A decomposition of the free space
+	 *				into a connected mesh of convex (or near convex) polygons used for global
 	 *				planning in planar or non-planar environments.
 	 *
-	 *				It represents the minimum data required to do path planning.
-	 *				The navigation mesh is represented in 2.5D.  
-	 *				The boundaries of mesh's polygons are only defined on the ground
-	 *				plane.  The nodes themselves include a definition of the polygon's
-	 *				plane off the plane.  Likewise, the vertices all lie on the plane.
+	 *				It represents the minimum data required to do path planning.  The navigation
+	 *				mesh is represented in 2.5D. The boundaries of mesh's polygons are only defined
+	 *				on the ground plane.  The nodes themselves include a definition of the
+	 *				polygon's plane off the plane.  Likewise, the vertices all lie on the plane.
 	 */
-	class NavMesh : public Resource {
+	class MENGE_API NavMesh : public Resource {
 	public:
 		/*!
 		 *	@brief		Constructor
@@ -148,9 +146,8 @@ namespace Menge {
 		void clear();
 
 		/*!
-		 *	@brief		Returns a unique resource label to be used to identify
-		 *				different resource *types* which use the same underlying
-		 *				file data.
+		 *	@brief		Returns a unique resource label to be used to identify different resource
+		 *				*types* which use the same underlying file data.
 		 */
 		virtual const std::string & getLabel() const { return LABEL; }
 
@@ -176,8 +173,7 @@ namespace Menge {
 		 *	@brief		Returns a reference to the ith node.
 		 *
 		 *	@param		i		The index of the desired node.
-		 *						The validitity of the index is only tested
-		 *						in debug build.
+		 *						The validitity of the index is only tested in debug build.
 		 *	@returns	A reference to the ith node.
 		 */
 		NavMeshNode & getNode(unsigned int i);
@@ -186,8 +182,7 @@ namespace Menge {
 		 *	@brief		Returns a const reference to the ith node.
 		 *
 		 *	@param		i		The index of the desired node.
-		 *						The validitity of the index is only tested
-		 *						in debug build.
+		 *						The validitity of the index is only tested in debug build.
 		 *	@returns	A const reference to the ith node.
 		 */
 		const NavMeshNode & getNode(unsigned int i) const;
@@ -197,8 +192,7 @@ namespace Menge {
 		 *
 		 *	@param		grp		The group to retrieve the node from.
 		 *	@param		i		The index of the desired node.
-		 *						The validitity of the index is only tested
-		 *						in debug build.
+		 *						The validitity of the index is only tested in debug build.
 		 *	@returns	A reference to the ith node.
 		 */
 		NavMeshNode & getNode(const NMNodeGroup * grp, unsigned int i);
@@ -208,8 +202,7 @@ namespace Menge {
 		 *
 		 *	@param		grp		The group to retrieve the node from.
 		 *	@param		i		The index of the desired node.
-		 *						The validitity of the index is only tested
-		 *						in debug build.
+		 *						The validitity of the index is only tested in debug build.
 		 *	@returns	A const reference to the ith node.
 		 */
 		const NavMeshNode & getNode(const NMNodeGroup * grp, unsigned int i) const;
@@ -225,8 +218,7 @@ namespace Menge {
 		 *	@brief		Returns a reference to the ith edge.
 		 *
 		 *	@param		i		The index of the desired edge.
-		 *						The validitity of the index is only tested
-		 *						in debug build.
+		 *						The validitity of the index is only tested in debug build.
 		 *	@returns	A reference to the ith edge.
 		 */
 		NavMeshEdge & getEdge( unsigned int i );
@@ -235,8 +227,7 @@ namespace Menge {
 		 *	@brief		Returns a const reference to the ith edge.
 		 *
 		 *	@param		i		The index of the desired edge.
-		 *						The validitity of the index is only tested
-		 *						in debug build.
+		 *						The validitity of the index is only tested in debug build.
 		 *	@returns	A const reference to the ith edge.
 		 */
 		const NavMeshEdge & getEdge( unsigned int i ) const;
@@ -271,14 +262,14 @@ namespace Menge {
 		 *
 		 *	@returns	The pointer to the array of vertices.
 		 */
-		inline Vector2 * getVertices() { return &_vertices[0]; }
+		inline Math::Vector2 * getVertices() { return &_vertices[ 0 ]; }
 
 		/*!
 		 *	@brief		Returns a const pointer to the array of vertices.
 		 *
 		 *	@returns	The const pointer to the array of vertices.
 		 */
-		inline const Vector2 *	getVertices() const { return &_vertices[0]; }
+		inline const Math::Vector2 * getVertices() const { return &_vertices[ 0 ]; }
 
 		/*!
 		 *	@brief		Returns a pointer to the node group associated with the
@@ -301,7 +292,7 @@ namespace Menge {
 		 *	@param		p			The point to evaluate the elevation for.
 		 *	@returns	The elevation at point p based on the geometry of nodeID.
 		 */
-		float getElevation( unsigned int nodeID, const Vector2 & p ) const;
+		float getElevation( unsigned int nodeID, const Math::Vector2 & p ) const;
 
 		/*!
 		 *	@brief		Computes the gradient at a particular point based on
@@ -311,7 +302,7 @@ namespace Menge {
 		 *	@param		p			The point to evaluate the gradient for.
 		 *	@returns	The gradient at point p based on the geometry of nodeID.
 		 */
-		Vector2 getGradient( unsigned int nodeID, const Vector2 & p ) const;
+		Math::Vector2 getGradient( unsigned int nodeID, const Math::Vector2 & p ) const;
 
 		////////////////////////////////////////////////////////////////
 		//					Construction functions
@@ -324,8 +315,7 @@ namespace Menge {
 		 *	returns a pointer, not to a NavMesh, but to a Resource.  The ResourceManager
 		 *	uses it to load and instantiate VectorField instances.
 		 *
-		 *	@param		fileName		The path to the file containing the NavMesh
-		 *								definition.
+		 *	@param		fileName		The path to the file containing the NavMesh definition.
 		 *	@returns	A pointer to the new NavMesh (if the file is valid), NULL if
 		 *				invalid.
 		 */
@@ -394,6 +384,7 @@ namespace Menge {
 		 */
 		bool addGroup( const std::string & grpName, size_t grpSize );
 
+		//TODO(curds01): Why is this commented out?
 		///*
 		// *	@brief		Adds the navigation mesh's obstacles to the simulator.
 		// *
@@ -428,7 +419,7 @@ namespace Menge {
 		/*!
 		 *	@brief		An array containing all vertices.
 		 */
-		Vector2 *	_vertices;
+		Math::Vector2 *	_vertices;
 
 		/*!
 		 *	@brief		The number of nodes (aka polygons in the mesh).

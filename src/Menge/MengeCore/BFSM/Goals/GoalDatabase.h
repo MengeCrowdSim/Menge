@@ -44,9 +44,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __GOAL_DATABASE_H__
 #define __GOAL_DATABASE_H__
 
-#include "ElementDatabase.h"
-#include "Goals/GoalFactory.h"
-#include "Goals/Goal.h"
+#include "MengeCore/PluginEngine/ElementDatabase.h"
+#include "MengeCore/BFSM/Goals/GoalFactory.h"
+#include "MengeCore/BFSM/Goals/Goal.h"
 
 namespace Menge {
 
@@ -74,7 +74,5 @@ namespace Menge {
 #endif	// DOXYGEN_SHOULD_SKIP_THIS
 
 }	// namespace Menge
-
-	
 
 #endif	// __GOAL_DATABASE_H__

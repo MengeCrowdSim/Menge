@@ -36,11 +36,13 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "HexLatticeGenerator.h"
+#include "MengeCore/Agents/AgentGenerators/HexLatticeGenerator.h"
+
+#include "MengeCore/Agents/BaseAgent.h"
+#include "MengeCore/Math/consts.h"
+#include "MengeCore/Runtime/Logger.h"
+
 #include "tinyxml.h"
-#include "Logger.h"
-#include "Math/consts.h"
-#include "BaseAgent.h"
 
 namespace Menge {
 
@@ -79,9 +81,9 @@ namespace Menge {
 		//			Implementation of HexLatticeGenerator
 		////////////////////////////////////////////////////////////////////////////
 
-		HexLatticeGenerator::HexLatticeGenerator() : AgentGenerator(), _anchor(0.f,0.f), _rowDir(ROW_X),
-				_cosRot(1.f), _sinRot(0.f), _totalPop(0), _rowDist(0.f), _nbrDist(0.f), _rowPop(0),
-				_rowCount(0)
+		HexLatticeGenerator::HexLatticeGenerator() : AgentGenerator(), _anchor( 0.f,0.f ),
+			_rowDir( ROW_X ), _cosRot( 1.f ), _sinRot( 0.f ), _totalPop( 0), _rowDist( 0.f ),
+			_nbrDist( 0.f ), _rowPop( 0 ), _rowCount( 0 )
 		{
 		}
 
@@ -89,7 +91,8 @@ namespace Menge {
 
 		void HexLatticeGenerator::setAgentPosition(size_t i, BaseAgent * agt) {
 			if ( i >= _totalPop ) {
-				throw AgentGeneratorFatalException("HexLatticeGenerator trying to access an agent outside of the specified population");
+				throw AgentGeneratorFatalException("HexLatticeGenerator trying to access an agent "
+													"outside of the specified population");
 			}
 
 			// Compute local position
@@ -137,8 +140,9 @@ namespace Menge {
 
 		////////////////////////////////////////////////////////////////////////////
 
-		void HexLatticeGenerator::set( const Vector2 & anchor, AnchorAlignEnum align, LatticeRowEnum dir,
-									float width, float density, size_t tgtPopulation, float angle ) 
+		void HexLatticeGenerator::set( const Vector2 & anchor, AnchorAlignEnum align,
+									   LatticeRowEnum dir, float width, float density,
+									   size_t tgtPopulation, float angle ) 
 		{
 			_rowDir = dir;
 			setRotationDeg( angle );
@@ -198,9 +202,11 @@ namespace Menge {
 
 		////////////////////////////////////////////////////////////////////////////
 
-		bool HexLatticeGeneratorFactory::setFromXML( AgentGenerator * gen, TiXmlElement * node, const std::string & specFldr ) const {
+		bool HexLatticeGeneratorFactory::setFromXML( AgentGenerator * gen, TiXmlElement * node,
+													 const std::string & specFldr ) const {
 			HexLatticeGenerator * lGen = dynamic_cast< HexLatticeGenerator * >( gen );
-			assert( lGen != 0x0 && "Trying to set attributes of a hexagonal lattice agent generator component on an incompatible object" );
+			assert( lGen != 0x0 && "Trying to set attributes of a hexagonal lattice agent "
+					"generator component on an incompatible object" );
 
 			if ( ! AgentGeneratorFactory::setFromXML( lGen, node, specFldr ) ) return false;
 
@@ -213,7 +219,9 @@ namespace Menge {
 			} else if ( alignS == "right" ) {
 				align = HexLatticeGenerator::RIGHT_CORNER;
 			} else {
-				logger << Logger::ERR_MSG << "Incorrectly specified hex lattice alignment value on line " << node->Row() << ": " << alignS << ".  Should be center, left, or right.";
+				logger << Logger::ERR_MSG << "Incorrectly specified hex lattice alignment value "
+					"on line " << node->Row() << ": " << alignS << ".  Should be center, "
+					"left, or right.";
 				return false;
 			}
 
@@ -224,7 +232,8 @@ namespace Menge {
 			} else if ( rowDir == "y" ) {
 				dir = HexLatticeGenerator::ROW_Y;
 			} else {
-				logger << Logger::ERR_MSG << "Incorrectly specified hex lattice row direction value on line " << node->Row() << ": " << rowDir << ".  Should be x or y.";
+				logger << Logger::ERR_MSG << "Incorrectly specified hex lattice row direction "
+					"value on line " << node->Row() << ": " << rowDir << ".  Should be x or y.";
 				return false;
 			}
 			lGen->set( Vector2( _attrSet.getFloat( _anchorXID ), _attrSet.getFloat( _anchorYID ) ),

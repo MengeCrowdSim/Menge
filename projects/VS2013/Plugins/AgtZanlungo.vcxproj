@@ -58,7 +58,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(MengeSrc);$(MengeSrc)include;$(MengeSrc)tinyxml;$(MengeSrc)MengeCore;$(MengeSrc)MengeCore\Math;$(MengeSrc)MengeCore\BFSM;$(MengeSrc)MengeCore\SceneGraph;$(MengeSrc)MengeCore\Runtime;$(MengeSrc)MengeCore\PluginEngine;$(MengeSrc)MengeCore\Agents;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(MengeSrc);$(MengeSrc)include;$(MengeSrc)tinyxml;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;ZANLUNGO_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -68,7 +68,7 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>MengeCore_d.lib;OpenGL32.lib;SDL_ttf.lib;GLU32.lib;SDL.lib;tinyxml_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>MengeCore_d.lib;MengeVis_d.lib;OpenGL32.lib;SDL_ttf.lib;GLU32.lib;SDL.lib;tinyxml_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName)_d.dll</OutputFile>
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\resources\winlib;$(MengeLib);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -84,7 +84,7 @@ xcopy /y $(TargetPath) $(ExeDir)\plugins\debug\
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(MengeSrc);$(MengeSrc)include;$(MengeSrc)tinyxml;$(MengeSrc)MengeCore;$(MengeSrc)MengeCore\Math;$(MengeSrc)MengeCore\BFSM;$(MengeSrc)MengeCore\SceneGraph;$(MengeSrc)MengeCore\Runtime;$(MengeSrc)MengeCore\PluginEngine;$(MengeSrc)MengeCore\Agents;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(MengeSrc);$(MengeSrc)include;$(MengeSrc)tinyxml;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;ZANLUNGO_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <OpenMPSupport>true</OpenMPSupport>
@@ -93,7 +93,7 @@ xcopy /y $(TargetPath) $(ExeDir)\plugins\debug\
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>MengeCore.lib;OpenGL32.lib;SDL_ttf.lib;GLU32.lib;SDL.lib;tinyxml.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>MengeCore.lib;MengeVis.lib;OpenGL32.lib;SDL_ttf.lib;GLU32.lib;SDL.lib;tinyxml.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\resources\winlib;$(MengeLib);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>

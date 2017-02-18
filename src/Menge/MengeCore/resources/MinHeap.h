@@ -74,7 +74,8 @@ namespace Menge {
 		 *							path taken.
 		 *	@param		N			The number of nodes.
 		 */
-		AStarMinHeap( unsigned int * heap, float * data, bool * state, unsigned int * path, size_t N );
+		AStarMinHeap( unsigned int * heap, float * data, bool * state, unsigned int * path,
+					  size_t N );
 		
 		/*!
 		 *	@brief		Reports if the heap is empty.
@@ -135,7 +136,10 @@ namespace Menge {
 		 *	@param		node		The nav mesh node index for which the f-value is to be set.
 		 *	@param		value		The f-value for the given node.
 		 */
-		inline void f( unsigned int node, float value ) { if ( _inHeap[ node ] ) changeF( node, value ); else _f[ node ] = value; }
+		inline void f( unsigned int node, float value ) {
+			if ( _inHeap[ node ] ) changeF( node, value );
+			else _f[ node ] = value;
+		}
 		
 		/*!
 		 *	@brief		Retrieve the f-value for the given node.
@@ -175,7 +179,9 @@ namespace Menge {
 		 *	@param		dst		The index of the nav mesh node reached.
 		 *	@param		src		The index of the nav mesh node from which dst was reached.
 		 */
-		inline void setReachedFrom( unsigned int dst, unsigned int src ) { _cameFrom[ dst ] = src; }
+		inline void setReachedFrom( unsigned int dst, unsigned int src ) {
+			_cameFrom[ dst ] = src;
+		}
 
 		/*!
 		 *	@brief		Report the node from which this node was reached.
@@ -183,7 +189,9 @@ namespace Menge {
 		 *	@param		dst		The index of the nav mesh node reached.
 		 *	@returns	The index of the nav mesh node from which dst was reached.
 		 */
-		inline unsigned int getReachedFrom( unsigned int dst ) const { return _cameFrom[ dst ]; }
+		inline unsigned int getReachedFrom( unsigned int dst ) const {
+			return _cameFrom[ dst ];
+		}
 
 	protected:
 		/*!

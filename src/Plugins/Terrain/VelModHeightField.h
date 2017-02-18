@@ -47,8 +47,8 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include "HeightField.h"
 
 // Menge Base
-#include "VelocityModifiers/VelModifier.h"
-#include "VelocityModifiers/VelModifierFactory.h"
+#include "MengeCore/BFSM/VelocityModifiers/VelModifier.h"
+#include "MengeCore/BFSM/VelocityModifiers/VelModifierFactory.h"
 
 //forward declarations
 class TiXmlElement;
@@ -58,8 +58,6 @@ namespace Menge {
 		class BaseAgent;
 	}
 }
-
-using namespace Menge;
 
 namespace Terrain {
 
@@ -83,7 +81,7 @@ namespace Terrain {
 	 *	The output preferred velocity becomes a single velocity (instead of an arc).  
 	 *	If the input preferred velocity spanned an arc, it will be collapsed to a single direction.
 	 */
-	class EXPORT_API HeightFieldModifier : public BFSM::VelModifier {
+	class EXPORT_API HeightFieldModifier : public Menge::BFSM::VelModifier {
 	public:
 		
 		/*!
@@ -110,16 +108,18 @@ namespace Terrain {
 		 *	@brief		Copy method for this velocity modifier
 		 *
 		 */
-		BFSM::VelModifier* copy() const;
+		Menge::BFSM::VelModifier* copy() const;
 
 		/*!
 		 *	@brief		adapt preferred velocity by pushing it away from the heightfield gradient
 		 *
 		 *	@param		agent		The agent for which to modify preferred vel
-		 *	@param		pVel		The agent's current preferred velocity (having potentially been modified)
+		 *	@param		pVel		The agent's current preferred velocity (having potentially been
+		 *							modified)
 		 *
 		 */
-		void adaptPrefVelocity(const Agents::BaseAgent * agent, Agents::PrefVelocity & pVel );
+		void adaptPrefVelocity( const Menge::Agents::BaseAgent * agent,
+								Menge::Agents::PrefVelocity & pVel );
 
 		/*
 		 * identify the factory helper 
@@ -156,7 +156,7 @@ namespace Terrain {
 	/*!
 	 *	@brief		Factory for the HeightFieldModifier.
 	 */
-	class EXPORT_API HeightFieldModifierFactory : public BFSM::VelModFactory {
+	class EXPORT_API HeightFieldModifierFactory : public Menge::BFSM::VelModFactory {
 	public:
 		/*!
 		 *
@@ -183,7 +183,8 @@ namespace Terrain {
 		 *	@returns	A string containing the modifier description.
 		 */
 		virtual const char * description() const {
-			return "Pushes the agent's preferred velocity away from the gradient of a height field";
+			return "Pushes the agent's preferred velocity away from the gradient of a height "
+				   "field";
 		};
 
 	protected:
@@ -197,7 +198,7 @@ namespace Terrain {
 		 *
 		 *	@returns		A pointer to a newly instantiated modifier class.
 		 */
-		BFSM::VelModifier * instance() const { return new HeightFieldModifier(); }	
+		Menge::BFSM::VelModifier * instance() const { return new HeightFieldModifier(); }
 		
 		/*!
 		 *	@brief		Given a pointer to an modifier instance, sets the appropriate fields
@@ -217,7 +218,8 @@ namespace Terrain {
 		 *							that path. 
 		 *	@returns	A boolean reporting success (true) or failure (false).
 		 */
-		virtual bool setFromXML( BFSM::VelModifier * modifier, TiXmlElement * node, const std::string & behaveFldr ) const;
+		virtual bool setFromXML( Menge::BFSM::VelModifier * modifier, TiXmlElement * node,
+								 const std::string & behaveFldr ) const;
 
 		/*!
 		 *	@brief		The identifier for the "file_name" string attribute.
@@ -238,10 +240,6 @@ namespace Terrain {
 		 *	@brief		The identifier for the "down_hill_scale" float attribute.
 		 */
 		size_t	_downhillID;
-
-
-
-
 	};
-};
-#endif
+}	// namespace Terrain
+#endif	// __VELMOD_HEIGHT_FIELD_H__

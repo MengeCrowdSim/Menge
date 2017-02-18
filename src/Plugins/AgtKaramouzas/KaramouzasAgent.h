@@ -46,15 +46,13 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __KARAMOUZAS_AGENT_H__
 #define	__KARAMOUZAS_AGENT_H__
 
-#include "BaseAgent.h"
-
-using namespace Menge;
+#include "MengeCore/Agents/BaseAgent.h"
 
 namespace Karamouzas {
 	/*!
 	 *	@brief		The agent definition for the Karamouzas 2009 agent.
 	 */
-	class Agent : public Agents::BaseAgent {
+	class Agent : public Menge::Agents::BaseAgent {
 	public:
 		/*!
 		 *	@brief		A variant of the copy constructor.
@@ -70,6 +68,16 @@ namespace Karamouzas {
 		 *  @brief      Computes the new velocity of this agent.
 		 */
 		void computeNewVelocity();
+
+		/*!
+		 *	@brief		Used by the plugin system to know what artifacts to associate with
+		 *				agents of this type.  Every sub-class of must return a globally
+		 *				unique value if it should be associated with unique artifacts.
+		 */
+		virtual std::string getStringId() const { return NAME; }
+
+		/*! @brief	The name identifier for this agent type. */
+		static const std::string NAME;
 
 		/*!
 		 *	@brief		The personal space (in meters) of the agent

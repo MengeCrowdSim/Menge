@@ -45,9 +45,10 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __AGENT_INITIALIZER_H__
 #define	 __AGENT_INITIALIZER_H__
 
-#include "CoreConfig.h"
+#include "MengeCore/CoreConfig.h"
+#include "MengeCore/BFSM/VelocityModifiers/VelModifier.h"
+
 #include <string>
-#include "VelocityModifiers/VelModifier.h"
 
 // forward declaration
 class TiXmlElement;
@@ -206,7 +207,8 @@ namespace Menge {
 			 *	@param			value			A string containing the value for the parameter.
 			 *	@returns		The result of the parse: failure, ignored, or accepted.
 			 */
-			virtual ParseResult setFromXMLAttribute( const ::std::string & paramName, const ::std::string & value );
+			virtual ParseResult setFromXMLAttribute( const ::std::string & paramName,
+													 const ::std::string & value );
 			
 			/*!
 			 *	@brief		Parses the Property tag that is the child of an AgentSet Parameter
@@ -259,7 +261,8 @@ namespace Menge {
 			 *				never be a result, because it should only be called on expected
 			 *				parameters, so it must either succed or fail.
 			 */
-			ParseResult constFloatGenerator( FloatGenerator * & gen, const ::std::string & valueStr, float scale=1.f );
+			ParseResult constFloatGenerator( FloatGenerator * & gen,
+											 const ::std::string & valueStr, float scale=1.f );
 
 			/*!
 			 *	@brief		Helper function for setting a property from an xml attribute.
@@ -279,7 +282,8 @@ namespace Menge {
 			 *				never be a result, because it should only be called on expected
 			 *				parameters, so it must either succed or fail.
 			 */
-			ParseResult constFloat( float & numValue, const ::std::string & valueStr, float scale=1.f );
+			ParseResult constFloat( float & numValue, const ::std::string & valueStr,
+									float scale=1.f );
 
 			/*!
 			 *	@brief		Helper function for setting a property from an xml attribute.
@@ -329,14 +333,15 @@ namespace Menge {
 			 *							The new float generator will be put into this variable.
 			 *	@param		node		The xml node containing attributes for the distribution
 			 *							specification.
-			 *	@param		scale		Optional argument for changing the units of the input value.
-			 *							(e.g., specification commonly describes angles as degrees, 
-			 *							but internal representation is in radians).
+			 *	@param		scale		Optional argument for changing the units of the input
+			 *							value (e.g., specification commonly describes angles as
+			 *							degrees, but internal representation is in radians).
 			 *	@returns	A parse result indicating either ACCEPTED or FAILURE.  IGNORED should
 			 *				never be a result, because it should only be called on expected
 			 *				parameters, so it must either succed or fail.
 			 */
-			ParseResult getFloatGenerator( FloatGenerator * & gen, TiXmlElement * node, float scale=1.f );
+			ParseResult getFloatGenerator( FloatGenerator * & gen, TiXmlElement * node,
+										   float scale=1.f );
 
 			/*!
 			 *	@brief		Helper function for setting a property from an xml Property node.
@@ -362,7 +367,8 @@ namespace Menge {
 			FloatGenerator * _maxSpeed;
 
 			/*!
-			 *	@brief		The maximum acceleration the agent can experience (interpreted isotropically).
+			 *	@brief		The maximum acceleration the agent can experience (interpreted
+			 *				isotropically).
 			 */
 			FloatGenerator * _maxAccel;
 
@@ -400,12 +406,14 @@ namespace Menge {
 			size_t _obstacleSet;
 
 			/*!
-			 *	@brief		The priority of each agent.  See Agents::BaseAgent::_priority for details.
+			 *	@brief		The priority of each agent.  See Agents::BaseAgent::_priority for
+			 *				details.
 			 */
 			float _priority;
 
 			/*!
-			 *	@brief		The population class for this agent.  See Agents::BaseAgent::_class for details.
+			 *	@brief		The population class for this agent.  See Agents::BaseAgent::_class
+			 *				for details.
 			 */
 			size_t _class;
 

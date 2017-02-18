@@ -44,8 +44,8 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __AGENT_EVENT_TARGET_H__
 #define	__AGENT_EVENT_TARGET_H__
 
-#include "Events/EventTarget.h"
-#include "Events/EventTargetFactory.h"
+#include "MengeCore/Agents/Events/EventTarget.h"
+#include "MengeCore/Agents/Events/EventTargetFactory.h"
 #include <vector>
 
 namespace Menge {

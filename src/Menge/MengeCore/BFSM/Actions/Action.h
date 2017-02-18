@@ -50,10 +50,10 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __ACTION_H__
 #define __ACTION_H__
 
-#include "CoreConfig.h"
-#include "fsmCommon.h"
-#include "FSMEnumeration.h"
-#include "Element.h"
+#include "MengeCore/CoreConfig.h"
+#include "MengeCore/BFSM/fsmCommon.h"
+#include "MengeCore/BFSM/FSMEnumeration.h"
+#include "MengeCore/PluginEngine/Element.h"
 
 // forward declaration
 class TiXmlElement;
@@ -140,8 +140,8 @@ namespace Menge {
 		 *	@brief		Parses a TinyXML element containing an action specification
 		 *
 		 *	@param		node			The TinyXML element
-		 *	@param		behaveFldr		The folder in which the behavior is defined -- all resources
-		 *								are defined relative to this folder.
+		 *	@param		behaveFldr		The folder in which the behavior is defined -- all
+		 *								resources are defined relative to this folder.
 		 *	@returns	A pointer to the new action .
 		 */
 		Action * parseAction( TiXmlElement * node, const std::string & behaveFldr );

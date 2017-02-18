@@ -36,10 +36,12 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "GoalSelectors/GoalSelectorExplicit.h"
-#include "Goals/Goal.h"
-#include "GoalSet.h"
-#include "BaseAgent.h"
+#include "MengeCore/BFSM/GoalSelectors/GoalSelectorExplicit.h"
+
+#include "MengeCore/Agents/BaseAgent.h"
+#include "MengeCore/BFSM/Goals/Goal.h"
+#include "MengeCore/BFSM/GoalSet.h"
+
 #include <cassert>
 
 namespace Menge {
@@ -66,11 +68,14 @@ namespace Menge {
 				_goal = gs->getGoalByID( gid );
 				if ( _goal == 0x0 ) {
 					std::stringstream ss;
-					logger << Logger::ERR_MSG << "Goal Selector cannot find targeted goal (" << gid << ") in desired goal set (" << _goalSetID << ").";
+					logger << Logger::ERR_MSG << "Goal Selector cannot find targeted goal (";
+					logger << gid << ") in desired goal set (" << _goalSetID << ").";
 					throw GoalSelectorException();
 				}
 			} else {
-				logger << Logger::ERR_MSG << "Explicit goal selector tried accessing a goal set that doesn't exist: " << _goalSetID << "\n";
+				logger << Logger::ERR_MSG;
+				logger << "Explicit goal selector tried accessing a goal set that doesn't exist: ";
+				logger << _goalSetID << "\n";
 				throw GoalSelectorException();
 			}
 		}
@@ -86,9 +91,11 @@ namespace Menge {
 
 		/////////////////////////////////////////////////////////////////////
 
-		bool ExplicitGoalSelectorFactory::setFromXML( GoalSelector * selector, TiXmlElement * node, const std::string & behaveFldr ) const {
+		bool ExplicitGoalSelectorFactory::setFromXML( GoalSelector * selector, TiXmlElement * node,
+													  const std::string & behaveFldr ) const {
 			ExplicitGoalSelector * gs = dynamic_cast< ExplicitGoalSelector * >( selector );
-			assert( gs != 0x0 && "Trying to set explicit goal selector attributes on an incompatible object." );
+			assert( gs != 0x0 &&
+					"Trying to set explicit goal selector attributes on an incompatible object." );
 
 			if ( ! GoalSelectorFactory::setFromXML( gs, node, behaveFldr ) ) return false;
 

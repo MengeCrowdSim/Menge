@@ -45,11 +45,11 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __COND_SPACE_H__
 #define __COND_SPACE_H__
 
-#include "CoreConfig.h"
-#include "Transitions/Condition.h"
-#include "Transitions/ConditionFactory.h"
-#include "Math/Geometry2D.h"
-#include "fsmCommon.h"
+#include "MengeCore/CoreConfig.h"
+#include "MengeCore/BFSM/fsmCommon.h"
+#include "MengeCore/BFSM/Transitions/Condition.h"
+#include "MengeCore/BFSM/Transitions/ConditionFactory.h"
+#include "MengeCore/Math/Geometry2D.h"
 
 namespace Menge {
 
@@ -134,15 +134,17 @@ namespace Menge {
 			 *	sub-class should override this method but explicitly call the parent class's
 			 *	version.
 			 *
-			 *	@param		condition		A pointer to the condition whose attributes are to be set.
+			 *	@param		condition		A pointer to the condition whose attributes are to be
+			 *								set.
 			 *	@param		node			The XML node containing the condition attributes.
-			 *	@param		behaveFldr		The path to the behavior file.  If the condition references
-			 *								resources in the file system, it should be defined relative
-			 *								to the behavior file location.  This is the folder containing
-			 *								that path. 
+			 *	@param		behaveFldr		The path to the behavior file.  If the condition
+			 *								references resources in the file system, it should be
+			 *								defined relative to the behavior file location.  This
+			 *								is the folder containing that path. 
 			 *	@returns	A boolean reporting success (true) or failure (false).
 			 */
-			virtual bool setFromXML( Condition * condition, TiXmlElement * node, const std::string & behaveFldr ) const;
+			virtual bool setFromXML( Condition * condition, TiXmlElement * node,
+									 const std::string & behaveFldr ) const;
 		
 			/*!
 			 *	@brief		The identifier for the "inside" bool attribute.
@@ -189,7 +191,9 @@ namespace Menge {
 			 *	@param		pt		The point to test w.r.t. the transition region.
 			 *	@returns	True if the transition region contains the given point.
 			 */
-			virtual bool containsPoint( const Vector2 & pt ) const { return CircleShape::containsPoint( pt ); }
+			virtual bool containsPoint( const Vector2 & pt ) const {
+				return CircleShape::containsPoint( pt );
+			}
 		};
 
 		/*!
@@ -220,8 +224,8 @@ namespace Menge {
 			 *	@returns	A string containing the action description.
 			 */
 			virtual const char * description() const {
-				return "The circle condition.  It becomes active when an agent achieves "\
-					"a particular relationship (inside/outside) with a static circle in the " \
+				return "The circle condition.  It becomes active when an agent achieves "
+					"a particular relationship (inside/outside) with a static circle in the "
 					"environment.";
 			}
 		protected:
@@ -247,15 +251,17 @@ namespace Menge {
 			 *	sub-class should override this method but explicitly call the parent class's
 			 *	version.
 			 *
-			 *	@param		condition		A pointer to the condition whose attributes are to be set.
+			 *	@param		condition		A pointer to the condition whose attributes are to be
+			 *								set.
 			 *	@param		node			The XML node containing the condition attributes.
-			 *	@param		behaveFldr		The path to the behavior file.  If the condition references
-			 *								resources in the file system, it should be defined relative
-			 *								to the behavior file location.  This is the folder containing
-			 *								that path. 
+			 *	@param		behaveFldr		The path to the behavior file.  If the condition
+			 *								references resources in the file system, it should be
+			 *								defined relative to the behavior file location.  This
+			 *								is the folder containing that path. 
 			 *	@returns	A boolean reporting success (true) or failure (false).
 			 */
-			virtual bool setFromXML( Condition * condition, TiXmlElement * node, const std::string & behaveFldr ) const;
+			virtual bool setFromXML( Condition * condition, TiXmlElement * node,
+									 const std::string & behaveFldr ) const;
 		
 			/*!
 			 *	@brief		The identifier for the "center_x" float attribute.
@@ -276,7 +282,8 @@ namespace Menge {
 		///////////////////////////////////////////////////////////////////////////
 
 		/*!
-		 *	@brief		A transition based on spatial relationship with an axis-aligned bounding box (AABB).
+		 *	@brief		A transition based on spatial relationship with an axis-aligned bounding
+		 *				box (AABB).
 		 *
 		 *	The agent will transition when it reaches the relationship (inside or outside)
 		 *	to the defined axis-aligned bounding box (AABB).
@@ -311,7 +318,9 @@ namespace Menge {
 			 *	@param		pt		The point to test w.r.t. the transition region.
 			 *	@returns	True if the transition region contains the given point.
 			 */
-			virtual bool containsPoint( const Vector2 & pt ) const { return AABBShape::containsPoint( pt ); }
+			virtual bool containsPoint( const Vector2 & pt ) const {
+				return AABBShape::containsPoint( pt );
+			}
 		};
 
 		/*!
@@ -342,9 +351,9 @@ namespace Menge {
 			 *	@returns	A string containing the action description.
 			 */
 			virtual const char * description() const {
-				return "The axis-aligned bounding box (AABB) condition.  It becomes active when an agent achieves "\
-					"a particular relationship (inside/outside) with a static axis-aligned bounding box in the " \
-					"environment.";
+				return "The axis-aligned bounding box (AABB) condition.  It becomes active when "
+					"an agent achieves a particular relationship (inside/outside) with a static "
+					"axis-aligned bounding box in the environment.";
 			}
 		protected:
 			/*!
@@ -369,15 +378,17 @@ namespace Menge {
 			 *	sub-class should override this method but explicitly call the parent class's
 			 *	version.
 			 *
-			 *	@param		condition		A pointer to the condition whose attributes are to be set.
+			 *	@param		condition		A pointer to the condition whose attributes are to be
+			 *								set.
 			 *	@param		node			The XML node containing the condition attributes.
-			 *	@param		behaveFldr		The path to the behavior file.  If the condition references
-			 *								resources in the file system, it should be defined relative
-			 *								to the behavior file location.  This is the folder containing
-			 *								that path. 
+			 *	@param		behaveFldr		The path to the behavior file.  If the condition
+			 *								references resources in the file system, it should be
+			 *								defined relative to the behavior file location.  This
+			 *								is the folder containing that path. 
 			 *	@returns	A boolean reporting success (true) or failure (false).
 			 */
-			virtual bool setFromXML( Condition * condition, TiXmlElement * node, const std::string & behaveFldr ) const;
+			virtual bool setFromXML( Condition * condition, TiXmlElement * node,
+									 const std::string & behaveFldr ) const;
 		
 			/*!
 			 *	@brief		The identifier for the "min_x" float attribute.
@@ -403,10 +414,11 @@ namespace Menge {
 		///////////////////////////////////////////////////////////////////////////
 
 		/*!
-		 *	@brief		A transition based on spatial relationship with an axis-aligned bounding box (AABB).
+		 *	@brief		A transition based on spatial relationship with an oriented bounding
+		 *				box (OBB).
 		 *
 		 *	The agent will transition when it reaches the relationship (inside or outside)
-		 *	to the defined axis-aligned bounding box (AABB).
+		 *	to the defined oriented bounding box (OBB).
 		 */
 		class MENGE_API OBBCondition : public SpaceCondition, public OBBShape {
 		public:
@@ -438,7 +450,9 @@ namespace Menge {
 			 *	@param		pt		The point to test w.r.t. the transition region.
 			 *	@returns	True if the transition region contains the given point.
 			 */
-			virtual bool containsPoint( const Vector2 & pt ) const { return OBBShape::containsPoint( pt ); }
+			virtual bool containsPoint( const Vector2 & pt ) const {
+				return OBBShape::containsPoint( pt );
+			}
 		};
 
 		/*!
@@ -469,9 +483,9 @@ namespace Menge {
 			 *	@returns	A string containing the action description.
 			 */
 			virtual const char * description() const {
-				return "The oriented bounding box (OBB) condition.  It becomes active when an agent achieves "\
-					"a particular relationship (inside/outside) with a static oriented bounding box in the " \
-					"environment.";
+				return "The oriented bounding box (OBB) condition.  It becomes active when an "
+					"agent achieves a particular relationship (inside/outside) with a static "
+					"oriented bounding box in the environment.";
 			}
 		protected:
 			/*!
@@ -496,15 +510,17 @@ namespace Menge {
 			 *	sub-class should override this method but explicitly call the parent class's
 			 *	version.
 			 *
-			 *	@param		condition		A pointer to the condition whose attributes are to be set.
+			 *	@param		condition		A pointer to the condition whose attributes are to be
+			 *								set.
 			 *	@param		node			The XML node containing the condition attributes.
-			 *	@param		behaveFldr		The path to the behavior file.  If the condition references
-			 *								resources in the file system, it should be defined relative
-			 *								to the behavior file location.  This is the folder containing
-			 *								that path. 
+			 *	@param		behaveFldr		The path to the behavior file.  If the condition
+			 *								references resources in the file system, it should be
+			 *								defined relative to the behavior file location.  This
+			 *								is the folder containing that path. 
 			 *	@returns	A boolean reporting success (true) or failure (false).
 			 */
-			virtual bool setFromXML( Condition * condition, TiXmlElement * node, const std::string & behaveFldr ) const;
+			virtual bool setFromXML( Condition * condition, TiXmlElement * node,
+									 const std::string & behaveFldr ) const;
 		
 			/*!
 			 *	@brief		The identifier for the "pivot_x" float attribute.
@@ -533,6 +549,6 @@ namespace Menge {
 		};
 
 	}	// namespace BFSM
-}
+}  // namespace Menge
 
 #endif	// __COND_SPACE_H__

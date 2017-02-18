@@ -36,10 +36,10 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "Geometry2D.h"
+#include "MengeCore/Math/Geometry2D.h"
 
-#include "Attribute.h"
-#include "PrefVelocity.h"
+#include "MengeCore/Agents/PrefVelocity.h"
+#include "MengeCore/PluginEngine/Attribute.h"
 
 #include "tinyxml.h"
 
@@ -174,16 +174,18 @@ namespace Menge {
 				Vector2 relPos = _center - q;
 				const float distSq = absSq(relPos);
 				if (distSq < TARGET_R_SQD) {
-					// Goal reached -- I'm inside the effective circle -- current position is the goal
-					//	and no movement is necessary
+					// Goal reached -- I'm inside the effective circle -- current position is the
+					//	goal and no movement is necessary
 					directions.setSingle(Vector2(0.f, 0.f));
 					directions.setTarget(q);
 				}
 				else {
 					// Outside the effective circle, a span is possible.
 					float leg = sqrtf(distSq - TARGET_R_SQD);
-					Vector2 left = Vector2(relPos.x() * leg - relPos.y() * TARGET_R, relPos.x() * TARGET_R + relPos.y() * leg) / distSq;
-					Vector2 right = Vector2(relPos.x() * leg + relPos.y() * TARGET_R, -relPos.x() * TARGET_R + relPos.y() * leg) / distSq;
+					Vector2 left = Vector2(relPos.x() * leg - relPos.y() * TARGET_R,
+											relPos.x() * TARGET_R + relPos.y() * leg) / distSq;
+					Vector2 right = Vector2(relPos.x() * leg + relPos.y() * TARGET_R,
+											 -relPos.x() * TARGET_R + relPos.y() * leg) / distSq;
 					const float dist = sqrtf(distSq);
 					Vector2 dir = relPos / dist;
 					directions.setSpan(left, right, dir);
@@ -228,8 +230,11 @@ namespace Menge {
 
 		/////////////////////////////////////////////////////////////////////
 
-		AABBShape::AABBShape( const Vector2 & minPt, const Vector2 & maxPt ):Geometry2D(), _minPt(minPt), _maxPt(maxPt) {
-			assert( _minPt.x() <= _maxPt.x() && _minPt.y() <= _maxPt.y() && "Improper definition of AABB" );
+		AABBShape::AABBShape( const Vector2 & minPt, const Vector2 & maxPt ) : Geometry2D(),
+																			   _minPt(minPt),
+																			   _maxPt(maxPt) {
+			assert( _minPt.x() <= _maxPt.x() && _minPt.y() <= _maxPt.y() &&
+					"Improper definition of AABB" );
 			_halfSize = (maxPt-minPt) * 0.5f;
 		}
 
@@ -453,12 +458,15 @@ namespace Menge {
 		//                   Implementation of OBBShape
 		/////////////////////////////////////////////////////////////////////
 
-		OBBShape::OBBShape():Geometry2D(), _pivot(0.f,0.f), _size(0.f,0.f), _cosTheta(1.f), _sinTheta(0.f) {
+		OBBShape::OBBShape() : Geometry2D(), _pivot(0.f,0.f), _size(0.f,0.f), _cosTheta(1.f),
+							   _sinTheta(0.f) {
 		}
 
 		/////////////////////////////////////////////////////////////////////
 
-		OBBShape::OBBShape( const Vector2 & pivot, const Vector2 & size, float angle ):Geometry2D(), _pivot(pivot), _size(size), _cosTheta(cos(angle)), _sinTheta(sin(angle)) {
+		OBBShape::OBBShape( const Vector2 & pivot, const Vector2 & size, float angle ) :
+			Geometry2D(), _pivot(pivot), _size(size), _cosTheta(cos(angle)),
+			_sinTheta(sin(angle)) {
 		}
 
 		/////////////////////////////////////////////////////////////////////
@@ -734,12 +742,12 @@ namespace Menge {
 					return createOBB(node, prefix);
 				}
 				else {
-					logger << Logger::ERR_MSG << "Attemtped to read shape attributes from a tag " \
+					logger << Logger::ERR_MSG << "Attemtped to read shape attributes from a tag "
 						"but the shape type was not recognized: " << val << ".\n";
 				}
 			}
 			else {
-				logger << Logger::ERR_MSG << "Attempted to read shape attributes from a tag but "\
+				logger << Logger::ERR_MSG << "Attempted to read shape attributes from a tag but "
 					"didn't find the shape declaration: \" " << fullName << "\" on line " <<
 					node->Row() << ".\n";
 			}
@@ -804,25 +812,29 @@ namespace Menge {
 			bool valid = true;
 			FloatAttribute minX(prefix + "min_x", true, 0.f);
 			if (!minX.extract(node)) {
-				logger << Logger::ERR_MSG << "Missing \"min_x\" value from AABB definition on line ";
+				logger << Logger::ERR_MSG;
+				logger << "Missing \"min_x\" value from AABB definition on line ";
 				logger << node->Row() << "\n";
 				valid = false;
 			}
 			FloatAttribute minY(prefix + "min_y", true, 0.f);
 			if (!minY.extract(node)) {
-				logger << Logger::ERR_MSG << "Missing \"min_y\" value from AABB definition on line ";
+				logger << Logger::ERR_MSG;
+				logger << "Missing \"min_y\" value from AABB definition on line ";
 				logger << node->Row() << "\n";
 				valid = false;
 			}
 			FloatAttribute maxX(prefix + "max_x", true, 0.f);
 			if (!maxX.extract(node)) {
-				logger << Logger::ERR_MSG << "Missing \"max_x\" value from AABB definition on line ";
+				logger << Logger::ERR_MSG;
+				logger << "Missing \"max_x\" value from AABB definition on line ";
 				logger << node->Row() << "\n";
 				valid = false;
 			}
 			FloatAttribute maxY(prefix + "max_y", true, 0.f);
 			if (!maxY.extract(node)) {
-				logger << Logger::ERR_MSG << "Missing \"max_y\" value from AABB definition on line ";
+				logger << Logger::ERR_MSG;
+				logger << "Missing \"max_y\" value from AABB definition on line ";
 				logger << node->Row() << "\n";
 				valid = false;
 			}
@@ -851,19 +863,22 @@ namespace Menge {
 			}
 			FloatAttribute width(prefix + "width", true, 0.f);
 			if (!width.extract(node)) {
-				logger << Logger::ERR_MSG << "Missing \"width\" value from OBB definition on line ";
+				logger << Logger::ERR_MSG;
+				logger << "Missing \"width\" value from OBB definition on line ";
 				logger << node->Row() << "\n";
 				valid = false;
 			}
 			FloatAttribute height(prefix + "height", true, 0.f);
 			if (!height.extract(node)) {
-				logger << Logger::ERR_MSG << "Missing \"height\" value from OBB definition on line ";
+				logger << Logger::ERR_MSG;
+				logger << "Missing \"height\" value from OBB definition on line ";
 				logger << node->Row() << "\n";
 				valid = false;
 			}
 			FloatAttribute angle(prefix + "angle", true, 0.f);
 			if (!angle.extract(node)) {
-				logger << Logger::ERR_MSG << "Missing \"angle\" value from OBB definition on line ";
+				logger << Logger::ERR_MSG;
+				logger << "Missing \"angle\" value from OBB definition on line ";
 				logger << node->Row() << "\n";
 				valid = false;
 			}

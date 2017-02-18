@@ -36,10 +36,12 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "GoalSelectors/GoalSelectorFarthest.h"
-#include "Goals/Goal.h"
-#include "GoalSet.h"
-#include "BaseAgent.h"
+#include "MengeCore/BFSM/GoalSelectors/GoalSelectorFarthest.h"
+
+#include "MengeCore/Agents/BaseAgent.h"
+#include "MengeCore/BFSM/GoalSet.h"
+#include "MengeCore/BFSM/Goals/Goal.h"
+
 #include <cassert>
 
 namespace Menge {
@@ -53,7 +55,9 @@ namespace Menge {
 			assert( agent != 0x0 && "FarthestGoalSelector requires a valid base agent!" );
 			const size_t GOAL_COUNT = _goalSet->size();
 			if ( GOAL_COUNT == 0 ) {
-				logger << Logger::ERR_MSG << "FarthestGoalSelector was unable to provide a goal for agent " << agent->_id << ".  There were no available goals in the goal set.";
+				logger << Logger::ERR_MSG;
+				logger << "FarthestGoalSelector was unable to provide a goal for agent ";
+				logger << agent->_id << ".  There were no available goals in the goal set.";
 				return 0x0;
 			}
 			const Vector2 p = agent->_pos;

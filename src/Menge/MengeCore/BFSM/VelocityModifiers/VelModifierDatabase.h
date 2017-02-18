@@ -47,9 +47,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __VEL_MOD_DATABASE_H__
 #define __VEL_MOD_DATABASE_H__
 
-#include "ElementDatabase.h"
-#include "VelocityModifiers/VelModifierFactory.h"
-#include "VelocityModifiers/VelModifier.h"
+#include "MengeCore/BFSM/VelocityModifiers/VelModifier.h"
+#include "MengeCore/BFSM/VelocityModifiers/VelModifierFactory.h"
+#include "MengeCore/PluginEngine/ElementDatabase.h"
 
 namespace Menge {
 

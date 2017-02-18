@@ -45,11 +45,12 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __TARGET_RETURN_H__
 #define	__TARGET_RETURN_H__
 
-#include "CoreConfig.h"
-#include "Target.h"
-#include "TargetFactory.h"
-#include "fsmCommon.h"
-#include "ReadersWriterLock.h"
+#include "MengeCore/CoreConfig.h"
+#include "MengeCore/BFSM/fsmCommon.h"
+#include "MengeCore/BFSM/Transitions/Target.h"
+#include "MengeCore/BFSM/Transitions/TargetFactory.h"
+#include "MengeCore/Runtime/ReadersWriterLock.h"
+
 #include <list>
 
 namespace Menge {
@@ -177,7 +178,7 @@ namespace Menge {
 			 *	@returns	A string containing the action description.
 			 */
 			virtual const char * description() const {
-				return "Defines the transition target as the state the agent was in when "\
+				return "Defines the transition target as the state the agent was in when "
 					   "it advanced to this state.";
 			}
 			

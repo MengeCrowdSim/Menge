@@ -36,8 +36,10 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "ObstacleSets/ListObstacleSet.h"
+#include "MengeCore/Agents/ObstacleSets/ListObstacleSet.h"
+
 #include "tinyxml.h"
+
 #include <vector>
 
 namespace Menge {
@@ -61,7 +63,8 @@ namespace Menge {
 
 		Obstacle * ListObstacleSet::getObstacle( size_t i ) {
 			if ( i >= _obstacles.size() ) {
-				throw ObstacleSetFatalException("Trying to access obstacle with invalid index value");
+				throw ObstacleSetFatalException("Trying to access obstacle with invalid "
+												 "index value");
 			}
 			return _obstacles[ i ];
 		}
@@ -105,7 +108,8 @@ namespace Menge {
 				// default case is that it is convex.
 				obstacle->_isConvex = true;
 				if ( i > 0 && VCOUNT > 2 ) {
-					obstacle->_isConvex = leftOf( o.vertices[ i-1 ], o.vertices[ i ], o.vertices[ i+1 ] ) >= 0;
+					obstacle->_isConvex = leftOf( o.vertices[ i-1 ], o.vertices[ i ],
+												  o.vertices[ i+1 ] ) >= 0;
 				}
 
 				addObstacle(obstacle);
@@ -130,9 +134,11 @@ namespace Menge {
 				// default case is that it is convex.
 				obstacle->_isConvex = true;
 				if ( VCOUNT > 2 ) {
-					obstacle->_isConvex = leftOf( o.vertices[ VCOUNT - 2 ], o.vertices[ VCOUNT - 1 ], o.vertices[ 0 ] ) >= 0;
+					obstacle->_isConvex = leftOf( o.vertices[ VCOUNT - 2 ],
+												  o.vertices[ VCOUNT - 1 ], o.vertices[ 0 ] ) >= 0;
 					Obstacle * obst = obstacle->_nextObstacle;
-					obst->_isConvex = leftOf( o.vertices[ VCOUNT - 1 ], o.vertices[ 0 ], o.vertices[ 1 ] ) >= 0;
+					obst->_isConvex = leftOf( o.vertices[ VCOUNT - 1 ],
+											  o.vertices[ 0 ], o.vertices[ 1 ] ) >= 0;
 				}
 
 				addObstacle(obstacle);

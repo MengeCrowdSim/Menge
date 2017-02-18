@@ -37,17 +37,28 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 */
 
 #include "ElevationHeightField.h"
-#include "BaseAgent.h"
+
+#include "MengeCore/Agents/BaseAgent.h"
+#include "MengeCore/Runtime/os.h"
+
 #include "tinyxml.h"
-#include "os.h"
 
 namespace Terrain {
+
+	using Menge::logger;
+	using Menge::Logger;
+	using Menge::ResourceException;
+	using Menge::Agents::BaseAgent;
+	using Menge::Agents::Elevation;
+	using Menge::Agents::ElevationFactory;
+	using Menge::Math::Vector2;
+	using Menge::Math::Vector3;
 
 	////////////////////////////////////////////////////////////////
 	//					Implementation of HeightFieldElevation
 	////////////////////////////////////////////////////////////////
 
-	HeightFieldElevation::HeightFieldElevation(): Agents::Elevation(), _field(0x0) {
+	HeightFieldElevation::HeightFieldElevation(): Elevation(), _field(0x0) {
 	}
 
 	////////////////////////////////////////////////////////////////
@@ -58,13 +69,13 @@ namespace Terrain {
 
 	////////////////////////////////////////////////////////////////
 
-	float HeightFieldElevation::getElevation( const Agents::BaseAgent * agent ) const {
+	float HeightFieldElevation::getElevation( const BaseAgent * agent ) const {
 		return _field->getHeightAt( agent->_pos._x, agent->_pos._y );
 	}
 
 	////////////////////////////////////////////////////////////////
 
-	Vector2 HeightFieldElevation::getGradient( const Agents::BaseAgent * agent ) const {
+	Vector2 HeightFieldElevation::getGradient( const BaseAgent * agent ) const {
 		Vector3 norm = _field->getNormalAt( agent->_pos._x, agent->_pos._y );
 		return Vector2( norm._x, norm._z );
 	}
@@ -80,22 +91,26 @@ namespace Terrain {
 	//                   Implementation of HeightFieldElevationFactory
 	/////////////////////////////////////////////////////////////////////
 
-	HeightFieldElevationFactory::HeightFieldElevationFactory() : Agents::ElevationFactory() {
+	HeightFieldElevationFactory::HeightFieldElevationFactory() : ElevationFactory() {
 		_fileNameID = _attrSet.addStringAttribute( "file_name", true /*required*/ );
 	}
 
 	/////////////////////////////////////////////////////////////////////
 
-	bool HeightFieldElevationFactory::setFromXML( Agents::Elevation * e, TiXmlElement * node, const std::string & specFldr ) const {
+	bool HeightFieldElevationFactory::setFromXML( Elevation * e, TiXmlElement * node,
+												  const std::string & specFldr ) const {
 		HeightFieldElevation * hfe = dynamic_cast< HeightFieldElevation * >( e );
-		assert( hfe != 0x0 && "Trying to set attributes of a height field elevation component on an incompatible object" );
+		assert( hfe != 0x0 &&
+				"Trying to set attributes of a height field elevation component on an "
+				"incompatible object" );
 
 		if ( ! ElevationFactory::setFromXML( hfe, node, specFldr ) ) return false;
 
 		// get the file name
 		std::string fName;
-		std::string path = os::path::join( 2, specFldr.c_str(), _attrSet.getString( _fileNameID ).c_str() );
-		os::path::absPath( path, fName );
+		std::string path = Menge::os::path::join( 2, specFldr.c_str(),
+												  _attrSet.getString( _fileNameID ).c_str() );
+		Menge::os::path::absPath( path, fName );
 		// nav mesh
 		HeightFieldPtr hfPtr;
 		try {

@@ -44,8 +44,8 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __EVENT_TRIGGER_H__
 #define __EVENT_TRIGGER_H__
 
-#include "CoreConfig.h"
-#include "Element.h"
+#include "MengeCore/CoreConfig.h"
+#include "MengeCore/PluginEngine/Element.h"
 
 namespace Menge {
 	/*!

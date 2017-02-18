@@ -36,8 +36,10 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "VelocityModifiers/VelModifierScale.h"
-#include "BaseAgent.h"
+#include "MengeCore/BFSM/VelocityModifiers/VelModifierScale.h"
+
+#include "MengeCore/Agents/BaseAgent.h"
+
 #include <sstream>
 #include <iomanip>
 
@@ -65,12 +67,19 @@ namespace Menge {
 
 		/////////////////////////////////////////////////////////////////////
 
-		void ScaleVelModifier::adaptPrefVelocity(const Agents::BaseAgent * agent, Agents::PrefVelocity & pVel) {
+		void ScaleVelModifier::adaptPrefVelocity(const Agents::BaseAgent * agent,
+												  Agents::PrefVelocity & pVel) {
 			pVel.setSpeed(pVel.getSpeed() * _scale);
 		}
 
 		/////////////////////////////////////////////////////////////////////
 
+		VelModifier * ScaleVelModifier::copy() const { 
+			return new ScaleVelModifier(_scale);
+		};
+
+		/////////////////////////////////////////////////////////////////////
+#if 0
 		VelModContext * ScaleVelModifier::getContext() {
 			return new ScaleVMContext(this);
 		}
@@ -95,13 +104,7 @@ namespace Menge {
 		void ScaleVMContext::draw3DGL( const Agents::BaseAgent * agt) {
 			// draw preferred velocity
 		}
-
-		/////////////////////////////////////////////////////////////////////
-
-		VelModifier * ScaleVelModifier::copy() const { 
-			return new ScaleVelModifier(_scale);
-		};
-
+#endif
 		/////////////////////////////////////////////////////////////////////
 		//                   Implementation of ScaleVMFactory
 		/////////////////////////////////////////////////////////////////////
@@ -113,9 +116,11 @@ namespace Menge {
 
 		/////////////////////////////////////////////////////////////////////
 
-		bool ScaleVMFactory::setFromXML( VelModifier * vm, TiXmlElement * node, const std::string & behaveFldr ) const {
+		bool ScaleVMFactory::setFromXML( VelModifier * vm, TiXmlElement * node,
+										 const std::string & behaveFldr ) const {
 			ScaleVelModifier * cvm = dynamic_cast< ScaleVelModifier * >( vm );
-			assert( cvm != 0x0 && "Trying to set attributes of a Scale Velocity Modifier on an incompatible object" );
+			assert( cvm != 0x0 && "Trying to set attributes of a Scale Velocity Modifier on an "
+					"incompatible object" );
 
 			if ( ! VelModFactory::setFromXML( vm, node, behaveFldr ) ) return false;
 

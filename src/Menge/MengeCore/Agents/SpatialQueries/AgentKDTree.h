@@ -46,11 +46,12 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
  */
 
 // STL
-#include "CoreConfig.h"
+#include "MengeCore/CoreConfig.h"
+#include "MengeCore/Agents/SpatialQueries/ProximityQuery.h"
+#include "MengeCore/Math/Vector2.h"
+
 #include <vector>
 #include <cstddef>
-#include "SpatialQueries/ProximityQuery.h"
-
 
 namespace Menge {
 
@@ -74,7 +75,8 @@ namespace Menge {
 		class MENGE_API AgentKDTree {
 		private:
 			/*!
-			 *  @brief      A node in the <i>k</i>d-tree -- a group of one or more agents and their extents.
+			 *  @brief      A node in the <i>k</i>d-tree -- a group of one or more agents and their
+			 *				extents.
 			 */
 			struct AgentTreeNode {
 				/*!
@@ -159,7 +161,8 @@ namespace Menge {
 			 *  @param      rangeSq         The squared range around the agent.
 			 *	@param		node			The current node to search in.
 			 */
-			void queryTreeRecursive( ProximityQuery *filter, Vector2 pt, float& rangeSq, size_t node) const;
+			void queryTreeRecursive( ProximityQuery *filter, Math::Vector2 pt, float& rangeSq,
+									 size_t node) const;
 
 			/*!
 			 *	@brief		The agents being partitioned by the <i>k</i>d-tree.

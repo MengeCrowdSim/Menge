@@ -36,12 +36,14 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "TargetReturn.h"
+#include "MengeCore/BFSM/Transitions/TargetReturn.h"
+
+#include "MengeCore/Core.h"
+#include "MengeCore/Agents/BaseAgent.h"
+#include "MengeCore/BFSM/FSM.h"
+
 #include "tinyxml.h"
-#include "Core.h"
 #include <cassert>
-#include "FSM.h"
-#include "BaseAgent.h"
 
 namespace Menge {
 
@@ -56,7 +58,8 @@ namespace Menge {
 
 		///////////////////////////////////////////////////////////////////////////
 
-		ReturnTarget::ReturnTarget( const ReturnTarget & tgt):TransitionTarget(tgt), _targets(tgt._targets) {
+		ReturnTarget::ReturnTarget( const ReturnTarget & tgt) : TransitionTarget( tgt ),
+																_targets(tgt._targets) {
 		}
 
 		///////////////////////////////////////////////////////////////////////////
@@ -85,7 +88,8 @@ namespace Menge {
 		State * ReturnTarget::nextState( Agents::BaseAgent * agent ) {
 			_lock.lockRead();
 			std::map< size_t, State * >::iterator itr = _targets.find( agent->_id );
-			assert( itr != _targets.end() && "Using a return target for an agent with no return value" );
+			assert( itr != _targets.end() &&
+					"Using a return target for an agent with no return value" );
 			State * next = itr->second;
 			_lock.releaseRead();
 			return next;

@@ -36,8 +36,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "Task.h"
-#include "TaskDatabase.h"
+#include "MengeCore/BFSM/Tasks/Task.h"
+
+#include "MengeCore/BFSM/Tasks/TaskDatabase.h"
 
 namespace Menge {
 

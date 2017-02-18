@@ -42,11 +42,25 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 */ 
 
 #include "FreeFormation.h"
-#include "SimulatorInterface.h"
-#include "VelocityModifiers/VelModifier.h"
-#include "Core.h"
+
+#include "MengeCore/Core.h"
+#include "MengeCore/Agents/SimulatorInterface.h"
+#include "MengeCore/BFSM/VelocityModifiers/VelModifier.h"
 
 namespace Formations {
+
+	using Menge::logger;
+	using Menge::Logger;
+	using Menge::Resource;
+	using Menge::ResourceException;
+	using Menge::ResourceManager;
+	using Menge::Agents::BaseAgent;
+	using Menge::Agents::PrefVelocity;
+	using Menge::BFSM::FSM;
+	using Menge::BFSM::VelModFatalException;
+	using Menge::Math::Vector2;
+	using Menge::Math::sqr;
+
 	/////////////////////////////////////////////////////////////////////
 	//                   Implementation of FreeFormation
 	/////////////////////////////////////////////////////////////////////
@@ -55,7 +69,7 @@ namespace Formations {
 
 	/////////////////////////////////////////////////////////////////////
 
-	FreeFormation::FreeFormation(const std::string & name): Resource(name){
+	FreeFormation::FreeFormation(const std::string & name) : Resource(name){
 		_speed = 0.0f;
 		_direction = Vector2(1,0);
 		_pos = Vector2(0,0);
@@ -73,7 +87,8 @@ namespace Formations {
 			delete *fpIter;
 		}
 
-		//in all actuality, we don't have to do anything the data is constructed in such a way to implicitly handle this
+		// In all actuality, we don't have to do anything the data is constructed in such a way to
+		// implicitly handle this
 
 		// The problem with this is that this is TWO data structures that have been
 		//	merged.  The *static* underlying formation definition, and the *dynamic* 
@@ -82,7 +97,7 @@ namespace Formations {
 
 	/////////////////////////////////////////////////////////////////////
 
-	void FreeFormation::addAgent( const Agents::BaseAgent *agt ) {
+	void FreeFormation::addAgent( const BaseAgent *agt ) {
 		if ( _agents.find( agt->_id ) == _agents.end() ){
 			_agents[ agt->_id ] = agt;
 			_agentWeights[ agt->_id ] = 1.0f; // default weight - this never changes
@@ -91,8 +106,8 @@ namespace Formations {
 
 	/////////////////////////////////////////////////////////////////////
 
-	void FreeFormation::removeAgent( const Agents::BaseAgent *agt ) {
-		std::map<size_t, const Agents::BaseAgent *>::iterator itr = _agents.find( agt->_id );
+	void FreeFormation::removeAgent( const BaseAgent *agt ) {
+		std::map<size_t, const BaseAgent *>::iterator itr = _agents.find( agt->_id );
 		if ( itr != _agents.end()){
 			_agents.erase( itr );
 		}
@@ -120,7 +135,7 @@ namespace Formations {
 
 	/////////////////////////////////////////////////////////////////////
 
-	void FreeFormation::addAgentPoint(const Agents::BaseAgent *agt) {
+	void FreeFormation::addAgentPoint(const BaseAgent *agt) {
 		//make a sentinel point
 		FormationPoint *agtPoint = new FormationPoint();
 
@@ -181,13 +196,13 @@ namespace Formations {
 
 	/////////////////////////////////////////////////////////////////////
 
-	void FreeFormation::mapAgentsToFormation(const BFSM::FSM * fsm) {
+	void FreeFormation::mapAgentsToFormation(const FSM * fsm) {
 		//we need intermediate vars
 		std::vector<FormationPoint *>::const_iterator formationItr;
-		const Agents::BaseAgent *agt;
+		const BaseAgent *agt;
 		size_t exceptionCount = 0;	// delete me
 		size_t agtCount = 0;
-		std::map<size_t,const Agents::BaseAgent *>::iterator itr; //agents
+		std::map<size_t,const BaseAgent *>::iterator itr; //agents
 		std::map<size_t, FormationPoint *>::iterator mapIter; //agent points
 		float totalWeight = 0.0f;
 		//reset vars
@@ -258,7 +273,7 @@ namespace Formations {
 
 	/////////////////////////////////////////////////////////////////////
 
-	void FreeFormation::mapAgentToPoint( const Agents::BaseAgent * agt ){
+	void FreeFormation::mapAgentToPoint( const BaseAgent * agt ){
 		// This uses a brute-force approach of teseting every formation
 		//		point for the agent.  No spatial queries.
 
@@ -285,7 +300,7 @@ namespace Formations {
 		if (minPt == -1) {
 			// TODO: Although this claims to be "fatal", it doesn't cause the
 			//			program to crash.  Make the exception appropriate.
-			throw BFSM::VelModFatalException( "Not enough points in formation." );
+			throw VelModFatalException( "Not enough points in formation." );
 		} else {
 			_formationPoint_agent[ minPt ] = agtPoint->_id;
 			_agent_formationPoint[ agtPoint->_id ] = minPt;
@@ -300,14 +315,14 @@ namespace Formations {
 		//	the "nearest" candidate.
 
 		//iterate over the agents and find the best agent for this point
-		std::map< size_t, const Agents::BaseAgent * >::const_iterator itr;
+		std::map< size_t, const BaseAgent * >::const_iterator itr;
 		FormationPoint * agtPoint;
 		float distance, minDistance;
 		distance = minDistance = 1000000.0;
 		size_t minAgtID = -1;
 		
 		for ( itr = _agents.begin(); itr != _agents.end(); ++itr ){
-			const Agents::BaseAgent * agt = itr->second;
+			const BaseAgent * agt = itr->second;
 			//make sure the agent isn't already mapped to a border
 			if (_agent_formationPoint.find( agt->_id ) == _agent_formationPoint.end() ) {
 				//check distance
@@ -333,16 +348,17 @@ namespace Formations {
 
 	/////////////////////////////////////////////////////////////////////
 
-	bool FreeFormation::getGoalForAgent( const Agents::BaseAgent * agt, Agents::PrefVelocity &pVel, Vector2 &target) {
-		// The goal point is the agent's corresponding sential point (with the point moving the formations
-		//	direction and speed.)
+	bool FreeFormation::getGoalForAgent( const BaseAgent * agt, PrefVelocity &pVel, Vector2 &target) {
+		// The goal point is the agent's corresponding sential point (with the point moving the
+		// formations direction and speed.)
 
 		//cache input pref dir
 		_agentPrefDirs[ agt->_id ] = pVel.getPreferred();
 		_agentPrefVels[ agt->_id ] = pVel.getPreferredVel();
 
 		// assuming this is only called on agents in the formation
-		assert(_agents.find(agt->_id) != _agents.end() && "Trying to get a formation goal for an agent that is not in the formation" );
+		assert(_agents.find(agt->_id) != _agents.end() &&
+				"Trying to get a formation goal for an agent that is not in the formation" );
 		
 		//the first frame an agent enters a formation does not guaruntee it has been mapped.
 		if (_agent_formationPoint.find(agt->_id) != _agent_formationPoint.end()) {
@@ -376,7 +392,8 @@ namespace Formations {
 		// load vertices
 		unsigned int borderCount;
 		if ( ! ( f >> borderCount ) ) {
-			logger << Logger::ERR_MSG << "Error in parsing formation: file didn't start with border vertex count.";
+			logger << Logger::ERR_MSG << "Error in parsing formation: file didn't start with ";
+			logger << "border vertex count.";
 			return 0x0; 
 		}
 
@@ -385,7 +402,9 @@ namespace Formations {
 		float x, y, weight;
 		for ( unsigned int v = 0; v < borderCount; ++v ) {
 			if ( ! ( f >> x >> y >> weight ) ) {
-				logger << Logger::ERR_MSG << "Error in parsing formation: format error for vertex " << ( v + 1 ) << ".";
+				logger << Logger::ERR_MSG;
+				logger << "Error in parsing formation: format error for vertex " << ( v + 1 );
+				logger << ".";
 				form->destroy();
 				return 0x0;
 			}
@@ -398,7 +417,8 @@ namespace Formations {
 				form->addFormationPoint( Vector2( x, y ), false, weight );
 				if ( f >> x ){
 					if (!(f >> y >> weight)){
-						logger << Logger::ERR_MSG << "Error in parsing formation: format error for point.";
+						logger << Logger::ERR_MSG;
+						logger << "Error in parsing formation: format error for point.";
 						form->destroy();
 						return 0x0;
 					}

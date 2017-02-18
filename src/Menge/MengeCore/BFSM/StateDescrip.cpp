@@ -36,12 +36,14 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "StateDescrip.h"
+#include "MengeCore/BFSM/StateDescrip.h"
+
+#include "MengeCore/BFSM/State.h"
+#include "MengeCore/BFSM/Actions/Action.h"
+#include "MengeCore/BFSM/GoalSelectors/GoalSelector.h"
+#include "MengeCore/Runtime/os.h"
+
 #include "tinyxml.h"
-#include "Actions/Action.h"
-#include "GoalSelectors/GoalSelector.h"
-#include "State.h"
-#include "os.h"
 
 namespace Menge {
 
@@ -51,7 +53,8 @@ namespace Menge {
 		//					Implementation of StateDescrip
 		/////////////////////////////////////////////////////////////////////
 
-		StateDescrip::StateDescrip( const std::string & name, bool isFinal ): _name(name), _isFinal(isFinal), _goalSelector(0x0), _velComponent(0x0) {
+		StateDescrip::StateDescrip( const std::string & name, bool isFinal ) :
+			_name( name ), _isFinal( isFinal ), _goalSelector( 0x0 ), _velComponent( 0x0 ) {
 		}
 
 		/////////////////////////////////////////////////////////////////////
@@ -90,7 +93,8 @@ namespace Menge {
 
 		/////////////////////////////////////////////////////////////////////
 
-		bool parseState( TiXmlElement * node, const std::string & behaveFldr, std::list< StateDescrip * > & states ) {
+		bool parseState( TiXmlElement * node, const std::string & behaveFldr,
+						 std::list< StateDescrip * > & states ) {
 			StateDescrip * s = 0x0;
 			const char * cName = node->Attribute( "name" );
 			if ( cName == 0x0 ) {
@@ -114,7 +118,9 @@ namespace Menge {
 
 			s = new StateDescrip( name, isFinal );
 
-			for ( TiXmlElement * gchild = node->FirstChildElement(); gchild; gchild = gchild->NextSiblingElement() ) {
+			for ( TiXmlElement * gchild = node->FirstChildElement();
+				  gchild;
+				  gchild = gchild->NextSiblingElement() ) {
 				if ( gchild->ValueStr() == "Action" ) {
 					Action * action = parseAction( gchild, behaveFldr );
 					if ( action == 0x0 ) {
@@ -124,21 +130,26 @@ namespace Menge {
 					s->_actions.push_back( action );
 				} else if ( gchild->ValueStr() == "VelComponent" ) {
 					if ( s->_velComponent != 0x0 ) {
-						logger << Logger::ERR_MSG << "Multiple velocity components defined for the state (" << s->_name << ") on line " << gchild->Row() << ".  Only one VelComponent can be defined per state.";
+						logger << Logger::ERR_MSG << "Multiple velocity components defined for "
+							"the state (" << s->_name << ") on line " << gchild->Row() << ".  Only "
+							"one VelComponent can be defined per state.";
 						delete s;
 						return false;
 					}
 					s->_velComponent = parseVelComponent( gchild, behaveFldr );
 					if ( s->_velComponent == 0x0 ) {
-						logger << Logger::ERR_MSG << "Unable to instantiate a velocity component for state " << s->_name << ".  Simulation cannot proceed.";
+						logger << Logger::ERR_MSG << "Unable to instantiate a velocity component "
+							"for state " << s->_name << ".  Simulation cannot proceed.";
 						delete s;
 						return false;
 					}
 				} else if ( gchild->ValueStr() == "GoalSelector" ) {
 					s->_goalSelector = parseGoalSelector( gchild, behaveFldr );
 					if ( s->_goalSelector == 0x0 ) {
-						logger << Logger::ERR_MSG << "Unable to instantiate a goal selector for state " << s->_name << ".  Simulation cannot proceed.";
-						// This doesn't result in a default -- this is an error.  A Goal selector MUST be specified.
+						logger << Logger::ERR_MSG << "Unable to instantiate a goal selector for "
+							"state " << s->_name << ".  Simulation cannot proceed.";
+						// This doesn't result in a default -- this is an error.
+						//	A Goal selector MUST be specified.
 						delete s;
 						return false;
 					}
@@ -151,7 +162,8 @@ namespace Menge {
 						s->_velModifiers.push_back(vel);
 					}
 				} else {
-					logger << Logger::ERR_MSG << "State contains an improper child element: " << gchild->ValueStr() << ".";
+					logger << Logger::ERR_MSG << "State contains an improper child element: ";
+					logger << gchild->ValueStr() << ".";
 					return false;
 				}
 			}

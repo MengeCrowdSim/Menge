@@ -46,7 +46,8 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __SIMULATOR_STATE_H__
 #define	__SIMULATOR_STATE_H__
 
-#include "mengeCommon.h"
+#include "MengeCore/mengeCommon.h"
+
 #include <string>
 
 namespace Menge {

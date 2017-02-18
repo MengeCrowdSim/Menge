@@ -43,33 +43,34 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 #include "DummyConfig.h"
 #include "DummyDBEntry.h"
-#include "PluginEngine.h"
+#include "MengeCore/PluginEngine/CorePluginEngine.h"
 
-/*!
- *	@brief		Retrieves the name of the plug-in.
- *
- *	@returns	The name of the plug in.
- */
-extern "C" DUMMY_API const char * getName() {
-	return "Dummy Pedestrian Model";
+extern "C" {
+	/*!
+	 *	@brief		Retrieves the name of the plug-in.
+	 *
+	 *	@returns	The name of the plug in.
+	 */
+	DUMMY_API const char * getName() {
+		return "Dummy Pedestrian Model";
+	}
+
+	/*!
+	 *	@brief		Description of the plug-in.
+	 *
+	 *	@returns	A description of the plugin.
+	 */
+	DUMMY_API const char * getDescription() {
+		return	"A simple example of a pedestrian model.  The dummy model computes a "
+			    "new velocity by randomly perturbing the preferred velocity.";
+	}
+
+	/*!
+	 *	@brief		Registers the plug-in with the PluginEngine
+	 *
+	 *	@param		engine		A pointer to the plugin engine.
+	 */
+	DUMMY_API void registerCorePlugin( Menge::PluginEngine::CorePluginEngine * engine ) {
+		engine->registerModelDBEntry( new Dummy::DummyDBEntry() );
+	}
 }
-
-/*!
- *	@brief		Description of the plug-in.
- *
- *	@returns	A description of the plugin.
- */
-extern "C" DUMMY_API const char * getDescription() {
-	return	"A simple example of a pedestrian model.  The dummy model computes a " \
-			"new velocity by randomly perturbing the preferred velocity.";
-}
-
-/*!
- *	@brief		Registers the plug-in with the PluginEngine
- *
- *	@param		engine		A pointer to the plugin engine.
- */
-extern "C" DUMMY_API void registerPlugin( PluginEngine * engine ) {
-	engine->registerModelDBEntry( new Dummy::DummyDBEntry() );
-}
-

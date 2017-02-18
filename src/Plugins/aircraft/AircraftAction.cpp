@@ -37,20 +37,37 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 */
 
 #include "AircraftAction.h"
-#include "Actions/PropertyAction.h"
-#include "BaseAgent.h"
-#include "SimulatorInterface.h"
-#include "FSM.h"
-#include "BFSM/GoalSet.h"
+
+#include "MengeCore/Agents/BaseAgent.h"
+#include "MengeCore/Agents/SimulatorInterface.h"
+#include "MengeCore/BFSM/FSM.h"
+#include "MengeCore/BFSM/Actions/PropertyAction.h"
+#include "MengeCore/BFSM/GoalSet.h"
+
 #include <iostream>
 
 namespace Aircraft {
+
+	using Menge::Logger;
+	using Menge::logger;
+	using Menge::Agents::BaseAgent;
+	using Menge::BFSM::Action;
+	using Menge::BFSM::ActionFactory;
+	using Menge::BFSM::MAX_ACCEL;
+	using Menge::BFSM::MAX_SPEED;
+	using Menge::BFSM::NO_PROPERTY;
+	using Menge::BFSM::PREF_SPEED;
+	using Menge::BFSM::MAX_ANGLE_VEL;
+	using Menge::BFSM::NEIGHBOR_DIST;
+	using Menge::BFSM::PRIORITY;
+	using Menge::BFSM::RADIUS;
 
 	/////////////////////////////////////////////////////////////////////
 	//                   Implementation of PropertyXAction
 	/////////////////////////////////////////////////////////////////////
 
-	PropertyXAction::PropertyXAction():Action(),_xOrigin(0.f),_originValue(0.f),_scale(0.f),_property(BFSM::NO_PROPERTY),_originalMap() {
+	PropertyXAction::PropertyXAction() : Action(), _xOrigin(0.f), _originValue(0.f), _scale(0.f),
+		_property(NO_PROPERTY),_originalMap(), _lock() {
 	}
 
 	/////////////////////////////////////////////////////////////////////
@@ -61,37 +78,40 @@ namespace Aircraft {
 
 	/////////////////////////////////////////////////////////////////////
 
-	void PropertyXAction::onEnter( Agents::BaseAgent * agent ) {
+	void PropertyXAction::onEnter( BaseAgent * agent ) {
 		float value = ( agent->_pos.x() - _xOrigin ) * _scale + _originValue;
 		_lock.lock();
 		switch ( _property ) {
-			case BFSM::MAX_SPEED:
+			case MAX_SPEED:
 				if ( _undoOnExit ) _originalMap[ agent->_id ] = agent->_maxSpeed;
 				agent->_maxSpeed =	value;
 				break;
-			case BFSM::MAX_ACCEL:
+			case MAX_ACCEL:
 				if ( _undoOnExit ) _originalMap[ agent->_id ] = agent->_maxAccel;
 				agent->_maxAccel = value;
 				break;
-			case BFSM::PREF_SPEED:
+			case PREF_SPEED:
 				if ( _undoOnExit ) _originalMap[ agent->_id ] = agent->_prefSpeed;
 				agent->_prefSpeed = value;
 				break;
-			case BFSM::MAX_ANGLE_VEL:
+			case MAX_ANGLE_VEL:
 				if ( _undoOnExit ) _originalMap[ agent->_id ] = agent->_maxAngVel;
 				agent->_maxAngVel = value;
 				break;
-			case BFSM::NEIGHBOR_DIST:
+			case NEIGHBOR_DIST:
 				if ( _undoOnExit ) _originalMap[ agent->_id ] = agent->_neighborDist;
 				agent->_neighborDist = value;
 				break;
-			case BFSM::PRIORITY:
+			case PRIORITY:
 				if ( _undoOnExit ) _originalMap[ agent->_id ] = agent->_priority;
 				agent->_priority = value;
 				break;
-			case BFSM::RADIUS:
+			case RADIUS:
 				if ( _undoOnExit ) _originalMap[ agent->_id ] = agent->_radius;
 				agent->_radius = value;
+				break;
+  		case NO_PROPERTY:
+				// NO_PROPERTY is considered a no-op.
 				break;
 		}
 		_lock.release();
@@ -99,34 +119,38 @@ namespace Aircraft {
 
 	/////////////////////////////////////////////////////////////////////
 
-	void PropertyXAction::leaveAction( Agents::BaseAgent * agent ) {
+	void PropertyXAction::leaveAction( BaseAgent * agent ) {
 		_lock.lock();
 		std::map< size_t, float >::iterator itr = _originalMap.find( agent->_id );
-		assert( itr != _originalMap.end() && "An agent is exiting a state that it apparently never entered" );
+		assert( itr != _originalMap.end() &&
+				"An agent is exiting a state that it apparently never entered" );
 		float value = itr->second;
 		_originalMap.erase( itr );
 		_lock.release();
 		switch ( _property ) {
-			case BFSM::MAX_SPEED:
+			case MAX_SPEED:
 				agent->_maxSpeed = value;
 				break;
-			case BFSM::MAX_ACCEL:
+			case MAX_ACCEL:
 				agent->_maxAccel = value;
 				break;
-			case BFSM::PREF_SPEED:
+			case PREF_SPEED:
 				agent->_prefSpeed = value;
 				break;
-			case BFSM::MAX_ANGLE_VEL:
+			case MAX_ANGLE_VEL:
 				agent->_maxAngVel = value;
 				break;
-			case BFSM::NEIGHBOR_DIST:
+			case NEIGHBOR_DIST:
 				agent->_neighborDist = value;
 				break;
-			case BFSM::PRIORITY:
+			case PRIORITY:
 				agent->_priority = value;
 				break;
-			case BFSM::RADIUS:
+			case RADIUS:
 				agent->_radius = value;
+				break;
+  		case NO_PROPERTY:
+				// NO_PROPERTY is considered a no-op.
 				break;
 		}
 	}
@@ -135,21 +159,26 @@ namespace Aircraft {
 	//                   Implementation of PropertyXActFactory
 	/////////////////////////////////////////////////////////////////////
 
-	bool PropertyXActFactory::setFromXML( BFSM::Action * action, TiXmlElement * node, const std::string & behaveFldr ) const {
+	bool PropertyXActFactory::setFromXML( Action * action, TiXmlElement * node,
+										  const std::string & behaveFldr ) const {
 		PropertyXAction * pAction = dynamic_cast< PropertyXAction * >( action );
-		assert( pAction != 0x0 && "Trying to set property action properties on an incompatible object" );
-		if ( ! BFSM::ActionFactory::setFromXML( action, node, behaveFldr ) ) {
+		assert( pAction != 0x0 &&
+				"Trying to set property action properties on an incompatible object" );
+		if ( ! ActionFactory::setFromXML( action, node, behaveFldr ) ) {
 			return false;
 		}
 		// set the target property
 		const char * pName = node->Attribute( "property" );
 		if ( ! pName ) {
-			logger << Logger::ERR_MSG << "The property action defined on line " << node->Row() << " did not define the \"property\" attribute\n";
+			logger << Logger::ERR_MSG << "The property action defined on line " << node->Row();
+			logger << " did not define the \"property\" attribute.";
 			return false;
 		}
 		pAction->_property = Menge::parsePropertyName( pName );
-		if ( pAction->_property == BFSM::NO_PROPERTY ) {
-			logger << Logger::ERR_MSG  << "The set property x action defined online " << node->Row() << " specified an invalid value for the \"property\" attribute\n";
+		if ( pAction->_property == NO_PROPERTY ) {
+			logger << Logger::ERR_MSG << "The set property x action defined online ";
+			logger << node->Row();
+			logger << " specified an invalid value for the \"property\" attribute.";
 			return false;
 		}
 		
@@ -158,7 +187,9 @@ namespace Aircraft {
 		if ( node->Attribute( "origin", &d ) ) {
 			pAction->_xOrigin = (float) d;
 		} else {
-			logger << Logger::WARN_MSG << "The set property x action defined on line " << node->Row() << " did not define the \"origin\" attribute.  Using the default value 0.0\n";
+			logger << Logger::WARN_MSG << "The set property x action defined on line ";
+			logger << node->Row();
+			logger << " did not define the \"origin\" attribute.  Using the default value 0.0.";
 			pAction->_xOrigin = 0.f;
 		}
 
@@ -166,7 +197,9 @@ namespace Aircraft {
 		if ( node->Attribute( "origin_value", &d ) ) {
 			pAction->_originValue = (float) d;
 		} else {
-			logger << Logger::WARN_MSG << "The set property x action defined on line " << node->Row() << " did not define the \"origin_value\" attribute.  Using the default value 0.0\n";
+			logger << Logger::WARN_MSG << "The set property x action defined on line ";
+			logger << node->Row() << " did not define the \"origin_value\" attribute.  ";
+			logger << "Using the default value 0.0.";
 			pAction->_originValue = 0.f;
 		}
 
@@ -174,17 +207,11 @@ namespace Aircraft {
 		if ( node->Attribute( "scale", &d ) ) {
 			pAction->_scale = (float) d;
 		} else {
-			logger << Logger::WARN_MSG << "The set property x action defined on line " << node->Row() << " did not define the \"scale\" attribute.  Using the default value 0.0\n";
+			logger << Logger::WARN_MSG << "The set property x action defined on line ";
+			logger << node->Row() << " did not define the \"scale\" attribute.  ";;
+			logger << "Using the default value 0.0.";
 			pAction->_scale = 0.f;
 		}
-
-
 		return true;
 	}
-
-	
-	
-
-
-
 }	// namespace Aircraft

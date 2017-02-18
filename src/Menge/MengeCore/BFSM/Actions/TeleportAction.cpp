@@ -36,8 +36,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "Actions/TeleportAction.h"
-#include "BaseAgent.h"
+#include "MengeCore/BFSM/Actions/TeleportAction.h"
+
+#include "MengeCore/Agents/BaseAgent.h"
 
 namespace Menge {
 
@@ -59,7 +60,9 @@ namespace Menge {
 		/////////////////////////////////////////////////////////////////////
 
 		void TeleportAction::onEnter( Agents::BaseAgent * agent ) {
-			assert( _goals != 0x0 && "Trying to use an improperly initialized TeleportAction - no goal generator defined" );
+			assert( _goals != 0x0 &&
+					"Trying to use an improperly initialized TeleportAction "
+					"- no goal generator defined" );
 			agent->_pos.set( _goals->getValueConcurrent() );
 		}
 
@@ -68,7 +71,8 @@ namespace Menge {
 		/////////////////////////////////////////////////////////////////////
 
 		TeleportActFactory::TeleportActFactory():ActionFactory() {
-			_2DGoalID = _attrSet.addVec2DDistAttribute( true/*required*/, Vector2(0.f, 0.f)/*default*/ );
+			_2DGoalID = _attrSet.addVec2DDistAttribute( true/*required*/,
+														Vector2(0.f, 0.f)/*default*/ );
 		}
 
 		/////////////////////////////////////////////////////////////////////
@@ -79,9 +83,11 @@ namespace Menge {
 
 		/////////////////////////////////////////////////////////////////////
 
-		bool TeleportActFactory::setFromXML( Action * action, TiXmlElement * node, const std::string & behaveFldr ) const {
+		bool TeleportActFactory::setFromXML( Action * action, TiXmlElement * node,
+											 const std::string & behaveFldr ) const {
 			TeleportAction * tpAction = dynamic_cast< TeleportAction * >( action );
-			assert( action != 0x0 && "Trying to set teleport action properties on an incompatible object" );
+			assert( action != 0x0 &&
+					"Trying to set teleport action properties on an incompatible object" );
 			
 			if ( ! ActionFactory::setFromXML( action, node, behaveFldr ) ) return false;
 			// Override undoing the teleport regardless of what was set in the XML

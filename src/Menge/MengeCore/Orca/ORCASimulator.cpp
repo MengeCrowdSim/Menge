@@ -36,8 +36,8 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "ORCASimulator.h"
-#include "ORCAAgent.h"
+#include "MengeCore/Orca/ORCASimulator.h"
+#include "MengeCore/Orca/ORCAAgent.h"
 
 namespace ORCA {
 	////////////////////////////////////////////////////////////////

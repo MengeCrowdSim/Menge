@@ -36,12 +36,15 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "Attribute.h"
-#include "Logger.h"
-#include "Utils.h"
-#include "os.h"
-#include "Math/RandGenerator.h"
+#include "MengeCore/PluginEngine/Attribute.h"
+
+#include "MengeCore/Math/RandGenerator.h"
+#include "MengeCore/Runtime/Logger.h"
+#include "MengeCore/Runtime/Utils.h"
+#include "MengeCore/Runtime/os.h"
+
 #include "tinyxml.h"
+
 #include <sstream>
 #include <cassert>
 
@@ -69,10 +72,12 @@ namespace Menge {
 			_value = val;
 		} else if ( _required ) {
 			// Didn't get a value and it is required
-			logger << Logger::ERR_MSG << "Expecting a missing string attribute (" << _name << ") on line " << node->Row() << ".";
+			logger << Logger::ERR_MSG << "Expecting a missing string attribute (" << _name;
+			logger << ") on line " << node->Row() << ".";
 			return false;
 		} else {
-			logger << Logger::WARN_MSG << "Expecting a missing string attribute (" << _name << ") on line " << node->Row() << ".  Using default value: " << _default << ".";
+			logger << Logger::WARN_MSG << "Expecting a missing string attribute (" << _name;
+			logger << ") on line " << node->Row() << ".  Using default value: " << _default << ".";
 		}
 		return true;
 	}
@@ -86,10 +91,12 @@ namespace Menge {
 		if ( node->Attribute( _name, &i ) ) {
 			_value = i;
 		} else if ( _required ) {
-			logger << Logger::ERR_MSG << "Expecting a missing int attribute (" << _name << ") on line " << node->Row() << ".";
+			logger << Logger::ERR_MSG << "Expecting a missing int attribute (" << _name;
+			logger << ") on line " << node->Row() << ".";
 			return false;
 		} else {
-			logger << Logger::WARN_MSG << "Expecting a missing int attribute (" << _name << ") on line " << node->Row() << ".  Using default value: " << _default << ".";
+			logger << Logger::WARN_MSG << "Expecting a missing int attribute (" << _name;
+			logger << ") on line " << node->Row() << ".  Using default value: " << _default << ".";
 		}
 		return true;
 	}
@@ -103,10 +110,12 @@ namespace Menge {
 		if ( node->Attribute( _name, &d ) ) {
 			_value = static_cast< float >( d );
 		} else if ( _required ) {
-			logger << Logger::ERR_MSG << "Expecting a missing float attribute (" << _name << ") on line " << node->Row() << ".";
+			logger << Logger::ERR_MSG << "Expecting a missing float attribute (" << _name;
+			logger << ") on line " << node->Row() << ".";
 			return false;
 		} else {
-			logger << Logger::WARN_MSG << "Expecting a missing float attribute (" << _name << ") on line " << node->Row() << ".  Using default value: " << _default << ".";
+			logger << Logger::WARN_MSG << "Expecting a missing float attribute (" << _name;
+			logger << ") on line " << node->Row() << ".  Using default value: " << _default << ".";
 		}
 		return true;
 	}
@@ -120,10 +129,12 @@ namespace Menge {
 		if ( node->Attribute( _name, &i ) ) {
 			_value = i != 0;
 		} else if ( _required ) {
-			logger << Logger::ERR_MSG << "Expecting a missing boolean attribute (" << _name << ") on line " << node->Row() << ".";
+			logger << Logger::ERR_MSG << "Expecting a missing boolean attribute (" << _name;
+			logger << ") on line " << node->Row() << ".";
 			return false;
 		} else {
-			logger << Logger::WARN_MSG << "Expecting a missing boolean attribute (" << _name << ") on line " << node->Row() << ".  Using default value: " << _default << ".";
+			logger << Logger::WARN_MSG << "Expecting a missing boolean attribute (" << _name;
+			logger << ") on line " << node->Row() << ".  Using default value: " << _default << ".";
 		}
 		return true;
 	}
@@ -138,14 +149,17 @@ namespace Menge {
 			if ( i >= 0 ) {
 				_value = static_cast< size_t >( i );
 			} else {
-				logger << Logger::ERR_MSG << "Expecting a size_t attribute (" << _name << ") on line " << node->Row() << ". Found a negative number!";
+				logger << Logger::ERR_MSG << "Expecting a size_t attribute (" << _name;
+				logger << ") on line " << node->Row() << ". Found a negative number!";
 				return false;
 			}
 		} else if ( _required ) {
-			logger << Logger::ERR_MSG << "Expecting a missing size_t attribute (" << _name << ") on line " << node->Row() << ".";
+			logger << Logger::ERR_MSG << "Expecting a missing size_t attribute (" << _name;
+			logger << ") on line " << node->Row() << ".";
 			return false;
 		} else {
-			logger << Logger::WARN_MSG << "Expecting a missing size_t attribute (" << _name << ") on line " << node->Row() << ".  Using default value: " << _default << ".";
+			logger << Logger::WARN_MSG << "Expecting a missing size_t attribute (" << _name;
+			logger << ") on line " << node->Row() << ".  Using default value: " << _default << ".";
 		}
 		return true;
 	}
@@ -167,10 +181,15 @@ namespace Menge {
 		_generator = createFloatGenerator( node, _scale, _name );
 		if ( _generator == 0x0 ) {
 			if ( _required ) {
-				logger << Logger::ERR_MSG << "Expecting a missing float distribution specification for \"" << _name << "\" on line " << node->Row() << ".";
+				logger << Logger::ERR_MSG;
+				logger << "Expecting a missing float distribution specification for \"" << _name;
+				logger << "\" on line " << node->Row() << ".";
 				return false;
 			} else {
-				logger << Logger::WARN_MSG << "Expecting a missing float distribution specification \"" << _name << "\" on line " << node->Row() << ".Using a const distribution with value : " << _default << ".";
+				logger << Logger::WARN_MSG;
+				logger << "Expecting a missing float distribution specification \"" << _name;
+				logger << "\" on line " << node->Row();
+				logger << ".Using a const distribution with value : " << _default << ".";
 				_generator = new ConstFloatGenerator( _default );
 			}
 		}
@@ -194,10 +213,15 @@ namespace Menge {
 		_generator = create2DGenerator( node, _scale );
 		if ( _generator == 0x0 ) {
 			if ( _required ) {
-				logger << Logger::ERR_MSG << "Expecting a missing 2D vector distribution specification on line " << node->Row() << ".";
+				logger << Logger::ERR_MSG;
+				logger << "Expecting a missing 2D vector distribution specification on line ";
+				logger << node->Row() << ".";
 				return false;
 			} else {
-				logger << Logger::WARN_MSG << "Expecting a missing 2D vector distribution specification on line " << node->Row() << ". Using a const distribution with value: " << _default << ".";
+				logger << Logger::WARN_MSG;
+				logger << "Expecting a missing 2D vector distribution specification on line ";
+				logger << node->Row() << ". Using a const distribution with value: ";
+				logger << _default << ".";
 				_generator = new Const2DGenerator( _default );
 			}
 		}
@@ -221,10 +245,15 @@ namespace Menge {
 		_generator = createIntGenerator( node, _name );
 		if ( _generator == 0x0 ) {
 			if ( _required ) {
-				logger << Logger::ERR_MSG << "Expecting a missing int distribution specification on line " << node->Row() << ".";
+				logger << Logger::ERR_MSG;
+				logger << "Expecting a missing int distribution specification on line ";
+				logger << node->Row() << ".";
 				return false;
 			} else {
-				logger << Logger::WARN_MSG << "Expecting a missing int distribution specification on line " << node->Row() << ". Using a const distribution with value: " << _default << ".";
+				logger << Logger::WARN_MSG;
+				logger << "Expecting a missing int distribution specification on line ";
+				logger << node->Row() << ". Using a const distribution with value: ";
+				logger << _default << ".";
 				_generator = new ConstIntGenerator( _default );
 			}
 		}

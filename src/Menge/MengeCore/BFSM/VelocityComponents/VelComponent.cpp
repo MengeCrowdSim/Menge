@@ -36,10 +36,14 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "VelComponent.h"
+#include "MengeCore/BFSM/VelocityComponents/VelComponent.h"
+
+#include "MengeCore/Agents/BaseAgent.h"
+#include "MengeCore/BFSM/VelocityComponents/VelComponentDatabase.h"
+
+#if 0
 #include "VelCompContext.h"
-#include "VelComponentDatabase.h"
-#include "BaseAgent.h"
+#endif
 
 namespace Menge {
 
@@ -48,11 +52,11 @@ namespace Menge {
 		/////////////////////////////////////////////////////////////////////
 		//                   Implementation of VelComponent
 		/////////////////////////////////////////////////////////////////////
-
+#if 0
 		VelCompContext * VelComponent::getContext() {
 			return new VelCompContext();
 		}
-
+#endif 
 		/////////////////////////////////////////////////////////////////////
 		//					Implementation of parsing function
 		/////////////////////////////////////////////////////////////////////

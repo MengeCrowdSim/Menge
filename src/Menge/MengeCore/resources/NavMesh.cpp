@@ -36,17 +36,19 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "NavMesh.h"
-#include "NavMeshNode.h"
-#include "NavMeshEdge.h"
-#include "NavMeshObstacle.h"
-#include <cassert>
-#include "Logger.h"
+#include "MengeCore/Agents/BaseAgent.h"
+#include "MengeCore/Agents/SimulatorInterface.h"
+#include "MengeCore/resources/NavMesh.h"
+#include "MengeCore/resources/NavMeshEdge.h"
+#include "MengeCore/resources/NavMeshNode.h"
+#include "MengeCore/resources/NavMeshObstacle.h"
+#include "MengeCore/Runtime/Logger.h"
 
-#include "BaseAgent.h"
-#include "SimulatorInterface.h"
+#include <cassert>
 
 namespace Menge {
+
+	using Math::Vector2;
 
 	/////////////////////////////////////////////////////////////////////
 	//					Implementation of NavMesh
@@ -56,7 +58,10 @@ namespace Menge {
 
 	/////////////////////////////////////////////////////////////////////
 
-	NavMesh::NavMesh( const std::string & name ):Resource(name), _vCount(0), _vertices(0x0), _nCount(0), _nodes(0x0), _eCount(0), _edges(0x0), _obstCount(0), _obstacles(0x0), _nodeGroups() {
+	NavMesh::NavMesh( const std::string & name ) : Resource(name), _vCount(0), _vertices(0x0),
+												   _nCount(0), _nodes(0x0), _eCount(0),
+												   _edges(0x0), _obstCount(0), _obstacles(0x0),
+												   _nodeGroups() {
 	}
 
 	//////////////////////////////////////////////////////////////////////////////////////
@@ -219,12 +224,14 @@ namespace Menge {
 	 
 	bool NavMesh::addGroup( const std::string & grpName, size_t grpSize ) {
 		if ( _nodeGroups.find( grpName ) != _nodeGroups.end() ) {
-			logger << Logger::ERR_MSG << "NavMesh has two groups with the same name: " << grpName << "!\n";
+			logger << Logger::ERR_MSG << "NavMesh has two groups with the same name: " << grpName;
+			logger << "!\n";
 			return false;
 		}
 		size_t first = _nCount;
 		size_t last = first + grpSize - 1;
-		_nodeGroups[ grpName ] = NMNodeGroup( static_cast< unsigned int>( first ), static_cast< unsigned int >( last ) );
+		_nodeGroups[ grpName ] = NMNodeGroup( static_cast< unsigned int>( first ),
+											  static_cast< unsigned int >( last ) );
 
 		// Now extend the node memory
 		NavMeshNode * tmpNodes = new NavMeshNode[ _nCount + grpSize ];
@@ -254,16 +261,18 @@ namespace Menge {
 			NavMeshNode & node = _nodes[ n ];
 			for ( size_t e = 0; e < node._edgeCount; ++e ) {
 				// TODO: This might not work in building 64-bit code.  
-				//		The pointer will be larger than the unsigned int.  But as I'm pushing an unsigned
-				//		int into a pointer slot, it'll probably be safe.  Needs to be tested.
+				//		The pointer will be larger than the unsigned int.  But as I'm pushing an
+				//		unsigned int into a pointer slot, it'll probably be safe.  Needs to be
+				//		tested.
 
-				unsigned int eID = reinterpret_cast< uintptr_t >( node._edges[ e ] );
+				size_t eID = reinterpret_cast< size_t >( node._edges[ e ] );
 				assert( eID >= 0 && eID < _eCount && "Finalizing invalid edge id from node" );
 				node._edges[ e ] = &_edges[ eID ];
 			}
 			for ( size_t o = 0; o < node._obstCount; ++o ) {
-				unsigned int oID = reinterpret_cast< uintptr_t >( node._obstacles[ o ] );
-				assert( oID >= 0 && oID < _obstCount && "Finalizing invalid obstacle id for node" );
+				size_t oID = reinterpret_cast< size_t >( node._obstacles[ o ] );
+				assert( oID >= 0 && oID < _obstCount &&
+						"Finalizing invalid obstacle id for node" );
 				node._obstacles[ o ] = &_obstacles[ oID ];
 			}
 			node._id = static_cast< unsigned int >( n );
@@ -273,11 +282,11 @@ namespace Menge {
 		// All of the node indices in the edges need to be replaced with pointers
 		for ( size_t e = 0; e < _eCount; ++e ) {
 			NavMeshEdge & edge = _edges[ e ];
-			unsigned int nID = reinterpret_cast< uintptr_t >( edge._node0 );
+			size_t nID = reinterpret_cast< size_t >( edge._node0 );
 			assert( nID >= 0 && nID < _nCount && "Finalizing invalid node id from edge" );
 			edge._node0 = &_nodes[ nID ];
 			
-			nID = reinterpret_cast< uintptr_t >( edge._node1 );
+			nID = reinterpret_cast< size_t >( edge._node1 );
 			assert( nID >= 0 && nID < _nCount && "Finalizing invalid node id from edge" );
 			edge._node1 = &_nodes[ nID ];
 			// compute edge distance
@@ -300,13 +309,15 @@ namespace Menge {
 			while ( curr != NavMeshObstacle::NO_NEIGHBOR_OBST && !processed[ curr ] ) {
 				processed[ curr ] = true;
 				NavMeshObstacle & obst = _obstacles[ curr ];
-				unsigned int nID = reinterpret_cast<uintptr_t>( obst._node );
-                                //error: cast from 'Menge::Agents::Obstacle*' to 'unsigned int' loses precision [-fpermissive]
+				size_t nID = reinterpret_cast<size_t>( obst._node );
+                //error: cast from 'Menge::Agents::Obstacle*' to 'unsigned int' loses precision
+				// [-fpermissive]
 				assert( nID < _nCount && "Finalizing invalid node id from obstacle" );
 				obst._node = &_nodes[ nID ];
 
-				nID = reinterpret_cast< uintptr_t >( obst._nextObstacle );
-				assert( ( nID < _obstCount || nID == NavMeshObstacle::NO_NEIGHBOR_OBST ) && "Finalizing invalid obstacle index for next obstacle" );
+				nID = reinterpret_cast< size_t >( obst._nextObstacle );
+				assert( ( nID < _obstCount || nID == NavMeshObstacle::NO_NEIGHBOR_OBST ) &&
+						"Finalizing invalid obstacle index for next obstacle" );
 				if ( nID == NavMeshObstacle::NO_NEIGHBOR_OBST ) {
 					obst._nextObstacle = 0x0;
 				} else {
@@ -453,7 +464,8 @@ namespace Menge {
 		// load vertices
 		unsigned int vertCount;
 		if ( ! ( f >> vertCount ) ) {
-			logger << Logger::ERR_MSG << "Error in parsing nav mesh: file didn't start with an int (vertex count).";
+			logger << Logger::ERR_MSG << "Error in parsing nav mesh: file didn't start with an";
+			logger << " int( vertex count ).";
 			return 0x0; 
 		}
 
@@ -462,7 +474,8 @@ namespace Menge {
 		float x, y;
 		for ( unsigned int v = 0; v < vertCount; ++v ) {
 			if ( ! ( f >> x >> y ) ) {
-				logger << Logger::ERR_MSG << "Error in parsing nav mesh: format error for vertex " << ( v + 1 ) << ".";
+				logger << Logger::ERR_MSG << "Error in parsing nav mesh: format error for vertex ";
+				logger << ( v + 1 ) << ".";
 				mesh->destroy();
 				return 0x0;
 			}
@@ -472,7 +485,8 @@ namespace Menge {
 		// load edges
 		unsigned int edgeCount;
 		if ( ! ( f >> edgeCount ) ) {
-			logger << Logger::ERR_MSG << "Error in parsing nav mesh: didn't find edge count where expected.";
+			logger << Logger::ERR_MSG << "Error in parsing nav mesh: didn't find edge count ";
+			logger << "where expected.";
 			mesh->destroy();
 			return 0x0; 
 		}
@@ -480,7 +494,8 @@ namespace Menge {
 		for ( unsigned int e = 0; e < edgeCount; ++e ) {
 			NavMeshEdge & edge = mesh->getEdge( e );
 			if ( ! edge.loadFromAscii( f, mesh->_vertices ) ) {
-				logger << Logger::ERR_MSG << "Error in parsing nav mesh: format error for edge " << ( e + 1 ) << ".";
+				logger << Logger::ERR_MSG << "Error in parsing nav mesh: format error for edge ";
+				logger << ( e + 1 ) << ".";
 				mesh->destroy();
 				return 0x0;
 			}
@@ -489,7 +504,8 @@ namespace Menge {
 		// load obstacles
 		unsigned int obstCount;
 		if ( ! ( f >> obstCount ) ) {
-			logger << Logger::ERR_MSG << "Error in parsing nav mesh: didn't find obstacle count where expected.";
+			logger << Logger::ERR_MSG << "Error in parsing nav mesh: didn't find obstacle count ";
+			logger << "where expected.";
 			mesh->destroy();
 			return 0x0; 
 		}
@@ -497,7 +513,8 @@ namespace Menge {
 		for ( unsigned int o = 0; o < obstCount; ++o ) {
 			NavMeshObstacle & obst = mesh->getObstacle( o );
 			if ( ! obst.loadFromAscii( f, mesh->_vertices ) ) {
-				logger << Logger::ERR_MSG << "Error in parsing nav mesh: format error for obstacle " << ( o + 1 ) << ".";
+				logger << Logger::ERR_MSG << "Error in parsing nav mesh: format error for ";
+				logger << "obstacle " << ( o + 1 ) << ".";
 				mesh->destroy();
 				return 0x0;
 			}
@@ -512,7 +529,8 @@ namespace Menge {
 				if ( f.eof() ) {
 					break;
 				} else {
-					logger << Logger::ERR_MSG << "Error in parsing nav mesh: Missing node group name.";
+					logger << Logger::ERR_MSG << "Error in parsing nav mesh: Missing node group ";
+					logger << "name.";
 					mesh->destroy();
 					return 0x0;
 				}
@@ -520,19 +538,24 @@ namespace Menge {
 			// load nodes
 			unsigned int nCount;
 			if ( ! ( f >> nCount ) ) {
-				logger << Logger::ERR_MSG << "Error in parsing nav mesh: Node group " << grpName << " doesn't specify node count.";
+				logger << Logger::ERR_MSG << "Error in parsing nav mesh: Node group " << grpName;
+				logger << " doesn't specify node count.";
 				mesh->destroy();
 				return 0x0; 
 			}
 
 			totalN += nCount;
 			mesh->addGroup( grpName, nCount );
-			assert( totalN == mesh->getNodeCount() && "Data management problem -- tracked node count does not match in-memory node count" );
+			assert( totalN == mesh->getNodeCount() &&
+					"Data management problem -- tracked node count does not match "
+					"in-memory node count" );
 
 			for ( ; n < totalN; ++n ) {
 				NavMeshNode & node = mesh->getNode( n );
 				if ( ! node.loadFromAscii( f ) ) {
-					logger << Logger::ERR_MSG << "Error in parsing nav mesh: Poorly formatted definition for node " << ( n + 1 ) << ".";
+					logger << Logger::ERR_MSG;
+					logger << "Error in parsing nav mesh: Poorly formatted definition for node ";
+					logger << ( n + 1 ) << ".";
 					mesh->destroy();
 					return 0x0;
 				}
@@ -559,7 +582,8 @@ namespace Menge {
 		}
 		NavMesh * nm = dynamic_cast< NavMesh * >( rsrc );
 		if ( nm == 0x0 ) {
-			logger << Logger::ERR_MSG << "Resource with name " << fileName << " is not a navigation mesh.";
+			logger << Logger::ERR_MSG << "Resource with name " << fileName;
+			logger << " is not a navigation mesh.";
 			throw ResourceException();
 		}
 		

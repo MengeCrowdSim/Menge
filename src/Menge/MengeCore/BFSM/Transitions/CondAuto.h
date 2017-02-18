@@ -44,9 +44,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __COND_AUTO_H__
 #define __COND_AUTO_H__
 
-#include "CoreConfig.h"
-#include "Condition.h"
-#include "ConditionFactory.h"
+#include "MengeCore/CoreConfig.h"
+#include "MengeCore/BFSM/Transitions/Condition.h"
+#include "MengeCore/BFSM/Transitions/ConditionFactory.h"
 
 namespace Menge {
 
@@ -72,7 +72,9 @@ namespace Menge {
 			 *	@param		goal		The agent's goal (although this may be ignored).
 			 *	@returns	True if the condition has been met, false otherwise.
 			 */
-			virtual bool conditionMet( Agents::BaseAgent * agent, const Goal * goal ) { return true; }
+			virtual bool conditionMet( Agents::BaseAgent * agent, const Goal * goal ) {
+				return true;
+			}
 
 			/*!
 			 *	@brief		Create a copy of this condition.

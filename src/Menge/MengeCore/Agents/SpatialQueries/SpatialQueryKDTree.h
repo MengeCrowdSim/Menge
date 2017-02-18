@@ -49,11 +49,10 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __SPATIAL_QUERY_KD_TREE_H__
 #define	__SPATIAL_QUERY_KD_TREE_H__
 
-// UTILS
-#include "SpatialQueries/SpatialQuery.h"
-#include "SpatialQueries/SpatialQueryFactory.h"
-#include "SpatialQueries/AgentKDTree.h"
-#include "SpatialQueries/ObstacleKDTree.h"
+#include "MengeCore/Agents/SpatialQueries/AgentKDTree.h"
+#include "MengeCore/Agents/SpatialQueries/ObstacleKDTree.h"
+#include "MengeCore/Agents/SpatialQueries/SpatialQuery.h"
+#include "MengeCore/Agents/SpatialQueries/SpatialQueryFactory.h"
 
 namespace Menge {
 
@@ -132,7 +131,8 @@ namespace Menge {
 			 *  @returns    True if q1 and q2 are mutually visible within the radius;
 			 *              false otherwise.
 			 */
-			virtual bool queryVisibility(const Vector2& q1, const Vector2& q2, float radius) const {
+			virtual bool queryVisibility( const Vector2& q1, const Vector2& q2,
+										  float radius) const {
 				return _obstTree.queryVisibility( q1, q2, radius );
 			}
 
@@ -175,7 +175,7 @@ namespace Menge {
 			 *	@returns	A string containing the spatial query description.
 			 */
 			virtual const char * description() const {
-				return "Performs spatial queries by creating a kd-tree on the agents and a bsp " \
+				return "Performs spatial queries by creating a kd-tree on the agents and a bsp "
 						"tree on the obstacles.";
 			};
 
@@ -185,8 +185,9 @@ namespace Menge {
 			 *
 			 *	All SpatialQueryFactory sub-classes must override this by creating (on the heap)
 			 *	a new instance of its corresponding spatial query type.  The various field values
-			 *	of the instance will be set in a subsequent call to SpatialQueryFactory::setFromXML.
-			 *	The caller of this function takes ownership of the memory.
+			 *	of the instance will be set in a subsequent call to
+			 *	SpatialQueryFactory::setFromXML. The caller of this function takes ownership of the
+			 *	memory.
 			 *
 			 *	@returns		A pointer to a newly instantiated SpatialQuery class.
 			 */

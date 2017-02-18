@@ -47,9 +47,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __TASK_DATABASE_H__
 #define __TASK_DATABASE_H__
 
-#include "ElementDatabase.h"
-#include "Tasks/TaskFactory.h"
-#include "Tasks/Task.h"
+#include "MengeCore/PluginEngine/ElementDatabase.h"
+#include "MengeCore/BFSM/Tasks/TaskFactory.h"
+#include "MengeCore/BFSM/Tasks/Task.h"
 
 namespace Menge {
 

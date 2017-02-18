@@ -46,8 +46,8 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #define __NAV_MESH_NODE_H__
 
 #include <fstream>
-#include "fsmCommon.h"
-#include "NavMeshPoly.h"
+#include "MengeCore/BFSM/fsmCommon.h"
+#include "MengeCore/resources/NavMeshPoly.h"
 
 namespace Menge {
 
@@ -61,7 +61,7 @@ namespace Menge {
 	 *	@brief		The navigation mesh adjacency graph node.  It corresponds to
 	 *				a convex polygon in the navigation mesh.
 	 */
-	class NavMeshNode {
+	class MENGE_API NavMeshNode {
 	public:
 		/*!
 		 *	@brief		Constructor
@@ -95,21 +95,23 @@ namespace Menge {
 		 *
 		 *	@param		c		The point value to set.
 		 */
-		inline void setCenter( const Vector2 & c ) { _center.set( c ); }
+		inline void setCenter( const Math::Vector2 & c ) { _center.set( c ); }
 
 		/*!
 		 *	@brief		Reports the center (centroid) of the node's polygon.
 		 *
 		 *	@returns	The position of the polygon's centroid.
 		 */
-		Vector2 getCenter() const { return _center; }
+		Math::Vector2 getCenter() const { return _center; }
 
 		/*!
 		 *	@brief		Reports the center (centroid) of the node's polygon.
 		 *
 		 *	@returns	The position of the polygon's centroid.
 		 */
-		Vector3 getCenter3D() const { return Vector3( _center.x(), _poly.getElevation( _center ), _center.y() ); }
+		Math::Vector3 getCenter3D() const { 
+			return Math::Vector3( _center.x(), _poly.getElevation( _center ), _center.y() );
+		}
 
 		/*!
 		 *	@brief		Returns the number of vertices in the node's polygon.
@@ -126,7 +128,7 @@ namespace Menge {
 		 *	@param		vertices	An array of Vector2's defining the
 		 *							polygon vertices.
 		 */
-		void setVertices( const Vector2 * vertices ) { _poly._vertices = vertices; }
+		void setVertices( const Math::Vector2 * vertices ) { _poly._vertices = vertices; }
 
 		/*!
 		 *	@brief		Gets the index of the ith vertex in this node's polygon
@@ -216,7 +218,9 @@ namespace Menge {
 		 *				(true) or outside (false ).
 		 *				// TODO: What about the boundary?
 		 */
-		bool containsPoint( const Vector2 & point ) const { return _poly.containsPoint( point ); }
+		bool containsPoint( const Math::Vector2 & point ) const {
+			return _poly.containsPoint( point );
+		}
 
 		/*!
 		 *	@brief		Sets the node properties from a node definition
@@ -231,12 +235,14 @@ namespace Menge {
 		/*!
 		 *	@brief		Computes the height based on this node's polygon
 		 */
-		inline float getElevation( const Vector2 & p ) const { return _poly.getElevation( p ); }
+		inline float getElevation( const Math::Vector2 & p ) const {
+			return _poly.getElevation( p );
+		}
 
 		/*!
 		 *	@brief		Computes the gradient based on this node's polygon
 		 */
-		inline Vector2 getGradient() const { return _poly.getGradient(); }
+		inline Math::Vector2 getGradient() const { return _poly.getGradient(); }
 
 		friend class NavMesh;
 		friend class NavMeshEdge;
@@ -267,7 +273,7 @@ namespace Menge {
 		 *	@brief		The "position" of the node - used to compute distance 
 		 *				between node and goal (A* heuristic)
 		 */
-		Vector2		_center;
+		Math::Vector2		_center;
 
 		/*!
 		 *	@brief		The polygon associated with this node

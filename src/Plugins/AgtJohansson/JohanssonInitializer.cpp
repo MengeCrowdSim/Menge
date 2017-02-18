@@ -36,11 +36,18 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "JohanssonInitializer.h"
 #include "JohanssonAgent.h"
-#include "Math/RandGenerator.h"
+#include "JohanssonInitializer.h"
+#include "MengeCore/Math/RandGenerator.h"
+#include "MengeCore/Runtime/Logger.h"
 
 namespace Johansson {
+
+	using Menge::Agents::BaseAgent;
+	using Menge::Math::ConstFloatGenerator;
+	using Menge::Logger;
+	using Menge::logger;
+
 	////////////////////////////////////////////////////////////////
 	//			Implementation of Johansson::AgentInitializer
 	////////////////////////////////////////////////////////////////
@@ -50,13 +57,14 @@ namespace Johansson {
 	
 	////////////////////////////////////////////////////////////////
 
-	AgentInitializer::AgentInitializer() : Agents::AgentInitializer() { 
+	AgentInitializer::AgentInitializer() : Menge::Agents::AgentInitializer() { 
 		_dirWeight = new ConstFloatGenerator( DIR_WEIGHT );
 	}
 
 	////////////////////////////////////////////////////////////////
 
-	AgentInitializer::AgentInitializer( const AgentInitializer & init ) : Agents::AgentInitializer(init) { 
+	AgentInitializer::AgentInitializer( const AgentInitializer & init ) :
+		Menge::Agents::AgentInitializer(init) { 
 		_dirWeight = init._dirWeight->copy();
 	}
 
@@ -68,40 +76,45 @@ namespace Johansson {
 
 	////////////////////////////////////////////////////////////////
 
-	bool AgentInitializer::setProperties( Agents::BaseAgent * agent ) {
+	bool AgentInitializer::setProperties( BaseAgent * agent ) {
 		Agent * a = dynamic_cast< Agent * >( agent );
 		if ( a == 0x0 ) return false;
 		a->_dirWeight = _dirWeight->getValue();
 
-		return Agents::AgentInitializer::setProperties( agent );
+		return Menge::Agents::AgentInitializer::setProperties( agent );
 	}
 
 	////////////////////////////////////////////////////////////////
 
 	bool AgentInitializer::isRelevant( const ::std::string & tagName ) {
-		return ( tagName == "Johansson" ) || Agents::AgentInitializer::isRelevant( tagName );
+		return ( tagName == "Johansson" ) ||
+			Menge::Agents::AgentInitializer::isRelevant( tagName );
 	}
 
 	////////////////////////////////////////////////////////////////
 
-	Agents::AgentInitializer::ParseResult AgentInitializer::setFromXMLAttribute( const ::std::string & paramName, const ::std::string & value ) {
+	Menge::Agents::AgentInitializer::ParseResult AgentInitializer::setFromXMLAttribute(
+		const ::std::string & paramName, const ::std::string & value ) {
 		ParseResult result = IGNORED;
 		if ( paramName == "fov_weight" ) {
 			result = constFloatGenerator( _dirWeight, value );
 		}
 
 		if ( result == FAILURE ) {
-			logger << Logger::WARN_MSG << "Attribute \"" << paramName << "\" had an incorrectly formed value: \"" << value << "\".  Using default value.";
+			logger << Logger::WARN_MSG << "Attribute \"" << paramName;
+			logger << "\" had an incorrectly formed value: \"" << value;
+			logger << "\".  Using default value.";
 			result = ACCEPTED;
 		} else if ( result == IGNORED ){
-			return Agents::AgentInitializer::setFromXMLAttribute( paramName, value );
+			return Menge::Agents::AgentInitializer::setFromXMLAttribute( paramName, value );
 		} 
 		return result;
 	}
 
 	////////////////////////////////////////////////////////////////
 
-	AgentInitializer::ParseResult AgentInitializer::processProperty( ::std::string propName, TiXmlElement * node ) {
+	AgentInitializer::ParseResult AgentInitializer::processProperty( ::std::string propName,
+																	 TiXmlElement * node ) {
 		ParseResult result = IGNORED;
 		if ( propName == "fov_weight" ) {
 			result = getFloatGenerator( _dirWeight, node );
@@ -111,7 +124,7 @@ namespace Johansson {
 			logger << Logger::ERR_MSG << "Error extracting value distribution from Property " << propName << ".";
 			return result;
 		} else if ( result == IGNORED ) {
-			return Agents::AgentInitializer::processProperty( propName, node );
+			return Menge::Agents::AgentInitializer::processProperty( propName, node );
 		}
 		return result;
 	}
@@ -122,7 +135,7 @@ namespace Johansson {
 		if ( _dirWeight ) delete _dirWeight;
 		_dirWeight = new ConstFloatGenerator( DIR_WEIGHT );
 
-		Agents::AgentInitializer::setDefaults();
+		Menge::Agents::AgentInitializer::setDefaults();
 	}
 
 	////////////////////////////////////////////////////////////////

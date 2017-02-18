@@ -36,10 +36,12 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "NavMeshNode.h"
-#include "NavMeshEdge.h"
-#include "NavMeshObstacle.h"
-#include "Logger.h"
+#include "MengeCore/resources/NavMeshNode.h"
+
+#include "MengeCore/resources/NavMeshEdge.h"
+#include "MengeCore/resources/NavMeshObstacle.h"
+#include "MengeCore/Runtime/Logger.h"
+
 #include <cassert>
 #include <iostream>
 
@@ -49,7 +51,8 @@ namespace Menge {
 	//						Implementation of NavMeshNode
 	//////////////////////////////////////////////////////////////////////////////////////
 
-	NavMeshNode::NavMeshNode(): _edges(0x0), _edgeCount(0), _obstacles(0x0), _obstCount(0),_center(), _poly() {
+	NavMeshNode::NavMeshNode() : _edges(0x0), _edgeCount(0), _obstacles(0x0), _obstCount(0),
+								 _center(), _poly() {
 	}
 
 	//////////////////////////////////////////////////////////////////////////////////////
@@ -131,26 +134,30 @@ namespace Menge {
 		if ( ( f >> cx >> cy ) ) {
 			_center.set( cx, cy );
 		} else {
-			logger << Logger::ERR_MSG << "\tError in parsing nav mesh: Unable to read center of node.\n";
+			logger << Logger::ERR_MSG;
+			logger << "\tError in parsing nav mesh: Unable to read center of node.\n";
 			return false;
 		}
 
 		// polygon
 		if ( ! _poly.loadFromAscii( f ) ) {
-			logger << Logger::ERR_MSG << "\tError in parsing nav mesh: Badly formatted node polygon for node.\n";
+			logger << Logger::ERR_MSG;
+			logger << "\tError in parsing nav mesh: Badly formatted node polygon for node.\n";
 			return false;
 		}
 
 		// edges
 		if ( ! ( f >> _edgeCount ) ) {
-			logger << Logger::ERR_MSG << "Error in parsing nav mesh: unable to read the edge count for a node.\n";
+			logger << Logger::ERR_MSG;
+			logger << "Error in parsing nav mesh: unable to read the edge count for a node.\n";
 			return false;
 		}
 		_edges = new NavMeshEdge*[ _edgeCount ];
 		for ( size_t e = 0; e < _edgeCount; ++e ) {
-			unsigned int eID;
+			size_t eID;
 			if ( ! ( f >> eID ) ) {
-				logger << Logger::ERR_MSG << "Error in parsing nav mesh: unable to read the " << (e + 1) << "th edge for a node.\n";
+				logger << Logger::ERR_MSG << "Error in parsing nav mesh: unable to read the ";
+				logger << ( e + 1 ) << "th edge for a node.\n";
 				return false;
 			}
 			// This is a cheat -- I'm storing the index now, to convert it to a pointer later.
@@ -159,14 +166,16 @@ namespace Menge {
 
 		// obstacles
 		if ( ! ( f >> _obstCount ) ) {
-			logger << Logger::ERR_MSG << "Error in parsing nav mesh: unable to read the adjacent obstacle count.\n";
+			logger << Logger::ERR_MSG;
+			logger << "Error in parsing nav mesh: unable to read the adjacent obstacle count.\n";
 			return false;
 		}
 		_obstacles = new NavMeshObstacle*[ _obstCount ];
 		for ( size_t o = 0; o < _obstCount; ++o ) {
-			unsigned int oID;
+			size_t oID;
 			if ( ! ( f >> oID ) ) {
-				logger << Logger::ERR_MSG << "Error in parsing nav mesh: unable to read the " << (o + 1) << "th adjacent obstacle.\n";
+				logger << Logger::ERR_MSG << "Error in parsing nav mesh: unable to read the ";
+				logger << ( o + 1 ) << "th adjacent obstacle.\n";
 				return false;
 			}
 			// This is a cheat -- I'm storing the index now, to convert it to a pointer later.

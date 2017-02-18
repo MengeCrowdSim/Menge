@@ -45,7 +45,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __PORTAL_H__
 #define __PORTAL_H__
 
-#include "mengeCommon.h"
+#include "MengeCore/mengeCommon.h"
 
 namespace Menge {
 
@@ -54,7 +54,7 @@ namespace Menge {
 	 *
 	 *	A portal is simply a line segment - a region through which agents can pass.
 	 */
-	class Portal {
+	class MENGE_API Portal {
 	public:
 		/*!
 		 *	@brief		Default constructor.
@@ -87,7 +87,7 @@ namespace Menge {
 		 *	@param		p0		The position of the first end point.
 		 *	@param		p1		The position of the second end point.
 		 */
-		void set( const Vector2 & p0, const Vector2 & p1 );
+		void set( const Math::Vector2 & p0, const Math::Vector2 & p1 );
 
 		/*!
 		 *	@brief		Computes the neareset *clearable* point w.r.t. the portal
@@ -104,17 +104,17 @@ namespace Menge {
 		 *	@param		radius		The radius of the agent.
 		 *	@returns	The nearest *clearable* point.
 		 */
-		Vector2 nearestPoint( const Vector2 & pos, float radius );
+		Math::Vector2 nearestPoint( const Math::Vector2 & pos, float radius );
 
 		/*!
 		 *	@brief		The first end point of the portal line segment.
 		 */
-		Vector2 _p0;
+		Math::Vector2 _p0;
 		
 		/*!
 		 *	@brief		The second end point of the portal line segment.
 		 */
-		Vector2 _p1;
+		Math::Vector2 _p1;
 
 		/*!
 		 *	@brief		The distance between endpoints (i.e., length of the portal).
@@ -124,7 +124,7 @@ namespace Menge {
 		/*!
 		 *	@brief		The direction from the first to the second end point of the portal.
 		 */
-		Vector2 _dir;
+		Math::Vector2 _dir;
 	};
 }	// namespace Menge
 #endif	// __PORTAL_H__

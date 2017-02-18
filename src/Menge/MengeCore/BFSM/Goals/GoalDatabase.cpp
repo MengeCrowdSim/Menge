@@ -36,11 +36,12 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "GoalDatabase.h"
-#include "Goals/GoalPoint.h"
-#include "Goals/GoalCircle.h"
-#include "Goals/GoalAABB.h"
-#include "Goals/GoalOBB.h"
+#include "MengeCore/BFSM/Goals/GoalDatabase.h"
+
+#include "MengeCore/BFSM/Goals/GoalCircle.h"
+#include "MengeCore/BFSM/Goals/GoalPoint.h"
+#include "MengeCore/BFSM/Goals/GoalAABB.h"
+#include "MengeCore/BFSM/Goals/GoalOBB.h"
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 

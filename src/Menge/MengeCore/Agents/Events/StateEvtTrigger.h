@@ -44,8 +44,8 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __STATE_EVT_TRIGGER_H__
 #define __STATE_EVT_TRIGGER_H__
 
-#include "Events/EventTrigger.h"
-#include "Events/EventTriggerFactory.h"
+#include "MengeCore/Agents/Events/EventTrigger.h"
+#include "MengeCore/Agents/Events/EventTriggerFactory.h"
 
 namespace Menge {
 	
@@ -113,13 +113,14 @@ namespace Menge {
 		 *
 		 *	@param		trigger		A pointer to the event trigger whose attributes are to be set.
 		 *	@param		node		The XML node containing the event trigger attributes.
-		 *	@param		specFldr	The path to the specification file.  If the EventTrigger references
-		 *							resources in the file system, it should be defined relative
-		 *							to the specification file location.  This is the folder containing
-		 *							that path. 
+		 *	@param		specFldr	The path to the specification file.  If the EventTrigger
+		 *							references resources in the file system, it should be defined
+		 *							relative to the specification file location.  This is the
+		 *							folder containing that path. 
 		 *	@returns	A boolean reporting success (true) or failure (false).
 		 */
-		virtual bool setFromXML( EventTrigger * trigger, TiXmlElement * node, const std::string & specFldr ) const;
+		virtual bool setFromXML( EventTrigger * trigger, TiXmlElement * node,
+								 const std::string & specFldr ) const;
 
 		/*!
 		 *	@brief		The identifier for the "state" string attribute.

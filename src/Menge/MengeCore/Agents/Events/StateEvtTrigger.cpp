@@ -36,11 +36,13 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "StateEvtTrigger.h"
-#include "Core.h"
-#include "FSM.h"
-#include "State.h"
-#include "EventSystem.h"
+#include "MengeCore/Agents/Events/StateEvtTrigger.h"
+
+#include "MengeCore/Core.h"
+#include "MengeCore/Agents/Events/EventSystem.h"
+#include "MengeCore/BFSM/FSM.h"
+#include "MengeCore/BFSM/State.h"
+
 #include <sstream>
 
 namespace Menge {
@@ -73,9 +75,11 @@ namespace Menge {
 
 	/////////////////////////////////////////////////////////////////////
 
-	bool StateEvtTriggerFactory::setFromXML( EventTrigger * trigger, TiXmlElement * node, const std::string & specFldr ) const {
+	bool StateEvtTriggerFactory::setFromXML( EventTrigger * trigger, TiXmlElement * node,
+											 const std::string & specFldr ) const {
 		StateEvtTrigger * sTrigger = dynamic_cast< StateEvtTrigger * >( trigger );
-		assert( sTrigger != 0x0 && "Trying to set attributes of a state event trigger on an incompatible object" );
+		assert( sTrigger != 0x0 &&
+				"Trying to set attributes of a state event trigger on an incompatible object" );
 
 		if ( ! EventTriggerFactory::setFromXML( sTrigger, node, specFldr ) ) return false;
 

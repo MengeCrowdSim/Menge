@@ -45,8 +45,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __LOGGER_H__
 #define __LOGGER_H__
 
+#include "MengeCore/CoreConfig.h"
+
 #include <string>
-#include "CoreConfig.h"
 #include <fstream>
 
 namespace Menge {
@@ -118,7 +119,7 @@ namespace Menge {
 		friend MENGE_API Logger & operator<<( Logger & logger, const char * msg );
 
 
-			/*!
+		/*!
 		 *	@brief		Writes long unsigned int to the logger based on current status.
 		 *
 		 *	@param		logger		A reference to a logger.
@@ -126,18 +127,19 @@ namespace Menge {
 		 *	@returns	A reference to the logger streamed to.
 		 */
 		friend MENGE_API Logger & operator<<( Logger & logger, long unsigned int value );
-	        
-		#if defined(_MSC_VER)
-		   /*!
-		 *	@brief		Writes a size_t to the logger based on current status. Only done in windows, as GCC complains.
+
+#ifdef _WIN32	       
+	    /*!
+		 *	@brief		Writes a size_t to the logger based on current status. Only done in
+		 *				windows, as GCC complains.
 		 *
 		 *	@param		logger		A reference to a logger.
 		 *	@param		value		The value to write.
 		 *	@returns	A reference to the logger streamed to.
 		 */
 		friend MENGE_API Logger & operator<<( Logger & logger, size_t value );
-		#endif
-
+#endif  // _WIN32		
+#if !defined _MSC_VER || defined _M_X64		
 		/*!
 		 *	@brief		Writes long unsigned int to the logger based on current status.
 		 *
@@ -146,7 +148,7 @@ namespace Menge {
 		 *	@returns	A reference to the logger streamed to.
 		 */
 		friend MENGE_API Logger & operator<<( Logger & logger, unsigned int value );
-
+#endif
 		/*!
 		 *	@brief		Writes int to the logger based on current status.
 		 *

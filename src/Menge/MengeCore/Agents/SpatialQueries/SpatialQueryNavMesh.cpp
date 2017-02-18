@@ -36,13 +36,15 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "SpatialQueryNavMesh.h"
-#include "Tasks/NavMeshLocalizerTask.h"
-#include "BaseAgent.h"
-#include "NavMeshLocalizer.h"
-#include "NavMeshEdge.h"
-#include "NavMeshNode.h"
-#include "os.h"
+#include "MengeCore/Agents/SpatialQueries/SpatialQueryNavMesh.h"
+
+#include "MengeCore/Agents/BaseAgent.h"
+#include "MengeCore/BFSM/Tasks/NavMeshLocalizerTask.h"
+#include "MengeCore/resources/NavMeshEdge.h"
+#include "MengeCore/resources/NavMeshLocalizer.h"
+#include "MengeCore/resources/NavMeshNode.h"
+#include "MengeCore/Runtime/os.h"
+
 #include <queue>
 #include <cassert>
 #include <list>
@@ -81,12 +83,14 @@ namespace Menge {
 			}
 
 			/*!
-			 *	@brief		Reports if any portion of a line segment lies within the visibility cone.
+			 *	@brief		Reports if any portion of a line segment lies within the visibility
+			 *				cone.
 			 *
 			 *	@param		p0		One end of the line segment.
 			 *	@param		p1		The other end of the line segment.
-			 *	@returns	A boolean which indicates if any portion of the segment lies in the cone
-			 *				(true) and is visible, or if it lies outside and is not visible (false).
+			 *	@returns	A boolean which indicates if any portion of the segment lies in the
+			 *				cone (true) and is visible, or if it lies outside and is not visible
+			 *				(false).
 			 */
 			bool isVisible( const Vector2 & p0, const Vector2 & p1 ) const {
 				// if either point is visible, then it is true
@@ -165,11 +169,12 @@ namespace Menge {
 			 *
 			 *	@param		distSq			The squared distance from some reference point
 			 *								to the nearest point on the mesh polygon.
-			 *	@param		cone			The visibility cone, in which all agents and portals must lie,
-			 *								to be considered viable candidates.
+			 *	@param		cone			The visibility cone, in which all agents and portals
+			 *								must lie, to be considered viable candidates.
 			 *	@param		nodeID			The identifier of the navigation mesh node.
 			 */
-			NeighborEntry( float distSq, const VisibilityCone & cone, unsigned int nodeID ): _distSq(distSq), _cone(cone), _nodeID(nodeID) {
+			NeighborEntry( float distSq, const VisibilityCone & cone, unsigned int nodeID ) :
+				_distSq(distSq), _cone(cone), _nodeID(nodeID) {
 			}
 
 			/*!
@@ -223,7 +228,8 @@ namespace Menge {
 		void NavMeshSpatialQuery::agentQuery( ProximityQuery *filter, float &rangeSq) const {
 			Vector2 pt = filter->getQueryPoint();
 			unsigned int currNode = _localizer->getNode( pt);
-			assert( currNode != NavMeshLocation::NO_NODE && "Can't use NavMesh for spatial query if the point isn't on the mesh" );
+			assert( currNode != NavMeshLocation::NO_NODE &&
+					"Can't use NavMesh for spatial query if the point isn't on the mesh" );
 
 			// This does not need any synchronization elements
 			//	The writing and the reading happen in two, independent computational
@@ -237,7 +243,8 @@ namespace Menge {
 					const BaseAgent * candidate = _agents[ *itr ];
 					float distSq = absSq( candidate->_pos - pt );
 					if ( distSq <= rangeSq ) {
-						// NOTE: This call might change rangeSq; it may shrink based on the most distant neighbor
+						// NOTE: This call might change rangeSq; it may shrink based on the most
+						// distant neighbor
 						filter->filterAgent( candidate, distSq );
 
 						rangeSq = filter->getMaxAgentRange();
@@ -251,7 +258,8 @@ namespace Menge {
 			// Track which nodes have been visited
 			std::set< unsigned int > visited;
 			visited.insert( (unsigned int) currNode );
-			// now create a min heap of nearby navigation mesh nodes to explore for neighbor candidates
+			// now create a min heap of nearby navigation mesh nodes to explore for neighbor
+			// candidates
 			std::list< NeighborEntry > queue;
 
 			// seed the queue with this node's adjacent nodes
@@ -263,7 +271,8 @@ namespace Menge {
 				visited.insert( otherNode->getID() );
 				float distSq = edge->getSqDist( pt );
 				if ( distSq <= rangeSq ) {	
-					queue.push_back( NeighborEntry( distSq, VisibilityCone( edge->getP0() - pt, edge->getP1() - pt ), otherNode->getID() ) );
+					queue.push_back( NeighborEntry( distSq, VisibilityCone( edge->getP0() - pt,
+						edge->getP1() - pt ), otherNode->getID() ) );
 					//cones.push_back( VisibilityCone( edge->getP0() - P, edge->getP1() - P ) );
 					// edge is close enough that portions of the node are reachable
 					//queue.push_back( NeighborEntry( distSq, otherNode->getID() ) );
@@ -318,7 +327,8 @@ namespace Menge {
 
 		////////////////////////////////////////////////////////////////
 
-		bool NavMeshSpatialQuery::queryVisibility(const Vector2& q1, const Vector2& q2, float radius) const {
+		bool NavMeshSpatialQuery::queryVisibility(const Vector2& q1, const Vector2& q2,
+												   float radius) const {
 			return true;
 		}
 
@@ -327,11 +337,13 @@ namespace Menge {
 		void NavMeshSpatialQuery::processObstacles() {
 			// Compute obstacle convexity -- this assumes all closed polygons
 			NavMeshPtr navMesh = _localizer->getNavMesh();
-			const unsigned int OBST_COUNT = static_cast< unsigned int >( navMesh->getObstacleCount() );
+			const unsigned int OBST_COUNT =
+				static_cast< unsigned int >( navMesh->getObstacleCount() );
 			for ( unsigned int o = 0; o < OBST_COUNT; ++o ) {
 				NavMeshObstacle & obst = navMesh->getObstacle( o );
 				if ( obst._prevObstacle ) {
-					obst._isConvex = leftOf( obst._prevObstacle->getP0(), obst.getP0(), obst.getP1() ) >= 0;
+					obst._isConvex = leftOf( obst._prevObstacle->getP0(),
+											 obst.getP0(), obst.getP1() ) >= 0;
 				} else {
 					obst._isConvex = true;
 				}
@@ -359,7 +371,8 @@ namespace Menge {
 				size_t currNode = _localizer->getNode(pt);
 			}
 
-			assert( currNode != NavMeshLocation::NO_NODE && "Can't use NavMesh for spatial query if the point isn't on the mesh" );
+			assert( currNode != NavMeshLocation::NO_NODE &&
+					"Can't use NavMesh for spatial query if the point isn't on the mesh" );
 
 			const NavMeshPtr navMesh = _localizer->getNavMesh();
 			const NavMeshNode & node = navMesh->getNode( (unsigned int)currNode );
@@ -377,7 +390,8 @@ namespace Menge {
 		/////////////////////////////////////////////////////////////////////
 		
 		BFSM::Task * NavMeshSpatialQuery::getTask() {
-			return new BFSM::NavMeshLocalizerTask( _localizer->getNavMesh()->getName(), false /*usePlanner*/ );
+			return new BFSM::NavMeshLocalizerTask( _localizer->getNavMesh()->getName(),
+												   false /*usePlanner*/ );
 		}
 
 		/////////////////////////////////////////////////////////////////////
@@ -390,22 +404,26 @@ namespace Menge {
 
 		/////////////////////////////////////////////////////////////////////
 
-		bool NavMeshSpatialQueryFactory::setFromXML( SpatialQuery * sq, TiXmlElement * node, const std::string & specFldr ) const {
+		bool NavMeshSpatialQueryFactory::setFromXML( SpatialQuery * sq, TiXmlElement * node,
+													 const std::string & specFldr ) const {
 			NavMeshSpatialQuery * nmsq = dynamic_cast< NavMeshSpatialQuery * >( sq );
-			assert( nmsq != 0x0 && "Trying to set attributes of a navigation mesh spatial query component on an incompatible object" );
+			assert( nmsq != 0x0 && "Trying to set attributes of a navigation mesh spatial query "
+					"component on an incompatible object" );
 
 			if ( ! SpatialQueryFactory::setFromXML( nmsq, node, specFldr ) ) return false;
 
 			// get the file name
 			std::string fName;
-			std::string path = os::path::join( 2, specFldr.c_str(), _attrSet.getString( _fileNameID ).c_str() );
+			std::string path = os::path::join( 2, specFldr.c_str(),
+											   _attrSet.getString( _fileNameID ).c_str() );
 			os::path::absPath( path, fName );
 			// nav mesh localizer
 			NavMeshLocalizerPtr nmlPtr;
 			try {
 				nmlPtr = loadNavMeshLocalizer( fName, true );
 			} catch ( ResourceException ) {
-				logger << Logger::ERR_MSG << "Couldn't instantiate the navigation mesh localizer required by the spatial query on line " << node->Row() << ".";
+				logger << Logger::ERR_MSG << "Couldn't instantiate the navigation mesh localizer "
+					"required by the spatial query on line " << node->Row() << ".";
 				return false;
 			}
 			nmsq->setNavMeshLocalizer( nmlPtr );

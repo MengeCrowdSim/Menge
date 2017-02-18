@@ -44,10 +44,11 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __ATTRIBUTE_H__
 #define __ATTRIBUTE_H__
 
-#include "CoreConfig.h"
+#include "MengeCore/CoreConfig.h"
+#include "MengeCore/MengeException.h"
+#include "MengeCore/Math/Vector2.h"
+
 #include <string>
-#include "MengeException.h"
-#include "Math/Vector2.h"
 
 // forward declaration
 class TiXmlElement;
@@ -84,19 +85,24 @@ namespace Menge {
 	/*!
 	 *	@brief		The fatal attribute definition exception.
 	 */
-	class MENGE_API AttributeDefinitionFatalException : public AttributeDefinitionException, public Menge::MengeFatalException {
+	class MENGE_API AttributeDefinitionFatalException : public AttributeDefinitionException,
+														public Menge::MengeFatalException {
 	public:
 		/*!
 		 *	@brief		Default constructor.
 		 */
-		AttributeDefinitionFatalException() : Menge::MengeException(), AttributeDefinitionException(), Menge::MengeFatalException() {}
+		AttributeDefinitionFatalException() : Menge::MengeException(),
+											  AttributeDefinitionException(),
+											  Menge::MengeFatalException() {}
 
 			/*!
 		 *	@brief		Constructor with message.
 		 *
 		 *	@param		s		The exception-specific message.
 		 */
-		AttributeDefinitionFatalException( const std::string & s ): Menge::MengeException(s), AttributeDefinitionException(), Menge::MengeFatalException() {}
+		AttributeDefinitionFatalException( const std::string & s ) : 
+			Menge::MengeException(s), AttributeDefinitionException(),
+			Menge::MengeFatalException() {}
 	};
 
 	/*!
@@ -176,7 +182,9 @@ namespace Menge {
 		 *	@returns	The int value.
 		 *	@throws		An AttributeDefinitionException if the types are wrong.
 		 */
-		virtual int	getInt() { throw AttributeDefinitionException("This Attribute can't provide an int value."); }
+		virtual int	getInt() {
+			throw AttributeDefinitionException("This Attribute can't provide an int value.");
+		}
 
 		/*!
 		 *	@brief		Retrieve the parsed boolean value.
@@ -186,7 +194,9 @@ namespace Menge {
 		 *	@returns	The boolean value.
 		 *	@throws		An AttributeDefinitionException if the types are wrong.
 		 */
-		virtual bool getBool() { throw AttributeDefinitionException("This Attribute can't provide a boolean value."); }
+		virtual bool getBool() {
+			throw AttributeDefinitionException("This Attribute can't provide a boolean value.");
+		}
 
 		/*!
 		 *	@brief		Retrieve the parsed float value.
@@ -196,7 +206,9 @@ namespace Menge {
 		 *	@returns	The float value.
 		 *	@throws		An AttributeDefinitionException if the types are wrong.
 		 */
-		virtual float getFloat() { throw AttributeDefinitionException("This Attribute can't provide anfloat value."); }
+		virtual float getFloat() {
+			throw AttributeDefinitionException("This Attribute can't provide anfloat value.");
+		}
 
 		/*!
 		 *	@brief		Retrieve the parsed string value.
@@ -206,7 +218,9 @@ namespace Menge {
 		 *	@returns	The string value.
 		 *	@throws		An AttributeDefinitionException if the types are wrong.
 		 */
-		virtual std::string	getString() { throw AttributeDefinitionException("This Attribute can't provide a string value."); }
+		virtual std::string	getString() {
+			throw AttributeDefinitionException("This Attribute can't provide a string value.");
+		}
 
 		/*!
 		 *	@brief		Retrieve the parsed size_t value.
@@ -216,7 +230,9 @@ namespace Menge {
 		 *	@returns	The size_t value.
 		 *	@throws		An AttributeDefinitionException if the types are wrong.
 		 */
-		virtual size_t getSizeT() { throw AttributeDefinitionException("This Attribute can't provide a size_t value."); }
+		virtual size_t getSizeT() {
+			throw AttributeDefinitionException("This Attribute can't provide a size_t value.");
+		}
 
 		/*!
 		 *	@brief		Retrieve the parsed float generator.
@@ -227,7 +243,9 @@ namespace Menge {
 		 *				the responsibility of the caller.
 		 *	@throws		An AttributeDefinitionException if the types are wrong.
 		 */
-		virtual FloatGenerator * getFloatGenerator(){ throw AttributeDefinitionException("This Attribute can't provide a float generator."); }
+		virtual FloatGenerator * getFloatGenerator(){
+			throw AttributeDefinitionException("This Attribute can't provide a float generator.");
+		}
 
 		/*!
 		 *	@brief		Retrieve the parsed 2D float generator.
@@ -236,7 +254,10 @@ namespace Menge {
 		 *				the responsibility of the caller.
 		 *	@throws		An AttributeDefinitionException if the types are wrong.
 		 */
-		virtual Vec2DGenerator * getVec2DGenerator(){ throw AttributeDefinitionException("This Attribute can't provide a 2D float generator."); }
+		virtual Vec2DGenerator * getVec2DGenerator(){
+			throw AttributeDefinitionException("This Attribute can't provide a 2D float "
+												"generator.");
+		}
 
 		/*!
 		 *	@brief		Retrieve the parsed int generator.
@@ -247,7 +268,9 @@ namespace Menge {
 		 *				the responsibility of the caller.
 		 *	@throws		An AttributeDefinitionException if the types are wrong.
 		 */
-		virtual IntGenerator * getIntGenerator(){ throw AttributeDefinitionException("This Attribute can't provide an int generator."); }
+		virtual IntGenerator * getIntGenerator(){
+			throw AttributeDefinitionException("This Attribute can't provide an int generator.");
+		}
 		
 	protected:
 		/*!
@@ -284,7 +307,9 @@ namespace Menge {
 		 *							or not (false).
 		 *	@param		defValue	The default value for the attribute if none is provided.
 		 */
-		StringAttribute( const std::string & name, bool required, const std::string & defValue="" ): Attribute(name,required), _default(defValue) {}
+		StringAttribute( const std::string & name, bool required,
+						 const std::string & defValue="" ) : Attribute(name,required),
+															 _default(defValue) {}
 		
 		/*!
 		 *	@brief		Extracts the values for this attribute from the xml node.
@@ -336,7 +361,8 @@ namespace Menge {
 		 *							or not (false).
 		 *	@param		defValue	The default value for the attribute if none is provided.
 		 */
-		IntAttribute( const std::string & name, bool required, int defValue ): Attribute(name,required), _default(defValue) {}
+		IntAttribute( const std::string & name, bool required, int defValue ) :
+			Attribute(name,required), _default(defValue) {}
 		
 		/*!
 		 *	@brief		Extracts the values for this attribute from the xml node.
@@ -388,7 +414,8 @@ namespace Menge {
 		 *							or not (false).
 		 *	@param		defValue	The default value for the attribute if none is provided.
 		 */
-		FloatAttribute( const std::string & name, bool required, float defValue ): Attribute(name,required), _default(defValue) {}
+		FloatAttribute( const std::string & name, bool required, float defValue ) :
+			Attribute(name,required), _default(defValue) {}
 		
 		/*!
 		 *	@brief		Extracts the values for this attribute from the xml node.
@@ -439,7 +466,8 @@ namespace Menge {
 		 *							or not (false).
 		 *	@param		defValue	The default value for the attribute if none is provided.
 		 */
-		BoolAttribute( const std::string & name, bool required, bool defValue ): Attribute(name,required), _default(defValue) {}
+		BoolAttribute( const std::string & name, bool required, bool defValue ) :
+			Attribute(name,required), _default(defValue) {}
 		
 		/*!
 		 *	@brief		Extracts the values for this attribute from the xml node.
@@ -491,7 +519,8 @@ namespace Menge {
 		 *							or not (false).
 		 *	@param		defValue	The default value for the attribute if none is provided.
 		 */
-		SizeTAttribute( const std::string & name, bool required, size_t defValue ): Attribute(name,required), _default(defValue) {}
+		SizeTAttribute( const std::string & name, bool required, size_t defValue ) :
+			Attribute(name,required), _default(defValue) {}
 		
 		/*!
 		 *	@brief		Extracts the values for this attribute from the xml node.
@@ -546,7 +575,10 @@ namespace Menge {
 		 *							This will be interpreted as a const distribution.
 		 *	@param		scale		The optional scale value for this float distribution.
 		 */
-		FloatDistributionAttribute( const std::string & name, bool required, float defValue, float scale=1.f ): Attribute(name,required), _default(defValue), _scale(scale), _generator(0x0) {}
+		FloatDistributionAttribute( const std::string & name, bool required, float defValue,
+									float scale=1.f ) : Attribute(name,required),
+														_default(defValue), _scale(scale),
+														_generator(0x0) {}
 		
 		/*!
 		 *	@brief		Destructor
@@ -575,7 +607,11 @@ namespace Menge {
 		 *				the responsibility of the caller.
 		 *	@throws		An AttributeDefinitionException if the types are wrong.
 		 */
-		virtual FloatGenerator * getFloatGenerator(){ FloatGenerator * val = _generator; _generator=0x0; return val; }
+		virtual FloatGenerator * getFloatGenerator(){
+			FloatGenerator * val = _generator;
+			_generator=0x0;
+			return val;
+		}
 
 	protected:
 		/*!
@@ -614,7 +650,8 @@ namespace Menge {
 		 *							This will be interpreted as a const distribution.
 		 *	@param		scale		The optional scale value for this float distribution.
 		 */
-		Vec2DDistributionAttribute( bool required, const Vector2 & defValue, float scale=1.f ): Attribute("",required), _default(defValue), _scale(scale), _generator(0x0) {}
+		Vec2DDistributionAttribute( bool required, const Vector2 & defValue, float scale=1.f ) :
+			Attribute("",required), _default(defValue), _scale(scale), _generator(0x0) {}
 		
 		/*!
 		 *	@brief		Destructor
@@ -643,7 +680,11 @@ namespace Menge {
 		 *				the responsibility of the caller.
 		 *	@throws		An AttributeDefinitionException if the types are wrong.
 		 */
-		virtual Vec2DGenerator * getVec2DGenerator(){ Vec2DGenerator * val = _generator; _generator=0x0; return val; }
+		virtual Vec2DGenerator * getVec2DGenerator(){
+			Vec2DGenerator * val = _generator;
+			_generator=0x0;
+			return val;
+		}
 
 	protected:
 		/*!
@@ -680,7 +721,8 @@ namespace Menge {
 		 *	@param		defValue	The default value for the attribute if none is provided.
 		 *							This will be interpreted as a const distribution.
 		 */
-		IntDistributionAttribute( const std::string & name, bool required, int defValue ): Attribute(name,required), _default(defValue), _generator(0x0) {}
+		IntDistributionAttribute( const std::string & name, bool required, int defValue ) :
+			Attribute(name,required), _default(defValue), _generator(0x0) {}
 		
 		/*!
 		 *	@brief		Destructor
@@ -709,7 +751,11 @@ namespace Menge {
 		 *				the responsibility of the caller.
 		 *	@throws		An AttributeDefinitionException if the types are wrong.
 		 */
-		virtual IntGenerator * getIntGenerator(){ IntGenerator * val = _generator; _generator=0x0; return val; }
+		virtual IntGenerator * getIntGenerator(){
+			IntGenerator * val = _generator;
+			_generator=0x0;
+			return val;
+		}
 		
 	protected:
 		/*!

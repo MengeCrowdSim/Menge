@@ -36,10 +36,11 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "VelModifier.h"
-#include "VelModifierContext.h" 
-#include "VelModifierDatabase.h"
-#include "BaseAgent.h"
+#include "MengeCore/BFSM/VelocityModifiers/VelModifier.h"
+
+#include "MengeCore/Agents/BaseAgent.h"
+#include "MengeCore/BFSM/VelocityModifiers/VelModifierContext.h" 
+#include "MengeCore/BFSM/VelocityModifiers/VelModifierDatabase.h"
 
 namespace Menge {
 
@@ -48,11 +49,11 @@ namespace Menge {
 		/////////////////////////////////////////////////////////////////////
 		//                   Implementation of VelModifier
 		/////////////////////////////////////////////////////////////////////
-
+#if 0
 		VelModContext * VelModifier::getContext() {
 			return new VelModContext();                  
 		}
-
+#endif
 		////////////////////////////////////////////////////////////
 
 		void VelModifier::onEnter(const Agents::BaseAgent * agent){

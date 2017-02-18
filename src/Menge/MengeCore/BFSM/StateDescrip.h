@@ -44,7 +44,8 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __STATE_DESCRIP_H__
 #define __STATE_DESCRIP_H__
 
-#include "fsmCommon.h"
+#include "MengeCore/BFSM/fsmCommon.h"
+
 #include <list>
 #include <string>
 
@@ -73,7 +74,8 @@ namespace Menge {
 			 *	@brief		Constructor.
 			 *
 			 *	@param		name		The name of the state.
-			 *	@param		isFinal		Determines if this state is a final state (true) or not (false).
+			 *	@param		isFinal		Determines if this state is a final state (true) or not
+			 *							(false).
 			 */
 			StateDescrip( const std::string & name, bool isFinal );
 
@@ -97,7 +99,8 @@ namespace Menge {
 			std::string	_name;
 
 			/*!
-			 *	@brief		Dictates whether this state is considered a "final" state (true) or not (false).
+			 *	@brief		Dictates whether this state is considered a "final" state (true) or not
+			 *				(false).
 			 */
 			bool	_isFinal;
 
@@ -132,7 +135,8 @@ namespace Menge {
 		 *								is appended to the end of this liest.
 		 *	@returns	A boolean reporting succes (true) or failure (false).
 		 */
-		bool parseState( TiXmlElement * node, const std::string & behaveFldr, std::list< StateDescrip * > & states );
+		bool parseState( TiXmlElement * node, const std::string & behaveFldr,
+						 std::list< StateDescrip * > & states );
 
 	}	// namespace BFSM
 }	// namespace Menge

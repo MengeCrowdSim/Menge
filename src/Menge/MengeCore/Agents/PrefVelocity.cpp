@@ -36,32 +36,44 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "PrefVelocity.h"
+#include "MengeCore/Agents/PrefVelocity.h"
+
 #include <cassert>
 
 namespace Menge {
 
 	namespace Agents {
 		
+		using Math::Vector2;
+
 		////////////////////////////////////////////////////////////////
 		//					Implementation of PrefVelocity
 		////////////////////////////////////////////////////////////////
 
-		PrefVelocity::PrefVelocity(): _left(1.f,0.f), _right(1.f,0.f), _speed(1.f), _preferred(1.f,0.f), _target(0.f,0.f) {}
+		PrefVelocity::PrefVelocity(): _left( 1.f, 0.f ), _right( 1.f, 0.f ), _speed( 1.f ),
+								      _preferred( 1.f, 0.f ), _target( 0.f, 0.f ) {}
 
 		////////////////////////////////////////////////////////////////
 
-		PrefVelocity::PrefVelocity( const Vector2 & dir, float speed, const Vector2 & target ):_left(dir), _right(dir), _speed(speed), _preferred(dir), _target(target) {
+		PrefVelocity::PrefVelocity( const Vector2 & dir, float speed, const Vector2 & target ) :
+			_left( dir ), _right( dir ), _speed( speed ), _preferred( dir ), _target( target ) {
 		}
 
 		////////////////////////////////////////////////////////////////
 
-		PrefVelocity::PrefVelocity( const Vector2 & left, const Vector2 & right, const Vector2 & pref, float speed, const Vector2 & target ): _left(left), _right(right), _speed(speed), _preferred(pref), _target(target) {
+		PrefVelocity::PrefVelocity( const Vector2 & left, const Vector2 & right,
+									const Vector2 & pref, float speed, const Vector2 & target ) :
+									_left( left ), _right( right ), _speed( speed ),
+									_preferred( pref ), _target( target ) {
 		}
 
 		////////////////////////////////////////////////////////////////
 
-		PrefVelocity::PrefVelocity( const PrefVelocity & vel ): _left(vel._left), _right(vel._right), _speed(vel._speed), _preferred(vel._preferred), _target(vel._target) {
+		PrefVelocity::PrefVelocity( const PrefVelocity & vel ) : _left( vel._left ),
+																 _right( vel._right ),
+																 _speed( vel._speed ),
+																 _preferred( vel._preferred ),
+																 _target( vel._target ) {
 		}
 
 		////////////////////////////////////////////////////////////////
@@ -83,7 +95,8 @@ namespace Menge {
 
 		////////////////////////////////////////////////////////////////
 
-		void PrefVelocity::setSpan( const Vector2 & left, const Vector2 & right, const Vector2 & preferred ) { 
+		void PrefVelocity::setSpan( const Vector2 & left, const Vector2 & right,
+									const Vector2 & preferred ) { 
 			_left = left;
 			_right = right;
 			_preferred = preferred;

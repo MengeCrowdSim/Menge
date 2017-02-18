@@ -44,8 +44,8 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __PROFILE_SELECTOR_H__
 #define	__PROFILE_SELECTOR_H__
 
-#include "mengeCommon.h"
-#include "Element.h"
+#include "MengeCore/mengeCommon.h"
+#include "MengeCore/PluginEngine/Element.h"
 
 namespace Menge {
 
@@ -75,19 +75,23 @@ namespace Menge {
 		/*!
 		 *	@brief		The fatal profile selector exception.
 		 */
-		class MENGE_API ProfileSelectorFatalException : public ProfileSelectorException, public MengeFatalException {
+		class MENGE_API ProfileSelectorFatalException : public ProfileSelectorException,
+														public MengeFatalException {
 		public:
 			/*!
 			 *	@brief		Default constructor.
 			 */
-			ProfileSelectorFatalException() : MengeException(), ProfileSelectorException(), MengeFatalException() {}
+			ProfileSelectorFatalException() : MengeException(), ProfileSelectorException(),
+											  MengeFatalException() {}
 
 			/*!
 			 *	@brief		Constructor with message.
 			 *
 			 *	@param		s		The exception-specific message.
 			 */
-			ProfileSelectorFatalException( const std::string & s ): MengeException(s), ProfileSelectorException(), MengeFatalException() {}
+			ProfileSelectorFatalException( const std::string & s ): MengeException(s),
+																	ProfileSelectorException(),
+																	MengeFatalException() {}
 		};
 
 

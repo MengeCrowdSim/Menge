@@ -135,7 +135,8 @@ namespace Menge {
 		 *	@returns	A string containing the target description.
 		 */
 		virtual const char * description() const {
-			return "Defines an agent as a target based on its membership relationship to a single state.";
+			return "Defines an agent as a target based on its membership relationship to a "
+				"single state.";
 		};
 
 	protected:
@@ -165,11 +166,12 @@ namespace Menge {
 		 *	@param		node			The XML node containing the target attributes.
 		 *	@param		behaveFldr		The path to the behavior file.  If the target references
 		 *								resources in the file system, it should be defined relative
-		 *								to the behavior file location.  This is the folder containing
-		 *								that path. 
+		 *								to the behavior file location.  This is the folder
+		 *								containing that path. 
 		 *	@returns	A boolean reporting success (true) or failure (false).
 		 */
-		virtual bool setFromXML( EventTarget * target, TiXmlElement * node, const std::string & behaveFldr ) const;
+		virtual bool setFromXML( EventTarget * target, TiXmlElement * node,
+								 const std::string & behaveFldr ) const;
 
 		/*!
 		 *	@brief		The identifier for the "state" string attribute.

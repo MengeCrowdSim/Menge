@@ -36,13 +36,14 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "PedVOInitializer.h"
-#include "PedVOAgent.h"
-#include "Math/RandGenerator.h"
+#include "MengeCore/PedVO/PedVOInitializer.h"
 
-using namespace Menge::Math;
+#include "MengeCore/Math/RandGenerator.h"
+#include "MengeCore/PedVO/PedVOAgent.h"
 
 namespace PedVO {
+
+	using Menge::Math::ConstFloatGenerator;
 
 	////////////////////////////////////////////////////////////////
 	//			Implementation of ORCA::AgentInitializer
@@ -68,7 +69,8 @@ namespace PedVO {
 
 	////////////////////////////////////////////////////////////////
 
-	AgentInitializer::AgentInitializer( const AgentInitializer & init ) : Menge::Agents::AgentInitializer(init) { 
+	AgentInitializer::AgentInitializer( const AgentInitializer & init ) :
+		Menge::Agents::AgentInitializer(init) { 
 		_timeHorizon = init._timeHorizon->copy();
 		_timeHorizonObst = init._timeHorizonObst->copy();
 		_turningBias = init._turningBias->copy();
@@ -111,7 +113,8 @@ namespace PedVO {
 
 	////////////////////////////////////////////////////////////////
 
-	Menge::Agents::AgentInitializer::ParseResult AgentInitializer::setFromXMLAttribute( const ::std::string & paramName, const ::std::string & value ) {
+	Menge::Agents::AgentInitializer::ParseResult AgentInitializer::setFromXMLAttribute(
+		const ::std::string & paramName, const ::std::string & value ) {
 		Menge::Agents::AgentInitializer::ParseResult result = IGNORED;
 		if ( paramName == "tau" ) {
 			result = constFloatGenerator( _timeHorizon, value );
@@ -128,7 +131,9 @@ namespace PedVO {
 		}
 
 		if ( result == FAILURE ) {
-			Menge::logger << Menge::Logger::WARN_MSG << "Attribute \"" << paramName << "\" had an incorrectly formed value: \"" << value << "\".  Using default value.";
+			Menge::logger << Menge::Logger::WARN_MSG << "Attribute \"" << paramName;
+			Menge::logger << "\" had an incorrectly formed value: \"" << value;
+			Menge::logger << "\".  Using default value.";
 			result = ACCEPTED;
 		} else if ( result == IGNORED ){
 			return Menge::Agents::AgentInitializer::setFromXMLAttribute( paramName, value );
@@ -138,7 +143,8 @@ namespace PedVO {
 
 	////////////////////////////////////////////////////////////////
 
-	Menge::Agents::AgentInitializer::ParseResult AgentInitializer::processProperty( ::std::string propName, TiXmlElement * node ) {
+	Menge::Agents::AgentInitializer::ParseResult AgentInitializer::processProperty(
+		::std::string propName, TiXmlElement * node ) {
 		Menge::Agents::AgentInitializer::ParseResult result = IGNORED;
 		if ( propName == "tau" ) {
 			result = getFloatGenerator( _timeHorizon, node );
@@ -153,7 +159,9 @@ namespace PedVO {
 		}
 
 		if ( result == FAILURE ) {
-			Menge::logger << Menge::Logger::ERR_MSG << "Error extracting value distribution from Property " << propName << ".";
+			Menge::logger << Menge::Logger::ERR_MSG;
+			Menge::logger << "Error extracting value distribution from Property ";
+			Menge::logger << propName << ".";
 			return result;
 		} else if ( result == IGNORED ) {
 			return Menge::Agents::AgentInitializer::processProperty( propName, node );

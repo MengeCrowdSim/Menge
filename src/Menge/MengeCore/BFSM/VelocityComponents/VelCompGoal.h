@@ -45,13 +45,12 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __VEL_COMP_GOAL_H__
 #define __VEL_COMP_GOAL_H__
 
-#include "CoreConfig.h"
-#include "VelocityComponents/VelComponent.h"
-#include "VelocityComponents/VelComponentFactory.h"
-#include "VelocityComponents/VelCompContext.h"
+#include "MengeCore/CoreConfig.h"
+#include "MengeCore/Agents/PrefVelocity.h"
+#include "MengeCore/BFSM/VelocityComponents/VelComponent.h"
+#include "MengeCore/BFSM/VelocityComponents/VelComponentFactory.h"
 
 namespace Menge {
-
 	namespace BFSM {
 
 		/*!
@@ -79,59 +78,18 @@ namespace Menge {
 			 *	@param		goal		The agent's goal (although this may be ignored).
 			 *	@param		pVel		The instance of Agents::PrefVelocity to set.
 			 */
-			virtual void setPrefVelocity( const Agents::BaseAgent * agent, const Goal * goal, Agents::PrefVelocity & pVel );
+			virtual void setPrefVelocity( const Agents::BaseAgent * agent, const Goal * goal,
+										  Agents::PrefVelocity & pVel ) const;
 
 			/*!
-			 *	@brief		Provides a display context for interacting with this velocity component.
-			 *
-			 *	It is the responsibility of the caller to delete the provided context.
-			 *
-			 *	@returns	A pointer to a context for this vel component.
+			 *	@brief		Used by the plugin system to know what artifacts to associate with
+			 *				agents of this type.  Every sub-class of must return a globally
+			 *				unique value if it should be associated with unique artifacts.
 			 */
-			virtual VelCompContext * getContext();
-		};
+			virtual std::string getStringId() const { return NAME; }
 
-		//////////////////////////////////////////////////////////////////////////////
-
-		/*!
-		 *	@brief		The context for the GoalVelComponent.
-		 */
-		class MENGE_API GoalVCContext : public VelCompContext {
-		public:
-			/*!
-			 *	@brief		Constructor.
-			 *
-			 *	@param		vc			A pointer to the underlying fsm velocity component.
-			 *							The context will *not* delete the velocity component.
-			 */
-			GoalVCContext( GoalVelComponent * vc );
-
-			/*!
-			 *	@brief		Provides a string to be printed in the display as a UI element
-			 *				detailing velocity component information.
-			 *
-			 *	@param		indent		An optional string representing indentation to be
-			 *							applied to the text.  It is prefixed at the start
-			 *							of each line.
-			 *	@returns	The string for printing on the UI layer.
-			 */
-			virtual std::string getUIText( const std::string & indent="" ) const;
-
-			/*!
-			 *	@brief		Draw context elements into the 3D world.
-			 *
-			 *	This should never be called in select mode.
-			 *
-			 *	@param		agt			The particular agent for which the FSM is being visualized.
-			 *	@param		goal		The agent's goal (although this may be ignored).
-			 */
-			virtual void draw3DGL( const Agents::BaseAgent * agt, const Goal * goal );
-
-		protected:
-			/*!
-			 *	@brief		The underlying finite state machine velocity component.
-			 */
-			GoalVelComponent * _vc;
+			/*! The unique identifier used to register this type with run-time components. */
+			static const std::string NAME;
 		};
 
 		//////////////////////////////////////////////////////////////////////////////
@@ -149,7 +107,7 @@ namespace Menge {
 			 *
 			 *	@returns	A string containing the unique velocity component name.
 			 */
-			virtual const char * name() const { return "goal"; }
+			virtual const char * name() const { return GoalVelComponent::NAME.c_str(); }
 
 			/*!
 			 *	@brief		A description of the velocity component.
@@ -159,8 +117,9 @@ namespace Menge {
 			 *	@returns	A string containing the velocity component description.
 			 */
 			virtual const char * description() const {
-				return "Provides a preferred velocity which always aims directly toward the goal (at the agent's preferred speed)"\
-					" unless it will overstep the goal in a single time step, then it is scaled down.";
+				return "Provides a preferred velocity which always aims directly toward the goal "
+					"(at the agent's preferred speed) unless it will overstep the goal in a "
+					"single time step, then it is scaled down.";
 			};
 
 		protected:
@@ -168,9 +127,10 @@ namespace Menge {
 			 *	@brief		Create an instance of this class's velocity component.
 			 *
 			 *	All VelCompFactory sub-classes must override this by creating (on the heap)
-			 *	a new instance of its corresponding velocity component type.  The various field values
-			 *	of the instance will be set in a subsequent call to VelCompFactory::setFromXML.
-			 *	The caller of this function takes ownership of the memory.
+			 *	a new instance of its corresponding velocity component type.  The various field
+			 *	values of the instance will be set in a subsequent call to
+			 *	VelCompFactory::setFromXML. The caller of this function takes ownership of the
+			 *	memory.
 			 *
 			 *	@returns		A pointer to a newly instantiated VelComponent class.
 			 */

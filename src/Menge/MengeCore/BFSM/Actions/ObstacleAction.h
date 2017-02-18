@@ -45,13 +45,14 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __OBSTACLE_ACTION_H__
 #define __OBSTACLE_ACTION_H__
 
-#include "CoreConfig.h"
-#include "Action.h"
-#include "Actions/ActionFactory.h"
-#include "fsmCommon.h"
-#include "FSMEnumeration.h"
+#include "MengeCore/CoreConfig.h"
+#include "MengeCore/BFSM/fsmCommon.h"
+#include "MengeCore/BFSM/FSMEnumeration.h"
+#include "MengeCore/BFSM/Actions/Action.h"
+#include "MengeCore/BFSM/Actions/ActionFactory.h"
+#include "MengeCore/Runtime/SimpleLock.h"
+
 #include <map>
-#include "SimpleLock.h"
 
 // forward declaration
 
@@ -155,11 +156,12 @@ namespace Menge {
 			 *	@param		node		The XML node containing the action attributes.
 			 *	@param		behaveFldr	The path to the behavior file.  If the action references
 			 *							resources in the file system, it should be defined relative
-			 *							to the behavior file location.  This is the folder containing
-			 *							that path. 
+			 *							to the behavior file location.  This is the folder
+			 *							containing that path. 
 			 *	@returns	A boolean reporting success (true) or failure (false).
 			 */
-			virtual bool setFromXML( Action * action, TiXmlElement * node, const std::string & behaveFldr ) const;
+			virtual bool setFromXML( Action * action, TiXmlElement * node,
+									 const std::string & behaveFldr ) const;
 
 			/*!
 			 *	@brief		The identifier for the "operand" size_t attribute.

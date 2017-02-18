@@ -45,9 +45,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __ZANLUNGO_AGENT_CONTEXT_H__
 #define __ZANLUNGO_AGENT_CONTEXT_H__
 
-#include "BaseAgentContext.h"
-
-using namespace Menge;
+#include "ZanlungoAgent.h"
+#include "MengeCore/Agents/Obstacle.h"
+#include "MengeVis/Runtime/AgentContext/BaseAgentContext.h"
 
 namespace Zanlungo {
 	// forward declarations
@@ -57,16 +57,23 @@ namespace Zanlungo {
 	 *	@brief		The context for displaying the computational aspects of the
 	 *				Zanlungo model (see Agents::Zanlungo::Agent).
 	 */
-	class AgentContext : public BaseAgentContext {
+	class AgentContext : public MengeVis::Runtime::BaseAgentContext {
 	public:
 		/*!
 		 *	@brief		Constructor.
-		 *
-		 *	@param		agents		An array of pointers to VisAgent instances for Zanlungo
-		 *							agents.
-		 *	@param		agtCount	The number of agents contained in the array.
 		 */
-		AgentContext( VisAgent ** agents, unsigned int agtCount );
+		AgentContext();
+
+		/*!
+		 *	@brief		Sets the agent for this context.
+		 *
+		 *	This method works in conjunction with the VisElementDatabase. When this
+		 *	visualization element is triggered, the database will supply the triggering
+		 *	element.
+		 *
+		 *	@param		agent		The agent to interact with.
+		 */
+		virtual void setElement( MengeVis::Runtime::VisAgent * agent );
 
 		/*!
 		 *	@brief		Returns the name of the context for display.
@@ -76,6 +83,13 @@ namespace Zanlungo {
 		virtual std::string contextName() const { return "Zanlungo 2010"; }
 
 		/*!
+		 *	@brief		The value used to store this element in the visual element database.
+		 *				This string value should correspond to the getStringId method of the
+		 *				corresponding simulation element.
+		 */
+		virtual std::string getElementName() const { return Agent::NAME; }
+
+		/*!
 		 *	@brief		Give the context the opportunity to respond to a keyboard
 		 *				event.
 		 *
@@ -83,7 +97,7 @@ namespace Zanlungo {
 		 *	@returns	A ContextResult instance reporting if the event was handled and
 		 *				if redrawing is necessary.
 		 */
-		virtual SceneGraph::ContextResult handleKeyboard( SDL_Event & e );
+		virtual MengeVis::SceneGraph::ContextResult handleKeyboard( SDL_Event & e );
 
 	protected:
 		/*!
@@ -101,7 +115,7 @@ namespace Zanlungo {
 		 *	@param		agent		The agent whose data is to be displayed.
 		 *	@returns	A formatted string for display in the context's 2D gui.
 		 */
-		virtual std::string agentText( const Agents::BaseAgent * agent ) const;
+		virtual std::string agentText( const Menge::Agents::BaseAgent * agent ) const;
 
 		/*!
 		 *	@brief		Determines whether the time to interaction is displayed

@@ -36,9 +36,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "Goals/GoalAABB.h"
-#include "graphCommon.h"
-#include "PrefVelocity.h"
+#include "MengeCore/BFSM/Goals/GoalAABB.h"
+
+#include "MengeCore/Agents/PrefVelocity.h"
 
 namespace Menge {
 
@@ -48,26 +48,18 @@ namespace Menge {
 		//                   Implementation of AABBGoal
 		/////////////////////////////////////////////////////////////////////
 
-		void AABBGoal::drawGLGeometry() const {
-			const Vector2 & minPt = static_cast<AABBShape*>(_geometry)->getMinPoint();
-			const Vector2 & size = static_cast<AABBShape*>(_geometry)->getSize();;
-			glBegin( GL_POLYGON );
-				glVertex3f(minPt.x(), 0.f, minPt.y());
-				glVertex3f(minPt.x() + size.x(), 0.f, minPt.y());
-				glVertex3f(minPt.x() + size.x(), 0.f, minPt.y() + size.y());
-				glVertex3f(minPt.x(), 0.f, minPt.y() + size.y());
-				glVertex3f(minPt.x(), 0.f, minPt.y());
-			glEnd();
-		}
+		const std::string AABBGoal::NAME = "AABB";
 
 		/////////////////////////////////////////////////////////////////////
 		//                   Implementation of AABBGoalFactory
 		/////////////////////////////////////////////////////////////////////
 
-		bool AABBGoalFactory::setFromXML( Goal * goal, TiXmlElement * node, const std::string & behaveFldr ) const {
+		bool AABBGoalFactory::setFromXML( Goal * goal, TiXmlElement * node,
+										  const std::string & behaveFldr ) const {
 			
 			AABBGoal * aabbGoal = dynamic_cast< AABBGoal * >( goal );
-			assert( aabbGoal != 0x0 && "Trying to set AABB goal attributes on an incompatible object." );
+			assert( aabbGoal != 0x0 &&
+					"Trying to set AABB goal attributes on an incompatible object." );
 			if (!GoalFactory::setFromXML(aabbGoal, node, behaveFldr)) return false;
 
 			// rely on createAABB to parse errors
@@ -80,7 +72,6 @@ namespace Menge {
 		}
 		
 		/////////////////////////////////////////////////////////////////////
-
 		
 	}	// namespace BFSM
 }	// namespace Menge

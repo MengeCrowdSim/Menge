@@ -44,9 +44,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __GOAL_SELECTOR_NEAREST_H__
 #define __GOAL_SELECTOR_NEAREST_H__
 
-#include "CoreConfig.h"
-#include "fsmCommon.h"
-#include "GoalSelectors/GoalSelectorSet.h"
+#include "MengeCore/CoreConfig.h"
+#include "MengeCore/BFSM/fsmCommon.h"
+#include "MengeCore/BFSM/GoalSelectors/GoalSelectorSet.h"
 
 namespace Menge {
 
@@ -90,7 +90,7 @@ namespace Menge {
 			 *	@returns	A string containing the goal selector description.
 			 */
 			virtual const char * description() const {
-				return  "A goal selector.  Assigns the agent the goal in the given " \
+				return  "A goal selector.  Assigns the agent the goal in the given "
 						"goal set that is *nearest* the agent (in Euclidian distance).";
 			};
 

@@ -47,12 +47,17 @@ namespace Menge {
 		//                   Implementation of ProbTarget
 		///////////////////////////////////////////////////////////////////////////
 
-		ProbTarget::ProbTarget():TransitionTarget(), _randNum(0.f,1.f),_totalWeight(0.f),_targetNames(), _targets()  {
+		ProbTarget::ProbTarget() : TransitionTarget(), _randNum( 0.f, 1.f ), _totalWeight( 0.f ),
+								   _targetNames(), _targets()  {
 		}
 
 		///////////////////////////////////////////////////////////////////////////
 
-		ProbTarget::ProbTarget( const ProbTarget & tgt ):TransitionTarget(tgt), _randNum(tgt._randNum),_totalWeight(tgt._totalWeight), _targetNames(tgt._targetNames), _targets(tgt._targets) {
+		ProbTarget::ProbTarget( const ProbTarget & tgt ) : TransitionTarget( tgt ),
+														   _randNum( tgt._randNum ),
+														   _totalWeight( tgt._totalWeight ),
+														   _targetNames( tgt._targetNames ),
+														   _targets( tgt._targets ) {
 		}
 
 		///////////////////////////////////////////////////////////////////////////
@@ -83,7 +88,8 @@ namespace Menge {
 				const float weight = (*itr).first;
 				std::string name = (*itr).second;
 				if ( stateMap.find( name ) == stateMap.end() ) {
-					logger << Logger::ERR_MSG << "Probability Target with invalid state name: " << name << ".";
+					logger << Logger::ERR_MSG;
+					logger << "Probability Target with invalid state name: " << name << ".";
 					return false;
 				}
 				_totalWeight += weight;
@@ -102,33 +108,44 @@ namespace Menge {
 		//                   Implementation of ProbTargetFactory
 		///////////////////////////////////////////////////////////////////////////
 
-		bool ProbTargetFactory::setFromXML( TransitionTarget * target, TiXmlElement * node, const std::string & behaveFldr ) const {
+		bool ProbTargetFactory::setFromXML( TransitionTarget * target, TiXmlElement * node,
+											const std::string & behaveFldr ) const {
 			ProbTarget * tgt = dynamic_cast< ProbTarget * >( target );
-			assert( tgt != 0x0 && "Trying to set the properties of a probabalistic transition target on an incompatible object" );
+			assert( tgt != 0x0 &&
+					"Trying to set the properties of a probabalistic transition target on an "
+					"incompatible object" );
 
 			if ( ! TargetFactory::setFromXML( tgt, node, behaveFldr ) ) return false;
 			
 			// ProbTargetFactory does *not* use the attribute set directly
 			//	All of its parameters are child tags which it parses by hand.
 			// Scan the child tags for State tags
-			for ( TiXmlElement * child = node->FirstChildElement(); child; child = child->NextSiblingElement() ) {
+			for ( TiXmlElement * child = node->FirstChildElement();
+				  child;
+				  child = child->NextSiblingElement() ) {
 				if ( child->ValueStr() == "State" ) {
 					// read the weight
 					double weight;
 					if ( ! child->Attribute( "weight", &weight ) ) {
-						logger << Logger::WARN_MSG << "The State tag on line " << child->Row() << " is missing the \"weight\" property.  It is assumed to be 1.0.";
+						logger << Logger::WARN_MSG << "The State tag on line " << child->Row();
+						logger << " is missing the \"weight\" property.  It is assumed to be 1.0.";
 						weight = 1.f;
 					}
 
 					// read the name
 					const char * nameCStr = child->Attribute( "name" );
 					if ( nameCStr == 0x0 ) {
-						logger << Logger::ERR_MSG << "The State tag on line " << child->Row() << " hasn't specified the \"name\" property.";
+						logger << Logger::ERR_MSG << "The State tag on line " << child->Row();
+						logger << " hasn't specified the \"name\" property.";
 						return false;
 					}
-					tgt->_targetNames.push_back( std::pair< float, std::string >( (float)weight, std::string( nameCStr ) ) );
+					tgt->_targetNames.push_back(
+						std::pair< float, std::string >(
+						(float)weight, std::string( nameCStr ) ) );
 				} else {
-					logger << Logger::ERR_MSG << "Found an incompatible xml tag (" << child->ValueStr() << ") as a child of a probabalistic transition target tag on line " << child->Row() << ".";
+					logger << Logger::ERR_MSG << "Found an incompatible xml tag (";
+					logger << child->ValueStr() << ") as a child of a probabalistic transition "
+						"target tag on line " << child->Row() << ".";
 					return false;
 				}
 			}

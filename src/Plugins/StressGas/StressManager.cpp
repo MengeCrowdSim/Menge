@@ -3,16 +3,20 @@
  *	@brief		Manages stress values for agents
  */
 
-#include "FSM.h"
-#include "BaseAgent.h"
-#include "PedVO/PedVOAgent.h"
+#include "StressManager.h"
+
+#include "MengeCore/Core.h"
+#include "MengeCore/Agents/BaseAgent.h"
+#include "MengeCore/BFSM/FSM.h"
+#include "MengeCore/PedVO/PedVOAgent.h"
+
 #include <map>
 #include <set>
 #include <vector>
-#include "StressManager.h"
-#include "Core.h"
 
 namespace StressGAS {
+
+	using Menge::Agents::BaseAgent;
 
 	////////////////////////////////////////////////////////////////
 	//             Implementation of StressGasManager
@@ -25,7 +29,7 @@ namespace StressGAS {
 	
 	StressManager::~StressManager(){	
 		// delete remaining stress functions
-		HASH_MAP< const Agents::BaseAgent *, StressFunction *>::iterator itr =
+		HASH_MAP< const BaseAgent *, StressFunction *>::iterator itr =
 			_stressFunctions.begin();
 		for ( ; itr != _stressFunctions.end(); ++itr ) {
 			delete itr->second;
@@ -36,16 +40,16 @@ namespace StressGAS {
 	
 	void StressManager::updateStress() {
 		_lock.lockRead();
-		HASH_MAP< const Agents::BaseAgent *, StressFunction *>::iterator itr =
+		HASH_MAP< const BaseAgent *, StressFunction *>::iterator itr =
 			_stressFunctions.begin();
-		std::set<const Agents::BaseAgent *> deleteSet;
+		std::set<const BaseAgent *> deleteSet;
 		for ( ; itr != _stressFunctions.end(); ++itr ) {
 			itr->second->processStress();
 			if ( itr->second->isFinished() ) {
 				deleteSet.insert( itr->first );
 			}
 		}
-		std::set<const Agents::BaseAgent *>::iterator aItr = deleteSet.begin();
+		std::set<const BaseAgent *>::iterator aItr = deleteSet.begin();
 		for ( ; aItr != deleteSet.end(); ++aItr ){
 			_stressFunctions.erase( *aItr );
 		}
@@ -54,9 +58,9 @@ namespace StressGAS {
 
 	////////////////////////////////////////////////////////////////
 
-	StressFunction * StressManager::getStressFunction( const Agents::BaseAgent * agent ) {
+	StressFunction * StressManager::getStressFunction( const BaseAgent * agent ) {
 		_lock.lockRead();
-		HASH_MAP< const Agents::BaseAgent *, StressFunction *>::iterator itr =
+		HASH_MAP< const BaseAgent *, StressFunction *>::iterator itr =
 			_stressFunctions.find( agent );
 		StressFunction * func = 0x0;
 		if ( itr != _stressFunctions.end() ) {
@@ -68,9 +72,9 @@ namespace StressGAS {
 
 	////////////////////////////////////////////////////////////////
 
-	void StressManager::setStressFunction( const Agents::BaseAgent * agent, StressFunction * func ) {
+	void StressManager::setStressFunction( const BaseAgent * agent, StressFunction * func ) {
 		_lock.lockWrite();
-		HASH_MAP< const Agents::BaseAgent *, StressFunction *>::iterator itr =
+		HASH_MAP< const BaseAgent *, StressFunction *>::iterator itr =
 			_stressFunctions.find( agent );
 		if ( itr != _stressFunctions.end() ) {
 			delete itr->second;
@@ -81,9 +85,9 @@ namespace StressGAS {
 
 	////////////////////////////////////////////////////////////////
 
-	StressFunction * StressManager::popStressFunction( const Agents::BaseAgent * agent ) {
+	StressFunction * StressManager::popStressFunction( const BaseAgent * agent ) {
 		_lock.lockWrite();
-		HASH_MAP< const Agents::BaseAgent *, StressFunction *>::iterator itr =
+		HASH_MAP< const BaseAgent *, StressFunction *>::iterator itr =
 			_stressFunctions.find( agent );
 		StressFunction * func = 0x0;
 		if ( itr != _stressFunctions.end() ) {

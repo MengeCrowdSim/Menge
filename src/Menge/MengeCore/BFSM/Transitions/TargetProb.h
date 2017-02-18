@@ -44,10 +44,12 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __TARGET_PROB_H__
 #define	__TARGET_PROB_H__
 
-#include "CoreConfig.h"
-#include "Target.h"
-#include "TargetFactory.h"
-#include "fsmCommon.h"
+#include "MengeCore/CoreConfig.h"
+#include "MengeCore/BFSM/fsmCommon.h"
+#include "MengeCore/BFSM/Transitions/Target.h"
+#include "MengeCore/BFSM/Transitions/TargetFactory.h"
+#include "MengeCore/Math/RandGenerator.h"
+
 #include <list>
 
 namespace Menge {
@@ -123,7 +125,7 @@ namespace Menge {
 			/*!
 			 *	@brief		The random number generator for selecting the next state.
 			 */
-			UniformFloatGenerator _randNum;
+			Menge::Math::UniformFloatGenerator _randNum;
 
 			/*!
 			 *	@brief		The total weight of all the target states.
@@ -169,8 +171,8 @@ namespace Menge {
 			 *	@returns	A string containing the action description.
 			 */
 			virtual const char * description() const {
-				return "The probabalistic transition target.  This allows a state to"\
-					" transition to a randomly selected member of a set of states. "\
+				return "The probabalistic transition target.  This allows a state to"
+					" transition to a randomly selected member of a set of states. "
 					"The state selected is based on weighted probabilities.";
 			}
 			
@@ -197,15 +199,17 @@ namespace Menge {
 			 *	sub-class should override this method but explicitly call the parent class's
 			 *	version.
 			 *
-			 *	@param		target			A pointer to the transition target whose attributes are to be set.
+			 *	@param		target			A pointer to the transition target whose attributes are
+			 *								to be set.
 			 *	@param		node			The XML node containing the condition attributes.
-			 *	@param		behaveFldr		The path to the behavior file.  If the condition references
-			 *								resources in the file system, it should be defined relative
-			 *								to the behavior file location.  This is the folder containing
-			 *								that path. 
+			 *	@param		behaveFldr		The path to the behavior file.  If the condition
+			 *								references resources in the file system, it should be
+			 *								defined relative to the behavior file location.  This
+			 *								is the folder containing that path. 
 			 *	@returns	A boolean reporting success (true) or failure (false).
 			 */
-			virtual bool setFromXML( TransitionTarget * target, TiXmlElement * node, const std::string & behaveFldr ) const;
+			virtual bool setFromXML( TransitionTarget * target, TiXmlElement * node,
+									 const std::string & behaveFldr ) const;
 		};
 		
 	}	// namespace BFSM

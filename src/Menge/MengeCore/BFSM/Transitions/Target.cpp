@@ -36,8 +36,10 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "Transitions/Target.h"
-#include "Logger.h"
+#include "MengeCore/BFSM/Transitions/Target.h"
+
+#include "MengeCore/Runtime/Logger.h"
+
 #include <iostream>
 #include <string>
 
@@ -65,24 +67,28 @@ namespace Menge {
 		//                   Implementation of SingleTarget
 		/////////////////////////////////////////////////////////////////////
 
-		SingleTarget::SingleTarget():TransitionTarget(),_nextName(""), _next(0x0) {
+		SingleTarget::SingleTarget() : TransitionTarget(), _nextName( "" ), _next( 0x0 ) {
 		}
 
 		/////////////////////////////////////////////////////////////////////
 
-		SingleTarget::SingleTarget( const SingleTarget & tgt ):TransitionTarget(tgt),_nextName(tgt._nextName), _next(tgt._next) {
+		SingleTarget::SingleTarget( const SingleTarget & tgt ) : TransitionTarget( tgt ),
+																 _nextName( tgt._nextName ),
+																 _next(tgt._next) {
 		}
 
 		/////////////////////////////////////////////////////////////////////
 
-		SingleTarget::SingleTarget( const std::string & toName ):_nextName(toName), _next(0x0) {
+		SingleTarget::SingleTarget( const std::string & toName ) : _nextName( toName ),
+																   _next( 0x0 ) {
 		}
 
 		/////////////////////////////////////////////////////////////////////
 
 		bool SingleTarget::connectStates( std::map< std::string, State * > & stateMap ) {
 			if ( stateMap.find( _nextName ) == stateMap.end() ) {
-				logger << Logger::ERR_MSG << "SingleTarget with invalid to node name: " << _nextName << "\n";
+				logger << Logger::ERR_MSG;
+				logger << "SingleTarget with invalid to node name: " << _nextName << "\n";
 				return false;
 			}
 			_next = stateMap[ _nextName ];

@@ -47,9 +47,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __TARGET_DATABASE_H__
 #define __TARGET_DATABASE_H__
 
-#include "ElementDatabase.h"
-#include "Transitions/TargetFactory.h"
-#include "Transitions/Target.h"
+#include "MengeCore/PluginEngine/ElementDatabase.h"
+#include "MengeCore/BFSM/Transitions/Target.h"
+#include "MengeCore/BFSM/Transitions/TargetFactory.h"
 
 namespace Menge {
 
@@ -71,7 +71,8 @@ namespace Menge {
 	/*!
 	 *	@brief		Explicit specialization of getElementName for the TransitionTarget Database
 	 */
-	template<> std::string ElementDB< BFSM::TargetFactory, BFSM::TransitionTarget >::getElementName();
+	template<> std::string 
+		ElementDB< BFSM::TargetFactory, BFSM::TransitionTarget >::getElementName();
 
 #endif	// DOXYGEN_SHOULD_SKIP_THIS
 

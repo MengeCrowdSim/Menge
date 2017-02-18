@@ -37,11 +37,13 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 */
 
 #include "JohanssonDBEntry.h"
-#include "JohanssonSimulator.h"
-#include "SimulatorDB.h"
 #include "JohanssonInitializer.h"
+#include "JohanssonSimulator.h"
+#include "MengeCore/Runtime/SimulatorDB.h"
 
 namespace Johansson {
+
+	using Menge::Agents::SimulatorInterface;
 
 	/////////////////////////////////////////////////////////////////////////////
 	//                     Implementation of JohanssonDBEntry
@@ -67,16 +69,15 @@ namespace Johansson {
 
 	/////////////////////////////////////////////////////////////////////////////
 	 
-	Agents::SimulatorInterface * DBEntry::getNewSimulator() {
+	SimulatorInterface * DBEntry::getNewSimulator() {
 		return new Simulator();
 	}
 
 	/////////////////////////////////////////////////////////////////////////////
 	 
-	Agents::AgentInitializer * DBEntry::getAgentInitalizer() const {
+	Menge::Agents::AgentInitializer * DBEntry::getAgentInitalizer() const {
 		return new AgentInitializer();
 	}
 
 	/////////////////////////////////////////////////////////////////////////////
 }	// namespace Johansson
-

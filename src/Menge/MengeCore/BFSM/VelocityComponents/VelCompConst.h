@@ -45,10 +45,10 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __VEL_COMP_CONST_H__
 #define	__VEL_COMP_CONST_H__
 
-#include "CoreConfig.h"
-#include "VelocityComponents/VelComponent.h"
-#include "VelocityComponents/VelComponentFactory.h"
-#include "VelocityComponents/VelCompContext.h"
+#include "MengeCore/CoreConfig.h"
+#include "MengeCore/Agents/PrefVelocity.h"
+#include "MengeCore/BFSM/VelocityComponents/VelComponent.h"
+#include "MengeCore/BFSM/VelocityComponents/VelComponentFactory.h"
 
 namespace Menge {
 
@@ -94,7 +94,8 @@ namespace Menge {
 			 *	@param		goal		The agent's goal (although this may be ignored).
 			 *	@param		pVel		The instance of Agents::PrefVelocity to set.
 			 */
-			virtual void setPrefVelocity( const Agents::BaseAgent * agent, const Goal * goal, Agents::PrefVelocity & pVel );
+			virtual void setPrefVelocity( const Agents::BaseAgent * agent, const Goal * goal,
+										  Agents::PrefVelocity & pVel ) const;
 
 			/*!
 			 *	@brief		Returns the constant velocity.
@@ -104,13 +105,14 @@ namespace Menge {
 			Vector2 getConstVelocity() const { return _dir * _speed; }
 
 			/*!
-			 *	@brief		Provides a display context for interacting with this velocity component.
-			 *
-			 *	It is the responsibility of the caller to delete the provided context.
-			 *
-			 *	@returns	A pointer to a context for this vel component.
+			 *	@brief		Used by the plugin system to know what artifacts to associate with
+			 *				agents of this type.  Every sub-class of must return a globally
+			 *				unique value if it should be associated with unique artifacts.
 			 */
-			virtual VelCompContext * getContext();
+			virtual std::string getStringId() const { return NAME; }
+
+			/*! The unique identifier used to register this type with run-time components. */
+			static const std::string NAME;
 
 			friend class ConstVCFactory;
 		protected:
@@ -123,50 +125,6 @@ namespace Menge {
 			 *	@brief		The speed of the constant preferred velocity.
 			 */
 			float _speed;
-		};
-
-
-		//////////////////////////////////////////////////////////////////////////////
-
-		/*!
-		 *	@brief		The context for the ConstVelComponent.
-		 */
-		class MENGE_API ConstVCContext : public VelCompContext {
-		public:
-			/*!
-			 *	@brief		Constructor.
-			 *
-			 *	@param		vc			A pointer to the underlying fsm velocity component.
-			 *							The context will *not* delete the velocity component.
-			 */
-			ConstVCContext( ConstVelComponent * vc );
-
-			/*!
-			 *	@brief		Provides a string to be printed in the display as a UI element
-			 *				detailing velocity component information.
-			 *
-			 *	@param		indent		An optional string representing indentation to be
-			 *							applied to the text.  It is prefixed at the start
-			 *							of each line.
-			 *	@returns	The string for printing on the UI layer.
-			 */
-			virtual std::string getUIText( const std::string & indent="" ) const;
-
-			/*!
-			 *	@brief		Draw context elements into the 3D world.
-			 *
-			 *	This should never be called in select mode.
-			 *
-			 *	@param		agt			The particular agent for which the FSM is being visualized.
-			 *	@param		goal		The agent's goal (although this may be ignored).
-			 */
-			virtual void draw3DGL( const Agents::BaseAgent * agt, const Goal * goal );
-
-		protected:
-			/*!
-			 *	@brief		The underlying finite state machine velocity component.
-			 */
-			ConstVelComponent * _vc;
 		};
 
 		/////////////////////////////////////////////////////////////////////
@@ -189,7 +147,7 @@ namespace Menge {
 			 *
 			 *	@returns	A string containing the unique velocity component name.
 			 */
-			virtual const char * name() const { return "const"; }
+			virtual const char * name() const { return ConstVelComponent::NAME.c_str(); }
 
 			/*!
 			 *	@brief		A description of the velocity component.
@@ -199,7 +157,8 @@ namespace Menge {
 			 *	@returns	A string containing the velocity component description.
 			 */
 			virtual const char * description() const {
-				return "Provides a preferred velocity which is always a constant value (direction and magnitude).";
+				return "Provides a preferred velocity which is always a constant value "
+					"(direction and magnitude).";
 			};
 
 		protected:
@@ -207,17 +166,18 @@ namespace Menge {
 			 *	@brief		Create an instance of this class's velocity component.
 			 *
 			 *	All VelCompFactory sub-classes must override this by creating (on the heap)
-			 *	a new instance of its corresponding velocity component type.  The various field values
-			 *	of the instance will be set in a subsequent call to VelCompFactory::setFromXML.
-			 *	The caller of this function takes ownership of the memory.
+			 *	a new instance of its corresponding velocity component type.  The various field
+			 *	values of the instance will be set in a subsequent call to
+			 *	VelCompFactory::setFromXML. The caller of this function takes ownership of the
+			 *	memory.
 			 *
 			 *	@returns		A pointer to a newly instantiated VelComponent class.
 			 */
 			VelComponent * instance() const { return new ConstVelComponent(); }	
 			
 			/*!
-			 *	@brief		Given a pointer to an VelComponent instance, sets the appropriate fields
-			 *				from the provided XML node.
+			 *	@brief		Given a pointer to an VelComponent instance, sets the appropriate
+			 *				fields from the provided XML node.
 			 *
 			 *	It is assumed that the value of the `type` attribute is this VelComponent's type.
 			 *	(i.e. VelCompFactory::thisFactory has already been called and returned true.)
@@ -225,15 +185,17 @@ namespace Menge {
 			 *	sub-class should override this method but explicitly call the parent class's
 			 *	version.
 			 *
-			 *	@param		vc			A pointer to the velocity component whose attributes are to be set.
+			 *	@param		vc			A pointer to the velocity component whose attributes are to
+			 *							be set.
 			 *	@param		node		The XML node containing the velocity component attributes.
-			 *	@param		behaveFldr	The path to the behavior file.  If the velocity component references
-			 *							resources in the file system, it should be defined relative
-			 *							to the behavior file location.  This is the folder containing
-			 *							that path. 
+			 *	@param		behaveFldr	The path to the behavior file.  If the velocity component
+			 *							references resources in the file system, it should be
+			 *							defined relative to the behavior file location.  This is
+			 *							the folder containing that path. 
 			 *	@returns	A boolean reporting success (true) or failure (false).
 			 */
-			virtual bool setFromXML( VelComponent * vc, TiXmlElement * node, const std::string & behaveFldr ) const;
+			virtual bool setFromXML( VelComponent * vc, TiXmlElement * node,
+									 const std::string & behaveFldr ) const;
 		
 			/*!
 			 *	@brief		The identifier for the "x" float attribute.
@@ -245,11 +207,6 @@ namespace Menge {
 			 */
 			size_t	_yID;
 		};
-
-		/////////////////////////////////////////////////////////////////////
-
-		// forward declaration
-		class ConstDirVCContext;
 
 		/*!
 		 *	@brief		A velocity component that always returns a constant direction but
@@ -284,7 +241,8 @@ namespace Menge {
 			 *	@param		goal		The agent's goal (although this may be ignored).
 			 *	@param		pVel		The instance of Agents::PrefVelocity to set.
 			 */
-			virtual void setPrefVelocity( const Agents::BaseAgent * agent, const Goal * goal, Agents::PrefVelocity & pVel );
+			virtual void setPrefVelocity( const Agents::BaseAgent * agent, const Goal * goal,
+										  Agents::PrefVelocity & pVel ) const;
 
 			/*!
 			 *	@brief		Sets the direction of the velocity component.
@@ -296,13 +254,21 @@ namespace Menge {
 			void setDirection( const Vector2 & dir );
 
 			/*!
-			 *	@brief		Provides a display context for interacting with this velocity component.
+			 *	@brief		Reports the direction of this velocity component.
 			 *
-			 *	It is the responsibility of the caller to delete the provided context.
-			 *
-			 *	@returns	A pointer to a context for this vel component.
+			 *	@returns	The direction.
 			 */
-			virtual VelCompContext * getContext();
+			const Vector2& getDirection() const { return _dir; }
+
+			/*!
+			 *	@brief		Used by the plugin system to know what artifacts to associate with
+			 *				agents of this type.  Every sub-class of must return a globally
+			 *				unique value if it should be associated with unique artifacts.
+			 */
+			virtual std::string getStringId() const { return NAME; }
+
+			/*! The unique identifier used to register this type with run-time components. */
+			static const std::string NAME;
 
 			friend class ConstDirVCContext;
 		protected:
@@ -310,50 +276,6 @@ namespace Menge {
 			 *	@brief		The direction of the constant preferred velocity.
 			 */
 			Vector2 _dir;
-		};
-
-
-		/////////////////////////////////////////////////////////////////////
-
-		/*!
-		 *	@brief		The context for the ConstVelDirComponent.
-		 */
-		class MENGE_API ConstDirVCContext : public VelCompContext {
-		public:
-			/*!
-			 *	@brief		Constructor.
-			 *
-			 *	@param		vc			A pointer to the underlying fsm velocity component.
-			 *							The context will *not* delete the velocity component.
-			 */
-			ConstDirVCContext( ConstVelDirComponent * vc );
-
-			/*!
-			 *	@brief		Provides a string to be printed in the display as a UI element
-			 *				detailing velocity component information.
-			 *
-			 *	@param		indent		An optional string representing indentation to be
-			 *							applied to the text.  It is prefixed at the start
-			 *							of each line.
-			 *	@returns	The string for printing on the UI layer.
-			 */
-			virtual std::string getUIText( const std::string & indent="" ) const;
-
-			/*!
-			 *	@brief		Draw context elements into the 3D world.
-			 *
-			 *	This should never be called in select mode.
-			 *
-			 *	@param		agt			The particular agent for which the FSM is being visualized.
-			 *	@param		goal		The agent's goal (although this may be ignored).
-			 */
-			virtual void draw3DGL( const Agents::BaseAgent * agt, const Goal * goal );
-
-		protected:
-			/*!
-			 *	@brief		The underlying finite state machine velocity component.
-			 */
-			ConstVelDirComponent * _vc;
 		};
 
 		/////////////////////////////////////////////////////////////////////
@@ -376,7 +298,7 @@ namespace Menge {
 			 *
 			 *	@returns	A string containing the unique velocity component name.
 			 */
-			virtual const char * name() const { return "const_dir"; }
+			virtual const char * name() const { return ConstVelDirComponent::NAME.c_str(); }
 
 			/*!
 			 *	@brief		A description of the velocity component.
@@ -386,7 +308,8 @@ namespace Menge {
 			 *	@returns	A string containing the velocity component description.
 			 */
 			virtual const char * description() const {
-				return "Provides a preferred velocity which is always in a fixed direction but uses the agent's preferred speed.";
+				return "Provides a preferred velocity which is always in a fixed direction but "
+					"uses the agent's preferred speed.";
 			};
 
 		protected:
@@ -403,8 +326,8 @@ namespace Menge {
 			VelComponent * instance() const { return new ConstVelDirComponent(); }	
 			
 			/*!
-			 *	@brief		Given a pointer to an VelComponent instance, sets the appropriate fields
-			 *				from the provided XML node.
+			 *	@brief		Given a pointer to an VelComponent instance, sets the appropriate
+			 *				fields from the provided XML node.
 			 *
 			 *	It is assumed that the value of the `type` attribute is this VelComponent's type.
 			 *	(i.e. VelCompFactory::thisFactory has already been called and returned true.)
@@ -412,15 +335,17 @@ namespace Menge {
 			 *	sub-class should override this method but explicitly call the parent class's
 			 *	version.
 			 *
-			 *	@param		vc			A pointer to the velocity component whose attributes are to be set.
+			 *	@param		vc			A pointer to the velocity component whose attributes are to
+			 *							be set.
 			 *	@param		node		The XML node containing the velocity component attributes.
-			 *	@param		behaveFldr	The path to the behavior file.  If the velocity component references
-			 *							resources in the file system, it should be defined relative
-			 *							to the behavior file location.  This is the folder containing
-			 *							that path. 
+			 *	@param		behaveFldr	The path to the behavior file.  If the velocity component
+			 *							references resources in the file system, it should be
+			 *							defined relative to the behavior file location.  This is
+			 *							the folder containing that path. 
 			 *	@returns	A boolean reporting success (true) or failure (false).
 			 */
-			virtual bool setFromXML( VelComponent * vc, TiXmlElement * node, const std::string & behaveFldr ) const;
+			virtual bool setFromXML( VelComponent * vc, TiXmlElement * node,
+									 const std::string & behaveFldr ) const;
 		
 			/*!
 			 *	@brief		The identifier for the "x" float attribute.
@@ -459,42 +384,18 @@ namespace Menge {
 			 *	@param		goal		The agent's goal (although this may be ignored).
 			 *	@param		pVel		The instance of Agents::PrefVelocity to set.
 			 */
-			virtual void setPrefVelocity( const Agents::BaseAgent * agent, const Goal * goal, Agents::PrefVelocity & pVel );
+			virtual void setPrefVelocity( const Agents::BaseAgent * agent, const Goal * goal,
+										  Agents::PrefVelocity & pVel ) const;
 
 			/*!
-			 *	@brief		Provides a display context for interacting with this velocity component.
-			 *
-			 *	It is the responsibility of the caller to delete the provided context.
-			 *
-			 *	@returns	A pointer to a context for this vel component.
+			 *	@brief		Used by the plugin system to know what artifacts to associate with
+			 *				agents of this type.  Every sub-class of must return a globally
+			 *				unique value if it should be associated with unique artifacts.
 			 */
-			virtual VelCompContext * getContext();
+			virtual std::string getStringId() const { return NAME; }
 
-		};
-
-		/////////////////////////////////////////////////////////////////////
-
-		/*!
-		 *	@brief		The context for the ZeroVelComponent.
-		 */
-		class MENGE_API ZeroVCContext : public VelCompContext {
-		public:
-			/*!
-			 *	@brief		Constructor.
-			 */
-			ZeroVCContext();
-
-			/*!
-			 *	@brief		Provides a string to be printed in the display as a UI element
-			 *				detailing velocity component information.
-			 *
-			 *	@param		indent		An optional string representing indentation to be
-			 *							applied to the text.  It is prefixed at the start
-			 *							of each line.
-			 *	@returns	The string for printing on the UI layer.
-			 */
-			virtual std::string getUIText( const std::string & indent="" ) const;
-
+			/*! The unique identifier used to register this type with run-time components. */
+			static const std::string NAME;
 		};
 
 		/////////////////////////////////////////////////////////////////////
@@ -512,7 +413,7 @@ namespace Menge {
 			 *
 			 *	@returns	A string containing the unique velocity component name.
 			 */
-			virtual const char * name() const { return "zero"; }
+			virtual const char * name() const { return ZeroVelComponent::NAME.c_str(); }
 
 			/*!
 			 *	@brief		A description of the velocity component.
@@ -542,7 +443,6 @@ namespace Menge {
 		//////////////////////////////////////////////////////////////////////////////
 		
 	}	// namespace BFSM
-
 }	// namespace Menge
 
 #endif	// __VEL_COMP_CONST_H__

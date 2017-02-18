@@ -44,17 +44,15 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __JOHANSSON_DB_ENTRY_H__
 #define	__JOHANSSON_DB_ENTRY_H__
 
-#include "SimulatorDBEntry.h"
 #include "Johansson.h"
-
-using namespace Menge;
+#include "MengeCore/Runtime/SimulatorDBEntry.h"
 
 namespace Johansson {
 
 	/*!
 	 *	@brief		The simulator database entry for the Johansson 2007 simulator.
 	 */
-	class DBEntry : public SimulatorDBEntry {
+	class DBEntry : public Menge::SimulatorDBEntry {
 	public:
 		/*!
 		 *	@brief	Gives a brief description of the simulator.
@@ -89,7 +87,7 @@ namespace Johansson {
 		 *	@returns	A single string (with no spaces) that can be used as
 		 *				a command line parameter to uniquely identify this model.
 		 */
-		virtual ::std::string commandLineName() const { return "johansson"; }
+		virtual ::std::string commandLineName() const { return Agent::NAME; }
 
 		/*!
 		 *	@brief		Returns a pointer to this model's Simulator instance.
@@ -99,7 +97,7 @@ namespace Johansson {
 		 *	@returns	A newly instantiated simulator instance of a type appropriate
 		 *				for this database entry.
 		 */
-		virtual Agents::SimulatorInterface * getNewSimulator();
+		virtual Menge::Agents::SimulatorInterface * getNewSimulator();
 
 		/*!
 		 *	@brief		Provides an AgentInitializer appropriate to this simulator class.
@@ -107,7 +105,7 @@ namespace Johansson {
 		 *	@returns	A pointer to an agent initializer.  The caller is responsible for
 		 *				freeing up the memory.
 		 */
-		virtual Agents::AgentInitializer * getAgentInitalizer() const;
+		virtual Menge::Agents::AgentInitializer * getAgentInitalizer() const;
 	};
 }	// namespace Johansson
 

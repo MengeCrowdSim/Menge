@@ -38,17 +38,16 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 /*!
  *	@file		VelModifier.h
- *	@brief		The definition of how preferred velocity is modified by a filter
+ *	@brief		The definition of how preferred velocity is modified by a filter.
  */
 #ifndef __VEL_MODIFIER_H__
 #define __VEL_MODIFIER_H__
 
-#include "fsmCommon.h"
-#include "Element.h"
-#include "PrefVelocity.h"
-#include "MengeException.h"
+#include "MengeCore/MengeException.h"
+#include "MengeCore/Agents/PrefVelocity.h"
+#include "MengeCore/BFSM/fsmCommon.h"
+#include "MengeCore/PluginEngine/Element.h"
 
-// STL
 #include <vector>	
 
 namespace Menge {
@@ -97,14 +96,15 @@ namespace Menge {
 			 *
 			 *	@param		s		The exception-specific message.
 			 */
-			VelModFatalException( const std::string & s ): MengeException(s), VelModException(), MengeFatalException() {}
+			VelModFatalException( const std::string & s ) : MengeException(s), VelModException(),
+															MengeFatalException() {}
 		};
 
 		/*!
 		 *	@brief		The base class for modifying preferred velocities
 		 *
-		 *	Each velocity modifier is allowed to change the input preferred velocity without limit based on arbitrary criteria.
-		 *	They have an order, which defines which order in which they are executed. Modifiers are chained so that the input
+		 *	Each velocity modifier is allowed to change the input preferred velocity without limit
+		 *	based on arbitrary criteria. The filteres are executed in sequence so that the input
 		 *	of each modifier is the output of the previous, making order very important.
 		 */
 		class MENGE_API VelModifier : public Element {
@@ -126,13 +126,13 @@ namespace Menge {
 			 *	@brief       Modifies the input preferred velocity in place.
 			 *
 			 *  The main function of the velocity modifier.  Applies its own algorithms
-			 *	to the input preferred velocity, transforming it into a new transform, in place.
-			 *	All VelModifier sub-classes must implement this function.
+			 *	to the input preferred velocity, transforming it into a new velocity, in place.
 			 *
 			 *	@param		agent		The agent for which a preferred velocity is adapted.
 			 *	@param		pVel		The instance of Agents::PrefVelocity to set.
 			 */
-			virtual void adaptPrefVelocity( const Agents::BaseAgent * agent, Agents::PrefVelocity & pVel ) = 0;
+			virtual void adaptPrefVelocity( const Agents::BaseAgent * agent,
+											Agents::PrefVelocity & pVel ) = 0;
 
 			/*!
 			 *	@brief       Registers an agent for use with the VelModifier. 
@@ -182,7 +182,7 @@ namespace Menge {
 			 *	@returns	A unique, deep copy of this velocity modifier.	
 			 */
 			virtual VelModifier* copy() const = 0;
-			
+#if 0
 			/*!
 			 *	@brief		Provides a display context for interacting with this velocity modifier.
 			 *
@@ -191,7 +191,7 @@ namespace Menge {
 			 *	@returns	A pointer to a context for this velocity modifier
 			 */
 			virtual VelModContext * getContext();
-
+#endif
 			friend class ElementFactory< VelModifier >;
 		};
 
@@ -199,8 +199,8 @@ namespace Menge {
 		 *	@brief		Parses a TinyXML element containing a velocity modifier specification.
 		 *
 		 *	@param		node			The TinyXML element
-		 *	@param		behaveFldr		The folder in which the behavior is defined -- all resources
-		 *								are defined relative to this folder.
+		 *	@param		behaveFldr		The folder in which the behavior is defined -- all
+		 *								resources are defined relative to this folder.
 		 *	@returns	A pointer to the new velocity modifier implementation (NULL if no valid
 		 *				instance could be created).
 		 */

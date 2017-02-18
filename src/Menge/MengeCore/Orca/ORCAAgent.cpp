@@ -36,23 +36,31 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
+
+#include "MengeCore/Orca/ORCAAgent.h"
+
+#include "MengeCore/Math/consts.h"
+#include "MengeCore/Orca/ORCASimulator.h"
+
+#include <algorithm>
 #include <cassert>
 #include <limits>
 
-#include "ORCAAgent.h"
-#include "ORCASimulator.h"
-#include "Math/consts.h"
-#include <algorithm>
-
 namespace ORCA {
+
+	using Menge::Math::Vector2;
+	using Menge::Math::sqr;
 
 	/////////////////////////////////////////////////////////////////////////////
 	//                     Implementation of ORCA::Agent
 	/////////////////////////////////////////////////////////////////////////////
 
 	// AGENT DEFAULT PARAMETERS
-	const float Agent::TAU = 2.5f;				///< The default value for tau (the time horizon w.r.t. other agents).
-	const float Agent::TAU_OBST = 0.15f;		///< The default value for tau obstacles (the time horizon w.r.t. obstacles).
+	///< The default value for tau (the time horizon w.r.t. other agents).
+	const float Agent::TAU = 2.5f;				
+	///< The default value for tau obstacles (the time horizon w.r.t. obstacles).
+	const float Agent::TAU_OBST = 0.15f;
+	const std::string Agent::NAME = "orca";
 	
 	/////////////////////////////////////////////////////////////////////////////
 
@@ -76,8 +84,10 @@ namespace ORCA {
 		const Vector2 obstDir = flip ? -obst->_unitDir : obst->_unitDir;
 		const bool p0Convex = flip ? obst->p1Convex( true ) : obst->p0Convex( true );
 		const bool p1Convex = flip ? obst->p0Convex( true ) : obst->p1Convex( true );
-		const Menge::Agents::Obstacle* const leftNeighbor = flip ? obst->_nextObstacle : obst->_prevObstacle;
-		const Menge::Agents::Obstacle* const rightNeighbor = flip ? obst->_prevObstacle : obst->_nextObstacle;
+		const Menge::Agents::Obstacle* const leftNeighbor = 
+			flip ? obst->_nextObstacle : obst->_prevObstacle;
+		const Menge::Agents::Obstacle* const rightNeighbor = 
+			flip ? obst->_prevObstacle : obst->_nextObstacle;
 
 		const Vector2 relativePosition1 = P0 - _pos;
 		const Vector2 relativePosition2 = P1 - _pos;
@@ -89,7 +99,10 @@ namespace ORCA {
 		bool alreadyCovered = false;
 
 		for (size_t j = 0; j < _orcaLines.size(); ++j) {
-			if (det( invTau * relativePosition1 - _orcaLines[j]._point, _orcaLines[j]._direction) - invTau * _radius >= -Menge::EPS && det(invTau * relativePosition2 - _orcaLines[j]._point, _orcaLines[j]._direction) - invTau * _radius >=  -Menge::EPS ) {
+			if (det( invTau * relativePosition1 - _orcaLines[j]._point,
+				_orcaLines[j]._direction) - invTau * _radius >=
+				-Menge::EPS && det(invTau * relativePosition2 - _orcaLines[j]._point,
+				_orcaLines[j]._direction) - invTau * _radius >=  -Menge::EPS ) {
 				alreadyCovered = true;
 				break;
 			}
@@ -122,7 +135,8 @@ namespace ORCA {
 		} else if (s > LENGTH && distSq2 <= radiusSq) {
 			/* Collision with right vertex. Ignore if non-convex 
 			* or if it will be taken care of by neighoring obstace */
-			if ( ( obst->_nextObstacle == 0x0 ) || ( p1Convex && det(relativePosition2, obst->_nextObstacle->_unitDir) >= 0) ) { 
+			if ( ( obst->_nextObstacle == 0x0 ) || ( p1Convex && det(relativePosition2,
+				obst->_nextObstacle->_unitDir) >= 0) ) { 
 				line._point = Vector2(0.f,0.f);
 				line._direction = norm(Vector2(-relativePosition2.y(), relativePosition2.x()));
 				_orcaLines.push_back(line);
@@ -148,9 +162,9 @@ namespace ORCA {
 		 *	These booleans short-cut the later code in which we make sure a leg direction does not
 		 *	cut into a "neighboring" obstacle.  
 		 *
-		 *	In the case where the agent is "obliquely viewing" the obstacle near the left or right edge,
-		 *	we end up testing one of the legs against obstacle 1 itself.  However, by definition, we know that 
-		 *	both legs lie outside of the obstacle.
+		 *	In the case where the agent is "obliquely viewing" the obstacle near the left or right
+		 *	edge, we end up testing one of the legs against obstacle 1 itself.  However, by
+		 *	definition, we know that both legs lie outside of the obstacle.
 		 */
 		bool prevIsCurrent = false;
 		bool nextIsCurrent = false;
@@ -166,8 +180,14 @@ namespace ORCA {
 			nextIsCurrent = true;
 
 			const float leg1 = std::sqrt(distSq1 - radiusSq);
-			leftLegDirection = Vector2(relativePosition1.x() * leg1 - relativePosition1.y() * _radius, relativePosition1.x() * _radius + relativePosition1.y() * leg1) / distSq1;
-			rightLegDirection = Vector2(relativePosition1.x() * leg1 + relativePosition1.y() * _radius, -relativePosition1.x() * _radius + relativePosition1.y() * leg1) / distSq1;
+			leftLegDirection = Vector2(relativePosition1.x() * leg1 -
+										relativePosition1.y() * _radius,
+										relativePosition1.x() * _radius +
+										relativePosition1.y() * leg1) / distSq1;
+			rightLegDirection = Vector2(relativePosition1.x() * leg1 +
+										 relativePosition1.y() * _radius,
+										 -relativePosition1.x() * _radius +
+										 relativePosition1.y() * leg1) / distSq1;
 		} else if (s > LENGTH && distSqLine <= radiusSq) {
 			/*
 			* Obstacle viewed obliquely so that right vertex defines velocity obstacle.
@@ -180,13 +200,22 @@ namespace ORCA {
 			prevIsCurrent = true;
 
 			const float leg2 = std::sqrt(distSq2 - radiusSq);
-			leftLegDirection = Vector2(relativePosition2.x() * leg2 - relativePosition2.y() * _radius, relativePosition2.x() * _radius + relativePosition2.y() * leg2) / distSq2;
-			rightLegDirection = Vector2(relativePosition2.x() * leg2 + relativePosition2.y() * _radius, -relativePosition2.x() * _radius + relativePosition2.y() * leg2) / distSq2;
+			leftLegDirection = Vector2(relativePosition2.x() * leg2 -
+										relativePosition2.y() * _radius,
+										relativePosition2.x() * _radius +
+										relativePosition2.y() * leg2) / distSq2;
+			rightLegDirection = Vector2(relativePosition2.x() * leg2 +
+										 relativePosition2.y() * _radius,
+										 -relativePosition2.x() * _radius +
+										 relativePosition2.y() * leg2) / distSq2;
 		} else {
 			/* Usual situation. */
 			if ( p0Convex ) {
 				const float leg1 = std::sqrt(distSq1 - radiusSq);
-				leftLegDirection = Vector2(relativePosition1.x() * leg1 - relativePosition1.y() * _radius, relativePosition1.x() * _radius + relativePosition1.y() * leg1) / distSq1;
+				leftLegDirection = Vector2(relativePosition1.x() * leg1 -
+											relativePosition1.y() * _radius,
+											relativePosition1.x() * _radius +
+											relativePosition1.y() * leg1) / distSq1;
 			} else {
 				/* Left vertex non-convex; left leg extends cut-off line. */
 				leftLegDirection = -obstDir;
@@ -194,7 +223,10 @@ namespace ORCA {
 
 			if ( p1Convex ) {
 				const float leg2 = std::sqrt(distSq2 - radiusSq);
-				rightLegDirection = Vector2(relativePosition2.x() * leg2 + relativePosition2.y() * _radius, -relativePosition2.x() * _radius + relativePosition2.y() * leg2) / distSq2;
+				rightLegDirection = Vector2(relativePosition2.x() * leg2 +
+											 relativePosition2.y() * _radius,
+											 -relativePosition2.x() * _radius +
+											 relativePosition2.y() * leg2) / distSq2;
 			} else {
 				/* Right vertex non-convex; right leg extends cut-off line. */
 				rightLegDirection = obstDir;
@@ -230,7 +262,8 @@ namespace ORCA {
 		}
 
 		/* Compute cut-off centers. */
-		const Vector2 leftCutoff = invTau * ( prevIsCurrent ? relativePosition2 : relativePosition1 );
+		const Vector2 leftCutoff = invTau * 
+			( prevIsCurrent ? relativePosition2 : relativePosition1 );
 		const Vector2 rightCutoff = nextIsCurrent ? leftCutoff : ( invTau * relativePosition2 );
 		const Vector2 cutoffVec = rightCutoff - leftCutoff;
 		const bool obstaclesSame = nextIsCurrent || prevIsCurrent;
@@ -238,7 +271,8 @@ namespace ORCA {
 		
 		/* Project current velocity on velocity obstacle. */
 		/* Check if current velocity is projected on cutoff circles. */
-		const float t = obstaclesSame ? 0.5f : ( (_vel - leftCutoff) * ( cutoffVec / absSq(cutoffVec) ) );
+		const float t = obstaclesSame ?
+			0.5f : ( (_vel - leftCutoff) * ( cutoffVec / absSq(cutoffVec) ) );
 		const float tLeft = ((_vel - leftCutoff) * leftLegDirection);
 		const float tRight = ((_vel - rightCutoff) * rightLegDirection);
 
@@ -262,27 +296,36 @@ namespace ORCA {
 		* Project on left leg, right leg, or cut-off line, whichever is closest
 		* to velocity.
 		*/
-		const float distSqCutoff = ((t < 0.0f || t > 1.0f || obstaclesSame) ? std::numeric_limits<float>::infinity() : absSq(_vel - (leftCutoff + t * cutoffVec)));
-		const float distSqLeft = ((tLeft < 0.0f) ? std::numeric_limits<float>::infinity() : absSq(_vel - (leftCutoff + tLeft * leftLegDirection)));
-		const float distSqRight = ((tRight < 0.0f) ? std::numeric_limits<float>::infinity() : absSq(_vel - (rightCutoff + tRight * rightLegDirection)));
+		const float distSqCutoff = ((t < 0.0f || t > 1.0f || obstaclesSame) ? 
+									 std::numeric_limits<float>::infinity() :
+									 absSq(_vel - (leftCutoff + t * cutoffVec)));
+		const float distSqLeft = ((tLeft < 0.0f) ?
+								   std::numeric_limits<float>::infinity() :
+								   absSq(_vel - (leftCutoff + tLeft * leftLegDirection)));
+		const float distSqRight = ((tRight < 0.0f) ?
+									std::numeric_limits<float>::infinity() :
+									absSq(_vel - (rightCutoff + tRight * rightLegDirection)));
 
 		if (distSqCutoff <= distSqLeft && distSqCutoff <= distSqRight) {
 			/* Project on cut-off line. */
 			line._direction = -obstDir;
-			line._point = leftCutoff + _radius * invTau * Vector2(-line._direction.y(), line._direction.x());
+			line._point = leftCutoff + _radius * invTau * Vector2(-line._direction.y(),
+																   line._direction.x());
 			_orcaLines.push_back(line);
 		} else if (distSqLeft <= distSqRight) {
 			/* Project on left leg. */
 			if ( !isLeftLegForeign) {
 				line._direction = leftLegDirection;
-				line._point = leftCutoff + _radius * invTau * Vector2(-line._direction.y(), line._direction.x());
+				line._point = leftCutoff + _radius * invTau * Vector2(-line._direction.y(),
+																	   line._direction.x());
 				_orcaLines.push_back(line);
 			}
 		} else {
 			/* Project on right leg. */
 			if ( !isRightLegForeign) {
 				line._direction = -rightLegDirection;
-				line._point = rightCutoff + _radius * invTau * Vector2(-line._direction.y(), line._direction.x());
+				line._point = rightCutoff + _radius * invTau * Vector2(-line._direction.y(),
+																		line._direction.x());
 				_orcaLines.push_back(line);
 			} 
 		}
@@ -344,10 +387,16 @@ namespace ORCA {
 
 					if (det(relativePosition, w) > 0.0f) {
 						/* Project on left leg. */
-						line._direction = Vector2(relativePosition.x() * leg - relativePosition.y() * combinedRadius, relativePosition.x() * combinedRadius + relativePosition.y() * leg) / distSq;
+						line._direction = Vector2(relativePosition.x() * leg -
+												   relativePosition.y() * combinedRadius,
+												   relativePosition.x() * combinedRadius +
+												   relativePosition.y() * leg) / distSq;
 					} else {
 						/* Project on right leg. */
-						line._direction = -Vector2(relativePosition.x() * leg + relativePosition.y() * combinedRadius, -relativePosition.x() * combinedRadius + relativePosition.y() * leg) / distSq;
+						line._direction = -Vector2(relativePosition.x() * leg +
+													relativePosition.y() * combinedRadius,
+													-relativePosition.x() * combinedRadius +
+													relativePosition.y() * leg) / distSq;
 					}
 
 					const float dotProduct2 = relativeVelocity * line._direction;
@@ -393,7 +442,14 @@ namespace ORCA {
 
 	/////////////////////////////////////////////////////////////////////////////
 
-	bool linearProgram1(const std::vector<Menge::Math::Line>& lines, size_t lineNo, float radius, const Vector2& optVelocity, bool directionOpt, Vector2& result) {
+	std::string Agent::getStringId() const {
+		return "orca";
+	}
+
+	/////////////////////////////////////////////////////////////////////////////
+
+	bool linearProgram1(const std::vector<Menge::Math::Line>& lines, size_t lineNo, float radius,
+						 const Vector2& optVelocity, bool directionOpt, Vector2& result) {
 		const float dotProduct = lines[lineNo]._point * lines[lineNo]._direction;
 		const float discriminant = sqr(dotProduct) + sqr(radius) - absSq(lines[lineNo]._point);
 
@@ -407,8 +463,9 @@ namespace ORCA {
 		float tRight = -dotProduct + sqrtDiscriminant;
 
 		for (size_t i = 0; i < lineNo; ++i) {
-			const float denominator = det(lines[lineNo]._direction, lines[i]._direction);
-			const float numerator = det(lines[i]._direction, lines[lineNo]._point - lines[i]._point);
+			const float denominator = det( lines[lineNo]._direction, lines[i]._direction );
+			const float numerator = det( lines[i]._direction,
+										 lines[lineNo]._point - lines[i]._point);
 
 			if (std::fabs(denominator) <= Menge::EPS ) {
 				/* Lines lineNo and i are (almost) parallel. */
@@ -461,7 +518,8 @@ namespace ORCA {
 
 	/////////////////////////////////////////////////////////////////////////////
 
-	size_t linearProgram2(const std::vector<Menge::Math::Line>& lines, float radius, const Vector2& optVelocity, bool directionOpt, Vector2& result) {
+	size_t linearProgram2(const std::vector<Menge::Math::Line>& lines, float radius,
+						   const Vector2& optVelocity, bool directionOpt, Vector2& result) {
 		if (directionOpt) {
 			/* 
 			* Optimize direction. Note that the optimization velocity is of unit
@@ -492,13 +550,15 @@ namespace ORCA {
 
 	/////////////////////////////////////////////////////////////////////////////
 
-	void linearProgram3(const std::vector<Menge::Math::Line>& lines, size_t numObstLines, size_t beginLine, float radius, Vector2& result) {
+	void linearProgram3(const std::vector<Menge::Math::Line>& lines, size_t numObstLines,
+						 size_t beginLine, float radius, Vector2& result) {
 		float distance = 0.0f;
 
 		for (size_t i = beginLine; i < lines.size(); ++i) {
 			if (det(lines[i]._direction, lines[i]._point - result) > distance) {
 				/* Result does not satisfy constraint of line i. */
-				std::vector<Menge::Math::Line> projLines(lines.begin(), lines.begin() + numObstLines);
+				std::vector<Menge::Math::Line> projLines(lines.begin(),
+														  lines.begin() + numObstLines);
 
 				for (size_t j = numObstLines; j < i; ++j) {
 					Menge::Math::Line line;
@@ -515,7 +575,9 @@ namespace ORCA {
 							line._point = 0.5f * (lines[i]._point + lines[j]._point);
 						}
 					} else {
-						line._point = lines[i]._point + (det(lines[j]._direction, lines[i]._point - lines[j]._point) / determinant) * lines[i]._direction;
+						line._point = lines[i]._point + (det(lines[j]._direction,
+							lines[i]._point - lines[j]._point) / determinant) *
+							lines[i]._direction;
 					}
 
 					line._direction = norm(lines[j]._direction - lines[i]._direction);
@@ -523,7 +585,8 @@ namespace ORCA {
 				}
 
 				const Vector2 tempResult = result;
-				if (linearProgram2(projLines, radius, Vector2(-lines[i]._direction.y(), lines[i]._direction.x()), true, result) < projLines.size()) {
+				if (linearProgram2(projLines, radius, Vector2(-lines[i]._direction.y(),
+					lines[i]._direction.x()), true, result) < projLines.size()) {
 					/* This should in principle not happen.  The result is by definition
 					* already in the feasible region of this linear program. If it fails,
 					* it is due to small floating point error, and the current result is

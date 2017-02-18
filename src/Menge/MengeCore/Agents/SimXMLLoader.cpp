@@ -36,22 +36,24 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "SimXMLLoader.h"
-#include "XMLSimulatorBase.h"
+#include "MengeCore/Agents/SimXMLLoader.h"
+
+#include "MengeCore/Core.h"
+#include "MengeCore/Agents/AgentInitializer.h"
+#include "MengeCore/Agents/BaseAgent.h"
+#include "MengeCore/Agents/SimulatorState.h"
+#include "MengeCore/Agents/XMLSimulatorBase.h"
+#include "MengeCore/Agents/AgentGenerators/AgentGeneratorDatabase.h"
+#include "MengeCore/Agents/Elevations/ElevationDatabase.h"
+#include "MengeCore/Agents/ObstacleSets/ObstacleSetDatabase.h"
+#include "MengeCore/Agents/ProfileSelectors/ProfileSelectorDatabase.h"
+#include "MengeCore/Agents/SpatialQueries/SpatialQueryDatabase.h"
+#include "MengeCore/Agents/StateSelectors/StateSelectorDatabase.h"
+#include "MengeCore/Runtime/os.h"
+
 #include <iostream>
 #include <list>
 #include <vector>
-#include "BaseAgent.h"
-#include "SimulatorState.h"
-#include "Elevations/ElevationDatabase.h"
-#include "SpatialQueries/SpatialQueryDatabase.h"
-#include "AgentGenerators/AgentGeneratorDatabase.h"
-#include "ProfileSelectors/ProfileSelectorDatabase.h"
-#include "StateSelectors/StateSelectorDatabase.h"
-#include "ObstacleSets/ObstacleSetDatabase.h"
-#include "AgentInitializer.h"
-#include "os.h"
-#include "Core.h"
 
 namespace Menge {
 
@@ -61,12 +63,14 @@ namespace Menge {
 		//			Implementation of SimXMLLoader
 		////////////////////////////////////////////////////////////////////
 
-		SimXMLLoader::SimXMLLoader( XMLSimulatorBase * sim ):_sceneFldr("."),_sim(sim), _agtCount(0) {
+		SimXMLLoader::SimXMLLoader( XMLSimulatorBase * sim ) : _sceneFldr( "." ), _sim( sim ),
+															   _agtCount( 0 ) {
 		}
 
 		////////////////////////////////////////////////////////////////////
 
-		bool SimXMLLoader::loadFromXML( const std::string & filename, AgentInitializer * agentInit, bool verbose ) {
+		bool SimXMLLoader::loadFromXML( const std::string & filename, AgentInitializer * agentInit,
+										bool verbose ) {
 			// COnfirms file is
 			//	a) available for reading
 			//	b) valid xml
@@ -76,19 +80,22 @@ namespace Menge {
 			bool loadOkay = xml.LoadFile();
 
 			if ( !loadOkay ) {	// load xml file
-				logger << Logger::ERR_MSG << "Could not load simulation configuration xml (" << filename << ") due to xml syntax errors.\n";
+				logger << Logger::ERR_MSG << "Could not load simulation configuration xml (";
+				logger << filename << ") due to xml syntax errors.\n";
 				logger << "\t" << xml.ErrorDesc();
 				return false;
 			}
 
 			TiXmlElement* experimentNode = xml.RootElement();	
 			if( ! experimentNode ) {
-				logger << Logger::ERR_MSG << "Scene configuration (" << filename << ") does not contain a root element.";
+				logger << Logger::ERR_MSG << "Scene configuration (" << filename;
+				logger << ") does not contain a root element.";
 				return false;
 			}
 
 			if( experimentNode->ValueStr () != "Experiment" ) {
-				logger << Logger::ERR_MSG << "Scene configuration (" << filename << ")'s root element is not \"Experiment\".";
+				logger << Logger::ERR_MSG << "Scene configuration (" << filename;
+				logger << ")'s root element is not \"Experiment\".";
 				return false;
 			}
 
@@ -98,23 +105,30 @@ namespace Menge {
 			os::path::split( absPath, _sceneFldr, junk );
 			logger << Logger::INFO_MSG << "Scene root: " << _sceneFldr << ".";		
 
-			bool commonDone = false;	// common experiment parameters parsed
-			bool targetDone = !_sim->hasExpTarget();	// target experiment parameters parsed
-			bool spatialQueryDone = false;	// spatial query must be finished before obstacles and agents can be created
+			// common experiment parameters parsed
+			bool commonDone = false;
+			// target experiment parameters parsed
+			bool targetDone = !_sim->hasExpTarget();
+			// spatial query must be finished before obstacles and agents can be created
+			bool spatialQueryDone = false;
 
 			// Tags I'm not ready to parse - only parse agent sets and obstacles AFTER experiment
 			//	parameters
 			std::list< TiXmlElement * > tagQueue;
 			
 			TiXmlElement* child;
-			for( child = experimentNode->FirstChildElement(); child; child = child->NextSiblingElement()) {
+			for( child = experimentNode->FirstChildElement();
+				 child;
+				 child = child->NextSiblingElement()) {
 				if ( child->ValueStr() == "Common" ) {
 					// Currently the only "common" experiment parameter is the time step
 					TiXmlAttribute * attr;
 					for ( attr = child->FirstAttribute(); attr; attr = attr->Next() ) {
 						try {
 							if ( !_sim->setExpParam( attr->Name(), attr->ValueStr() ) ) {
-								logger << Logger::WARN_MSG << "Unrecognized parameter in the global \"Common\" parameters (" << attr->Name() << ") on line " << child->Row() << "\n";
+								logger << Logger::WARN_MSG << "Unrecognized parameter in the "
+									"global \"Common\" parameters (" << attr->Name() << ") on "
+									"line " << child->Row() << "\n";
 							}
 						} catch ( XMLParamException e ) {
 							logger << Logger::ERR_MSG << e.what();
@@ -144,12 +158,15 @@ namespace Menge {
 					}
 				} else if ( child->ValueStr() == "Elevation" ) {
 					if ( _sim->hasElevation() ) {
-						logger << Logger::ERR_MSG << "More than one elevation has been specified.  Found redundant elevation specification on line " << child->Row() << ".";
+						logger << Logger::ERR_MSG << "More than one elevation has been specified.  "
+							"Found redundant elevation specification on line " << child->Row();
+						logger << ".";
 						return false;
 					}
 					Elevation * elevation = ElevationDB::getInstance( child, _sceneFldr );
 					if ( elevation == 0x0 ) {
-						logger << Logger::ERR_MSG << "Unable to instantiate elevation specifcation on line " << child->Row() << ".";
+						logger << Logger::ERR_MSG << "Unable to instantiate elevation specifcation"
+							"on line " << child->Row() << ".";
 						return false;
 					} else {
 						_sim->setElevationInstance( elevation );
@@ -157,12 +174,15 @@ namespace Menge {
 					Menge::ELEVATION = elevation;
 				} else if ( child->ValueStr() == "SpatialQuery" ) {
 					if ( _sim->hasSpatialQuery() ) {
-						logger << Logger::ERR_MSG << "More than one spatial query implementation has been specified.  Found redundant spatial query specification on line " << child->Row() << ".";
+						logger << Logger::ERR_MSG << "More than one spatial query implementation "
+							"has been specified.  Found redundant spatial query specification on "
+							"line " << child->Row() << ".";
 						return false;
 					}
 					SpatialQuery * spQuery = SpatialQueryDB::getInstance( child, _sceneFldr );
 					if ( spQuery == 0x0 ) {
-						logger << Logger::ERR_MSG << "Unable to instantiate spatial query specifcation on line " << child->Row() << ".";
+						logger << Logger::ERR_MSG << "Unable to instantiate spatial query "
+							"specifcation on line " << child->Row() << ".";
 						return false;
 					} else {
 						_sim->setSpatialQuery( spQuery );
@@ -175,10 +195,13 @@ namespace Menge {
 						for ( attr = child->FirstAttribute(); attr; attr = attr->Next() ) {
 							try {
 								if ( ! _sim->setExpParam( attr->Name(), attr->ValueStr() ) ) {
-									logger << Logger::WARN_MSG << "Unrecognized parameter in the global \"" << child->ValueStr() << "\" parameters (" << attr->Name() << ") on line " << child->Row() << "\n";
+									logger << Logger::WARN_MSG << "Unrecognized parameter in the "
+										"global \"" << child->ValueStr() << "\" parameters (";
+									logger << attr->Name() << ") on line " << child->Row() << "\n";
 								}
 							} catch ( XMLParamException e ) {
-								logger << Logger::ERR_MSG << e.what() << " (on line " << child->Row() << ")";
+								logger << Logger::ERR_MSG << e.what() << " (on line ";
+								logger << child->Row() << ")";
 								return false;
 							}
 						}
@@ -193,7 +216,8 @@ namespace Menge {
 				if ( !spatialQueryDone ) logger << "\tSpatial Query ";
 				return false;
 			}
-			// Now parse any of the tags that were skipped while waiting for experiment configuration
+			// Now parse any of the tags that were skipped while waiting for experiment
+			//	configuration
 			std::list< TiXmlElement * >::iterator tagItr = tagQueue.begin();
 			for ( ; tagItr != tagQueue.end(); ++tagItr ) {
 				TiXmlElement * child = *tagItr;
@@ -206,7 +230,8 @@ namespace Menge {
 							return false;
 						}
 				} else {
-					logger << Logger::ERR_MSG << "XML contains an invalid tag: " << child->ValueStr() << " on line " << child->Row() << ".";
+					logger << Logger::ERR_MSG << "XML contains an invalid tag: ";
+					logger << child->ValueStr() << " on line " << child->Row() << ".";
 					return false;
 				}
 			}
@@ -247,48 +272,61 @@ namespace Menge {
 			for( child = node->FirstChildElement(); child; child = child->NextSiblingElement()) {
 				if ( child->ValueStr() == "ProfileSelector" ) {
 					if ( profileSel != 0x0 ) {
-						// There should be only one.  If there are multiple, only the first will have an effect.
-						logger << Logger::WARN_MSG << "Found multiple ProfileSelector tags in the AgentGroup on line " << node->Row() << ".  Only the first will be used.";
+						// There should be only one.  If there are multiple, only the first will
+						// have an effect.
+						logger << Logger::WARN_MSG << "Found multiple ProfileSelector tags in the "
+							"AgentGroup on line " << node->Row() << ".  "
+							"Only the first will be used.";
 						continue;
 					}
 					profileSel = ProfileSelectorDB::getInstance( child, _sceneFldr );
 					if ( profileSel == 0x0 ) {
-						logger << Logger::ERR_MSG << "Unable to instantiate the profile selector specification line " << child->Row() << ".";
+						logger << Logger::ERR_MSG << "Unable to instantiate the profile selector "
+							"specification line " << child->Row() << ".";
 						return false;
 					}
 					if ( ! profileSel->cacheProfiles( _profiles ) ) {
-						logger << Logger::ERR_MSG << "ProfileSelector on line " << child->Row() << " was unable to find a named profile.";
+						logger << Logger::ERR_MSG << "ProfileSelector on line " << child->Row();
+						logger << " was unable to find a named profile.";
 						return false;
 					}
 				} else if ( child->ValueStr() == "StateSelector" ) {
 					if ( stateSel != 0x0 ) {
-						// There should be only one.  If there are multiple, only the first will have an effect.
-						logger << Logger::WARN_MSG << "Found multiple StateSelector tags in the AgentGroup on line " << node->Row() << ".  Only the first will be used.";
+						// There should be only one.  If there are multiple, only the first will
+						//	have an effect.
+						logger << Logger::WARN_MSG << "Found multiple StateSelector tags in the "
+							"AgentGroup on line " << node->Row() << ".  "
+							"Only the first will be used.";
 						continue;
 					}
 					stateSel = StateSelectorDB::getInstance( child, _sceneFldr );
 					if ( stateSel == 0x0 ) {
-						logger << Logger::ERR_MSG << "Unable to instantiate the state selector specification line " << child->Row() << ".";
+						logger << Logger::ERR_MSG << "Unable to instantiate the state selector "
+							"specification line " << child->Row() << ".";
 						return false;
 					}
 				}
 			}
 			if ( profileSel == 0x0 ) {
-				logger << Logger::ERR_MSG << "No profile selector defined for the AgentGroup on line " << node->Row() << ".";
+				logger << Logger::ERR_MSG << "No profile selector defined for the AgentGroup on"
+					" line " << node->Row() << ".";
 				return false;
 			}
 			if ( stateSel == 0x0 ) {
-				logger << Logger::ERR_MSG << "No state selector defined for the AgentGroup on line " << node->Row() << ".";
+				logger << Logger::ERR_MSG << "No state selector defined for the AgentGroup on"
+					" line " << node->Row() << ".";
 				return false;
 			}
 
 			// Second pass, parse Generators
 			for( child = node->FirstChildElement(); child; child = child->NextSiblingElement()) {
 				if ( child->ValueStr() == "Generator" ) {
-					AgentGenerator * generator = AgentGeneratorDB::getInstance( child, _sceneFldr );
+					AgentGenerator * generator = AgentGeneratorDB::getInstance( child,
+																				_sceneFldr );
 
 					if ( generator == 0x0 ) {
-						logger << Logger::ERR_MSG << "Unable to instantiate agent generator specifcation on line " << child->Row() << ".";
+						logger << Logger::ERR_MSG << "Unable to instantiate agent generator "
+							"specifcation on line " << child->Row() << ".";
 						return false;
 					}
 					// Now instantiate the agents
@@ -315,7 +353,8 @@ namespace Menge {
 			//pass through, try to get a generator, and then use it
 			ObstacleSet * obSet = ObstacleSetDB::getInstance( node, _sceneFldr );
 			if ( obSet == 0x0 ) {
-				logger << Logger::ERR_MSG << "Unable to instantiate obstacle set specifcation on line " << node->Row() << ".";
+				logger << Logger::ERR_MSG << "Unable to instantiate obstacle set specifcation on "
+					"line " << node->Row() << ".";
 				return false;
 			} else {
 				//_sim->setSpatialQuery( spQuery );
@@ -335,12 +374,14 @@ namespace Menge {
 			// Extract the name
 			const char * nameCStr = node->Attribute( "name" );
 			if ( nameCStr == 0x0 ) {
-				logger << Logger::ERR_MSG << "The AgentProfile defined on line " << node->Row() << " is missing the required \"name\" attribute.";
+				logger << Logger::ERR_MSG << "The AgentProfile defined on line " << node->Row();
+				logger << " is missing the required \"name\" attribute.";
 				return false;
 			}
 			std::string name( nameCStr );
 			if ( _profiles.find( name ) != _profiles.end() ) {
-				logger << Logger::ERR_MSG << "The AgentProfile defined on line " << node->Row() << " has a name value (\"" << name << "\")that has previously been used.";
+				logger << Logger::ERR_MSG << "The AgentProfile defined on line " << node->Row();
+				logger << " has a name value (\"" << name << "\") that has previously been used.";
 				return false;
 			}
 
@@ -349,9 +390,13 @@ namespace Menge {
 			const char * parentCStr = node->Attribute( "inherits" );
 			if ( parentCStr ) {
 				std::string pName( parentCStr );
-				HASH_MAP< std::string, AgentInitializer * >::iterator itr = _profiles.find( pName );
+				HASH_MAP< std::string, AgentInitializer * >::iterator itr =
+					_profiles.find( pName );
 				if ( itr == _profiles.end() ) {
-					logger << Logger::ERR_MSG << "The AgentProfile on line " << node->Row() << " inherits from the undefined AgentProfile \"" << pName << "\".  Make sure the parent profile is defined <i>before</i> the child profile.";
+					logger << Logger::ERR_MSG << "The AgentProfile on line " << node->Row();
+					logger << " inherits from the undefined AgentProfile \"" << pName;
+					logger << "\".  Make sure the parent profile is defined <i>before</i> the "
+						"child profile.";
 					return false;
 				} else {
 					init = itr->second->copy();
@@ -362,9 +407,13 @@ namespace Menge {
 			}
 			_profiles[ name ] = init;
 
-			for( TiXmlElement * child = node->FirstChildElement(); child; child = child->NextSiblingElement()) {
+			for( TiXmlElement * child = node->FirstChildElement();
+				 child;
+				 child = child->NextSiblingElement()) {
 				if ( ! init->parseProperties( child, _sceneFldr) ) {
-					logger << Logger::ERR_MSG << "Error parsing AgentProfile properties from line " << child->Row() << ".";
+					logger << Logger::ERR_MSG;
+					logger << "Error parsing AgentProfile properties from line " << child->Row();
+					logger << ".";
 					return false;
 				}
 			}

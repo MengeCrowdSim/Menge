@@ -38,15 +38,24 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 #include "HelbingAgent.h"
 #include "HelbingSimulator.h"
-#include "Math/geomQuery.h"
+#include "MengeCore/Math/geomQuery.h"
 
 namespace Helbing {
+
+	using Menge::Agents::BaseAgent;
+	using Menge::Agents::Obstacle;
+	using Menge::Math::Vector2;
+
 	////////////////////////////////////////////////////////////////
 	//					Implementation of Helbing::Agent
 	////////////////////////////////////////////////////////////////
 
+	const std::string Agent::NAME = "helbing";
+
+	////////////////////////////////////////////////////////////////
+
 	// mass = 80 Kg comes from Helbing's 2000 paper
-	Agent::Agent(): Agents::BaseAgent() {
+	Agent::Agent() : BaseAgent() {
 		_mass = 80.f;
 	}
 
@@ -60,14 +69,14 @@ namespace Helbing {
 	void Agent::computeNewVelocity() {
 		Vector2 force( drivingForce() );
 		for ( size_t i = 0; i < _nearAgents.size(); ++i ) {
-			const Agents::BaseAgent * otherBase = _nearAgents[i].agent;
+			const BaseAgent * otherBase = _nearAgents[i].agent;
 			const Agent * const other = static_cast< const Agent *>( otherBase );
 			
 			force += agentForce( other );
 		}
 
 		for ( size_t obs = 0; obs < _nearObstacles.size(); ++obs ) {
-			const Agents::Obstacle * obst = _nearObstacles[ obs ].obstacle;
+			const Obstacle * obst = _nearObstacles[ obs ].obstacle;
 			force += obstacleForce( obst );
 		}
 		Vector2 acc = force / _mass;
@@ -151,12 +160,13 @@ namespace Helbing {
 
 	////////////////////////////////////////////////////////////////
 
-	Vector2 Agent::obstacleForce( const Agents::Obstacle * obst ) const {
+	Vector2 Agent::obstacleForce( const Obstacle * obst ) const {
 		const float D = Simulator::FORCE_DISTANCE;
 		const float OBST_MAG = Simulator::OBST_SCALE;
 		Vector2 nearPt;	// set by distanceSqToPoint
 		float distSq;	// set by distanceSqToPoint
-		if ( obst->distanceSqToPoint( _pos, nearPt, distSq ) == Agents::Obstacle::LAST ) return Vector2(0.f,0.f);
+		if ( obst->distanceSqToPoint( _pos, nearPt, distSq ) ==
+			 Obstacle::LAST ) return Vector2(0.f,0.f);
 		float dist = sqrtf( distSq );
 		Vector2 forceDir( ( _pos - nearPt ) / dist );
 		

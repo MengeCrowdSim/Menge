@@ -43,7 +43,8 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __ORCA_INITIALIZER_H__
 #define	__ORCA_INITIALIZER_H__
 
-#include "AgentInitializer.h"
+#include "MengeCore/Agents/AgentInitializer.h"
+#include "MengeCore/Math/RandGenerator.h"
 
 namespace ORCA {
 	/*!
@@ -102,7 +103,9 @@ namespace ORCA {
 		 *				as this.  The caller is responsible for freeing up the 
 		 *				new instance.
 		 */
-		virtual Menge::Agents::AgentInitializer * copy() const { return new AgentInitializer( *this ); }
+		virtual Menge::Agents::AgentInitializer * copy() const {
+			return new AgentInitializer( *this );
+		}
 
 	protected:
 
@@ -137,7 +140,8 @@ namespace ORCA {
 		 *	@param			value			A string containing the value for the parameter.
 		 *	@returns		The result of the parse: failure, ignored, or accepted.
 		 */
-		virtual Menge::Agents::AgentInitializer::ParseResult setFromXMLAttribute( const ::std::string & paramName, const ::std::string & value );
+		virtual Menge::Agents::AgentInitializer::ParseResult setFromXMLAttribute(
+			const ::std::string & paramName, const ::std::string & value );
 
 		/*!
 		 *	@brief		Process the given `<Property .../>` tag.  
@@ -160,12 +164,12 @@ namespace ORCA {
 		/*!
 		 *	@brief			The time horizon for predicting agent collisions
 		 */
-		FloatGenerator *		_timeHorizon;
+		Menge::Math::FloatGenerator *		_timeHorizon;
 
 		/*!
 		 *	@brief			The time horizon for predicting obstacle collisions
 		 */
-		FloatGenerator *		_timeHorizonObst;
+		Menge::Math::FloatGenerator *		_timeHorizonObst;
 	};
 }	// namespace ORCA
 

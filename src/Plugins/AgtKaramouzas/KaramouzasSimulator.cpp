@@ -37,9 +37,17 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 */
 
 #include "KaramouzasSimulator.h"
-#include "Utils.h"
+#include "MengeCore/Runtime/Utils.h"
 
 namespace Karamouzas {
+
+	using Menge::DEG_TO_RAD;
+	using Menge::toFloat;
+	using Menge::toInt;
+	using Menge::UtilException;
+	using Menge::Agents::SimulatorBase;
+	using Menge::Agents::XMLParamException;
+
 	////////////////////////////////////////////////////////////////
 	//					Implementation of Karamouzas::Simulator
 	////////////////////////////////////////////////////////////////
@@ -58,7 +66,8 @@ namespace Karamouzas {
 
 	////////////////////////////////////////////////////////////////
 
-	bool Simulator::setExpParam( const std::string & paramName, const std::string & value ) throw( Agents::XMLParamException ) {
+	bool Simulator::setExpParam( const std::string & paramName, const std::string & value )
+		throw( XMLParamException ) {
 		try {
 			if ( paramName == "orient_weight" ) {
 				ORIENT_WEIGHT = toFloat( value );
@@ -80,12 +89,14 @@ namespace Karamouzas {
 				D_MAX = toFloat( value );
 			} else if ( paramName == "agent_force" ) {
 				AGENT_FORCE = toFloat( value );
-			} else if ( ! Agents::SimulatorBase< Agent >::setExpParam( paramName, value ) ) {
+			} else if ( ! SimulatorBase< Agent >::setExpParam( paramName, value ) ) {
 				// Simulator base didn't recognize the parameter either
 				return false;
 			}
 		} catch ( UtilException ) {
-			throw Agents::XMLParamException( std::string( "Karamouzas parameter \"") + paramName + std::string("\" value couldn't be converted to the correct type.  Found the value: " ) + value );
+			throw XMLParamException( std::string( "Karamouzas parameter \"") + paramName +
+									 std::string("\" value couldn't be converted to the correct "
+									 "type.  Found the value: " ) + value );
 		}
 		return true;
 	}

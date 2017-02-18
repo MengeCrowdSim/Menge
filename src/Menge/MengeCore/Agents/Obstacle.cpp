@@ -37,19 +37,24 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 */
 
 
-#include "Obstacle.h"
-#include "Math/geomQuery.h"
-#include "Math/consts.h"
+#include "MengeCore/Agents/Obstacle.h"
+
+#include "MengeCore/Math/consts.h"
+#include "MengeCore/Math/geomQuery.h"
 
 namespace Menge {
 
 	namespace Agents {
 
+		using Math::Vector2;
+
 		/////////////////////////////////////////////////////////////////////////////
 		//                     Implementation of Obstacle
 		/////////////////////////////////////////////////////////////////////////////
 
-		Obstacle::Obstacle() : _doubleSided(false), _isConvex(false), _nextObstacle(0x0), _point(), _prevObstacle(0x0), _unitDir(), _id(0), _class(0x1) {
+		Obstacle::Obstacle() : _doubleSided( false ), _isConvex( false ), _nextObstacle( 0x0 ),
+							   _point(), _prevObstacle( 0x0 ), _unitDir(), _id( 0 ),
+							   _class( 0x1 ) {
 		}
 
 		/////////////////////////////////////////////////////////////////////////////
@@ -69,7 +74,8 @@ namespace Menge {
 
 		/////////////////////////////////////////////////////////////////////////////
 
-		Obstacle::NearTypeEnum Obstacle::distanceSqToPoint( const Vector2 & pt, Vector2 & nearPt, float & distSq ) const {
+		Obstacle::NearTypeEnum Obstacle::distanceSqToPoint( const Vector2 & pt, Vector2 & nearPt,
+															float & distSq ) const {
 			Vector2 P1 = getP1();
 			Vector2 ba( P1 - _point );
 			Vector2 ca( pt - _point );
@@ -92,7 +98,8 @@ namespace Menge {
 
 		/////////////////////////////////////////////////////////////////////////////
 
-		float Obstacle::circleIntersection( const Vector2 & dir, const Vector2 & start, float radius ) const {
+		float Obstacle::circleIntersection( const Vector2 & dir, const Vector2 & start,
+											float radius ) const {
 			const float radSqd = radius * radius;
 			const float SPEED = abs( dir );
 			Vector2 forward( dir / SPEED );

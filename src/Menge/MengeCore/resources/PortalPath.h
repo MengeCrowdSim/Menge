@@ -46,11 +46,10 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
  *				edge.)
  */
 
-#include "mengeCommon.h"
-#include "Route.h"
-#include "NavMesh.h"
-#include "Goals/Goal.h"
-
+#include "MengeCore/mengeCommon.h"
+#include "MengeCore/BFSM/Goals/Goal.h"
+#include "MengeCore/resources/Route.h"
+#include "MengeCore/resources/NavMesh.h"
 
 namespace Menge {
 
@@ -67,7 +66,7 @@ namespace Menge {
 	 *	The path is repsonsible for computing instantaneous preferred velocity for an agent
 	 *	based on a PortalRoute and an optimized path through the portals.
 	 */
-	class PortalPath {
+	class MENGE_API PortalPath {
 	public:
 		/*!
 		 *	@brief		Constructor
@@ -77,7 +76,8 @@ namespace Menge {
 		 *	@param		route			The route the path follows
 		 *	@param		agentRadius		The radius of the given agent.
 		 */
-		PortalPath( const Vector2 & startPos, const BFSM::Goal * goal, const PortalRoute * route, float agentRadius );
+		PortalPath( const Math::Vector2 & startPos, const BFSM::Goal * goal,
+					const PortalRoute * route, float agentRadius );
 
 		/*!
 		 *	@brief		Destructor
@@ -87,13 +87,15 @@ namespace Menge {
 		/*!
 		 *	@brief		Sets the directions in the preferred velocity from the path
 		 *
-		 *	@param		agent			The agent for which the preferred direction should be computed.
+		 *	@param		agent			The agent for which the preferred direction should be
+		 *								computed.
 		 *	@param		headingCos		The cosine of the maximum allowable angular deviation
 		 *								of heading (between planned and realized) before a
 		 *								new funnel algorithm is triggered to improve the path.
 		 *	@param		pVel			The preferred velocity whose directions are to be set.
 		 */
-		void setPreferredDirection( const Agents::BaseAgent * agent, float headingCos, Agents::PrefVelocity & pVel );
+		void setPreferredDirection( const Agents::BaseAgent * agent, float headingCos,
+									Agents::PrefVelocity & pVel );
 
 		/*!
 		 *	@brief		Updates the location of the agent relative to the nav mesh.
@@ -104,7 +106,8 @@ namespace Menge {
 		 *	@param		planner		The nav mesh path planner for creating new routes.
 		 *	@returns	The index of the node the agent is in.
 		 */
-		unsigned int updateLocation( const Agents::BaseAgent * agent, const NavMeshPtr & navMesh, const NavMeshLocalizer * localizer, PathPlanner * planner );
+		unsigned int updateLocation( const Agents::BaseAgent * agent, const NavMeshPtr & navMesh,
+									 const NavMeshLocalizer * localizer, PathPlanner * planner );
 
 		/*!
 		 *	@brief		Reports the node the agent is currently in.
@@ -127,7 +130,7 @@ namespace Menge {
 		 *	@param		i		The index of the desired way point.
 		 *	@returns	The 2d position of the desired way point.
 		 */
-		Vector2 getWayPoint( size_t i ) const;
+		Math::Vector2 getWayPoint( size_t i ) const;
 
 		/*!
 		 *	@brief		Returns the goal.
@@ -141,7 +144,7 @@ namespace Menge {
 		 *
 		 *	@returns	The goal's centroid.
 		 */
-		inline Vector2 getGoalCentroid() const { return _goal->getCentroid(); }
+		inline Math::Vector2 getGoalCentroid() const { return _goal->getCentroid(); }
 
 		/*!
 		 *	@brief		Returns the identifier for the destination node on the path.
@@ -192,7 +195,8 @@ namespace Menge {
 		 *	@param		p0			The way point.
 		 *	@param		dir			The expected direction toward the way point along the path.
 		 */
-		void setWaypoints( size_t start, size_t end, const Vector2 & p0, const Vector2 & dir );
+		void setWaypoints( size_t start, size_t end, const Math::Vector2 & p0,
+						   const Math::Vector2 & dir );
 
 	protected:
 		/*!
@@ -217,17 +221,17 @@ namespace Menge {
 		 *	@param		startPos		The 2D position where the path starts
 		 *	@param		agentRadius		The radius of the given agent.
 		 */
-		void computeCrossing( const Vector2 & startPos, float agentRadius );
+		void computeCrossing( const Math::Vector2 & startPos, float agentRadius );
 
 		/*!
 		 *	@brief		The sequence of way points.  Some way points will be duplicated.
 		 */
-		Vector2	*	_waypoints;
+		Math::Vector2	*	_waypoints;
 
 		/*!
 		 *	@brief		The original direction to the way point.
 		 */
-		Vector2 *	_headings;
+		Math::Vector2 *	_headings;
 
 		/*!
 		 *	@brief		Something has changed and the path has to replan.
@@ -239,7 +243,8 @@ namespace Menge {
 		 *	@param		planner			The planner.
 		 *	?? Extra stuff to do the funnel computation.
 		 */
-		void replan( const Vector2 & startPos, unsigned int startNode, unsigned int endNode, float minWidth, PathPlanner * planner );
+		void replan( const Math::Vector2 & startPos, unsigned int startNode, unsigned int endNode,
+					 float minWidth, PathPlanner * planner );
 	};
 }	// namespace Menge
 #endif	 // __PORTAL_PATH_H__

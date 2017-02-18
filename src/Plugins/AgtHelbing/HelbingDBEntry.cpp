@@ -38,12 +38,13 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 #include "HelbingDBEntry.h"
 #include "HelbingSimulator.h"
-#include "SimulatorDB.h"
-#include "HelbingAgentContext.h"
 #include "HelbingInitializer.h"
-#include "SimSystem.h"
+#include "MengeCore/Runtime/SimulatorDB.h"
 
 namespace Helbing {
+
+	using Menge::Agents::SimulatorInterface;
+
 	/////////////////////////////////////////////////////////////////////////////
 	//                     Implementation of Helbing::DBEntry
 	/////////////////////////////////////////////////////////////////////////////
@@ -68,19 +69,13 @@ namespace Helbing {
 
 	/////////////////////////////////////////////////////////////////////////////
 	 
-	Agents::SimulatorInterface * DBEntry::getNewSimulator() {
+	SimulatorInterface * DBEntry::getNewSimulator() {
 		return new Simulator();
 	}
 
 	/////////////////////////////////////////////////////////////////////////////
 	 
-	BaseAgentContext * DBEntry::contextFromSystem( SimSystem * system ) {
-		return new AgentContext( system->getVisAgents(), (unsigned int)system->getAgentCount() ); 
-	}
-
-	/////////////////////////////////////////////////////////////////////////////
-	 
-	Agents::AgentInitializer * DBEntry::getAgentInitalizer() const {
+	Menge::Agents::AgentInitializer * DBEntry::getAgentInitalizer() const {
 		return new AgentInitializer();
 	}
 

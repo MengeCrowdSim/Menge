@@ -45,34 +45,37 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include "FormationsModifier.h"
 #include "FreeFormation.h"
 #include "FormationsTask.h"
-#include "PluginEngine.h"
+#include "MengeCore/PluginEngine/CorePluginEngine.h"
 
-/*!
- *	@brief		Retrieves the name of the plug-in.
- *
- *	@returns	The name of the plug in.
- */
-extern "C" FORMATIONS_API const char * getName() {
-	return "formations";
-}
+using Menge::PluginEngine::CorePluginEngine;
 
-/*!
- *	@brief		Description of the plug-in.
- *
- *	@returns	A description of the plugin.
- */
-extern "C"  FORMATIONS_API  const char * getDescription() {
-	return	"Utilities for adding formations to ped sims" \
+extern "C" {
+	/*!
+	 *	@brief		Retrieves the name of the plug-in.
+	 *
+	 *	@returns	The name of the plug in.
+	 */
+	FORMATIONS_API const char * getName() {
+		return "formations";
+	}
+
+	/*!
+	 *	@brief		Description of the plug-in.
+	 *
+	 *	@returns	A description of the plugin.
+	 */
+	FORMATIONS_API  const char * getDescription() {
+		return	"Utilities for adding formations to ped sims" \
 			"including the following:\n"\
-			"\tModifier \"formation\" - forces agents to move in formation. " ;
-}
+			"\tModifier \"formation\" - forces agents to move in formation. ";
+	}
 
-/*!
- *	@brief		Registers the plug-in with the PluginEngine
- *
- *	@param		engine		A pointer to the plugin engine.
- */
-extern "C"  FORMATIONS_API void registerPlugin( PluginEngine * engine ) {
-	engine->registerVelModFactory( new Formations::FormationModifierFactory() );
+	/*!
+	 *	@brief		Registers the plug-in with the PluginEngine
+	 *
+	 *	@param		engine		A pointer to the plugin engine.
+	 */
+	FORMATIONS_API void registerCorePlugin( CorePluginEngine * engine ) {
+		engine->registerVelModFactory( new Formations::FormationModifierFactory() );
+	}
 }
-

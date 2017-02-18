@@ -44,7 +44,6 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __FDMODIFIER_CONFIG_H__
 #define __FDMODIFIER_CONFIG_H__
 
-
 // Now set up compiler-dependent export/import symbols
 
 #if defined(_MSC_VER)

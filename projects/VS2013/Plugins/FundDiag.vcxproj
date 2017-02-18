@@ -58,7 +58,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(MengeSrc);$(MengeSrc)include;$(MengeSrc)tinyxml;$(MengeSrc)MengeCore;$(MengeSrc)MengeCore\Math;$(MengeSrc)MengeCore\BFSM;$(MengeSrc)MengeCore\SceneGraph;$(MengeSrc)MengeCore\Runtime;$(MengeSrc)MengeCore\PluginEngine;$(MengeSrc)MengeCore\Agents;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(MengeSrc);$(MengeSrc)include;$(MengeSrc)tinyxml;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;FDMODIFIER_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -84,7 +84,7 @@ xcopy /y $(TargetPath) $(ExeDir)\plugins\debug\
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(MengeSrc);$(MengeSrc)include;$(MengeSrc)tinyxml;$(MengeSrc)MengeCore;$(MengeSrc)MengeCore\Math;$(MengeSrc)MengeCore\BFSM;$(MengeSrc)MengeCore\SceneGraph;$(MengeSrc)MengeCore\Runtime;$(MengeSrc)MengeCore\PluginEngine;$(MengeSrc)MengeCore\Agents;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(MengeSrc);$(MengeSrc)include;$(MengeSrc)tinyxml;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;FDMODIFIER_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <OpenMPSupport>true</OpenMPSupport>

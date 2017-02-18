@@ -36,14 +36,15 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "Goals/Goal.h"
-#include "Goals/GoalDatabase.h"
-#include "GoalSet.h"
-#include <cmath>
-#include "fsmCommon.h"
+#include "MengeCore/BFSM/Goals/Goal.h"
+
+#include "MengeCore/BFSM/fsmCommon.h"
+#include "MengeCore/BFSM/GoalSet.h"
+#include "MengeCore/BFSM/Goals/GoalDatabase.h"
+#include "MengeCore/Math/consts.h"
+
 #include <cassert>
-#include "Math/consts.h"
-#include "graphCommon.h"
+#include <cmath>
 
 namespace Menge {
 
@@ -54,6 +55,8 @@ namespace Menge {
 		/////////////////////////////////////////////////////////////////////
 
 		const size_t Goal::MAX_CAPACITY = -1;	// -1 is the biggest value for size_t
+
+		/////////////////////////////////////////////////////////////////////
 
 		Goal::~Goal() {
 			if (_geometry) delete _geometry;
@@ -92,24 +95,6 @@ namespace Menge {
 			if ( _population >= _capacity && _goalSet ) _goalSet->setGoalAvailable( this );
 			--_population;		
 			_lock.releaseWrite();
-		}
-
-		/////////////////////////////////////////////////////////////////////
-		
-		void Goal::drawGL() const {
-			glPushAttrib( GL_ENABLE_BIT | GL_COLOR_BUFFER_BIT | GL_POLYGON_BIT | GL_DEPTH_BUFFER_BIT);
-			glDepthMask( GL_FALSE );
-			glColor4f( 0.75f, 0.1f, 0.75f, 0.25f );
-			glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
-			glEnable( GL_BLEND );
-			glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
-			drawGLGeometry();
-
-			glDisable( GL_BLEND );
-			glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
-			drawGLGeometry();
-
-			glPopAttrib();
 		}
 
 		/////////////////////////////////////////////////////////////////////

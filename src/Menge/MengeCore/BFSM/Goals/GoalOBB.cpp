@@ -36,9 +36,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "Goals/GoalOBB.h"
-#include "graphCommon.h"
-#include "PrefVelocity.h"
+#include "MengeCore/BFSM/Goals/GoalOBB.h"
+
+#include "MengeCore/Agents/PrefVelocity.h"
 
 namespace Menge  {
 
@@ -48,40 +48,18 @@ namespace Menge  {
 		//                   Implementation of OBBGoal
 		/////////////////////////////////////////////////////////////////////
 
-		void OBBGoal::drawGLGeometry() const{
-			OBBShape * obb = static_cast<OBBShape *>(_geometry);
-			Vector2 X = obb->getXBasis();
-			Vector2 Y = obb->getYBasis();
-			Vector2 size = obb->getSize();
-			Vector2 pivot = obb->getPivot();
-
-			Vector2 c( size.x(), 0.f );
-			Vector2 c1( c * X, c * Y );
-			c.set( size );
-			Vector2 c2( c * X, c * Y );
-			c.set( 0.f, size.y() );
-			Vector2 c3( c * X, c * Y );
-
-			glPushMatrix();
-			glTranslatef( pivot.x(), 0.f, pivot.y() );
-			glBegin( GL_POLYGON );
-				glVertex3f( 0.f, 0.f, 0.f );
-				glVertex3f( c1.x(), 0.f, c1.y() );
-				glVertex3f( c2.x(), 0.f, c2.y() );
-				glVertex3f( c3.x(), 0.f, c3.y() );
-				glVertex3f( 0.f, 0.f, 0.f );
-			glEnd();
-			glPopMatrix();
-		}
+		const std::string OBBGoal::NAME = "OBB";
 
 		/////////////////////////////////////////////////////////////////////
 		//                   Implementation of OBBGoalFactory
 		/////////////////////////////////////////////////////////////////////
 
-		bool OBBGoalFactory::setFromXML( Goal * goal, TiXmlElement * node, const std::string & behaveFldr ) const {
+		bool OBBGoalFactory::setFromXML( Goal * goal, TiXmlElement * node,
+										 const std::string & behaveFldr ) const {
 			
 			OBBGoal * obbGoal = dynamic_cast< OBBGoal * >( goal );
-			assert( obbGoal != 0x0 && "Trying to set OBB goal attributes on an incompatible object." );
+			assert( obbGoal != 0x0 &&
+					"Trying to set OBB goal attributes on an incompatible object." );
 			if (!GoalFactory::setFromXML(obbGoal, node, behaveFldr)) return false;
 
 			// rely on createOBB to parse errors
@@ -97,4 +75,4 @@ namespace Menge  {
 
 		
 	}	// namespace BFSM
-}	// namespace Menge 
+}	// namespace Menge

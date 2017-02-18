@@ -46,10 +46,11 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __OS_H__
 #define __OS_H__
 
+#include "MengeCore/CoreConfig.h"
+
 #include <string>
 #include <vector>
 #include <list>
-#include "CoreConfig.h"
 
 #ifdef _WIN32
 #include "windows.h"
@@ -98,7 +99,8 @@ namespace Menge {
 		 *	@returns	True if the folder exists and was successfully read and the 
 		 *				contents of the StringList are meaningful.  False otherwise.
 		 */
-		MENGE_API bool listdir( const std::string & path, StringList & contents, const std::string & wildcard="*" );
+		MENGE_API bool listdir( const std::string & path, StringList & contents,
+								const std::string & wildcard="*" );
 
 		/*!
 		 *	@brief		Returns the file size (in bytes) of the file in the given path
@@ -207,7 +209,8 @@ namespace Menge {
 			 *	@param		tail		The "tail" of the path (the element beyond
 			 *							the last separator.
 			 */
-			MENGE_API void split( const std::string & path, std::string & head, std::string & tail );
+			MENGE_API void split( const std::string & path, std::string & head,
+								  std::string & tail );
 
 			/*!
 			 *	@brief		The separator for paths based on OS

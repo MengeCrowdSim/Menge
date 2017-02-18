@@ -45,12 +45,11 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 #include "FormationsConfig.h"
 #include "FreeFormation.h"
-#include "VelocityModifiers/VelModifier.h"
-#include "VelocityModifiers/VelModifierFactory.h"
-#include "FSMEnumeration.h"
-#include "ReadersWriterLock.h"
 
-using namespace Menge;
+#include "MengeCore/BFSM/FSMEnumeration.h"
+#include "MengeCore/BFSM/VelocityModifiers/VelModifier.h"
+#include "MengeCore/BFSM/VelocityModifiers/VelModifierFactory.h"
+#include "MengeCore/Runtime/ReadersWriterLock.h"
 
 #if defined(_MSC_VER)
     // Visual Studio spews warnings about some members.
@@ -71,7 +70,7 @@ namespace Formations {
 	 *	@brief		A velocity modifier which adapts agent preferred velocities
 	 *				so that they move in formations.
 	 */
-	class FORMATIONS_API FormationModifier : public BFSM::VelModifier {
+	class FORMATIONS_API FormationModifier : public Menge::BFSM::VelModifier {
 	public:
 		/*!
 		 *	@brief	Constructor
@@ -96,7 +95,7 @@ namespace Formations {
 		/*!
 		 *	@brief		Creates a copy of this velocity modifier.
 		 */
-		BFSM::VelModifier* copy() const;
+		Menge::BFSM::VelModifier* copy() const;
 
 		/*!
 		 *	@brief		Adapt the input preferred velocity according to the formation.
@@ -104,14 +103,15 @@ namespace Formations {
 		 *	@param		agent		The agent whose preferred velocity is provided.
 		 *	@param		pVel		The preferred velocity to modify -- modified in place.
 		 */
-		void adaptPrefVelocity( const Agents::BaseAgent * agent, Agents::PrefVelocity & pVel );
+		void adaptPrefVelocity( const Menge::Agents::BaseAgent * agent,
+								Menge::Agents::PrefVelocity & pVel );
 
 		/*!
 		 *	@brief		Provides the task the formation modifier uses to update formations.
 		 *
 		 *	@returns	A pointer to the supporting task.  The caller is responsible to delete it.
 		 */ 
-		virtual BFSM::Task * getTask();
+		virtual Menge::BFSM::Task * getTask();
 
 		/*!
 		 *  @brief		Set the formation data.
@@ -123,21 +123,12 @@ namespace Formations {
 		/*!
 		 *  @brief		Register an agent to be affected by this velocity modifier.
 		 */
-		void registerAgent(const Agents::BaseAgent * agent);
+		void registerAgent( const Menge::Agents::BaseAgent * agent );
 
 		/*!
 		 *  @brief		Unregister an agent from being affected by this velocity modifier.
 		 */
-		void unregisterAgent(const Agents::BaseAgent * agent);
-
-		/*!
-		 *	@brief		Provides a display context for interacting with this velocity modifier
-		 *
-		 *	It is the responsibility of the caller to delete the provided context.
-		 *
-		 *	@returns	A pointer to a context for this velocity modifier
-		 */
-		//virtual VelModContext * getContext();
+		void unregisterAgent( const Menge::Agents::BaseAgent * agent );
 
 		friend class FormationModifierFactory;
 
@@ -151,7 +142,7 @@ namespace Formations {
 		/*!
 		 *	@brief		Concurrency lock for _formation.
 		 */
-		ReadersWriterLock	_lock;
+		Menge::ReadersWriterLock	_lock;
 
 	};
 
@@ -160,7 +151,7 @@ namespace Formations {
 	/*!
 	 *	@brief		The factory class for the FormationModifier
 	 */
-	class FORMATIONS_API FormationModifierFactory : public BFSM::VelModFactory {
+	class FORMATIONS_API FormationModifierFactory : public Menge::BFSM::VelModFactory {
 	public:
 		/*!
 		 *	@brief		Constructor.
@@ -199,7 +190,7 @@ namespace Formations {
 		 *
 		 *	@returns		A pointer to a newly instantiated modifier class.
 		 */
-		BFSM::VelModifier * instance() const { return new FormationModifier(); }	
+		Menge::BFSM::VelModifier * instance() const { return new FormationModifier(); }
 		
 		/*!
 		 *	@brief		Given a pointer to an modifier instance, sets the appropriate fields
@@ -219,12 +210,13 @@ namespace Formations {
 		 *							that path. 
 		 *	@returns	A boolean reporting success (true) or failure (false).
 		 */
-		virtual bool setFromXML( BFSM::VelModifier * modifier, TiXmlElement * node, const std::string & behaveFldr ) const;
+		virtual bool setFromXML( Menge::BFSM::VelModifier * modifier, TiXmlElement * node,
+								 const std::string & behaveFldr ) const;
 
 		/*!
 		 *	@brief		The identifier for the "file_name" string attribute.
 		 */
 		size_t	_fileNameID;
 	};
-};
-#endif
+}	// namespace Formations
+#endif	// __FORMATIONS_MODIFIER_H__

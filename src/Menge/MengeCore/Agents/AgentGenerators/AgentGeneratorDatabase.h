@@ -47,9 +47,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __AGENT_GENERATOR_DATABASE_H__
 #define __AGENT_GENERATOR_DATABASE_H__
 
-#include "ElementDatabase.h"
-#include "AgentGenerators/AgentGeneratorFactory.h"
-#include "AgentGenerators/AgentGenerator.h"
+#include "MengeCore/PluginEngine/ElementDatabase.h"
+#include "MengeCore/Agents/AgentGenerators/AgentGeneratorFactory.h"
+#include "MengeCore/Agents/AgentGenerators/AgentGenerator.h"
 
 namespace Menge {
 
@@ -63,9 +63,11 @@ namespace Menge {
 
 	// Declarations of explicit specialization
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-	template<> void ElementDB< Agents::AgentGeneratorFactory, Agents::AgentGenerator >::addBuiltins();
+	template<> void 
+		ElementDB< Agents::AgentGeneratorFactory, Agents::AgentGenerator >::addBuiltins();
 	
-	template<> std::string ElementDB< Agents::AgentGeneratorFactory, Agents::AgentGenerator >::getElementName();
+	template<> std::string 
+		ElementDB< Agents::AgentGeneratorFactory, Agents::AgentGenerator >::getElementName();
 #endif	// DOXYGEN_SHOULD_SKIP_THIS
 }	 // namespace Menge
 

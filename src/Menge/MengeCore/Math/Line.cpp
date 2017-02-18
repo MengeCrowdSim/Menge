@@ -36,7 +36,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "Line.h"
+#include "MengeCore/Math/Line.h"
 
 namespace Menge {
 

@@ -44,8 +44,8 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __UTILS_H__
 #define __UTILS_H__
 
-#include "CoreConfig.h"
-#include "MengeException.h"
+#include "MengeCore/CoreConfig.h"
+#include "MengeCore/MengeException.h"
 #include <string>
 
 #if defined(_MSC_VER)
@@ -94,7 +94,8 @@ namespace Menge {
 		 *
 		 *	@param		s		The exception-specific message.
 		 */
-		UtilFatalException( const std::string & s ): MengeException(s), UtilException(), MengeFatalException() {}
+		UtilFatalException( const std::string & s ) : MengeException(s), UtilException(),
+													  MengeFatalException() {}
 	};
 
 	/*!

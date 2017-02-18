@@ -44,24 +44,24 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __FSMNODE_H__
 #define __FSMNODE_H__
 
-#include <vector>
+#include "MengeCore/MengeException.h"
+#include "MengeCore/Agents/PrefVelocity.h"
+#include "MengeCore/BFSM/FSMEnumeration.h"
+#include "MengeCore/BFSM/Actions/Action.h"
+#include "MengeCore/BFSM/Transitions/Transition.h"
+#include "MengeCore/BFSM/VelocityComponents/VelComponent.h"
+#include "MengeCore/BFSM/VelocityModifiers/VelModifier.h"
+#include "MengeCore/Runtime/ReadersWriterLock.h"
+
 #include <cassert>
-#include "Transitions/Transition.h"
-#include "VelocityComponents/VelComponent.h"
-#include "VelocityModifiers/VelModifier.h"
-#include "Actions/Action.h"
-#include "FSMEnumeration.h"
-#include "PrefVelocity.h"
-#include "ReadersWriterLock.h"
-#include "MengeException.h"
 #include <set>
+#include <vector>
 
 namespace Menge {
 
 	namespace BFSM {
 
 		// forward declaration
-		class StateContext;
 		class GoalSelector;
 		class Goal;
 		class FSM;
@@ -101,7 +101,8 @@ namespace Menge {
 			 *
 			 *	@param		s		The exception-specific message.
 			 */
-			StateFatalException( const std::string & s ): MengeException(s), StateException(), MengeFatalException() {}
+			StateFatalException( const std::string & s ) : MengeException(s), StateException(),
+														   MengeFatalException() {}
 		};
 
 		///////////////////////////////////////////////////////////////////
@@ -130,7 +131,7 @@ namespace Menge {
 			/*!
 			 *	@brief		A zero-vector to use with goal positions.
 			 */
-			static Vector2 NULL_POINT;
+			static Math::Vector2 NULL_POINT;
 
 		public:
 			/*!
@@ -153,10 +154,12 @@ namespace Menge {
 			void getTasks( FSM * fsm );
 
 			/*!
-			 *	@brief		Modifies the input preferred velocity to reflect a velocity for the agent specified
+			 *	@brief		Modifies the input preferred velocity to reflect a velocity for the
+			 *				agent specified.
 			 *
 			 *	@param		agent		The agent for which a preferred velocity is computed.
-			 *	@param		velocity	The preferred velocity object (by reference) to modify reflecting the agent's new velocity
+			 *	@param		velocity	The preferred velocity object (by reference) to modify
+			 *							reflecting the agent's new velocity.
 			 */
 			void getPrefVelocity( Agents::BaseAgent * agent, Agents::PrefVelocity &velocity );
 
@@ -222,6 +225,11 @@ namespace Menge {
 			void setVelComponent( VelComponent * vc ) { _velComponent = vc; }
 
 			/*!
+			 *	@brief		Retrieves the velocity component.
+			 */
+			VelComponent * getVelComponent() { return _velComponent; }
+
+			/*!
 			 *	@brief		Add an action to the state.
 			 *
 			 *	@param		a		The action to add.
@@ -280,10 +288,22 @@ namespace Menge {
 			 *	@brief		Clears the state's current goal selector.
 			 */
 			void clearGoalSelector();
+
+			/*!
+			 *	@brief		Get access to the state transitions.
+			 *
+			 *	@returns	The transitions.
+			 */
+			const std::vector< Transition * > getTransitions() const { return transitions_; }
+
+			/*!
+			 *	@brief		Acquire a state goal.
+			 *
+			 *	@param		goalId		The identifier for the desired goal
+			 *	@returns	The goal mapped to the id.
+			 */
+			const Goal * getGoal( size_t goalId ) { return _goals[ goalId ]; }
 			
-			friend class StateContext;
-
-
 		protected:
 			/*!
 			 *	@brief		Test the transitions out of this state, tracking cycles.
@@ -305,14 +325,16 @@ namespace Menge {
 			VelComponent * _velComponent;
 			
 			/*!
-			 *	@brief		A priority-ordered list of transitions to determine if the state changes.
-			 *				The order of the transitions in the implicitly defines the testing priority.
+			 *	@brief		A priority-ordered list of transitions to determine if the state
+			 *				changes. The order of the transitions in the implicitly defines the
+			 *				testing priority.
 			 */
 			std::vector< Transition * > transitions_;
 
 			/*!
-			 *	@brief		A priority-ordered list of velocity modifiers to determine if the state changes.
-			 *				The order of the modifierss in the implicitly defines the testing priority.
+			 *	@brief		A priority-ordered list of velocity modifiers to determine if the state
+			 *				changes. The order of the modifierss in the implicitly defines the
+			 *				testing priority.
 			 */
 			std::vector< VelModifier * > velModifiers_;
 

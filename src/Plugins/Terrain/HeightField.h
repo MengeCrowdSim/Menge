@@ -45,18 +45,17 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
  */
 
 #include "TerrainConfig.h"
-#include "Resource.h"
-#include "graphCommon.h"
+#include "MengeCore/resources/Resource.h"
+#include "MengeCore/Math/Vector3.h"
+//#include "MengeCore/BFSM/graphCommon.h"
 #include <string>
-
-using namespace Menge;
 
 namespace Terrain {
 	/*!
 	 *	@brief		A heightfield.  A uniform discretization of space which supports queries on
 	 *				height and normal of field.
 	 */
-	class EXPORT_API HeightField : public Resource {
+	class EXPORT_API HeightField : public Menge::Resource {
 	public:
 		/*!
 		 *	@brief		Constructor.  
@@ -73,22 +72,24 @@ namespace Terrain {
 
 	public:
 		/*!
-		 *	@brief		Initialize the height field.  The heightfield is positioned with the "minimum" corner at
-		 *					the origin and extending into the first quadrant of the x-z plane
-		 *					based on cell size and image resolution.
+		 *	@brief		Initialize the height field.  The heightfield is positioned with the
+		 *				"minimum" corner at the origin and extending into the first quadrant of
+		 *				the x-z plane based on cell size and image resolution.
 		 *
 		 *	@param		imgName			The image file used to define the height field.
 		 *	@param		cellSize		The size of each cell in the image in world coordinates.
-		 *	@param		vertScale		The values of the image (in the range [0, 255] are normalized
-		 *								to the range [0, 1] and then multiplied by this vertical scale.
+		 *	@param		vertScale		The values of the image (in the range [0, 255] are
+		 *								normalized to the range [0, 1] and then multiplied by this
+		 *								vertical scale.
 		 *  @param		xpos			The x-coordinate of the terrain's origin
 		 *	@param		zpos			The z-coordinate of the terrain's origin
-		 *	@param		smoothParam		The smoothing parameter for the elevation values.  It is interpreted as
-		 *								the standard deviation of a 2D symmetric gaussian kernel.  If zero,
-		 *								no smoothing will be performed.
+		 *	@param		smoothParam		The smoothing parameter for the elevation values.  It is
+		 *								interpreted as the standard deviation of a 2D symmetric
+		 *								gaussian kernel.  If zero, no smoothing will be performed.
 		 *	@returns	true if initalization was successful
 		 */
-		bool initialize( const std::string & imgName, float cellSize, float vertScale, float xpos, float zpos, float smoothParam=0.f );
+		bool initialize( const std::string & imgName, float cellSize, float vertScale, float xpos,
+						 float zpos, float smoothParam=0.f );
 
 		/*!
 		 *	@brief		Returns a unique resource label to be used to identify
@@ -129,15 +130,15 @@ namespace Terrain {
 		float getHeightAt( float x, float y ) const;
 		
 		/*!
-		 *	@brief		Returns the height field normal at the given world position.  If the world position lies
-		 *				outside of the domain of the height field, the normal of the nearest cell
-		 *				center is returned.
+		 *	@brief		Returns the height field normal at the given world position.  If the world
+		 *				position lies outside of the domain of the height field, the normal of the
+		 *				nearest cell center is returned.
 		 *
 		 *	@param		x		The position along the x-axis.
 		 *	@param		y		The position along the y-axis.
 		 *	@returns	The normal at the position (x, y).
 		 */
-		Vector3 getNormalAt( float x, float y ) const;
+		Menge::Math::Vector3 getNormalAt( float x, float y ) const;
 
 		/*!
 		 *	@brief		Returns the height at the given cell center.  
@@ -157,7 +158,7 @@ namespace Terrain {
 		 *	@param		y		The index along the y-axis.
 		 *	@returns	The normal at the cell center with indices[ x, y ].
 		 */
-		Vector3 getNormalAtCell( int x, int y ) const;
+		Menge::Math::Vector3 getNormalAtCell( int x, int y ) const;
 
 		/*!
 		 *	@brief		Return the number of cells in the width direction of the field.
@@ -232,7 +233,7 @@ namespace Terrain {
 		/*!
 		 *	@brief		The data for the normals of the height field.
 		 */
-		Vector3 **_normalMap;
+		Menge::Math::Vector3 **_normalMap;
 
 		/*!
 		 *	@brief		The x-position of the minimum corner of the heightfield.
@@ -248,7 +249,7 @@ namespace Terrain {
 /*!
  *	@brief		The definition of the managed pointer for HeightField data
  */
-typedef ResourcePtr< HeightField > HeightFieldPtr;
+typedef Menge::ResourcePtr< HeightField > HeightFieldPtr;
 
 /*!
  *	@brief		Loads the height field of the given name
@@ -257,6 +258,6 @@ typedef ResourcePtr< HeightField > HeightFieldPtr;
  *	@returns	The HeightFieldPtr containing the data.
  *	@throws		A ResourceException if the data is unable to be instantiated.
  */
-HeightFieldPtr loadHeightField( const std::string & fileName ) throw ( ResourceException );
+HeightFieldPtr loadHeightField( const std::string & fileName ) throw ( Menge::ResourceException );
 }	// namespace Terrain
 #endif

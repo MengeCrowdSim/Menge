@@ -36,13 +36,18 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "AgentKDTree.h"
-#include "BaseAgent.h"
+#include "MengeCore/Agents/SpatialQueries/AgentKDTree.h"
+
+#include "MengeCore/Agents/BaseAgent.h"
+
 #include <algorithm>
 
 namespace Menge {
 
 	namespace Agents {
+
+		using Math::Vector2;
+		using Math::sqr;
 
 		/////////////////////////////////////////////////////////////////////////////
 		//                     Implementation of AgentKDTree
@@ -100,8 +105,11 @@ namespace Menge {
 
 			if (end - begin > MAX_LEAF_SIZE) {
 				/* No leaf node. */
-				const bool isVertical = (_tree[node]._maxX - _tree[node]._minX > _tree[node]._maxY - _tree[node]._minY);
-				const float splitValue = (isVertical ? 0.5f * (_tree[node]._maxX + _tree[node]._minX) : 0.5f * (_tree[node]._maxY + _tree[node]._minY));
+				const bool isVertical = (_tree[node]._maxX - _tree[node]._minX >
+										  _tree[node]._maxY - _tree[node]._minY);
+				const float splitValue = (isVertical ?
+										   0.5f * (_tree[node]._maxX + _tree[node]._minX) :
+										   0.5f * (_tree[node]._maxY + _tree[node]._minY));
 
 				size_t left = begin;
 				size_t right = end;
@@ -145,7 +153,8 @@ namespace Menge {
 
 		/////////////////////////////////////////////////////////////////////////////
 
-		void AgentKDTree::queryTreeRecursive( ProximityQuery *filter, Vector2 pt, float& rangeSq, size_t node) const {
+		void AgentKDTree::queryTreeRecursive( ProximityQuery *filter, Vector2 pt, float& rangeSq,
+											  size_t node) const {
 			if (_tree[node]._end - _tree[node]._begin <= MAX_LEAF_SIZE) {
 				for (size_t i = _tree[node]._begin; i < _tree[node]._end; ++i) {
 					float distance = pt.distanceSq(_agents[i]->_pos);
@@ -157,7 +166,7 @@ namespace Menge {
 			} else {
 				float x = pt.x();
 				float y = pt.y();
-				const float distSqLeft =  sqr(std::max(0.0f, _tree[_tree[node]._left ]._minX - x)) + 
+				const float distSqLeft = sqr(std::max(0.0f, _tree[_tree[node]._left ]._minX - x)) + 
 										sqr(std::max(0.0f, x - _tree[_tree[node]._left ]._maxX)) + 
 										sqr(std::max(0.0f, _tree[_tree[node]._left ]._minY - y)) + 
 										sqr(std::max(0.0f, y - _tree[_tree[node]._left ]._maxY));

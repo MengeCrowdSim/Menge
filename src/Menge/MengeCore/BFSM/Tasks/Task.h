@@ -44,9 +44,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
  *	@brief	Defines the interface for behavior FSM tasks.
  *			actions that need to be taken at each time step.
  */
-#include "fsmCommon.h"
-#include "Element.h"
-#include "MengeException.h"
+#include "MengeCore/MengeException.h"
+#include "MengeCore/BFSM/fsmCommon.h"
+#include "MengeCore/PluginEngine/Element.h"
 
 #include <string>
 
@@ -97,7 +97,8 @@ namespace Menge {
 			 *
 			 *	@param		s		The exception-specific message.
 			 */
-			TaskFatalException( const std::string & s ): MengeException(s), TaskException(), MengeFatalException() {}
+			TaskFatalException( const std::string & s ) : MengeException(s), TaskException(),
+														  MengeFatalException() {}
 		};
 
 		/*!
@@ -155,8 +156,8 @@ namespace Menge {
 		 *	@brief		Parses a TinyXML element containing a task specification
 		 *
 		 *	@param		node			The TinyXML element
-		 *	@param		behaveFldr		The folder in which the behavior is defined -- all resources
-		 *								are defined relative to this folder.
+		 *	@param		behaveFldr		The folder in which the behavior is defined -- all
+		 *								resources are defined relative to this folder.
 		 *	@returns	A pointer to the new task instance.
 		 */
 		Task * parseTask( TiXmlElement * node, const std::string & behaveFldr );

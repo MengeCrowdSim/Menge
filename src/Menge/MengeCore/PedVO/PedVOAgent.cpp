@@ -36,15 +36,19 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
+#include "MengeCore/PedVO/PedVOAgent.h"
+
+#include "MengeCore/mengeCommon.h"
+#include "MengeCore/PedVO/PedVOSimulator.h"
+
+#include <algorithm>
 #include <cassert>
 #include <limits>
 
-#include "PedVOAgent.h"
-#include "PedVOSimulator.h"
-#include "mengeCommon.h"
-#include <algorithm>
-
 namespace PedVO {
+
+	using Menge::Math::Vector2;
+	using Menge::Math::sqr;
 
 	///////////////////////////////////////////////////////////////////////
 	//				Implementation of PedVO::Agent
@@ -56,6 +60,7 @@ namespace PedVO {
 	const float Agent::TURN_BIAS = 1.f;
 	const float Agent::STRIDE_FACTOR = 1.57f;
 	const float Agent::STRIDE_BUFFER = 0.5f;
+	const std::string Agent::NAME = "pedvo";
 
 	///////////////////////////////////////////////////////////////////////
 
@@ -85,10 +90,12 @@ namespace PedVO {
 		if ( _denseAware ) {
 			float prefSpeed = _velPref.getSpeed();	
 			Vector2 prefDir( _velPref.getPreferred() );
-			float availSpace = 1e6f;	// start assuming there is infinite space
+			// start assuming there is infinite space
+			float availSpace = 1e6f;	
 
-			float strideLen = 1.f;	// Not the speed-dependent stride length, but rather the mid-point of the
-									// elliptical personal space.
+			// Not the speed-dependent stride length, but rather the mid-point of the
+			float strideLen = 1.f;	
+			// elliptical personal space.
 			Vector2 critPt = _pos + strideLen * prefDir;
 			float density = 0.f;
 			// For now, assume some constants
@@ -101,8 +108,10 @@ namespace PedVO {
 			for ( size_t i = 0; i < _nearAgents.size(); ++i ) {
 				const BaseAgent* const other = _nearAgents[i].agent;
 				Vector2 critDisp = other->_pos - critPt;
-				Vector2 yComp = ( critDisp * prefDir ) * prefDir;	// dot project gets projection, in the preferred direction
-				Vector2 xComp = ( critDisp - yComp ) * 2.5f;			// penalize displacement perpindicular to the preferred direction
+				// dot project gets projection, in the preferred direction
+				Vector2 yComp = ( critDisp * prefDir ) * prefDir;
+				// penalize displacement perpindicular to the preferred direction
+				Vector2 xComp = ( critDisp - yComp ) * 2.5f;		
 				critDisp.set( xComp + yComp );
 				float distSq = absSq( critDisp );
 				density += norm * expf( -distSq * areaSq2Inv );	
@@ -110,13 +119,13 @@ namespace PedVO {
 			//// OBSTACLES
 			const float OBST_AREA = 0.75f;
 			const float OBST_AREA_SQ_INV = 1.f / ( 2 * OBST_AREA * OBST_AREA );
-			const float OBST_NORM = 1.f / ( OBST_AREA * sqrt2Pi );
 			const float OBST_SCALE = norm;// * 6.25f;	// what is the "density" of an obstacle?
 			for ( size_t i = 0; i < _nearObstacles.size(); ++i ) {
 				const Menge::Agents::Obstacle* const obst = _nearObstacles[i].obstacle;
 				Vector2 nearPt;
 				float distSq;	// set by distanceSqToPoint
-				if ( obst->distanceSqToPoint( critPt, nearPt, distSq ) == Menge::Agents::Obstacle::LAST ) continue;
+				if ( obst->distanceSqToPoint( critPt, nearPt, distSq ) == 
+					 Menge::Agents::Obstacle::LAST ) continue;
 
 				if ( ( nearPt - _pos ) * prefDir < 0.f ) continue;
 				density += OBST_SCALE * expf( -distSq * OBST_AREA_SQ_INV );
@@ -154,8 +163,10 @@ namespace PedVO {
 		const Vector2 obstDir = flip ? -obst->_unitDir : obst->_unitDir;
 		const bool p0Convex = flip ? obst->p1Convex( true ) : obst->p0Convex( true );
 		const bool p1Convex = flip ? obst->p0Convex( true ) : obst->p1Convex( true );
-		const Menge::Agents::Obstacle* const leftNeighbor = flip ? obst->_nextObstacle : obst->_prevObstacle;
-		const Menge::Agents::Obstacle* const rightNeighbor = flip ? obst->_prevObstacle : obst->_nextObstacle;
+		const Menge::Agents::Obstacle* const leftNeighbor = 
+			flip ? obst->_nextObstacle : obst->_prevObstacle;
+		const Menge::Agents::Obstacle* const rightNeighbor = 
+			flip ? obst->_prevObstacle : obst->_nextObstacle;
 
 		const Vector2 relativePosition1 = P0 - _pos;
 		const Vector2 relativePosition2 = P1 - _pos;
@@ -167,7 +178,10 @@ namespace PedVO {
 		bool alreadyCovered = false;
 
 		for (size_t j = 0; j < _orcaLines.size(); ++j) {
-			if (det( invTau * relativePosition1 - _orcaLines[j]._point, _orcaLines[j]._direction) - invTau * _radius >= -Menge::EPS && det(invTau * relativePosition2 - _orcaLines[j]._point, _orcaLines[j]._direction) - invTau * _radius >=  -Menge::EPS) {
+			if (det( invTau * relativePosition1 - _orcaLines[j]._point,
+				_orcaLines[j]._direction) - invTau * _radius >= 
+				-Menge::EPS && det(invTau * relativePosition2 - _orcaLines[j]._point,
+				_orcaLines[j]._direction) - invTau * _radius >=  -Menge::EPS) {
 				alreadyCovered = true;
 				break;
 			}
@@ -200,7 +214,8 @@ namespace PedVO {
 		} else if (s > LENGTH && distSq2 <= radiusSq) {
 			/* Collision with right vertex. Ignore if non-convex 
 			* or if it will be taken care of by neighoring obstace */
-			if ( ( obst->_nextObstacle == 0x0 ) || ( p1Convex && det(relativePosition2, obst->_nextObstacle->_unitDir) >= 0) ) { 
+			if ( ( obst->_nextObstacle == 0x0 ) || ( p1Convex && det(relativePosition2,
+				obst->_nextObstacle->_unitDir) >= 0) ) { 
 				line._point = Vector2(0.f,0.f);
 				line._direction = norm(Vector2(-relativePosition2.y(), relativePosition2.x()));
 				_orcaLines.push_back(line);
@@ -215,10 +230,10 @@ namespace PedVO {
 		} 
 
 		/* 
-		* No collision.  
-		* Compute legs. When obliquely viewed, both legs can come from a single
-		* vertex. Legs extend cut-off line when nonconvex vertex.
-		*/
+		 * No collision.  
+		 * Compute legs. When obliquely viewed, both legs can come from a single
+		 * vertex. Legs extend cut-off line when nonconvex vertex.
+		 */
 
 		Vector2 leftLegDirection, rightLegDirection;
 
@@ -226,9 +241,9 @@ namespace PedVO {
 		 *	These booleans short-cut the later code in which we make sure a leg direction does not
 		 *	cut into a "neighboring" obstacle.  
 		 *
-		 *	In the case where the agent is "obliquely viewing" the obstacle near the left or right edge,
-		 *	we end up testing one of the legs against obstacle 1 itself.  However, by definition, we know that 
-		 *	both legs lie outside of the obstacle.
+		 *	In the case where the agent is "obliquely viewing" the obstacle near the left or right
+		 *	edge, we end up testing one of the legs against obstacle 1 itself.  However, by
+		 *	definition, we know that both legs lie outside of the obstacle.
 		 */
 		bool prevIsCurrent = false;
 		bool nextIsCurrent = false;
@@ -244,8 +259,14 @@ namespace PedVO {
 			nextIsCurrent = true;
 
 			const float leg1 = std::sqrt(distSq1 - radiusSq);
-			leftLegDirection = Vector2(relativePosition1.x() * leg1 - relativePosition1.y() * _radius, relativePosition1.x() * _radius + relativePosition1.y() * leg1) / distSq1;
-			rightLegDirection = Vector2(relativePosition1.x() * leg1 + relativePosition1.y() * _radius, -relativePosition1.x() * _radius + relativePosition1.y() * leg1) / distSq1;
+			leftLegDirection = Vector2(relativePosition1.x() * leg1 -
+										relativePosition1.y() * _radius,
+										relativePosition1.x() * _radius +
+										relativePosition1.y() * leg1) / distSq1;
+			rightLegDirection = Vector2(relativePosition1.x() * leg1 +
+										 relativePosition1.y() * _radius,
+										 -relativePosition1.x() * _radius +
+										 relativePosition1.y() * leg1) / distSq1;
 		} else if (s > LENGTH && distSqLine <= radiusSq) {
 			/*
 			* Obstacle viewed obliquely so that right vertex defines velocity obstacle.
@@ -258,13 +279,22 @@ namespace PedVO {
 			prevIsCurrent = true;
 
 			const float leg2 = std::sqrt(distSq2 - radiusSq);
-			leftLegDirection = Vector2(relativePosition2.x() * leg2 - relativePosition2.y() * _radius, relativePosition2.x() * _radius + relativePosition2.y() * leg2) / distSq2;
-			rightLegDirection = Vector2(relativePosition2.x() * leg2 + relativePosition2.y() * _radius, -relativePosition2.x() * _radius + relativePosition2.y() * leg2) / distSq2;
+			leftLegDirection = Vector2(relativePosition2.x() * leg2 -
+										relativePosition2.y() * _radius
+										, relativePosition2.x() * _radius +
+										relativePosition2.y() * leg2) / distSq2;
+			rightLegDirection = Vector2(relativePosition2.x() * leg2 +
+										 relativePosition2.y() * _radius,
+										 -relativePosition2.x() * _radius +
+										 relativePosition2.y() * leg2) / distSq2;
 		} else {
 			/* Usual situation. */
 			if ( p0Convex ) {
 				const float leg1 = std::sqrt(distSq1 - radiusSq);
-				leftLegDirection = Vector2(relativePosition1.x() * leg1 - relativePosition1.y() * _radius, relativePosition1.x() * _radius + relativePosition1.y() * leg1) / distSq1;
+				leftLegDirection = Vector2(relativePosition1.x() * leg1 -
+											relativePosition1.y() * _radius,
+											relativePosition1.x() * _radius +
+											relativePosition1.y() * leg1) / distSq1;
 			} else {
 				/* Left vertex non-convex; left leg extends cut-off line. */
 				leftLegDirection = -obstDir;
@@ -272,7 +302,10 @@ namespace PedVO {
 
 			if ( p1Convex ) {
 				const float leg2 = std::sqrt(distSq2 - radiusSq);
-				rightLegDirection = Vector2(relativePosition2.x() * leg2 + relativePosition2.y() * _radius, -relativePosition2.x() * _radius + relativePosition2.y() * leg2) / distSq2;
+				rightLegDirection = Vector2(relativePosition2.x() * leg2 +
+											 relativePosition2.y() * _radius,
+											 -relativePosition2.x() * _radius +
+											 relativePosition2.y() * leg2) / distSq2;
 			} else {
 				/* Right vertex non-convex; right leg extends cut-off line. */
 				rightLegDirection = obstDir;
@@ -308,7 +341,8 @@ namespace PedVO {
 		}
 
 		/* Compute cut-off centers. */
-		const Vector2 leftCutoff = invTau * ( prevIsCurrent ? relativePosition2 : relativePosition1 );
+		const Vector2 leftCutoff =
+			invTau * ( prevIsCurrent ? relativePosition2 : relativePosition1 );
 		const Vector2 rightCutoff = nextIsCurrent ? leftCutoff : ( invTau * relativePosition2 );
 		const Vector2 cutoffVec = rightCutoff - leftCutoff;
 		const bool obstaclesSame = nextIsCurrent || prevIsCurrent;
@@ -316,7 +350,8 @@ namespace PedVO {
 		
 		/* Project current velocity on velocity obstacle. */
 		/* Check if current velocity is projected on cutoff circles. */
-		const float t = obstaclesSame ? 0.5f : ( (_vel - leftCutoff) * ( cutoffVec / absSq(cutoffVec) ) );
+		const float t =
+			obstaclesSame ? 0.5f : ( (_vel - leftCutoff) * ( cutoffVec / absSq(cutoffVec) ) );
 		const float tLeft = ((_vel - leftCutoff) * leftLegDirection);
 		const float tRight = ((_vel - rightCutoff) * rightLegDirection);
 
@@ -340,27 +375,36 @@ namespace PedVO {
 		* Project on left leg, right leg, or cut-off line, whichever is closest
 		* to velocity.
 		*/
-		const float distSqCutoff = ((t < 0.0f || t > 1.0f || obstaclesSame) ? std::numeric_limits<float>::infinity() : absSq(_vel - (leftCutoff + t * cutoffVec)));
-		const float distSqLeft = ((tLeft < 0.0f) ? std::numeric_limits<float>::infinity() : absSq(_vel - (leftCutoff + tLeft * leftLegDirection)));
-		const float distSqRight = ((tRight < 0.0f) ? std::numeric_limits<float>::infinity() : absSq(_vel - (rightCutoff + tRight * rightLegDirection)));
+		const float distSqCutoff = ((t < 0.0f || t > 1.0f || obstaclesSame) ?
+									 std::numeric_limits<float>::infinity() :
+									 absSq(_vel - (leftCutoff + t * cutoffVec)));
+		const float distSqLeft = ((tLeft < 0.0f) ?
+								   std::numeric_limits<float>::infinity() :
+								   absSq(_vel - (leftCutoff + tLeft * leftLegDirection)));
+		const float distSqRight = ((tRight < 0.0f) ?
+									std::numeric_limits<float>::infinity() :
+									absSq(_vel - (rightCutoff + tRight * rightLegDirection)));
 
 		if (distSqCutoff <= distSqLeft && distSqCutoff <= distSqRight) {
 			/* Project on cut-off line. */
 			line._direction = -obstDir;
-			line._point = leftCutoff + _radius * invTau * Vector2(-line._direction.y(), line._direction.x());
+			line._point = leftCutoff + _radius * invTau * Vector2(-line._direction.y(),
+																   line._direction.x());
 			_orcaLines.push_back(line);
 		} else if (distSqLeft <= distSqRight) {
 			/* Project on left leg. */
 			if ( !isLeftLegForeign) {
 				line._direction = leftLegDirection;
-				line._point = leftCutoff + _radius * invTau * Vector2(-line._direction.y(), line._direction.x());
+				line._point = leftCutoff + _radius * invTau * Vector2(-line._direction.y(),
+																	   line._direction.x());
 				_orcaLines.push_back(line);
 			}
 		} else {
 			/* Project on right leg. */
 			if ( !isRightLegForeign) {
 				line._direction = -rightLegDirection;
-				line._point = rightCutoff + _radius * invTau * Vector2(-line._direction.y(), line._direction.x());
+				line._point = rightCutoff + _radius * invTau * Vector2(-line._direction.y(),
+																		line._direction.x());
 				_orcaLines.push_back(line);
 			} 
 		}
@@ -406,13 +450,12 @@ namespace PedVO {
 			if ( _priority < other->_priority ) {
 				// his advantage
 				weight += 0.5f * rightOfWay;
-				hisVel = other->_velPref.getPreferredVel() * rightOfWay + ( 1.f - rightOfWay ) * other->_vel;
+				hisVel = other->_velPref.getPreferredVel() * rightOfWay +
+					( 1.f - rightOfWay ) * other->_vel;
 				if ( absSq( hisVel - other->_vel ) > MAX_DEV_SQD ) {
-					hisVel = norm( other->_velPref.getPreferredVel() - other->_vel ) * MAX_DEV + other->_vel;
+					hisVel = norm( other->_velPref.getPreferredVel() - other->_vel ) *
+						MAX_DEV + other->_vel;
 				}
-				//if ( relativePosition * other->_velPref.getPreferredVel() < relativePosition * other->_vel ) {
-				//	hisVel = other->_velPref.getPreferredVel() * rightOfWay + ( 1.f - rightOfWay ) * other->_vel;
-				//}
 			} else if ( _priority > other->_priority ) {
 				// my advantage
 				weight -= 0.5f * rightOfWay;
@@ -420,9 +463,6 @@ namespace PedVO {
 				if ( absSq( myVel - _vel ) > MAX_DEV_SQD ) {
 					myVel = norm( _velPref.getPreferredVel() - _vel ) * MAX_DEV + _vel;
 				}
-				//if ( relativePosition * _velPref.getPreferredVel() > relativePosition * _vel ) {
-				//	myVel = _velPref.getPreferredVel() * rightOfWay + ( 1.f - rightOfWay ) * _vel;
-				//}
 			}
 
 			const Vector2 relativeVelocity = myVel - hisVel;
@@ -455,10 +495,16 @@ namespace PedVO {
 
 				if (det(relativePosition, w) > 0.0f) {
 					/* Project on left leg. */
-					line._direction = Vector2(relativePosition.x() * leg - relativePosition.y() * combinedRadius, relativePosition.x() * combinedRadius + relativePosition.y() * leg) / distSq;
+					line._direction = Vector2(relativePosition.x() * leg - relativePosition.y() *
+											   combinedRadius,
+											   relativePosition.x() * combinedRadius +
+											   relativePosition.y() * leg) / distSq;
 				} else {
 					/* Project on right leg. */
-					line._direction = -Vector2(relativePosition.x() * leg + relativePosition.y() * combinedRadius, -relativePosition.x() * combinedRadius + relativePosition.y() * leg) / distSq;
+					line._direction = -Vector2(relativePosition.x() * leg + relativePosition.y() *
+												combinedRadius,
+												-relativePosition.x() * combinedRadius +
+												relativePosition.y() * leg) / distSq;
 				}
 
 				const float dotProduct2 = relativeVelocity * line._direction;
@@ -498,37 +544,51 @@ namespace PedVO {
 				float turnInv = 1.f / _turningBias;
 				for ( size_t i = 0; i < _orcaLines.size(); ++i ) {
 					// Make sure I'm not perpendicular
-					if ( Simulator::COS_OBST_TURN < 1.f && // turning threshhold is bigger than zero degrees
-						_turningBias > 1.f &&		// only tilt if I'm seeking to magnify differences
+					// turning threshhold is bigger than zero degrees
+					if ( Simulator::COS_OBST_TURN < 1.f && 
+						 // only tilt if I'm seeking to magnify differences
+						_turningBias > 1.f &&		
 						i >= numObstLines &&	// don't perturb obstacles						
-						det(_orcaLines[i]._direction, _orcaLines[i]._point - _velPref.getPreferredVel() ) > 0.0f && // preferred velocity is not feasible w.r.t. this obstacle
+						det(_orcaLines[i]._direction,
+						// preferred velocity is not feasible w.r.t. this obstacle
+						_orcaLines[i]._point - _velPref.getPreferredVel() ) > 0.0f &&
 						// This is a trick: det with the line direction, is dot product with normal
-						det( -_orcaLines[i]._direction, prefDir ) > Simulator::COS_OBST_TURN )  // angle between pref vel and line normal is less than 1/2 degree either way
+						// angle between pref vel and line norm is less than 1/2 degree either way
+						det( -_orcaLines[i]._direction, prefDir ) > Simulator::COS_OBST_TURN )  
 						{
 						// Compute the intersection with the circle of maximum velocity
 						float dotProduct = _orcaLines[i]._point * _orcaLines[i]._direction;
-						float discriminant = sqr(dotProduct) + sqr(_maxSpeed) - absSq(_orcaLines[i]._point);
-						if ( discriminant >= 0.f ) {	// Intersects the circle of maximum speed
-														// I already know from the previous test that the preferred velocity lies on the infeasible side of the obstacle
-														// so, if there's no intersection, the whole circle must be infeasible.
-														// don't bother perturbing.
+						float discriminant = sqr(dotProduct) + sqr(_maxSpeed) -
+							absSq(_orcaLines[i]._point);
+						if ( discriminant >= 0.f ) {	
+							// Intersects the circle of maximum speed
+							// I already know from the previous test that the preferred velocity
+							// lies on the infeasible side of the obstacle so, if there's no
+							// intersection, the whole circle must be infeasible. don't bother
+							// perturbing.
 							const float sqrtDiscriminant = std::sqrt(discriminant);
 							if ( _vel * _orcaLines[i]._direction > 0.f ) {
 								float t = -dotProduct + sqrtDiscriminant;
-								Vector2 p = _orcaLines[i]._point + t * _orcaLines[i]._direction; // new line point
+								// new line point
+								Vector2 p = _orcaLines[i]._point + t * _orcaLines[i]._direction;
 								// clockwise rotation
-								const Vector2 rx( Simulator::COS_OBST_TURN, Simulator::SIN_OBST_TURN );
-								const Vector2 ry( -Simulator::SIN_OBST_TURN, Simulator::COS_OBST_TURN );
+								const Vector2 rx( Simulator::COS_OBST_TURN,
+												  Simulator::SIN_OBST_TURN );
+								const Vector2 ry( -Simulator::SIN_OBST_TURN,
+												  Simulator::COS_OBST_TURN );
 								float dx = det( prefDir, rx );
 								float dy = det( prefDir, ry );
 								_orcaLines[i]._direction.set( dx, dy );
 								_orcaLines[i]._point.set( p );
 							} else {							
 								float t = -dotProduct - sqrtDiscriminant;
-								Vector2 p = _orcaLines[i]._point + t * _orcaLines[i]._direction; // new line point
+								// new line point
+								Vector2 p = _orcaLines[i]._point + t * _orcaLines[i]._direction;
 								// counter-clockwise rotation
-								const Vector2 rx( Simulator::COS_OBST_TURN, -Simulator::SIN_OBST_TURN );
-								const Vector2 ry( Simulator::SIN_OBST_TURN, Simulator::COS_OBST_TURN );
+								const Vector2 rx( Simulator::COS_OBST_TURN,
+												  -Simulator::SIN_OBST_TURN );
+								const Vector2 ry( Simulator::SIN_OBST_TURN,
+												  Simulator::COS_OBST_TURN );
 								float dx = det( prefDir, rx );
 								float dy = det( prefDir, ry );
 								_orcaLines[i]._direction.set( dx, dy );
@@ -569,7 +629,8 @@ namespace PedVO {
 		// Compute ORCA lines returns the optVel and prefSpeed as appropriate
 		const size_t numObstLines = computeORCALines( optVel, prefDir, prefSpeed );
 
-		size_t lineFail = linearProgram2(_orcaLines, _maxSpeed, optVel, false, _turningBias, _velNew);
+		size_t lineFail = linearProgram2(_orcaLines, _maxSpeed, optVel, false, _turningBias,
+										  _velNew);
 
 		if (lineFail < _orcaLines.size()) {
 			linearProgram3(_orcaLines, numObstLines, lineFail, _maxSpeed, _turningBias, _velNew);
@@ -596,9 +657,17 @@ namespace PedVO {
 		}
 	}
 
+	/////////////////////////////////////////////////////////////////////////////
+
+	std::string Agent::getStringId() const {
+		return "pedvo";
+	}
+
 	///////////////////////////////////////////////////////////////////////
 
-	bool linearProgram1(const std::vector<Menge::Math::Line>& lines, size_t lineNo, float radius, const Vector2& optVelocity, bool directionOpt, float turnBias, Vector2& result) {
+	bool linearProgram1(const std::vector<Menge::Math::Line>& lines, size_t lineNo, float radius,
+						 const Vector2& optVelocity, bool directionOpt, float turnBias,
+						 Vector2& result) {
 		// Despite turn the dot product is the same
 		//	This is because the point got scaled by <1, 1/turn> and the dir got scaled by
 		//	<1, turn>.  So, pt.x * dir.x + pt.y * dir.y = pt.x * dir.x + pt.y /turn * dir.y * turn
@@ -630,7 +699,8 @@ namespace PedVO {
 
 		for (size_t i = 0; i < lineNo; ++i) {
 			const float denominator = det(lines[lineNo]._direction, lines[i]._direction);
-			const float numerator = det(lines[i]._direction, lines[lineNo]._point - lines[i]._point);
+			const float numerator = det(lines[i]._direction,
+										 lines[lineNo]._point - lines[i]._point);
 
 			if (std::fabs(denominator) <= Menge::EPS ) {
 				/* Lines lineNo and i are (almost) parallel. */
@@ -683,7 +753,9 @@ namespace PedVO {
 
 	///////////////////////////////////////////////////////////////////////
 
-	size_t linearProgram2(const std::vector<Menge::Math::Line>& lines, float radius, const Vector2& optVelocity, bool directionOpt, float turnBias, Vector2& result) {
+	size_t linearProgram2(const std::vector<Menge::Math::Line>& lines, float radius,
+						   const Vector2& optVelocity, bool directionOpt, float turnBias,
+						   Vector2& result) {
 		if (directionOpt) {
 			/* 
 			* Optimize direction. Note that the optimization velocity is of unit
@@ -702,7 +774,8 @@ namespace PedVO {
 			if (det(lines[i]._direction, lines[i]._point - result) > 0.0f) {
 				/* Result does not satisfy constraint i. Compute new optimal result. */
 				const Vector2 tempResult = result;
-				if (!linearProgram1(lines, i, radius, optVelocity, directionOpt, turnBias, result)) {
+				if (!linearProgram1(lines, i, radius, optVelocity, directionOpt, turnBias,
+					result)) {
 					result = tempResult;
 					return i;
 				}
@@ -713,13 +786,15 @@ namespace PedVO {
 
 	///////////////////////////////////////////////////////////////////////
 
-	void linearProgram3(const std::vector<Menge::Math::Line>& lines, size_t numObstLines, size_t beginLine, float radius, float turnBias, Vector2& result) {
+	void linearProgram3(const std::vector<Menge::Math::Line>& lines, size_t numObstLines,
+						 size_t beginLine, float radius, float turnBias, Vector2& result) {
 		float distance = 0.0f;
 
 		for (size_t i = beginLine; i < lines.size(); ++i) {
 			if (det(lines[i]._direction, lines[i]._point - result) > distance) {
 				/* Result does not satisfy constraint of line i. */
-				std::vector<Menge::Math::Line> projLines(lines.begin(), lines.begin() + numObstLines);
+				std::vector<Menge::Math::Line> projLines(lines.begin(),
+														  lines.begin() + numObstLines);
 
 				for (size_t j = numObstLines; j < i; ++j) {
 					Menge::Math::Line line;
@@ -736,7 +811,9 @@ namespace PedVO {
 							line._point = 0.5f * (lines[i]._point + lines[j]._point);
 						}
 					} else {
-						line._point = lines[i]._point + (det(lines[j]._direction, lines[i]._point - lines[j]._point) / determinant) * lines[i]._direction;
+						line._point = lines[i]._point + (det(lines[j]._direction,
+							lines[i]._point - lines[j]._point) / determinant) *
+							lines[i]._direction;
 					}
 
 					line._direction = norm(lines[j]._direction - lines[i]._direction);
@@ -744,7 +821,8 @@ namespace PedVO {
 				}
 
 				const Vector2 tempResult = result;
-				if (linearProgram2(projLines, radius, Vector2(-lines[i]._direction.y(), lines[i]._direction.x()), true, turnBias, result) < projLines.size()) {
+				if (linearProgram2(projLines, radius, Vector2(-lines[i]._direction.y(),
+					lines[i]._direction.x()), true, turnBias, result) < projLines.size()) {
 					/* This should in principle not happen.  The result is by definition
 					* already in the feasible region of this linear program. If it fails,
 					* it is due to small floating point error, and the current result is

@@ -45,9 +45,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __CONST_PROFILE_SELECTOR_H__
 #define __CONST_PROFILE_SELECTOR_H__
 
-#include "mengeCommon.h"
-#include "ProfileSelectors/ProfileSelector.h"
-#include "ProfileSelectors/ProfileSelectorFactory.h"
+#include "MengeCore/mengeCommon.h"
+#include "MengeCore/Agents/ProfileSelectors/ProfileSelector.h"
+#include "MengeCore/Agents/ProfileSelectors/ProfileSelectorFactory.h"
 
 namespace Menge {
 
@@ -116,8 +116,8 @@ namespace Menge {
 			/*!
 			 *	@brief		The name of the profile selector type.
 			 *
-			 *	The profile selector's name must be unique among all registered profile selector elements.  
-			 *	Each profile selector factory must override this function.
+			 *	The profile selector's name must be unique among all registered profile selector
+			 *	elements. Each profile selector factory must override this function.
 			 *
 			 *	@returns	A string containing the unique profile selector name.
 			 */
@@ -140,39 +140,40 @@ namespace Menge {
 			 *
 			 *	All ProfileSelectorFactory sub-classes must override this by creating (on the heap)
 			 *	a new instance of its corresponding selector type.  The various field values
-			 *	of the instance will be set in a subsequent call to ProfileSelectorFactory::setFromXML.
-			 *	The caller of this function takes ownership of the memory.
+			 *	of the instance will be set in a subsequent call to
+			 *	ProfileSelectorFactory::setFromXML. The caller of this function takes ownership of
+			 *	the memory.
 			 *
 			 *	@returns		A pointer to a newly instantiated ProfileSelector class.
 			 */
 			ProfileSelector * instance() const { return new ConstProfileSelector(); }
 
 			/*!
-			 *	@brief		Given a pointer to a pProfileSelector instance, sets the appropriate fields
-			 *				from the provided XML node.
+			 *	@brief		Given a pointer to a pProfileSelector instance, sets the appropriate
+			 *				fields from the provided XML node.
 			 *
-			 *	It is assumed that the value of the `type` attribute is this ProfileSelector's type.
-			 *	(i.e. ProfileSelectorFactory::thisFactory has already been called and returned true.)
-			 *	If sub-classes of ProfileSelectorFactory introduce *new* ProfileSelector parameters, then the
-			 *	sub-class should override this method but explicitly call the parent class's
-			 *	version.
+			 *	It is assumed that the value of the `type` attribute is this ProfileSelector's
+			 *	type. (i.e. ProfileSelectorFactory::thisFactory has already been called and
+			 *	returned true.) If sub-classes of ProfileSelectorFactory introduce *new*
+			 *	ProfileSelector parameters, then the sub-class should override this method but
+			 *	explicitly call the parent class's version.
 			 *
-			 *	@param		pSel			A pointer to the profile selector whose attributes are to be set.
+			 *	@param		pSel			A pointer to the profile selector whose attributes are
+			 *								to be set.
 			 *	@param		node			The XML node containing the goal attributes.
-			 *	@param		specFldr		The path to the specification file.  If the condition references
-			 *								resources in the file system, it should be defined relative
-			 *								to the behavior file location.  This is the folder containing
-			 *								that path. 
+			 *	@param		specFldr		The path to the specification file.  If the condition
+			 *								references resources in the file system, it should be
+			 *								defined relative to the behavior file location.  This
+			 *								is the folder containing that path. 
 			 *	@returns	A boolean reporting success (true) or failure (false).
 			 */
-			virtual bool setFromXML( ProfileSelector * pSel, TiXmlElement * node, const std::string & specFldr ) const;
+			virtual bool setFromXML( ProfileSelector * pSel, TiXmlElement * node,
+									 const std::string & specFldr ) const;
 
 			/*!
 			 *	@brief		The identifier for the "name" string parameter.
 			 */
 			size_t _nameID;
-
-			
 		};
 
 	}	// namespace Agents

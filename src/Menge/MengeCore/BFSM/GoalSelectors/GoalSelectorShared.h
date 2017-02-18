@@ -44,9 +44,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __GOAL_SELECTOR_SHARED_H__
 #define __GOAL_SELECTOR_SHARED_H__
 
-#include "fsmCommon.h"
-#include "GoalSelectors/GoalSelector.h"
-#include "GoalSelectors/GoalSelectorFactory.h"
+#include "MengeCore/BFSM/fsmCommon.h"
+#include "MengeCore/BFSM/GoalSelectors/GoalSelector.h"
+#include "MengeCore/BFSM/GoalSelectors/GoalSelectorFactory.h"
 
 namespace Menge {
 
@@ -84,7 +84,8 @@ namespace Menge {
 			virtual Goal * getGoal( const Agents::BaseAgent * agent ) const;
 
 			friend class SharedGoalSelectorFactory;
-			friend FSM * buildFSM( FSMDescrip & fsmDescrip, Agents::SimulatorInterface * sim, bool VERBOSE );
+			friend FSM * buildFSM( FSMDescrip & fsmDescrip, Agents::SimulatorInterface * sim,
+								   bool VERBOSE );
 		protected:
 			/*!
 			 *	@brief		The name of the state which will provide the actual
@@ -122,7 +123,7 @@ namespace Menge {
 			 *	@returns	A string containing the goal selector description.
 			 */
 			virtual const char * description() const {
-				return  "A goal selector stub.  Used to realize the \"shared\" " \
+				return  "A goal selector stub.  Used to realize the \"shared\" "
 					"goal selector semantics.";
 			};
 
@@ -140,13 +141,14 @@ namespace Menge {
 			 *
 			 *	@param		selector	A pointer to the goal whose attributes are to be set.
 			 *	@param		node		The XML node containing the goal selector attributes.
-			 *	@param		behaveFldr	The path to the behavior file.  If the goal selector references
-			 *							resources in the file system, it should be defined relative
-			 *							to the behavior file location.  This is the folder containing
-			 *							that path. 
+			 *	@param		behaveFldr	The path to the behavior file.  If the goal selector
+			 *							references resources in the file system, it should be
+			 *							defined relative to the behavior file location.  This is
+			 *							the folder containing that path. 
 			 *	@returns	A boolean reporting success (true) or failure (false).
 			 */
-			virtual bool setFromXML( GoalSelector * selector, TiXmlElement * node, const std::string & behaveFldr ) const;
+			virtual bool setFromXML( GoalSelector * selector, TiXmlElement * node,
+									 const std::string & behaveFldr ) const;
 		};
 
 	}	// namespace BFSM

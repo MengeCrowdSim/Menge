@@ -1,3 +1,30 @@
+----------------------------------------------------------------
+
+Release 0.9.0
+	February 11, 2017
+
+	Compilers - tested against:
+		Visual Studio 2013
+		clang++ 3.8.0
+		g++ 5.4.0
+		
+	New Features
+		Removed Visual Studio 2005 Solutions
+		Significant rearchitecture of the MengeCore library
+			Separation of "core" Menge simulation from Visualization utility
+			This facilitates embedding Menge's simulation abilities in other domains (e.g., game engines like Unity).
+		Introduced initial C-api for the Menge architecture.
+		Modified coding style:
+			Enforce 100-column limit
+			All includes are relative to the root Menge source directory.
+			And more...
+		Added 64-bit build to the Visual Studio 2013 project
+		Added explicit make rules for compling against clang (e.g.:
+					make debug-clang
+					make release-clang
+
+----------------------------------------------------------------
+
 Release 0.8.3
 	January 1, 2017
 	

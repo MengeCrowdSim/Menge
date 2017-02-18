@@ -47,9 +47,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __ELEVATION_DATABASE_H__
 #define __ELEVATION_DATABASE_H__
 
-#include "ElementDatabase.h"
-#include "Elevations/ElevationFactory.h"
-#include "Elevations/Elevation.h"
+#include "MengeCore/PluginEngine/ElementDatabase.h"
+#include "MengeCore/Agents/Elevations/ElevationFactory.h"
+#include "MengeCore/Agents/Elevations/Elevation.h"
 
 namespace Menge {
 
@@ -64,7 +64,8 @@ namespace Menge {
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
 	template<> void ElementDB< Agents::ElevationFactory, Agents::Elevation >::addBuiltins();
-	template<> std::string ElementDB< Agents::ElevationFactory, Agents::Elevation >::getElementName();
+	template<> 
+	std::string ElementDB< Agents::ElevationFactory, Agents::Elevation >::getElementName();
 
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 }	// namespace Menge

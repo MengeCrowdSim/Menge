@@ -36,10 +36,10 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "Core.h"
-#include "SpatialQueries/SpatialQuery.h"
-#include "FSM.h"
-#include "Events/EventSystem.h"
+#include "MengeCore/Core.h"
+#include "MengeCore/Agents/SpatialQueries/SpatialQuery.h"
+#include "MengeCore/BFSM/FSM.h"
+#include "MengeCore/Agents/Events/EventSystem.h"
 
 namespace Menge {
 	BFSM::FSM * ACTIVE_FSM = 0x0;

@@ -43,13 +43,12 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __VEL_COMPONENT_H__
 #define __VEL_COMPONENT_H__
 
-#include "fsmCommon.h"
-#include "Element.h"
-#include "PrefVelocity.h"
-#include "MengeException.h"
+#include "MengeCore/MengeException.h"
+#include "MengeCore/Agents/PrefVelocity.h"
+#include "MengeCore/BFSM/fsmCommon.h"
+#include "MengeCore/PluginEngine/Element.h"
 
-// STL
-#include <vector>		// stl vector
+#include <vector>
 
 namespace Menge {
 
@@ -60,7 +59,6 @@ namespace Menge {
 	namespace BFSM {
 
 		// FORWARD DECLARATIONS
-		class VelCompContext;
 		class Goal;
 
 		/*!
@@ -91,14 +89,16 @@ namespace Menge {
 			/*!
 			 *	@brief		Default constructor.
 			 */
-			VelCompFatalException() : MengeException(), VelCompException(), MengeFatalException() {}
+			VelCompFatalException() : MengeException(), VelCompException(),
+									  MengeFatalException() {}
 
 			/*!
 			 *	@brief		Constructor with message.
 			 *
 			 *	@param		s		The exception-specific message.
 			 */
-			VelCompFatalException( const std::string & s ): MengeException(s), VelCompException(), MengeFatalException() {}
+			VelCompFatalException( const std::string & s ) : MengeException(s), VelCompException(),
+															 MengeFatalException() {}
 		};
 
 		/*!
@@ -124,7 +124,8 @@ namespace Menge {
 
 		public:
 			/*!
-			 *	@brief		Called when the agent enters the state which possesses this velocity component.
+			 *	@brief		Called when the agent enters the state which possesses this velocity
+			 *				component.
 			 *
 			 *	Gives the velocity component to intialize any agent-specific data.
 			 *
@@ -133,9 +134,11 @@ namespace Menge {
 			virtual void onEnter( Agents::BaseAgent * agent ) {}
 
 			/*!
-			 *	@brief		Called when the agent leaves the state which possesses this velocity component.
+			 *	@brief		Called when the agent leaves the state which possesses this velocity
+			 *				component.
 			 *
-			 *	Gives the velocity component to restore any agent-specific data it might have changed.
+			 *	Gives the velocity component to restore any agent-specific data it might have
+			 *	changed.
 			 *
 			 *	@param		agent		The agent who left the state.
 			 */
@@ -155,32 +158,29 @@ namespace Menge {
 			 *	@param		goal		The agent's goal (although this may be ignored).
 			 *	@param		pVel		The instance of Agents::PrefVelocity to set.
 			 */
-			virtual void setPrefVelocity( const Agents::BaseAgent * agent, const Goal * goal, Agents::PrefVelocity & pVel ) = 0;
+			virtual void setPrefVelocity( const Agents::BaseAgent * agent, const Goal * goal,
+										  Agents::PrefVelocity & pVel ) const = 0;
 
 			/*!
-			 *	@brief		Provides a display context for interacting with this velocity component.
-			 *
-			 *	It is the responsibility of the caller to delete the provided context.
-			 *
-			 *	@returns	A pointer to a context for this vel component.
+			 *	@brief		Used by the plugin system to know what artifacts to associate with
+			 *				agents of this type.  Every sub-class of must return a globally
+			 *				unique value if it should be associated with unique artifacts.
 			 */
-			virtual VelCompContext * getContext();
+			virtual std::string getStringId() const = 0;
 
 			friend class ElementFactory< VelComponent >;
-
 		};
 
 		/*!
 		 *	@brief		Parses a TinyXML element containing a velocity component specification
 		 *
 		 *	@param		node			The TinyXML element
-		 *	@param		behaveFldr		The folder in which the behavior is defined -- all resources
-		 *								are defined relative to this folder.
+		 *	@param		behaveFldr		The folder in which the behavior is defined -- all
+		 *								resources are defined relative to this folder.
 		 *	@returns	A pointer to the new velocity component implementation (NULL if no valid
 		 *				instance could be created).
 		 */
 		VelComponent * parseVelComponent( TiXmlElement * node, const std::string & behaveFldr );
-
 
 	}	// namespace BFSM
 }	// namespace Menge

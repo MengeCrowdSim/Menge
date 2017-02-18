@@ -44,8 +44,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __MATRIX_H__
 #define __MATRIX_H__
 
-#include "CoreConfig.h"
-#include "vector.h"
+#include "MengeCore/CoreConfig.h"
+#include "MengeCore/Math/vector.h"
+
 #include <string.h>
 #include <iostream>
 
@@ -195,7 +196,8 @@ namespace Menge {
 			 *	perform the matrix multiplication efficiently.
 			 *	The result of the multiplication is written in place.
 			 *	Essentially, this is an optimized version of M = M * T.  
-			 *	Where T is *almost* the identity matrix, but with <tx, ty, tz, 0> on the bottom row.
+			 *	Where T is *almost* the identity matrix, but with <tx, ty, tz, 0> on the bottom
+			 *	row.
 			 *
 			 *	@param		trans		The translation vector <tx, ty, tz>
 			 */
@@ -209,7 +211,8 @@ namespace Menge {
 			 *	perform the matrix multiplication efficiently.
 			 *	The result of the multiplication is written in place.
 			 *	Essentially, this is an optimized version of M = T * M.  
-			 *	Where T is *almost* the identity matrix, but with <tx, ty, tz, 0> on the bottom row.
+			 *	Where T is *almost* the identity matrix, but with <tx, ty, tz, 0> on the bottom
+			 *	row.
 			 *
 			 *	@param		trans		The translation vector <tx, ty, tz>
 			 */

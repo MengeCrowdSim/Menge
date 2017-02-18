@@ -44,8 +44,8 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __PEDVO_DB_ENTRY_H__
 #define	__PEDVO_DB_ENTRY_H__
 
-#include "SimulatorDBEntry.h"
-#include "PedVO.h"
+#include "MengeCore/Runtime/SimulatorDBEntry.h"
+#include "MengeCore/PedVO/PedVO.h"
 
 namespace PedVO {
 	/*!
@@ -86,7 +86,7 @@ namespace PedVO {
 		 *	@returns	A single string (with no spaces) that can be used as
 		 *				a command line parameter to uniquely identify this model.
 		 */
-		virtual ::std::string commandLineName() const { return "pedvo"; }
+		virtual ::std::string commandLineName() const { return Agent::NAME; }
 
 		/*!
 		 *	@brief		Returns a pointer to this model's Simulator instance.
@@ -105,25 +105,6 @@ namespace PedVO {
 		 *				freeing up the memory.
 		 */
 		virtual Menge::Agents::AgentInitializer * getAgentInitalizer() const;
-
-	protected:
-		/*!
-		 *	@brief		Returns a pointer to an agent context appropriate to
-		 *				the corresponding simulator.
-		 *
-		 *	If the provided system is not, in fact, a pointer to a SimSystem for the
-		 *	appropriate simulator type, this function will report failure.  Furthermore,
-		 *	the default implementation is to return a BaseAgentContext.  If the
-		 *	simulator comes with a novel context, this function should be overridden
-		 *	in the derived SimulatorDBEntry.
-		 *
-		 *	@param		simSystem	The system which tracks the agents.  This should be
-		 *							the same system which was returned by a call to 
-		 *							SimulatorDBEntry::getSimulatorSystem.
-		 *	@returns	A pointer to the appropriate agent context.  If the system is of
-		 *				the wrong type (or if there is any other problem), NULL is returned.
-		 */
-		virtual Menge::BaseAgentContext * contextFromSystem( Menge::SimSystem * simSystem );
 	};
 }	// namespace PedVO
 

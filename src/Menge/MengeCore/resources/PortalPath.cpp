@@ -36,15 +36,17 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "PortalPath.h"
-#include "WayPortal.h"
-#include "BaseAgent.h"
-#include "PathPlanner.h"
-#include "NavMeshLocalizer.h"
-#include "Funnel.h"
-#include "Goals/Goal.h"
-#include "fsmCommon.h"
-#include "Core.h"
+#include "MengeCore/resources/PortalPath.h"
+
+#include "MengeCore/Core.h"
+#include "MengeCore/Agents/BaseAgent.h"
+#include "MengeCore/BFSM/fsmCommon.h"
+#include "MengeCore/BFSM/Goals/Goal.h"
+#include "MengeCore/resources/Funnel.h"
+#include "MengeCore/resources/NavMeshLocalizer.h"
+#include "MengeCore/resources/PathPlanner.h"
+#include "MengeCore/resources/WayPortal.h"
+
 #include <cassert>
 
 namespace Menge {
@@ -53,7 +55,10 @@ namespace Menge {
 	//					Implementation of PortalPath
 	/////////////////////////////////////////////////////////////////////
 
-	PortalPath::PortalPath( const Vector2 & startPos, const BFSM::Goal * goal, const PortalRoute * route, float agentRadius ): _route(route), _goal(goal), _currPortal(0), _waypoints(0x0), _headings(0x0) {
+	PortalPath::PortalPath( const Vector2 & startPos, const BFSM::Goal * goal,
+							const PortalRoute * route, float agentRadius ) :
+							_route(route), _goal(goal), _currPortal(0), _waypoints(0x0),
+							_headings(0x0) {
 		computeCrossing( startPos, agentRadius );
 	}
 
@@ -66,7 +71,8 @@ namespace Menge {
 
 	/////////////////////////////////////////////////////////////////////
 
-	void PortalPath::setPreferredDirection( const Agents::BaseAgent * agent, float headingCos, Agents::PrefVelocity & pVel ) {
+	void PortalPath::setPreferredDirection( const Agents::BaseAgent * agent, float headingCos,
+											Agents::PrefVelocity & pVel ) {
 		const size_t PORTAL_COUNT = _route->getPortalCount();
 		Vector2 dir;
 		if ( _currPortal >= PORTAL_COUNT ) {
@@ -111,7 +117,7 @@ namespace Menge {
 					planner.computeCrossing( agent->_radius, agent->_pos, this, _currPortal );
 					goalDir = _waypoints[ _currPortal ] - agent->_pos;
 					dist = abs( goalDir );
-					if ( bigEnough = ( dist >= EPS ) ) {
+					if ( ( bigEnough = ( dist >= EPS ) ) ) {
 						goalDir /= dist;
 					}
 				}
@@ -138,7 +144,10 @@ namespace Menge {
 
 	/////////////////////////////////////////////////////////////////////
 
-	unsigned int PortalPath::updateLocation( const Agents::BaseAgent * agent, const NavMeshPtr & navMesh, const NavMeshLocalizer * localizer, PathPlanner * planner ) {
+	unsigned int PortalPath::updateLocation( const Agents::BaseAgent * agent,
+											 const NavMeshPtr & navMesh,
+											 const NavMeshLocalizer * localizer,
+											 PathPlanner * planner ) {
 		// If off path, replan get a new route
 		// TODO: If off "approach" vector, recompute crossing
 		bool changed = false;
@@ -167,7 +176,8 @@ namespace Menge {
 			if ( gotoNext ) {
 				// I've made progress, simply advance
 				++_currPortal;	
-				assert( _currPortal <= PORTAL_COUNT && "Incremented current portal larger than goal" );
+				assert( _currPortal <= PORTAL_COUNT &&
+						"Incremented current portal larger than goal" );
 				changed = true;
 			}
 			 else {
@@ -197,28 +207,31 @@ namespace Menge {
 						if ( node == nextNode || node == prevNode ) continue;
 						if ( node->containsPoint( p ) ) {
 							// find a new path from this node to the goal
-							replan( p, node->getID(), _route->getEndNode(), agent->_radius, planner );
+							replan( p, node->getID(), _route->getEndNode(),
+									agent->_radius, planner );
 							changed = true;
 						} 
 					}
 
-					// It is possible for the agent, in some cases, to advance several nodes in a single time step
-					//	(e.g., when the navigation mesh has many long, skinny triangles and the agent steps across the
-					//	narrow fan).
-					//	In this case, the agent should search forwards along the path before blindly searching.
+					// It is possible for the agent, in some cases, to advance several nodes in a
+					//  single time step (e.g., when the navigation mesh has many long, skinny
+					//	triangles and the agent steps across the narrow fan).
+					//	In this case, the agent should search forwards along the path before
+					//	blindly searching.
 
 					//	TODO:
-					//		If it gets "lost" at the beginning of a long path, I'm doing a bunch of wasted testing.
-					//		Given how far the agent is from a particular portal, I know I should probably stop
-					//		looking as the portals are only going to get farther.  So, that means the inside
-					//		query should CHEAPLY compute some sense of distance to the polygon so I can drop
-					//		out.
+					//		If it gets "lost" at the beginning of a long path, I'm doing a bunch of
+					//		wasted testing. Given how far the agent is from a particular portal, I
+					//		know I should probably stop looking as the portals are only going to
+					//		get farther.  So, that means the inside query should CHEAPLY compute
+					//		some sense of distance to the polygon so I can drop out.
 					if ( changed == false ) {
 						size_t testPortal = _currPortal + 2;
 						while ( testPortal < PORTAL_COUNT ) {
 							const WayPortal * nextPortal = _route->getPortal( testPortal );
 							size_t testID = nextPortal->_nodeID;
-							const NavMeshNode * testNode = &(navMesh->getNode( (unsigned int) testID ) );
+							const NavMeshNode * testNode =
+								&(navMesh->getNode( (unsigned int) testID ) );
 							if ( testNode->containsPoint( p ) ) {
 								_currPortal = testPortal;
 								changed = true;
@@ -228,8 +241,10 @@ namespace Menge {
 						}
 					}
 					if ( changed == false ) {
-						// I exited the loop without finding an intermediate node -- test the goal node
-						const NavMeshNode * testNode = &(navMesh->getNode( (unsigned int) _route->getEndNode() ) );
+						// I exited the loop without finding an intermediate node -- test the goal
+						//	node
+						const NavMeshNode * testNode =
+							&(navMesh->getNode( (unsigned int) _route->getEndNode() ) );
 						if ( testNode->containsPoint( p ) ) {
 							_currPortal = PORTAL_COUNT;
 							changed = true;
@@ -238,7 +253,8 @@ namespace Menge {
 
 					if ( !changed ) {
 	#ifdef _DEBUG
-						logger << Logger::WARN_MSG << "Agent " << agent->_id << " got pushed from its goal into a non-adjacent goal!!\n";
+						logger << Logger::WARN_MSG << "Agent " << agent->_id;
+						logger << " got pushed from its goal into a non-adjacent goal!!\n";
 	#endif
 						// do a full find path searching for the agent position
 						float lastElevation = currNode->getElevation( p );
@@ -248,7 +264,9 @@ namespace Menge {
 								replan( p, nodeID, _route->getEndNode(), agent->_radius, planner );
 							} catch ( PathPlannerException ) {
 								std::stringstream ss;
-								ss << "Agent " << agent->_id << " trying to find a path from " << nodeID << " to " << _route->getEndNode() << ".  A* finished without a route!";
+								ss << "Agent " << agent->_id << " trying to find a path from ";
+								ss << nodeID << " to " << _route->getEndNode();
+								ss << ".  A* finished without a route!";
 								throw PathPlannerException( ss.str() );
 							}
 						}
@@ -299,8 +317,10 @@ namespace Menge {
 
 	/////////////////////////////////////////////////////////////////////
 
-	void PortalPath::replan( const Vector2 & startPos, unsigned int startNode, unsigned int endNode, float agentRadius, PathPlanner * planner ) {
-		PortalRoute * route = planner->getRoute( startNode, _route->getEndNode(), agentRadius * 2.f );
+	void PortalPath::replan( const Vector2 & startPos, unsigned int startNode,
+							 unsigned int endNode, float agentRadius, PathPlanner * planner ) {
+		PortalRoute * route = planner->getRoute( startNode, _route->getEndNode(),
+												 agentRadius * 2.f );
 		if ( _waypoints != 0x0 ) {
 			delete [] _waypoints;
 			_waypoints = 0x0;
@@ -334,7 +354,8 @@ namespace Menge {
 
 	/////////////////////////////////////////////////////////////////////
 
-	void PortalPath::setWaypoints( size_t start, size_t end, const Vector2 & p0, const Vector2 & dir ) {
+	void PortalPath::setWaypoints( size_t start, size_t end, const Vector2 & p0,
+								   const Vector2 & dir ) {
 		for ( size_t i = start; i < end; ++i ) {
 			_waypoints[ i ].set( _route->getPortal( i )->intersectionPoint( p0, dir ) );
 			//_waypoints[ i ].set( p0 );

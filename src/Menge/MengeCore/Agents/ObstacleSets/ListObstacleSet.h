@@ -38,17 +38,19 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 /*!
  *	@file		ListObstacleSet.h
- *	@brief		An abstract class for any obstacle set which will need an _obstacles list. Provides transformations from vertex vectors
+ *	@brief		An abstract class for any obstacle set which will need an _obstacles list.
+ *				Provides transformations from vertex vectors
  */
 
 #ifndef __LIST_OBSTACLE_SET_H__
 #define __LIST_OBSTACLE_SET_H__
 
-#include "mengeCommon.h"
-#include "ObstacleSets/ObstacleSet.h"
-#include "ObstacleSets/ObstacleSetFactory.h"
-#include "ObstacleSets/ObstacleVertexList.h"
-#include "Obstacle.h"
+#include "MengeCore/mengeCommon.h"
+#include "MengeCore/Agents/Obstacle.h"
+#include "MengeCore/Agents/ObstacleSets/ObstacleSetFactory.h"
+#include "MengeCore/Agents/ObstacleSets/ObstacleSet.h"
+#include "MengeCore/Agents/ObstacleSets/ObstacleVertexList.h"
+
 #include <vector>
 
 namespace Menge {

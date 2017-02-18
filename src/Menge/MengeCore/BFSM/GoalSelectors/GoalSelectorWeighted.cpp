@@ -36,9 +36,11 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "GoalSelectors/GoalSelectorWeighted.h"
-#include "Goals/Goal.h"
-#include "GoalSet.h"
+#include "MengeCore/BFSM/GoalSelectors/GoalSelectorWeighted.h"
+
+#include "MengeCore/BFSM/GoalSet.h"
+#include "MengeCore/BFSM/Goals/Goal.h"
+
 #include <cassert>
 
 namespace Menge {

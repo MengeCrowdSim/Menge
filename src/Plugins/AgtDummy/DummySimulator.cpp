@@ -37,10 +37,19 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 */
 
 #include "DummySimulator.h"
-#include "Utils.h"
-#include "consts.h"
+#include "MengeCore/Runtime/Utils.h"
+#include "MengeCore/Math/consts.h"
 
 namespace Dummy {
+
+	using Menge::toFloat;
+	using Menge::UtilException;
+	using Menge::Agents::SimulatorBase;
+	using Menge::Agents::XMLParamException;
+	using Menge::Math::NormalFloatGenerator;
+	using Menge::Math::UniformFloatGenerator;
+	using Menge::TWOPI;
+	
 	////////////////////////////////////////////////////////////////
 	//					Implementation of Dummy::Simulator
 	////////////////////////////////////////////////////////////////
@@ -50,18 +59,21 @@ namespace Dummy {
 
 	////////////////////////////////////////////////////////////////
 
-	bool Simulator::setExpParam( const std::string & paramName, const std::string & value ) throw( Agents::XMLParamException ) {
+	bool Simulator::setExpParam( const std::string & paramName, const std::string & value )
+		throw( XMLParamException ) {
 		try {
 			if ( paramName == "stddev" ) {
 				float stddev = toFloat( value );
 				const float HALF_RANGE = 3.f * stddev;
 				_speedDeviation.set( 0.f, stddev, -HALF_RANGE, HALF_RANGE );
-			} else if ( ! Agents::SimulatorBase<Agent>::setExpParam( paramName, value ) ) {
+			} else if ( ! SimulatorBase<Agent>::setExpParam( paramName, value ) ) {
 				// Simulator base didn't recognize the parameter either
 				return false;
 			}
 		} catch ( UtilException ) {
-			throw Agents::XMLParamException( std::string( "Dummy parameter \"") + paramName + std::string("\" value couldn't be converted to the correct type.  Found the value: " ) + value );
+			throw XMLParamException( std::string( "Dummy parameter \"") + paramName +
+											 std::string("\" value couldn't be converted to the "
+											 "correct type.  Found the value: " ) + value );
 		}
 		return true;
 	}

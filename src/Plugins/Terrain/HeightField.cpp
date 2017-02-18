@@ -37,9 +37,11 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 */
 
 #include "HeightField.h"
-#include "image.h"
+
+#include "MengeCore/Runtime/os.h"
+#include "MengeVis/SceneGraph/image.h"
+
 #include "tinyxml.h"
-#include "os.h"
 #include <cmath>
 
 #ifdef _WIN32
@@ -50,6 +52,15 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 namespace Terrain {
 
+	using Menge::logger;
+	using Menge::Logger;
+	using Menge::Resource;
+	using Menge::ResourceManager;
+	using Menge::ResourceException;
+	using Menge::Math::Vector3;
+	using MengeVis::Image;
+	using MengeVis::loadImage;
+
 	///////////////////////////////////////////////////////////////////////////
 	//				IMPLEMENTATION FOR HeightField
 	///////////////////////////////////////////////////////////////////////////
@@ -58,7 +69,8 @@ namespace Terrain {
 
 	///////////////////////////////////////////////////////////////////////////
 
-	HeightField::HeightField( const std::string & fileName ) : Resource(fileName), _cellSize(1.f), _W(0), _H(0), _heightMap(0x0), _normalMap(0x0), _xpos(0.f), _ypos(0.f) {
+	HeightField::HeightField( const std::string & fileName ) : Resource(fileName), _cellSize(1.f),
+		_W(0), _H(0), _heightMap(0x0), _normalMap(0x0), _xpos(0.f), _ypos(0.f) {
 	}
 
 	///////////////////////////////////////////////////////////////////////////
@@ -76,7 +88,8 @@ namespace Terrain {
 
 	///////////////////////////////////////////////////////////////////////////
 
-	bool HeightField::initialize(const std::string & imgName, float cellSize, float vertScale, float xpos, float zpos, float smoothParam ) {
+	bool HeightField::initialize(const std::string & imgName, float cellSize, float vertScale,
+								  float xpos, float zpos, float smoothParam ) {
 		_cellSize = cellSize;
 		_xpos = xpos;
 		_ypos = zpos;
@@ -125,27 +138,30 @@ namespace Terrain {
 		bool loadOkay = xml.LoadFile();
 
 		if ( !loadOkay ) {	// load xml file
-			logger << Logger::ERR_MSG << "Could not load height field configuration xml (" << fileName << ") due to xml syntax errors.\n";
+			logger << Logger::ERR_MSG << "Could not load height field configuration xml (";
+			logger << fileName << ") due to xml syntax errors.\n";
 			logger << "\t" << xml.ErrorDesc();
 			return 0x0;
 		}
 
 		TiXmlElement* rootNode = xml.RootElement();	
 		if( ! rootNode ) {
-			logger << Logger::ERR_MSG << "Height field configuration (" << fileName << ") does not contain a root element.";
+			logger << Logger::ERR_MSG << "Height field configuration (" << fileName;
+			logger << ") does not contain a root element.";
 			return 0x0;
 		}
 
 		if( rootNode->ValueStr () != "HeightField" ) {
-			logger << Logger::ERR_MSG << "Height field configuration (" << fileName << ")'s root element is not \"HeightField\".";
+			logger << Logger::ERR_MSG << "Height field configuration (" << fileName;
+			logger << ")'s root element is not \"HeightField\".";
 			return 0x0;
 		}
 
 		std::string absPath;
-		os::path::absPath( fileName, absPath );
+		Menge::os::path::absPath( fileName, absPath );
 		std::string junk;
 		std::string sceneFldr;
-		os::path::split( absPath, sceneFldr, junk );	
+		Menge::os::path::split( absPath, sceneFldr, junk );	
 
 		std::string imgName;
 		double d;
@@ -154,7 +170,8 @@ namespace Terrain {
 
 		const char * nameCStr = rootNode->Attribute( "file_name" );
 		if ( nameCStr == 0x0 ) {
-			logger << Logger::ERR_MSG << "The HeightField definition " << fileName << " is missing the required \"file_name\" attribute.";
+			logger << Logger::ERR_MSG << "The HeightField definition " << fileName;
+			logger << " is missing the required \"file_name\" attribute.";
 			valid = false;
 		}
 		imgName = nameCStr;
@@ -162,42 +179,47 @@ namespace Terrain {
 		if ( rootNode->Attribute( "cell_size", &d ) ) {
 			cellSize = (float)d;
 		} else {
-			logger << Logger::ERR_MSG << "The HeightField definition " << fileName << " is missing the required \"cell_size\" attribute.";
+			logger << Logger::ERR_MSG << "The HeightField definition " << fileName;
+			logger << " is missing the required \"cell_size\" attribute.";
 			valid = false;
 		}
 		
 		if ( rootNode->Attribute( "vert_scale", &d ) ) {
 			vertScale = (float)d;
 		} else {
-			logger << Logger::ERR_MSG << "The HeightField definition " << fileName << " is missing the required \"vert_scale\" attribute.";
+			logger << Logger::ERR_MSG << "The HeightField definition " << fileName;
+			logger << " is missing the required \"vert_scale\" attribute.";
 			valid = false;
 		}
 		
 		if ( rootNode->Attribute( "x", &d ) ) {
 			xPos = (float)d;
 		} else {
-			logger << Logger::ERR_MSG << "The HeightField definition " << fileName << " is missing the required \"x\" attribute.";
+			logger << Logger::ERR_MSG << "The HeightField definition " << fileName;
+			logger << " is missing the required \"x\" attribute.";
 			valid = false;
 		}
 		
 		if ( rootNode->Attribute( "y", &d ) ) {
 			yPos = (float)d;
 		} else {
-			logger << Logger::ERR_MSG << "The HeightField definition " << fileName << " is missing the required \"y\" attribute.";
+			logger << Logger::ERR_MSG << "The HeightField definition " << fileName;
+			logger << " is missing the required \"y\" attribute.";
 			valid = false;
 		}
 		
 		if ( rootNode->Attribute( "kernel", &d ) ) {
 			smooth = (float)d;
 		} else {
-			logger << Logger::ERR_MSG << "The HeightField definition " << fileName << " is missing the required \"kernel\" attribute.";
+			logger << Logger::ERR_MSG << "The HeightField definition " << fileName;
+			logger << " is missing the required \"kernel\" attribute.";
 			valid = false;
 		}
 
 		if ( valid ) {
 			HeightField * hf = new HeightField( fileName );
-			if ( ! hf->initialize( os::path::join( 2, sceneFldr.c_str(), imgName.c_str() ), cellSize, vertScale, xPos, yPos, smooth ) ) {
-			//if ( ! hf->initialize( imgName, cellSize, vertScale, xPos, yPos, smooth ) ) {
+			if ( ! hf->initialize( Menge::os::path::join( 2, sceneFldr.c_str(), imgName.c_str() ),
+				cellSize, vertScale, xPos, yPos, smooth ) ) {
 				hf->destroy();
 				return 0x0;
 			}
@@ -240,11 +262,7 @@ namespace Terrain {
 				}
 				Vector3 norm( Ny.cross( Nx ) );
 				norm.normalize();
-				//Nx.normalize();
-				//Ny.normalize();
 				_normalMap[ x ][ y ].set( Vector3( -norm._x, norm._y, -norm._z ) );
-				//_normalMap[ x ][ y ].set( norm );
-				//_normalMap[ x ][ y ].set( Ny.cross( Nx ) );
 			}
 		}
 	}
@@ -414,14 +432,16 @@ namespace Terrain {
 	//////////////////////////////////////////////////////////////////////////////////////
 
 	HeightFieldPtr loadHeightField( const std::string & fileName ) throw ( ResourceException ) {
-		Resource * rsrc = ResourceManager::getResource( fileName, &HeightField::load, HeightField::LABEL );
+		Resource * rsrc = ResourceManager::getResource( fileName, &HeightField::load,
+														HeightField::LABEL );
 		if ( rsrc == 0x0 ) {
 			logger << Logger::ERR_MSG << "No height field resource available.";
 			throw ResourceException();
 		}
 		HeightField * hf = dynamic_cast< HeightField * >( rsrc );
 		if ( hf == 0x0 ) {
-			logger << Logger::ERR_MSG << "Resource with name " << fileName << " is not a height field.";
+			logger << Logger::ERR_MSG << "Resource with name " << fileName;
+			logger << " is not a height field.";
 			throw ResourceException();
 		}
 		return HeightFieldPtr( hf );

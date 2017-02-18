@@ -47,14 +47,15 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __VEL_COMP_ROAD_MAP_H__
 #define __VEL_COMP_ROAD_MAP_H__
 
-#include "CoreConfig.h"
-#include "VelocityComponents/VelComponent.h"
-#include "VelocityComponents/VelComponentFactory.h"
-#include "VelocityComponents/VelCompContext.h"
+#include "MengeCore/CoreConfig.h"
+#include "MengeCore/Agents/PrefVelocity.h"
+#include "MengeCore/BFSM/VelocityComponents/VelComponent.h"
+#include "MengeCore/BFSM/VelocityComponents/VelComponentFactory.h"
+#include "MengeCore/resources/Graph.h"
+#include "MengeCore/resources/RoadMapPath.h"
+#include "MengeCore/Runtime/ReadersWriterLock.h"
+
 #include <map>
-#include "Graph.h"
-#include "RoadMapPath.h"
-#include "ReadersWriterLock.h"
 
 namespace Menge {
 
@@ -108,9 +109,25 @@ namespace Menge {
 			void setRoadMap( const GraphPtr & graph ) { _roadmap = graph; }
 
 			/*!
-			 *	@brief		Called when the agent leaves the state which possesses this velocity component.
+			 *	@brief		Returns a resource pointer to the underlying raod map.
 			 *
-			 *	Gives the velocity component to restore any agent-specific data it might have changed.
+			 *	@returns	The road map.
+			 */
+			const GraphPtr getRoadMap() const { return _roadmap; }
+
+			/*!
+			 *	@brief		Returns a reference to the path data for the velocity component.
+			 *
+			 *	@returns	A const reference to the underlying pathdata.
+			 */
+			const PathMap & getPathMap() const { return _paths; }
+
+			/*!
+			 *	@brief		Called when the agent leaves the state which possesses this velocity
+			 *				component.
+			 *
+			 *	Gives the velocity component to restore any agent-specific data it might have
+			 *	changed.
 			 *
 			 *	@param		agent		The agent who left the state.
 			 */
@@ -130,18 +147,18 @@ namespace Menge {
 			 *	@param		goal		The agent's goal (although this may be ignored).
 			 *	@param		pVel		The instance of Agents::PrefVelocity to set.
 			 */
-			virtual void setPrefVelocity( const Agents::BaseAgent * agent, const Goal * goal, Agents::PrefVelocity & pVel );
+			virtual void setPrefVelocity( const Agents::BaseAgent * agent, const Goal * goal,
+										  Agents::PrefVelocity & pVel ) const;
 
 			/*!
-			 *	@brief		Provides a display context for interacting with this velocity component.
-			 *
-			 *	It is the responsibility of the caller to delete the provided context.
-			 *
-			 *	@returns	A pointer to a context for this vel component.
+			 *	@brief		Used by the plugin system to know what artifacts to associate with
+			 *				agents of this type.  Every sub-class of must return a globally
+			 *				unique value if it should be associated with unique artifacts.
 			 */
-			virtual VelCompContext * getContext();
+			virtual std::string getStringId() const { return NAME; }
 
-			friend class RoadMapVCContext;
+			/*! The unique identifier used to register this type with run-time components. */
+			static const std::string NAME;
 
 		protected:
 			/*!
@@ -150,57 +167,17 @@ namespace Menge {
 			GraphPtr	_roadmap;
 
 			/*!
-			 *	@brief		The paths for all agents in this state.
+			 *	@brief		The paths for all agents in this state.  Performing otherwise const
+			 *				queries, may cause this to update.
 			 */
-			PathMap	_paths;
+			// TODO: Perform these updates in a non-const context so that this does *not* have to
+			// be mutable.
+			mutable PathMap	_paths;
 
 			/*!
 			 *	@brief		Lock to protect _paths;
 			 */
 			ReadersWriterLock	_lock;
-		};
-
-		//////////////////////////////////////////////////////////////////////////////
-
-		/*!
-		 *	@brief		The context for the RoadMapVelComponent.
-		 */
-		class MENGE_API RoadMapVCContext : public VelCompContext {
-		public:
-			/*!
-			 *	@brief		Constructor.
-			 *
-			 *	@param		vc			A pointer to the underlying fsm velocity component.
-			 *							The context will *not* delete the velocity component.
-			 */
-			RoadMapVCContext( RoadMapVelComponent * vc );
-
-			/*!
-			 *	@brief		Provides a string to be printed in the display as a UI element
-			 *				detailing velocity component information.
-			 *
-			 *	@param		indent		An optional string representing indentation to be
-			 *							applied to the text.  It is prefixed at the start
-			 *							of each line.
-			 *	@returns	The string for printing on the UI layer.
-			 */
-			virtual std::string getUIText( const std::string & indent="" ) const;
-
-			/*!
-			 *	@brief		Draw context elements into the 3D world.
-			 *
-			 *	This should never be called in select mode.
-			 *
-			 *	@param		agt			The particular agent for which the FSM is being visualized.
-			 *	@param		goal		The agent's goal (although this may be ignored).
-			 */
-			virtual void draw3DGL( const Agents::BaseAgent * agt, const Goal * goal );
-
-		protected:
-			/*!
-			 *	@brief		The underlying finite state machine velocity component.
-			 */
-			RoadMapVelComponent * _vc;
 		};
 
 		//////////////////////////////////////////////////////////////////////////////
@@ -223,7 +200,7 @@ namespace Menge {
 			 *
 			 *	@returns	A string containing the unique velocity component name.
 			 */
-			virtual const char * name() const { return "road_map"; }
+			virtual const char * name() const { return RoadMapVelComponent::NAME.c_str(); }
 
 			/*!
 			 *	@brief		A description of the velocity component.
@@ -233,7 +210,7 @@ namespace Menge {
 			 *	@returns	A string containing the velocity component description.
 			 */
 			virtual const char * description() const {
-				return "Provides a preferred velocity which is derived from a path along a "\
+				return "Provides a preferred velocity which is derived from a path along a "
 					"graph discretization of the free space (a.k.a. a road map).";
 			};
 
@@ -242,17 +219,18 @@ namespace Menge {
 			 *	@brief		Create an instance of this class's velocity component.
 			 *
 			 *	All VelCompFactory sub-classes must override this by creating (on the heap)
-			 *	a new instance of its corresponding velocity component type.  The various field values
-			 *	of the instance will be set in a subsequent call to VelCompFactory::setFromXML.
-			 *	The caller of this function takes ownership of the memory.
+			 *	a new instance of its corresponding velocity component type.  The various field
+			 *	valuesof the instance will be set in a subsequent call to
+			 *	VelCompFactory::setFromXML. The caller of this function takes ownership of the
+			 *	memory.
 			 *
 			 *	@returns		A pointer to a newly instantiated VelComponent class.
 			 */
 			VelComponent * instance() const { return new RoadMapVelComponent(); }
 			
 			/*!
-			 *	@brief		Given a pointer to an VelComponent instance, sets the appropriate fields
-			 *				from the provided XML node.
+			 *	@brief		Given a pointer to an VelComponent instance, sets the appropriate
+			 *				fields from the provided XML node.
 			 *
 			 *	It is assumed that the value of the `type` attribute is this VelComponent's type.
 			 *	(i.e. VelCompFactory::thisFactory has already been called and returned true.)
@@ -260,15 +238,17 @@ namespace Menge {
 			 *	sub-class should override this method but explicitly call the parent class's
 			 *	version.
 			 *
-			 *	@param		vc			A pointer to the velocity component whose attributes are to be set.
+			 *	@param		vc			A pointer to the velocity component whose attributes are to
+			 *							be set.
 			 *	@param		node		The XML node containing the velocity component attributes.
-			 *	@param		behaveFldr	The path to the behavior file.  If the velocity component references
-			 *							resources in the file system, it should be defined relative
-			 *							to the behavior file location.  This is the folder containing
-			 *							that path. 
+			 *	@param		behaveFldr	The path to the behavior file.  If the velocity component
+			 *							references resources in the file system, it should be
+			 *							defined relative to the behavior file location.  This is
+			 *							the folder containing that path. 
 			 *	@returns	A boolean reporting success (true) or failure (false).
 			 */
-			virtual bool setFromXML( VelComponent * vc, TiXmlElement * node, const std::string & behaveFldr ) const;
+			virtual bool setFromXML( VelComponent * vc, TiXmlElement * node,
+									 const std::string & behaveFldr ) const;
 		
 			/*!
 			 *	@brief		The identifier for the "file_name" string attribute.

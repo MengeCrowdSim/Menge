@@ -36,7 +36,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "SpatialQueryFactory.h"
+#include "MengeCore/Agents/SpatialQueries/SpatialQueryFactory.h"
 
 namespace Menge {
 
@@ -48,13 +48,17 @@ namespace Menge {
 
 		SpatialQueryFactory::SpatialQueryFactory(): ElementFactory< SpatialQuery >() {
 			// register attributes
-			_testVisID = _attrSet.addBoolAttribute( "test_visibility", false/*required*/, false/*default*/ );
+			_testVisID = _attrSet.addBoolAttribute( "test_visibility", false/*required*/,
+													false/*default*/ );
 		}
 
 		/////////////////////////////////////////////////////////////////////
 
-		bool SpatialQueryFactory::setFromXML( SpatialQuery * sQuery, TiXmlElement * node, const std::string & behaveFldr ) const {
-			if ( !ElementFactory< SpatialQuery >::setFromXML( sQuery, node, behaveFldr ) ) return false;
+		bool SpatialQueryFactory::setFromXML( SpatialQuery * sQuery, TiXmlElement * node,
+											  const std::string & behaveFldr ) const {
+			if ( !ElementFactory< SpatialQuery >::setFromXML( sQuery, node, behaveFldr ) ) {
+				return false;
+			}
 
 			sQuery->setTestVisibility( _attrSet.getBool( _testVisID ) );
 

@@ -4,9 +4,12 @@
 #include "StressGasConfig.h"
 #include "StressFunction.h"
 
-#include "Math/Geometry2D.h"
-
-using namespace Menge;
+// forward declaration
+namespace Menge {
+	namespace Math {
+		class Geometry2D;
+	}
+}
 
 namespace StressGAS {
 
@@ -47,9 +50,9 @@ namespace StressGAS {
 		 *	@param	stressor			The agent stressor to use on the agent.
 		 *	@param	coolDuration		The amount of time (in seconds) required to cool down from
 		 */
-		DistanceStressFunction( Math::Geometry2D const * const region,
+		DistanceStressFunction( Menge::Math::Geometry2D const * const region,
 								float inner, float outer, StressInterpEnum funcType,
-								Agents::BaseAgent * agent, AgentStressor * stressor, 
+								Menge::Agents::BaseAgent * agent, AgentStressor * stressor,
 								float coolDuration );
 
 		/*!
@@ -62,7 +65,7 @@ namespace StressGAS {
 	protected:
 
 		/** The definition of the stress region. */
-		Math::Geometry2D const * const _region;
+		Menge::Math::Geometry2D const * const _region;
 
 		/** The distance of full stress effect. */
 		float _inner;

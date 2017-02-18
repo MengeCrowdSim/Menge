@@ -36,8 +36,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "EventTargetDB.h"
-#include "StateMemberTarget.h"
+#include "MengeCore/Agents/Events/EventTargetDB.h"
+
+#include "MengeCore/Agents/Events/StateMemberTarget.h"
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
@@ -50,7 +51,9 @@ namespace Menge {
 	 *	@returns	The string representation of the database name.
 	 */
 	template <>
-	std::string ElementDB< EventTargetFactory, EventTarget >::getElementName() { return "event target"; }
+	std::string ElementDB< EventTargetFactory, EventTarget >::getElementName() {
+		return "event target";
+	}
 
 	/*! 
 	 *	@brief		Initialization of built in database elements.

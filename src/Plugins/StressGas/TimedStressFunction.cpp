@@ -1,15 +1,19 @@
 #include "TimedStressFunction.h"
 #include "AgentStressor.h"
-#include "Core.h"
+
+#include "MengeCore/Core.h"
+#include "MengeCore/Agents/BaseAgent.h"
 
 
 namespace StressGAS {
+
+	using Menge::Agents::BaseAgent;
 
 	/////////////////////////////////////////////////////////////////////
 	//                   Implementation of TimedStressFunction
 	/////////////////////////////////////////////////////////////////////
 
-	TimedStressFunction::TimedStressFunction( float duration, Agents::BaseAgent * agent, 
+	TimedStressFunction::TimedStressFunction( float duration, BaseAgent * agent, 
 											  AgentStressor * stressor, float coolDuration ) :
 											  StressFunction(agent, stressor, coolDuration)
 	{

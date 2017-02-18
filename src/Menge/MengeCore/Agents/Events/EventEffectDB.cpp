@@ -36,8 +36,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "EventEffectDB.h"
-#include "AgentPropertyEffect.h"
+#include "MengeCore/Agents/Events/EventEffectDB.h"
+
+#include "MengeCore/Agents/Events/AgentPropertyEffect.h"
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
@@ -50,7 +51,9 @@ namespace Menge {
 	 *	@returns	The string representation of the database name.
 	 */
 	template <>
-	std::string ElementDB< EventEffectFactory, EventEffect >::getElementName() { return "event effect"; }
+	std::string ElementDB< EventEffectFactory, EventEffect >::getElementName() {
+		return "event effect";
+	}
 
 	/*! 
 	 *	@brief		Initialization of built in database elements.

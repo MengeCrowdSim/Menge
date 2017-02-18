@@ -36,11 +36,14 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "SimulatorInterface.h"
-#include "Obstacle.h"
-#include "SpatialQueries/SpatialQuery.h"
-#include "Elevations/ElevationFlat.h"
-#include "Core.h"
+#include "MengeCore/Agents/SimulatorInterface.h"
+
+#include "MengeCore/Core.h"
+#include "MengeCore/Agents/Obstacle.h"
+#include "MengeCore/Agents/Elevations/ElevationFlat.h"
+#include "MengeCore/Agents/SCBWriter.h"
+#include "MengeCore/Agents/SpatialQueries/SpatialQuery.h"
+#include "MengeCore/BFSM/FSM.h"
 
 namespace Menge {
 
@@ -58,15 +61,50 @@ namespace Menge {
 
 		////////////////////////////////////////////////////////////////////////////
 
-		SimulatorInterface::SimulatorInterface():XMLSimulatorBase(), _globalTime(0.f), _elevation(0x0), _spatialQuery(0x0) {
+		SimulatorInterface::SimulatorInterface() :
+			XMLSimulatorBase(), _globalTime( 0.f ), _elevation( 0x0 ), _spatialQuery( 0x0 ),
+			_fsm( 0x0 ), _scbWriter( 0x0 ), _isRunning( true ), _maxDuration( 100.f ) {
 		}
 
 		////////////////////////////////////////////////////////////////////////////
 
 		SimulatorInterface::~SimulatorInterface() {
-			
+			if ( _fsm ) delete _fsm;
 			if ( _spatialQuery != 0x0 ) _spatialQuery->destroy();
 			if ( _elevation ) _elevation->destroy();
+		}
+
+		////////////////////////////////////////////////////////////////////////////
+
+		void SimulatorInterface::setBFSM( BFSM::FSM * fsm ) {
+			_fsm = fsm;
+		}
+
+		////////////////////////////////////////////////////////////////////////////
+
+		bool SimulatorInterface::step() {
+			const int agtCount = static_cast<int>( getNumAgents() );
+			if ( _isRunning ) {
+				if ( _scbWriter ) _scbWriter->writeFrame( _fsm );
+				if ( _globalTime >= _maxDuration ) {
+					_isRunning = false;
+				} else {
+					for ( size_t i = 0; i <= SUB_STEPS; ++i ) {
+						try {
+							// TODO: doStep for FSM is a *bad* name; it should be "evaluate".
+							_isRunning = !_fsm->doStep();
+							doStep();
+							_fsm->doTasks();
+						} catch ( BFSM::FSMFatalException & e ) {
+							logger << Logger::ERR_MSG << "Error in updating the finite state ";
+							logger << "machine -- stopping!\n";
+							logger << "\t" << e.what() << "\n";
+							_isRunning = false;
+						}
+					}
+				}
+			}
+			return _isRunning;
 		}
 
 		////////////////////////////////////////////////////////////////////////////
@@ -91,26 +129,46 @@ namespace Menge {
 		////////////////////////////////////////////////////////////////
 
 		void SimulatorInterface::setSpatialQuery( SpatialQuery * spatialQuery ) {
-			assert( _spatialQuery == 0x0 && "Trying to set the spatial query when one already exists" );
+			assert( _spatialQuery == 0x0 &&
+					"Trying to set the spatial query when one already exists" );
 			_spatialQuery = spatialQuery;
 		}
 
 
 		////////////////////////////////////////////////////////////////
 
-		bool SimulatorInterface::queryVisibility( const Vector2& point1, const Vector2& point2, float radius ) const {
+		bool SimulatorInterface::queryVisibility( const Vector2& point1, const Vector2& point2,
+												  float radius ) const {
 			return _spatialQuery->queryVisibility( point1, point2, radius );
 		}
 
 		////////////////////////////////////////////////////////////////
 
 		void SimulatorInterface::finalize() {
+			if ( _fsm == 0x0 ) throw BFSM::FSMFatalException( "No BFSM defined for simulation." );
 			if ( _elevation == 0x0 ) {
-				logger << Logger::WARN_MSG << "No elevation implementation specified.  Using \"flat\" implementation.";
+				logger << Logger::WARN_MSG << "No elevation implementation specified.  "
+					"Using \"flat\" implementation.";
 				_elevation = new FlatElevation();
 				Menge::ELEVATION = _elevation;
 			}
 		}
+
+		////////////////////////////////////////////////////////////////
+
+		bool SimulatorInterface::setOutput( const std::string & outFileName,
+									const std::string & scbVersion ) {
+			try {
+				_scbWriter = new SCBWriter( outFileName, scbVersion, this );
+				return true;
+			} catch ( SCBFileException ) {
+				logger << Logger::WARN_MSG << "Error preparing output trajectory file: ";
+				logger << outFileName << ".";
+				return false;
+			}
+		}
+
+		////////////////////////////////////////////////////////////////////////////
 		
 	}	// namespace Agents
 }	// namespace Menge

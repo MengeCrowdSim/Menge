@@ -44,7 +44,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __STATE_ENUM_H__
 #define __STATE_ENUM_H__
 
-#include "Logger.h"
+#include "MengeCore/Runtime/Logger.h"
 
 namespace Menge {
 

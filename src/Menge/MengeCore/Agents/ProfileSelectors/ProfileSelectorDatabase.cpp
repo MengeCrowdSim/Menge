@@ -36,8 +36,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "ProfileSelectorDatabase.h"
-#include "ProfileSelectors/ConstProfileSelector.h"
+#include "MengeCore/Agents/ProfileSelectors/ProfileSelectorDatabase.h"
+
+#include "MengeCore/Agents/ProfileSelectors/ConstProfileSelector.h"
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
@@ -50,7 +51,10 @@ namespace Menge {
 	 *	@returns	The string representation of the database name.
 	 */
 	template <>
-	std::string ElementDB< Agents::ProfileSelectorFactory, Agents::ProfileSelector >::getElementName() { return "profile selector"; }
+	std::string
+		ElementDB< Agents::ProfileSelectorFactory, Agents::ProfileSelector >::getElementName() {
+		return "profile selector";
+	}
 
 	/*! 
 	 *	@brief		Initialization of built in database elements.

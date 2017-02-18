@@ -36,7 +36,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "fsmCommon.h"
+#include "MengeCore/BFSM/fsmCommon.h"
 
 #if 1
 // Common utilities for the fsm module

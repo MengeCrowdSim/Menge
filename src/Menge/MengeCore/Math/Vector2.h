@@ -44,11 +44,12 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __VECTOR2_H__
 #define	__VECTOR2_H__
 
-#include "CoreConfig.h"
+#include "MengeCore/CoreConfig.h"
+#include "MengeCore/Math/consts.h"
+#include "MengeCore/Runtime/Logger.h"
+
 #include <cmath>
 #include <ostream>
-#include "Logger.h"
-#include "Math/consts.h"
 
 #ifdef _MSC_VER
 	// To export templated classes and functions, requires declaring specializations
@@ -256,7 +257,7 @@ namespace Menge {
 			  return _x != v._x || _y != v._y;
 			}
 
-			/////////////////////////////    IN-PLACE MATH OPERATIONS      ////////////////////////////
+			/////////////////////////////    IN-PLACE MATH OPERATIONS      ///////////////////////
 
 			/*!
 			 *	@brief		Perform in-place scalar multiplication on this vector.
@@ -435,7 +436,8 @@ namespace Menge {
 		 *	@brief		Explicit specialization for shared library export.
 		 *	@internal
 		 */
-		MATHEXTERN template MENGE_API Vector2d<float> operator*( float s, const Vector2d<float>& v);
+		MATHEXTERN template MENGE_API Vector2d<float> operator*( float s,
+																 const Vector2d<float>& v);
 
 		/*!
 		 *  @brief      Inserts the specified two-dimensional vector into the logger.
@@ -530,7 +532,8 @@ namespace Menge {
 		 *	@brief		Explicit specialization for shared library export.
 		 *	@internal
 		 */
-		MATHEXTERN template MENGE_API float det( const Vector2d<float>& v1, const Vector2d<float>& v2);
+		MATHEXTERN template MENGE_API float det( const Vector2d<float>& v1,
+												 const Vector2d<float>& v2);
 
 		/*!
 		 *  @brief      Computes the normalization of the specified two-dimensional
@@ -544,9 +547,9 @@ namespace Menge {
 		inline MENGE_API Vector2d<Type> norm(const Vector2d<Type>& vector) {
 			float mag = abs( vector );
 			if ( mag < EPS ) {
-				// This may not be the "right" behavior.  I do this because the "normalized" vector has unit
-				//	length.  This guarantees that the result is always unit length.  Although it introduces other
-				//	issues.
+				// This may not be the "right" behavior.  I do this because the "normalized" vector
+				//	has unit length.  This guarantees that the result is always unit length.
+				//	Although it introduces other issues.
 				return Vector2d<Type>(1.f, 0.f);
 			} else {
 				return vector / mag;
@@ -570,7 +573,8 @@ namespace Menge {
 		 *            false otherwise.
 		 */
 		template< class Type >
-		inline MENGE_API bool equivalent( const Vector2d<Type> & v1, const Vector2d<Type> & v2, float threshSqd=0.000001f ) {
+		inline MENGE_API bool equivalent( const Vector2d<Type> & v1, const Vector2d<Type> & v2,
+										  float threshSqd=0.000001f ) {
 			return absSq( v1 - v2 ) < threshSqd;
 		}
 
@@ -578,7 +582,9 @@ namespace Menge {
 		 *	@brief		Explicit specialization for shared library export.
 		 *	@internal
 		 */
-		MATHEXTERN template MENGE_API bool equivalent( const Vector2d<float> & v1, const Vector2d<float> & v2, float threshSqd );
+		MATHEXTERN template MENGE_API bool equivalent( const Vector2d<float> & v1,
+													   const Vector2d<float> & v2,
+													   float threshSqd );
 
 		/*! 
 		 *  @brief      Computes the signed distance from a line connecting the
@@ -590,7 +596,8 @@ namespace Menge {
 		 *  @returns    Positive when the point c lies to the left of the line ab.
 		 */
 		template< class Type >
-		inline MENGE_API Type leftOf(const Vector2d<Type>& a, const Vector2d<Type>& b, const Vector2d<Type>& c) {
+		inline MENGE_API Type leftOf(const Vector2d<Type>& a, const Vector2d<Type>& b,
+									  const Vector2d<Type>& c) {
 			return det(a - c, b - a);
 		}
 
@@ -598,7 +605,9 @@ namespace Menge {
 		 *	@brief		Explicit specialization for shared library export.
 		 *	@internal
 		 */
-		MATHEXTERN template MENGE_API float leftOf(const Vector2d<float>& a, const Vector2d<float>& b, const Vector2d<float>& c);
+		MATHEXTERN template MENGE_API float leftOf(const Vector2d<float>& a,
+													const Vector2d<float>& b,
+													const Vector2d<float>& c);
 	}	// namespace Math
 }	// namespace Menge
 

@@ -47,9 +47,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __PROFILE_SELECTOR_DATABASE_H__
 #define __PROFILE_SELECTOR_DATABASE_H__
 
-#include "ElementDatabase.h"
-#include "ProfileSelectors/ProfileSelectorFactory.h"
-#include "ProfileSelectors/ProfileSelector.h"
+#include "MengeCore/Agents/ProfileSelectors/ProfileSelector.h"
+#include "MengeCore/Agents/ProfileSelectors/ProfileSelectorFactory.h"
+#include "MengeCore/PluginEngine/ElementDatabase.h"
 
 namespace Menge {
 
@@ -63,8 +63,11 @@ namespace Menge {
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
-	template<> void ElementDB< Agents::ProfileSelectorFactory, Agents::ProfileSelector >::addBuiltins();
-	template<> std::string ElementDB< Agents::ProfileSelectorFactory, Agents::ProfileSelector >::getElementName();
+	template<> 
+	void ElementDB< Agents::ProfileSelectorFactory, Agents::ProfileSelector >::addBuiltins();
+
+	template<> std::string 
+		ElementDB< Agents::ProfileSelectorFactory, Agents::ProfileSelector >::getElementName();
 
 #endif	// DOXYGEN_SHOULD_SKIP_THIS
 }	// namespace Menge

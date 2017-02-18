@@ -49,8 +49,8 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __PLUGIN_SHARED_LIBRARY_H__
 #define __PLUGIN_SHARED_LIBRARY_H__
 
-#include "CoreConfig.h"
-#include "Logger.h"
+#include "MengeCore/CoreConfig.h"
+#include "MengeCore/Runtime/Logger.h"
 
 #include <string>
 #include <stdexcept>

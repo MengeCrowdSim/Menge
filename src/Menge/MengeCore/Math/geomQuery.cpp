@@ -36,8 +36,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "geomQuery.h"
-#include "consts.h"
+#include "MengeCore/Math/geomQuery.h"
+
+#include "MengeCore/Math/consts.h"
 
 namespace Menge {
 

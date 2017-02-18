@@ -47,9 +47,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 // Finite-state machine used to compute preferred velocity
 //	according to varying conditions
 
-#include "fsmCommon.h"
-#include "FSMDescrip.h"
-#include "MengeException.h"
+#include "MengeCore/MengeException.h"
+#include "MengeCore/BFSM/fsmCommon.h"
+#include "MengeCore/BFSM/FSMDescrip.h"
 
 #include <vector>
 #include <cassert>
@@ -115,7 +115,8 @@ namespace Menge {
 			 *
 			 *	@param		s		The exception-specific message.
 			 */
-			FSMFatalException( const std::string & s ): MengeException(s), FSMException(), MengeFatalException() {}
+			FSMFatalException( const std::string & s ) : MengeException(s), FSMException(),
+														 MengeFatalException() {}
 		};
 
 		/////////////////////////////////////////////////////////////////////
@@ -123,7 +124,7 @@ namespace Menge {
 		/*!
 		 *	@brief		Templated class for the behavior finite state machine.
 		 */
-		class FSM {
+		class MENGE_API FSM {
 		public:
 			/*!
 			 *	@brief		Constructor.
@@ -292,7 +293,8 @@ namespace Menge {
 			size_t getAgentStateID( size_t agentID ) const;
 
 			/*!
-			 *	@brief		Reports if all agents are in final states (i.e. the simulation is done.)
+			 *	@brief		Reports if all agents are in final states (i.e. the simulation is
+			 *				done.)
 			 *
 			 *	@returns	True if all agents are in a final state, false otherwise.
 			 */
@@ -336,14 +338,15 @@ namespace Menge {
 			 */
 			std::map< size_t, GoalSet * > & getGoalSets() { return _goalSets; }
 
-			friend FSM * buildFSM( FSMDescrip & fsmDescrip, Agents::SimulatorInterface * sim, bool VERBOSE );
-
 			/*!
 			 *	@brief		Add an velocity modifier to the FSM
 			 *
 			 *	@param		v		The modifier to add
 			 */
 			void addVelModifier( VelModifier * v ) { _velModifiers.push_back( v ); }
+
+			friend FSM * buildFSM( FSMDescrip & fsmDescrip, Agents::SimulatorInterface * sim,
+								   bool VERBOSE );
 
 		protected:
 			/*!
@@ -379,7 +382,8 @@ namespace Menge {
 			std::map< size_t, GoalSet * >	_goalSets;
 
 			/*!
-			 *	@brief		A list of velocity modifiers to be applied to all states in the simulator
+			 *	@brief		A list of velocity modifiers to be applied to all states in the
+			 *				simulator.
 			 */
 			std::vector< VelModifier * >	_velModifiers;
 
@@ -398,7 +402,8 @@ namespace Menge {
 		 *	@returns	A pointer to the resultant FSM.  If there is an error in
 		 *				construction, NULL is returned.
 		 */
-		 FSM * buildFSM( FSMDescrip & fsmDescrip, Agents::SimulatorInterface * sim, bool VERBOSE=false );
+		 FSM * buildFSM( FSMDescrip & fsmDescrip, Agents::SimulatorInterface * sim,
+						 bool VERBOSE=false );
 
 	}	// namespace BFSM
 } // namespace Menge

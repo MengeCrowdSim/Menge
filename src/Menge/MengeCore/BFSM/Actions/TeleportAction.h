@@ -45,10 +45,10 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __TELEPORT_ACTION_H__
 #define __TELEPORT_ACTION_H__
 
-#include "CoreConfig.h"
-#include "Actions/Action.h"
-#include "Actions/ActionFactory.h"
-#include "fsmCommon.h"
+#include "MengeCore/CoreConfig.h"
+#include "MengeCore/BFSM/fsmCommon.h"
+#include "MengeCore/BFSM/Actions/Action.h"
+#include "MengeCore/BFSM/Actions/ActionFactory.h"
 
 namespace Menge {
 
@@ -126,7 +126,8 @@ namespace Menge {
 			 *	@returns	A string containing the action description.
 			 */
 			virtual const char * description() const {
-				return "Causes the agent to teleport to a user-specified location based on a 2D generator";
+				return "Causes the agent to teleport to a user-specified location based on a 2D "
+					"generator";
 			};
 
 		protected:
@@ -156,11 +157,12 @@ namespace Menge {
 			 *	@param		node		The XML node containing the action attributes.
 			 *	@param		behaveFldr	The path to the behavior file.  If the action references
 			 *							resources in the file system, it should be defined relative
-			 *							to the behavior file location.  This is the folder containing
-			 *							that path. 
+			 *							to the behavior file location.  This is the folder
+			 *							containing that path. 
 			 *	@returns	A boolean reporting success (true) or failure (false).
 			 */
-			virtual bool setFromXML( Action * action, TiXmlElement * node, const std::string & behaveFldr ) const;
+			virtual bool setFromXML( Action * action, TiXmlElement * node,
+									 const std::string & behaveFldr ) const;
 
 			/*!
 			 *	@brief		The identifier for the "exit_reset" boolean attribute.
@@ -169,6 +171,5 @@ namespace Menge {
 		};
 
 	}	//  namespace BFSM
-
-}	// 
+}	// namespace Menge
 #endif // __TELEPORT_ACTION_H__

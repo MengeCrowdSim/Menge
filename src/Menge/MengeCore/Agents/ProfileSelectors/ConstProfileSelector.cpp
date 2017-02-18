@@ -36,7 +36,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "ConstProfileSelector.h"
+#include "MengeCore/Agents/ProfileSelectors/ConstProfileSelector.h"
 
 namespace Menge {
 
@@ -46,17 +46,21 @@ namespace Menge {
 		//			Implementation of ConstProfileSelector
 		////////////////////////////////////////////////////////////////////////////
 
-		ConstProfileSelector::ConstProfileSelector() : ProfileSelector(), _profileName(""), _init(0x0) {
+		ConstProfileSelector::ConstProfileSelector() : ProfileSelector(), _profileName( "" ),
+													   _init(0x0) {
 		}
 
 		////////////////////////////////////////////////////////////////////////////
 
-		bool ConstProfileSelector::cacheProfiles( HASH_MAP< std::string, AgentInitializer * > profiles ) {
-			HASH_MAP< std::string, AgentInitializer * >::iterator itr = profiles.find( _profileName );
+		bool ConstProfileSelector::cacheProfiles( HASH_MAP< std::string,
+												  AgentInitializer * > profiles ) {
+			HASH_MAP< std::string, AgentInitializer * >::iterator itr =
+				profiles.find( _profileName );
 			if ( itr != profiles.end() ) {
 				_init = itr->second;
 			} else {
-				logger << Logger::ERR_MSG << "Const profile selector unable to find profile of the name " << _profileName << "\n";
+				logger << Logger::ERR_MSG << "Const profile selector unable to find profile of "
+					"the name " << _profileName << "\n";
 				return false;
 			}
 			return true;
@@ -72,9 +76,11 @@ namespace Menge {
 
 		////////////////////////////////////////////////////////////////////////////
 
-		bool ConstProfileSelectorFactory::setFromXML( ProfileSelector * pSel, TiXmlElement * node, const std::string & specFldr ) const {
+		bool ConstProfileSelectorFactory::setFromXML( ProfileSelector * pSel, TiXmlElement * node,
+													  const std::string & specFldr ) const {
 			ConstProfileSelector * cSel = dynamic_cast< ConstProfileSelector * >( pSel );
-			assert( cSel != 0x0 && "Trying to set attributes of a const profile selector element on an incompatible object" );
+			assert( cSel != 0x0 && "Trying to set attributes of a const profile selector "
+					"element on an incompatible object" );
 
 			if ( ! ProfileSelectorFactory::setFromXML( cSel, node, specFldr ) ) return false;
 
@@ -82,7 +88,6 @@ namespace Menge {
 
 			return true;
 		}
-		
 
 	}	// namespace Agents
 }	// namespace Menge

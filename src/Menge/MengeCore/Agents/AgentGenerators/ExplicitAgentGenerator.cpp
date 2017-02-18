@@ -36,10 +36,12 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "ExplicitAgentGenerator.h"
+#include "MengeCore/Agents/AgentGenerators/ExplicitAgentGenerator.h"
+
+#include "MengeCore/Agents/BaseAgent.h"
+#include "MengeCore/Runtime/Logger.h"
+
 #include "tinyxml.h"
-#include "Logger.h"
-#include "BaseAgent.h"
 
 namespace Menge {
 
@@ -56,7 +58,8 @@ namespace Menge {
 
 		void ExplicitGenerator::setAgentPosition(size_t i, BaseAgent * agt) {
 			if ( i >= _positions.size() ) {
-				throw AgentGeneratorFatalException("ExplicitGenerator trying to access an agent outside of the specified population");
+				throw AgentGeneratorFatalException("ExplicitGenerator trying to access an agent "
+													"outside of the specified population");
 			}
 			agt->_pos = _positions[i];
 		}
@@ -71,13 +74,18 @@ namespace Menge {
 		//			Implementation of ExplicitGeneratorFactory
 		////////////////////////////////////////////////////////////////////////////
 
-		bool ExplicitGeneratorFactory::setFromXML( AgentGenerator * gen, TiXmlElement * node, const std::string & specFldr ) const {
+		bool ExplicitGeneratorFactory::setFromXML( AgentGenerator * gen, TiXmlElement * node,
+												   const std::string & specFldr ) const {
 			ExplicitGenerator * eGen = dynamic_cast< ExplicitGenerator * >( gen );
-			assert( eGen != 0x0 && "Trying to set attributes of an explicit agent generator component on an incompatible object" );
+			assert( eGen != 0x0 &&
+					"Trying to set attributes of an explicit agent generator component on an "
+					"incompatible object" );
 
 			if ( ! AgentGeneratorFactory::setFromXML( eGen, node, specFldr ) ) return false;
 
-			for( TiXmlElement * child = node->FirstChildElement(); child; child = child->NextSiblingElement()) {
+			for( TiXmlElement * child = node->FirstChildElement();
+				 child;
+				 child = child->NextSiblingElement()) {
 				if ( child->ValueStr() == "Agent" ) {
 					try {
 						Vector2 p = parseAgent( child );
@@ -86,7 +94,9 @@ namespace Menge {
 						return false;
 					}
 				} else {
-					logger << Logger::WARN_MSG << "Found an unexpected child tag in an AgentGroup on line " << node->Row() << ".  Ignoring the tag: " << child->ValueStr() << ".";
+					logger << Logger::WARN_MSG;
+					logger << "Found an unexpected child tag in an AgentGroup on line ";
+					logger << node->Row() << ".  Ignoring the tag: " << child->ValueStr() << ".";
 				}
 			}
 
@@ -110,12 +120,13 @@ namespace Menge {
 				valid = false;
 			}
 			if ( ! valid ) {
-				logger << Logger::ERR_MSG << "Agent on line " << node->Row() << " didn't define position!";
-				throw AgentGeneratorFatalException( "Agent in explicit generator didn't define a position" );
+				logger << Logger::ERR_MSG << "Agent on line " << node->Row();
+				logger << " didn't define position!";
+				throw AgentGeneratorFatalException( "Agent in explicit generator didn't "
+													"define a position" );
 			}
 			return Vector2( x, y );
 		}
 
 	}	// namespace Agents
 }	// namespace Menge
-

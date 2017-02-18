@@ -36,7 +36,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "TaskDatabase.h"
+#include "MengeCore/BFSM/Tasks/TaskDatabase.h"
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 

@@ -46,10 +46,13 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
  *				"Euclidean Shortest Paths in the Presence of Rectilinear Barriers"
  */
 
-#include "mengeCommon.h"
+#include "MengeCore/mengeCommon.h"
+
 #include <list>
 
 namespace Menge {
+
+	using Menge::Math::Vector2;
 
 	/*!
 	 *	@brief		Determines if it uses simple funnel algorithm (no deque, just restart)
@@ -132,7 +135,8 @@ namespace Menge {
 		 *	@param		dir		The direction from the apex to the portal.
 		 *	@param		origin	The origin of this funnel "wedge".
 		 */
-		FunnelEdge( size_t id, size_t end, const Vector2 & dir, const Vector2 & origin ):_id(id), _endID(end), _dir(dir), _origin(origin) {}
+		FunnelEdge( size_t id, size_t end, const Vector2 & dir, const Vector2 & origin ) :
+			_id(id), _endID(end), _dir(dir), _origin(origin) {}
 	#endif
 
 		/*!
@@ -218,7 +222,8 @@ namespace Menge {
 		 *	@param		path			A pointer to a portal path.
 		 *	@param		startPortal		The portal in the path to start wtih
 		 */
-		void computeCrossing( float radius, const Vector2 & startPos, PortalPath * path, size_t startPortal=0 );
+		void computeCrossing( float radius, const Vector2 & startPos, PortalPath * path,
+							  size_t startPortal=0 );
 
 	#ifndef SIMPLE_FUNNEL
 	protected:

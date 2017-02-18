@@ -47,9 +47,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __EVENT_TRIGGER_DATABASE_H__
 #define __EVENT_TRIGGER_DATABASE_H__
 
-#include "ElementDatabase.h"
-#include "Events/EventTriggerFactory.h"
-#include "Events/EventTrigger.h"
+#include "MengeCore/PluginEngine/ElementDatabase.h"
+#include "MengeCore/Agents/Events/EventTriggerFactory.h"
+#include "MengeCore/Agents/Events/EventTrigger.h"
 
 namespace Menge {
 	/*!

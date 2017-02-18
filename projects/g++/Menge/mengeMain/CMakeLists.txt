@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8)
 
-project(Menge)
+project(MengeExe)
 
 set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/lib/)
 
@@ -18,9 +18,7 @@ add_executable(
 	${source_files}
 )
 
-
-
-target_link_libraries ( menge mengeCore )
+target_link_libraries ( menge mengeCore mengeVis )
 
 #file( COPY ${CMAKE_SOURCE_DIR}/../resources/linux DESTINATION ${MENGE_EXE_DIR} )
 #file( COPY ${CMAKE_SOURCE_DIR}/../resources/common DESTINATION ${MENGE_EXE_DIR} )

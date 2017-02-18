@@ -36,17 +36,20 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "ActionDatabase.h"
-#include "Actions/ObstacleAction.h"
-#include "Actions/PropertyAction.h"
-#include "Actions/TeleportAction.h"
+#include "MengeCore/BFSM/Actions/ActionDatabase.h"
+
+#include "MengeCore/BFSM/Actions/ObstacleAction.h"
+#include "MengeCore/BFSM/Actions/PropertyAction.h"
+#include "MengeCore/BFSM/Actions/TeleportAction.h"
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
 namespace Menge {
 
 	template <>
-	std::string ElementDB< BFSM::ActionFactory, BFSM::Action >::getElementName(){ return "action"; }
+	std::string ElementDB< BFSM::ActionFactory, BFSM::Action >::getElementName(){
+		return "action";
+	}
 
 	template <>
 	void ElementDB< BFSM::ActionFactory, BFSM::Action >::addBuiltins() {

@@ -6,23 +6,26 @@
  *	@brief	task used for adding stress to agents
  */
 
-#include "Tasks/Task.h"
-#include "fsmCommon.h"
-//#include "CoreConfig.h"
-#include <string>
-#include "Tasks/TaskFactory.h"
-#include "tinyxml.h"
 #include "StressGlobals.h"
-#include "BaseAgent.h"
 
+#include "MengeCore/BFSM/Tasks/Task.h"
 
-using namespace Menge;
+#include <string>
+
+#include "tinyxml.h"
+
+// forward declarations
+namespace Menge {
+	namespace BFSM {
+		class FSM;
+	}
+}
 
 namespace StressGAS {
     /*!
 	 *	@brief	Sub-class of Task that runs formation updates
 	 */
-	class StressTask : public BFSM::Task {
+	class StressTask : public Menge::BFSM::Task {
 	public:
 		/*!
 		 *	@brief		Constructor 
@@ -38,7 +41,7 @@ namespace StressGAS {
 		 *	@throws		A TaskFatalException if there is a fatal error that
 		 *				should arrest execution of the simulation.
 		 */
-		virtual void doWork( const BFSM::FSM * fsm ) throw( BFSM::TaskException );
+		virtual void doWork( const Menge::BFSM::FSM * fsm ) throw( Menge::BFSM::TaskException );
 
 		/*!
 		 *	@brief		String representation of the task
@@ -59,8 +62,5 @@ namespace StressGAS {
 		 */
 		virtual bool isEquivalent( const Task * task ) const;
 	};
-
-
-
-};
+}	// namespace StressGAS
 #endif // __DENSITY_GRID_TASK_H__

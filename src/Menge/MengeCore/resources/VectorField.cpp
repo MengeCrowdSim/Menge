@@ -36,13 +36,17 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "VectorField.h"
-#include "ResourceManager.h"
+#include "MengeCore/resources/VectorField.h"
+
+#include "MengeCore/resources/ResourceManager.h"
+
 #include <cassert>
 #include <fstream>
 #include <iostream>
 
 namespace Menge {
+
+	using Math::Vector2;
 
 	/////////////////////////////////////////////////////////////////////
 	//                   Implementation of VectorField
@@ -159,11 +163,13 @@ namespace Menge {
 			// interpolate with cells to the right
 			value = _data[rowIndex][colIndex] * ( 1 - WX ) + _data[ rowIndex ][colIndex + 1] * WX;
 			if ( WY >= 0.f && rowIndex < ROW_COUNT - 1 ) {
-				Vector2 val2 = _data[rowIndex+1][colIndex] * ( 1 - WX ) + _data[ rowIndex+1][colIndex + 1] * WX;
+				Vector2 val2 = _data[rowIndex+1][colIndex] * ( 1 - WX ) +
+					_data[ rowIndex+1][colIndex + 1] * WX;
 				value *= (1 - WY );
 				value += val2 * WY;
 			} else if ( WY < 0 && rowIndex > 0 ) {
-				Vector2 val2 = _data[rowIndex-1][colIndex] * ( 1 - WX ) + _data[ rowIndex-1][colIndex + 1] * WX;
+				Vector2 val2 = _data[rowIndex-1][colIndex] * ( 1 - WX ) +
+					_data[ rowIndex-1][colIndex + 1] * WX;
 				value *= (1 + WY );
 				value -= val2 * WY;
 			}
@@ -171,19 +177,23 @@ namespace Menge {
 			// interpolate with cells to the right
 			value = _data[rowIndex][colIndex] * ( 1 + WX ) - _data[ rowIndex ][colIndex - 1] * WX;
 			if ( WY >= 0.f && rowIndex < ROW_COUNT - 1 ) {
-				Vector2 val2 = _data[rowIndex+1][colIndex] * ( 1 + WX ) - _data[ rowIndex+1][colIndex - 1] * WX;
+				Vector2 val2 = _data[rowIndex+1][colIndex] * ( 1 + WX ) -
+					_data[ rowIndex+1][colIndex - 1] * WX;
 				value *= (1 - WY );
 				value += val2 * WY;
 			} else if ( WY < 0 && rowIndex > 0 ) {
-				Vector2 val2 = _data[rowIndex-1][colIndex] * ( 1 + WX ) - _data[ rowIndex-1][colIndex - 1] * WX;
+				Vector2 val2 = _data[rowIndex-1][colIndex] * ( 1 + WX ) -
+					_data[ rowIndex-1][colIndex - 1] * WX;
 				value *= (1 + WY );
 				value -= val2 * WY;
 			}
 		} else {
 			if ( WY >= 0.f && rowIndex < ROW_COUNT - 1 ) {
-				value = _data[rowIndex][colIndex] * ( 1 - WY ) + _data[ rowIndex+1 ][colIndex] * WY;
+				value = _data[rowIndex][colIndex] * ( 1 - WY ) +
+					_data[ rowIndex+1 ][colIndex] * WY;
 			} else if ( WY < 0 && rowIndex > 0 ) {
-				value = _data[rowIndex][colIndex] * ( 1 + WY ) - _data[ rowIndex-1 ][colIndex] * WY;
+				value = _data[rowIndex][colIndex] * ( 1 + WY ) -
+					_data[ rowIndex-1 ][colIndex] * WY;
 			}
 		}
 
@@ -196,7 +206,8 @@ namespace Menge {
 		std::ifstream f;
 		f.open( fileName.c_str(), std::ios::in );
 		if ( ! f.is_open() ) {
-			logger << Logger::ERR_MSG << "Error opening the VectorField file definition: " << fileName << "\n";
+			logger << Logger::ERR_MSG << "Error opening the VectorField file definition: ";
+			logger << fileName << "\n";
 			return 0x0;
 		}
 
@@ -212,8 +223,10 @@ namespace Menge {
 				if ( f >> x >> y ) {
 					field->_data[r][c] = Vector2( x, y );
 				} else {
-					logger << Logger::ERR_MSG << "Format error in the VectorField file definition: " << fileName << "\n";
-					logger << "\tTried to read a vector at position: (" << r << ", " << c << "), but no data existed\n";
+					logger << Logger::ERR_MSG;
+					logger << "Format error in the VectorField file definition: " << fileName;
+					logger << "\n\tTried to read a vector at position: (" << r << ", " << c;
+					logger << "), but no data existed\n";
 					field->destroy();
 					f.close();
 					return 0x0;
@@ -252,14 +265,16 @@ namespace Menge {
 	/////////////////////////////////////////////////////////////////////
 
 	VectorFieldPtr loadVectorField( const std::string & fileName ) throw ( ResourceException ) {
-		Resource * rsrc = ResourceManager::getResource( fileName, &VectorField::load, VectorField::LABEL );
+		Resource * rsrc = ResourceManager::getResource( fileName,
+														&VectorField::load, VectorField::LABEL );
 		if ( rsrc == 0x0 ) {
 			logger << Logger::ERR_MSG << "No resource available\n";
 			throw ResourceException();
 		}
 		VectorField * vf = dynamic_cast< VectorField * >( rsrc );
 		if ( vf == 0x0 ) {
-			logger << Logger::ERR_MSG << "Resource with name " << fileName << " is not a VectorField\n";
+			logger << Logger::ERR_MSG << "Resource with name " << fileName;
+			logger << " is not a VectorField\n";
 			throw ResourceException();
 		}
 		return VectorFieldPtr( vf );

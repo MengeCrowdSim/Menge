@@ -44,7 +44,8 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __TRANSITION_H__
 #define __TRANSITION_H__
 
-#include "fsmCommon.h"
+#include "MengeCore/BFSM/fsmCommon.h"
+
 #include <map>
 
 namespace Menge {
@@ -157,14 +158,15 @@ namespace Menge {
 		 *	@brief		Parses a TinyXML element containing a transition specification
 		 *
 		 *	@param		node			The TinyXML element
-		 *	@param		behaveFldr		The folder in which the behavior is defined -- all resources
-		 *								are defined relative to this folder.
+		 *	@param		behaveFldr		The folder in which the behavior is defined -- all
+		 *								resources are defined relative to this folder.
 		 *	@param		fromName		The name of the state from which the transition originates
 		 *								will be set in this string.
 		 *	@returns	A pointer to the new transition implementation (NULL if no valid
 		 *				instance could be created).
 		 */
-		Transition * parseTransition( TiXmlElement * node, const std::string & behaveFldr, std::string & fromName );
+		Transition * parseTransition( TiXmlElement * node, const std::string & behaveFldr,
+									  std::string & fromName );
 
 	}	// namespace BFSM
 }	// namespace Menge

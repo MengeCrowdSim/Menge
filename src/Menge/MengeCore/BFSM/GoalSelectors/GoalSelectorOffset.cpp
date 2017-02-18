@@ -36,9 +36,11 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "GoalSelectors/GoalSelectorOffset.h"
-#include "Goals/GoalPoint.h"
-#include "BaseAgent.h"
+#include "MengeCore/BFSM/GoalSelectors/GoalSelectorOffset.h"
+
+#include "MengeCore/Agents/BaseAgent.h"
+#include "MengeCore/BFSM/Goals/GoalPoint.h"
+
 #include <cassert>
 
 namespace Menge {
@@ -69,14 +71,17 @@ namespace Menge {
 		/////////////////////////////////////////////////////////////////////
 
 		OffsetGoalSelectorFactory::OffsetGoalSelectorFactory() : GoalSelectorFactory() {
-			_offsetID = _attrSet.addVec2DDistAttribute( true, Vector2(0.f, 0.f)/*default-ignored*/ );
+			_offsetID = _attrSet.addVec2DDistAttribute( true,
+														Vector2(0.f, 0.f)/*default-ignored*/ );
 		}
 
 		/////////////////////////////////////////////////////////////////////
 
-		bool OffsetGoalSelectorFactory::setFromXML( GoalSelector * selector, TiXmlElement * node, const std::string & behaveFldr ) const {
+		bool OffsetGoalSelectorFactory::setFromXML( GoalSelector * selector, TiXmlElement * node,
+													const std::string & behaveFldr ) const {
 			OffsetGoalSelector * ogs = dynamic_cast< OffsetGoalSelector * >( selector );
-			assert( ogs != 0x0 && "Trying to set offset goal selector attributes on an incompatible object." );
+			assert( ogs != 0x0 &&
+					"Trying to set offset goal selector attributes on an incompatible object." );
 
 			if ( ! GoalSelectorFactory::setFromXML( ogs, node, behaveFldr ) ) return false;
 

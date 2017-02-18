@@ -36,9 +36,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "PedVOSimulator.h"
-#include "PedVOAgent.h"
-#include "Math/consts.h"
+#include "MengeCore/PedVO/PedVOSimulator.h"
+
+#include "MengeCore/Math/consts.h"
 
 namespace PedVO {
 	////////////////////////////////////////////////////////////////

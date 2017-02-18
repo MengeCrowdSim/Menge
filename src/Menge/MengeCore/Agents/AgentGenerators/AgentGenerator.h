@@ -44,14 +44,10 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __AGENT_GENERATOR_H__
 #define	__AGENT_GENERATOR_H__
 
-#include "mengeCommon.h"
-#include "Element.h"
+#include "MengeCore/mengeCommon.h"
+#include "MengeCore/PluginEngine/Element.h"
 
 namespace Menge {
-
-	namespace Math {
-		class FloatGenerator;
-	}
 
 	namespace Agents {
 		// forward declaration
@@ -78,19 +74,23 @@ namespace Menge {
 		/*!
 		 *	@brief		The fatal agent generator exception.
 		 */
-		class MENGE_API AgentGeneratorFatalException : public AgentGeneratorException, public MengeFatalException {
+		class MENGE_API AgentGeneratorFatalException : public AgentGeneratorException,
+													   public MengeFatalException {
 		public:
 			/*!
 			 *	@brief		Default constructor.
 			 */
-			AgentGeneratorFatalException() : MengeException(), AgentGeneratorException(), MengeFatalException() {}
+			AgentGeneratorFatalException() : MengeException(), AgentGeneratorException(),
+											 MengeFatalException() {}
 
 			/*!
 			 *	@brief		Constructor with message.
 			 *
 			 *	@param		s		The exception-specific message.
 			 */
-			AgentGeneratorFatalException( const std::string & s ): MengeException(s), AgentGeneratorException(), MengeFatalException() {}
+			AgentGeneratorFatalException( const std::string & s ) : MengeException(s),
+																    AgentGeneratorException(),
+																	MengeFatalException() {}
 		};
 
 		/*!
@@ -147,7 +147,7 @@ namespace Menge {
 			 *	@param		pos		The position to perturb.
 			 *	@returns	The perturbed point.
 			 */
-			Vector2 addNoise( const Vector2 & pos );
+			Math::Vector2 addNoise( const Math::Vector2 & pos );
 
 		protected:
 			/*!

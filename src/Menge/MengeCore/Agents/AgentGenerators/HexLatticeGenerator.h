@@ -46,9 +46,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __LATTICE_AGENT_GENERATOR_H__
 #define __LATTICE_AGENT_GENERATOR_H__
 
-#include "mengeCommon.h"
-#include "AgentGenerators/AgentGenerator.h"
-#include "AgentGenerators/AgentGeneratorFactory.h"
+#include "MengeCore/mengeCommon.h"
+#include "MengeCore/Agents/AgentGenerators/AgentGenerator.h"
+#include "MengeCore/Agents/AgentGenerators/AgentGeneratorFactory.h"
 
 namespace Menge {
 
@@ -145,8 +145,8 @@ namespace Menge {
 			LatticeRowEnum	_rowDir;
 
 			/*!
-			 *	@brief		The cosine of the amount the lattice is rotated around its anchor point.
-			 *				positive rotation values are counter-clockwise rotation.
+			 *	@brief		The cosine of the amount the lattice is rotated around its anchor
+			 *				point. positive rotation values are counter-clockwise rotation.
 			 */
 			float _cosRot;
 
@@ -201,8 +201,8 @@ namespace Menge {
 			/*!
 			 *	@brief		The name of the generator type.
 			 *
-			 *	The generator's name must be unique among all registered agent generator components.  
-			 *	Each agent generator factory must override this function.
+			 *	The generator's name must be unique among all registered agent generator
+			 *	components. Each agent generator factory must override this function.
 			 *
 			 *	@returns	A string containing the unique elevation name.
 			 */
@@ -216,7 +216,8 @@ namespace Menge {
 			 *	@returns	A string containing the agent generator description.
 			 */
 			virtual const char * description() const {
-				return "Agent generation is done via the specification of a bounded hexagonal lattice.";
+				return "Agent generation is done via the specification of a bounded hexagonal "
+					"lattice.";
 			};
 
 		protected:
@@ -225,32 +226,35 @@ namespace Menge {
 			 *
 			 *	All AgentGeneratorFactory sub-classes must override this by creating (on the heap)
 			 *	a new instance of its corresponding generator type.  The various field values
-			 *	of the instance will be set in a subsequent call to AgentGeneratorFactory::setFromXML.
-			 *	The caller of this function takes ownership of the memory.
+			 *	of the instance will be set in a subsequent call to
+			 *	AgentGeneratorFactory::setFromXML. The caller of this function takes ownership of
+			 *	the memory.
 			 *
-			 *	@returns		A pointer to a newly instantiated AgentGenerator class.
+			 *	@returns		A pointer to a newly instantiated EleAgentGenerator class.
 			 */
 			AgentGenerator * instance() const { return new HexLatticeGenerator(); }
 
 			/*!
-			 *	@brief		Given a pointer to an AgentGenerator instance, sets the appropriate fields
-			 *				from the provided XML node.
+			 *	@brief		Given a pointer to a Goal Selector instance, sets the appropriate
+			 *				fields from the provided XML node.
 			 *
-			 *	It is assumed that the value of the `type` attribute is this AgentGenerator's type.
-			 *	(i.e. AgentGenerator::thisFactory has already been called and returned true.)
-			 *	If sub-classes of AgentGeneratorFactory introduce *new* AgentGenerator parameters, then the
-			 *	sub-class should override this method but explicitly call the parent class's
+			 *	It is assumed that the value of the `type` attribute is this Goal Selector's type.
+			 *	(i.e. GoalSelectorFactory::thisFactory has already been called and returned true.)
+			 *	If sub-classes of GoalSelectorFactory introduce *new* GoalSelector parameters, then
+			 *	the sub-class should override this method but explicitly call the parent class's
 			 *	version.
 			 *
-			 *	@param		gen			A pointer to the agent generator whose attributes are to be set.
-			 *	@param		node		The XML node containing the agent generator attributes.
-			 *	@param		specFldr	The path to the specification file.  If the AgentGenerator references
-			 *							resources in the file system, it should be defined relative
-			 *							to the specification file location.  This is the folder containing
-			 *							that path. 
+			 *	@param		gen				A pointer to the goal selector whose attributes are to
+			 *								be set.
+			 *	@param		node			The XML node containing the goal attributes.
+			 *	@param		behaveFldr		The path to the behavior file.  If the condition
+			 *								references resources in the file system, it should be
+			 *								defined relative to the behavior file location.  This
+			 *								is the folder containing that path.
 			 *	@returns	A boolean reporting success (true) or failure (false).
 			 */
-			virtual bool setFromXML( AgentGenerator * gen, TiXmlElement * node, const std::string & specFldr ) const;
+			virtual bool setFromXML( AgentGenerator * gen, TiXmlElement * node,
+									 const std::string & behaveFldr ) const;
 
 			/*!
 			 *	@brief		The identifier for the "anchor_x" float parameter.

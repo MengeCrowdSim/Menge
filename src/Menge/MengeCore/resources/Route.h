@@ -44,7 +44,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __ROUTE_H__
 #define	__ROUTE_H__
 
-#include "WayPortal.h"
+#include "MengeCore/resources/WayPortal.h"
 #include <vector>
 
 namespace Menge {
@@ -57,7 +57,7 @@ namespace Menge {
 	 *	@brief		The definition of a route through a navigation mesh from a 
 	 *				start to an end node.
 	 */
-	class PortalRoute {
+	class MENGE_API PortalRoute {
 	public:
 		/*!
 		 *	@brief		Constructor
@@ -181,4 +181,3 @@ namespace Menge {
 }	// namespace Menge
 
 #endif	// __ROUTE_H__
-

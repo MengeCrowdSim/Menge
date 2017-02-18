@@ -45,15 +45,17 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __GRAPH_VERTEX_H__
 #define	__GRAPH_VERTEX_H__
 
-#include "mengeCommon.h"
-#include "GraphEdge.h"
+#include "MengeCore/mengeCommon.h"
+#include "MengeCore/resources/GraphEdge.h"
 
 namespace Menge {
+
+	using Math::Vector2;
 
 	/*!
 	 *	@brief		A graph vertex.
 	 */
-	class GraphVertex {
+	class MENGE_API GraphVertex {
 	public:
 		/*!
 		 *	@brief		Constructor
@@ -194,5 +196,4 @@ namespace Menge {
 
 }	 // namespace Menge
 #endif		// __GRAPH_VERTEX_H__
-
 	

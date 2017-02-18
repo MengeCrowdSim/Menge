@@ -40,11 +40,20 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include "JohanssonSimulator.h"
 
 namespace Johansson {
+
+	using Menge::Agents::BaseAgent;
+	using Menge::Agents::Obstacle;
+	using Menge::Math::Vector2;
+
 	////////////////////////////////////////////////////////////////
 	//					Implementation of Johansson::Agent
 	////////////////////////////////////////////////////////////////
+
+	const std::string Agent::NAME = "johannson";
+
+	////////////////////////////////////////////////////////////////
 	// direction weight value comes from Johansson's 2007 paper
-	Agent::Agent(): Agents::BaseAgent(), _dirWeight(0.16f) {
+	Agent::Agent(): BaseAgent(), _dirWeight(0.16f) {
 	}
 
 	////////////////////////////////////////////////////////////////
@@ -64,7 +73,7 @@ namespace Johansson {
 		// agent forces
 		float A = Simulator::AGENT_SCALE;
 		for ( size_t i = 0; i < _nearAgents.size(); ++i ) {
-			const Agents::BaseAgent * otherBase = _nearAgents[i].agent;
+			const BaseAgent * otherBase = _nearAgents[i].agent;
 			const Agent * const other = static_cast< const Agent *>( otherBase );
 
 			Vector2 relPos = _pos - other->_pos;
@@ -96,7 +105,8 @@ namespace Johansson {
 		for ( size_t i = 0; i < _nearObstacles.size(); ++i ) {
 			Vector2 nearPt;	// set by distanceSqToPoint
 			float distSq;	// set by distanceSqToPoint
-			if ( _nearObstacles[ i ].obstacle->distanceSqToPoint( _pos, nearPt, distSq ) == Agents::Obstacle::LAST ) continue;
+			if ( _nearObstacles[ i ].obstacle->distanceSqToPoint( _pos, nearPt, distSq ) == 
+				 Obstacle::LAST ) continue;
 			float dist = sqrtf( distSq );
 
 			Vector2 relPos = _pos - nearPt;

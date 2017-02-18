@@ -36,14 +36,18 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "NavMeshLocalizer.h"
-#include "NavMeshNode.h"
-#include "PortalPath.h"
-#include "BaseAgent.h"
-#include "PathPlanner.h"
+#include "MengeCore/resources/NavMeshLocalizer.h"
+
+#include "MengeCore/Agents/BaseAgent.h"
+#include "MengeCore/resources/NavMeshNode.h"
+#include "MengeCore/resources/PathPlanner.h"
+#include "MengeCore/resources/PortalPath.h"
+
 #include <limits>
 
 namespace Menge {
+
+	using Math::Vector2;
 
 	/////////////////////////////////////////////////////////////////////
 	//					Implementation of NavMeshLocation
@@ -101,11 +105,15 @@ namespace Menge {
 
 	/////////////////////////////////////////////////////////////////////
 
-	NavMeshLocalizer::NavMeshLocalizer( const std::string & name ): Resource(name), _navMesh(0x0),_trackAll(false),_planner(0x0) {
+	NavMeshLocalizer::NavMeshLocalizer( const std::string & name ) : Resource(name), _navMesh(0x0),
+																	 _trackAll(false),_planner(0x0)
+	{
 		try {
 			_navMesh = loadNavMesh( name );
 		} catch ( ResourceException ) {
-			logger << Logger::ERR_MSG << "Couldn't instantiate navigation mesh localizer for navigation mesh: " << name << "."; 
+			logger << Logger::ERR_MSG;
+			logger << "Couldn't instantiate navigation mesh localizer for navigation mesh: ";
+			logger << name << ".";
 			throw ResourceException();
 		}
 		const size_t NODE_COUNT = _navMesh->getNodeCount();
@@ -142,7 +150,8 @@ namespace Menge {
 
 	/////////////////////////////////////////////////////////////////////
 
-	unsigned int NavMeshLocalizer::getNode(const Agents::BaseAgent * agent, const std::string & grpName, bool searchAll) {
+	unsigned int NavMeshLocalizer::getNode(const Agents::BaseAgent * agent,
+											const std::string & grpName, bool searchAll) {
 		unsigned int node = getNode(agent);
 		if (node == NavMeshLocation::NO_NODE) {
 			node = findNodeInGroup(agent->_pos, grpName, searchAll);
@@ -191,7 +200,8 @@ namespace Menge {
 
 	/////////////////////////////////////////////////////////////////////
 
-	unsigned int NavMeshLocalizer::updateLocation( const Agents::BaseAgent * agent, bool force ) const {
+	unsigned int NavMeshLocalizer::updateLocation( const Agents::BaseAgent * agent,
+												   bool force ) const {
 		const size_t ID = agent->_id;
 		// NOTE: This will create a default location instance if the agent didn't already
 		//	have one
@@ -235,7 +245,9 @@ namespace Menge {
 					if ( fromItr != _nodeOccupants[ oldLoc ].end() ) {
 						_nodeOccupants[ oldLoc ].erase( fromItr );
 					} else if ( oldLoc != NavMeshLocation::NO_NODE ) {
-						logger << Logger::ERR_MSG << "Trying to remove agent " << ID << " from node " << oldLoc << " but it has not been assigned to that node.";
+						logger << Logger::ERR_MSG << "Trying to remove agent " << ID;
+						logger << " from node " << oldLoc;
+						logger << " but it has not been assigned to that node.";
 						const size_t NCOUNT = _navMesh->getNodeCount();
 						for ( size_t i = 0; i < NCOUNT; ++i ) {
 							fromItr = _nodeOccupants[ i ].find( ID );
@@ -257,7 +269,8 @@ namespace Menge {
 	/////////////////////////////////////////////////////////////////////
 
 	unsigned int NavMeshLocalizer::findNodeBlind( const Vector2 & p, float tgtElev ) const {
-		// TODO(curds01) 10/1/2016 - This cast is bad because I can lose precision (after I get 4 billion nodes...)
+		// TODO(curds01) 10/1/2016 - This cast is bad because I can lose precision
+		//	(after I get 4 billion nodes...)
 		const unsigned int nCount =  static_cast< unsigned int >( _navMesh->getNodeCount() );
 		float elevDiff = 1e6f;
 		unsigned int maxNode = NavMeshLocation::NO_NODE;
@@ -276,7 +289,8 @@ namespace Menge {
 
 	/////////////////////////////////////////////////////////////////////
 
-	unsigned int NavMeshLocalizer::findNodeInGroup(const Vector2 & p, const std::string & grpName, bool searchAll) const {
+	unsigned int NavMeshLocalizer::findNodeInGroup(const Vector2 & p, const std::string & grpName,
+													bool searchAll) const {
 		unsigned int node = NavMeshLocation::NO_NODE;
 		const NMNodeGroup * grp = _navMesh->getNodeGroup(grpName);
 		if (grp != 0x0) {
@@ -285,8 +299,10 @@ namespace Menge {
 			if (node == NavMeshLocation::NO_NODE && searchAll) {
 				node = findNodeInRange(p, 0, grp->_first);
 				if (node == NavMeshLocation::NO_NODE) {
-					// TODO(curds01) 10/1/2016 - This cast is bad because I can lose precision (after I get 4 billion nodes...)
-					const unsigned int TOTAL_NODES = static_cast< unsigned int >(_navMesh->getNodeCount());
+					// TODO(curds01) 10/1/2016 - This cast is bad because I can lose precision
+					// (after I get 4 billion nodes...)
+					const unsigned int TOTAL_NODES = 
+						static_cast< unsigned int >(_navMesh->getNodeCount());
 					node = findNodeInRange(p,grp->_first + 1, TOTAL_NODES);
 				}
 			}
@@ -296,7 +312,8 @@ namespace Menge {
 
 	/////////////////////////////////////////////////////////////////////
 
-	unsigned int NavMeshLocalizer::findNodeInRange(const Vector2 & p, unsigned int start, unsigned int stop) const {
+	unsigned int NavMeshLocalizer::findNodeInRange(const Vector2 & p, unsigned int start,
+													unsigned int stop) const {
 		for (unsigned int n = start; n < stop; ++n) {
 			const NavMeshNode & node = _navMesh->getNode(n);
 			if (node.containsPoint(p)) {
@@ -308,7 +325,8 @@ namespace Menge {
 
 	/////////////////////////////////////////////////////////////////////
 
-	unsigned int NavMeshLocalizer::testNeighbors( const NavMeshNode & node, const Vector2 & p ) const {
+	unsigned int NavMeshLocalizer::testNeighbors( const NavMeshNode & node,
+												  const Vector2 & p ) const {
 		const unsigned int nCount = static_cast< unsigned int>( node.getNeighborCount() );
 		for ( unsigned int n = 0; n < nCount; ++n ) {
 			const NavMeshNode * nbr = node.getNeighbor( n );
@@ -335,15 +353,19 @@ namespace Menge {
 
 	/////////////////////////////////////////////////////////////////////
 
-	NavMeshLocalizerPtr loadNavMeshLocalizer( const std::string & fileName, bool usePlanner ) throw ( ResourceException ) {
-		Resource * rsrc = ResourceManager::getResource( fileName, &NavMeshLocalizer::load, NavMeshLocalizer::LABEL );
+	NavMeshLocalizerPtr loadNavMeshLocalizer( const std::string & fileName, bool usePlanner )
+		throw ( ResourceException ) {
+		Resource * rsrc = ResourceManager::getResource( fileName,
+														&NavMeshLocalizer::load,
+														NavMeshLocalizer::LABEL );
 		if ( rsrc == 0x0 ) {
 			logger << Logger::ERR_MSG << "No resource available.";
 			throw ResourceException();
 		}
 		NavMeshLocalizer * nml = dynamic_cast< NavMeshLocalizer * >( rsrc );
 		if ( nml == 0x0 ) {
-			logger << Logger::ERR_MSG << "Resource with name " << fileName << " is not a navigation mesh localizer.";
+			logger << Logger::ERR_MSG << "Resource with name " << fileName;
+			logger << " is not a navigation mesh localizer.";
 			throw ResourceException();
 		}
 

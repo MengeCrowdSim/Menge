@@ -36,7 +36,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "ProfileSelectors/ProfileSelector.h"
+#include "MengeCore/Agents/ProfileSelectors/ProfileSelector.h"
 
 namespace Menge {
 

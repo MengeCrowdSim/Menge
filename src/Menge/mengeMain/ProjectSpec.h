@@ -46,7 +46,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 #include <string>
 #include <iostream>
-#include "Logger.h"
+#include "MengeCore/Runtime/Logger.h"
 
 using namespace Menge;
 

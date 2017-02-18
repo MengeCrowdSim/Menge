@@ -36,9 +36,10 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "SCBWriter.h"
-#include "SimulatorInterface.h"
-#include "Core.h"
+#include "MengeCore/Agents/SCBWriter.h"
+
+#include "MengeCore/Core.h"
+#include "MengeCore/Agents/SimulatorInterface.h"
 
 namespace Menge {
 
@@ -48,12 +49,14 @@ namespace Menge {
 		//                   Implementation of SCBWriter
 		/////////////////////////////////////////////////////////////////////
 
-		SCBWriter::SCBWriter( const std::string & pathName, const std::string & version, SimulatorInterface * sim ):_frameWriter(0x0) {
+		SCBWriter::SCBWriter( const std::string & pathName, const std::string & version,
+							  SimulatorInterface * sim ):_frameWriter(0x0) {
 			if ( !validateVersion( version ) ) {
 				logger << Logger::ERR_MSG << "Invalid SCB version: " << version << "\n";
 				throw SCBVersionException();
 			}
-			logger << Logger::INFO_MSG << "SCBWRITER: version: " << _version[0] << "." << _version[1] << "\n";
+			logger << Logger::INFO_MSG << "SCBWRITER: version: " << _version[ 0 ] << ".";
+			logger << _version[ 1 ] << "\n";
 			_file.open( pathName.c_str(), std::ios::out | std::ios::binary );
 			if ( ! _file.is_open() ) {
 				throw SCBFileException();
@@ -152,11 +155,12 @@ namespace Menge {
 		//                   Implementation of SCBFrameWriter1_0
 		/////////////////////////////////////////////////////////////////////
 
-		void SCBFrameWriter1_0::writeFrame( std::ofstream & file, SimulatorInterface * sim, BFSM::FSM * fsm ) {
+		void SCBFrameWriter1_0::writeFrame( std::ofstream & file, SimulatorInterface * sim,
+											BFSM::FSM * fsm ) {
 			const size_t AGT_COUNT = sim->getNumAgents();
 			for ( size_t i = 0; i < AGT_COUNT; ++i ) {
 				Agents::BaseAgent * agt = sim->getAgent( i );
-				const Vector2 & p = agt->_pos;
+				const Math::Vector2 & p = agt->_pos;
 				file.write( (char*)&p, 2 * sizeof(float) );
 				float orient = atan2( agt->_orient.y(), agt->_orient.x() );
 				file.write( (char*)&orient, sizeof(float) );
@@ -167,11 +171,12 @@ namespace Menge {
 		//                   Implementation of SCBFrameWriter2_0
 		/////////////////////////////////////////////////////////////////////
 
-		void SCBFrameWriter2_0::writeFrame( std::ofstream & file, SimulatorInterface * sim, BFSM::FSM * fsm ) {
+		void SCBFrameWriter2_0::writeFrame( std::ofstream & file, SimulatorInterface * sim,
+											BFSM::FSM * fsm ) {
 			const size_t AGT_COUNT = sim->getNumAgents();
 			for ( size_t i = 0; i < AGT_COUNT; ++i ) {
 				Agents::BaseAgent * agt = sim->getAgent( i );
-				const Vector2 & p = agt->_pos;
+				const Math::Vector2 & p = agt->_pos;
 				file.write( (char*)&p, 2 * sizeof(float) );
 				float orient = atan2( agt->_orient.y(), agt->_orient.x() );
 				file.write( (char*)&orient, sizeof(float) );
@@ -182,11 +187,12 @@ namespace Menge {
 		//                   Implementation of SCBFrameWriter2_1
 		/////////////////////////////////////////////////////////////////////
 
-		void SCBFrameWriter2_1::writeFrame( std::ofstream & file, SimulatorInterface * sim, BFSM::FSM * fsm ) {
+		void SCBFrameWriter2_1::writeFrame( std::ofstream & file, SimulatorInterface * sim,
+											BFSM::FSM * fsm ) {
 			const size_t AGT_COUNT = sim->getNumAgents();
 			for ( size_t i = 0; i < AGT_COUNT; ++i ) {
 				Agents::BaseAgent * agt = sim->getAgent( i );
-				const Vector2 & p = agt->_pos;
+				const Math::Vector2 & p = agt->_pos;
 				file.write( (char*)&p, 2 * sizeof(float) );
 				float orient = atan2( agt->_orient.y(), agt->_orient.x() );
 				file.write( (char*)&orient, sizeof(float) );
@@ -199,11 +205,12 @@ namespace Menge {
 		//                   Implementation of SCBFrameWriter2_2
 		/////////////////////////////////////////////////////////////////////
 
-		void SCBFrameWriter2_2::writeFrame( std::ofstream & file, SimulatorInterface * sim, BFSM::FSM * fsm ) {
+		void SCBFrameWriter2_2::writeFrame( std::ofstream & file, SimulatorInterface * sim,
+											BFSM::FSM * fsm ) {
 			const size_t AGT_COUNT = sim->getNumAgents();
 			for ( size_t i = 0; i < AGT_COUNT; ++i ) {
 				Agents::BaseAgent * agt = sim->getAgent( i );
-				const Vector2 & p = agt->_pos;
+				const Math::Vector2 & p = agt->_pos;
 				file.write( (char*)&p, 2 * sizeof(float) );
 				float orient = atan2( agt->_orient.y(), agt->_orient.x() );
 				file.write( (char*)&orient, sizeof(float) );
@@ -212,10 +219,10 @@ namespace Menge {
 				// pref velocity
 				// NOTE: This does not use _velPref.getSpeed() because it may be modified
 				//		by intention filters.  This factors those out.
-				const Vector2 vDir = agt->_velPref.getPreferredVel();
+				const Math::Vector2 vDir = agt->_velPref.getPreferredVel();
 				file.write( (char*)&vDir, 2 * sizeof(float) );
 				// velocity
-				const Vector2 & v = agt->_vel;
+				const Math::Vector2 & v = agt->_vel;
 				file.write( (char*)&v, 2 * sizeof(float) );
 			}
 		}
@@ -224,11 +231,12 @@ namespace Menge {
 		//                   Implementation of SCBFrameWriter2_3
 		/////////////////////////////////////////////////////////////////////
 
-		void SCBFrameWriter2_3::writeFrame( std::ofstream & file, SimulatorInterface * sim, BFSM::FSM * fsm ) {
+		void SCBFrameWriter2_3::writeFrame( std::ofstream & file, SimulatorInterface * sim,
+											BFSM::FSM * fsm ) {
 			const size_t AGT_COUNT = sim->getNumAgents();
 			for ( size_t i = 0; i < AGT_COUNT; ++i ) {
 				Agents::BaseAgent * agt = sim->getAgent( i );
-				const Vector2 & p = agt->_pos;
+				const Math::Vector2 & p = agt->_pos;
 				file.write( (char*)&p, 2 * sizeof(float) );
 				file.write( (char*)&agt->_orient, 2 * sizeof(float) );
 			}
@@ -238,11 +246,12 @@ namespace Menge {
 		//                   Implementation of SCBFrameWriter2_4
 		/////////////////////////////////////////////////////////////////////
 
-		void SCBFrameWriter2_4::writeFrame( std::ofstream & file, SimulatorInterface * sim, BFSM::FSM * fsm ) {
+		void SCBFrameWriter2_4::writeFrame( std::ofstream & file, SimulatorInterface * sim,
+											BFSM::FSM * fsm ) {
 			const size_t AGT_COUNT = sim->getNumAgents();
 			for ( size_t i = 0; i < AGT_COUNT; ++i ) {
 				Agents::BaseAgent * agt = sim->getAgent( i );
-				const Vector2 & p = agt->_pos;
+				const Math::Vector2 & p = agt->_pos;
 				float elevation = sim->getElevation( agt );
 				file.write( (char*)&p._x, sizeof(float) );
 				file.write( (char*)&elevation, sizeof(float) );
@@ -253,8 +262,6 @@ namespace Menge {
 		}
 
 		/////////////////////////////////////////////////////////////////////
-
-		
 
 	}	// namespace Agents
 }	// namespace Menge

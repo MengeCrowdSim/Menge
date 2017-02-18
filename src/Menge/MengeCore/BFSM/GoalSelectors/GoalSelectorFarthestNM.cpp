@@ -36,14 +36,16 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "GoalSelectors/GoalSelectorFarthestNM.h"
-#include "Tasks/NavMeshLocalizerTask.h"
-#include "Goals/Goal.h"
-#include "GoalSet.h"
-#include "PathPlanner.h"
-#include "Route.h"
-#include "BaseAgent.h"
-#include "os.h"
+#include "MengeCore/BFSM/GoalSelectors/GoalSelectorFarthestNM.h"
+
+#include "MengeCore/Agents/BaseAgent.h"
+#include "MengeCore/BFSM/GoalSet.h"
+#include "MengeCore/BFSM/Goals/Goal.h"
+#include "MengeCore/BFSM/Tasks/NavMeshLocalizerTask.h"
+#include "MengeCore/resources/PathPlanner.h"
+#include "MengeCore/resources/Route.h"
+#include "MengeCore/Runtime/os.h"
+
 #include <cassert>
 
 namespace Menge {
@@ -54,7 +56,8 @@ namespace Menge {
 		//                   Implementation of FarthestNMGoalSelector
 		/////////////////////////////////////////////////////////////////////
 		
-		FarthestNMGoalSelector::FarthestNMGoalSelector():SetGoalSelector(),_navMesh(0x0),_localizer(0x0) {
+		FarthestNMGoalSelector::FarthestNMGoalSelector() : SetGoalSelector(), _navMesh(0x0),
+														   _localizer(0x0) {
 		}
 
 		/////////////////////////////////////////////////////////////////////
@@ -62,7 +65,9 @@ namespace Menge {
 		Goal * FarthestNMGoalSelector::getGoal( const Agents::BaseAgent * agent ) const {
 			const size_t GOAL_COUNT = _goalSet->size();
 			if ( GOAL_COUNT == 0 ) {
-				logger << Logger::ERR_MSG << "FarthestNMGoalSelector was unable to provide a goal for agent " << agent->_id << ".  There were no available goals in the goal set.";
+				logger << Logger::ERR_MSG;
+				logger << "FarthestNMGoalSelector was unable to provide a goal for agent ";
+				logger << agent->_id << ".  There were no available goals in the goal set.";
 				return 0x0;
 			}
 			
@@ -70,7 +75,9 @@ namespace Menge {
 			unsigned int start = _localizer->updateLocation( agent, true );
 			
 			if ( start == NavMeshLocation::NO_NODE ) {
-				logger << Logger::ERR_MSG << "Nav Mesh Goal Selector trying to find a goal for an agent who is not on the navigation mesh: Agent " << agent->_id << ".";
+				logger << Logger::ERR_MSG;
+				logger << "Nav Mesh Goal Selector trying to find a goal for an agent who is not "
+					"on the navigation mesh: Agent " << agent->_id << ".";
 				throw GoalSelectorException();
 			}
 
@@ -86,7 +93,8 @@ namespace Menge {
 					// silently skip it.  The centroid is not on the mesh
 					continue;
 				}
-				PortalRoute * route = _localizer->getPlanner()->getRoute( start, testNode, agentDiameter );
+				PortalRoute * route = _localizer->getPlanner()->getRoute( start, testNode,
+																		  agentDiameter );
 				float length = route->getLength();
 				if ( length > bestDist ) {
 					bestDist = length;
@@ -98,7 +106,9 @@ namespace Menge {
 			//		b. based on _getNearest, take the nearest/farthest.
 			//
 			if ( bestGoal == 0x0 ) {
-				logger << Logger::ERR_MSG << "Nav mesh Goal Selector was unable to find a path from agent " << agent->_id << " to any goal in its goal set.";
+				logger << Logger::ERR_MSG;
+				logger << "Nav mesh Goal Selector was unable to find a path from agent ";
+				logger << agent->_id << " to any goal in its goal set.";
 				throw GoalSelectorException();
 			}
 			return bestGoal;
@@ -120,22 +130,30 @@ namespace Menge {
 
 		/////////////////////////////////////////////////////////////////////
 
-		bool FarthestNMGoalSelectorFactory::setFromXML( GoalSelector * selector, TiXmlElement * node, const std::string & behaveFldr ) const {
+		bool FarthestNMGoalSelectorFactory::setFromXML( GoalSelector * selector,
+														TiXmlElement * node,
+														const std::string & behaveFldr ) const {
 			FarthestNMGoalSelector * nmgs = dynamic_cast< FarthestNMGoalSelector * >( selector );
-			assert( nmgs != 0x0 && "Trying to set attributes of a farthest navigation mesh-based goal selector on an incompatible object" );
+			assert( nmgs != 0x0 &&
+					"Trying to set attributes of a farthest navigation mesh-based goal selector "
+					"on an incompatible object" );
 
 			if ( ! SetGoalSelectorFactory::setFromXML( nmgs, node, behaveFldr ) ) return false;
 
 			// create full path to the nav mesh resource
 			std::string fName;
-			std::string path = os::path::join( 2, behaveFldr.c_str(), _attrSet.getString( _fileNameID ).c_str() );
+			std::string path = os::path::join( 2,
+											   behaveFldr.c_str(),
+											   _attrSet.getString( _fileNameID ).c_str() );
 			os::path::absPath( path, fName );
 			// nav mesh
 			NavMeshPtr nmPtr;
 			try {
 				nmPtr = loadNavMesh( fName );
 			} catch ( ResourceException ) {
-				logger << Logger::ERR_MSG << "Couldn't instantiate the navigation mesh referenced on line " << node->Row() << ".";
+				logger << Logger::ERR_MSG;
+				logger << "Couldn't instantiate the navigation mesh referenced on line ";
+				logger << node->Row() << ".";
 				return false;
 			}
 			nmgs->setNavMesh( nmPtr );
@@ -144,7 +162,9 @@ namespace Menge {
 			try {
 				nmlPtr = loadNavMeshLocalizer( fName, true );
 			} catch ( ResourceException ) {
-				logger << Logger::ERR_MSG << "Couldn't instantiate the navigation mesh localizer required by the goal selector on line " << node->Row() << ".";
+				logger << Logger::ERR_MSG;
+				logger << "Couldn't instantiate the navigation mesh localizer required by the "
+					"goal selector on line " << node->Row() << ".";
 				return false;
 			}
 			nmgs->setNavMeshLocalizer( nmlPtr );

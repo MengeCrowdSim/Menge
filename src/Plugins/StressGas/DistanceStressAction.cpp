@@ -4,15 +4,25 @@
 
 #include "DistanceStressFunction.h"
 
-#include "BaseAgent.h"
+#include "MengeCore/Agents/BaseAgent.h"
+#include "MengeCore/Math/Geometry2D.h"
+#include "MengeCore/Math/RandGenerator.h"
 
 namespace StressGAS {
+
+	using Menge::logger;
+	using Menge::Logger;
+	using Menge::Agents::BaseAgent;
+	using Menge::BFSM::Action;
+	using Menge::Math::FloatGenerator;
+	using Menge::Math::Geometry2D;
+	using Menge::Math::createGeometry;
 
 	/////////////////////////////////////////////////////////////////////
 	//                   Implementation of DistanceStressAction
 	/////////////////////////////////////////////////////////////////////
 
-	StressFunction * DistanceStressAction::makeStressFunction( Agents::BaseAgent * agent,
+	StressFunction * DistanceStressAction::makeStressFunction( BaseAgent * agent,
 															AgentStressor * stressor,
 															float coolDuration )
 	{
@@ -35,7 +45,7 @@ namespace StressGAS {
 
 	/////////////////////////////////////////////////////////////////////
 	// 
-	bool DistanceStressActionFactory::setFromXML( BFSM::Action * action, TiXmlElement * node,
+	bool DistanceStressActionFactory::setFromXML( Action * action, TiXmlElement * node,
 											   const std::string & behaveFldr ) const {
 		DistanceStressAction * dAction = dynamic_cast< DistanceStressAction * >( action );
 		assert( dAction != 0x0 &&
@@ -45,7 +55,7 @@ namespace StressGAS {
 		}
 
 		// problems with reading the geometry should be logged by createGeoemetry
-		Math::Geometry2D * geometry = createGeometry( node );
+		Geometry2D * geometry = createGeometry( node );
 		if ( geometry == 0x0 ) return false;
 		if ( dAction->_geometry != 0x0 ) delete dAction->_geometry;
 		dAction->_geometry = geometry;

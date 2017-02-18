@@ -46,9 +46,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #define	__ELEVATION_FLAT_H__
 
 // Menge Base
-#include "mengeCommon.h"
-#include "Elevations/Elevation.h"
-#include "Elevations/ElevationFactory.h"
+#include "MengeCore/mengeCommon.h"
+#include "MengeCore/Agents/Elevations/Elevation.h"
+#include "MengeCore/Agents/Elevations/ElevationFactory.h"
 
 namespace Menge {
 
@@ -71,8 +71,10 @@ namespace Menge {
 			/*!
 			 *	@brief		Reports the elevation of the simulation domain for the given agent
 			 *
-			 *	@param		agent		A pointer to the agent for which elevation should be reported.
-			 *	@returns	The elevation (position on the y-axis) based on current agent state/position.
+			 *	@param		agent		A pointer to the agent for which elevation should be
+			 *							reported.
+			 *	@returns	The elevation (position on the y-axis) based on current agent
+			 *				state/position.
 			 */
 			float getElevation( const BaseAgent * agent ) const;
 
@@ -88,7 +90,8 @@ namespace Menge {
 			/*!
 			 *	@brief		Reports the gradient of the simulation domain for the given agent
 			 *
-			 *	@param		agent		A pointer to the agent for which gradient should be reported.
+			 *	@param		agent		A pointer to the agent for which gradient should be
+			 *							reported.
 			 *	@returns	The gradient of the domain based on current agent state/position.
 			 */
 			Vector2 getGradient( const BaseAgent * agent ) const;

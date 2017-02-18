@@ -36,7 +36,8 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "ObstacleSetFactory.h"
+#include "MengeCore/Agents/ObstacleSets/ObstacleSetFactory.h"
+
 #include "tinyxml.h"
 
 namespace Menge {
@@ -51,8 +52,11 @@ namespace Menge {
 			_classID = _attrSet.addSizeTAttribute("class",true);
 		}
 
-		bool ObstacleSetFactory::setFromXML( ObstacleSet * gen, TiXmlElement * node, const std::string & behaveFldr ) const {
-			if ( !ElementFactory< ObstacleSet >::setFromXML( gen, node, behaveFldr ) ) return false;
+		bool ObstacleSetFactory::setFromXML( ObstacleSet * gen, TiXmlElement * node,
+											 const std::string & behaveFldr ) const {
+			if ( !ElementFactory< ObstacleSet >::setFromXML( gen, node, behaveFldr ) ) {
+				return false;
+			}
 
 			gen->_class = _attrSet.getSizeT(_classID);
 

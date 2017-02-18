@@ -44,14 +44,14 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __ELEMENT_H__
 #define	__ELEMENT_H__
 
-#include "CoreConfig.h"
+#include "MengeCore/CoreConfig.h"
 
 namespace Menge {
 
-	// forward declarations
-	namespace SceneGraph {
-		class GLNode;
-	}
+	//// forward declarations
+	//namespace SceneGraph {
+	//	class GLNode;
+	//}
 
 	namespace BFSM {
 		class Task;
@@ -65,18 +65,24 @@ namespace Menge {
 	 *	elements.
 	 */
 	class MENGE_API Element {
+	protected:
+		/*!
+		 *	@brief		Protected destructor; virtual to work with
+		 *			subclassing.
+		 */
+		virtual ~Element() {}
 	public:
 		/*!
 		 *	@brief		This supplants the destructor.
 		 *
 		 *	In order to avoid potential problems in windows when
 		 *	dlls do not share the same c-runtime library, the destructor
-		 *	is held to be protected.  To garbage collect a Condition,
+		 *	is held to be protected.  To garbage collect an Element,
 		 *	the destroy method should be called (which in turn, will call
 		 *	the destructor from its own memory space, averting run-time
 		 *  crashes).
 		 *
-		 *	Once this has been called, the TransitionTarget no longer exists.  
+		 *	Once this has been called, the Element no longer exists.  
 		 *	Calling methods or accessing members will produce indetermine behavior 
 		 *	(most likely errors).
 		 */
@@ -96,6 +102,7 @@ namespace Menge {
 		 */
 		virtual BFSM::Task * getTask() { return 0x0; }
 
+#if 0
 		/*!
 		 *	@brief		Returns an optional visualization element associated with the element.
 		 *
@@ -105,6 +112,7 @@ namespace Menge {
 		 *	@returns		A pointer to the scene graph node element.
 		 */
 		virtual SceneGraph::GLNode * getSGNode() { return 0x0; }
+#endif
 	};
 }	// namespace Menge
 

@@ -36,11 +36,12 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "VelocityComponents/VelCompVF.h"
-#include "BaseAgent.h"
-#include "os.h"
-#include "Logger.h"
-#include "Goals/Goal.h"
+#include "MengeCore/BFSM/VelocityComponents/VelCompVF.h"
+
+#include "MengeCore/Agents/BaseAgent.h"
+#include "MengeCore/BFSM/Goals/Goal.h"
+#include "MengeCore/Runtime/Logger.h"
+#include "MengeCore/Runtime/os.h"
 
 #include <sstream>
 #include <iomanip>
@@ -53,17 +54,23 @@ namespace Menge {
 		//                   Implementation of VFVelComponent
 		/////////////////////////////////////////////////////////////////////
 
-		VFVelComponent::VFVelComponent(): VelComponent(), _vf(0x0), _nearest(true) {
+		const std::string VFVelComponent::NAME = "vel_field";
+
+		/////////////////////////////////////////////////////////////////////
+
+		VFVelComponent::VFVelComponent() : VelComponent(), _vf( 0x0 ), _nearest( true ) {
 		}
 
 		/////////////////////////////////////////////////////////////////////
 
-		VFVelComponent::VFVelComponent( VectorFieldPtr & vf, bool useNearest ): VelComponent(), _vf(vf), _nearest(useNearest) {
+		VFVelComponent::VFVelComponent( VectorFieldPtr & vf, bool useNearest ) :
+			VelComponent(), _vf( vf ), _nearest(useNearest) {
 		}
 
 		/////////////////////////////////////////////////////////////////////
 
-		void VFVelComponent::setPrefVelocity( const Agents::BaseAgent * agent, const Goal * goal, Agents::PrefVelocity & pVel ) {
+		void VFVelComponent::setPrefVelocity( const Agents::BaseAgent * agent, const Goal * goal,
+											  Agents::PrefVelocity & pVel ) const {
 			Vector2 dir;
 			if ( _nearest ) {
 				dir.set( _vf->getFieldValue( agent->_pos ) );
@@ -85,170 +92,36 @@ namespace Menge {
 		}
 
 		/////////////////////////////////////////////////////////////////////
-		
-		VelCompContext * VFVelComponent::getContext() {
-			return new VecFieldVCContext( this );
-		}
-
-		/////////////////////////////////////////////////////////////////////
-		//                   Implementation of VecFieldVCContext
-		/////////////////////////////////////////////////////////////////////
-
-		VecFieldVCContext::VecFieldVCContext( VFVelComponent * vc ):VelCompContext(),_vc(vc),_showLocal(true), _neighborhood(5) {
-		}
-
-		/////////////////////////////////////////////////////////////////////
-
-		std::string VecFieldVCContext::getUIText( const std::string & indent ) const {
-			std::stringstream ss;
-			ss << indent << "Vector field velocity component";
-			ss << "\n" << indent << "    Toggle (Ctrl-L)ocal display";
-			ss << "\n" << indent << "        Neighborhood: " << _neighborhood << " cells (Ctrl-up/down to change)";
-			return ss.str();
-		}
-
-		/////////////////////////////////////////////////////////////////////
-
-		SceneGraph::ContextResult VecFieldVCContext::handleKeyboard( SDL_Event & e ) { 
-			SceneGraph::ContextResult result( false, false ); 
-
-			SDLMod mods = e.key.keysym.mod;
-			bool hasCtrl = ( mods & KMOD_CTRL ) > 0;
-			bool hasAlt = ( mods & KMOD_ALT ) > 0;
-			bool hasShift = ( mods & KMOD_SHIFT ) > 0;
-			bool noMods = !(hasCtrl || hasAlt || hasShift );
-
-			if ( e.type == SDL_KEYDOWN ) {
-				if ( hasCtrl && !hasAlt && !hasShift ) {
-					if ( e.key.keysym.sym == SDLK_UP ) {
-						++_neighborhood;
-						result.set( true, true );
-					} else if ( e.key.keysym.sym == SDLK_DOWN ) {
-						--_neighborhood;
-						if ( _neighborhood <= 1 ) {
-							_neighborhood = 1;
-						}
-						result.set( true, true );
-					} else if ( e.key.keysym.sym == SDLK_l ) {
-						_showLocal = !_showLocal;
-						result.set( true, true );
-					}
-				}
-			}
-
-			return result;
-		} 
-
-		/////////////////////////////////////////////////////////////////////
-
-		void VecFieldVCContext::draw3DGL( const Agents::BaseAgent * agt, const Goal * goal ) {
-			glPushAttrib( GL_LINE_BIT | GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-			glDepthMask( GL_FALSE );
-			// draw the grid
-			int rowZero = 0;
-			int lastRow = _vc->_vf->getRowCount();
-			int colZero = 0;
-			int lastCol = _vc->_vf->getColCount();
-			const float cellSize = _vc->_vf->getCellSize();
-			Vector2 maxCorner = _vc->_vf->getMaximumPoint();
-			Vector2 minCorner = _vc->_vf->getMinimumPoint();
-			float left = minCorner.x();
-			float right = maxCorner.x();
-			float bottom = minCorner.y();
-			float top = maxCorner.y();
-
-			if ( _showLocal ) {
-				int r, c;
-				_vc->_vf->getCell( agt->_pos, r, c );
-
-				rowZero = r - _neighborhood;
-				if ( rowZero < 0 ) rowZero = 0;
-				int tmp = r + _neighborhood + 1;
-				if ( tmp < lastRow ) lastRow = tmp;
-				
-				colZero = c - _neighborhood;
-				if ( colZero < 0 ) colZero = 0;
-				tmp = c + _neighborhood + 1;
-				if ( tmp < lastCol ) lastCol = tmp;
-
-				left = minCorner.x() + colZero * cellSize;
-				bottom = minCorner.y() + rowZero * cellSize;
-				right = minCorner.x() + lastCol * cellSize;
-				top = minCorner.y() + lastRow * cellSize;
-			}
-
-			glLineWidth( 1.f );
-			glColor3f( 0.5f, 0.5f, 0.5f );
-			glBegin( GL_LINES );
-				// lines parallel w/ x-axis
-				for ( int r = rowZero; r <= lastRow; ++r ) {
-					float y = minCorner.y() + r * cellSize;
-					glVertex3f( left, 0.f, y );
-					glVertex3f( right, 0.f, y );
-				}
-				
-				// lines parallel w/ y-axis
-				for ( int c = colZero; c <= lastCol; ++c ) {
-					float x = minCorner.x() + c * cellSize;
-					glVertex3f( x, 0.f, bottom );
-					glVertex3f( x, 0.f, top );
-				}
-			glEnd();
-
-			// draw the vectors
-			float y = bottom + 0.5f * cellSize;
-			glColor3f( 1.f, 0.5f, 0.f );
-			glBegin( GL_LINES );
-			const float UNIT_SCALE = cellSize * 0.45f;
-			for ( int r = rowZero; r < lastRow; ++ r ) {
-				float x = left + 0.5f * cellSize;	
-				for ( int c = colZero; c < lastCol; ++c ) {
-					Vector2 dir = _vc->_vf->getFieldValue( r, c ) * UNIT_SCALE;
-					Vector2 end( dir.x() + x, dir.y() + y );
-					glVertex3f( x, 0.f, y );
-					glVertex3f( end.x(), 0.f, end.y() );
-					x += cellSize;
-				}
-				y += cellSize;
-			}
-			glEnd();
-
-			// TODO: draw the goal
-			
-			// draw the preferred velocity
-			Agents::PrefVelocity pVel;
-			_vc->setPrefVelocity( agt, goal, pVel );
-			drawPrefVel( pVel, agt->_pos );
-
-			glPopAttrib();
-		}
-
-		/////////////////////////////////////////////////////////////////////
 		//                   Implementation of VFVCFactory
 		/////////////////////////////////////////////////////////////////////
 
 		VFVCFactory::VFVCFactory() : VelCompFactory() {
 			_fileNameID = _attrSet.addStringAttribute( "file_name", true /*required*/ );
-			_useNearestID = _attrSet.addBoolAttribute( "use_nearest", false /*required*/, true /*default*/ );
+			_useNearestID = _attrSet.addBoolAttribute( "use_nearest", false /*required*/,
+													   true /*default*/ );
 		}
 
 		/////////////////////////////////////////////////////////////////////
 
-		bool VFVCFactory::setFromXML( VelComponent * vc, TiXmlElement * node, const std::string & behaveFldr ) const {
+		bool VFVCFactory::setFromXML( VelComponent * vc, TiXmlElement * node,
+									  const std::string & behaveFldr ) const {
 			VFVelComponent * vfvc = dynamic_cast< VFVelComponent * >( vc );
-			assert( vfvc != 0x0 && "Trying to set attributes of a velocity field velocity component on an incompatible object" );
+			assert( vfvc != 0x0 && "Trying to set attributes of a velocity field velocity "
+					"component on an incompatible object" );
 			
 			if ( ! VelCompFactory::setFromXML( vfvc, node, behaveFldr ) ) return false;
 
 			// get the file name
 			std::string fName;
-			std::string path = os::path::join( 2, behaveFldr.c_str(), _attrSet.getString( _fileNameID ).c_str() );
+			std::string path = os::path::join( 2, behaveFldr.c_str(),
+											   _attrSet.getString( _fileNameID ).c_str() );
 			os::path::absPath( path, fName );
 			VectorFieldPtr vfPtr;
 			try {
 				vfPtr = loadVectorField( fName );
 			} catch ( ResourceException ) {
-				logger << Logger::ERR_MSG << "Couldn't instantiate the vector field referenced on line " << node->Row() << ".";
+				logger << Logger::ERR_MSG << "Couldn't instantiate the vector field referenced "
+					"on line " << node->Row() << ".";
 				return false;
 			}
 			vfvc->setVectorField( vfPtr );

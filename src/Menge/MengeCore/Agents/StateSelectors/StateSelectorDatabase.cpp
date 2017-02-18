@@ -36,8 +36,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "StateSelectorDatabase.h"
-#include "StateSelectors/ConstStateSelector.h"
+#include "MengeCore/Agents/StateSelectors/StateSelectorDatabase.h"
+
+#include "MengeCore/Agents/StateSelectors/ConstStateSelector.h"
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
@@ -50,7 +51,10 @@ namespace Menge {
 	 *	@returns	The string representation of the database name.
 	 */
 	template <>
-	std::string ElementDB< Agents::StateSelectorFactory, Agents::StateSelector >::getElementName() { return "initial state selector"; }
+	std::string
+		ElementDB< Agents::StateSelectorFactory, Agents::StateSelector >::getElementName() {
+		return "initial state selector";
+	}
 
 	/*! 
 	 *	@brief		Initialization of built in database elements.

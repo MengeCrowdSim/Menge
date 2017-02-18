@@ -47,11 +47,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
  *				"Social Force Model with Explicit Collision Prediction"
  */
 
-#include "mengeCommon.h"
-#include "SimulatorBase.h"
 #include "ZanlungoAgent.h"
-
-using namespace Menge;
+#include "MengeCore/mengeCommon.h"
+#include "MengeCore/Agents/SimulatorBase.h"
 
 /*!
  *	@namespace		Zanlungo
@@ -62,12 +60,12 @@ namespace Zanlungo {
 	/*!
 	 *  @brief      Defines the simulator operating on a Zanlungo::Agent.
 	 */
-	class Simulator : public Agents::SimulatorBase< Agent > {
+	class Simulator : public Menge::Agents::SimulatorBase< Agent > {
 	public:
 		/*!
 		 *  @brief      Constructor.
 		 */
-		Simulator(): Agents::SimulatorBase< Agent >() {}
+		Simulator() : Menge::Agents::SimulatorBase< Agent >() {}
 
 		/*!
 		 *	@brief			Reports if there are non-common Experiment parameters that
@@ -89,11 +87,13 @@ namespace Zanlungo {
 		/*!
 		 *	@brief			Given an Experiment parameter name and value, sets the appropriate
 		 *					simulator parameter.
-		 *	@param			paramName		A string containing the parameter name for the experiment.
+		 *	@param			paramName		A string containing the parameter name for the
+		 *									experiment.
 		 *	@param			value			A string containing the value for the parameter.
 		 *	@returns		whether or not parameters were successfully set
 		 */
-		virtual bool setExpParam( const std::string & paramName, const std::string & value ) throw( Agents::XMLParamException );
+		virtual bool setExpParam( const std::string & paramName, const std::string & value )
+			throw( Menge::Agents::XMLParamException );
 
 	protected:
 		friend class Agent;
@@ -123,5 +123,4 @@ namespace Zanlungo {
 		static float	FORCE_DISTANCE;
 	};
 }	// namespace Zanlungo
-
 #endif	 // __ZANLUNGO_SIMULATOR_H__

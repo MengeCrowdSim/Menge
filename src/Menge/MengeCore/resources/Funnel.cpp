@@ -36,8 +36,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "Funnel.h"
-#include "PortalPath.h"
+#include "MengeCore/resources/Funnel.h"
+#include "MengeCore/resources/PortalPath.h"
+
 #include <cassert>
 #include <iostream>
 
@@ -57,9 +58,12 @@ namespace Menge {
 
 	/////////////////////////////////////////////////////////////////////
 
-	void FunnelPlanner::computeCrossing( float radius, const Vector2 & startPos, PortalPath * path, size_t startPortal ) {
-		assert( path->getPortalCount() > 0 && "Funnel planner should only be applied to PortalPaths with at least one portal" );
-		FunnelApex apex( startPortal - 1, startPos );	// if startPortal is zero, this should go to all 1s...i.e. -1 > all other size_t values
+	void FunnelPlanner::computeCrossing( float radius, const Vector2 & startPos, PortalPath * path,
+										 size_t startPortal ) {
+		assert( path->getPortalCount() > 0 &&
+				"Funnel planner should only be applied to PortalPaths with at least one portal" );
+		// if startPortal is zero, this should go to all 1s...i.e. -1 > all other size_t values
+		FunnelApex apex( startPortal - 1, startPos );	
 		
 		const WayPortal * portal = path->getPortal( startPortal );
 		Vector2 pLeft( portal->getLeft( radius ) );
@@ -84,7 +88,8 @@ namespace Menge {
 				Vector2 oldApex = apex._pos;
 				Vector2 newApex = funnelRight._dir + apex._pos;
 				//if ( apex._id != -1 && apex._id < currPortal ) {
-					path->setWaypoints( apex._id + 1, funnelRight._id + 1, newApex, norm( funnelRight._dir ) );
+					path->setWaypoints( apex._id + 1, funnelRight._id + 1, newApex,
+										norm( funnelRight._dir ) );
 				//}
 				apex.set( funnelRight._id, newApex );
 				currPortal = funnelRight._id + 1;
@@ -109,7 +114,8 @@ namespace Menge {
 				Vector2 oldApex = apex._pos;
 				Vector2 newApex = funnelLeft._dir + apex._pos;
 				//if ( apex._id != -1 && apex._id < currPortal ) {
-					path->setWaypoints( apex._id + 1, funnelLeft._id + 1, newApex, norm( funnelLeft._dir ) );
+					path->setWaypoints( apex._id + 1, funnelLeft._id + 1, newApex,
+										norm( funnelLeft._dir ) );
 				//}
 				apex.set( funnelLeft._id, newApex );
 				currPortal = funnelLeft._id + 1;
@@ -137,17 +143,20 @@ namespace Menge {
 		if ( funnelLeft.isOnLeft( goalDir ) ) {
 			// The goal point is on the left side of the funnel
 			if ( apex._id != -1 && apex._id < PORTAL_COUNT ) {
-				path->setWaypoints( apex._id + 1, PORTAL_COUNT, apex._pos + funnelLeft._dir, norm( funnelLeft._dir ) );
+				path->setWaypoints( apex._id + 1, PORTAL_COUNT, apex._pos + funnelLeft._dir,
+									norm( funnelLeft._dir ) );
 			}
 		} else if ( funnelRight.isOnRight( goalDir ) ) {
 			// The goal point is on the right side of the funnel
 			if ( apex._id != -1 && apex._id < PORTAL_COUNT ) {
-				path->setWaypoints( apex._id + 1, PORTAL_COUNT, apex._pos + funnelRight._dir, norm( funnelRight._dir ) );
+				path->setWaypoints( apex._id + 1, PORTAL_COUNT, apex._pos + funnelRight._dir,
+									norm( funnelRight._dir ) );
 			}
 		} 
 
 		if ( apex._id + 1 < PORTAL_COUNT ) {
-			path->setWaypoints( (size_t)apex._id + 1, (size_t)PORTAL_COUNT, goalPt, norm( goalPt - apex._pos ) );
+			path->setWaypoints( (size_t)apex._id + 1, (size_t)PORTAL_COUNT, goalPt,
+								norm( goalPt - apex._pos ) );
 		}
 
 	#else
@@ -166,7 +175,8 @@ namespace Menge {
 				if ( itr->isOnRight( dir ) ) {
 					apexMoved = true;
 					Vector2 newApex = itr->_origin + itr->_dir;
-					path->setWaypoints( itr->_id + 1, itr->_endID + 1, newApex, norm( itr->_dir ) );
+					path->setWaypoints( itr->_id + 1, itr->_endID + 1, newApex,
+										norm( itr->_dir ) );
 					apex.set( itr->_endID, newApex );
 					_right.pop_front();
 				} else {
@@ -204,7 +214,8 @@ namespace Menge {
 				if ( itr->isOnLeft( dir ) ) {
 					apexMoved = true;
 					Vector2 newApex = itr->_origin + itr->_dir;
-					path->setWaypoints( itr->_id + 1, itr->_endID + 1, newApex, norm( itr->_dir ) );
+					path->setWaypoints( itr->_id + 1, itr->_endID + 1, newApex,
+										norm( itr->_dir ) );
 					apex.set( itr->_endID, newApex );
 					_left.pop_front();
 				} else {
@@ -263,7 +274,8 @@ namespace Menge {
 					apexMoved = true;
 					Vector2 newApex = itr->_origin + itr->_dir;
 					apex.set( itr->_endID, newApex );
-					path->setWaypoints( itr->_id + 1, itr->_endID + 1, newApex, norm( itr->_dir ) );
+					path->setWaypoints( itr->_id + 1, itr->_endID + 1, newApex,
+										norm( itr->_dir ) );
 					_right.pop_front();
 				} else {
 					break;

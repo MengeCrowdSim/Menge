@@ -36,9 +36,11 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "GoalSelectors/GoalSelectorRandom.h"
-#include "GoalSet.h"
+#include "MengeCore/BFSM/GoalSet.h"
+#include "MengeCore/BFSM/GoalSelectors/GoalSelectorRandom.h"
+
 #include "tinyxml.h"
+
 #include <cassert>
 #include <sstream>
 
@@ -58,7 +60,8 @@ namespace Menge {
 			if ( goalSets.count( _goalSetID ) == 1 ) {
 				_goalSet = goalSets[ _goalSetID ];
 			} else {
-				logger << Logger::ERR_MSG << "Error selecting goal set " << _goalSetID << " from those defined.  It does not exist.";
+				logger << Logger::ERR_MSG << "Error selecting goal set ";
+				logger << _goalSetID << " from those defined.  It does not exist.";
 				throw GoalSelectorException();
 			}
 		}
@@ -73,9 +76,11 @@ namespace Menge {
 
 		/////////////////////////////////////////////////////////////////////
 
-		bool SetGoalSelectorFactory::setFromXML( GoalSelector * selector, TiXmlElement * node, const std::string & behaveFldr ) const {
+		bool SetGoalSelectorFactory::setFromXML( GoalSelector * selector, TiXmlElement * node,
+												 const std::string & behaveFldr ) const {
 			SetGoalSelector * sgs = dynamic_cast< SetGoalSelector * >( selector );
-			assert( sgs != 0x0 && "Trying to set goal set goal selector attributes on an incompatible object." );
+			assert( sgs != 0x0 &&
+					"Trying to set goal set goal selector attributes on an incompatible object." );
 
 			if ( ! GoalSelectorFactory::setFromXML( sgs, node, behaveFldr ) ) return false;
 

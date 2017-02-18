@@ -1,7 +1,7 @@
 #include "StressFunction.h"
 #include "AgentStressor.h"
 
-#include "Core.h"
+#include "MengeCore/Core.h"
 
 namespace StressGAS {
 

@@ -41,26 +41,26 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
  *	@brief	Functionality to realize Behavior FSM from configuration.
  */
 
-#include "FSMDescrip.h"
-#include "FSM.h"
-#include "NavMesh.h"
-#include "fsmCommon.h"
-#include "Core.h"
-#include "State.h"
-#include "Transitions/Transition.h"
-#include "GoalSelectors/GoalSelector.h"
-#include "GoalSelectors/GoalSelectorIdentity.h"
-#include "GoalSelectors/GoalSelectorShared.h"
-#include "SpatialQueries/SpatialQuery.h"
-#include "Elevations/Elevation.h"
-#include "VelocityComponents/VelCompConst.h"
-#include "Events/Event.h"
-#include "Events/EventException.h"
-#include "Events/EventSystem.h"
+#include "MengeCore/BFSM/FSMDescrip.h"
 
-#include "BaseAgent.h"
-#include "SimulatorInterface.h"
-#include "SimulatorState.h"
+#include "MengeCore/Core.h"
+#include "MengeCore/Agents/BaseAgent.h"
+#include "MengeCore/Agents/Elevations/Elevation.h"
+#include "MengeCore/Agents/Events/Event.h"
+#include "MengeCore/Agents/Events/EventException.h"
+#include "MengeCore/Agents/Events/EventSystem.h"
+#include "MengeCore/Agents/SimulatorInterface.h"
+#include "MengeCore/Agents/SimulatorState.h"
+#include "MengeCore/Agents/SpatialQueries/SpatialQuery.h"
+#include "MengeCore/BFSM/FSM.h"
+#include "MengeCore/BFSM/fsmCommon.h"
+#include "MengeCore/BFSM/State.h"
+#include "MengeCore/BFSM/GoalSelectors/GoalSelector.h"
+#include "MengeCore/BFSM/GoalSelectors/GoalSelectorIdentity.h"
+#include "MengeCore/BFSM/GoalSelectors/GoalSelectorShared.h"
+#include "MengeCore/BFSM/Transitions/Transition.h"
+#include "MengeCore/BFSM/VelocityComponents/VelCompConst.h"
+#include "MengeCore/resources/NavMesh.h"
 
 namespace Menge {
 
@@ -108,13 +108,18 @@ namespace Menge {
 					delete fsm;
 					return 0x0;
 				}
-				if ( VERBOSE ) logger << Logger::INFO_MSG << "\tAdding state: " << s->getName() << "(" << s->getID() << ")\n";
+				if ( VERBOSE ) {
+					logger << Logger::INFO_MSG << "\tAdding state: " << s->getName();
+					logger << "(" << s->getID() << ")\n";
+				}
 				
 
 				// State's goal selector
 				GoalSelector * gs = sData->_goalSelector;
 				if ( gs == 0x0 ) {
-					logger << Logger::WARN_MSG << "The state " << sData->_name << " doesn't specify a goal selector.  The identity goal selector will be used.";
+					logger << Logger::WARN_MSG << "The state " << sData->_name;
+					logger << " doesn't specify a goal selector.  "
+						"The identity goal selector will be used.";
 					gs = new IdentityGoalSelector();
 				}
 
@@ -122,7 +127,8 @@ namespace Menge {
 					gs->setGoalSet( fsm->getGoalSets() );	// possibly throws GoalSelectorException
 					s->setGoalSelector( gs );				// possibly throws GoalSelectorException
 				} catch ( GoalSelectorException ) {
-					logger << Logger::ERR_MSG << "Problem initializing the goal selector for the state " << s->getName() << ".";
+					logger << Logger::ERR_MSG << "Problem initializing the goal selector for "
+						"the state " << s->getName() << ".";
 					delete fsm;
 					return 0x0;
 				}
@@ -130,7 +136,8 @@ namespace Menge {
 
 				// construct each velocity component
 				if ( sData->_velComponent == 0x0 ) {
-					logger << Logger::WARN_MSG << "The state " << sData->_name << " doesn't specify a velocity component.  The zero velocity component will be used.";
+					logger << Logger::WARN_MSG << "The state " << sData->_name << " doesn't "
+						"specify a velocity component.  The zero velocity component will be used.";
 					s->setVelComponent( new ZeroVelComponent() );
 				} else {
 					s->setVelComponent( sData->_velComponent );
@@ -163,16 +170,21 @@ namespace Menge {
 				std::string stateName = stateItr->first;
 				size_t stateID = stateItr->second;
 				State * state = fsm->getNode( stateID );
-				SharedGoalSelector * gs = dynamic_cast< SharedGoalSelector * >( state->getGoalSelector() );
+				SharedGoalSelector * gs =
+					dynamic_cast< SharedGoalSelector * >( state->getGoalSelector() );
 				if ( gs != 0x0 ) {
 					if ( stateNameMap.count( gs->_stateName ) == 0 ) {
-						logger << Logger::ERR_MSG << "Found shared goal selector defined on line " << gs->_lineNo << ", but unable to locate state with the provided name: \"" << gs->_stateName << "\".";
+						logger << Logger::ERR_MSG << "Found shared goal selector defined on line ";
+						logger << gs->_lineNo << ", but unable to locate state with the provided "
+							"name: \"" << gs->_stateName << "\".";
 						delete fsm;
 						return 0x0;
 					}
 					State * src = fsm->getNode( stateNameMap[ gs->_stateName ] );
 					if ( dynamic_cast< SharedGoalSelector * >( src->getGoalSelector() ) ) {
-						logger << Logger::ERR_MSG << "Shared goal selector defined on line " << gs->_lineNo << " references a state with a shared goal.  The source state must have a full goal selector definition.";
+						logger << Logger::ERR_MSG << "Shared goal selector defined on line ";
+						logger << gs->_lineNo << " references a state with a shared goal.  The "
+							"source state must have a full goal selector definition.";
 						delete fsm;
 						return 0x0;
 					}
@@ -183,17 +195,23 @@ namespace Menge {
 				}
 			}
 
-			if ( VERBOSE ) logger << Logger::INFO_MSG << "There are " << fsmDescrip._transitions.size() << " transitions\n";
+			if ( VERBOSE ) {
+				logger << Logger::INFO_MSG << "There are " << fsmDescrip._transitions.size();
+				logger << " transitions\n";
+			}
 
 			//	2. Create transitions
-			std::map< std::string, std::list< Transition * > >::iterator stItr = fsmDescrip._transitions.begin();
+			std::map< std::string, std::list< Transition * > >::iterator stItr =
+				fsmDescrip._transitions.begin();
 			for ( ; stItr != fsmDescrip._transitions.end(); ++stItr ) {
 				const std::string fromName = stItr->first;
 				std::list< Transition * > & tList = stItr->second;
 
 				// Determine if the origin state is valid
-				if ( fsmDescrip._stateNameMap.find( fromName ) == fsmDescrip._stateNameMap.end() ) {
-					logger << Logger::ERR_MSG << "Transition with invalid from node name: " << fromName << ".";
+				if ( fsmDescrip._stateNameMap.find( fromName ) ==
+					 fsmDescrip._stateNameMap.end() ) {
+					logger << Logger::ERR_MSG << "Transition with invalid from node name: ";
+					logger << fromName << ".";
 					delete fsm;
 					return 0x0;
 				}
@@ -216,9 +234,9 @@ namespace Menge {
 
 			// copy over the velocity modifiers
 			vItr = fsmDescrip._velModifiers.begin();
-			for ( ; vItr != fsmDescrip._velModifiers.end(); ++vItr ) {   //TODO: replace global vel mod initalizer
+			//TODO: replace global vel mod initalizer
+			for ( ; vItr != fsmDescrip._velModifiers.end(); ++vItr ) {   
 				fsm->addVelModifier( *vItr );  
-
 			}
 			fsmDescrip._velModifiers.clear();
 
@@ -242,7 +260,8 @@ namespace Menge {
 				fsm->addTask( sim->getElevationInstance()->getTask() );
 			}
 
-			logger << Logger::INFO_MSG << "There are " << fsm->getTaskCount() << " registered tasks.\n";
+			logger << Logger::INFO_MSG << "There are " << fsm->getTaskCount();
+			logger << " registered tasks.\n";
 			fsm->doTasks();
 
 			
@@ -256,9 +275,11 @@ namespace Menge {
 				// update current state to class-appropriate value
 				const std::string stateName = initState->getAgentState( agt->_id );
 
-				std::map< std::string, size_t >::iterator stateIDItr = stateNameMap.find( stateName );
+				std::map< std::string, size_t >::iterator stateIDItr =
+					stateNameMap.find( stateName );
 				if ( stateIDItr == stateNameMap.end() ) {
-					logger << Logger::ERR_MSG << "Agent " << agt->_id << " requested to start in an unknown state: " << stateName << ".";
+					logger << Logger::ERR_MSG << "Agent " << agt->_id;
+					logger << " requested to start in an unknown state: " << stateName << ".";
 					delete fsm;
 					return 0x0;
 				}
@@ -267,7 +288,8 @@ namespace Menge {
 				// initialize velocity to preferred velocity
 				State * cState = fsm->getNode( stateID );
 				if ( VERBOSE ) {
-					logger << Logger::INFO_MSG << "Agent " << agt->_id << " starts in " << cState->getName() << ".";
+					logger << Logger::INFO_MSG << "Agent " << agt->_id << " starts in ";
+					logger << cState->getName() << ".";
 				}
 				fsm->setCurrentState( agt, stateID );
 				cState->enter( agt );
@@ -276,7 +298,8 @@ namespace Menge {
 
 				//register the agent for all vel modifiers
 				vItr = fsm->_velModifiers.begin();
-				for ( ; vItr != fsm->_velModifiers.end(); ++vItr ) {   //TODO: replace global vel mod initalizer
+				//TODO: replace global vel mod initalizer
+				for ( ; vItr != fsm->_velModifiers.end(); ++vItr ) {
 					( *vItr )->registerAgent(agt);  
 				}
 			}

@@ -45,10 +45,10 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
  *			its tracked agent positions at every FSM time step.
  */
 
-#include "CoreConfig.h"
-#include "fsmCommon.h"
-#include "Resource.h"
-#include "Task.h"
+#include "MengeCore/CoreConfig.h"
+#include "MengeCore/BFSM/fsmCommon.h"
+#include "MengeCore/resources/Resource.h"
+#include "MengeCore/BFSM/Tasks/Task.h"
 
 namespace Menge {
 

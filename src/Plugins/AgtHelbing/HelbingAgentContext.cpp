@@ -38,24 +38,38 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 #include "HelbingAgentContext.h"
 #include "HelbingAgent.h"
-#include "VisAgent.h"
+#include "MengeVis/Runtime/VisAgent.h"
 #include <iomanip>
 #include <sstream>
 
 namespace Helbing {
 
+	using Menge::Agents::BaseAgent;
+	using Menge::Agents::Obstacle;
+	using Menge::Math::Vector2;
+	using MengeVis::Runtime::BaseAgentContext;
+	using MengeVis::SceneGraph::ContextResult;
+	using MengeVis::SceneGraph::TextWriter;
+
 	////////////////////////////////////////////////////////////////
 	//			Implementation of HelbingAgentContext
 	////////////////////////////////////////////////////////////////
 
-	AgentContext::AgentContext( VisAgent ** agents, unsigned int agtCount ): BaseAgentContext(agents,agtCount), _showForce(false),_forceObject(0)
+	AgentContext::AgentContext(): BaseAgentContext(), _showForce(false),_forceObject(0)
 	{
 	}
 
 	////////////////////////////////////////////////////////////////
 
-	SceneGraph::ContextResult AgentContext::handleKeyboard( SDL_Event & e ) {
-		SceneGraph::ContextResult result = BaseAgentContext::handleKeyboard( e );
+	void AgentContext::setElement( MengeVis::Runtime::VisAgent * agent ) {
+		BaseAgentContext::setElement( agent );
+		_forceObject = 0;
+	}
+
+	////////////////////////////////////////////////////////////////
+
+	ContextResult AgentContext::handleKeyboard( SDL_Event & e ) {
+		ContextResult result = BaseAgentContext::handleKeyboard( e );
 		if ( !result.isHandled() ) {
 			SDLMod mods = e.key.keysym.mod;
 			bool hasCtrl = ( mods & KMOD_CTRL ) > 0;
@@ -70,8 +84,10 @@ namespace Helbing {
 						result.set( true, true );
 					} else if ( e.key.keysym.sym == SDLK_UP ) {
 						if ( _showForce && _selected ) {
-							const Agent * agt = dynamic_cast< const Agent * >( _selected->getAgent() );
-							assert( agt != 0x0 && "Helbing context trying to work with a non helbing agent" );
+							const Agent * agt =
+								dynamic_cast< const Agent * >( _selected->getAgent() );
+							assert( agt != 0x0 &&
+									"Helbing context trying to work with a non helbing agent" );
 							int NBRS = (int)agt->_nearAgents.size();
 							int OBST = (int)agt->_nearObstacles.size();
 							if ( NBRS | OBST ) {
@@ -88,8 +104,10 @@ namespace Helbing {
 						}
 					} else if ( e.key.keysym.sym == SDLK_DOWN ) {
 						if ( _showForce && _selected ) {
-							const Agent * agt = dynamic_cast< const Agent * >( _selected->getAgent() );
-							assert( agt != 0x0 && "Helbing context trying to work with a non helbing agent" );
+							const Agent * agt =
+								dynamic_cast< const Agent * >( _selected->getAgent() );
+							assert( agt != 0x0 &&
+									"Helbing context trying to work with a non helbing agent" );
 							int NBRS = (int)agt->_nearAgents.size();
 							int OBST = (int)agt->_nearObstacles.size();
 							if ( NBRS | OBST ) {
@@ -137,7 +155,8 @@ namespace Helbing {
 	void AgentContext::draw3DGL( bool select ) {
 		BaseAgentContext::draw3DGL( select );
 		if ( !select && _selected ) {
-			glPushAttrib( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_ENABLE_BIT | GL_LINE_BIT | GL_POLYGON_BIT );
+			glPushAttrib( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_ENABLE_BIT |
+						  GL_LINE_BIT | GL_POLYGON_BIT );
 			glDepthMask( GL_FALSE );
 			const Agent * agt = dynamic_cast< const Agent * >( _selected->getAgent() );
 			assert( agt != 0x0 && "Helbing context trying to work with a non helbing agent" );
@@ -148,7 +167,7 @@ namespace Helbing {
 
 	////////////////////////////////////////////////////////////////
 
-	std::string AgentContext::agentText( const Agents::BaseAgent * agent ) const {
+	std::string AgentContext::agentText( const BaseAgent * agent ) const {
 		const Agent * agt = dynamic_cast< const Agent * >( agent );
 		std::string m = BaseAgentContext::agentText( agt );
 
@@ -169,13 +188,14 @@ namespace Helbing {
 			} else if ( _forceObject > 0 ) {
 				const Agent * agt = dynamic_cast< const Agent * >( _selected->getAgent() );
 				assert( agt != 0x0 && "Helbing context trying to work with a non helbing agent" );
-				const Agent * other = static_cast< const Agent *>( agt->getNeighbor( _forceObject - 1 ) );
+				const Agent * other =
+					static_cast< const Agent *>( agt->getNeighbor( _forceObject - 1 ) );
 				float force = abs( agt->agentForce( other ) );
 				ss << "\n     Agent " << other->_id << ": " << force << " N";
 			} else if ( _forceObject < 0 ) {
 				const Agent * agt = dynamic_cast< const Agent * >( _selected->getAgent() );
 				assert( agt != 0x0 && "Helbing context trying to work with a non helbing agent" );
-				const Agents::Obstacle * obst = agt->getObstacle( -_forceObject - 1 );
+				const Obstacle * obst = agt->getObstacle( -_forceObject - 1 );
 				float force = abs( agt->obstacleForce( obst ) );
 				ss << "\n     Obstacle " << obst->_id << ": " << force << " N";
 			}
@@ -204,7 +224,7 @@ namespace Helbing {
 					// draw forces for all obstacles
 					const int OBSTS = (int)agt->_nearObstacles.size();
 					for ( int i = 0; i < OBSTS; ++i ) {
-						const Agents::Obstacle * obst = agt->getObstacle( i );
+						const Obstacle * obst = agt->getObstacle( i );
 						singleObstacleForce( agt, obst );
 					}
 				} else if ( _forceObject > 0 ) {
@@ -213,7 +233,7 @@ namespace Helbing {
 					singleAgentForce( agt, other, 0.f );
 				} else {	
 					// draw obstacle
-					const Agents::Obstacle * obst = agt->getObstacle( -_forceObject - 1 );
+					const Obstacle * obst = agt->getObstacle( -_forceObject - 1 );
 					singleObstacleForce( agt, obst, 0.f );
 				}
 				glPopMatrix();
@@ -233,13 +253,14 @@ namespace Helbing {
 			glColor4f( 0.65f, 0.65f, 1.f, 1.f );
 			drawForce( agt, force, ss.str() );	
 			// Label the source agent
-			writeAlignedText( ss.str(), other->_pos, SceneGraph::TextWriter::CENTERED, true );
+			writeAlignedText( ss.str(), other->_pos, TextWriter::CENTERED, true );
 		}
 	}
 
 	////////////////////////////////////////////////////////////////
 
-	void AgentContext::singleObstacleForce( const Agent * agt, const Agents::Obstacle * obst, float thresh ) {
+	void AgentContext::singleObstacleForce( const Agent * agt, const Obstacle * obst,
+											float thresh ) {
 		Vector2 force = agt->obstacleForce( obst );
 		float forceMag = abs( force );
 		if ( forceMag > thresh ) {
@@ -267,7 +288,8 @@ namespace Helbing {
 
 	////////////////////////////////////////////////////////////////
 
-	void AgentContext::drawForce( const Agent * agt, const Vector2 & force, const std::string & label ) {
+	void AgentContext::drawForce( const Agent * agt, const Vector2 & force,
+								  const std::string & label ) {
 		// This is for printing force magnitude and source
 		const float FORCE_RADIUS = 4 * agt->_radius;
 		Vector2 forceEnd = norm( force ) * FORCE_RADIUS + agt->_pos;

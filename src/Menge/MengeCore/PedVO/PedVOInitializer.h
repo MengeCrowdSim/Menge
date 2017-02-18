@@ -43,7 +43,8 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __PEDVO_INITIALIZER_H__
 #define	__PEDVO_INITIALIZER_H__
 
-#include "AgentInitializer.h"
+#include "MengeCore/Agents/AgentInitializer.h"
+#include "MengeCore/Math/RandGenerator.h"
 
 namespace PedVO {
 	/*!
@@ -102,7 +103,9 @@ namespace PedVO {
 		 *				as this.  The caller is responsible for freeing up the 
 		 *				new instance.
 		 */
-		virtual Menge::Agents::AgentInitializer * copy() const { return new AgentInitializer( *this ); }	
+		virtual Menge::Agents::AgentInitializer * copy() const {
+			return new AgentInitializer( *this );
+		}	
 
 	protected:
 
@@ -137,7 +140,8 @@ namespace PedVO {
 		 *	@param			value			A string containing the value for the parameter.
 		 *	@returns		The result of the parse: failure, ignored, or accepted.
 		 */
-		virtual Menge::Agents::AgentInitializer::ParseResult setFromXMLAttribute( const ::std::string & paramName, const ::std::string & value );
+		virtual Menge::Agents::AgentInitializer::ParseResult setFromXMLAttribute(
+			const ::std::string & paramName, const ::std::string & value );
 
 		/*!
 		 *	@brief		Process the given <Property .../> tag.  
@@ -155,7 +159,8 @@ namespace PedVO {
 		 *	@param		node			The XML node for the Property tag.
 		 *	@returns	True if parsing was "successful", false otherwise.
 		 */
-		virtual Menge::Agents::AgentInitializer::ParseResult processProperty( ::std::string propName, TiXmlElement * node );
+		virtual Menge::Agents::AgentInitializer::ParseResult processProperty(
+			::std::string propName, TiXmlElement * node );
 
 		/*!
 		 *	@brief		Controls if the agent respondes to density (true) or not (false).
@@ -165,29 +170,28 @@ namespace PedVO {
 		/*!
 		 *	@brief		The stride factor of the agent.
 		 */
-		FloatGenerator * _strideFactor;	
+		Menge::Math::FloatGenerator * _strideFactor;	
 
 		/*!
 		 *	@brief		The stride factor of the agent.
 		 */
-		FloatGenerator * _strideBuffer;	
+		Menge::Math::FloatGenerator * _strideBuffer;
 
 		/*!
 		 *	@brief			The time horizon for predicting agent collisions
 		 */
-		FloatGenerator *		_timeHorizon;
+		Menge::Math::FloatGenerator *		_timeHorizon;
 
 		/*!
 		 *	@brief			The time horizon for predicting obstacle collisions
 		 */
-		FloatGenerator *		_timeHorizonObst;
+		Menge::Math::FloatGenerator *		_timeHorizonObst;
 
 		/*!
 		 *	@brief			The turning bias.
 		 */
-		FloatGenerator *		_turningBias;
+		Menge::Math::FloatGenerator *		_turningBias;
 	};
 }	// namespace PedVO
-
 
 #endif	// __PEDVO_INITIALIZER_H__

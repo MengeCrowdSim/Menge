@@ -36,7 +36,8 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "ReadersWriterLock.h"
+#include "MengeCore/Runtime/ReadersWriterLock.h"
+
 #include <iostream>
 
 namespace Menge {
@@ -70,48 +71,24 @@ namespace Menge {
 	// NOTE: The code below is left in place, commented out, to facilitate debugging
 	//	of future concurrency issues.
 	void ReadersWriterLock::lockRead() const {
-		//#pragma omp critical( READER_LOCK ) 
-		//{
-		//std::cout << "READ LOCK( " << ((size_t)this) << ") - " << omp_get_thread_num() << "\n";
-		//}
 		omp_set_lock( &_lock );
-		//#pragma omp critical( READER_LOCK ) 
-		//	{
-		//	std::cout << "\t READ LOCKED( " << ((size_t)this) << ") - " << omp_get_thread_num() << "\n";
-		//	}
 	}
 
 	///////////////////////////////////////////////////////////////////////
 
 	void ReadersWriterLock::releaseRead() const {
-		//#pragma omp critical( READER_LOCK ) 
-		//{
-		//std::cout << "READ RELEASE( " << ((size_t)this) << ") - " << omp_get_thread_num() << "\n";
-		//}
 		omp_unset_lock( &_lock );
 	}
 
 	/////////////////////////////////////////////////////////////////////
 
 	void ReadersWriterLock::lockWrite() const {
-		//#pragma omp critical( READER_LOCK ) 
-		//{
-		//std::cout << "WRITE LOCK( " << ((size_t)this) << ") - " << omp_get_thread_num() << "\n";
-		//}
 		omp_set_lock( &_lock );
-		//#pragma omp critical( READER_LOCK ) 
-		//	{
-		//	std::cout << "\t WRITE LOCKED( " << ((size_t)this) << ") - " << omp_get_thread_num() << "\n";
-		//	}
 	}
 
 	/////////////////////////////////////////////////////////////////////
 
 	void ReadersWriterLock::releaseWrite() const {
-		//#pragma omp critical( READER_LOCK ) 
-		//{
-		//std::cout << "WRITE RELEASE( " << ((size_t)this) << ") - " << omp_get_thread_num() << "\n";
-		//}
 		omp_unset_lock( &_lock );
 	}
 

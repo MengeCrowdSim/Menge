@@ -44,13 +44,10 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __DUMMY_SIMULATOR_H__
 #define __DUMMY_SIMULATOR_H__
 
-#include "mengeCommon.h"
-#include "SimulatorBase.h"	
 #include "DummyAgent.h"
-#include "RandGenerator.h"
-
-using namespace Menge;
-
+#include "MengeCore/mengeCommon.h"
+#include "MengeCore/Agents/SimulatorBase.h"	
+#include "MengeCore/Math/RandGenerator.h"
 
 /*!
  *	@namespace		Dummy
@@ -65,12 +62,12 @@ namespace Dummy {
 	/*!
 	 *	@brief		The simulator for the Dummy pedestrian model.
 	 */
-	class Simulator : public Agents::SimulatorBase< Agent > {
+	class Simulator : public Menge::Agents::SimulatorBase< Agent > {
 	public:
 		/*!
 		 *  @brief      Constructor.
 		 */
-		Simulator(): Agents::SimulatorBase< Agent >() {}
+		Simulator(): Menge::Agents::SimulatorBase< Agent >() {}
 
 		/*!
 		 *	@brief			Reports if there are non-common Experiment parameters that
@@ -92,11 +89,13 @@ namespace Dummy {
 		/*!
 		 *	@brief			Given an Experiment parameter name and value, sets the appropriate
 		 *					simulator parameter.
-		 *	@param			paramName		A string containing the parameter name for the experiment.
+		 *	@param			paramName		A string containing the parameter name for the
+		 *									experiment.
 		 *	@param			value			A string containing the value for the parameter.
 		 *	@returns		whether or not parameters were successfully set
 		 */
-		virtual bool setExpParam( const std::string & paramName, const std::string & value ) throw( Agents::XMLParamException );
+		virtual bool setExpParam( const std::string & paramName, const std::string & value )
+			throw ( Menge::Agents::XMLParamException );
 
 	protected:
 		friend class Agent;
@@ -104,12 +103,12 @@ namespace Dummy {
 		/*!
 		 *	@brief		The standard deviation of speed 
 		 */
-		static NormalFloatGenerator 	_speedDeviation;
+		static Menge::Math::NormalFloatGenerator 	_speedDeviation;
 
 		/*!
 		 *	@brief		The uniform distribution of direction
 		 */
-		static UniformFloatGenerator	_angleDeviation;
+		static Menge::Math::UniformFloatGenerator	_angleDeviation;
 	};
 }	// namespace Dummy
 

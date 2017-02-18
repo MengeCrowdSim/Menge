@@ -36,7 +36,8 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "SimulatorState.h"
+#include "MengeCore/Agents/SimulatorState.h"
+
 #include <cassert>
 
 namespace Menge {
@@ -59,10 +60,10 @@ namespace Menge {
 		////////////////////////////////////////////////////////////////////
 
 		const std::string SimulatorState::getAgentState( size_t id ) const {
-			assert( _agentStates.count( id ) == 1 && "Trying to retrieve a state name for an unregistered agent id" );
+			assert( _agentStates.count( id ) == 1 &&
+					"Trying to retrieve a state name for an unregistered agent id" );
 			return _agentStates.find( id )->second; 
 		}
 
 	}	// namespace Agents
-		
 }	// namespace Menge
