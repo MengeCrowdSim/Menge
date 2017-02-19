@@ -7,9 +7,11 @@ Menge is a framework for simulating crowds and developing novel pedestrian model
 
 The framework comes with a number of example plug-ins; these examples illustrate how easy it is to extend Menge's fundamental capabilities and illustrate how various scenarios or techniques *might* be solved.  We hope to engender a Menge community through which users can submit their own plug-ins for other users to benefit from.  Our vision is that in the future, development of crowd simulation techniques can be accelerated by the use of a common framework and the ability to share and compare techniques.
 
+For more details, see the <a href="https://collective-dynamics.eu/index.php/cod/article/view/A1">original paper</a>.
+
 @subsection subsec_ModelFunction Pedestrian Model as a Function
 
-*INSERT Menge archictecture diagram*
+@image html pipeline.png "Menge Architecture" width=800px
 
 As previously mentioned, the Menge framework decomposes the problem of simulating crowds into multiple computation components, called *elements*.  The element classes are uniquely defined by their interfaces -- they take a certain input and provide a particular output.  The implementation of that interface can lead to improved simulation -- either through improved performance or improved crowd behaviors.  We'l illustrate this with two simple examples.
 
