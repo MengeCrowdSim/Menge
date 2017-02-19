@@ -60,9 +60,8 @@ typedef SDL_Event SDL_Event;
 namespace MengeVis {
 
 	/*!
-	 * @namespace SceneGraph
-	 * @brief	The SceneGraph (SceneGraph) name space, containing all elements to use in a
-	 *			SceneGraph.
+	 * @namespace MengeVis::SceneGraph
+	 * @brief	The namespace that contains the basic components of a 3D scene for visualization.
 	 */
 	namespace SceneGraph {
 		// forward declarations

@@ -64,6 +64,11 @@ namespace Menge {
 
 namespace MengeVis {
 	namespace Runtime {
+		/*!
+		 *	@namespace	MengeVis::Runtime::VCContext
+		 *	@brief		The namespace that contains context structures for visualizing velocity
+		 *				component state. (@see VelComponent) 
+		 */
 		namespace VCContext {
 
 			/*!
@@ -114,7 +119,7 @@ namespace MengeVis {
 				 *	visualization element is triggered, the database will supply the triggering
 				 *	element.
 				 *
-				 *	@param		agent		The agent to interact with.
+				 *	@param		vc		The velocity component to interact with.
 				 */
 				virtual void setElement( const Menge::BFSM::VelComponent * vc ) { _vc = vc; }
 

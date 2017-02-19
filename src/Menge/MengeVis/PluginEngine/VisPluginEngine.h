@@ -10,6 +10,10 @@
 #include "MengeCore/PluginEngine/Plugin.h"
 #include "MengeVis/VisConfig.h"
 
+/*!
+ *	@namespace	MengeVis
+ *	@brief		The namespace that contains the supplementary visualization functionality.
+ */
 namespace MengeVis {
 	// forward declarations
 	namespace Runtime {
@@ -21,6 +25,11 @@ namespace MengeVis {
 			class VelCompContext;
 		}
 	}
+
+	/*!
+	 *	@namespace	MengeVis::PluginEngine
+	 *	@brief		The namespace that contains the visualization plugin functionality..
+	 */
 	namespace PluginEngine {
 		/*!
 		 *	@brief		The definition of the plugin engine for Menge's core simulation
