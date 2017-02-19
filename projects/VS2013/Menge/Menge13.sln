@@ -17,6 +17,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MengeVis", "MengeVis.vcxpro
 		{C406DAEC-0886-4771-8DEA-9D7329B46CC1} = {C406DAEC-0886-4771-8DEA-9D7329B46CC1}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MengeDocs", "MengeDocs.vcxproj", "{CF4FCEBB-1410-4BA7-A509-97E545ABC5D4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -75,6 +77,15 @@ Global
 		{57FA5E04-F7D0-47B7-900D-CA2BA94E9D52}.ReleaseST|Win32.Build.0 = Release|Win32
 		{57FA5E04-F7D0-47B7-900D-CA2BA94E9D52}.ReleaseST|x64.ActiveCfg = Release|x64
 		{57FA5E04-F7D0-47B7-900D-CA2BA94E9D52}.ReleaseST|x64.Build.0 = Release|x64
+		{CF4FCEBB-1410-4BA7-A509-97E545ABC5D4}.Debug|Win32.ActiveCfg = Debug|Win32
+		{CF4FCEBB-1410-4BA7-A509-97E545ABC5D4}.Debug|Win32.Build.0 = Debug|Win32
+		{CF4FCEBB-1410-4BA7-A509-97E545ABC5D4}.Debug|x64.ActiveCfg = Debug|Win32
+		{CF4FCEBB-1410-4BA7-A509-97E545ABC5D4}.Release|Win32.ActiveCfg = Release|Win32
+		{CF4FCEBB-1410-4BA7-A509-97E545ABC5D4}.Release|Win32.Build.0 = Release|Win32
+		{CF4FCEBB-1410-4BA7-A509-97E545ABC5D4}.Release|x64.ActiveCfg = Release|Win32
+		{CF4FCEBB-1410-4BA7-A509-97E545ABC5D4}.ReleaseST|Win32.ActiveCfg = Release|Win32
+		{CF4FCEBB-1410-4BA7-A509-97E545ABC5D4}.ReleaseST|Win32.Build.0 = Release|Win32
+		{CF4FCEBB-1410-4BA7-A509-97E545ABC5D4}.ReleaseST|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

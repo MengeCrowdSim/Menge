@@ -31,11 +31,16 @@ We use [http://www.stack.nl/~dimitri/doxygen/](doxygen) to capture the source co
 as well as provide overview of authoring scenarios and Menge's architectural philosophy. Make
 sure you have doxygen installed.  
 
+In all cases, after following the instructions below, the documentation will be located in (with
+slashes appropriate to your OS):
+
+	- Windows: `$MENGE_ROOT\doc\output\menge\html\index.html`
+	- Linux/OSX: `$MENGE_ROOT/doc/output/menge/html/index.html`
+
 #### Windows
 
-To build, simply go to a command-line window, move to the root of the Menge source and type:
+Open $MENGE_ROOT\projects\VS2013\Menge\Menge13.sln.  Build the `MengeDocs` project.  The output will be in:
 
-   `doxygen doc\MengeFul.cfg`
    
 #### Linux and Mac OSX
 

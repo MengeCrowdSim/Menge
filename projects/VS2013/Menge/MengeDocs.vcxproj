@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{CF4FCEBB-1410-4BA7-A509-97E545ABC5D4}</ProjectGuid>
+    <Keyword>MakeFileProj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <NMakeBuildCommandLine>doxygen doc/MengeFull.cfg</NMakeBuildCommandLine>
+    <NMakePreprocessorDefinitions>WIN32;_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <NMakeBuildCommandLine>doxygen doc/MengeFull.cfg</NMakeBuildCommandLine>
+    <NMakePreprocessorDefinitions>WIN32;NDEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <PostBuildEvent>
+      <Command>cd $(SolutionDir)../../..
+doxygen doc/MengeFull.cfg</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <PostBuildEvent>
+      <Command>cd $(SolutionDir)../../..
+doxygen doc/MengeFull.cfg</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <None Include="$(SolutionDir)..\..\..\doc\Menge.cfg" />
+    <None Include="$(SolutionDir)..\..\..\doc\MengeCore.cfg" />
+    <None Include="$(SolutionDir)..\..\..\doc\mengeDetails\architecture.md" />
+    <None Include="$(SolutionDir)..\..\..\doc\mengeDetails\behaveSpec.md" />
+    <None Include="$(SolutionDir)..\..\..\doc\mengeDetails\commandLine.md" />
+    <None Include="$(SolutionDir)..\..\..\doc\mengeDetails\distribution.md" />
+    <None Include="$(SolutionDir)..\..\..\doc\mengeDetails\elements.md" />
+    <None Include="$(SolutionDir)..\..\..\doc\mengeDetails\elements\actions.md" />
+    <None Include="$(SolutionDir)..\..\..\doc\mengeDetails\elements\agentGen.md" />
+    <None Include="$(SolutionDir)..\..\..\doc\mengeDetails\elements\elevation.md" />
+    <None Include="$(SolutionDir)..\..\..\doc\mengeDetails\elements\events.md" />
+    <None Include="$(SolutionDir)..\..\..\doc\mengeDetails\elements\goals.md" />
+    <None Include="$(SolutionDir)..\..\..\doc\mengeDetails\elements\goalSelect.md" />
+    <None Include="$(SolutionDir)..\..\..\doc\mengeDetails\elements\obstacleSet.md" />
+    <None Include="$(SolutionDir)..\..\..\doc\mengeDetails\elements\profileSelect.md" />
+    <None Include="$(SolutionDir)..\..\..\doc\mengeDetails\elements\spaceQuery.md" />
+    <None Include="$(SolutionDir)..\..\..\doc\mengeDetails\elements\spaceQuery_.md" />
+    <None Include="$(SolutionDir)..\..\..\doc\mengeDetails\elements\stateSelect.md" />
+    <None Include="$(SolutionDir)..\..\..\doc\mengeDetails\elements\tasks.md" />
+    <None Include="$(SolutionDir)..\..\..\doc\mengeDetails\elements\transition.md" />
+    <None Include="$(SolutionDir)..\..\..\doc\mengeDetails\elements\velComp.md" />
+    <None Include="$(SolutionDir)..\..\..\doc\mengeDetails\elements\velMod.md" />
+    <None Include="$(SolutionDir)..\..\..\doc\mengeDetails\examples.md" />
+    <None Include="$(SolutionDir)..\..\..\doc\mengeDetails\extendInstructions.md" />
+    <None Include="$(SolutionDir)..\..\..\doc\mengeDetails\impl_pedModel.md" />
+    <None Include="$(SolutionDir)..\..\..\doc\mengeDetails\mainpage.md" />
+    <None Include="$(SolutionDir)..\..\..\doc\mengeDetails\outSpec.md" />
+    <None Include="$(SolutionDir)..\..\..\doc\mengeDetails\projSpec.md" />
+    <None Include="$(SolutionDir)..\..\..\doc\mengeDetails\sceneSpec.md" />
+    <None Include="$(SolutionDir)..\..\..\doc\mengeDetails\viewSpec.md" />
+    <None Include="$(SolutionDir)..\..\..\doc\MengeFull.cfg" />
+    <None Include="$(SolutionDir)..\..\..\doc\MengeVis.cfg" />
+    <None Include="$(SolutionDir)..\..\..\doc\pluginDetails\examples.md" />
+    <None Include="$(SolutionDir)..\..\..\doc\pluginDetails\mainpage.md" />
+    <None Include="$(SolutionDir)..\..\..\doc\Plugins.cfg" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
