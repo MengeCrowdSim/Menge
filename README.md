@@ -39,7 +39,7 @@ To build, simply go to a command-line window, move to the root of the Menge sour
    
 #### Linux and Mac OSX
 
-To build, simply go to a terminal window, move to the root of the Menge source and type:
+To build, simply go to a terminal window. Change to $MENGE_ROOT/projects/g++.  Execute the command:
 
    `make docs`
    
