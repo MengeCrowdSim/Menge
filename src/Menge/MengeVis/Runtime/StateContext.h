@@ -80,10 +80,7 @@ namespace MengeVis {
 		class StateContext : public SceneGraph::Context {
 		public:
 			/*!
-			 *	@brief		Constructor.
-			 *
-			 *	@param		state		A pointer to the underlying fsm state.
-			 *							The context will *not* delete the state.
+			 *	@brief		Default constructor.
 			 */
 			StateContext();
 
@@ -95,7 +92,7 @@ namespace MengeVis {
 			/*!
 			 *	@brief		Sets the state this context works on.
 			 *
-			 *	@param		The state to represent with this context.
+			 *	@param		state		The state to represent with this context.
 			 */
 			void setState( Menge::BFSM::State * state );
 

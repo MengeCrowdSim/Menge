@@ -40,7 +40,7 @@ namespace MengeVis {
 				 *	visualization element is triggered, the database will supply the triggering
 				 *	element.
 				 *
-				 *	@param		agent		The agent to interact with.
+				 *	@param		vc		The velocity component to interact with.
 				 */
 				virtual void setElement( const Menge::BFSM::VelComponent * vc );
 
@@ -98,7 +98,7 @@ namespace MengeVis {
 				 *	visualization element is triggered, the database will supply the triggering
 				 *	element.
 				 *
-				 *	@param		agent		The agent to interact with.
+				 *	@param		vc		The velocity component to interact with.
 				 */
 				virtual void setElement( const Menge::BFSM::VelComponent * vc );
 
@@ -156,7 +156,7 @@ namespace MengeVis {
 				 *	visualization element is triggered, the database will supply the triggering
 				 *	element.
 				 *
-				 *	@param		agent		The agent to interact with.
+				 *	@param		vc		The velocity component to interact with.
 				 */
 				virtual void setElement( const Menge::BFSM::VelComponent * vc ) {}
 

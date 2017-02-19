@@ -180,9 +180,12 @@ namespace Menge {
 		//					Implementation of CorePluginEngine
 		/////////////////////////////////////////////////////////////////////
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 		template<> 
 		const char * Plugin< CorePluginEngine >::getRegisterName() const {
 			return "registerCorePlugin";
 		}
 	}
+#endif	 // DOXYGEN_SHOULD_SKIP_THIS
+
 }	// namespace Menge

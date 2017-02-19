@@ -55,6 +55,13 @@ namespace Menge {
 		/*!
 		 *	@brief		A profile selector that stores a single agent initializer
 		 *				and assigns this profile to all agents.
+		 *
+		 *	To specify a const profile selector use the following syntax:
+		 *
+		 *		<ProfileSelector type="const" name="PROFILE_NAME" />
+		 *
+		 *	Simply exchange the `PROFILE_NAME` for a named profile in the scene
+		 *	specification file.
 		 */
 		class MENGE_API ConstProfileSelector : public ProfileSelector {
 		public:

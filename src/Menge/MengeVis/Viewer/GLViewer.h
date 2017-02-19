@@ -64,7 +64,7 @@ namespace MengeVis {
 	class Image;
 
 	/*! 
-	 *	@namespace	Vis
+	 *	@namespace	MengeVis::Viewer
 	 *	@brief		The namespace containing visualization functionality for the
 	 *				pedestrian simulation.
 	 */

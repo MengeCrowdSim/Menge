@@ -58,27 +58,26 @@ namespace Menge {
 		class Obstacle;
 
 		/*!
-		 * @brief struct to store agent proximity query results.
+		 * @brief	The definition of a proximal agent -- an agent "near" a point.
 		 */
 		struct  NearAgent {
 			/*!
-			 * @brief distanceSquared to the agent
+			 * @brief		The squared distance from the query point to the agent.
 			 */
 			float distanceSquared;
 
 			/*!
-			 * @brief the agent pointer
+			 * @brief		A pointer to the agent at the indicated distance.
 			 */
 			const BaseAgent * agent;
 
 			/*!
-			 * @brief constructor
+			 * @brief		Constructor
 			 *
-			 * @param		distance		the distance to store in the struct
-			 * @param		agt		the agent to store in the struct
+			 * @param		sqdDist			The squared distance of the agent from a test point.
+			 * @param		agt				The agent.
 			 */
-			NearAgent( float distance, const BaseAgent * agt ) : distanceSquared( distance ),
-																 agent(agt) {}
+			NearAgent(float sqdDist, const BaseAgent * agt):distanceSquared(sqdDist), agent(agt){};
 		};
 
 		/*!
@@ -86,23 +85,22 @@ namespace Menge {
 		 */
 		struct  NearObstacle{
 			/*!
-			 * @brief distanceSquared to the obstacle
+			 * @brief		The squared distance from the query point to the obstacle.
 			 */
 			float distanceSquared;
 
 			/*!
-			 * @brief pointer to the obstacle
+			 * @brief		A pointer to the obstacle at the indicated distance.
 			 */
 			const Obstacle * obstacle;
 
 			/*!
-			 * @brief constructor
+			 * @brief		Constructor
 			 *
-			 * @param		distance		the distance to store in the struct
-			 * @param		obs		the obstacle to store in the struct
+			 * @param		sqdDist		The squared distance of the obstacle from a test point.
+			 * @param		obs			The obstacle.
 			 */
-			NearObstacle( float distance, const Obstacle * obs ) : distanceSquared( distance ),
-																   obstacle( obs ) {}
+			NearObstacle(float sqdDist, const Obstacle * obs):distanceSquared(sqdDist), obstacle(obs){};
 		};
 
 	}	// namespace Agents

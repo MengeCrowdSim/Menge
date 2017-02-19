@@ -75,7 +75,7 @@ namespace MengeVis {
 			/*!
 			 *	@brief		Returns an instance of the corresponding visualization element.
 			 *
-			 *	@param		node		The element to to provide a visual element for.
+			 *	@param		element		The element to to provide a visual element for.
 			 *	@returns	A pointer to a compatible visualization element, targeted to the given
 			 *				@p element.  Guaranteed to return a non-null pointer.
 			 */
@@ -126,9 +126,9 @@ namespace MengeVis {
 			/*!
 			 *	@brief		Adds a new visualization element for elements with the given name.
 			 *
-			 *	The database takes ownership of the data pointed to. To be added, the @element name
-			 *	must be unique relative all previously defined visualization elements *in this
-			 *	database*.  If the @visElement cannot be added, it will be deleted.
+			 *	The database takes ownership of the data pointed to. To be added, the `element`
+			 *	name must be unique relative all previously defined visualization elements *in this
+			 *	database*.  If the `visElement` cannot be added, it will be deleted.
 			 *
 			 *	@param		visElement		The visualization element for the named element type.
 			 *	@returns	True if the visualization element is successfully added.

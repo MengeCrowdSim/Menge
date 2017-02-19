@@ -111,10 +111,9 @@ namespace Menge {
 		 *			between them is collision free (the link has the given width).
 		 *		- Updates its internal structure based on current agent state.
 		 *			// TODO: This should be done via a task.
-		 *      
 		 *      - The spatial query is also responsible for visiblity testing
-		 *      Spatial Queries work in tandem with a Filter. The query itself is agnostic of the
-		 *		filter or the results.
+		 *      Spatial Queries work in tandem with a ProximityQuery. The query itself is 
+		 *		agnostic of how the results are filtered.
 		 */
 		class MENGE_API SpatialQuery : public Element {
 		public:
@@ -144,22 +143,24 @@ namespace Menge {
 			virtual void updateAgents() = 0;
 
 			/*!
-			 *  @brief      adds an obstacle to the internal list of the spatial query
-			 *				
+			 *  @brief      Adds an obstacle to the internal list of the spatial query
+			 *		
+			 * 	@param		obs		The obstacle to insert into the spatial query data 
+			 *						structure.
 			 */
 			virtual void addObstacle(Obstacle * obs);
 
 			/*!
-			 *  @brief      returns the collected obstacles of the spatial query for use in
-			 *				visualization.
-			 *  @returns    const pointer to the obstacle set
+			 *  @brief      Returns the collected obstacles of the spatial query for use 
+			 *				in visualization.
 			 *				
+			 *  @returns    A const reference to the obstacle set
 			 */
-			const std::vector< Obstacle * > getObstacles() {return _obstacles;};
+			const std::vector< Obstacle * > & getObstacles() {return _obstacles;}
 
 			/*!
-			 *  @brief      performs an agent based proximity query
-			 *  @param      query          a pointer for the proximity query to be performed
+			 *  @brief      Performs an agent based proximity query
+			 *  @param      query          A pointer for the proximity query to be performed
 			 */
 			virtual void agentQuery( ProximityQuery * query) const = 0;
 
@@ -203,7 +204,7 @@ namespace Menge {
 			/*!
 			 *	@brief		Sets the test visibility status of the neighbor functions.
 			 *
-			 *	@param		status		The new stats of the test visibility property.
+			 *	@param		status		The new status of the test visibility property.
 			 */
 			inline void setTestVisibility( bool status ) { _testVisibility = status; }
 

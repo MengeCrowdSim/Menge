@@ -15,6 +15,12 @@ namespace Menge {
 
 namespace MengeVis {
 	namespace Runtime {
+
+		/*!
+		 *	@namespace	MengeVis::Runtime::GoalVis
+		 *	@brief		The namespace that contains context structures for visualizing goal
+		 *				state. (@see Menge::BFSM::Goal)
+		 */
 		namespace GoalVis {
 			/*!
 			 *	@brief		Class responsible for rendering a goal to the OpenGL context.
@@ -32,7 +38,7 @@ namespace MengeVis {
 				 *	visualization element is triggered, the database will supply the triggering
 				 *	element.
 				 *
-				 *	@param		agent		The agent to interact with.
+				 *	@param		goal		The goal to interact with.
 				 */
 				virtual void setElement( const Menge::BFSM::Goal * goal ) { _goal = goal; }
 

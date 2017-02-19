@@ -57,6 +57,18 @@ namespace Menge {
 		/*!
 		 *	@brief		Definition of agent generator class which produces agents based on
 		 *				explicit enumeration of agent positions in an XML file.
+		 *
+		 *	To specify an explicit agent generator, use the following syntax:
+		 *
+		 *		<Generator type="explicit">
+		 *			<Agent p_x="float" p_y="float"/>
+		 *			<Agent p_x="float" p_y="float"/>
+		 *			...
+		 *			<Agent p_x="float" p_y="float"/>
+		 *		</Generator>
+		 *
+		 *	The values `p_x` and `p_y` represent the intial position of the agent in
+		 *	simulation space.
 		 */
 		class MENGE_API ExplicitGenerator : public AgentGenerator {
 		public:
@@ -73,12 +85,12 @@ namespace Menge {
 			virtual size_t agentCount() { return _positions.size(); }
 
 			/*!
-			*	@brief		Get the position of the ith agent.
-			*
-			*	@param		i		The index of the requested agent.
-			*	@param		agt		A pointer to the ith agent whose position is to be set.
-			*	@throws		AgentGeneratorException if the index, i, is invalid.
-			*/
+			 *	@brief		Sets the ith position to the given agent.
+			 *
+			 *	@param		i		The index of the requested position in the sequence.
+			 *	@param		agt		A pointer to the agent whose position is to be set.
+			 *	@throws		AgentGeneratorException if the index, i, is invalid.
+			 */
 			virtual void setAgentPosition(size_t i, BaseAgent * agt);
 			
 			/*!

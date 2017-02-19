@@ -16,6 +16,11 @@ namespace Menge {
 }
 
 namespace MengeVis {
+	/*!
+	 *	@namespace	MengeVis::Runtime
+	 *	@brief		The namespace that contains runtime components (contexts, visual elements,
+	 *				etc.) for visualization.
+	 */
 	namespace Runtime {
 		// forward declarations
 		//namespace AgentContext {

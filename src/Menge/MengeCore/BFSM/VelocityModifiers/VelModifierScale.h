@@ -58,6 +58,13 @@ namespace Menge {
 
 		/*!
 		 *	@brief		A velocity modifier that scales the input velocity's speed.
+		 *
+		 *	To specify a scale velocity modifier, use the following syntax:
+		 *
+		 *		<VelModifier type="scale" scale="float"/>
+		 *
+		 *	The value `scale` contains the scalar factor the input preferred 
+		 *	velocity's speed will be multiplied by.
 		 */
 		class MENGE_API ScaleVelModifier : public VelModifier {
 		public:

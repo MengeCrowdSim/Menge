@@ -68,7 +68,7 @@ namespace Terrain {
 	 *	@brief		Modify the preferred velocity based on a height field.
 	 *
 	 *	Agents preferred velocities can be sped up, slowed, and turned based on their attempt
-	 *	to traverse a heightfield.  The gradient of the height field is used to determine the
+	 *	to traverse a height field.  The gradient of the height field is used to determine the
 	 *  new preferred velocity.  
 	 *
 	 *	Direction is determined by a re-normalized, weighted sum of the gradient with the input
@@ -80,6 +80,28 @@ namespace Terrain {
 	 *
 	 *	The output preferred velocity becomes a single velocity (instead of an arc).  
 	 *	If the input preferred velocity spanned an arc, it will be collapsed to a single direction.
+	 *
+	 *	To specify a formation velocity modifier, use the following syntax:
+	 *
+	 *		<VelModifier type="height_field" file_name="string" 
+	 *			down_hill_scale="float" dir_weight="float" up_hill_scale="float"/>
+	 *
+	 *	The parameters have the following meanings:
+	 *	- The value `file_name` contains the path to the height field definition file 
+	 *	(see @ref Terrain::HeightField for details on the file).  The path 
+	 *	should be relative to the file that specifies the velocity modifier.
+	 *	- The value `down_hill_scale` is a scale factor applied to down hill motion
+	 *		It limits the amount the speed increases when going downhill (e.g., a value of zero
+	 *		prevents the speed from changing at all.  A value of 1.0 will allow the speed to double).
+	 *	- The value `dir_weight` is a scale factor which determines how much the travel direction is
+	 *		affected by the height field.  Smaller values will cause smaller changes to direction than
+	 *		larger values.  (A value of zero will leave the agent moving along their original direction,
+	 *		but still susceptible to speed changes.)
+	 *	- The value `up_hill_scale` is a scale factor applied to up hill motion.
+	 *		It limits the amount that the speed is retarded when moving up hill.  If the value is 1,
+	 *		then only a vertical surface will *completely* eliminate motion.  However, larger values
+	 *		wall cause the agent to slow to a stop on smaller slopes.  Smaller values will cause the
+	 *		agent to slow less while moving up hill.
 	 */
 	class EXPORT_API HeightFieldModifier : public Menge::BFSM::VelModifier {
 	public:

@@ -100,8 +100,9 @@ namespace PedVO {
 		 *								This value is only set if the agent is turning.
 		 *	@returns		The total number of obstacle lines
 		 */
-		size_t computeORCALines( Menge::Math::Vector2 & optVel, Menge::Math::Vector2 & prefDir,
-								 float & prefSpeed );
+		size_t computeORCALinesTurning( Menge::Math::Vector2 & optVel,
+										Menge::Math::Vector2 & prefDir,
+										float & prefSpeed );
 
 		/*!
 		 *	@brief		The set of ORCA constraints.

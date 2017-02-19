@@ -61,13 +61,13 @@ namespace Menge {
 				throw AgentGeneratorFatalException("ExplicitGenerator trying to access an agent "
 													"outside of the specified population");
 			}
-			agt->_pos = _positions[i];
+			agt->_pos = addNoise(_positions[i]);
 		}
 
 		////////////////////////////////////////////////////////////////////////////
 
 		void ExplicitGenerator::addPosition( const Vector2 & p ) {
-			_positions.push_back( addNoise( p ) );
+			_positions.push_back( p );
 		}
 
 		////////////////////////////////////////////////////////////////////////////

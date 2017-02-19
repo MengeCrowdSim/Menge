@@ -69,6 +69,34 @@ namespace FDModifier {
 	 *				for local density.  This produces a density-dependent behavior
 	 *				which can conform to the fundamental diagram (depending on the
 	 *				settings.)
+	 *
+	 *	This is an implementation of the work found at http://gamma.cs.unc.edu/PEDS/download/curtis12_FD.pdf
+	 *	It is a model of the underlying causes of the so-called *fundamental diagram* -- 
+	 *	the name for the density-dependent behavior observed in pedestrians.  As the
+	 *	crowd gets denser, the crowd moves more slowly.  It uses two parameter: stride
+	 *	factor and stride buffer.  The stride *factor* models physiological factors
+	 *	that correlate available space to stride length (and therefore walking speed).
+	 *	A typical mean value is 1.57.  The stride *buffer* models psychological factors
+	 *	which determine how the agent perceives the physical space as a *comfortable* space.
+	 *	Typical values are in the range 0.5-0.9
+	 *
+	 *	To specify a fundamental velocity modifier, use the following syntax:
+	 *
+	 *		<VelModifier type="fundamental_diagram" 
+	 *					buffer_dist="c" buffer_value="float"
+	 *					factor_dist="c" factor_value="float" />
+	 *
+	 *	The parameters have the following meanings:
+	 *	- The value for `buffer_dist` defines the numerical distribution for the 
+	 *		stride *buffer* value.  In the example given above, it is a constant distribution
+	 *		For other distributions (i.e., uniform (`u`) or normal (`n`), `buffer_value` would
+	 *		be replaced by the pairs `buffer_min` and `buffer_max` or `buffer_mean` and `buffer_stddev`,
+	 *		respectively.
+	 *	- The value for `factor_dist` defines the numerical distribution for the 
+	 *		stride *factor* value.  In the example given above, it is a constant distribution
+	 *		For other distributions (i.e., uniform (`u`) or normal (`n`), `factor_value` would
+	 *		be replaced by the pairs `factor_min` and `factor_max` or `factor_mean` and `factor_stddev`,
+	 *		respectively.
 	 */
 	class FDMODIFIER_API FDModifier : public Menge::BFSM::VelModifier {
 	public:

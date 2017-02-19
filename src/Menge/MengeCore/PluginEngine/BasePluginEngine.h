@@ -12,7 +12,15 @@
 #include <map>
 
 namespace Menge {
+	/*!
+	 *	@namespace  Menge::PluginEngine
+	 *	@brief		The namespace containing the plug-in infrastructure for the core simulation.
+	 */
 	namespace PluginEngine {
+		/*!
+		 *	@brief		Class that serves as the basis for registering and loading plug-ins for
+		 *				Menge.
+		 */
 		template <typename EngineType, typename PluginType>
 		class BasePluginEngine {
 		public:

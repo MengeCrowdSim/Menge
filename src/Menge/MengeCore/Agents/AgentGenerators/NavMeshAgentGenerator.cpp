@@ -62,7 +62,7 @@ namespace Menge {
 				throw AgentGeneratorFatalException("NavMeshGenerator trying to access an agent "
 													"outside of the specified population");
 			}
-			agt->_pos = _positions[i];
+			agt->_pos = addNoise( _positions[ i ] );
 			unsigned int node = _localizer->getNode(agt, _groupName);
 			if (node == NavMeshLocation::NO_NODE) {
 				std::stringstream ss;
@@ -79,7 +79,7 @@ namespace Menge {
 					"registered a navigation mesh");
 			assert(_localizer.hasData() && "Attempting to add agent position without having "
 					"registered a navigation mesh localizer");
-			_positions.push_back(addNoise(p));
+			_positions.push_back(p);
 		}
 
 		////////////////////////////////////////////////////////////////////////////

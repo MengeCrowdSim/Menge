@@ -100,6 +100,21 @@ namespace Menge {
 		 *	Essentially, the AgentGenerator produces a set of agent positions.  Its
 		 *	properties should be sufficient to produce a count of agents with 
 		 *	defined positions.
+		 *
+		 *	The base class provides the definition (parsing and utilization) of a noise
+		 *	parameter which can be applied on top of the sub-class's implementation.
+		 *	The direction of perturbation is uniformly distributed on the plane; the
+		 *	user defines the magnitude of the perturbation.
+		 *	To make use of the spatial noise, the AgentGenerator must be instantiated in
+		 *	the scene specification file as in the following example:
+		 *
+		 *		<Generator type="TYPE_NAME" ...
+		 *			displace_dist="u" displace_min="0.0" displace_max="0.5"
+		 *		/>
+		 *
+		 *	The noise is a standard Menge distribution with a "displace_" prefix.  In this
+		 *	example, a uniform noise is applied to the computed position.  (The ellipses 
+		 *	take the place of the type-specific parameters for the TYPE_NAME generator class.)
 		 */
 		class MENGE_API AgentGenerator : public Element {
 		public:
@@ -123,10 +138,10 @@ namespace Menge {
 			virtual size_t agentCount() = 0;
 
 			/*!
-			 *	@brief		Get the position of the ith agent.
+			 *	@brief		Sets the ith position to the given agent.
 			 *
-			 *	@param		i		The index of the requested agent.
-			 *	@param		agt		A pointer to the ith agent whose position is to be set.
+			 *	@param		i		The index of the requested position in the sequence.
+			 *	@param		agt		A pointer to the agent whose position is to be set.
 			 *	@throws		AgentGeneratorException if the index, i, is invalid.
 			 */
 			virtual void setAgentPosition( size_t i, BaseAgent * agt ) = 0;

@@ -9,6 +9,9 @@ $(DIRS):
 	mkdir $@
 
 
+docs:
+	cd ../.. && doxygen doc/MengeFull.cfg
+
 release:
 	( cd build/release && cmake -DCMAKE_BUILD_TYPE=release ../.. && $(MAKE) --no-print-directory  && make --no-print-directory install)
 #	ctags -R  --language-force=c++ *.*

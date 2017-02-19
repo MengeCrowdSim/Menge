@@ -206,6 +206,11 @@ namespace Menge {
 		//					Specialization of Plugin
 		/////////////////////////////////////////////////////////////////////
 
+		/*!
+		 *	@brief  Provides the plug-in method name for Menge *core* plug-ins.
+		 *
+		 *	@returns	The name of the registration function.
+		 */
 		template<>
 		const char * Plugin< CorePluginEngine >::getRegisterName() const;
 

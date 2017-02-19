@@ -83,7 +83,7 @@ typedef StringList::const_iterator StringListCItr;
 namespace Menge {
 
 	/*!
-	 *	@namespace		os
+	 *	@namespace		Menge::os
 	 *	@brief			A compilation of file system operations.
 	 *	
 	 *	These are based loosely on the pythong os module and the interface
@@ -153,7 +153,7 @@ namespace Menge {
 
 
 		/*!
-		 *	@namespace		os::path
+		 *	@namespace		Menge::os::path
 		 *	@brief			Aggregation of path-oriented, file system operations.
 		 */
 		namespace path {

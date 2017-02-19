@@ -448,6 +448,8 @@ namespace ORCA {
 
 	/////////////////////////////////////////////////////////////////////////////
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+
 	bool linearProgram1(const std::vector<Menge::Math::Line>& lines, size_t lineNo, float radius,
 						 const Vector2& optVelocity, bool directionOpt, Vector2& result) {
 		const float dotProduct = lines[lineNo]._point * lines[lineNo]._direction;
@@ -599,4 +601,7 @@ namespace ORCA {
 			}
 		}
 	}
+
+#endif  // DOXYGEN_SHOULD_SKIP_THIS
+
 }	// namespace ORCA

@@ -146,11 +146,11 @@ namespace PedVO {
 		
 	///////////////////////////////////////////////////////////////////////
 
-	/* Compute the ORCA lines for the neighboring obstacles and agents */
+	// Compute the ORCA lines for the neighboring obstacles and agents.
 	size_t Agent::computeORCALines() {
 		Vector2 junk1, junk2;
 		float junk;
-		return computeORCALines( junk1, junk2, junk );
+		return computeORCALinesTurning( junk1, junk2, junk );
 	}
 
 	/////////////////////////////////////////////////////////////////////////////
@@ -412,8 +412,9 @@ namespace PedVO {
 
 	///////////////////////////////////////////////////////////////////////
 
-	/* Compute the ORCA lines for the neighboring obstacles and agents */
-	size_t Agent::computeORCALines( Vector2 & optVel, Vector2 & prefDir, float & prefSpeed ) {
+	// Compute the ORCA lines for the neighboring obstacles and agents.
+	size_t Agent::computeORCALinesTurning( Vector2 & optVel, Vector2 & prefDir, 
+										   float & prefSpeed ) {
 		_orcaLines.clear();
 
 		const float invTimeHorizonObst = 1.0f / _timeHorizonObst;
@@ -627,7 +628,7 @@ namespace PedVO {
 		Vector2 prefDir;
 		float prefSpeed;
 		// Compute ORCA lines returns the optVel and prefSpeed as appropriate
-		const size_t numObstLines = computeORCALines( optVel, prefDir, prefSpeed );
+		const size_t numObstLines = computeORCALinesTurning( optVel, prefDir, prefSpeed );
 
 		size_t lineFail = linearProgram2(_orcaLines, _maxSpeed, optVel, false, _turningBias,
 										  _velNew);
@@ -664,6 +665,9 @@ namespace PedVO {
 	}
 
 	///////////////////////////////////////////////////////////////////////
+
+
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 
 	bool linearProgram1(const std::vector<Menge::Math::Line>& lines, size_t lineNo, float radius,
 						 const Vector2& optVelocity, bool directionOpt, float turnBias,
@@ -835,4 +839,6 @@ namespace PedVO {
 			}
 		}
 	}
+
+#endif DOXYGEN_SHOULD_SKIP_THIS
 }	// namespace PedVO

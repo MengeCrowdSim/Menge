@@ -14,3 +14,5 @@ ipch/
 *.ncb
 # CLion files
 *.idea
+doc/output
+doc/tags
