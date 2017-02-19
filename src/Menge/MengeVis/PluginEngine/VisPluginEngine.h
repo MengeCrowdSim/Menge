@@ -89,6 +89,9 @@ namespace MengeVis {
 
 namespace Menge {
 	namespace PluginEngine {
+		/*!
+		 *	@brief		Reports the visual plugin regsitration function name.
+		 */
 		template<>
 		const char * 
 		Plugin< MengeVis::PluginEngine::VisPluginEngine >::getRegisterName() const {

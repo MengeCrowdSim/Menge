@@ -366,30 +366,30 @@ namespace Menge {
 			// Methods needed for a spatial query filter to work
 
 			/*!
-			 *  @brief     clears the result vectors. Resets the filter
+			 *  @brief     Clears the result vectors. Resets the filter
 			 */
 			virtual void startQuery();
 
 			/*!
-			 *  @brief      filters an agent and determines if it needs to be in the near set
+			 *  @brief      Filters an agent and determines if it needs to be in the near set.
 			 *
-			 *  @param      agent     the agent to consider
-			 *  @param      distance  the distance to the agent
+			 *  @param      agent		The agent to consider.
+			 *  @param      distance	The distance to the agent.
 			 */
 			virtual void filterAgent(const BaseAgent *agent, float distance);
 
 			/*!
-			 *  @brief      filters an obstacle and determines if it needs to be in the near set
+			 *  @brief      Filters an obstacle and determines if it needs to be in the near set.
 			 *
-			 *  @param      obstacle  the obstacle to consider
-			 *  @param      distance  the distance to the obstacle
+			 *  @param      obstacle	The obstacle to consider.
+			 *  @param      distance	The distance to the obstacle.
 			 */
-			virtual void filterObstacle(const Obstacle *, float distance);
+			virtual void filterObstacle(const Obstacle * obstacle, float distance);
 
 			/*!
-			 *  @brief      gets the start point for the query
+			 *  @brief      Gets the start point for the query.
 			 *
-			 *   @returns    the query point for this filter
+			 *  @returns    The query point for this filter.
 			 */
 			virtual Math::Vector2 getQueryPoint(){ return _pos; };
 
