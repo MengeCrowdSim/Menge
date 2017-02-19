@@ -61,7 +61,7 @@ class TiXmlElement;
 namespace Menge {
 
 	/*!
-	 * @namespace BFSM
+	 * @namespace Menge::BFSM
 	 * @brief	The namespace contains the Behavior Finite State Machine (BFSM) definition
 	 */
 	namespace BFSM {

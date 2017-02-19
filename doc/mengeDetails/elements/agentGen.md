@@ -15,15 +15,14 @@ defined by the given distribution (more details can be seen in the documentation
 
 There are two important methods for an implementation of an AgentGenerator to implement:
 [agentCount](@ref Menge::Agents::AgentGenerator::agentCount) and
-[computePos](@ref Menge::Agents::AgentGenerator::computePos).
+[setAgentPosition](@ref Menge::Agents::AgentGenerator::setAgentPosition).
 
 [agentCount](@ref Menge::Agents::AgentGenerator::agentCount) reports the number of agents that will
 be created based on the parameters in the XML specification.  
 
-[computePos](@ref Menge::Agents::AgentGenerator::computePos) takes as a parameter the index of one
+[setAgentPosition](@ref Menge::Agents::AgentGenerator::setAgentPosition) takes as a parameter the index of one
 of the generated agents (it should lie in the range [0, N) where N is the value returned by
-[agentCount](@ref Menge::Agents::AgentGenerator::agentCount).  The algorithm should have a
-well-defined value for agent i.
+[agentCount](@ref Menge::Agents::AgentGenerator::agentCount) and the agent to be placed.
 
 @subsection subsec_AG_implementations Implementations
 
