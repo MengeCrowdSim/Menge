@@ -49,7 +49,8 @@ namespace GCF {
 	float	Simulator::NU_AGENT = 0.3f;
 	float	Simulator::MAX_AGENT_DIST = 2.f;
 	float	Simulator::MAX_AGENT_FORCE = 3.f;
-	float	Simulator::AGENT_INTERP_WIDTH = 0.1f;
+	float	Simulator::AGENT_INTERP_WIDTH = 0.12f;
+	bool	Simulator::SPEED_COLOR = false;
 
 	////////////////////////////////////////////////////////////////
 
@@ -65,6 +66,8 @@ namespace GCF {
 				MAX_AGENT_FORCE = toFloat( value );
 			} else if ( paramName == "agent_interp_width" ) {
 				AGENT_INTERP_WIDTH = toFloat( value );
+			} else if ( paramName == "speed_color" ) {
+				SPEED_COLOR = toInt( value ) != 0;
 			} else if ( ! Agents::SimulatorBase<Agent>::setExpParam( paramName, value ) ) {
 				// Simulator base didn't recognize the parameter either
 				return false;

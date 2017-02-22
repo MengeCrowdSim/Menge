@@ -1,5 +1,6 @@
 #include "GCFVisAgent.h"
 #include "GCFAgent.h"
+#include "GCFSimulator.h"
 #include "shapes.h"
 
 
@@ -52,6 +53,16 @@ namespace GCF {
 				}
 			}
 		}
+
+		if ( Simulator::SPEED_COLOR ) {
+			float speed = abs( agt->_vel);
+			float frac = speed / agt->_prefSpeed;
+			frac = frac > 1.f ? 1.f : frac;
+			r = 1.f - frac;
+			g = frac;
+			b = 0.f;
+		}
+
 		const Vector2 & pos = agt->_ellipse.getCenter();
 		float x = pos.x();
 		float y = pos.y();

@@ -138,6 +138,13 @@ namespace GCF {
 		 *	@brief		The distance over which agent forces are interpolated
 		 */
 		static float	AGENT_INTERP_WIDTH;
+
+	public:
+
+		/*!
+		 *	@brief		If true, the agents will be colored based on speed.
+		 */
+		static bool		SPEED_COLOR;
 	};
 }	// namespace GCF
 #endif	 // __GCF_SIMULATOR_H__

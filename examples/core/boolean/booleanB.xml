@@ -4,8 +4,8 @@
 	<GoalSet id="0">
 		<Goal type="circle" id="0" x="0" y="0" radius="0.5" />
 		<Goal type="circle" id="1" x="10" y="0" radius="0.5" />
-		<Goal type="circle" id="2" x="10" y="5" radius="0.5" />
-		<Goal type="circle" id="3" x="10" y="-5" radius="0.5" />
+		<Goal type="circle" id="2" x="10" y="5" radius="2.5" />
+		<Goal type="circle" id="3" x="10" y="-5" radius="2.5" />
 	</GoalSet>
 
 	<State name="Start" final="0">
