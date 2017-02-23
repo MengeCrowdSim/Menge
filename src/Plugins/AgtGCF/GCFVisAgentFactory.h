@@ -44,10 +44,8 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __GCF_VIS_AGENT_FACTORY_H__
 #define	__GCF_VIS_AGENT_FACTORY_H__
 
-#include "VisAgentFactory.h"
+#include "MengeCore/Runtime/VisAgentFactory.h"
 #include "GCF.h"
-
-using namespace Menge;
 
 namespace GCF {
 	/*!
@@ -63,7 +61,7 @@ namespace GCF {
 		 *	@returns	An instance of a visualization agent associated with the given
 		 *				simulation agent.
 		 */
-		virtual VisAgent * makeVisAgent( Agents::BaseAgent * agent );
+		virtual MengeVis::Runtime::VisAgent * makeVisAgent( Menge::Agents::BaseAgent * agent );
 		
 	};
 }	// namespace GCF

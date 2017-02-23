@@ -38,9 +38,14 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 #include "GCFAgent.h"
 #include "GCFSimulator.h"
-#include "Math/geomQuery.h"
+#include "MengeCore/Math/geomQuery.h"
 
 namespace GCF {
+
+	using Menge::Agents::BaseAgent;
+	using Menge::Agents::Obstacle;
+	using Menge::Math::Vector2;
+
 	////////////////////////////////////////////////////////////////
 	//					Implementation of Helper Function
 	////////////////////////////////////////////////////////////////
@@ -64,6 +69,10 @@ namespace GCF {
 
 	////////////////////////////////////////////////////////////////
 	//					Implementation of GCF::Agent
+	////////////////////////////////////////////////////////////////
+
+	const std::string Agent::NAME = "gcf";
+
 	////////////////////////////////////////////////////////////////
 
 	Agent::Agent(): Agents::BaseAgent(), _ellipse() {
@@ -106,10 +115,12 @@ namespace GCF {
 			float maxSt = sin( MAX_ANGLE_CHANGE );
 			if ( det( _orient, newOrient ) > 0.f ) {
 				// rotate _orient left
-				_orient.set( maxCt * _orient._x - maxSt * _orient._y, maxSt * _orient._x + maxCt * _orient._y );
+				_orient.set( maxCt * _orient._x - maxSt * _orient._y,
+					         maxSt * _orient._x + maxCt * _orient._y );
 			} else {
 				// rotate _orient right
-				_orient.set( maxCt * _orient._x + maxSt * _orient._y, -maxSt * _orient._x + maxCt * _orient._y );
+				_orient.set( maxCt * _orient._x + maxSt * _orient._y,
+					         -maxSt * _orient._x + maxCt * _orient._y );
 			}
 		}
 	}
@@ -134,7 +145,8 @@ namespace GCF {
 			const Agent * const other = static_cast< const Agent *>( otherBase );
 			float effDist, K_ij, response, velScale, magnitude;
 			Vector2 forceDir;
-			if ( getRepulsionParameters( other, effDist, forceDir, K_ij, response, velScale, magnitude ) == 0 ) {
+			if ( getRepulsionParameters( other, effDist, forceDir, K_ij,
+				                         response, velScale, magnitude ) == 0 ) {
 				force += forceDir * magnitude;
 			}
 		}
@@ -151,7 +163,8 @@ namespace GCF {
 				//	and point along wall behind.
 				Vector2 nearPt;	// gets set by distanceSqToPoint
 				float distSq;	// gets set by distanceSqToPoint
-				if ( obst->distanceSqToPoint( _pos, nearPt, distSq ) == Menge::Agents::Obstacle::LAST ) continue;
+				if ( obst->distanceSqToPoint( _pos, nearPt, distSq ) ==
+					 Menge::Agents::Obstacle::LAST ) continue;
 
 				// No force if the agent is ON the point
 				if ( distSq < 0.0001f ) continue;
@@ -198,7 +211,9 @@ namespace GCF {
 
 	////////////////////////////////////////////////////////////////
 
-	int Agent::getRepulsionParameters( const Agent * agent, float & effDist, Vector2 & forceDir, float & K_ij, float & response, float & velScale, float & magnitude ) const {
+	int Agent::getRepulsionParameters( const Agent * agent, float & effDist, Vector2 & forceDir,
+		                               float & K_ij, float & response, float & velScale,
+									   float & magnitude ) const {
 		const float PREF_SPEED = abs( _velPref.getPreferredVel() );
 		forceDir = _ellipse.ellipseCenterDisplace( agent->_ellipse );
 		float centerDist = abs( forceDir );
@@ -217,9 +232,9 @@ namespace GCF {
 		// field of view
 		K_ij = _orient * forceDir;
 
-		// This represents 360 degree sensitivity, with the maximum sensitivity in the oriented direction
-		//	fading to zero in the opposite direction
-		// remap [-1, 1] -> [-1, -0.1]
+		// This represents 360 degree sensitivity, with the maximum sensitivity in the oriented
+		//	direction fading to zero in the opposite direction
+		//  remap [-1, 1] -> [-1, -0.1]
 		K_ij = ( K_ij * 0.45f ) - 0.55f;
 		
 		// relative velocities
@@ -289,7 +304,8 @@ namespace GCF {
 		const float OBST_MAG = Simulator::OBST_SCALE;
 		Vector2 nearPt;	// set by distanceSqToPoint
 		float distSq;	// set by distanceSqToPoint
-		if ( obst->distanceSqToPoint( _pos, nearPt, distSq ) == Agents::Obstacle::LAST ) return Vector2(0.f,0.f);
+		if ( obst->distanceSqToPoint( _pos, nearPt, distSq ) ==
+			Agents::Obstacle::LAST ) return Vector2(0.f,0.f);
 		float dist = sqrtf( distSq );
 		Vector2 forceDir( ( _pos - nearPt ) / dist );
 		
@@ -310,7 +326,8 @@ namespace GCF {
 			f_pushing = forceDir * (Simulator::BODY_FORCE * ( _radius  - dist ) ); 
 
 			// friction
-			f_friction = tangent_io * Simulator::FRICTION * ( _radius - dist ) * ( _vel * tangent_io);
+			f_friction = tangent_io * Simulator::FRICTION
+				         * ( _radius - dist ) * ( _vel * tangent_io);
 			force += f_pushing - f_friction;
 		}
 		return force;

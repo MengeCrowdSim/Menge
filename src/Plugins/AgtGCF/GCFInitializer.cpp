@@ -38,9 +38,16 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 #include "GCFInitializer.h"
 #include "GCFAgent.h"
-#include "Math/RandGenerator.h"
+#include "MengeCore/Math/RandGenerator.h"
+#include "MengeCore/Runtime/Logger.h"
 
 namespace GCF {
+
+	using Menge::Agents::BaseAgent;
+	using Menge::Math::ConstFloatGenerator;
+	using Menge::Logger;
+	using Menge::logger;
+
 	////////////////////////////////////////////////////////////////
 	//			Implementation of GCF::AgentInitializer
 	////////////////////////////////////////////////////////////////
@@ -53,7 +60,7 @@ namespace GCF {
 	
 	////////////////////////////////////////////////////////////////
 
-	AgentInitializer::AgentInitializer() : Agents::AgentInitializer() { 
+	AgentInitializer::AgentInitializer() : Menge::Agents::AgentInitializer() { 
 		_aMin = new ConstFloatGenerator( 0.18f );
 		_aRate = new ConstFloatGenerator( 0.53f );
 		_bMax = new ConstFloatGenerator( 0.25f );
@@ -62,7 +69,8 @@ namespace GCF {
 
 	////////////////////////////////////////////////////////////////
 
-	AgentInitializer::AgentInitializer( const AgentInitializer & init) : Agents::AgentInitializer(init) { 
+	AgentInitializer::AgentInitializer( const AgentInitializer & init) :
+		Menge::Agents::AgentInitializer( init ) { 
 		_aMin = init._aMin->copy();
 		_aRate = init._aRate->copy();
 		_bMax = init._bMax->copy();
@@ -101,7 +109,8 @@ namespace GCF {
 
 	////////////////////////////////////////////////////////////////
 
-	Agents::AgentInitializer::ParseResult AgentInitializer::setFromXMLAttribute( const ::std::string & paramName, const ::std::string & value ) {
+	Agents::AgentInitializer::ParseResult AgentInitializer::setFromXMLAttribute(
+		const ::std::string & paramName, const ::std::string & value ) {
 		ParseResult result = IGNORED;
 		if ( paramName == "stand_depth" ) {
 			result = constFloatGenerator( _aMin, value );
@@ -114,7 +123,8 @@ namespace GCF {
 		}
 
 		if ( result == FAILURE ) {
-			logger << Logger::WARN_MSG << "Attribute \"" << paramName << "\" had an incorrectly formed value: \"" << value << "\".  Using default value.";
+			logger << Logger::WARN_MSG << "Attribute \"" << paramName << "\" had an incorrectly ";
+			logger << formed value: \"" << value << "\".  Using default value.";
 			result = ACCEPTED;
 		} else if ( result == IGNORED ){
 			return Agents::AgentInitializer::setFromXMLAttribute( paramName, value );
@@ -124,7 +134,8 @@ namespace GCF {
 
 	////////////////////////////////////////////////////////////////
 
-	AgentInitializer::ParseResult AgentInitializer::processProperty( ::std::string propName, TiXmlElement * node ) {
+	AgentInitializer::ParseResult AgentInitializer::processProperty( ::std::string propName,
+		                                                             TiXmlElement * node ) {
 		ParseResult result = IGNORED;
 		if ( propName == "facing_min" ) {
 			result = getFloatGenerator( _aMin, node );
@@ -137,7 +148,8 @@ namespace GCF {
 		}
 
 		if ( result == FAILURE ) {
-			logger << Logger::ERR_MSG << "Error extracting value distribution from Property " << propName << ".";
+			logger << Logger::ERR_MSG << "Error extracting value distribution from Property ";
+			logger <<  << propName << ".";
 			return result;
 		} else if ( result == IGNORED ) {
 			return Agents::AgentInitializer::processProperty( propName, node );

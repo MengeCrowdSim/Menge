@@ -43,15 +43,13 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __GCF_INITIALIZER_H__
 #define	__GCF_INITIALIZER_H__
 
-#include "AgentInitializer.h"
-
-using namespace Menge;
+#include "MengeCore/Agents/AgentInitializer.h"
 
 namespace GCF {
 	/*!
 	 *	@brief		Class which determines the agent properties for each new GCF agent.
 	 */
-	class AgentInitializer : public Agents::AgentInitializer {
+	class AgentInitializer : public Menge::Agents::AgentInitializer {
 	public:
 		/*!
 		 *	@brief		Constructor.
@@ -85,7 +83,7 @@ namespace GCF {
 		 *	@param		agent		The agent whose properties are to be set.
 		 *	@returns	True if the properties were set successfully, false otherwise.
 		 */
-		virtual bool setProperties( Agents::BaseAgent * agent );
+		virtual bool setProperties( Menge::Agents::BaseAgent * agent );
 
 		/*!
 		 *	@brief		Sets all generators to default values.
@@ -138,7 +136,8 @@ namespace GCF {
 		 *	@param			value			A string containing the value for the parameter.
 		 *	@returns		The result of the parse: failure, ignored, or accepted.
 		 */
-		virtual Agents::AgentInitializer::ParseResult setFromXMLAttribute( const ::std::string & paramName, const ::std::string & value );
+		virtual Menge::Agents::AgentInitializer::ParseResult setFromXMLAttribute(
+			const ::std::string & paramName, const ::std::string & value );
 
 		/*!
 		 *	@brief		Process the given <Property .../> tag.  
@@ -161,25 +160,23 @@ namespace GCF {
 		/*!
 		 *	@brief		The minimum value for the radius along the agent's facing direction.
 		 */
-		FloatGenerator * _aMin;			
+		Menge::Math::FloatGenerator * _aMin;			
 
 		/*!
 		 *	@brief		The rate of change of the value for the radius along the agent's facing direction.
 		 */
-		FloatGenerator * _aRate;			
+		Menge::Math::FloatGenerator * _aRate;			
 
 		/*!
 		 *	@brief		The maximum value for the radius along the agent's perpendicular direction.
 		 */
-		FloatGenerator * _bMax;			
+		Menge::Math::FloatGenerator * _bMax;			
 
 		/*!
 		 *	@brief		The rate of change of the value for the radius along the agent's perpendicular direction.
 		 */
-		FloatGenerator * _bGrowth;			
-
+		Menge::Math::FloatGenerator * _bGrowth;		
 	};
 }	// namespace GCF
-
 
 #endif	// __GCF_INITIALIZER_H__

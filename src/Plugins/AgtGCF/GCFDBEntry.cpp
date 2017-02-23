@@ -42,10 +42,12 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include "GCFInitializer.h"
 #include "GCFVisAgentFactory.h"
 
-#include "SimulatorDB.h"
-#include "SimSystem.h"
+#include "MengeCore/Runtime/SimulatorDB.h"
 
 namespace GCF {
+
+	using Menge::Agents::SimulatorInterface;
+
 	/////////////////////////////////////////////////////////////////////////////
 	//                     Implementation of GCF::DBEntry
 	/////////////////////////////////////////////////////////////////////////////
@@ -76,20 +78,14 @@ namespace GCF {
 
 	/////////////////////////////////////////////////////////////////////////////
 	 
-	BaseAgentContext * DBEntry::contextFromSystem( SimSystem * system ) {
-		return new AgentContext( system->getVisAgents(), (unsigned int)system->getAgentCount() ); 
-	}
-
-	/////////////////////////////////////////////////////////////////////////////
-	 
 	Agents::AgentInitializer * DBEntry::getAgentInitalizer() const {
 		return new AgentInitializer();
 	}
 
 	/////////////////////////////////////////////////////////////////////////////
- 
+#if 0
 	VisAgentFactory * DBEntry::getVisAgentFactory() {
 		return new GCFVisAgentFactory();
 	}
-
+#endif
 }	// namespace GCF 

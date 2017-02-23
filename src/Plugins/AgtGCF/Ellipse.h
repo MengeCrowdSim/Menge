@@ -1,8 +1,7 @@
 #ifndef __ELLIPSE_H__
 #define	__ELLIPSE_H__
 
-#include "Math/vector.h"
-using namespace Menge;
+#include "MengeCore/Math/vector.h"
 
 // forward declarations
 namespace Menge {
@@ -23,8 +22,7 @@ namespace GCF {
 	class Ellipse {
 	public:
 		/*!
-		 *	@brief		Basic constructor with default values
-		 *				By default, the Ellipse is a circle, 
+		 *	@brief		Basic constructor with default values. By default, the Ellipse is a circle, 
 		 *				centered on the origin.
 		 */
 		Ellipse();
@@ -33,140 +31,136 @@ namespace GCF {
 		 *	@brief		Constructor with ellipse center definition.
 		 *	@param		center		The position of the ellipse's center in R2.
 		 */
-		Ellipse( const Math::Vector2 & center );
+		Ellipse( const Menge::Math::Vector2 & center );
 
 		/*!
 		 *	@brief		Constructor with ellipse center definition and axes.
 		 *	@param		center		The position of the ellipse's center in R2.
-		 *	@param		axes		The semi-major and semi-minor axis values
-		 *							stored in a two-dimensional vector.
+		 *	@param		axes		The semi-major and semi-minor axis values stored in a
+		 *							two-dimensional vector.
 		 */
-		Ellipse( const Math::Vector2 & center, const Math::Vector2 & axes );
+		Ellipse( const Menge::Math::Vector2 & center, const Menge::Math::Vector2 & axes );
 
 		/*!
-		 *	@brief		Constructor with ellipse center definition,
-		 *				axes, and orientation.
+		 *	@brief		Constructor with ellipse center definition, axes, and orientation.
 		 *	@param		center		The position of the ellipse's center in R2.
-		 *	@param		axes		The semi-major and semi-minor axis values
-		 *							stored in a two-dimensional vector.
-		 *	@param		angle		The angle (in radians) defining the orientation
-		 *							of the ellipse.
+		 *	@param		axes		The semi-major and semi-minor axis values stored in a
+		 *							two-dimensional vector.
+		 *	@param		angle		The angle (in radians) defining the orientation of the ellipse.
 		 */
-		Ellipse( const Math::Vector2 & center, const Math::Vector2 & axes, float angle );
+		Ellipse( const Menge::Math::Vector2 & center, const Menge::Math::Vector2 & axes,
+			     float angle );
 
 		/*!
-		 *	@brief		Compute the distance between the centers of this ellipse
-		 *				and the provided ellipse.
+		 *	@brief		Compute the distance between the centers of this ellipse and the provided
+		 *				ellipse.
 		 *	@param		other		The other ellipse
 		 *	@return		The center distance.
 		 */
-		inline float ellipseCenterDistance( const Ellipse & other ) const { return abs( other._center - _center ); }
+		inline float ellipseCenterDistance( const Ellipse & other ) const {
+			return abs( other._center - _center );
+		}
 
 		/*!
-		 *	@brief		Computes the displacement from this ellipse's
-		 *				center to the other ellipse's center.
+		 *	@brief		Computes the displacement from this ellipse's center to the other ellipse's
+		 *				center.
 		 *	@param		other		The other ellipse
 		 *	@return		The center displacement.
 		 */
-		inline Math::Vector2 ellipseCenterDisplace( const Ellipse & other ) const { return _center - other._center; }
+		inline Menge::Math::Vector2 ellipseCenterDisplace( const Ellipse & other ) const {
+			return _center - other._center;
+		}
 
 		/*!
-		 *	@brief		Compute the distance of closest approach between two
-		 *				ellipses.
+		 *	@brief		Compute the distance of closest approach between two ellipses.
 		 *	@param		other		The other ellipse
 		 *	@return		The distance of closest approach.
 		 */
 		float distanceOfClosestApproach( const Ellipse & other ) const;
 
 		/*!
-		 *	@brief		Compute the effective distance between this ellipse
-		 *				and the provided ellipse.
-		 *				Effective distance is the distance between two ellipse
-		 *				boundaries along the line that connects the ellipse centers.
+		 *	@brief		Compute the effective distance between this ellipse and the provided
+		 *				ellipse.
+		 *
+		 *				Effective distance is the distance between two ellipse boundaries along the
+		 *				line that connects the ellipse centers.
 		 *	@param		other		The other ellipse
 		 *	@return		The effective distance.
 		 */
 		float approxDistanceOfClosestApproach( const Ellipse & other ) const;
 
 		/*!
-		 *	@brief		Computes the closest point on the ellipse to a point
-		 *				Also reports direction
+		 *	@brief		Computes the closest point on the ellipse to a point. Also reports
+		 *				direction.
 		 *	@param		pt			The point to which we want the closest point.
 		 *	@return		The point on the ellipse that was closest.
 		 */
-		Math::Vector2 closestPoint( const Math::Vector2 & pt ) const;
+		Menge::Math::Vector2 closestPoint( const Menge::Math::Vector2 & pt ) const;
 
 		/*!
-		 *	@brief		Computes the minimum distance between the obstacle
-		 *				(a line segment) and the ellipse.  Also provides the
-		 *				direction of that minimum displacement.
+		 *	@brief		Computes the minimum distance between the obstacle (a line segment) and the
+		 *				ellipse.  Also provides the direction of that minimum displacement.
 		 *	@param		obstacle		A pointer to the obstacle to test
-		 *	@param		dir				The direction of minimum displacment
-		 *								is set into this parameter.
-		 *	@return		The distance (in dir) from the nearest point on the
-		 *				obstacle to the ellipse.
+		 *	@param		dir				The direction of minimum displacment is set into this
+		 *								parameter.
+		 *	@return		The distance (in dir) from the nearest point on the obstacle to the
+		 *				ellipse.
 		 */
-		float minimumDistance( const Agents::Obstacle * obstacle, Math::Vector2 & dir ) const;
+		float minimumDistance( const Menge::Agents::Obstacle * obstacle,
+							   Menge::Math::Vector2 & dir ) const;
 
 		/*!
 		 *	@brief		Computes the distance of closest approach.
-		 *				It is the distance between the center and the line
-		 *				after the obstacle has been moved along its normal until
-		 *				it makes contact.
-		 *				The obstacle is interpreted as an INFINITE line
+		 *				It is the distance between the center and the line after the obstacle has
+		 *				been moved along its normal until it makes contact.  The obstacle is
+		 *				interpreted as an INFINITE line.
 		 *	@param		line		The line segment obstacle to compute against.
 		 *	@return		float representing the "distance of closest approach"
 		 */
-		float distanceOfClosestApproach( const Agents::Obstacle * line ) const;
+		float distanceOfClosestApproach( const Menge::Agents::Obstacle * line ) const;
 
 		/*!
-		 *	@brief		Computes the approximate distance from point p to the
-		 *				ellipse.  
-		 *				This is computed by finding the intersection of a
-		 *				line formed by the point and the origin with the
-		 *				ellipse.  The distance is to that point.
-		 *				This is NOT the ACTUAL closest distance.
+		 *	@brief		Computes the approximate distance from point p to the ellipse.  
+		 *				This is computed by finding the intersection of a line formed by the point
+		 *				and the origin with the ellipse.  The distance is to that point.  This is
+		 *				*not* the *actual* closest distance.
 		 *	@param		pt		The point whose distance is to be computed.
-		 *	@returns	A positive value if pt is outside the ellipse and a
-		 *				negative value if the point lies inside the ellipse.
+		 *	@returns	A positive value if pt is outside the ellipse and a negative value if the
+		 *				point lies inside the ellipse.
 		 */
-		float approximateMinimumDistance( const Math::Vector2 & pt ) const;
+		float approximateMinimumDistance( const Menge::Math::Vector2 & pt ) const;
 
 		/*!
-		 *	@brief		Computes the radius of the ellipse in the direction of the
-		 *				point.
-		 *	@param		pt		The point used to define the direction.  Should
-		 *						be different from the ellipse center and, ideally,
-		 *						outside the ellipse.
+		 *	@brief		Computes the radius of the ellipse in the direction of the point.
+		 *	@param		pt		The point used to define the direction.  Should be different from
+		 *						the ellipse center and, ideally, outside the ellipse.
 		 *	@returns	The length of the radius in this direction
 		 */
-		float radiusInPointDirection( const Math::Vector2 & pt ) const;
+		float radiusInPointDirection( const Menge::Math::Vector2 & pt ) const;
 
 		/*!
 		 *	@brief		Computes the radius of the ellipse in the given direction.
 		 *				
-		 *	@param		dir		The direction from the ellipse center to determine the
-		 *						radius.
+		 *	@param		dir		The direction from the ellipse center to determine the radius.
 		 *	@returns	The length of the radius in this direction
 		 */
-		float radiusInDirection( const Math::Vector2 & dir ) const;
+		float radiusInDirection( const Menge::Math::Vector2 & dir ) const;
 
 		/*!
-		 *	@brief		Translates the point into ellipse-space coordinates
-		 *				i.e. the transformation necessary to place the ellipse
-		 *				at the center, with its axes aligned with the world axes.
+		 *	@brief		Translates the point into ellipse-space coordinates i.e. the transformation
+		 *				necessary to place the ellipse at the center, with its axes aligned with
+		 *				the world axes.
 		 *	@param		pt		The point to translate.
 		 *	@returns	The translated point.
 		 */
-		Math::Vector2	toEllipseSpace( const Math::Vector2 & pt ) const;
+		Menge::Math::Vector2	toEllipseSpace( const Menge::Math::Vector2 & pt ) const;
 
 		/*!
-		 *	@brief		Translates the point from ellipse-space coordinates into
-		 *				world coordinates
+		 *	@brief		Translates the point from ellipse-space coordinates into world coordinates.
 		 *	@param		pt		The point to translate.
 		 *	@returns	The translated point.
 		 */
-		Math::Vector2	fromEllipseSpace( const Math::Vector2 & pt ) const;
+		Menge::Math::Vector2	fromEllipseSpace( const Menge::Math::Vector2 & pt ) const;
 
 		/*!
 		 *	@brief		Sets the orientation of the ellipse
@@ -178,34 +172,40 @@ namespace GCF {
 		 *	@brief		Sets the orientation of the ellipse
 		 *	@param		dir		A unit-length vector pointing in the direction
 		 */
-		inline void setOrientation( const Math::Vector2 & dir ) { _cosPhi = dir.x(); _sinPhi = dir.y(); }
+		inline void setOrientation( const Menge::Math::Vector2 & dir ) {
+			_cosPhi = dir.x();
+			_sinPhi = dir.y();
+		}
 
 		/*!
 		 *	@brief		Returns the "facing" direction of the ellipse
-		 *
 		 *	@returns	The ellipse's facing direction.
 		 */
-		inline Math::Vector2 getOrientation(){ return Math::Vector2(_cosPhi, _sinPhi); }
+		inline Menge::Math::Vector2 getOrientation() {
+			return Menge::Math::Vector2(_cosPhi, _sinPhi);
+		}
 
 		/*!
 		 *	@brief		Set center of the ellipse.
 		 *	@param		pos			The two-dimensional vector specifying center position.
 		 */
-		inline void setCenter( const Math::Vector2 & pos ) { _center.set( pos ); }
+		inline void setCenter( const Menge::Math::Vector2 & pos ) { _center.set( pos ); }
 
 		/*!
 		 *	@brief		Returns the center of the ellipse.
-		 *
 		 *	@returns	A const reference to the ellipse's center.
 		 */
-		inline const Math::Vector2 & getCenter() { return _center; }
+		inline const Menge::Math::Vector2 & getCenter() { return _center; }
 
 		/*!
 		 *	@brief		Sets the major and minor axes of the ellipse.
 		 *	@param		axes		A two dimensional vector containg the major and
 		 *							minor axis sizes in the x and y values, respectively.
 		 */
-		inline void setAxes( const Math::Vector2 & axes ) { _majorAxis = axes.x(); _minorAxis = axes.y(); }
+		inline void setAxes( const Menge::Math::Vector2 & axes ) {
+			_majorAxis = axes.x();
+			_minorAxis = axes.y();
+		}
 
 		/*!
 		 *	@brief		Sets the major and minor axes of the ellipse.
@@ -241,18 +241,22 @@ namespace GCF {
 		/*!
 		 *	@brief		Returns the smaller of the axes.
 		 */
-		inline float getSmallerAxis() const { return _minorAxis < _majorAxis ? _minorAxis : _majorAxis; }
+		inline float getSmallerAxis() const {
+			return _minorAxis < _majorAxis ? _minorAxis : _majorAxis;
+		}
 
 		/*!
 		 *	@brief		Returns the larger of the axes.
 		 */
-		inline float getLargerAxis() const { return _minorAxis < _majorAxis ? _majorAxis : _minorAxis; }
+		inline float getLargerAxis() const {
+			return _minorAxis < _majorAxis ? _majorAxis : _minorAxis;
+		}
 
 	protected:
 		/*!
 		 *	@brief		The center of the ellipse.
 		 */
-		Math::Vector2		_center;
+		Menge::Math::Vector2		_center;
 
 		/*!
 		 *	@brief		Part of the orientation of the ellipse.

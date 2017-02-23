@@ -37,9 +37,15 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 */
 
 #include "GCFSimulator.h"
-#include "Utils.h"
+#include "MengeCore/Runtime/Utils.h"
 
 namespace GCF {
+
+	using Menge::toFloat;
+	using Menge::UtilException;
+	using Menge::Agents::SimulatorBase;
+	using Menge::Agents::XMLParamException;
+
 	////////////////////////////////////////////////////////////////
 	//					Implementation of GCF::Simulator
 	////////////////////////////////////////////////////////////////
@@ -54,7 +60,8 @@ namespace GCF {
 
 	////////////////////////////////////////////////////////////////
 
-	bool Simulator::setExpParam( const std::string & paramName, const std::string & value ) throw( Agents::XMLParamException ) {
+	bool Simulator::setExpParam( const std::string & paramName, const std::string & value )
+		throw( XMLParamException ) {
 		try {
 			if ( paramName == "reaction_time" ) {
 				REACTION_TIME = toFloat( value );
@@ -73,7 +80,9 @@ namespace GCF {
 				return false;
 			}
 		} catch ( UtilException ) {
-			throw Agents::XMLParamException( std::string( "GCF parameter \"") + paramName + std::string("\" value couldn't be converted to the correct type.  Found the value: " ) + value );
+			throw Agents::XMLParamException( std::string( "GCF parameter \"") + paramName
+				                             + std::string("\" value couldn't be converted to the "
+											 "correct type.  Found the value: " ) + value );
 		}
 		return true;
 	}
@@ -88,5 +97,4 @@ namespace GCF {
 			// TODO: Log this change
 		}
 	}
-	
 }	//namespace GCF 

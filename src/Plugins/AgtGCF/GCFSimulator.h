@@ -45,11 +45,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
  *				Implements generalized centifugal force pedestrian model
  */
 
-#include "mengeCommon.h"
-#include "SimulatorBase.h"
 #include "GCFAgent.h"
-
-using namespace Menge;
+#include "MengeCore/mengeCommon.h"
+#include "MengeCore/Agents/SimulatorBase.h"
 
 /*!
  *	@namespace		GCF
@@ -64,12 +62,12 @@ namespace GCF {
 	/*!
 	 *  @brief      Defines the simulator operating on a GCF::Agent.
 	 */
-	class Simulator : public Agents::SimulatorBase< Agent > {
+	class Simulator : public  Menge::Agents::SimulatorBase< Agent > {
 	public:
 		/*!
 		 *  @brief      Constructor.
 		 */
-		Simulator(): Agents::SimulatorBase< Agent >() {}
+		Simulator() :  Menge::Agents::SimulatorBase< Agent >() {}
 
 		/*!
 		 *	@brief			Reports if there are non-common Experiment parameters that
@@ -95,7 +93,8 @@ namespace GCF {
 		 *	@param			value			A string containing the value for the parameter.
 		 *	@returns		whether or not parameters were successfully set
 		 */
-		virtual bool setExpParam( const std::string & paramName, const std::string & value ) throw( Agents::XMLParamException );
+		virtual bool setExpParam( const std::string & paramName, const std::string & value )
+			throw(  Menge::Agents::XMLParamException );
 
 		/*!
 		 *	@brief	After all agents and all obstacles have been added to the scene

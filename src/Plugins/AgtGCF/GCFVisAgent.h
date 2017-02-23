@@ -43,23 +43,21 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __GCF_VIS_AGENT_H__
 #define	__GCF_VIS_AGENT_H__
 
-#include "VisAgent.h"
-
-using namespace Menge;
+#include "MengeVis/Runtime/VisAgent.h"
 
 namespace GCF {
 
 	/*!
 	 *	@brief		Class responsible for drawing gcf agents -- as changing ellipses
 	 */
-	class GCFVisAgent : public VisAgent {
+	class GCFVisAgent : public MengeVis::Runtime::VisAgent {
 	public:
 		/*!
 		 *	@brief		Constructor.
 		 *
 		 *	@param		agent		The agent to be visualized.
 		 */
-		GCFVisAgent( Agents::BaseAgent * agent );
+		GCFVisAgent( Menge::Agents::BaseAgent * agent );
 
 		/*!
 		 *	@brief		Draw the agent into the 3D world.

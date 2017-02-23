@@ -43,32 +43,47 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 #include "GCFConfig.h"
 #include "GCFDBEntry.h"
-#include "PluginEngine.h"
+#include "MengeCore/PluginEngine/CorePluginEngine.h"
+#include "MengeVis/PluginEngine/VisPluginEngine.h"
 
-/*!
- *	@brief		Retrieves the name of the plug-in.
- *
- *	@returns	The name of the plug in.
- */
-extern "C" GCF_API const char * getName() {
-	return "GCF 2010 Pedestrian Model";
+using Menge::PluginEngine::CorePluginEngine;
+using MengeVis::PluginEngine::VisPluginEngine;
+
+extern "C" {
+	/*!
+	 *	@brief		Retrieves the name of the plug-in.
+	 *
+	 *	@returns	The name of the plug in.
+	 */
+	GCF_API const char * getName() {
+		return "GCF 2010 Pedestrian Model";
+	}
+
+	/*!
+	 *	@brief		Description of the plug-in.
+	 *
+	 *	@returns	A description of the plugin.
+	 */
+	GCF_API const char * getDescription() {
+		return	"A pedestran plugin based on the generalized centifugal force model proposed in 2010 by Chraibi et al.";
+	}
+
+	/*!
+	 *	@brief		Registers the plug-in with the core simulation plug-in engine.
+	 *
+	 *	@param		engine		A pointer to the core plugin engine.
+	 */
+	GCF_API void registerCorePlugin( CorePluginEngine * engine ) {
+		engine->registerModelDBEntry( new GCF::DBEntry() );
+	}
+
+	/*!
+	 *	@brief		Registers the plug-in with the visualization plug-in engine.
+	 *
+	 *	@param		engine		A pointer to the vis engine.
+	 */
+	GCF_API void registerVisPlugin( VisPluginEngine * engine ) {
+		// TODO: register visual agent.
+		//engine->registerAgentContext( new Helbing::AgentContext() );
+	}
 }
-
-/*!
- *	@brief		Description of the plug-in.
- *
- *	@returns	A description of the plugin.
- */
-extern "C" GCF_API const char * getDescription() {
-	return	"A pedestran plugin based on the generalized centifugal force model proposed in 2010 by Chraibi et al.";
-}
-
-/*!
- *	@brief		Registers the plug-in with the PluginEngine
- *
- *	@param		engine		A pointer to the plugin engine.
- */
-extern "C" GCF_API void registerPlugin( PluginEngine * engine ) {
-	engine->registerModelDBEntry( new GCF::DBEntry() );
-}
-

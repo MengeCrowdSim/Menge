@@ -39,7 +39,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __VIS_AGENT_FACTORY_H__
 #define __VIS_AGENT_FACTORY_H__
 
-#include "mengeCommon.h"
+#include "MengeCore/mengeCommon.h"
 
 /*!
  *  @file       VisAgentFactoryt.h
@@ -47,10 +47,15 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
  *				agents.
  */
 
+// TODO: Move this to MengeVis and make it a propery VisElementDB.
 namespace Menge {
 
 	// forward declarations
-	class VisAgent;
+	namespace MengeVis {
+		namespace Runtime {
+			class VisAgent;
+		}
+	}
 	namespace Agents {
 		class BaseAgent;
 	}
@@ -66,7 +71,7 @@ namespace Menge {
 		 *				simulation agent.
 		 *	@throws		AgentException if the agent cannot be processed by this factory.
 		 */
-		virtual VisAgent * makeVisAgent( Agents::BaseAgent * agent );
+		virtual MengeVis::Runtime::VisAgent * makeVisAgent( Agents::BaseAgent * agent );
 	};
 
 }	// namespace Menge

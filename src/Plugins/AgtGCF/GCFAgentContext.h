@@ -45,10 +45,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __GCF_AGENT_CONTEXT_H__
 #define __GCF_AGENT_CONTEXT_H__
 
-#include "BaseAgentContext.h"
-#include "Obstacle.h"
-
-using namespace Menge;
+#include "GCFAgent.h"
+#include "MengeCore/Agents/Obstacle.h"
+#include "MengeVis/Runtime/AgentContext/BaseAgentContext.h"
 
 namespace GCF {
 	// forward declaration
@@ -57,16 +56,12 @@ namespace GCF {
 	 *	@brief		The context for displaying the computational aspects of the
 	 *				Generalized Centifugal Force model (see GCF::Agent).
 	 */
-	class AgentContext : public BaseAgentContext {
+	class AgentContext : public MengeVis::Runtime::BaseAgentContext {
 	public:
 		/*!
 		 *	@brief		Constructor.
-		 *
-		 *	@param		agents		An array of pointers to VisAgent instances for Helbing
-		 *							agents.
-		 *	@param		agtCount	The number of agents contained in the array.
 		 */
-		AgentContext( VisAgent ** agents, unsigned int agtCount );
+		AgentContext();
 
 		/*!
 		 *	@brief		Destructor
@@ -74,11 +69,22 @@ namespace GCF {
 		virtual ~AgentContext();
 
 		/*!
+		 *	@brief		Sets the agent for this context.
+		 *
+		 *	This method works in conjunction with the VisElementDatabase. When this
+		 *	visualization element is triggered, the database will supply the triggering
+		 *	element.
+		 *
+		 *	@param		agent		The agent to interact with.
+		 */
+		virtual void setElement( MengeVis::Runtime::VisAgent * agent );
+
+		/*!
 		 *	@brief		Returns the name of the context for display.
 		 *
 		 *	@returns		The name of this context.
 		 */
-		virtual std::string contextName() const { return "GCF"; }
+		virtual std::string contextName() const { return Agent::NAME; }
 
 		/*!
 		 *	@brief		Give the context the opportunity to respond to a keyboard
@@ -88,7 +94,7 @@ namespace GCF {
 		 *	@returns	A ContextResult instance reporting if the event was handled and
 		 *				if redrawing is necessary.
 		 */
-		virtual SceneGraph::ContextResult handleKeyboard( SDL_Event & e );
+		virtual MengeVis::SceneGraph::ContextResult handleKeyboard( SDL_Event & e );
 
 		/*!
 		 *	@brief		Allow the context to update any time-dependent state it might have to
@@ -123,7 +129,7 @@ namespace GCF {
 		 *	@param		agent		The agent whose data is to be displayed.
 		 *	@returns	A formatted string for display in the context's 2D gui.
 		 */
-		virtual std::string agentText( const Agents::BaseAgent * agent ) const;
+		virtual std::string agentText( const Menge::Agents::BaseAgent * agent ) const;
 
 		/*!
 		 *	@brief		Determines if the force vectors are drawn
@@ -180,7 +186,8 @@ namespace GCF {
 		 *	@param		obst		The obstacle imparting the force
 		 *	@param		thresh		The minimum force magnitude required to draw
 		 */
-		void singleObstacleForce( const Agent * agt, const Agents::Obstacle * obst, float thresh=0.5f );
+		void singleObstacleForce( const Agent * agt, const Agents::Obstacle * obst,
+								  float thresh=0.5f );
 
 		/*!
 		 *	@brief		Draws the given force on the given agent
@@ -191,7 +198,8 @@ namespace GCF {
 		 *	@param		forceMag	The magnitude of the underlying force.
 		 *	@param		label		The label to apply to the force.
 		 */
-		void drawForce( const Agent * agt, const Vector2 & forceDir, float forceMag, const std::string & label );
+		void drawForce( const Agent * agt, const Menge::Math::Vector2 & forceDir, float forceMag, 
+			            const std::string & label );
 
 		/*!
 		 *	@brief		Initializes the responses curve

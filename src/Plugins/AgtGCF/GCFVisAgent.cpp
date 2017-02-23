@@ -1,10 +1,11 @@
 #include "GCFVisAgent.h"
 #include "GCFAgent.h"
 #include "GCFSimulator.h"
-#include "shapes.h"
-
+#include "MengeVis/SceneGraph/shapes.h"
 
 namespace GCF {
+
+	using MengeVis::Runtime::VisAgent;
 
 	////////////////////////////////////////////////////////////////
 	//			Implementation of GCFVisAgent
@@ -75,7 +76,7 @@ namespace GCF {
 		float minor = agt->_ellipse.getMinor();
 
 		glScalef( major, 1.f, minor );
-		Menge::SceneGraph::Cylinder::drawCylinder( 1.f, 1.72f, r, g, b, 1.f );
+		MengeVis::SceneGraph::Cylinder::drawCylinder( 1.f, 1.72f, r, g, b, 1.f );
 
 		glPopMatrix();
 	}

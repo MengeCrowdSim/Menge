@@ -44,8 +44,8 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __GCF_DB_ENTRY_H__
 #define	__GCF_DB_ENTRY_H__
 
-#include "SimulatorDBEntry.h"
 #include "GCF.h"
+#include "MengeCore/Runtime/SimulatorDBEntry.h"
 
 using namespace Menge;
 
@@ -53,7 +53,7 @@ namespace GCF {
 	/*!
 	 *	@brief		The simulator database entry for the generalized centifugal force simulator.
 	 */
-	class DBEntry : public SimulatorDBEntry {
+	class DBEntry : public Menge::SimulatorDBEntry {
 	public:
 		/*!
 		 *	@brief	Gives a brief description of the simulator.
@@ -88,7 +88,7 @@ namespace GCF {
 		 *	@returns	A single string (with no spaces) that can be used as
 		 *				a command line parameter to uniquely identify this model.
 		 */
-		virtual ::std::string commandLineName() const { return "gcf"; }
+		virtual ::std::string commandLineName() const { return Agent::NAME; }
 
 		/*!
 		 *	@brief		Returns a pointer to this model's Simulator instance.
@@ -98,7 +98,7 @@ namespace GCF {
 		 *	@returns	A newly instantiated simulator instance of a type appropriate
 		 *				for this database entry.
 		 */
-		virtual Agents::SimulatorInterface * getNewSimulator();
+		virtual Menge::Agents::SimulatorInterface * getNewSimulator();
 
 		/*!
 		 *	@brief		Provides an AgentInitializer appropriate to this simulator class.
@@ -106,26 +106,10 @@ namespace GCF {
 		 *	@returns	A pointer to an agent initializer.  The caller is responsible for
 		 *				freeing up the memory.
 		 */
-		virtual Agents::AgentInitializer * getAgentInitalizer() const;
+		virtual Menge::Agents::AgentInitializer * getAgentInitalizer() const;
 
+#if 0
 	protected:
-		/*!
-		 *	@brief		Returns a pointer to an agent context appropriate to
-		 *				the corresponding simulator.
-		 *
-		 *	If the provided system is not, in fact, a pointer to a SimSystem for the
-		 *	appropriate simulator type, this function will report failure.  Furthermore,
-		 *	the default implementation is to return a BaseAgentContext.  If the
-		 *	simulator comes with a novel context, this function should be overridden
-		 *	in the derived SimulatorDBEntry.
-		 *
-		 *	@param		system		The system which tracks the agents.  This should be
-		 *							the same system which was returned by a call to 
-		 *							SimulatorDBEntryBase::getSimulatorSystem.
-		 *	@returns	A pointer to the appropriate agent context.  If the system is of
-		 *				the wrong type (or if there is any other problem), NULL is returned.
-		 */
-		virtual BaseAgentContext * contextFromSystem( SimSystem * system );
 
 		/*!
 		 *	@brief		Creates a visual agent factory for these agents.
@@ -135,6 +119,7 @@ namespace GCF {
 		 *	@returns	The factory to use to visualize the agents.
 		 */
 		virtual VisAgentFactory * getVisAgentFactory();
+#endif
 	};
 }	// namespace GCF
 

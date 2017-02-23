@@ -45,7 +45,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __GCF_AGENT_H__
 #define	__GCF_AGENT_H__
 
-#include "BaseAgent.h"
+#include "MengeCore/Agents/BaseAgent.h"
 #include "Ellipse.h"
 
 using namespace Menge;
@@ -55,7 +55,7 @@ namespace GCF {
 	/*!
 	 *	@brief		Agent definition for the generalized centrifugal force pedestrian model.
 	 */
-	class Agent : public Agents::BaseAgent {
+	class Agent : public Menge::Agents::BaseAgent {
 	public:
 		/*!
 		 *	@brief		Default constructor.
@@ -99,12 +99,23 @@ namespace GCF {
 		void computeNewVelocity();
 
 		/*!
+		 *	@brief		Used by the plugin system to know what artifacts to associate with
+		 *				agents of this type.  Every sub-class of must return a globally
+		 *				unique value if it should be associated with unique artifacts.
+		 */
+		virtual std::string getStringId() const { return NAME; }
+
+		/*! @brief	The name identifier for this agent type. */
+		static const std::string NAME;
+
+		/*!
 		 *	@brief			Provides the various parameters of the pedestrian repulsive 
 		 *					force between this agent and the given agent. 
 		 *					Helper for visualization.
 		 *
 		 *	@param		agent		The agent to compute the various repulsion parameters for.
-		 *	@param		effDist		The "effective" distance between the closest points on the agent boundaries.
+		 *	@param		effDist		The "effective" distance between the closest points on the
+		 *							agent boundaries.
 		 *	@param		forceDir	The direction of the force.
 		 *	@param		K_ij		The field of view parameter between agents.
 		 *	@param		response	The force strength based on effective distance.
@@ -115,7 +126,9 @@ namespace GCF {
 		 *					1 = agent too far away.
 		 *					2 = agent out of field of view
 		 */
-		int getRepulsionParameters( const Agent * agent, float & effDist, Vector2 & forceDir, float & K_ij, float & response, float & velScale, float & magnitude ) const;
+		int getRepulsionParameters( const Agent * agent, float & effDist,
+									Menge::Math::Vector2 & forceDir, float & K_ij,
+									float & response, float & velScale, float & magnitude ) const;
 
 		/*!
 		 *	@brief		Computes component of the force magnitude based on effective distance.
@@ -140,7 +153,7 @@ namespace GCF {
 		 *	@brief		Computes the driving force for the agent
 		 *	@returns	The vector corresponding to the agent's driving force.
 		 */
-		Vector2 driveForce() const;
+		Menge::Math::Vector2 driveForce() const;
 
 		/*!
 		 *	@brief		The ellipse representing the agent's volume

@@ -39,11 +39,18 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include "GCFAgentContext.h"
 #include "GCFAgent.h"
 #include "GCFSimulator.h"
-#include "VisAgent.h"
+#include "MengeVis/Runtime/VisAgent.h"
 #include <iomanip>
 #include <sstream>
 
 namespace GCF {
+
+	using Menge::Agents::BaseAgent;
+	using Menge::Agents::Obstacle;
+	using Menge::Math::Vector2;
+	using MengeVis::Runtime::BaseAgentContext;
+	using MengeVis::SceneGraph::ContextResult;
+	using MengeVis::SceneGraph::TextWriter;
 
 	const int SAMPLE_COUNT = 50;
 
@@ -51,7 +58,8 @@ namespace GCF {
 	//			Implementation of GCFAgentContext
 	////////////////////////////////////////////////////////////////
 
-	AgentContext::AgentContext( VisAgent ** agents, unsigned int agtCount ): BaseAgentContext(agents,agtCount), _showForce(false), _onlyForceDir(true), _forceObject(0), _responses(0x0)
+	AgentContext::AgentContext() : BaseAgentContext(), _showForce(false), _onlyForceDir(true),
+		                           _forceObject(0), _responses(0x0)
 	{
 	}
 
@@ -63,8 +71,8 @@ namespace GCF {
 
 	////////////////////////////////////////////////////////////////
 
-	SceneGraph::ContextResult AgentContext::handleKeyboard( SDL_Event & e ) {
-		SceneGraph::ContextResult result = BaseAgentContext::handleKeyboard( e );
+	ContextResult AgentContext::handleKeyboard( SDL_Event & e ) {
+		ContextResult result = BaseAgentContext::handleKeyboard( e );
 
 		if ( !result.isHandled() ) {
 			SDLMod mods = e.key.keysym.mod;
@@ -83,14 +91,18 @@ namespace GCF {
 						result.set( true, true );
 					} else if ( e.key.keysym.sym == SDLK_UP ) {
 						if ( _showForce && _selected ) {
-							const Agent * agt = dynamic_cast< const Agent * >( _selected->getAgent() );
-							assert( agt != 0x0 && "GCF context trying to work with a non-GCF agent" );
+							const Agent * agt =
+								dynamic_cast< const Agent * >( _selected->getAgent() );
+							assert( agt != 0x0 &&
+								"GCF context trying to work with a non-GCF agent" );
 							if ( cycleSingleForce( agt, true ) ) result.set( true, true );
 						}
 					} else if ( e.key.keysym.sym == SDLK_DOWN ) {
 						if ( _showForce && _selected ) {
-							const Agent * agt = dynamic_cast< const Agent * >( _selected->getAgent() );
-							assert( agt != 0x0 && "GCF context trying to work with a non-GCF agent" );
+							const Agent * agt =
+								dynamic_cast< const Agent * >( _selected->getAgent() );
+							assert( agt != 0x0 
+								"GCF context trying to work with a non-GCF agent" );
 							if ( cycleSingleForce( agt, false ) ) result.set( true, true );
 						}
 					}
@@ -181,7 +193,8 @@ namespace GCF {
 	void AgentContext::draw3DGL( bool select ) {
 		BaseAgentContext::draw3DGL( select );
 		if ( !select && _selected ) {
-			glPushAttrib( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_ENABLE_BIT | GL_LINE_BIT | GL_POLYGON_BIT );
+			glPushAttrib( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_ENABLE_BIT |
+				          GL_LINE_BIT | GL_POLYGON_BIT );
 			glDepthMask( GL_FALSE );
 			const Agent * agt = dynamic_cast< const Agent * >( _selected->getAgent() );
 			assert( agt != 0x0 && "GCF context trying to work with a non GCF agent" );
@@ -213,7 +226,8 @@ namespace GCF {
 			} else if ( _forceObject > 0 ) {
 				const Agent * agt = dynamic_cast< const Agent * >( _selected->getAgent() );
 				assert( agt != 0x0 && "GCF context trying to work with a non GCF agent" );
-				const Agent * other = static_cast< const Agent *>( agt->getNeighbor( _forceObject - 1 ) );
+				const Agent * other =
+					static_cast< const Agent *>( agt->getNeighbor( _forceObject - 1 ) );
 				float force = -1;//abs( agt->agentForce( other ) );
 				ss << "\n     Agent " << other->_id << ": " << force << " N";
 			} else if ( _forceObject < 0 ) {
@@ -261,7 +275,8 @@ namespace GCF {
 					// draw forces for all agents
 					const int NBRS = (int)agt->_nearAgents.size();
 					for ( int i = 0; i < NBRS; ++i ) {
-						const Agent * other = static_cast< const Agent *>( agt->getNeighbor( i ) );
+						const Agent * other =
+							static_cast< const Agent *>( agt->getNeighbor( i ) );
 						singleAgentForce( agt, other );
 					}
 					// draw forces for all obstacles
@@ -272,7 +287,8 @@ namespace GCF {
 					}
 				} else if ( _forceObject > 0 ) {
 					// single agent
-					const Agent * other = static_cast< const Agent *>( agt->getNeighbor( _forceObject - 1 ) );
+					const Agent * other =
+						static_cast< const Agent *>( agt->getNeighbor( _forceObject - 1 ) );
 					singleAgentForce( agt, other, 0.f );
 				} else {	
 					// draw obstacle
@@ -298,13 +314,14 @@ namespace GCF {
 			glColor4f( 0.65f, 0.65f, 1.f, 1.f );
 			drawForce( agt, force, magnitude, ss.str() );	
 			// Label the source agent
-			writeAlignedText( ss.str(), other->_pos, SceneGraph::TextWriter::CENTERED, true );
+			writeAlignedText( ss.str(), other->_pos, TextWriter::CENTERED, true );
 		}
 	}
 
 	////////////////////////////////////////////////////////////////
 
-	void AgentContext::singleObstacleForce( const Agent * agt, const Agents::Obstacle * obst, float thresh ) {
+	void AgentContext::singleObstacleForce( const Agent * agt, const Agents::Obstacle * obst,
+		                                    float thresh ) {
 		//Vector2 force = agt->obstacleForce( obst );
 		Vector2 force (-2.f, 0.f);
 		float forceMag = abs( force );
@@ -333,7 +350,8 @@ namespace GCF {
 
 	////////////////////////////////////////////////////////////////
 
-	void AgentContext::drawForce( const Agent * agt, const Vector2 & forceDir, float forceMag, const std::string & label ) {
+	void AgentContext::drawForce( const Agent * agt, const Vector2 & forceDir, float forceMag,
+		                          const std::string & label ) {
 		// This is for printing force magnitude and source
 		const float FORCE_RADIUS = 4 * agt->_radius;
 		Vector2 forceEnd = agt->_pos + forceDir * (_onlyForceDir ? FORCE_RADIUS : forceMag);

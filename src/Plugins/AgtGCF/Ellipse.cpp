@@ -1,6 +1,8 @@
 #include "Ellipse.h"
-#include "Obstacle.h"
-#include "math/geomQuery.h"
+
+#include "MengeCore/Agents/Obstacle.h"
+#include "MengeCore/Math/geomQuery.h"
+
 #include <complex>
 #include <cmath>
 #include <float.h>
@@ -35,26 +37,36 @@ std::complex<float> c_cbrt( std::complex<float> x ) {
 }
 
 namespace GCF {
+	using Menge::Agents::Obstacle;
+	using Menge::Math::Vector2;
+
 ////////////////////////////////////////////////////////////////
 //					Implementation of Ellipse
 ////////////////////////////////////////////////////////////////
 
-Ellipse::Ellipse():_center(0.f,0.f), _cosPhi(1.f), _sinPhi(0.f), _majorAxis(1.f), _minorAxis(0.5f) {
+Ellipse::Ellipse():_center(0.f,0.f), _cosPhi(1.f), _sinPhi(0.f), _majorAxis(1.f), _minorAxis(0.5f)
+{
 }
 
 ////////////////////////////////////////////////////////////////
 
-Ellipse::Ellipse( const Vector2 & center ):_center(center), _cosPhi(1.f), _sinPhi(0.f), _majorAxis(1.f), _minorAxis(1.f) {
+Ellipse::Ellipse( const Vector2 & center ) : _center(center), _cosPhi(1.f), _sinPhi(0.f),
+	                                         _majorAxis(1.f), _minorAxis(1.f) {
 }
 
 ////////////////////////////////////////////////////////////////
 
-Ellipse::Ellipse( const Vector2 & center, const Vector2 & axes ):_center(center), _cosPhi(1.f), _sinPhi(0.f), _majorAxis(axes.x()), _minorAxis(axes.y()) {
+Ellipse::Ellipse( const Vector2 & center, const Vector2 & axes ) : _center(center), _cosPhi(1.f),
+	                                                               _sinPhi(0.f),
+																   _majorAxis(axes.x()),
+																   _minorAxis(axes.y()) {
 }
 
 ////////////////////////////////////////////////////////////////
 
-Ellipse::Ellipse( const Vector2 & center, const Vector2 & axes, float angle ):_center(center), _cosPhi(cos(angle)), _sinPhi(sin(angle)), _majorAxis(axes.x()), _minorAxis(axes.y()) {
+Ellipse::Ellipse( const Vector2 & center, const Vector2 & axes, float angle ) :
+	_center(center), _cosPhi(cos(angle)), _sinPhi(sin(angle)), _majorAxis(axes.x()),
+	_minorAxis(axes.y()) {
 }
 
 ////////////////////////////////////////////////////////////////
@@ -163,7 +175,8 @@ float Ellipse::distanceOfClosestApproach( const Ellipse & other ) const {
         Tmp4 = b1 / a1*k1dotd;
         Tmp5 = Tmp4 + Tmp3;
         Tmp6 = Tmp4 - Tmp3;
-        Tmp7 = Ap[0][1] / sqrtf(1.0f + k1dotk2)*(Tmp5)+ (lambdaplus - Ap[0][0]) / sqrtf(1.0f - k1dotk2)*(Tmp6);
+        Tmp7 = Ap[0][1] / sqrtf(1.0f + k1dotk2) * (Tmp5)
+			+ (lambdaplus - Ap[0][0]) / sqrtf(1.0f - k1dotk2)*(Tmp6);
         cosphi = 1.0f / Tmp8 * (Tmp7 * Tmp7);
     }
     float qap2 = ap2*ap2;
@@ -185,7 +198,8 @@ float Ellipse::distanceOfClosestApproach( const Ellipse & other ) const {
         std::complex<float> qB = B*B;
         alpha = -3.0f * qB / (8.0f * qA) + C / A;
         beta = qB * B / (8.0f * qA * A) - B * C / (2.0f * qA) + D / A;
-        gamma = -3.0f * qB * qB / (256.0f * qA * qA) + C * qB / (16.0f * qA * A) - B * D / (4.0f * qA) + E / A;
+        gamma = -3.0f * qB * qB / (256.0f * qA * qA)
+			+ C * qB / (16.0f * qA * A) - B * D / (4.0f * qA) + E / A;
         std::complex<float> qalpha = alpha*alpha;
         if (beta == 0.0f) {
             qu = -B / (4.0f * A) + sqrt(0.5f * (-alpha + sqrt(qalpha - 4.0f * gamma)));
@@ -204,8 +218,9 @@ float Ellipse::distanceOfClosestApproach( const Ellipse & other ) const {
 
 
         }
-        std::complex<float> Tmp2 = (qu * qu - 1.0f) / delta * (1.0f + bp2 * (1.0f + delta) / qu)*
-                (1.0f + bp2 * (1.0f + delta) / qu)+(1.0f - (qu * qu - 1.0f) / delta)* (1.0f + bp2 / qu)*(1.0f + bp2 / qu);
+        std::complex<float> Tmp2 = (qu * qu - 1.0f) / delta * (1.0f + bp2 * (1.0f + delta) / qu)
+                * (1.0f + bp2 * (1.0f + delta) / qu)
+				+ (1.0f - (qu * qu - 1.0f) / delta)* (1.0f + bp2 / qu)*(1.0f + bp2 / qu);
         dp = real(sqrt(Tmp2));
     }
     float result = dp * b1 / sqrtf(1.0f - eps1 * qk1dotd);
@@ -218,10 +233,10 @@ float Ellipse::distanceOfClosestApproach( const Ellipse & other ) const {
 
 ////////////////////////////////////////////////////////////////
 
-float Ellipse::distanceOfClosestApproach( const Agents::Obstacle * line ) const {
+float Ellipse::distanceOfClosestApproach( const Obstacle * line ) const {
 	Vector2 nearPt;
 	float distSq;
-	if ( line->distanceSqToPoint( _center, nearPt, distSq ) != Agents::Obstacle::MIDDLE ) {
+	if ( line->distanceSqToPoint( _center, nearPt, distSq ) != Obstacle::MIDDLE ) {
 		return 0.f;
 	}
 	Vector2 p0( toEllipseSpace( line->getP0() ) );
@@ -293,7 +308,7 @@ Vector2 Ellipse::closestPoint( const Vector2 & pt ) const {
 
 ////////////////////////////////////////////////////////////////
 
-float Ellipse::minimumDistance( const Agents::Obstacle * line, Vector2 & dir ) const {
+float Ellipse::minimumDistance( const Obstacle * line, Vector2 & dir ) const {
 	Vector2 p0( toEllipseSpace( line->getP0() ) );
 	Vector2 p1( toEllipseSpace( line->getP1() ) );
 	Vector2 O( p1 );
@@ -387,5 +402,4 @@ float Ellipse::radiusInDirection( const Vector2 & dir ) const {
 	Vector2 boundPoint( _majorAxis * x, _minorAxis * y );
 	return abs( boundPoint );
 }
-
 }	// namespace GCF
