@@ -31,6 +31,7 @@ namespace MengeVis {
 	// forward declarations
 	namespace Runtime {
 		class BaseAgentContext;
+		class VisAgent;
 		namespace GoalVis {
 			class GoalRenderer;
 		}
@@ -84,6 +85,14 @@ namespace MengeVis {
 			 *							element name.
 			 */
 			void registerGoalRenderer( Runtime::GoalVis::GoalRenderer * renderer );
+
+			/*!
+			 *	@brief		Register a VisAgent instance.
+			 *
+			 *	@param		visAgent	An instance of a visualization agent with a globally unique
+			 *							element name.
+			 */
+			void registerVisAgent( Runtime::VisAgent * visAgent );
 
 		protected:
 			/*!

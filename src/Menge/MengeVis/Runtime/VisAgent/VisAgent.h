@@ -50,10 +50,35 @@ namespace MengeVis {
 		public:
 			/*!
 			 *	@brief		Constructor.
-			 *
-			 *	@param		agent		The agent to be visualized.
 			 */
-			VisAgent( Menge::Agents::BaseAgent * agent );
+			VisAgent();
+
+			/*!
+			 *	@brief		Sets the agent for this agent visualizer.
+			 *
+			 *	This method works in conjunction with the VisElementDatabase. When this
+			 *	visualization element is triggered, the database will supply the triggering
+			 *	element.
+			 *
+			 *	@param		goal		The goal to interact with.
+			 */
+			void setElement( const Menge::Agents::BaseAgent * agent );
+
+			/*!
+			 *	@brief		The value used to store this element in the visual element database.
+			 *				This string value should correspond to the getStringId method of the
+			 *				corresponding simulation element.
+			 */
+			virtual std::string getElementName() const { return "default"; }
+
+			/*!
+			 *	@brief		Creates a clone of this vis agent, moving the contained agent to the
+			 *				clone.  The caller is responsible for the new VisAgent instance.
+			 *
+			 *	@returns	A copy of this visualization agent (with a pointer to the same
+			 *				underlying simulation agent).
+			 */
+			virtual VisAgent * moveToClone();
 
 			/*!
 			 *	@brief		Draw the agent into the 3D world.
@@ -91,6 +116,23 @@ namespace MengeVis {
 
 		protected:
 			/*!
+			 *	@brief		Confirm that the agent provided is compatible with this VisAgent 
+			 *				instance.
+			 *
+			 *				Sub-classes that care about the *type* of agent that is passed in
+			 *				should override this and perform the appropriate test, returning true
+			 *				if the BaseAgent instance is compatible, false otherwise.
+			 */
+			virtual bool doValidateAgent( const Menge::Agents::BaseAgent * agent ) {
+				return true;
+			}
+
+			/*! 
+			 *	@brief		Sets the position from the agent.
+			 */
+			void setPosition();
+
+			/*!
 			 *	@brief		Defines the color of the cylinder.
 			 *
 			 *	The color is computed and returned via the three floats passed in as
@@ -105,7 +147,7 @@ namespace MengeVis {
 			/*!
 			 *	@brief		The logical agent being visualized.
 			 */
-			Menge::Agents::BaseAgent *	_agent;
+			const Menge::Agents::BaseAgent *	_agent;
 
 			/*!
 			 *	@brief		The position in R3 of the logical agent.

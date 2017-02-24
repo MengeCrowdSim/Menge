@@ -55,12 +55,15 @@
     <Filter Include="Source Files\PluginEngine">
       <UniqueIdentifier>{504f186f-9f07-46a5-8708-f76df94ef013}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Runtime\VisAgent">
+      <UniqueIdentifier>{0efa082a-5403-4f54-91ef-ea436b179615}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Runtime\VisAgent">
+      <UniqueIdentifier>{df8c67bb-795b-419f-a469-44ba05e02ef2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(SrcDir)\MengeVis\Runtime\SimSystem.cpp">
-      <Filter>Source Files\Runtime</Filter>
-    </ClCompile>
-    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\VisAgent.cpp">
       <Filter>Source Files\Runtime</Filter>
     </ClCompile>
     <ClCompile Include="$(SrcDir)\MengeVis\Runtime\VisObstacle.cpp">
@@ -180,12 +183,15 @@
     <ClCompile Include="$(SrcDir)\MengeVis\PluginEngine\VisPluginEngine.cpp">
       <Filter>Source Files\PluginEngine</Filter>
     </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\VisAgent\VisAgentDatabase.cpp">
+      <Filter>Source Files\Runtime\VisAgent</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\VisAgent\VisAgent.cpp">
+      <Filter>Source Files\Runtime\VisAgent</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(SrcDir)\MengeVis\Runtime\SimSystem.h">
-      <Filter>Header Files\Runtime</Filter>
-    </ClInclude>
-    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VisAgent.h">
       <Filter>Header Files\Runtime</Filter>
     </ClInclude>
     <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VisObstacle.h">
@@ -331,6 +337,12 @@
     </ClInclude>
     <ClInclude Include="$(SrcDir)\MengeVis\PluginEngine\VisPluginEngine.h">
       <Filter>Header Files\PluginEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VisAgent\VisAgentDatabase.h">
+      <Filter>Header Files\Runtime\VisAgent</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VisAgent\VisAgent.h">
+      <Filter>Header Files\Runtime\VisAgent</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

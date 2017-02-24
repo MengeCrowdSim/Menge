@@ -36,7 +36,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "MengeVis/Runtime/VisAgent.h"
+#include "MengeVis/Runtime/VisAgent/VisAgent.h"
 
 #include "MengeCore/Agents/BaseAgent.h"
 #include "MengeVis/SceneGraph/shapes.h"
@@ -53,32 +53,60 @@ namespace MengeVis {
 		//                     Implementation of VisAgent
 		/////////////////////////////////////////////////////////////////////////////
 
-		VisAgent::VisAgent( BaseAgent * agent ) : GLNode(), Selectable(), _agent( agent ) {
-			const Vector2 & pos = _agent->_pos;
-			_pos.set( pos.x(), 0.f, pos.y() );
+		VisAgent::VisAgent() : GLNode(), Selectable(), _agent( 0x0 ) {
+		}
+
+		/////////////////////////////////////////////////////////////////////////////
+
+		void VisAgent::setElement( const Menge::Agents::BaseAgent * agent ) {
+			if ( doValidateAgent( agent ) ) {
+				_agent = agent;
+				setPosition();
+			}
+		}
+
+		/////////////////////////////////////////////////////////////////////////////
+
+		VisAgent * VisAgent::moveToClone() {
+			VisAgent * agt = new VisAgent();
+			agt->setElement( _agent );
+			_agent = 0x0;
+			return agt;
 		}
 
 		/////////////////////////////////////////////////////////////////////////////
 
 		void VisAgent::drawGL( bool select ) {
-			float r = 0.5f, g = 0.5f, b = 0.5f;
-			if ( select ) {
-				loadSelectName();
-			} else {
-				getColor( r, g, b );
-			}
-			float radius = _agent->_radius;
-			glPushMatrix();
-			glTranslatef( _pos.x(), _pos.y(), _pos.z() );
-			SceneGraph::Cylinder::drawCylinder( radius, 1.72f, r, g, b, 1.f );
+			if ( _agent != 0x0 ) {
+				float r = 0.5f, g = 0.5f, b = 0.5f;
+				if ( select ) {
+					loadSelectName();
+				} else {
+					getColor( r, g, b );
+				}
+				float radius = _agent->_radius;
+				glPushMatrix();
+				glTranslatef( _pos.x(), _pos.y(), _pos.z() );
+				SceneGraph::Cylinder::drawCylinder( radius, 1.72f, r, g, b, 1.f );
 
-			glPopMatrix();
+				glPopMatrix();
+			}
 		}
 
 		///////////////////////////////////////////////////////////////////////////////
 
 		std::string VisAgent::getStringId() const {
-			return _agent->getStringId();
+			if ( _agent != 0x0 ) return _agent->getStringId();
+			else return "default";
+		}
+
+		///////////////////////////////////////////////////////////////////////////////
+
+		void VisAgent::setPosition() {
+			if ( _agent != 0x0 ) {
+				const Vector2 & pos = _agent->_pos;
+				_pos.set( pos.x(), 0.f, pos.y() );
+			}
 		}
 
 		///////////////////////////////////////////////////////////////////////////////
@@ -89,42 +117,46 @@ namespace MengeVis {
 				g = 1.f;
 				b = 1.f;
 			} else {
-				// TODO: this is bad.  I only support six classes 
-				//		Ultimately, replace this with a class that determines colors based
-				//		on arbitrary rules
-				size_t colorClass = _agent->_class % 6;
-				switch ( colorClass ) {
-					case 0:
-						r = 0.9f;	// red
-						g = 0.1f;
-						b = 0.1f;
-						break;
-					case 1:
-						r = 0.25f;	// blue
-						g = 0.25f;
-						b = 0.9f;
-						break;
-					case 2:
-						r = 0.1f;	// green
-						g = 0.9f;
-						b = 0.1f;
-						break;
-					case 3:
-						r = 0.9f;	// orange-yellow
-						g = 0.75f;
-						b = 0.1f;
-						break;
-					case 4:
-						r = 0.25f;	// cyan
-						g = 0.9f;
-						b = 0.9f;
-						break;
-					case 5:
-						r = 0.9f;	// magenta
-						g = 0.1f;
-						b = 0.9f;
-					default:
-						break;
+				if ( _agent != 0x0 ) {
+					// TODO: this is bad.  I only support six classes 
+					//		Ultimately, replace this with a class that determines colors based
+					//		on arbitrary rules
+					size_t colorClass = _agent->_class % 6;
+					switch ( colorClass ) {
+						case 0:
+							r = 0.9f;	// red
+							g = 0.1f;
+							b = 0.1f;
+							break;
+						case 1:
+							r = 0.25f;	// blue
+							g = 0.25f;
+							b = 0.9f;
+							break;
+						case 2:
+							r = 0.1f;	// green
+							g = 0.9f;
+							b = 0.1f;
+							break;
+						case 3:
+							r = 0.9f;	// orange-yellow
+							g = 0.75f;
+							b = 0.1f;
+							break;
+						case 4:
+							r = 0.25f;	// cyan
+							g = 0.9f;
+							b = 0.9f;
+							break;
+						case 5:
+							r = 0.9f;	// magenta
+							g = 0.1f;
+							b = 0.9f;
+						default:
+							break;
+					}
+				} else {
+					r = g = b = 1.0;
 				}
 			}
 		}

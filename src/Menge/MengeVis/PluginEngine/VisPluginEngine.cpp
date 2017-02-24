@@ -6,6 +6,8 @@
 #include "MengeVis/Runtime/GoalRenderer/GoalRendererDatabase.h"
 #include "MengeVis/Runtime/VCContext/VelCompContext.h"
 #include "MengeVis/Runtime/VCContext/VelCompContextDatabase.h"
+#include "MengeVis/Runtime/VisAgent/VisAgent.h"
+#include "MengeVis/Runtime/VisAgent/VisAgentDatabase.h"
 
 namespace MengeVis {
 	namespace PluginEngine {
@@ -18,6 +20,8 @@ namespace MengeVis {
 		using MengeVis::Runtime::VCContext::VelCompContext;
 		using MengeVis::Runtime::GoalRendererDB;
 		using MengeVis::Runtime::GoalVis::GoalRenderer;
+		using MengeVis::Runtime::VisAgent;
+		using MengeVis::Runtime::VisAgentDB;
 
 		/////////////////////////////////////////////////////////////////////
 		//					Implementation of VisPluginEngine
@@ -28,6 +32,7 @@ namespace MengeVis {
 			AgentContextDB::initialize();
 			VCContextDB::initialize();
 			GoalRendererDB::initialize();
+			VisAgentDB::initialize();
 		}
 
 		/////////////////////////////////////////////////////////////////////
@@ -51,6 +56,12 @@ namespace MengeVis {
 
 		void VisPluginEngine::registerGoalRenderer( GoalRenderer * renderer ) {
 			GoalRendererDB::addVisElement( renderer );
+		}
+
+		/////////////////////////////////////////////////////////////////////
+
+		void VisPluginEngine::registerVisAgent( VisAgent * visAgent ) {
+			VisAgentDB::addVisElement( visAgent );
 		}
 
 		/////////////////////////////////////////////////////////////////////

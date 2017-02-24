@@ -43,7 +43,8 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include "MengeCore/Agents/SimulatorInterface.h"
 #include "MengeCore/Agents/SpatialQueries/SpatialQuery.h"
 #include "MengeCore/Runtime/Logger.h"
-#include "MengeVis/Runtime/VisAgent.h"
+#include "MengeVis/Runtime/VisAgent/VisAgent.h"
+#include "MengeVis/Runtime/VisAgent/VisAgentDatabase.h"
 #include "MengeVis/Runtime/VisObstacle.h"
 #include "MengeVis/SceneGraph/GLScene.h"
 
@@ -124,7 +125,8 @@ namespace MengeVis {
 			_visAgents = new VisAgent *[ _sim->getNumAgents() ];
 			for ( size_t a = 0; a < _sim->getNumAgents(); ++a ) {
 				BaseAgent * agt = _sim->getAgent( a );
-				VisAgent * agtNode = new VisAgent( agt );
+				VisAgent * baseNode = VisAgentDB::getInstance( agt );
+				VisAgent * agtNode = baseNode->moveToClone();
 				float h = _sim->getElevation( agt );
 				agtNode->setPosition( agt->_pos.x(), h, agt->_pos.y() );
 				scene->addNode( agtNode );
