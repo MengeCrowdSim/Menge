@@ -106,8 +106,6 @@ namespace GCF {
 
 	void Agent::computeNewVelocity() {
 		Vector2 force( driveForce() );	// driving force
-		const float SPEED = abs( _vel );
-		const float PREF_SPEED = abs( _velPref.getPreferredVel() );
 
 		// Pedestrians
 		for ( size_t j = 0; j < _nearAgents.size(); ++j ) {
@@ -122,40 +120,12 @@ namespace GCF {
 		}
 
 		// Obstacles
+		const float SPEED = abs( _vel );
 		if ( SPEED > 0.0001f ) {
 			// No obstacle force if basically stationary
 			for ( size_t i = 0; i < _nearObstacles.size(); ++i ) {
 				const Menge::Agents::Obstacle * obst = _nearObstacles[ i ].obstacle;
-				if ( obst->length() < 0.1f ) {
-					continue;	// ignore short obstacles
-				}
-				// force from three points: nearest point, and point along wall in front
-				//	and point along wall behind.
-				Vector2 nearPt;	// gets set by distanceSqToPoint
-				float distSq;	// gets set by distanceSqToPoint
-				if ( obst->distanceSqToPoint( _pos, nearPt, distSq ) ==
-					 Menge::Agents::Obstacle::LAST ) continue;
-
-				// No force if the agent is ON the point
-				if ( distSq < 0.0001f ) continue;
-
-				Vector2 disp = nearPt - _pos;
-				float dist = sqrtf( distSq );
-				Vector2 dir = disp / dist;
-
-				// test visibility
-				float cosTheta = _orient * dir;
-				// No force if the point is more than 90 degrees away from
-				//	movement direction
-				if ( cosTheta < 0.f ) continue;
-				
-				// This is an APPROXIMATION of the actual distance to the wall
-				float boundDist = _ellipse.approximateMinimumDistance( nearPt );
-				float Bij = 1.f - dist / boundDist;
-
-				//// No force if the point lies inside the ellipse
-				if ( Bij > 0.f ) return;
-				force += dir * ( Bij * PREF_SPEED );
+				force += obstacleForce( obst );
 			}
 		}
 
@@ -207,6 +177,52 @@ namespace GCF {
 		magnitude = ( -K_ij * response * velScale * velScale );
 
 		return 0;
+	}
+
+	////////////////////////////////////////////////////////////////
+
+	Vector2 Agent::obstacleForce( const Obstacle * obst ) const {
+		Vector2 force( 0.f, 0.f );
+
+		if ( obst->length() < 0.1f ) {
+			return force;	// ignore short obstacles
+		}
+		// force from three points: nearest point, and point along wall in front
+		//	and point along wall behind.
+		Vector2 nearPt;	// gets set by distanceSqToPoint
+		float distSq;	// gets set by distanceSqToPoint
+		if ( obst->distanceSqToPoint( _pos, nearPt, distSq ) ==
+			 Menge::Agents::Obstacle::LAST ) {
+			return force;
+		}
+
+		// No force if the agent is ON the point
+		if ( distSq < 0.0001f ) return force;
+
+		Vector2 disp = nearPt - _pos;
+		float dist = sqrtf( distSq );
+		Vector2 dir = disp / dist;
+
+		// NOTE: An agent walking parallel with a wall does not *see* the wall and won't be pushed
+		// away.  This makes *no* sense.  Even from a vision perspective, this doesn't make sense
+		// if the wall extends out in *front* of the agent.
+		// test visibility
+		float cosTheta = _orient * dir;
+		// No force if the point is more than 90 degrees away from
+		//	movement direction
+		if ( cosTheta < -0.5f ) return force;
+
+		// This is an APPROXIMATION of the actual distance to the wall
+		float boundDist = _ellipse.approximateMinimumDistance( nearPt );
+		float Bij = 1.f - dist / boundDist;
+
+		//// No force if the point lies inside the ellipse
+		if ( Bij > 0.f ) return force;
+
+		const float PREF_SPEED = abs( _velPref.getPreferredVel() );
+		force = dir * Bij * PREF_SPEED;
+
+		return force;
 	}
 
 	////////////////////////////////////////////////////////////////

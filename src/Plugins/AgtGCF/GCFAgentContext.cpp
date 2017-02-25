@@ -209,6 +209,7 @@ namespace GCF {
 			glPushAttrib( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_ENABLE_BIT |
 				          GL_LINE_BIT | GL_POLYGON_BIT );
 			glDepthMask( GL_FALSE );
+			glDisable( GL_DEPTH_TEST );
 			const Agent * agt = dynamic_cast< const Agent * >( _selected->getAgent() );
 			assert( agt != 0x0 && "GCF context trying to work with a non GCF agent" );
 			initResponses(agt);
@@ -226,6 +227,8 @@ namespace GCF {
 		std::stringstream ss;
 		ss << std::setiosflags(std::ios::fixed) <<  std::setprecision( 2 );
 		ss << "\n_________________________";
+		ss << "\nNear agents: " << agent->_nearAgents.size();
+		ss << "\nNear obstacles: " << agent->_nearObstacles.size();
 		ss << "\nDraw (F)orces";
 		if ( _onlyForceDir ) {
 			ss << "\n  Scaled (L)ength";
@@ -276,40 +279,40 @@ namespace GCF {
 
 	void AgentContext::drawForces( const Agent * agt ) {
 		if ( _showForce && _selected ) {
-			if ( agt->_nearAgents.size() > 0 ) {
-				glPushMatrix();
-				// Draw driving force
-				glColor4f( 0.1f, 1.f, 0.1f, 1.f );
-				Vector2 driveForce( agt->driveForce() );
-				float mag = abs(driveForce);
-				drawForce( agt, driveForce / mag, mag, "D" );
-				// Draw repulsive forces
-				if ( _forceObject == 0 ) {
-					// draw forces for all agents
-					const int NBRS = (int)agt->_nearAgents.size();
-					for ( int i = 0; i < NBRS; ++i ) {
-						const Agent * other =
-							static_cast< const Agent *>( agt->getNeighbor( i ) );
-						singleAgentForce( agt, other );
-					}
-					// draw forces for all obstacles
-					const int OBSTS = (int)agt->_nearObstacles.size();
-					for ( int i = 0; i < OBSTS; ++i ) {
-						const Agents::Obstacle * obst = agt->getObstacle( i );
-						singleObstacleForce( agt, obst );
-					}
-				} else if ( _forceObject > 0 ) {
-					// single agent
+			glPushMatrix();
+			// Draw driving force
+			glColor4f( 0.1f, 1.f, 0.1f, 1.f );
+			Vector2 driveForce( agt->driveForce() );
+			float mag = abs( driveForce );
+			drawForce( agt, driveForce / mag, mag, "D" );
+
+			// Draw repulsive forces
+			if ( _forceObject == 0 ) {
+				// draw forces for all agents
+				const int NBRS = (int)agt->_nearAgents.size();
+				for ( int i = 0; i < NBRS; ++i ) {
 					const Agent * other =
-						static_cast< const Agent *>( agt->getNeighbor( _forceObject - 1 ) );
-					singleAgentForce( agt, other, 0.f );
-				} else {	
-					// draw obstacle
-					const Agents::Obstacle * obst = agt->getObstacle( -_forceObject - 1 );
+						static_cast< const Agent *>( agt->getNeighbor( i ) );
+					singleAgentForce( agt, other );
+				}
+				// draw forces for all obstacles
+				const int OBSTS = (int)agt->_nearObstacles.size();
+				for ( int i = 0; i < OBSTS; ++i ) {
+					const Agents::Obstacle * obst = agt->getObstacle( i );
 					singleObstacleForce( agt, obst, 0.f );
 				}
-				glPopMatrix();
+			} else if ( _forceObject > 0 ) {
+				// single agent
+				const Agent * other =
+					static_cast< const Agent *>( agt->getNeighbor( _forceObject - 1 ) );
+				singleAgentForce( agt, other, 0.f );
+			} else {	
+				// draw obstacle
+				const Agents::Obstacle * obst = agt->getObstacle( -_forceObject - 1 );
+				singleObstacleForce( agt, obst, 0.f );
 			}
+			
+			glPopMatrix();
 		}
 	}
 
@@ -335,8 +338,7 @@ namespace GCF {
 
 	void AgentContext::singleObstacleForce( const Agent * agt, const Agents::Obstacle * obst,
 		                                    float thresh ) {
-		//Vector2 force = agt->obstacleForce( obst );
-		Vector2 force (-2.f, 0.f);
+		Vector2 force = agt->obstacleForce( obst );
 		float forceMag = abs( force );
 		if ( forceMag > thresh ) {
 			// Draw the force line

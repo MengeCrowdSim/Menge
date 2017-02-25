@@ -121,21 +121,28 @@ namespace GCF {
 									float & response, float & velScale, float & magnitude ) const;
 
 		/*!
-		 *	@brief		Computes component of the force magnitude based on effective distance.
-		 *	@param		effDist			The effective distance from ellipse center to force source
-		 */		
-		float computeDistanceResponse( float effDist ) const;
+		 *	@brief		Compute the force due to a nearby obstacle
+		 *	@param		obst			A pointer to the obstacle
+		 *	@returns	The force imparted by the obstacle on this agent
+		 */
+		Menge::Math::Vector2 obstacleForce( const Agents::Obstacle * obst ) const;
 
 		/*!
-		 *	@brief		Updates the ellipse to the current state
-		 */
-		void updateEllipse();
+		*	@brief		Computes component of the force magnitude based on effective distance.
+		*	@param		effDist			The effective distance from ellipse center to force source
+		*/
+		float computeDistanceResponse( float effDist ) const;
 
 		/*!
 		 *	@brief		Computes the driving force for the agent
 		 *	@returns	The vector corresponding to the agent's driving force.
 		 */
 		Menge::Math::Vector2 driveForce() const;
+
+		/*!
+		 *	@brief		Updates the ellipse to the current state
+		 */
+		void updateEllipse();
 
 		/*!
 		 *	@brief		The ellipse representing the agent's volume
