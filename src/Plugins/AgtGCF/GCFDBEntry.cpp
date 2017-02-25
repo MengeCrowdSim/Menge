@@ -40,7 +40,6 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include "GCFSimulator.h"
 #include "GCFAgentContext.h"
 #include "GCFInitializer.h"
-#include "GCFVisAgentFactory.h"
 
 #include "MengeCore/Runtime/SimulatorDB.h"
 

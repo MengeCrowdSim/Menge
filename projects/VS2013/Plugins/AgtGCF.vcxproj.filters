@@ -39,9 +39,6 @@
     <ClCompile Include="$(PluginSrc)\AgtGCF\GCFVisAgent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="$(PluginSrc)\AgtGCF\GCFVisAgentFactory.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(PluginSrc)\AgtGCF\Ellipse.h">
@@ -69,9 +66,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="$(PluginSrc)\AgtGCF\GCFVisAgent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="$(PluginSrc)\AgtGCF\GCFVisAgentFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

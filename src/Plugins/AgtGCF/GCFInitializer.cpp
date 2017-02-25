@@ -124,7 +124,7 @@ namespace GCF {
 
 		if ( result == FAILURE ) {
 			logger << Logger::WARN_MSG << "Attribute \"" << paramName << "\" had an incorrectly ";
-			logger << formed value: \"" << value << "\".  Using default value.";
+			logger << "formed value: \"" << value << "\".  Using default value.";
 			result = ACCEPTED;
 		} else if ( result == IGNORED ){
 			return Agents::AgentInitializer::setFromXMLAttribute( paramName, value );
@@ -149,7 +149,7 @@ namespace GCF {
 
 		if ( result == FAILURE ) {
 			logger << Logger::ERR_MSG << "Error extracting value distribution from Property ";
-			logger <<  << propName << ".";
+			logger << propName << ".";
 			return result;
 		} else if ( result == IGNORED ) {
 			return Agents::AgentInitializer::processProperty( propName, node );

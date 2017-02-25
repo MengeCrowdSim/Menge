@@ -41,8 +41,11 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
  *	@brief		Plugin for GCF pedestrian.
  */
 
+#include "GCFAgentContext.h"
 #include "GCFConfig.h"
 #include "GCFDBEntry.h"
+#include "GCFVisAgent.h"
+
 #include "MengeCore/PluginEngine/CorePluginEngine.h"
 #include "MengeVis/PluginEngine/VisPluginEngine.h"
 
@@ -83,7 +86,7 @@ extern "C" {
 	 *	@param		engine		A pointer to the vis engine.
 	 */
 	GCF_API void registerVisPlugin( VisPluginEngine * engine ) {
-		// TODO: register visual agent.
-		//engine->registerAgentContext( new Helbing::AgentContext() );
+		engine->registerVisAgent( new GCF::GCFVisAgent() );
+		engine->registerAgentContext( new GCF::AgentContext() );
 	}
 }

@@ -46,6 +46,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #define __GCF_AGENT_CONTEXT_H__
 
 #include "GCFAgent.h"
+
 #include "MengeCore/Agents/Obstacle.h"
 #include "MengeVis/Runtime/AgentContext/BaseAgentContext.h"
 
@@ -77,14 +78,21 @@ namespace GCF {
 		 *
 		 *	@param		agent		The agent to interact with.
 		 */
-		virtual void setElement( MengeVis::Runtime::VisAgent * agent );
+		void setElement( const MengeVis::Runtime::VisAgent * agent ) override;
 
 		/*!
 		 *	@brief		Returns the name of the context for display.
 		 *
 		 *	@returns		The name of this context.
 		 */
-		virtual std::string contextName() const { return Agent::NAME; }
+		std::string contextName() const override { return "GCF 2010"; }
+
+		/*!
+		 *	@brief		The value used to store this element in the visual element database.
+		 *				This string value should correspond to the getStringId method of the
+		 *				corresponding simulation element.
+		 */
+		virtual std::string getElementName() const { return Agent::NAME; }
 
 		/*!
 		 *	@brief		Give the context the opportunity to respond to a keyboard

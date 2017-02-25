@@ -18,13 +18,13 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <PlatformToolset>v110</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <PlatformToolset>v110</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
@@ -68,7 +68,7 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>MengeCore_d.lib;OpenGL32.lib;SDL_ttf.lib;GLU32.lib;SDL.lib;tinyxml_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>MengeCore_d.lib;MengeVis_d.lib;OpenGL32.lib;SDL_ttf.lib;GLU32.lib;SDL.lib;tinyxml_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName)_d.dll</OutputFile>
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\resources\winlib;$(MengeLib);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -93,7 +93,7 @@ xcopy /y $(TargetPath) $(ExeDir)\plugins\debug\
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>MengeCore.lib;OpenGL32.lib;SDL_ttf.lib;GLU32.lib;SDL.lib;tinyxml.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>MengeCore.lib;MengeVis.lib;OpenGL32.lib;SDL_ttf.lib;GLU32.lib;SDL.lib;tinyxml.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\resources\winlib;$(MengeLib);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -117,7 +117,6 @@ xcopy /y $(TargetPath) $(ExeDir)\plugins\
     <ClCompile Include="$(PluginSrc)\AgtGCF\GCFSimulator.cpp" />
     <ClCompile Include="$(PluginSrc)\AgtGCF\Ellipse.cpp" />
     <ClCompile Include="$(PluginSrc)\AgtGCF\GCFVisAgent.cpp" />
-    <ClCompile Include="$(PluginSrc)\AgtGCF\GCFVisAgentFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(PluginSrc)\AgtGCF\GCF.h" />
@@ -129,7 +128,6 @@ xcopy /y $(TargetPath) $(ExeDir)\plugins\
     <ClInclude Include="$(PluginSrc)\AgtGCF\GCFSimulator.h" />
     <ClInclude Include="$(PluginSrc)\AgtGCF\Ellipse.h" />
     <ClInclude Include="$(PluginSrc)\AgtGCF\GCFVisAgent.h" />
-    <ClInclude Include="$(PluginSrc)\AgtGCF\GCFVisAgentFactory.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

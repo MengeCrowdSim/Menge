@@ -1,17 +1,24 @@
 #include "GCFVisAgent.h"
 #include "GCFAgent.h"
 #include "GCFSimulator.h"
+
+#include "MengeCore/Agents/BaseAgent.h"
 #include "MengeVis/SceneGraph/shapes.h"
 
 namespace GCF {
 
 	using MengeVis::Runtime::VisAgent;
+	using Menge::Agents::BaseAgent;
 
 	////////////////////////////////////////////////////////////////
 	//			Implementation of GCFVisAgent
 	////////////////////////////////////////////////////////////////
 
-	GCFVisAgent::GCFVisAgent(Agents::BaseAgent * agent ) : VisAgent(agent) {
+	VisAgent * GCFVisAgent::moveToClone() {
+		VisAgent * agt = new GCFVisAgent();
+		agt->setElement( _agent );
+		_agent = 0x0;
+		return agt;
 	}
 
 	////////////////////////////////////////////////////////////////
@@ -79,6 +86,13 @@ namespace GCF {
 		MengeVis::SceneGraph::Cylinder::drawCylinder( 1.f, 1.72f, r, g, b, 1.f );
 
 		glPopMatrix();
+	}
+
+	////////////////////////////////////////////////////////////////
+
+	bool GCFVisAgent::doValidateAgent( const BaseAgent * agent ) {
+		const Agent * agt = dynamic_cast<const Agent *>(agent);
+		return agt != 0x0;
 	}
 
 }	// namespace GCF

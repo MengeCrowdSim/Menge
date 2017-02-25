@@ -40,6 +40,8 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include "GCFSimulator.h"
 #include "MengeCore/Math/geomQuery.h"
 
+#include <algorithm>
+
 namespace GCF {
 
 	using Menge::Agents::BaseAgent;
@@ -213,7 +215,7 @@ namespace GCF {
 
 	int Agent::getRepulsionParameters( const Agent * agent, float & effDist, Vector2 & forceDir,
 		                               float & K_ij, float & response, float & velScale,
-									   float & magnitude ) const {
+									   float & magnitude ) const {	
 		const float PREF_SPEED = abs( _velPref.getPreferredVel() );
 		forceDir = _ellipse.ellipseCenterDisplace( agent->_ellipse );
 		float centerDist = abs( forceDir );
@@ -244,7 +246,7 @@ namespace GCF {
 		velScale = Simulator::NU_AGENT * PREF_SPEED;
 		if ( velWeight <= 0.f ) {
 			// convergent velocity needs some extra pushing
-			velScale -= velWeight / std::max( effDist, 0.01f ) ;
+			velScale -= velWeight / std::max( effDist, 0.01f );
 		}
 
 		// force response

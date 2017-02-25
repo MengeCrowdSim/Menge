@@ -39,7 +39,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include "GCFAgentContext.h"
 #include "GCFAgent.h"
 #include "GCFSimulator.h"
-#include "MengeVis/Runtime/VisAgent.h"
+#include "MengeVis/Runtime/VisAgent/VisAgent.h"
 #include <iomanip>
 #include <sstream>
 
@@ -67,6 +67,19 @@ namespace GCF {
 
 	AgentContext::~AgentContext() {
 		if ( _responses != 0x0 ) delete [] _responses;
+	}
+
+	////////////////////////////////////////////////////////////////
+
+	void AgentContext::setElement( const MengeVis::Runtime::VisAgent * agent ) {
+		BaseAgentContext::setElement( agent );
+		_forceObject = 0;
+		const Agent * agt = dynamic_cast<const Agent *>( agent );
+		if ( _responses != nullptr ) {
+			delete [] _responses;
+			_responses = 0x0;
+		}
+		initResponses( agt );
 	}
 
 	////////////////////////////////////////////////////////////////
@@ -101,7 +114,7 @@ namespace GCF {
 						if ( _showForce && _selected ) {
 							const Agent * agt =
 								dynamic_cast< const Agent * >( _selected->getAgent() );
-							assert( agt != 0x0 
+							assert( agt != 0x0 &&
 								"GCF context trying to work with a non-GCF agent" );
 							if ( cycleSingleForce( agt, false ) ) result.set( true, true );
 						}

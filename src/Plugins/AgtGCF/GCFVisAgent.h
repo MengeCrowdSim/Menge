@@ -43,7 +43,8 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifndef __GCF_VIS_AGENT_H__
 #define	__GCF_VIS_AGENT_H__
 
-#include "MengeVis/Runtime/VisAgent.h"
+#include "MengeVis/Runtime/VisAgent/VisAgent.h"
+#include "GCFAgent.h"
 
 namespace GCF {
 
@@ -52,12 +53,22 @@ namespace GCF {
 	 */
 	class GCFVisAgent : public MengeVis::Runtime::VisAgent {
 	public:
+
 		/*!
-		 *	@brief		Constructor.
-		 *
-		 *	@param		agent		The agent to be visualized.
+		 *	@brief		The value used to store this element in the visual element database.
+		 *				This string value should correspond to the getStringId method of the
+		 *				corresponding simulation element.
 		 */
-		GCFVisAgent( Menge::Agents::BaseAgent * agent );
+		std::string getElementName() const override { return Agent::NAME; }
+
+		/*!
+		 *	@brief		Creates a clone of this vis agent, moving the contained agent to the
+		 *				clone.  The caller is responsible for the new VisAgent instance.
+		 *
+		 *	@returns	A copy of this visualization agent (with a pointer to the same
+		 *				underlying simulation agent).
+		 */
+		VisAgent * moveToClone() override;
 
 		/*!
 		 *	@brief		Draw the agent into the 3D world.
@@ -65,7 +76,19 @@ namespace GCF {
 		 *	@param		select		Defines if the drawing is being done for selection
 		 *							purposes (true) or visualization (false).
 		 */
-		virtual void drawGL( bool select=false );
+		void drawGL( bool select=false ) override;
+
+	protected:
+		/*!
+		 *	@brief		Confirm that the agent provided is compatible with this VisAgent 
+		 *				instance.
+		 *
+		 *				Sub-classes that care about the *type* of agent that is passed in
+		 *				should override this and perform the appropriate test, returning true
+		 *				if the BaseAgent instance is compatible, false otherwise.
+		 */
+		bool doValidateAgent( const Menge::Agents::BaseAgent * agent ) override;
+
 	};
 }	// namespace GCF
 

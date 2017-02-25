@@ -12,14 +12,6 @@
 //					Implementation of Helper function
 ////////////////////////////////////////////////////////////////
 
-#ifdef _WIN32
-inline float cbrt(float x) {
-  if ( fabs(x) < 0.0001f) return 0.0;
-  if (x > 0.0) return pow(x, 1.f/3.f);
-  return -pow(-x, 1.f/3.f);
-} 
-#endif
-
 std::complex<float> c_cbrt( std::complex<float> x ) {
     float a, b, r, phi, rn;
 	std::complex<float> I(0, 1);
