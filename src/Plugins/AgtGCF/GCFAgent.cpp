@@ -97,37 +97,6 @@ namespace GCF {
 	}
 
 	////////////////////////////////////////////////////////////////
-
-	void Agent::updateOrient(float timeStep) {
-		// This stabilizes orientation
-		//		As the agent slows down, the target orientation becomes preferred direction
-		float speed = sqrt( absSq( _vel ) );
-		float frac = speed < _prefSpeed ? sqrtf( speed / _prefSpeed ) : 1.f;
-		
-		Vector2 prefDir = _velPref.getPreferred();
-		Vector2 moveDir = _vel / speed;
-
-		Vector2 newOrient = frac * moveDir + ( 1.f - frac ) * prefDir;
-		newOrient.normalize();
-		const float MAX_ANGLE_CHANGE = timeStep * _maxAngVel;
-		float maxCt = cos( MAX_ANGLE_CHANGE );
-		float ct = newOrient * _orient;
-		if ( ct < maxCt ) {
-			// changing direction at a rate greater than _maxAngVel
-			float maxSt = sin( MAX_ANGLE_CHANGE );
-			if ( det( _orient, newOrient ) > 0.f ) {
-				// rotate _orient left
-				_orient.set( maxCt * _orient._x - maxSt * _orient._y,
-					         maxSt * _orient._x + maxCt * _orient._y );
-			} else {
-				// rotate _orient right
-				_orient.set( maxCt * _orient._x + maxSt * _orient._y,
-					         -maxSt * _orient._x + maxCt * _orient._y );
-			}
-		}
-	}
-
-	////////////////////////////////////////////////////////////////
 	
 	void Agent::postUpdate() {
 		updateEllipse();
@@ -136,7 +105,6 @@ namespace GCF {
 	////////////////////////////////////////////////////////////////
 
 	void Agent::computeNewVelocity() {
-#if 1
 		Vector2 force( driveForce() );	// driving force
 		const float SPEED = abs( _vel );
 		const float PREF_SPEED = abs( _velPref.getPreferredVel() );
@@ -193,22 +161,6 @@ namespace GCF {
 
 		// We're assuming unit mass
 		_velNew = _vel + force * Simulator::TIME_STEP;
-#else
-		Vector2 force( drivingForce() );
-		for ( size_t i = 0; i < _nearAgents.size(); ++i ) {
-			const Agents::BaseAgent * otherBase = _nearAgents[i].agent;
-			const Agent * const other = static_cast< const Agent *>( otherBase );
-			
-			force += agentForce( other );
-		}
-
-		for ( size_t obs = 0; obs < _nearObstacles.size(); ++obs ) {
-			const Agents::Obstacle * obst = _nearObstacles[ obs ].obstacle;
-			force += obstacleForce( obst );
-		}
-		Vector2 acc = force / _mass;
-		_velNew = _vel + acc * Simulator::TIME_STEP;
-#endif
 	}
 
 	////////////////////////////////////////////////////////////////
@@ -297,45 +249,6 @@ namespace GCF {
 		float fDeriv = -f * f;
 		return hermite_interp( effDist, 0, interpWidth, 3.f * maxForce, f, 0, fDeriv );
 	}
-
-	////////////////////////////////////////////////////////////////
-
-#if 0
-	Vector2 Agent::obstacleForce( const Agents::Obstacle * obst ) const {
-		const float D = Simulator::FORCE_DISTANCE;
-		const float OBST_MAG = Simulator::OBST_SCALE;
-		Vector2 nearPt;	// set by distanceSqToPoint
-		float distSq;	// set by distanceSqToPoint
-		if ( obst->distanceSqToPoint( _pos, nearPt, distSq ) ==
-			Agents::Obstacle::LAST ) return Vector2(0.f,0.f);
-		float dist = sqrtf( distSq );
-		Vector2 forceDir( ( _pos - nearPt ) / dist );
-		
-		Vector2 force = forceDir * (OBST_MAG * exp( ( _radius - dist ) / D)); 
-
-		// pushing, friction
-		if (dist < _radius) { // intersection has occurred
-			Vector2 f_pushing(0.f, 0.f);
-			Vector2 f_friction(0.f, 0.f);
-
-			Vector2 tangent_io( forceDir.y(), -forceDir.x()); 
-
-			// make sure direction is opposite i's velocity
-			if ( ( tangent_io * _vel) < 0.f) {
-				tangent_io.negate();
-			}
-
-			f_pushing = forceDir * (Simulator::BODY_FORCE * ( _radius  - dist ) ); 
-
-			// friction
-			f_friction = tangent_io * Simulator::FRICTION
-				         * ( _radius - dist ) * ( _vel * tangent_io);
-			force += f_pushing - f_friction;
-		}
-		return force;
-	}
-
-#endif
 
 	////////////////////////////////////////////////////////////////
 

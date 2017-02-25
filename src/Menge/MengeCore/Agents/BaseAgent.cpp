@@ -104,29 +104,33 @@ namespace Menge {
 		////////////////////////////////////////////////////////////////
 
 		void BaseAgent::updateOrient( float timeStep ) {
-			float speedSq = absSq( _vel );
-			if ( speedSq > 0.00001f ) {
-				float speed = sqrt( speedSq );
-				Vector2 newOrient = _vel / speed;
+			// This stabilizes orientation
+			//		As the agent slows down, the target orientation becomes preferred direction
+			float speed = absSq( _vel );
+			float frac = speed < _prefSpeed ? sqrtf( speed / _prefSpeed ) : 1.f;
 
-				const float MAX_ANGLE_CHANGE = timeStep * _maxAngVel;
-				float maxCt = cos( MAX_ANGLE_CHANGE );
-				float ct = newOrient * _orient;
-				if ( ct < maxCt ) {
-					// changing direction at a rate greater than _maxAngVel
-					float maxSt = sin( MAX_ANGLE_CHANGE );
-					if ( det( _orient, newOrient ) > 0.f ) {
-						// rotate _orient left
-						_orient.set( maxCt * _orient._x - maxSt * _orient._y,
-									 maxSt * _orient._x + maxCt * _orient._y );
-					} else {
-						// rotate _orient right
-						_orient.set( maxCt * _orient._x + maxSt * _orient._y,
-									 -maxSt * _orient._x + maxCt * _orient._y );
-					}
+			Vector2 prefDir = _velPref.getPreferred();
+			Vector2 moveDir = _vel / speed;
+
+			Vector2 newOrient = frac * moveDir + ( 1.f - frac ) * prefDir;
+			newOrient.normalize();
+			const float MAX_ANGLE_CHANGE = timeStep * _maxAngVel;
+			float maxCt = cos( MAX_ANGLE_CHANGE );
+			float ct = newOrient * _orient;
+			if ( ct < maxCt ) {
+				// changing direction at a rate greater than _maxAngVel
+				float maxSt = sin( MAX_ANGLE_CHANGE );
+				if ( det( _orient, newOrient ) > 0.f ) {
+					// rotate _orient left
+					_orient.set( maxCt * _orient._x - maxSt * _orient._y,
+								 maxSt * _orient._x + maxCt * _orient._y );
 				} else {
-					_orient.set( newOrient );
+					// rotate _orient right
+					_orient.set( maxCt * _orient._x + maxSt * _orient._y,
+								 -maxSt * _orient._x + maxCt * _orient._y );
 				}
+			} else {
+				_orient.set( newOrient );
 			}
 		}
 

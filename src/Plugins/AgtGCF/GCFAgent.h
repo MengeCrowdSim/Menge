@@ -75,16 +75,6 @@ namespace GCF {
 		virtual void initialize();
 
 		/*!
-		 *	@brief		Updates the orientation.
-		 *
-		 *	This is guaranteed to be called after the current velocity and position have been
-		 *	integrated.
-		 *
-		 *	@param		timeStep		The duration of the simulation time step.
-		 */
-		virtual void updateOrient(float timeStep);
-
-		/*!
 		 *	@brief		Method for sub-classes to perform additional update work
 		 *			
 		 *	This is the last thing called by the update method.  When this is called,
@@ -140,15 +130,7 @@ namespace GCF {
 		 *	@brief		Updates the ellipse to the current state
 		 */
 		void updateEllipse();
-#if 0
 
-		/*!
-		 *	@brief		Compute the force due to a nearby obstacle
-		 *	@param		obst			A pointer to the obstacle
-		 *	@returns	The force imparted by the obstacle on this agent
-		 */
-		Vector2 obstacleForce( const Agents::Obstacle * obst ) const;
-#endif
 		/*!
 		 *	@brief		Computes the driving force for the agent
 		 *	@returns	The vector corresponding to the agent's driving force.
