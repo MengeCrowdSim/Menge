@@ -54,6 +54,10 @@ namespace Menge {
 			 *	This allows the computation of the preferred velocity for the agent, without
 			 *	necessarily making changes to it.
 			 *
+			 *	If the agent is already contained in the goal, the preferred velocity will be given
+			 *  zero vectors for the three directions (left, right, and preferred). The target
+			 *	point will be `q`.
+			 *
 			 *	@param		agent		The agent for which a preferred velocity is computed.
 			 *	@param		goal		The agent's goal (although this may be ignored).
 			 *	@param		pVel		The instance of Agents::PrefVelocity to set.

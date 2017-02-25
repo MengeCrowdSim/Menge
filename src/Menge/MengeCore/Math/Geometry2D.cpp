@@ -94,7 +94,15 @@ namespace Menge {
 
 		void PointShape::setDirections(const Vector2 & q, float r,
 			Agents::PrefVelocity & directions) const {
-			Vector2 dir(norm(_position - q));
+			Vector2 disp = _position - q;
+			const float distSq = absSq( disp );
+			Vector2 dir;
+			if ( distSq > 1e-8 ) {
+				// Distant enough that I can normalize the direction.
+				dir.set( disp / sqrtf( distSq ) );
+			} else {
+				dir.set( 0.f, 0.f );
+			}
 			directions.setSingle(dir);
 			directions.setTarget(_position);
 		}

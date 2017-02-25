@@ -105,15 +105,36 @@ namespace Menge {
 
 		void BaseAgent::updateOrient( float timeStep ) {
 			// This stabilizes orientation
-			//		As the agent slows down, the target orientation becomes preferred direction
-			float speed = absSq( _vel );
-			float frac = speed < _prefSpeed ? sqrtf( speed / _prefSpeed ) : 1.f;
-
-			Vector2 prefDir = _velPref.getPreferred();
+			//	As the agent slows down, the target orientation becomes preferred direction.
+			//	We define a threshold as a fraction of preferred speed.
+			//	If the agents speed is at or above that threshold, orientation is defined by the
+			//  movement vector.
+			//  If the speed is zero, the orientation is the direction of preferred velocity.
+			//  The transition function is designd such that the transition from movement direction
+			//  to preferred movement direction falls off slowly (initially) and rapidly at low
+			// speeds.
+			float speed = abs( _vel );
+			const float speedThresh = _prefSpeed / 3.f;
+			Vector2 newOrient( _orient );	// by default new is old
 			Vector2 moveDir = _vel / speed;
+			if ( speed >= speedThresh ) {
+				newOrient = moveDir;
+			} else {
+				float frac = sqrtf( speed / speedThresh );
+				Vector2 prefDir = _velPref.getPreferred();
+				// prefDir *can* be zero if we've arrived at goal.  Only use it if it's non-zero.
+				if ( absSq( prefDir ) > 0.000001f ) {
+					newOrient = frac * moveDir + ( 1.f - frac ) * prefDir;
+					newOrient.normalize();
+				}
+			}
 
-			Vector2 newOrient = frac * moveDir + ( 1.f - frac ) * prefDir;
-			newOrient.normalize();
+			// TODO(curds01): At low speeds, small movement perturbations cause radically different
+			// orientation changes.  It seems *reasonable* to scale maximum angular velocity
+			// by the travel speed (in some sense) to prevent this.  HOWEVER, this would break
+			// agents that have a sense of facing direction that they actively control.
+
+			// Now limit angular velocity.
 			const float MAX_ANGLE_CHANGE = timeStep * _maxAngVel;
 			float maxCt = cos( MAX_ANGLE_CHANGE );
 			float ct = newOrient * _orient;

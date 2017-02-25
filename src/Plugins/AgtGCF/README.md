@@ -2,6 +2,11 @@
 
 [Read the paper](https://arxiv.org/pdf/1008.4297.pdf)
 
+## Notes on using the model
+
+This model does not deal well with dense, contradictory flow.  When simulated with sufficient 
+numerical accuracy (i.e., a *very* small time step), the net result is a stationary traffic jam.
+
 ## Notes on implementation
 
 The Generalized Centrifugal Force (GCF) model is a force model.  Numerically speaking, these models
@@ -30,15 +35,10 @@ be taken between visualizer refresh and scb-writing.
 2. This is sensitive to obstacle forces so, currently, obstacles are being included which aren't
    actually visible.  This is bad.
 3. Agents occasionally get in situations where they spin at high speed (see `event.xml`).
-4. Agent's can disappear due to bad orientation values.  This is apparent at the end of `4square.xml`.
-   This should be considered a *global* problem.  It merely becomes visible in the drawing of GCF
-   agents because their drawing depends on good orientation values.  Orientaiton and preferred
-   velocity print as "-1.#IO".  This crops up when there's *no* preferred direction and no speed.
-5. Setting size properties on agent doesn't work.
+4. Setting size properties on agent doesn't work.
    
 ### Bad scenarios
 	
-- `core/4square.xml` : the agents disappear (intermittently) upon reaching their goal.
 - `core/event.xml` : as agents cluster near goal, forces ripple through that cause fast moving
 	and spinning agents.
 - `core/globalNavSwap.xml` : agents in initial condition immediately pop into walls.
@@ -62,7 +62,4 @@ be taken between visualizer refresh and scb-writing.
   - Is it a problem in the visagent?
 - `core/swap.xml` : Agents don't get resized by action.
 
-### Efforts to correct
-- Create a scenario where the agent starts on the goal position but has a goal vector.  Zero velocity
-  and zero direction vector should lead to disappearing agent.
 	
