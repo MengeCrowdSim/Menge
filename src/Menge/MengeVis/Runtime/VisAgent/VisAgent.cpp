@@ -84,10 +84,9 @@ namespace MengeVis {
 				} else {
 					getColor( r, g, b );
 				}
-				float radius = _agent->_radius;
 				glPushMatrix();
 				glTranslatef( _pos.x(), _pos.y(), _pos.z() );
-				SceneGraph::Cylinder::drawCylinder( radius, 1.72f, r, g, b, 1.f );
+				drawAgent( r, g, b );
 
 				glPopMatrix();
 			}
@@ -98,6 +97,13 @@ namespace MengeVis {
 		std::string VisAgent::getStringId() const {
 			if ( _agent != 0x0 ) return _agent->getStringId();
 			else return "default";
+		}
+
+		///////////////////////////////////////////////////////////////////////////////
+
+		void VisAgent::drawAgent( float r, float g, float b ) const {
+			const float radius = _agent->_radius;
+			SceneGraph::Cylinder::drawCylinder( radius, 1.72f, r, g, b, 1.f );
 		}
 
 		///////////////////////////////////////////////////////////////////////////////

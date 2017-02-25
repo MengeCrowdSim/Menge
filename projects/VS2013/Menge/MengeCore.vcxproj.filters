@@ -600,14 +600,14 @@
     <ClCompile Include="$(SrcDir)\mengeCore\resources\WayPortal.cpp">
       <Filter>Source Files\resources</Filter>
     </ClCompile>
-    <ClCompile Include="$(SrcDir)\MengeCore\Agents\AgentGenerators\NavMeshAgentGenerator.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="$(SrcDir)\MengeCore\menge_c_api.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="$(SrcDir)\MengeCore\PluginEngine\CorePluginEngine.cpp">
       <Filter>Source Files\PluginEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeCore\Agents\AgentGenerators\NavMeshAgentGenerator.cpp">
+      <Filter>Source Files\Agents\AgentGenerators</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1178,9 +1178,6 @@
     <ClInclude Include="$(SrcDir)\mengeCore\MengeException.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="$(SrcDir)\MengeCore\Agents\AgentGenerators\NavMeshAgentGenerator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="$(SrcDir)\MengeCore\menge_c_api.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -1189,6 +1186,9 @@
     </ClInclude>
     <ClInclude Include="$(SrcDir)\MengeCore\PluginEngine\CorePluginEngine.h">
       <Filter>Header Files\PluginEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeCore\Agents\AgentGenerators\NavMeshAgentGenerator.h">
+      <Filter>Header Files\Agents\AgentGenerators</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

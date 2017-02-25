@@ -86,7 +86,7 @@ namespace MengeVis {
 			 *	@param		select		Defines if the drawing is being done for selection
 			 *							purposes (true) or visualization (false).
 			 */
-			virtual void drawGL( bool select = false );
+			void drawGL( bool select = false );
 
 			/*!
 			 *	@brief		Returns a Agents::BaseAgent pointer of the associated simulation
@@ -115,6 +115,19 @@ namespace MengeVis {
 			std::string getStringId() const;
 
 		protected:
+
+			/*!
+			 *	@brief		Execute the code that actually draws the agent in its local space.
+			 *
+			 *	Subclasses should use this to define the geometry, relying on it to have
+			 *	already been positioned appropriately.
+			 *
+			 *	@param		r		The red component of the agent color to draw.
+			 *	@param		g		The green component of the agent color to draw.
+			 *	@param		b		The blue component of the agent color to draw.
+			 */
+			virtual void drawAgent( float r, float g, float b) const;
+
 			/*!
 			 *	@brief		Confirm that the agent provided is compatible with this VisAgent 
 			 *				instance.

@@ -18,8 +18,7 @@ be taken between visualizer refresh and scb-writing.
 
 ## Known issues
 
-1. Inexplicably, in the `navMeshPlacement.xml` project, the GCF agents do *not* get properly placed.
-2. GCF agents suffer with navigation meshes.  They can't walk near obstacles (because of the 
+1. GCF agents suffer with navigation meshes.  They can't walk near obstacles (because of the 
    repulsive forces).  However, the path planning assumes they can get as close as their width. This
    leads to inefficiencies when crossing interior portals.
   1. This *might* be addressed by having the navigation mesh correct the funnel algorithm by 
@@ -28,13 +27,14 @@ be taken between visualizer refresh and scb-writing.
 	   compute obstacle forces if there are agent forces acting on it (or possibly if they are
 	   colliding with the obstacle.)
   3. This problem manifests itself in the maze scenarios.
-3. This is sensitive to obstacle forces so, currently, obstacles are being included which aren't
+2. This is sensitive to obstacle forces so, currently, obstacles are being included which aren't
    actually visible.  This is bad.
-4. Agents occasionally get in situations where they spin at high speed (see `event.xml`).
-5. Agent's can disappear due to bad orientation values.  This is apparent at the end of `4square.xml`.
+3. Agents occasionally get in situations where they spin at high speed (see `event.xml`).
+4. Agent's can disappear due to bad orientation values.  This is apparent at the end of `4square.xml`.
    This should be considered a *global* problem.  It merely becomes visible in the drawing of GCF
    agents because their drawing depends on good orientation values.  Orientaiton and preferred
    velocity print as "-1.#IO".  This crops up when there's *no* preferred direction and no speed.
+5. Setting size properties on agent doesn't work.
    
 ### Bad scenarios
 	
@@ -43,7 +43,7 @@ be taken between visualizer refresh and scb-writing.
 	and spinning agents.
 - `core/globalNavSwap.xml` : agents in initial condition immediately pop into walls.
 - `core/globalNavSwap-roadmap.xml` : agents get caught in the environment and can't make progress.
-- `core/globalNavSwap-vectofrield.xml` : agents get accelerated into high speed spins.
+- `core/globalNavSwap-vectorfield.xml` : agents get accelerated into high speed spins.
 - `core/goalDistance.xml` : agents exhibit navigation mesh problems of not passing through funnel
 	goals.
 - `core/maze*.xml` : agents suffer from obstacles they can't see.  Also has nav mesh problems.
@@ -56,5 +56,13 @@ be taken between visualizer refresh and scb-writing.
 - `core/sharedGoal.xml` : two agents promptly disappear and the agents don't resize.
 - `core/soccer.xml` : Agents are not getting properly placed on the navigation mesh.
 - `core/stadium.xml` : Agents are not getting properly placed on the navigation mesh.
+  - This *may* be due to the fact that the ellipses are *not* drawn with the right position.
+  - I'm setting the position *directly* but the agent has no chance to do anything to update the
+	ellipse.  *HOWEVER* this doesn't address the issue of it not being drawn at the correct elevation.
+  - Is it a problem in the visagent?
 - `core/swap.xml` : Agents don't get resized by action.
+
+### Efforts to correct
+- Create a scenario where the agent starts on the goal position but has a goal vector.  Zero velocity
+  and zero direction vector should lead to disappearing agent.
 	

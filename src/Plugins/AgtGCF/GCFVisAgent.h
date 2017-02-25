@@ -72,11 +72,8 @@ namespace GCF {
 
 		/*!
 		 *	@brief		Draw the agent into the 3D world.
-		 *
-		 *	@param		select		Defines if the drawing is being done for selection
-		 *							purposes (true) or visualization (false).
 		 */
-		void drawGL( bool select=false ) override;
+		void drawAgent( float r, float g, float b ) const override;
 
 	protected:
 		/*!

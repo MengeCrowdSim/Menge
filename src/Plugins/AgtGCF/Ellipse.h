@@ -181,7 +181,7 @@ namespace GCF {
 		 *	@brief		Returns the "facing" direction of the ellipse
 		 *	@returns	The ellipse's facing direction.
 		 */
-		inline Menge::Math::Vector2 getOrientation() {
+		inline Menge::Math::Vector2 getOrientation() const {
 			return Menge::Math::Vector2(_cosPhi, _sinPhi);
 		}
 
@@ -195,7 +195,7 @@ namespace GCF {
 		 *	@brief		Returns the center of the ellipse.
 		 *	@returns	A const reference to the ellipse's center.
 		 */
-		inline const Menge::Math::Vector2 & getCenter() { return _center; }
+		inline const Menge::Math::Vector2 & getCenter() const { return _center; }
 
 		/*!
 		 *	@brief		Sets the major and minor axes of the ellipse.
