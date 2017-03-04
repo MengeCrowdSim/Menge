@@ -96,7 +96,6 @@ slashes appropriate to your OS):
 #### Windows
 
 Open $MENGE_ROOT\projects\VS2013\Menge\Menge13.sln.  Build the `MengeDocs` project.
-
    
 #### Linux and Mac OSX
 
@@ -104,3 +103,25 @@ To build, simply go to a terminal window. Change to $MENGE_ROOT/projects/g++.  E
 
    `make docs`
    
+## Attribution
+
+- Menge uses [www.sourceforge.net/projects/tinyxml](tinyxml) to parse XML.
+- Menge makes use of an implementation of normal random distrubtions implemented by John Burkardt.
+See `src/MengeCore/Math/SimRandom.cpp` for details.
+- Menge uses [http://tclap.sourceforge.net/](tclap) to handle command-line parsing.
+
+If you use Menge as part of an academic publication, we request that you cite Menge as follows:
+
+```
+  @article{CDA1,
+	author = {Sean Curtis and Andrew Best and Dinesh Manocha},
+	title = {Menge: A Modular Framework for Simulating Crowd Movement},
+	journal = {Collective Dynamics},
+	volume = {1},
+	number = {0},
+	year = {2016},
+	keywords = {crowd simulation; pedestrians; open source; framework; software system},
+	issn = {2366-8539},	pages = {1--40}	doi = {10.17815/CD.2016.1},
+	url = {https://collective-dynamics.eu/index.php/cod/article/view/A1}
+  }
+```
