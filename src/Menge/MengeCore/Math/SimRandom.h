@@ -40,7 +40,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
  *	@file		SimRandom.h
  *	@brief		Functions for calculating normally distributed values.
  *
- *	This code taken from John Burkardt (see normal.cpp).
+ *	This code taken from John Burkardt (see SimRandom.cpp).
  */
 
 #ifndef __SIM_RANDOM_H__
