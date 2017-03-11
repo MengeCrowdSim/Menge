@@ -95,6 +95,18 @@ namespace Menge {
 			 *	with the given radius to pass through. This should be overridden by subclasses to 
 			 *	account for their unique geometry.
 			 *
+			 *	The arc subtends an angle formed by a cone.  The apex of the cone is at the point
+			 *	`q`. The legs of the cone move from the apex in directions _towards_ the goal.
+			 *  The legs bound the minkowski _difference_ of the goal geometry with a circle of
+			 *	radius `r`.  In other words, the cone subtends the region such that if the _center_
+			 *  of a disk of radius `r` were in that region, the whole disk would be contained in
+			 *  the geometry region.
+			 *
+			 *	There is a degenerate case when the cone apex, `q`, lies _inside_ the goal
+			 *	geometry. Directions are now ill-defined.  The geometry will assign the _zero_
+			 *  vectors to the three directions (left, right, and preferred). The target point
+			 *  will be `q`.
+			 *
 			 *	@param		q				The query point.
 			 *	@param		r				The radius of clearance.
 			 *	@param		directions		An instance of Agents::PrefVelocity.

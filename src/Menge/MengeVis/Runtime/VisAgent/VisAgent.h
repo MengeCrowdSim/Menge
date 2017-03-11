@@ -50,10 +50,35 @@ namespace MengeVis {
 		public:
 			/*!
 			 *	@brief		Constructor.
-			 *
-			 *	@param		agent		The agent to be visualized.
 			 */
-			VisAgent( Menge::Agents::BaseAgent * agent );
+			VisAgent();
+
+			/*!
+			 *	@brief		Sets the agent for this agent visualizer.
+			 *
+			 *	This method works in conjunction with the VisElementDatabase. When this
+			 *	visualization element is triggered, the database will supply the triggering
+			 *	element.
+			 *
+			 *	@param		goal		The goal to interact with.
+			 */
+			void setElement( const Menge::Agents::BaseAgent * agent );
+
+			/*!
+			 *	@brief		The value used to store this element in the visual element database.
+			 *				This string value should correspond to the getStringId method of the
+			 *				corresponding simulation element.
+			 */
+			virtual std::string getElementName() const { return "default"; }
+
+			/*!
+			 *	@brief		Creates a clone of this vis agent, moving the contained agent to the
+			 *				clone.  The caller is responsible for the new VisAgent instance.
+			 *
+			 *	@returns	A copy of this visualization agent (with a pointer to the same
+			 *				underlying simulation agent).
+			 */
+			virtual VisAgent * moveToClone();
 
 			/*!
 			 *	@brief		Draw the agent into the 3D world.
@@ -61,7 +86,7 @@ namespace MengeVis {
 			 *	@param		select		Defines if the drawing is being done for selection
 			 *							purposes (true) or visualization (false).
 			 */
-			virtual void drawGL( bool select = false );
+			void drawGL( bool select = false );
 
 			/*!
 			 *	@brief		Returns a Agents::BaseAgent pointer of the associated simulation
@@ -90,6 +115,36 @@ namespace MengeVis {
 			std::string getStringId() const;
 
 		protected:
+
+			/*!
+			 *	@brief		Execute the code that actually draws the agent in its local space.
+			 *
+			 *	Subclasses should use this to define the geometry, relying on it to have
+			 *	already been positioned appropriately.
+			 *
+			 *	@param		r		The red component of the agent color to draw.
+			 *	@param		g		The green component of the agent color to draw.
+			 *	@param		b		The blue component of the agent color to draw.
+			 */
+			virtual void drawAgent( float r, float g, float b) const;
+
+			/*!
+			 *	@brief		Confirm that the agent provided is compatible with this VisAgent 
+			 *				instance.
+			 *
+			 *				Sub-classes that care about the *type* of agent that is passed in
+			 *				should override this and perform the appropriate test, returning true
+			 *				if the BaseAgent instance is compatible, false otherwise.
+			 */
+			virtual bool doValidateAgent( const Menge::Agents::BaseAgent * agent ) {
+				return true;
+			}
+
+			/*! 
+			 *	@brief		Sets the position from the agent.
+			 */
+			void setPosition();
+
 			/*!
 			 *	@brief		Defines the color of the cylinder.
 			 *
@@ -105,7 +160,7 @@ namespace MengeVis {
 			/*!
 			 *	@brief		The logical agent being visualized.
 			 */
-			Menge::Agents::BaseAgent *	_agent;
+			const Menge::Agents::BaseAgent *	_agent;
 
 			/*!
 			 *	@brief		The position in R3 of the logical agent.

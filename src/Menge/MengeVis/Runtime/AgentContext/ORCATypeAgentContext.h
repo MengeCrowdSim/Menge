@@ -29,7 +29,7 @@
 #define __ORCA_TYPE_AGENT_CONTEXT_H__
 
 #include "MengeVis/Runtime/AgentContext/BaseAgentContext.h"
-#include "MengeVis/Runtime/VisAgent.h"
+#include "MengeVis/Runtime/VisAgent/VisAgent.h"
 #include "MengeVis/SceneGraph/shapes.h"
 #include <sstream>
 #include <iomanip>

@@ -38,7 +38,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 #include "ZanlungoAgentContext.h"
 #include "ZanlungoAgent.h"
-#include "MengeVis/Runtime/VisAgent.h"
+#include "MengeVis/Runtime/VisAgent/VisAgent.h"
 #include "MengeVis/SceneGraph/shapes.h"
 
 #include <iomanip>

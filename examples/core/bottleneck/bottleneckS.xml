@@ -3,6 +3,7 @@
 	<SpatialQuery type="kd-tree" test_visibility="false" />
 	
     <Common time_step="0.1" />
+    <GCF reaction_time="0.5" max_agent_dist="2" max_agent_force="3" agent_interp_width="0.1" agent_force_strength="0.35" />
     <Helbing agent_scale="2000" obstacle_scale="4000" reaction_time="0.5" body_force="1200" friction="2400" force_distance="0.015" />
     <Dummy stddev="0.05" />
 
@@ -11,6 +12,7 @@
 		<PedVO factor="1.57" buffer="0.9" tau="3" tauObst="0.1" turningBias="1.0" />
         <Helbing mass="80" />
         <ORCA tau="3.0" tauObst="0.15" />
+        <GCF stand_depth="0.18" move_scale="0.53" slow_width="0.25" sway_change="0.05" />
 	</AgentProfile>
 	
     <AgentGroup>

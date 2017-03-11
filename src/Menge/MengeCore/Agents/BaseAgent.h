@@ -111,8 +111,10 @@ namespace Menge {
 
 			/*!
 			 *	@brief		Initializes the agent
+			 *
+			 *	Subclasses should call their parent's implementation of initialize.
 			 */
-			void initialize();
+			virtual void initialize();
 
 			/*!
 			 *  @brief      Updates the two-dimensional position and two-dimensional
@@ -121,6 +123,25 @@ namespace Menge {
 			 *	@param		timeStep		The time step that will be taken.
 			 */
 			void update( float timeStep );
+
+			/*!
+			 *	@brief		Updates the orientation.
+			 *
+			 *	This is guaranteed to be called after the current velocity and position have been
+			 *	integrated.
+			 *
+			 *	@param		timeStep		The duration of the simulation time step.
+			 */
+			virtual void updateOrient(float timeStep);
+
+			/*!
+			 *	@brief		Method for sub-classes to perform additional update work
+			 *			
+			 *	This is the last thing called by the update method.  When this is called,
+			 *	position, velocity, and orientation will be updated in the base agent
+			 *	class.
+			 */
+			virtual void postUpdate() {}
 
 			/*!
 			 *	@brief		Given preferred velocity and neighboring agents and obstacles

@@ -5,7 +5,7 @@
 #include "MengeCore/BFSM/FSM.h"
 #include "MengeCore/BFSM/State.h"
 #include "MengeVis/Runtime/StateContext.h"
-#include "MengeVis/Runtime/VisAgent.h"
+#include "MengeVis/Runtime/VisAgent/VisAgent.h"
 #include "MengeVis/Runtime/AgentContext/AgentContextDatabase.h"
 #include "MengeVis/Runtime/AgentContext/BaseAgentContext.h"
 

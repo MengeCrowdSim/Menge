@@ -42,16 +42,13 @@ namespace MengeVis {
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 		// Declrations of explicit specializations
 		template<> GoalVis::GoalRenderer *
-		Runtime::VisElementDB<GoalVis::GoalRenderer,
-													Menge::BFSM::Goal>::getDefaultElement();
+		Runtime::VisElementDB<GoalVis::GoalRenderer, Menge::BFSM::Goal>::getDefaultElement();
 
 		template<> void
-		Runtime::VisElementDB<GoalVis::GoalRenderer,
-													Menge::BFSM::Goal>::addBuiltins();
+		Runtime::VisElementDB<GoalVis::GoalRenderer, Menge::BFSM::Goal>::addBuiltins();
 
 		template<> std::string
-		Runtime::VisElementDB<GoalVis::GoalRenderer,
-													Menge::BFSM::Goal>::getElementName();
+		Runtime::VisElementDB<GoalVis::GoalRenderer, Menge::BFSM::Goal>::getElementName();
 #endif	// DOXYGEN_SHOULD_SKIP_THIS
 		
 	}	// namespace VCContext
