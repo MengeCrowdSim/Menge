@@ -1,11 +1,21 @@
 # Generalized Centrifugal Force Model
 
+This is inspired by the paper by Chraibi et al (Generalized Centrifugal Force model.
+However, the implementation differs in several critical ways. See the documentation in 
+`src/Plugins/GCFAgent/GCF.h` for details.
+
 [Read the paper](https://arxiv.org/pdf/1008.4297.pdf)
+
+This implementation makes use of the code for computing the distance of closest approach between
+two ellipses provided at:
+
+http://www.math.kent.edu/~zheng/ellipsoid.c
 
 ## Notes on using the model
 
-This model does not deal well with dense, contradictory flow.  When simulated with sufficient 
-numerical accuracy (i.e., a *very* small time step), the net result is a stationary traffic jam.
+This implementaiton does not deal well with dense, contradictory flow.  When simulated with
+sufficient numerical accuracy (i.e., a *very* small time step), the net result is a stationary
+traffic jam.
 
 ## Notes on implementation
 
@@ -26,16 +36,20 @@ be taken between visualizer refresh and scb-writing.
 1. GCF agents suffer with navigation meshes.  They can't walk near obstacles (because of the 
    repulsive forces).  However, the path planning assumes they can get as close as their width. This
    leads to inefficiencies when crossing interior portals.
-  1. This *might* be addressed by having the navigation mesh correct the funnel algorithm by 
-	looking down the hallways to the most distant, visible funnel.
+  1. This would be *partially* alleviated by modifying the path following algorithm such that the
+     segments of the funnel path only have vertices at meaningful turnings.  This would increase
+	 the cost of the path following algorithm.
   2. Alternatively, the GCF agent should assume the preferred velocity is collision free and only
 	   compute obstacle forces if there are agent forces acting on it (or possibly if they are
 	   colliding with the obstacle.)
   3. This problem manifests itself in the maze scenarios.
-2. This is sensitive to obstacle forces so, currently, obstacles are being included which aren't
-   actually visible.  This is bad.
-3. Agents occasionally get in situations where they spin at high speed (see `event.xml`).
-4. Setting size properties on agent doesn't work.
+2. This model is sensitive to obstacle forces so, currently, obstacles are being included which
+   aren't actually visible.  This is bad.  In computing neighbor obstacles, this should omit 
+   obstacles that are appreciable occluded.
+3. Agents occasionally get in high-density situations where they spin at high speed (see 
+   `event.xml`). Cause currently unknown.
+4. Setting size properties on agent doesn't work. This requires a redefinition of agent "size" and
+   "resizing" such that it can work with more arbitrary agent geometries.
    
 ### Bad scenarios
 	

@@ -107,8 +107,10 @@ To build, simply go to a terminal window. Change to $MENGE_ROOT/projects/g++.  E
 
 - Menge uses [www.sourceforge.net/projects/tinyxml](tinyxml) to parse XML.
 - Menge makes use of an implementation of normal random distrubtions implemented by John Burkardt.
-See `src/MengeCore/Math/SimRandom.cpp` for details.
+  See `src/MengeCore/Math/SimRandom.cpp` for details.
 - Menge uses [http://tclap.sourceforge.net/](tclap) to handle command-line parsing.
+- The GCF model (`src/Plugins/GCFAgent`) uses an algorithm for computing the distance of closest
+  approach (DCA) between two ellipses from http://www.math.kent.edu/~zheng/ellipsoid.c.
 
 If you use Menge as part of an academic publication, we request that you cite Menge as follows:
 
