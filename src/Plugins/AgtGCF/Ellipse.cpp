@@ -13,6 +13,7 @@
 ////////////////////////////////////////////////////////////////
 
 std::complex<float> c_cbrt( std::complex<float> x ) {
+    using std::cos;
     float a, b, r, phi, rn;
 	std::complex<float> I(0, 1);
     float s;
