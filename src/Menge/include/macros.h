@@ -19,7 +19,7 @@
 #ifndef MACROS_H_
 #define MACROS_H_
 
-#ifdef _WIN32
+#if defined( _WIN32 ) && _MSC_VER < 1900
 	#include <hash_map>
 	#define HASH_MAP stdext::hash_map
 #else

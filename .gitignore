@@ -9,6 +9,7 @@ COPY.txt
 build/
 *.sdf
 *.opensdf
+*.opendb
 ipch/
 *.user
 *.ncb
