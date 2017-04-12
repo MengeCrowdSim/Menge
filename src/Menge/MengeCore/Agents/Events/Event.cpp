@@ -46,7 +46,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include "MengeCore/Agents/Events/EventTriggerDB.h"
 #include "MengeCore/Runtime/Logger.h"
 
-#include "tinyxml.h"
+#include "thirdParty/tinyxml.h"
 
 #include <sstream>
 #include <cassert>

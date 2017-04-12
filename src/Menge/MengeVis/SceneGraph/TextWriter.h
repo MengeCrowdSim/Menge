@@ -27,7 +27,7 @@
 #include "MengeVis/VisConfig.h"
 #include "MengeVis/SceneGraph/image.h"
 
-#include "SDL/SDL_ttf.h"
+#include "thirdParty/SDL/SDL_ttf.h"
 
 #include <map>
 #include <string>

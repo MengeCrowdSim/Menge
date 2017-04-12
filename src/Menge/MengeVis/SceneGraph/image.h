@@ -32,7 +32,7 @@
 #include <string>
 #include <map>
 
-#include "SDL/SDL_image.h"
+#include "thirdParty/SDL/SDL_image.h"
 
 // TODO: This resource probably belongs in Core
 

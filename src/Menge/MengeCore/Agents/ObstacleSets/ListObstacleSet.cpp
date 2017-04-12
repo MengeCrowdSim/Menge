@@ -38,7 +38,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 #include "MengeCore/Agents/ObstacleSets/ListObstacleSet.h"
 
-#include "tinyxml.h"
+#include "thirdParty/tinyxml.h"
 
 #include <vector>
 

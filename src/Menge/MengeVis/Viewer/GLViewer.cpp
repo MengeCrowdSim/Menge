@@ -101,11 +101,11 @@ namespace MengeVis {
 		//				IMPLEMENTATION FOR GLViewer
 		///////////////////////////////////////////////////////////////////////////
 
-		Uint32 GLViewer::FLAGS = SDL_OPENGL | SDL_DOUBLEBUF | SDL_RESIZABLE;
+		Uint32 GLViewer::FLAGS = SDL_WINDOW_OPENGL |SDL_WINDOW_RESIZABLE;
 
 		///////////////////////////////////////////////////////////////////////////
 
-		GLViewer::GLViewer( int width, int height ) : _width( width ), _height( height ),
+		GLViewer::GLViewer( int width, int height ) : _window(nullptr), _width( width ), _height( height ),
 													  _scene( 0 ), _downX( 0 ), _downY(0),
 													  _update(false), _drawWorldAxis(false),
 													 _showFPS(false), _fpsDisplayTimer(10),
@@ -172,6 +172,7 @@ namespace MengeVis {
 			if ( _bgImg != 0x0 ) {
 				delete _bgImg;
 			}
+			if (_window) SDL_DestroyWindow( _window );
 			SDL_Quit();
 		}
 
@@ -202,15 +203,19 @@ namespace MengeVis {
 						_running = false;
 						redraw = false;
 						break;
-					} else if( e.type == SDL_VIDEOEXPOSE ) {
-						redraw = true;
-					} else if( e.type == SDL_MOUSEMOTION || 
-							   e.type == SDL_MOUSEBUTTONDOWN || 
-							   e.type == SDL_MOUSEBUTTONUP ) {
-						redraw = handleMouse( e )  || redraw;
-					} else if ( e.type == SDL_VIDEORESIZE ) {
-						resizeGL( e.resize.w, e.resize.h );
-						redraw = true;
+					} else if (e.type == SDL_WINDOWEVENT) {
+						if (e.window.event == SDL_WINDOWEVENT_SHOWN) {
+							redraw = true;
+						}
+						else if (e.type == SDL_MOUSEMOTION ||
+							e.type == SDL_MOUSEBUTTONDOWN ||
+							e.type == SDL_MOUSEBUTTONUP) {
+							redraw = handleMouse(e) || redraw;
+						}
+						else if (e.type == SDL_WINDOWEVENT_RESIZED) {
+							resizeGL(e.window.data1, e.window.data2);
+							redraw = true;
+						}
 					}
 				}
 				if ( !_pause ) startTimer( FULL_FRAME );
@@ -238,7 +243,7 @@ namespace MengeVis {
 						stopTimer( FULL_DRAW );
 
 						startTimer( BUFFER_SWAP );
-						SDL_GL_SwapBuffers();
+						SDL_GL_SwapWindow(_window);
 						stopTimer( BUFFER_SWAP );
 						redraw = false;
 					}
@@ -283,7 +288,6 @@ namespace MengeVis {
 				return false;
 			}
 
-			SDL_WM_SetCaption( title.c_str(), 0x0 );
 	#if _MSC_VER <= 1400
 			SDL_GL_SetAttribute( SDL_GL_ACCELERATED_VISUAL, 1 );
 	#endif
@@ -293,14 +297,16 @@ namespace MengeVis {
 			SDL_GL_SetAttribute( SDL_GL_ALPHA_SIZE, 8 );
 			SDL_GL_SetAttribute( SDL_GL_STENCIL_SIZE, 8 );
 			
-			if ( !SDL_SetVideoMode( _width, _height, 32, FLAGS ) ) {
+			if ( !(_window = SDL_CreateWindow( title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, _width, _height, FLAGS ) ) ) {
 				logger << Logger::ERR_MSG << "Unable to set video mode: " << SDL_GetError();
 				SDL_Delay( 3000 );
 				SDL_Quit();
 				return false;
 			}
+			SDL_GL_CreateContext(_window);
 			// start repeat after tenth of a second and signal at 30 Hz
-			SDL_EnableKeyRepeat( 100, 33 ); 
+			// TODO: Figure out the SDL2 version of this
+			//SDL_EnableKeyRepeat( 100, 33 ); 
 
 			return true;
 		}
@@ -313,7 +319,7 @@ namespace MengeVis {
 			if ( _height == 0 ) {
 				_height = 1;
 			}
-			SDL_SetVideoMode( _width, _height, 32, FLAGS );
+			//SDL_SetVideoMode( _width, _height, 32, FLAGS );
 
 			// Inform all dependent entities that the context has changed
 			newGLContext();
@@ -474,7 +480,7 @@ namespace MengeVis {
 				redraw = result.needsRedraw();
 			}
 			if ( ! result.isHandled() ) {
-				SDLMod mods = SDL_GetModState();
+				SDL_Keymod mods = SDL_GetModState();
 				int x = e.button.x;
 				int y = e.button.y;
 
@@ -508,36 +514,38 @@ namespace MengeVis {
 						_downY = y;
 						redraw = true;
 					}
-				} else if ( e.type == SDL_MOUSEBUTTONDOWN ) {
-					if ( e.button.button == SDL_BUTTON_LEFT ) {
+				}
+				else if (e.type == SDL_MOUSEBUTTONDOWN) {
+					if (e.button.button == SDL_BUTTON_LEFT) {
 						_downX = e.button.x;
 						_downY = e.button.y;
-						if ( !( hasCtrl || hasAlt || hasShift ) && _scene != 0x0 ) {
+						if (!(hasCtrl || hasAlt || hasShift) && _scene != 0x0) {
 							// TODO: This won't work when there are widgets
 							//		 Would this be better off embedded into the scene?
 							//		 After all, a manipulator merely has a special context...
 							//		 So, should a context have some kind of drawable function?
 							//		
 							int selectPoint[2] = { _downX, _downY };
-							redraw = _scene->selectGL( _cameras[ _currCam ], _width, _height,
-													   &selectPoint[0] );	
+							redraw = _scene->selectGL(_cameras[_currCam], _width, _height,
+								&selectPoint[0]);
 						}
-					} else if ( e.button.button == SDL_BUTTON_RIGHT ) {
-					} else if ( e.button.button == SDL_BUTTON_WHEELUP ) {
-						float amount = 0.5;
-						if ( hasCtrl ) amount *= 2;
-						if ( hasAlt ) amount *= 2;
-						if ( hasShift ) amount *= 2;
-						_cameras[ _currCam ].zoom( amount );
-						redraw = true;
-					} else if ( e.button.button == SDL_BUTTON_WHEELDOWN ) {
-						float amount = -0.5;
-						if ( hasCtrl ) amount *= 2;
-						if ( hasAlt ) amount *= 2;
-						if ( hasShift ) amount *= 2;
-						_cameras[ _currCam ].zoom( amount );
-						redraw = true;
 					}
+					else if (e.button.button == SDL_BUTTON_RIGHT) {
+					}
+				} else if (e.type == SDL_MOUSEWHEEL) {
+						float amount = e.wheel.y > 0 ? 0.5 : -0.5;
+						if ( hasCtrl ) amount *= 2;
+						if ( hasAlt ) amount *= 2;
+						if ( hasShift ) amount *= 2;
+						_cameras[ _currCam ].zoom( amount );
+						redraw = true;
+					//} else if ( e.button.button == SDL_BUTTON_WHEELDOWN ) {
+					//	float amount = -0.5;
+					//	if ( hasCtrl ) amount *= 2;
+					//	if ( hasAlt ) amount *= 2;
+					//	if ( hasShift ) amount *= 2;
+					//	_cameras[ _currCam ].zoom( amount );
+					//	redraw = true;
 				} else if ( e.type == SDL_MOUSEBUTTONUP ) {
 					
 				} else {
@@ -560,7 +568,7 @@ namespace MengeVis {
 			}
 
 			if ( ! result.isHandled() ) {
-				SDLMod mods = SDL_GetModState();
+				SDL_Keymod mods = SDL_GetModState();
 				bool hasCtrl = ( mods & KMOD_CTRL ) > 0;
 				bool hasAlt = ( mods & KMOD_ALT ) > 0;
 				bool hasShift = ( mods & KMOD_SHIFT ) > 0;

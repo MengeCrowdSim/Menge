@@ -40,7 +40,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 #include "MengeCore/Runtime/Logger.h"
 
-#include "png.h"
+#include "thirdParty/png.h"
 #ifdef _WIN32		// only supported under windows
 #include "windows.h"
 #endif

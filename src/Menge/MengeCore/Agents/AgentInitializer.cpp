@@ -42,7 +42,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include "MengeCore/Math/RandGenerator.h"
 #include "MengeCore/Runtime/Utils.h"
 
-#include "tinyxml.h"
+#include "thirdParty/tinyxml.h"
 
 #include <sstream>
 

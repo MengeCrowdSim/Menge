@@ -37,9 +37,9 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 */
 
 #include "ProjectSpec.h"
-#include "tinyxml.h"
+#include "thirdParty/tinyxml.h"
 #include "MengeCore/Runtime/SimulatorDB.h"
-#include "tclap/CmdLine.h"
+#include "thirdParty/tclap/CmdLine.h"
 #include "MengeCore/Runtime/os.h"
 
 ////////////////////////////////////////////////////////////////

@@ -29,7 +29,7 @@
 #include "MengeCore/BFSM/Actions/Action.h"
 #include "MengeCore/PluginEngine/ElementFactory.h"
 
-#include "tinyxml.h"
+#include "thirdParty/tinyxml.h"
 
 #include <string>
 
