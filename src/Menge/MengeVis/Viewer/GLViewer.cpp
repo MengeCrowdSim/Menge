@@ -206,7 +206,7 @@ namespace MengeVis {
 					} else if (e.type == SDL_WINDOWEVENT) {
 						if (e.window.event == SDL_WINDOWEVENT_SHOWN) {
 							redraw = true;
-						} else if (e.type == SDL_WINDOWEVENT_RESIZED) {
+						} else if (e.window.event == SDL_WINDOWEVENT_RESIZED) {
 							resizeGL(e.window.data1, e.window.data2);
 							redraw = true;
 						}
@@ -220,7 +220,6 @@ namespace MengeVis {
 				}
 				if ( !_pause ) startTimer( FULL_FRAME );
 				if ( redraw || _update || !_pause ) {
-					
 					// draw stuff
 					if ( _scene && ( !_pause || _update ) ) {
 						startTimer( SCENE_UPDATE );
