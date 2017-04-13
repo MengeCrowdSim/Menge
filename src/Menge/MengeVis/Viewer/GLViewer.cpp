@@ -206,16 +206,16 @@ namespace MengeVis {
 					} else if (e.type == SDL_WINDOWEVENT) {
 						if (e.window.event == SDL_WINDOWEVENT_SHOWN) {
 							redraw = true;
-						}
-						else if (e.type == SDL_MOUSEMOTION ||
-							e.type == SDL_MOUSEBUTTONDOWN ||
-							e.type == SDL_MOUSEBUTTONUP) {
-							redraw = handleMouse(e) || redraw;
-						}
-						else if (e.type == SDL_WINDOWEVENT_RESIZED) {
+						} else if (e.type == SDL_WINDOWEVENT_RESIZED) {
 							resizeGL(e.window.data1, e.window.data2);
 							redraw = true;
 						}
+					}
+					else if (e.type == SDL_MOUSEMOTION ||
+						e.type == SDL_MOUSEBUTTONDOWN ||
+						e.type == SDL_MOUSEBUTTONUP ||
+						e.type == SDL_MOUSEWHEEL ) {
+						redraw = handleMouse(e) || redraw;
 					}
 				}
 				if ( !_pause ) startTimer( FULL_FRAME );
@@ -493,7 +493,7 @@ namespace MengeVis {
 				bool zoom = hasShift && !(hasAlt || hasCtrl );
 
 				if ( e.type == SDL_MOUSEMOTION ) {
-					if ( e.button.button == SDL_BUTTON_LEFT ) {
+					if ( e.motion.state & SDL_BUTTON_LMASK ) {
 						if ( rotate ) {	// orbit around the camera
 							float deltaX = ( x - _downX ) * 0.0075f; // TODO: kill magic number
 							float deltaY = ( y - _downY ) * 0.0075f;	// TODO: kill magic number
@@ -507,7 +507,7 @@ namespace MengeVis {
 							_cameras[ _currCam ].crane( deltaY );		
 						} else if ( zoom ) {
 							const float scale = 1.f / 5.0f;
-							float deltaY = ( y - _downY ) * scale;
+							float deltaY = ( _downY - y ) * scale;
 							_cameras[ _currCam ].zoom( -deltaY );
 						}
 						_downX = x;
@@ -516,7 +516,7 @@ namespace MengeVis {
 					}
 				}
 				else if (e.type == SDL_MOUSEBUTTONDOWN) {
-					if (e.button.button == SDL_BUTTON_LEFT) {
+					if (e.motion.state & SDL_BUTTON_LMASK) {
 						_downX = e.button.x;
 						_downY = e.button.y;
 						if (!(hasCtrl || hasAlt || hasShift) && _scene != 0x0) {
@@ -530,10 +530,10 @@ namespace MengeVis {
 								&selectPoint[0]);
 						}
 					}
-					else if (e.button.button == SDL_BUTTON_RIGHT) {
+					else if (e.motion.state & SDL_BUTTON_RMASK) {
 					}
 				} else if (e.type == SDL_MOUSEWHEEL) {
-						float amount = e.wheel.y > 0 ? 0.5f : -0.5f;
+						float amount = e.wheel.y < 0 ? 0.5f : -0.5f;
 						if ( hasCtrl ) amount *= 2;
 						if ( hasAlt ) amount *= 2;
 						if ( hasShift ) amount *= 2;
