@@ -199,7 +199,7 @@
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>MengeCore_d.lib;tinyxml_d.lib;OpenGL32.lib;Glu32.lib;SDL2_ttf.lib;SDL2_image.lib;SDL2.lib;libpng16.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>MengeCore_d.lib;tinyxml_d.lib;OpenGL32.lib;Glu32.lib;SDL2_ttf.lib;SDL2_image.lib;SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)MengeVis_d.dll</OutputFile>
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\resources\win\lib\x86;$(BuildRoot)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -224,7 +224,7 @@ xcopy /y $(TargetPath) $(ExeDir)
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>MengeCore_d.lib;tinyxml_d.lib;OpenGL32.lib;Glu32.lib;SDL2_ttf.lib;SDL2_image.lib;SDL2.lib;libpng16.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>MengeCore_d.lib;tinyxml_d.lib;OpenGL32.lib;Glu32.lib;SDL2_ttf.lib;SDL2_image.lib;SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)MengeVis_d.dll</OutputFile>
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\resources\win\lib\x64;$(BuildRoot)\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -249,7 +249,7 @@ xcopy /y $(TargetPath) $(ExeDir)
       <ShowIncludes>false</ShowIncludes>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>MengeCore.lib;tinyxml.lib;OpenGL32.lib;Glu32.lib;SDL2_ttf.lib;SDL2_image.lib;SDL2.lib;libpng16.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>MengeCore.lib;tinyxml.lib;OpenGL32.lib;Glu32.lib;SDL2_ttf.lib;SDL2_image.lib;SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)MengeVis.dll</OutputFile>
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\resources\win\lib\x86;$(BuildRoot)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -278,7 +278,7 @@ xcopy /y $(TargetPath) $(ExeDir)
       <ShowIncludes>false</ShowIncludes>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>MengeCore.lib;tinyxml.lib;OpenGL32.lib;Glu32.lib;SDL2_ttf.lib;SDL2_image.lib;SDL2.lib;libpng16.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>MengeCore.lib;tinyxml.lib;OpenGL32.lib;Glu32.lib;SDL2_ttf.lib;SDL2_image.lib;SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)MengeVis.dll</OutputFile>
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\resources\win\lib\x64;$(BuildRoot)\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>

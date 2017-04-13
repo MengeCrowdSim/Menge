@@ -533,7 +533,7 @@ namespace MengeVis {
 					else if (e.button.button == SDL_BUTTON_RIGHT) {
 					}
 				} else if (e.type == SDL_MOUSEWHEEL) {
-						float amount = e.wheel.y > 0 ? 0.5 : -0.5;
+						float amount = e.wheel.y > 0 ? 0.5f : -0.5f;
 						if ( hasCtrl ) amount *= 2;
 						if ( hasAlt ) amount *= 2;
 						if ( hasShift ) amount *= 2;

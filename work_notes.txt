@@ -1,0 +1,360 @@
+Separating out core simulation from everything else
+	1) Visualization is a big part
+		SceneGraph - completely out
+		Viewer - completely out
+		Runtime - 
+			BaseAgentContext
+			VisObstacle 
+			VisAgent
+			SimSystem inherits from SceneGraph::System
+		ped models (orca, pedvo, plugins)
+			AgentContext
+			SimSystem
+		BFSM
+			Goal::drawGL
+			VelComponent::getContext
+			VelModifier::getContext
+			FSM::Context
+	2) How do I decouple them?
+		- How do contexts get coupled with the things they display context for?
+		- I need to remove the SceneGraph from simulation execution
+			- however, it needs to be able to execute either way.
+			- Currently, I do with with the "viewer" - a null viewer vs a sdl viewer.
+				- The simulator needs to have its own "step" function and the viewer should execute if there is such a thing.
+		- IDEA
+			- MengeVis gets a plugin manager of its own
+			- Contexts (of various types) get registered with MengeVis in the same was as MengeCore
+				- in fact, it can be the same plugin DLL
+			- The coupling happens through a pair of key methods
+				- Agent classes have a method: std::string getAgentName() const;
+					- This returns the name of the model (e.g. orca, pedvo, etc.)
+				- The AgentContext class has a method: ContextCompatability isCompatibleWith( std::string modelName )
+					- ContextCompatability is an enum: 
+						NOT_COMPATIBLE: the context cannot be applied to this model
+						COMPATIBLE: the context *can* be applied because it knows all about a parent class of the model
+						EXACT: the context was *designed* for this model
+					- When an agent is selected, the viewer runs through the AgentContext database and determines which context to use
+						- EXACT is preferred over COMPATIBLE which is preferred over NOT_COMPATIBLE
+						- There should always be at least one compatible class (the base class with limited information -- assuming all agents are derived from a common class)
+						- That base class should include the display of the agent type.
+					- In the current version (where we are guaranteed homogeniety), we could simply look up the context the first time we select and agent and always use it.
+				
+	3) Target:
+		MengeVis and MengeCore (including C-api)
+	4) Challenges
+		I should roll the current level of doxygen into the code *before* I start moving things around.  Otherwise, it'll get ugly.
+		Docs
+			- I need to be able to build it in some autoamted way.
+			- I need to keep pushing documentation through.
+	5) Upstream dependencies
+		- Both systems depend on MengeMath.
+		- If I want to avoid duplicating it, I need to build MengeMath into a dll.
+		- That means MengeCore is dependent on MengeMath
+			- OR, I roll it into MengeCore and make MengeVis dependent on MengeCore
+			- I like this latter solution.
+	6) Possible decomposition
+		- MengeMath
+			- The mathematical structures: vectors, operations, etc.
+			- depends on:
+				Utilties? E.g. logger?
+					Matrix4x4, FloatGenerator
+						- is Matrix4x4 used?
+					Random numbers requires simple lock
+						- simple lock belongs in utilities
+		- MengeCore
+			- Agents, BSFM, Simulation
+			- depends on:
+				MengeMath
+				MengeUtils
+		- MengeUtils
+			- Various file system, os-level crap, logger, threadsafe crap, XML parsing (e.g., Attributes)
+			- Depends on OS but nothing else
+			** Circular dependency
+				- I want to use the Attributes to parse the XML
+				- However the Attributes are respondible for creating constructs in math (but the math is dependent on attributes).
+				- What needs to happen is:
+					- the *parsing* functionality needs to be pulled *out* of Attributes
+					- The parsing functionality goes into...
+					- or, maybe, the attributes simply go into math...
+						- except, attributes include *string* attributes.
+					- Or, maybe, I make Utils dependent on math and it provides a number of
+						utilities for parsing XML
+					- Math is definitely dependent on Utils for the logger
+						- so, one of two things need to happen:
+							- Attributes moves into math OR
+							- attributes moves into yet *another* library that depends on math, OR
+							- Logger moves out of utils
+							- Logger moves *out* of math.
+								- what is math's dependency?
+									Geometry.cpp: parseXML
+									Matrix operator<<
+									FloatGenerator printing/operator<<
+									Generator, parsers
+									SimRandom logs an error before exiting
+								- parsing should simply be moved into utilities
+								- Streaming to logger should be in utilities as well.
+								- SimRandom should throw an exception
+									- what kind of exception?  MengeException is in utilities
+								- Maybe I *do* need a MengeCommon
+		- MengeVis
+			- MengeMath
+			- MengeUtils
+			- MengeCore
+		- Why am I doing this?
+			- MengeVis will depend on MengeCore, no matter what I do, so I should just put everything in Core that I need - no math, not utils, no common.
+		
+	- New decomposition
+		- Create MengeVis
+			- pull all vis artifacts out and remove Vis references from MengeCore
+		- Further decompose MengeCore into MengeCore and MengeUtils
+			- The MengeUtils would predominantly handle XML parsing (i.e., MengeCore should *not* depend on tiny xml.)  However, if you want the parsing, you include all the dlls.
+			- this is down the road.
+1/1/2016
+	- Ran all the way through MengeCore
+		- Removed all the files that go in MengeVis
+		- touched *every* file
+			- Made all includes full source-based paths
+			- Looked at all of the column widths.
+		- Commented out *all* MengeVis-related code
+			- I still need to refactor the context stuff to go somewhere else.
+				(eventually, it will have to go into MengeVis).
+	- Can I run a simulation?
+		- What does it take to run a simulation?
+1/7/2016
+	- The state of the simulator?
+		- 99% of the work of the simulator is in the SimulatorBase class
+			- templated on agent type
+			- provides getAgent accessors to BaseAgent (and are virtual)
+			- computeNeighbors and _agents explicitly exploit the agent type
+				- computeNeighbors
+					- is *not* virtual
+					- calls Agent::startQuery, obstacleQuer( agent ), agentQuery( agent )
+					- *None* of these requires anything more than BaseAgent (in fact, they all only require the ProximityQuery basis.)
+				- _agents
+					- in doStep, invokes Agent::computeNewVelocity and Agent::update - neither are virtual
+						* THIS is the magic; I don't want to pay a virtual cost.  That's what this template gets me.
+					- initSpatialQuery assumes that all agents inherit from base agent (technically, it should be ProximityQuery)
+					- finalize calls Agent::initialize -- again, not virtual
+					- addAgent uses the Agent default constructor, sets pos and id, and then passes the agent to the agent initializer
+						- the agent initializer *could* simply take pos, id, and properties and create its own case
+						- then I could store it in a BaseAgent array.
+			- The derived classes are basically a container for the global model parameters
+				- this could easily be replaced by a class.
+			- So, the *primary* reason I can't run agents of different classes is that I'm unwilling to pay the virtual cost of three methods: computeNewVelocity, update, and initialize
+				- the first two are run at each time step (per agent), and the last only once
+				- Is there even an appreciable cost of that virtualization.
+			- NEXT BRANCH, determine what the performance hit is if these were virtual (even if I do nothing else)
+		- From an integration perspective, there is a doStep method
+			- this is what integrates the simulation relative to the TIME_STEP value.
+	- To kill the integrator, I just need to give access to FSM and scb writer into the SimulatorBase (or maybe even SimulatorInterface)
+		- SimulatorInterface: implements step() method
+			- it does the integrator and calls doStep - renamed intelligently.
+		- Visualization re-wired.  I can visualize again.
+	- Vis-decouple TODO
+		- Add FSMContext back in
+			- requires state and velcomponent contexts
+			- Have "goal::drawGL" commented out
+				- I need a "goal renderer" element
+		- Add custom agent contexts
+			- This is a big todo: it needs to support plugins
+		- Embed tinyxml *statically* in menge core?  limit the number of dlls to juggle?
+		- Re-introduce c-api and see if I can get things working in Unity with MengeCore and tinyxml
+	1/15/2016
+		- Visualization context
+			- Desired goal
+				1) Stop having to hit "a"
+					- however, display nothing with nothing selected
+				2) Ultimately support hybrid agent types
+					- both visualization type
+						- create agents based on factory derived from the base agent type
+					- context
+						- every time selection changes, activate a context based on the agent "type"
+				- Requirements
+					- At any given time, it should know if there is an agent selected or not.
+						- if not, nothing gets drawn.
+						- if so:
+							- select an agent context based on the type of agent selected
+							- Know whether the velocity component should be drawn or not
+								- 3DGL
+									- draw goal, draw velocity component, draw transition
+								- UI
+									- write info
+					- Implementation
+						- Elements:
+							transitions
+							velocity components
+							goals
+						- Renderer vs context
+							- contexts handle interactions
+							- renderes merely draw stuff (both to the OpenGL context *and* to the UI.)
+							- simplest to make everything a context.  All contexts are renderes, but not all renderers are contexts.
+						- So, that means "goal context"
+			- Current state of affairs
+				- mengeMain.cpp
+					- instantiates scene, system, all the contexts.  It shouldn't.  It should simply get the scene from the menge vis and pass it to the viewer (alternatively, initialize MengeViewer with simulator.)
+					- SimSystem populates scene from simulator
+					- BaseAgentContext is explicitly instantiated with agents from system
+					- BaseAgentContext is passed a new fsm context
+					- I don't need a ContextSwitcher because I'm not actually supporting multiple contexts
+				- BaseAgentContext
+					- Basic agent stuff: illustrate nbr radius, nbrs, max speed, vel, pref vel, orient
+					- Selection: type an id to select the agent
+						-click selection.  What is selected is a visagent.  I need to be able to query the vis agent to discover what type of context to use.
+							- Make sure the vis agent exposes agent name (by calling it on the underlying agent).
+					- Drawing
+						- draws itself (3D)
+							- 3DGL - draw neighbors,r adius, speed,velocity, pref velocity, orientation, etc.
+						- draws the FSM 3D (based on selected agent)
+						- draws its UI
+							- Draws the "agenttext" -- text defined by method that takes selected agent as parameter
+							- Draws ID typing
+						- draws fsm UI
+					- Takes fsm context... why?
+						- kills it in destructor
+						- keyboard handling: it gets a shot to process keys before agent context
+						- it draws its 3D and UI elements *after* the agent
+						* This should easily be pulled from base agent to menge context.
+				- FSMContext
+					- Keyboard: toggles drawing velocity component and transition
+						- Gives the "current state context" a chance to handle the keyboard
+					- Draw UI
+						- attempts to get a state context for the agent's current state
+							- if it exists, asks the state context for the UI Text
+						- writes to upper-right corner
+					- Draw3DGL
+						- draws using the state context
+						- I look up a state context based on the state ID
+							- State context contains
+								goal renderer (in this case, just the goal)
+								vc context
+								transition context
+							- Does this make sense?
+								- generally, yes.
+								- Particularly vis a vis transitions where there can be an arbitrary amount of transitions that need to be cycled through.
+								- However,I don't really have state contexts in that sense
+									- I can't query the state for "give me your context."
+								- Asking the FSM for an FSMContext pre-populated FSM contexts
+									- The StateContext is simply constructed on the state
+									- The constructor extracts the appropriate velocity component context from the velocity component.
+										- All I need to do is keep a live state context around:
+											- query agent state
+											- Find out if that state is *different* from the current state
+											- If so, set the state for the state context.
+					* Largely feels superfluous.  Ultimately, the MengeContext will have a number of
+						sub-contexts that it uses to draw to the screen.
+						- it's sole purpose is to determine if vel comp/transitions should be drawn 
+							regardless of what state is currently active.
+						- This can/should be rolled into the MengeContext
+						
+				- StateContext
+					- State may *not* have a context (apparently)
+					- State contains the current vel comp context (and eventually transition context)
+					- Draws goal
+	1/22/16
+		- Finished with agent contexts and velocity contexts
+		- NEXT: Goal rendering (used by the state context)
+		- NEXT: PluginEngine for the menge vis
+			- I need to load these context
+	1/28/16
+		- Goal renderers done
+		- Refactor "names" of elements
+			- I shouldn't have discrete name literals floating around in the code
+			- each element type should have a static member
+				- the element should return that name
+				- the factory should use that name
+				- the vis element should register with that name
+					- and the vis element should have a method reporting that name so registration
+						can happen just by adding the vis element.
+			- Agent contexts rewired to use common string
+			- Goal renderers need to share
+			- VelCompContext need to share
+		- Can I make the visual elements in the vis element const?
+			- This required me making something in road map mutable -- not ideal
+		- NEXT: PluginEngine for MengeVis
+			The plugin has a bunch of integrated functionality
+				- PluginEngine
+					- It has two responsibilities:
+						- Initializing and populating the various databases
+							- Constructor initializes all the databases
+							- Engine-specific methods add various classes to various databases
+						- Searching the plugin directory for plugins
+							- Plugin instantiation and then plugin->registerPlugin( this )
+				- Plugin
+					- Contains funciton pointer information for the desired c-style plugin interface
+						- register function, get name function, get description function
+						- the functions are predicated on strings
+							- the string can be a virtual getter
+							- I would only need to swap "registerPlugin" with "registerVisPlugin"
+			Plan
+				- Introduce ElementLibrary
+					- It is the aggregator for all of the databases currently living explicitly in the plugin engine.
+						- all of the "add thing" methods will live on this
+						- registerPlugin will act on this (and not plugin engine)
+				- Subclass VisElementLibrary
+				- Refactor plugin, slightly
+					- give it a virtual getter for register function name
+					- sub-class the vis plugin from this
+				- PluginEngine
+					- gets virtual method "makePlugin(fileName)"
+						- the vis engine will sub-class this to make the VisPluginClass
+				...
+				- Scrapping this plan
+			Plan v2
+				- What are the key differences between core plugins and vis plugins?
+					- Plugins register themselves by invoking methods on the plugin engine
+						- However, the two domains do *not* share any common registration methods.
+						- Because they don't share any registration types.
+					- To segregate this, there should be *two* types of plugin engines.
+						- and plugins that implement core, implement registerCorePlugin( CorePluginEngine *)
+						- plugins that implement vis, implement registerVisPlugin( VisPluginEngine * )
+						- Each of these two plugins have *different* functionality
+							- that is, they have different sets of register* functions.
+				- Compare CorePluginEngine and VisPluginEngine
+					- what do they have in common?
+						- They need logic to search directories for dll/so and determine if one found is a suitable plug-in.
+						- They need to report found plugins and remember that they are found.
+					- What do they have different?
+						- They are looking for *different* methods to determine viability
+					- In the current code, what is common and what needs to be separated?
+						- Separated
+							- all of the register* methods
+							- Evaluation of dll/so to see if it's a plugin
+							- Invocation of plugin's registration
+								- one of the challenges here is that different types of plugin engines have to be passed.
+								- If I create the BasePluginEngine templated on the EngineType
+									- the I can simply implment register plugin and function call back on that template type.
+								- Then Core/VisPluginEngine sub-classes the base class templated on itself.
+						- Common
+							- Directory search
+							- Storing of plugins
+	2/5/17
+		- I have it all buildingon windows -- moving to linux
+		- Issues withthe pluginengine
+			- I'm getting multiple instances of:
+				Menge::pluginEngine::Plugin<Menge::PluginEngine::CorePluginEngine>::getRegisterName() const;
+				- More particularly, it means I have multiple builds of the code.
+				- I have to prevent that
+		- It now builds on Linux
+			- Howver, there are a *mountain* of warnings.
+				I need those to *not* exist
+			- Using emacs on my virtual machine *sucks* because all of the keyboard shortcuts are being hijacked by the virtual machine software.
+				 - I need to find a way to, at least, temporarilydisable them
+						
+						
+TODO:
+	- Change global parameters from being built-in to the simulator
+		- I need a way to parse them.
+			- mechanism for recognizing which I care to parse
+				- might be simpleset to parse all recognized global parameter sets
+				- Ultimately, when a pedestrian model is "registered", it's global parameter set should be associated.
+		- I need a way to access them by the agents.
+			- If I make it singleton, or if I make the global *values* static, they can reference them directly
+				- it implies that all agents of that type in this process *must* share the same values; but that's what global means.
+	- determine what the performance hit is if these were virtual (even if I do nothing else) kill templated version of SimulatorBase
+		- this is the basis for allowing heterogeneous agent types
+		- I also need a way to specify agent types
+			- Command line: an ordered list of model types
+			- XML: agent_type_0 draws from list, default model also specified
+				- should the be a default?  Should it fail on not loading the requested model?  Yes, it should.
+				- It should be strict;
+					if there are k models in the scene, and not k models listed in the command-line, then there is no mapping and that is considered a critical failure.
