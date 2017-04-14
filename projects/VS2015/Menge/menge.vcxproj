@@ -110,7 +110,7 @@
     </Link>
     <PostBuildEvent>
       <Command>xcopy "$(SolutionDir)..\..\resources\win\exe_rsrc\x86\*.*" "$(ExeDir)" /d /y
-xcopy "$(SolutionDir)..\..\resources\win\*.*" "$(ExeDir)" /d /y
+xcopy "$(SolutionDir)..\..\resources\win\exe_rsrc\*.*" "$(ExeDir)" /d /y
 xcopy "$(SolutionDir)..\..\resources\common\*.*" "$(ExeDir)" /d /y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -134,7 +134,7 @@ xcopy "$(SolutionDir)..\..\resources\common\*.*" "$(ExeDir)" /d /y</Command>
     </Link>
     <PostBuildEvent>
       <Command>xcopy "$(SolutionDir)..\..\resources\win\exe_rsrc\x64\*.*" "$(ExeDir)" /d /y
-xcopy "$(SolutionDir)..\..\resources\win\*.*" "$(ExeDir)" /d /y
+xcopy "$(SolutionDir)..\..\resources\win\exe_rsrc\*.*" "$(ExeDir)" /d /y
 xcopy "$(SolutionDir)..\..\resources\common\*.*" "$(ExeDir)" /d /y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -161,7 +161,7 @@ xcopy "$(SolutionDir)..\..\resources\common\*.*" "$(ExeDir)" /d /y</Command>
     </Link>
     <PostBuildEvent>
       <Command>xcopy "$(SolutionDir)..\..\resources\win\exe_rsrc\x86\*.*" "$(ExeDir)" /d /y
-xcopy "$(SolutionDir)..\..\resources\win\*.*" "$(ExeDir)" /d /y
+xcopy "$(SolutionDir)..\..\resources\win\exe_rsrc\*.*" "$(ExeDir)" /d /y
 xcopy "$(SolutionDir)..\..\resources\common\*.*" "$(ExeDir)" /d /y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -188,7 +188,7 @@ xcopy "$(SolutionDir)..\..\resources\common\*.*" "$(ExeDir)" /d /y</Command>
     </Link>
     <PostBuildEvent>
       <Command>xcopy "$(SolutionDir)..\..\resources\win\exe_rsrc\x64\*.*" "$(ExeDir)" /d /y
-xcopy "$(SolutionDir)..\..\resources\win\*.*" "$(ExeDir)" /d /y
+xcopy "$(SolutionDir)..\..\resources\win\exe_rsrc\*.*" "$(ExeDir)" /d /y
 xcopy "$(SolutionDir)..\..\resources\common\*.*" "$(ExeDir)" /d /y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
