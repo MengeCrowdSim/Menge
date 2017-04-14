@@ -120,14 +120,15 @@ namespace Aircraft {
 	/////////////////////////////////////////////////////////////////////
 
 	void PropertyXAction::leaveAction( BaseAgent * agent ) {
-		_lock.lock();
-		std::map< size_t, float >::iterator itr = _originalMap.find( agent->_id );
-		assert( itr != _originalMap.end() &&
-				"An agent is exiting a state that it apparently never entered" );
-		float value = itr->second;
-		_originalMap.erase( itr );
-		_lock.release();
-		switch ( _property ) {
+		if (_undoOnExit) {
+			_lock.lock();
+			std::map< size_t, float >::iterator itr = _originalMap.find(agent->_id);
+			assert(itr != _originalMap.end() &&
+				"An agent is exiting a state that it apparently never entered");
+			float value = itr->second;
+			_originalMap.erase(itr);
+			_lock.release();
+			switch (_property) {
 			case MAX_SPEED:
 				agent->_maxSpeed = value;
 				break;
@@ -149,9 +150,10 @@ namespace Aircraft {
 			case RADIUS:
 				agent->_radius = value;
 				break;
-  		case NO_PROPERTY:
+			case NO_PROPERTY:
 				// NO_PROPERTY is considered a no-op.
 				break;
+			}
 		}
 	}
 

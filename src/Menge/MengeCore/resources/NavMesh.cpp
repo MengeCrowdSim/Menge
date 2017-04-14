@@ -301,17 +301,15 @@ namespace Menge {
 		}
 
 		std::vector< bool > processed( _obstCount, false );
-		for ( unsigned int o = 0; o < (unsigned int)_obstCount; ++o ) {
+		for ( size_t o = 0; o < _obstCount; ++o ) {
 			_obstacles[ o ]._id = o;
 			if ( processed[ o ] ) continue;
-			const unsigned int START = o;
-			unsigned int curr = o;
+			const size_t START = o;
+			size_t curr = o;
 			while ( curr != NavMeshObstacle::NO_NEIGHBOR_OBST && !processed[ curr ] ) {
 				processed[ curr ] = true;
 				NavMeshObstacle & obst = _obstacles[ curr ];
 				size_t nID = reinterpret_cast<size_t>( obst._node );
-                //error: cast from 'Menge::Agents::Obstacle*' to 'unsigned int' loses precision
-				// [-fpermissive]
 				assert( nID < _nCount && "Finalizing invalid node id from obstacle" );
 				obst._node = &_nodes[ nID ];
 
