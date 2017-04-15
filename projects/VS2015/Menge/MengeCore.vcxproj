@@ -71,7 +71,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(BuildRoot)\lib\</OutDir>
-    <IntDir>$(BuildRoot)\$(ProjectName)\$(Configuration)\</IntDir>
+    <IntDir>$(BuildRoot)\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
     <TargetName>$(ProjectName)_d</TargetName>
   </PropertyGroup>
@@ -79,17 +79,17 @@
     <LinkIncremental>true</LinkIncremental>
     <TargetName>$(ProjectName)_d</TargetName>
     <OutDir>$(BuildRoot)\lib\x64\</OutDir>
-    <IntDir>$(BuildRoot)\$(ProjectName)\$(Configuration)_x64\</IntDir>
+    <IntDir>$(BuildRoot)\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(BuildRoot)\lib\</OutDir>
-    <IntDir>$(BuildRoot)\$(ProjectName)\$(Configuration)\</IntDir>
+    <IntDir>$(BuildRoot)\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(BuildRoot)\lib\x64\</OutDir>
-    <IntDir>$(BuildRoot)\$(ProjectName)\$(Configuration)_x64\</IntDir>
+    <IntDir>$(BuildRoot)\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

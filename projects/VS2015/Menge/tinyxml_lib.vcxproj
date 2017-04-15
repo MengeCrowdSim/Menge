@@ -21,6 +21,7 @@
   <PropertyGroup Label="Globals">
     <ProjectName>tinyxml</ProjectName>
     <ProjectGuid>{C406DAEC-0886-4771-8DEA-9D7329B46CC1}</ProjectGuid>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -72,19 +73,21 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(BuildRoot)\lib\</OutDir>
-    <IntDir>$(BuildRoot)\$(ProjectName)\$(Configuration)\</IntDir>
+    <IntDir>$(BuildRoot)\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(BuildRoot)\lib\x64\</OutDir>
-    <IntDir>$(BuildRoot)\$(ProjectName)\$(Configuration)_x64\</IntDir>
+    <IntDir>$(BuildRoot)\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(BuildRoot)\lib\</OutDir>
-    <IntDir>$(BuildRoot)\$(ProjectName)\$(Configuration)\</IntDir>
+    <IntDir>$(BuildRoot)\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <TargetName>$(ProjectName)_d</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(BuildRoot)\lib\x64\</OutDir>
-    <IntDir>$(BuildRoot)\$(ProjectName)\$(Configuration)_x64\</IntDir>
+    <IntDir>$(BuildRoot)\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <TargetName>$(ProjectName)_d</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <PreBuildEvent>
