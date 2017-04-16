@@ -49,6 +49,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #ifdef __APPLE__
 #include <OpenGL/gl.h>
 #else
+#include <string.h>
 #include "GL/gl.h"
 #endif
 #include <iostream>
@@ -89,7 +90,7 @@ namespace MengeVis {
 		// The rows of data in image are vertically flipped from what they need to be in the surface.
 		GLubyte* tgt = rev_image + size - pitch;
 		for (GLubyte* src = image; src < image + size; src += pitch) {
-			memcpy_s(tgt, pitch, src, pitch);
+			memcpy(tgt, src, pitch);
 			tgt -= pitch;
 		}
 

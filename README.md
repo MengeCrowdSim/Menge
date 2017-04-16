@@ -39,7 +39,7 @@ Linux and OSX, they need to be installed.  The dependencies include:
   
 In Linux, these can all be acquired at the same time with the following command:
 
-  `sudo apt-get install libsdl-ttf2.0-dev libsdl-image1.2-dev libsdl1.2-dev`
+  `sudo apt-get install libsdl2-ttf-dev libsdl2-image-dev libsdl2-dev`
 
 ### Building Menge
 
