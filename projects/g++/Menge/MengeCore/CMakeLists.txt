@@ -19,6 +19,6 @@ add_library(
 	${source_files}
 )
 
-target_link_libraries ( mengeCore  dl tinyxml )
+target_link_libraries ( mengeCore dl tinyxml )
 
 install( TARGETS mengeCore DESTINATION ${LIBRARY_OUTPUT_PATH} )
