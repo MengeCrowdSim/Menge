@@ -62,6 +62,9 @@ Simply open one of the two pre-configured Visual Studio projects (one for VS 201
   
 Simply build the `menge` project and all upstream dependencies will be built.
 
+If switching between 32-bit and 64-bit builds, it is advisable to rebuild the whole solution. The
+current build configuration can lead to installation of incompatible binaries otherwise.
+
 ##### Menge plug-ins
 
 Similarly, there is a Plugins solution for building all of the plugins distributed with Menge. 
