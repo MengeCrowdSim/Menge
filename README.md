@@ -33,17 +33,44 @@ While a simulation is running, a visualization window will be displayed.
 Menge visualization has several dependencies.  For windows, they are included in the project. For
 Linux and OSX, they need to be installed.  The dependencies include:
 
-  - SDL
-  - SDL True Type
-  - SDL Image
+  - SDL 2
+  - SDL 2 True Type
+  - SDL 2 Image
   
 In Linux, these can all be acquired at the same time with the following command:
 
-  `sudo apt-get install libsdl-ttf2.0-dev libsdl-image1.2-dev libsdl1.2-dev`
+  `sudo apt-get install libsdl2-ttf-dev libsdl2-image-dev libsdl2-dev`
 
 ### Building Menge
 
 #### Windows
+
+In windows, the main Menge application and libraries are built separately from the plugins. This is
+represented by two different Visual Studio solutions.
+
+##### Menge application and libraries
+
+Simply open one of the two pre-configured Visual Studio projects (one for VS 2013 and one for VS
+2015). They would be located in `$MengeRoot\projects\vs2013\Menge` and
+`$MengeRoot\projects\vs2015\Menge`, respectively. Each has multiple projects:
+
+  - menge: the main executable
+  - MengeCore: the main MengeCore.dll providing all of the core simulation technology
+  - MengeDocs: a project to build the documentation (via doxygen)
+  - MengeVis: the visualization library used by the main executable
+  - tinyxml: the xml-parser used by Menge to consume the configuration files.
+  
+Simply build the `menge` project and all upstream dependencies will be built.
+
+If switching between 32-bit and 64-bit builds, it is advisable to rebuild the whole solution. The
+current build configuration can lead to installation of incompatible binaries otherwise.
+
+##### Menge plug-ins
+
+Similarly, there is a Plugins solution for building all of the plugins distributed with Menge. 
+Again, open the corresponding solution file and simply build any or all of the plug-ins you want.
+They will install in the appropriate folder so the executable will find them.
+
 
 #### Linux
 

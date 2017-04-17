@@ -33,7 +33,7 @@ namespace MengeVis {
 		/*!
 		 *	@brief		A mapping from a SDL key value and a context
 		 */
-		typedef std::map< SDLKey, Context * > KeyContextMap;
+		typedef std::map< SDL_Keycode, Context * > KeyContextMap;
 
 		/*!
 		 *	@brief		Special context for switching between multiple contexts.
@@ -57,7 +57,7 @@ namespace MengeVis {
 			 *	@param		context		The context to add.
 			 *	@param		key			The key which activates the context.
 			 */
-			void addContext( Context * context, SDLKey key );
+			void addContext( Context * context, SDL_Keycode key );
 
 			/*!
 			 *	@brief		Switch to the indicated context.

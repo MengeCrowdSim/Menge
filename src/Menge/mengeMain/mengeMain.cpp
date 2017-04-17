@@ -36,6 +36,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
+
 #include "MengeCore/Agents/SimulatorInterface.h"
 #include "MengeCore/Math/RandGenerator.h"
 #include "MengeCore/PluginEngine/CorePluginEngine.h"
@@ -57,10 +58,16 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 #include "tclap/CmdLine.h"
 
-#include <iostream>
 #include <algorithm>
-#include <string>
 #include <exception>
+#include <iostream>
+#include <string>
+#include <stdio.h>
+
+#if _MSC_VER >= 1900
+FILE _iob[] = { *stdin, *stdout, *stderr };
+extern "C" FILE * __cdecl __iob_func(void) { return _iob; }
+#endif  // _MSC_VER >= 1900
 
 using namespace Menge;
 using Menge::PluginEngine::CorePluginEngine;

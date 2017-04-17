@@ -9,6 +9,7 @@ COPY.txt
 build/
 *.sdf
 *.opensdf
+*.opendb
 ipch/
 *.user
 *.ncb
@@ -16,3 +17,4 @@ ipch/
 *.idea
 doc/output
 doc/tags
+examples/**/*.png

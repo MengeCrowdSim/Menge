@@ -40,13 +40,16 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 #include "MengeCore/Runtime/Logger.h"
 
-#include "png.h"
+#include "thirdParty/SDL/SDL.h"
+#include "thirdParty/SDL/SDL_surface.h"
+#include "thirdParty/SDL/SDL_image.h"
 #ifdef _WIN32		// only supported under windows
 #include "windows.h"
 #endif
 #ifdef __APPLE__
 #include <OpenGL/gl.h>
 #else
+#include <string.h>
 #include "GL/gl.h"
 #endif
 #include <iostream>
@@ -59,53 +62,42 @@ namespace MengeVis {
 	bool snapshotPNG(int width, int height, const char* path) {
 		static int oldHeight = 0;
 		static int oldWidth = 0;
-		static GLubyte ** rows = 0x0;
 		static GLubyte *image = 0x0;
-		if ( oldHeight != height || oldWidth != width ) {
+		static GLubyte *rev_image = 0x0;
+		const int size = width * height * 3;  // # of bytes in image.
+		if (oldHeight != height || oldWidth != width) {
 			oldHeight = height;
 			oldWidth = width;
-			if ( rows ) { 
-				delete [] rows;
-				delete [] image;
+			if (image) {
+				delete[] image;
+				delete[] rev_image;
 			}
-			image = new GLubyte[ width * height * 3 ];
-			// Set the pointers
-			rows = new GLubyte *[height];
-			const int rowSize = width * 3;
-			for ( int r = height - 1; r >= 0; --r ) {
-				rows[ height - r - 1 ] = image + r * rowSize;
-			}
+			image = new GLubyte[size];
+			rev_image = new GLubyte[size];
 		}
-		FILE	*fp;
-		static png_structp	png_ptr;
-		static png_infop	info_ptr;
-	#ifdef _WIN32
-		fopen_s( &fp, path, "wb" );
-	#else
-		fp = fopen( path, "wb" );
-	#endif
-		if ( fp == 0x0 ) {
-			logger << Logger::ERR_MSG << "Unable to write image " << path << "\n";
-			return false;
-		}
-		png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
-		info_ptr = png_create_info_struct(png_ptr);
-		png_init_io(png_ptr, fp);
-
-		//png_set_compression_level(png_ptr, PNGWRITER_DEFAULT_COMPRESSION);
-		png_set_IHDR(png_ptr, info_ptr, width, height,
-			8, PNG_COLOR_TYPE_RGB, PNG_INTERLACE_NONE,
-			PNG_COMPRESSION_TYPE_DEFAULT, PNG_FILTER_TYPE_DEFAULT);
-		png_write_info(png_ptr, info_ptr);
 
 		// Acquire the image
 		glPixelStorei(GL_PACK_ALIGNMENT, 1);
 		glReadPixels(0, 0, width, height, GL_RGB, GL_UNSIGNED_BYTE, image);
+		
+		Uint32 rmask, gmask, bmask, amask;
+		rmask = 0x000000ff;
+		gmask = 0x0000ff00;
+		bmask = 0x00ff0000;
+		amask = 0;
+		const int pitch = width * 3;
 
-		png_write_image(png_ptr, rows );
-		png_write_end(png_ptr, info_ptr);
-		png_destroy_write_struct(&png_ptr, &info_ptr);
-		fclose(fp);
+		// The rows of data in image are vertically flipped from what they need to be in the surface.
+		GLubyte* tgt = rev_image + size - pitch;
+		for (GLubyte* src = image; src < image + size; src += pitch) {
+			memcpy(tgt, src, pitch);
+			tgt -= pitch;
+		}
+
+		SDL_Surface* surf = SDL_CreateRGBSurfaceFrom(rev_image, width, height, 24, pitch, rmask, gmask, bmask, amask);
+		IMG_SavePNG(surf, path);
+		SDL_FreeSurface(surf);
+
 		return true;
 	} 
 

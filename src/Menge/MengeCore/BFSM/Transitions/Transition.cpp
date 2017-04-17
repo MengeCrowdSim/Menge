@@ -45,7 +45,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include "MengeCore/BFSM/Transitions/Target.h"
 #include "MengeCore/BFSM/Transitions/TargetDatabase.h"
 
-#include "tinyxml.h"
+#include "thirdParty/tinyxml.h"
 
 namespace Menge {
 

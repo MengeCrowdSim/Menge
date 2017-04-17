@@ -63,7 +63,7 @@ namespace MengeVis {
 
 		///////////////////////////////////////////////////////////////////////////
 
-		void ContextSwitcher::addContext( Context * context, SDLKey key ) {
+		void ContextSwitcher::addContext( Context * context, SDL_Keycode key ) {
 			KeyContextMap::iterator itr = _contexts.find( key );
 			if ( itr != _contexts.end() ) {
 				delete itr->second;
@@ -116,7 +116,7 @@ namespace MengeVis {
 			//			switching
 			//		otherwise, it returns back to the caller
 			ContextResult result( false, false );
-			SDLMod mods = e.key.keysym.mod;
+			SDL_Keymod mods = SDL_GetModState();
 			bool hasCtrl = ( mods & KMOD_CTRL ) > 0;
 			bool hasAlt = ( mods & KMOD_ALT ) > 0;
 			bool hasShift = ( mods & KMOD_SHIFT ) > 0;

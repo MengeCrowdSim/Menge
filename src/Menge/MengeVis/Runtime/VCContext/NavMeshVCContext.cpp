@@ -81,7 +81,7 @@ namespace MengeVis {
 			SceneGraph::ContextResult NavMeshVCContext::handleKeyboard( SDL_Event & e ) {
 				SceneGraph::ContextResult result( false, false );
 
-				SDLMod mods = e.key.keysym.mod;
+				SDL_Keymod mods = SDL_GetModState();
 				bool hasCtrl = ( mods & KMOD_CTRL ) > 0;
 				bool hasAlt = ( mods & KMOD_ALT ) > 0;
 				bool hasShift = ( mods & KMOD_SHIFT ) > 0;

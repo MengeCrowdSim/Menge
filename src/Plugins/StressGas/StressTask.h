@@ -29,7 +29,7 @@
 
 #include <string>
 
-#include "tinyxml.h"
+#include "thirdParty/tinyxml.h"
 
 // forward declarations
 namespace Menge {

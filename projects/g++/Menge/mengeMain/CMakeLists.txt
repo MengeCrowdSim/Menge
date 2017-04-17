@@ -5,6 +5,7 @@ project(MengeExe)
 set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/lib/)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${MENGE_EXE_DIR})
+INCLUDE_DIRECTORIES (${MENGE_SRC_DIR}/../thirdParty/)
 
 file(
 	GLOB_RECURSE
@@ -18,7 +19,11 @@ add_executable(
 	${source_files}
 )
 
-target_link_libraries ( menge mengeCore mengeVis )
+target_link_libraries (menge
+  mengeCore
+  mengeVis
+  ${SDL2_LIBRARIES}
+  )
 
 #file( COPY ${CMAKE_SOURCE_DIR}/../resources/linux DESTINATION ${MENGE_EXE_DIR} )
 #file( COPY ${CMAKE_SOURCE_DIR}/../resources/common DESTINATION ${MENGE_EXE_DIR} )

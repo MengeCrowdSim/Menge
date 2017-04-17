@@ -31,7 +31,7 @@
 #include "MengeCore/Runtime/Logger.h"
 #include "MengeCore/Runtime/os.h"
 
-#include "tinyxml.h"
+#include "thirdParty/tinyxml.h"
 
 #include <string>
 #include <map>

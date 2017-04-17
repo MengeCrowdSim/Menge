@@ -40,7 +40,7 @@ namespace MengeVis {
 
 		SceneGraph::ContextResult MengeContext::handleKeyboard( SDL_Event & e ) {
 			SceneGraph::ContextResult result( false, false );
-			SDLMod mods = e.key.keysym.mod;
+			SDL_Keymod mods = SDL_GetModState();
 			bool hasCtrl = ( mods & KMOD_CTRL ) > 0;
 			bool hasAlt = ( mods & KMOD_ALT ) > 0;
 			bool hasShift = ( mods & KMOD_SHIFT ) > 0;
@@ -66,10 +66,10 @@ namespace MengeVis {
 					{
 						result.set( true, false );
 						if ( ( e.key.keysym.sym >= SDLK_0 && e.key.keysym.sym <= SDLK_9 ) ||
-							 ( e.key.keysym.sym >= SDLK_KP0 && e.key.keysym.sym <= SDLK_KP9 ) ) {
+							 ( e.key.keysym.sym >= SDLK_KP_0 && e.key.keysym.sym <= SDLK_KP_9 ) ) {
 							int offset;
 							if ( e.key.keysym.sym <= SDLK_9 ) offset = e.key.keysym.sym - SDLK_0;
-							else offset = e.key.keysym.sym - SDLK_KP0;
+							else offset = e.key.keysym.sym - SDLK_KP_0;
 							char digit = '0' + offset;
 							addIDDigit( digit );
 							result.set( true, true );

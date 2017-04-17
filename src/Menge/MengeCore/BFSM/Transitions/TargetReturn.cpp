@@ -42,7 +42,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include "MengeCore/Agents/BaseAgent.h"
 #include "MengeCore/BFSM/FSM.h"
 
-#include "tinyxml.h"
+#include "thirdParty/tinyxml.h"
 #include <cassert>
 
 namespace Menge {

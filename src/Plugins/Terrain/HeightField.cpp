@@ -41,7 +41,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include "MengeCore/Runtime/os.h"
 #include "MengeVis/SceneGraph/image.h"
 
-#include "tinyxml.h"
+#include "thirdParty/tinyxml.h"
 #include <cmath>
 
 #ifdef _WIN32

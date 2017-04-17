@@ -27,7 +27,7 @@
 #ifndef __GLVIEWER_H__
 #define __GLVIEWER_H__
 
-#include "SDL/SDL.h"
+#include "thirdParty/SDL/SDL.h"
 #include <string>
 #include <vector>
 
@@ -275,6 +275,11 @@ namespace MengeVis {
 
 			////////////////////////////////////////////////////////////////
 			// members
+
+			/*!
+			 *	@brief		The SDL window for this view.
+			 */
+			SDL_Window * _window;
 
 			/*!
 			 *	@brief		The width of the viewer window (in pixels).
