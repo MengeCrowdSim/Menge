@@ -42,6 +42,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include "MengeCore/Agents/Events/EventEffectDB.h"
 #include "MengeCore/Agents/Events/EventException.h"
 #include "MengeCore/Agents/Events/EventTargetDB.h"
+#include "MengeCore/Agents/Events/EventTriggerExternal.h"
 
 #include <sstream>
 
@@ -225,4 +226,35 @@ namespace Menge {
 		}
 		return true;
 	}
+
+	/////////////////////////////////////////////////////////////////////
+
+	void EventSystem::addExternalEventTrigger(ExternalEvtTrigger * trigger) {
+		if (_externalTriggers.find(trigger->getName()) != _externalTriggers.end()) {
+			throw std::logic_error("BLECH!");
+		}
+		_externalTriggers[trigger->getName()] = trigger;
+	}
+
+	/////////////////////////////////////////////////////////////////////
+
+	std::vector<std::string> EventSystem::listExternalTriggers() const {
+		std::vector<std::string> names;
+		for (auto pair : _externalTriggers) {
+			names.push_back(pair.first);
+		}
+		return names;
+	}
+
+	/////////////////////////////////////////////////////////////////////
+
+	bool EventSystem::activateExternalTrigger(const std::string& name) {
+		HASH_MAP < std::string, ExternalEvtTrigger *>::iterator itr;
+		if ((itr = _externalTriggers.find(name)) != _externalTriggers.end()) {
+			itr->second->activate();
+			return true;
+		}
+		return false;
+	}
+
 }	// namespace Menge

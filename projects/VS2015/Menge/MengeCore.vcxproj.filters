@@ -609,6 +609,12 @@
     <ClCompile Include="$(SrcDir)\MengeCore\Agents\AgentGenerators\NavMeshAgentGenerator.cpp">
       <Filter>Source Files\Agents\AgentGenerators</Filter>
     </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeCore\Agents\Events\EventTriggerExternal.cpp">
+      <Filter>Source Files\Agents\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeCore\Agents\Events\EventTriggerFactory.cpp">
+      <Filter>Source Files\Agents\Events</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(SrcDir)\mengeCore\Core.h">
@@ -1189,6 +1195,9 @@
     </ClInclude>
     <ClInclude Include="$(SrcDir)\MengeCore\Agents\AgentGenerators\NavMeshAgentGenerator.h">
       <Filter>Header Files\Agents\AgentGenerators</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeCore\Agents\Events\EventTriggerExternal.h">
+      <Filter>Header Files\Agents\Events</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

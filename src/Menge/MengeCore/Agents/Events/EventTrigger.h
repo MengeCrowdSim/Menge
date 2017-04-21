@@ -27,7 +27,12 @@
 #include "MengeCore/CoreConfig.h"
 #include "MengeCore/PluginEngine/Element.h"
 
+#include <string>
+
 namespace Menge {
+	// forward declaration
+	class EventTriggerFactory;
+
 	/*!
 	 *	@brief		The base class for event triggers.
 	 *
@@ -39,7 +44,7 @@ namespace Menge {
 		/*!
 		 *	@brief		Constructor.
 		 */
-		EventTrigger() : Element(), _firePeriod(0.f), _lastFire(-1e6) {}
+		EventTrigger() : Element(), _firePeriod(0.f), _lastFire(-1e6), _name() {}
 
 		/*!
 		 *	@brief		Allows the trigger to finish initializing itself from its
@@ -61,7 +66,15 @@ namespace Menge {
 		 *				have been applied (i.e. the event has been fired).
 		 */
 		void fired();
+
+		/*!
+		 *	@brief		Reports the name of the trigger.
+		 *	@returns	The trigger's name.
+		 */
+		const std::string& getName() const { return _name; }
 		
+		friend class EventTriggerFactory;
+
 	protected:
 
 		/*!
@@ -74,6 +87,13 @@ namespace Menge {
 		virtual bool testCondition() = 0;
 
 		/*!
+		 *	@brief		An optional callback for when the trigger fired() method is
+		 *				called. Sub-classes can do any bookkeeping in response to having
+		 *				been fired.
+		 */
+		virtual void onFired() {};
+
+		/*!
 		 *	@brief		The minimum time between two successive firings (in simulation seconds).
 		 */
 		float	_firePeriod;
@@ -82,6 +102,11 @@ namespace Menge {
 		 *	@brief		The time of the last firing (global simulation time).
 		 */
 		float	_lastFire;
+
+		/*!
+		 *	@brief		The name of the trigger.
+		 */
+		std::string _name;
 	};
 
 }	// namespace Menge
