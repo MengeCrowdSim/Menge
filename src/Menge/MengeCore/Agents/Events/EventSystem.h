@@ -45,7 +45,7 @@ namespace Menge {
 	 *	@brief		The main event engine -- causes event triggers to be evaluated
 	 *				and effects to be applied.
 	 */
-	class EventSystem {
+	class MENGE_API EventSystem {
 	public:
 		/*!
 		 *	@brief		Constructor.

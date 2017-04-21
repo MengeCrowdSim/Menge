@@ -249,8 +249,8 @@ namespace Menge {
 	/////////////////////////////////////////////////////////////////////
 
 	bool EventSystem::activateExternalTrigger(const std::string& name) {
-		HASH_MAP < std::string, ExternalEvtTrigger *>::iterator itr;
-		if ((itr = _externalTriggers.find(name)) != _externalTriggers.end()) {
+		auto itr = _externalTriggers.find(name);
+		if (itr != _externalTriggers.end()) {
 			itr->second->activate();
 			return true;
 		}

@@ -57,5 +57,6 @@ namespace Menge {
 
 	void EventTrigger::fired() {
 		_lastFire = SIM_TIME;
+		onFired();
 	}
 }	// namespace Menge
