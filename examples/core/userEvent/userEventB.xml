@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<BFSM>
+	<EventSystem conservative="1">
+		<Target name="standing" type="named_state_member" is_member="1" state="Stand" />
+		<Effect name="make_big" type="set_agent_property" property="r" dist="c" value="0.3" />
+		<Effect name="make_small" type="set_agent_property" property="r" dist="c" value="0.1" />
+		<Event name="left_shrinks">
+			<Trigger name="left_arrow" type="external" />
+			<Response effect="make_small" target="standing" />
+		</Event>
+		<Event name="right_grows">
+			<Trigger name="right_arrow" type="external" />
+			<Response effect="make_big" target="standing" />
+		</Event>
+	</EventSystem>
+	
+	<State name="Stand" final="0" >
+		<GoalSelector type="identity" />
+		<VelComponent type="zero" />
+	</State>
+
+</BFSM>

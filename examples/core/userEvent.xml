@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<Project 
+	scene="userEvent/userEventS.xml" 
+	behavior="userEvent/userEventB.xml" 
+	view="userEvent/userEventV.xml" 
+	model="orca"
+	dumpPath="userEvent/images"
+/>
