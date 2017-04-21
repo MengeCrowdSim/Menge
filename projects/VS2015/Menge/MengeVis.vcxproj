@@ -114,6 +114,7 @@
     <ClInclude Include="$(SrcDir)\MengeVis\PluginEngine\VisPluginEngine.h" />
     <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VisAgent\VisAgent.h" />
     <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VisAgent\VisAgentDatabase.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\EventInjectContext.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{57FA5E04-F7D0-47B7-900D-CA2BA94E9D52}</ProjectGuid>

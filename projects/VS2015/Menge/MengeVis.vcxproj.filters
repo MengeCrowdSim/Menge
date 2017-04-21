@@ -344,5 +344,8 @@
     <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VisAgent\VisAgent.h">
       <Filter>Header Files\Runtime\VisAgent</Filter>
     </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\EventInjectContext.h">
+      <Filter>Header Files\Runtime</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
