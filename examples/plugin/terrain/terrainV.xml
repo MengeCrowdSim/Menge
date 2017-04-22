@@ -9,4 +9,6 @@
 	
 	<!-- Comment out lights for a constant-illuminated visualization -->
 	<Light x="1" y="1" z="1" type="directional" diffR="1.0" diffG="0.8" diffB="0.8" space="world"/>
+	
+	<Watermark file_name="../../mengeLogo.png" alignment="bottom_right" scale="0.5" opacity="0.25"/>
 </View>
