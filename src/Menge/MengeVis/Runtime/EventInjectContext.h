@@ -173,6 +173,9 @@ namespace MengeVis {
 			//	Mouse wheel requires test of the sign of the wheel motion.
 			HASH_MAP<unsigned int, std::string> _triggers;
 
+			// Reports if *any* events are connected.
+			bool _anyConnected{ false };
+			
 			// A boolean indicating which events are connected -- indexed by enumeration.
 			bool _isConnected[TOTAL_EVENTS] = {
 				false,	// RIGHT_ARROW
@@ -198,9 +201,9 @@ namespace MengeVis {
 				{ 0.378585086f, 0.062240664f, 0.58126195f, 0.502074689f},	// LEFT_ARROW
 				{ 0.58126195f, 0.502074689f, 0.783938815f, 0.941908714f},	// UP_ARROW
 				{ 0.58126195f, 0.062240664f, 0.783938815f, 0.502074689f},	// DOWN_ARROW
-				{ 0.015296367f, 0.697095436f, 0.105162524f, 0.970954357f},	// LEFT_MOUSE
-				{ 0.105162524f, 0.697095436f, 0.210325048f, 0.970954357f},	// MIDDLE_MOUSE
-				{ 0.210325048f, 0.697095436f, 0.307839388f, 0.970954357f},	// RIGHT_MOUSE
+				{ 0.015296367f, 0.572614108f, 0.105162524f, 0.970954357f},	// LEFT_MOUSE
+				{ 0.105162524f, 0.572614108f, 0.210325048f, 0.970954357f},	// MIDDLE_MOUSE
+				{ 0.210325048f, 0.572614108f, 0.307839388f, 0.970954357f},	// RIGHT_MOUSE
 			};
 
 		};

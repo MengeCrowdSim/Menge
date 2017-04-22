@@ -39,7 +39,7 @@ namespace MengeVis {
 
 		void EventInjectionContext::drawGL(int vWidth, int vHeight) {
 			if (_childContext) _childContext->drawGL(vWidth, vHeight);
-			drawUIGL(vWidth, vHeight);
+			if (_anyConnected) drawUIGL(vWidth, vHeight);
 		}
 
 		////////////////////////////////////////////////////////////////////////////
@@ -196,28 +196,32 @@ namespace MengeVis {
 		void EventInjectionContext::identifyTriggers() {
 			_triggers.clear();
 			const auto& triggers = Menge::EVENT_SYSTEM->listExternalTriggers();
+			auto connect = [this](int index) {
+				this->_isConnected[index] = true;
+				this->_anyConnected = true;
+			};
 			for (const std::string& triggerName : triggers) {
 				if (triggerName == "left_arrow") {
 					_triggers[SDLK_LEFT] = triggerName;
-					_isConnected[LEFT_ARROW] = true;
+					connect(LEFT_ARROW);
 				} else if (triggerName == "right_arrow") {
 					_triggers[SDLK_RIGHT] = triggerName;
-					_isConnected[RIGHT_ARROW] = true;
+					connect(RIGHT_ARROW);
 				} else if (triggerName == "up_arrow") {
 					_triggers[SDLK_UP] = triggerName;
-					_isConnected[UP_ARROW] = true;
+					connect(UP_ARROW);
 				} else if (triggerName == "down_arrow") {
 					_triggers[SDLK_DOWN] = triggerName;
-					_isConnected[DOWN_ARROW] = true;
+					connect(DOWN_ARROW);
 				} else if (triggerName == "left_mouse") {
 					_triggers[SDL_BUTTON_LEFT] = triggerName;
-					_isConnected[LEFT_MOUSE] = true;
+					connect(LEFT_MOUSE);
 				} else if (triggerName == "right_mouse") {
 					_triggers[SDL_BUTTON_RIGHT] = triggerName;
-					_isConnected[RIGHT_MOUSE] = true;
+					connect(RIGHT_MOUSE);
 				} else if (triggerName == "middle_mouse") {
 					_triggers[SDL_BUTTON_MIDDLE] = triggerName;
-					_isConnected[MIDDLE_MOUSE] = true;
+					connect(MIDDLE_MOUSE);
 				}
 #ifdef USE_MOUSE_WHEEL
 				else if (triggerName == "mouse_wheel_up") {
