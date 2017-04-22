@@ -6,6 +6,8 @@
 	<Camera xpos="1.42463" ypos="19.1248" zpos="9.95545" xtgt="1.42463" ytgt="-0.00519864" ztgt="9.94545" far="500" near="0.01" fov="0.0" orthoScale="0.696174" />
 	<Light x="1" y="0" z="-1" type="directional" diffR="1.0" diffG="0.8" diffB="0.8" space="camera"/>
 	<Light x="-1" y="0" z="-1" type="directional" diffR="0.8" diffG="0.8" diffB="1.0" space="camera"/>
-	<Light x="0" y="1" z="0" type="directional" diffR="0.8" diffG="0.8" diffB="0.8" space="world"/> 
+	<Light x="0" y="1" z="0" type="directional" diffR="0.8" diffG="0.8" diffB="0.8" space="world"/>
+	
+	<Watermark file_name="../../mengeLogo.png" alignment="bottom_right" scale="0.5" opacity="0.25"/>
 </View>
 

@@ -9,6 +9,6 @@
 	<Light x="0" y="0" z="1" type="directional" diffR="1.0" diffG="1.0" diffB="1.0" space="camera"/>
 	<Light x="-.2" y="0" z="-1" type="directional" diffR="1.0" diffG="1.0" diffB="1.0" space="camera"/>
 	
-	<Watermark file_name="mengeLogo.png" alignment="bottom_right" scale="0.5" opacity="0.25"/>
+	<Watermark file_name="../../mengeLogo.png" alignment="bottom_right" scale="0.5" opacity="0.25"/>
 	
 </View>

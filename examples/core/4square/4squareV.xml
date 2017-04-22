@@ -10,7 +10,7 @@
 	<Light x="-1" y="0" z="-1" type="directional" diffR="0.8" diffG="0.8" diffB="1.0" space="camera"/>
 	<Light x="0" y="1" z="0" type="directional" diffR="0.8" diffG="0.8" diffB="0.8" space="world"/> 
 	
-	<Watermark file_name="mengeLogo.png" alignment="bottom_right" scale="0.5" opacity="0.25"/>
+	<Watermark file_name="../../mengeLogo.png" alignment="bottom_right" scale="0.5" opacity="0.25"/>
 	
 
 </View>
