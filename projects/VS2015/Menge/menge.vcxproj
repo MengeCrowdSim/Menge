@@ -111,7 +111,7 @@
     <PostBuildEvent>
       <Command>xcopy "$(SolutionDir)..\..\resources\win\exe_rsrc\x86\*.*" "$(ExeDir)" /d /y
 xcopy "$(SolutionDir)..\..\resources\win\exe_rsrc\*.*" "$(ExeDir)" /d /y
-xcopy "$(SolutionDir)..\..\resources\common\*.*" "$(ExeDir)" /d /y</Command>
+xcopy "$(SolutionDir)..\..\resources\common\*.*" "$(ExeDir)" /d /y /e</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -135,7 +135,7 @@ xcopy "$(SolutionDir)..\..\resources\common\*.*" "$(ExeDir)" /d /y</Command>
     <PostBuildEvent>
       <Command>xcopy "$(SolutionDir)..\..\resources\win\exe_rsrc\x64\*.*" "$(ExeDir)" /d /y
 xcopy "$(SolutionDir)..\..\resources\win\exe_rsrc\*.*" "$(ExeDir)" /d /y
-xcopy "$(SolutionDir)..\..\resources\common\*.*" "$(ExeDir)" /d /y</Command>
+xcopy "$(SolutionDir)..\..\resources\common\*.*" "$(ExeDir)" /d /y /e</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -162,7 +162,7 @@ xcopy "$(SolutionDir)..\..\resources\common\*.*" "$(ExeDir)" /d /y</Command>
     <PostBuildEvent>
       <Command>xcopy "$(SolutionDir)..\..\resources\win\exe_rsrc\x86\*.*" "$(ExeDir)" /d /y
 xcopy "$(SolutionDir)..\..\resources\win\exe_rsrc\*.*" "$(ExeDir)" /d /y
-xcopy "$(SolutionDir)..\..\resources\common\*.*" "$(ExeDir)" /d /y</Command>
+xcopy "$(SolutionDir)..\..\resources\common\*.*" "$(ExeDir)" /d /y /e</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -189,7 +189,7 @@ xcopy "$(SolutionDir)..\..\resources\common\*.*" "$(ExeDir)" /d /y</Command>
     <PostBuildEvent>
       <Command>xcopy "$(SolutionDir)..\..\resources\win\exe_rsrc\x64\*.*" "$(ExeDir)" /d /y
 xcopy "$(SolutionDir)..\..\resources\win\exe_rsrc\*.*" "$(ExeDir)" /d /y
-xcopy "$(SolutionDir)..\..\resources\common\*.*" "$(ExeDir)" /d /y</Command>
+xcopy "$(SolutionDir)..\..\resources\common\*.*" "$(ExeDir)" /d /y /e</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

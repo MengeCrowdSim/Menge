@@ -12,6 +12,12 @@
 namespace Menge {
 	class ExternalEvtTrigger;
 }
+namespace MengeVis {
+	class Image;
+}
+
+// Uncomment to include mouse wheel events. Although they are currently not *visualized*.
+//#define USE_MOUSE_WHEEL
 
 namespace MengeVis {
 	namespace Runtime {
@@ -29,12 +35,13 @@ namespace MengeVis {
 		 *	Press right arrow         | right_arrow
 		 *	Press up arrow            | up_arrow
 		 *	Press down arrow          | down_arrow
-		 *	Press spacebar            | spacebar
 		 *	Click left mouse button   | left_mouse
 		 *	Click right mouse button  | right_mouse
 		 *	Click middle mouse button | middle_mouse
+		 * @cond
 		 *	Roll mouse wheel up       | mouse_wheel_up
 		 *	Roll mouse wheel down     | mouse_wheel_down
+		 * @endcond
 		 *
 		 *	Note: no mouse data is provided (i.e., mouse position, state of modifiers, etc.)
 		 *	The simple user action is sufficient to fire the trigger.
@@ -54,6 +61,9 @@ namespace MengeVis {
 			 *	@param	ctx		The optional pass-through context.
 			 */
 			EventInjectionContext( SceneGraph::Context * ctx = nullptr );
+
+			/*! @brief	Destructor. */
+			~EventInjectionContext();
 
 			/*!
 			 *	@brief		The draw function for the context.
@@ -131,14 +141,6 @@ namespace MengeVis {
 			 */
 			void drawUIGL(int vWidth, int vHeight, bool select = false) override;
 
-			/*!
-			 *	@brief		Draw context elements into the 3D world.
-			 *
-			 *	@param		select		Defines if the drawing is being done for selection
-			 *							purposes (true) or visualization (false).
-			 */
-			void draw3DGL(bool select = false) override;
-
 		private:
 			// This queries the menge simulator for external triggers, configuring the context.
 			void identifyTriggers();
@@ -146,18 +148,23 @@ namespace MengeVis {
 			// The optional child context.
 			SceneGraph::Context * _childContext;
 
+			// The display image.
+			Image * _image;
+
 			// Identifiers for the registered event triggers.
 			enum Event {
 				RIGHT_ARROW = 0,
 				LEFT_ARROW,
 				UP_ARROW,
 				DOWN_ARROW,
-				SPACEBAR,
 				LEFT_MOUSE,
 				MIDDLE_MOUSE,
 				RIGHT_MOUSE,
+#ifdef USE_MOUSE_WHEEL
 				WHEEL_UP,
 				WHEEL_DOWN,
+#endif
+				TOTAL_EVENTS,
 			};
 
 			// Map from SDL enum values to the trigger name that it triggers.
@@ -165,6 +172,37 @@ namespace MengeVis {
 			//	Mouse codes are unsigned 32-bit ints
 			//	Mouse wheel requires test of the sign of the wheel motion.
 			HASH_MAP<unsigned int, std::string> _triggers;
+
+			// A boolean indicating which events are connected -- indexed by enumeration.
+			bool _isConnected[TOTAL_EVENTS] = {
+				false,	// RIGHT_ARROW
+				false,	// LEFT_ARROW
+				false,	// UP_ARROW
+				false,	// DOWN_ARROW
+				false,	// LEFT_MOUSE
+				false,	// MIDDLE_MOUSE
+				false,	// RIGHT_MOUSE
+#ifdef USE_MOUSE_WHEEL
+				false,	// WHEEL_UP
+				false,  // WHEEL_DOWN
+#endif
+			};
+
+			// The dimensions of each of the event actuator regions in the image listed as:
+			// min x, min y, max x, max y.
+			// These values are a hard-coded property of the underlying image file. If the image
+			// changes, these must change. They are expressed as *fractions* of the image with
+			// the lower-right hand corner serving as the origin.
+			float _imageDimensions[TOTAL_EVENTS][4]{
+				{ 0.783938815f, 0.062240664f, 0.986615679f, 0.502074689f},  // RIGHT_ARROW
+				{ 0.378585086f, 0.062240664f, 0.58126195f, 0.502074689f},	// LEFT_ARROW
+				{ 0.58126195f, 0.502074689f, 0.783938815f, 0.941908714f},	// UP_ARROW
+				{ 0.58126195f, 0.062240664f, 0.783938815f, 0.502074689f},	// DOWN_ARROW
+				{ 0.015296367f, 0.697095436f, 0.105162524f, 0.970954357f},	// LEFT_MOUSE
+				{ 0.105162524f, 0.697095436f, 0.210325048f, 0.970954357f},	// MIDDLE_MOUSE
+				{ 0.210325048f, 0.697095436f, 0.307839388f, 0.970954357f},	// RIGHT_MOUSE
+			};
+
 		};
 	}
 }
