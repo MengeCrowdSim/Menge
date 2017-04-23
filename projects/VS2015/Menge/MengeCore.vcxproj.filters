@@ -618,6 +618,9 @@
     <ClCompile Include="$(SrcDir)\MengeCore\Agents\Events\EventEffectAgentState.cpp">
       <Filter>Source Files\Agents\Events</Filter>
     </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeCore\Agents\Events\TargetAgentById.cpp">
+      <Filter>Source Files\Agents\Events</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(SrcDir)\mengeCore\Core.h">
@@ -1203,6 +1206,9 @@
       <Filter>Header Files\Agents\Events</Filter>
     </ClInclude>
     <ClInclude Include="$(SrcDir)\MengeCore\Agents\Events\EventEffectAgentState.h">
+      <Filter>Header Files\Agents\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeCore\Agents\Events\TargetAgentById.h">
       <Filter>Header Files\Agents\Events</Filter>
     </ClInclude>
   </ItemGroup>

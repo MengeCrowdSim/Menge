@@ -2,18 +2,35 @@
 
 <BFSM>
 	<EventSystem conservative="1">
-		<Target name="standing" type="named_state_member" is_member="1" state="Stand" />
+		<Target name="agent_0" type="agent_id" id="0" />
 		<Effect name="move_left" type="set_agent_state">
 			<StateSelector type="const" name="WalkLeft" />
 		</Effect>
+		<Effect name="move_right" type="set_agent_state">
+			<StateSelector type="const" name="WalkRight" />
+		</Effect>
+		<Effect name="move_up" type="set_agent_state">
+			<StateSelector type="const" name="WalkUp" />
+		</Effect>
+		<Effect name="move_down" type="set_agent_state">
+			<StateSelector type="const" name="WalkDown" />
+		</Effect>
 		<Event name="head_left">
 			<Trigger name="left_arrow" type="external" />
-			<Response effect="move_left" target="standing" />
-		</Event><!--
-		<Event name="right_grows">
+			<Response effect="move_left" target="agent_0" />
+		</Event>
+		<Event name="head_right">
+			<Trigger name="right_arrow" type="external" />
+			<Response effect="move_right" target="agent_0" />
+		</Event>
+		<Event name="head_up">
 			<Trigger name="up_arrow" type="external" />
-			<Response effect="make_big" target="standing" />
-		</Event>-->
+			<Response effect="move_up" target="agent_0" />
+		</Event>
+		<Event name="head_down">
+			<Trigger name="down_arrow" type="external" />
+			<Response effect="move_down" target="agent_0" />
+		</Event>
 	</EventSystem>
 	
 	<State name="Stand" final="0" >
@@ -30,7 +47,7 @@
 	</State>
 	<State name="WalkUp" final="0" >
 		<GoalSelector type="identity" />
-		<VelComponent type="const_dir" x="0" y="1" />
+		<VelComponent type="const_dir" x="0" y="-1" />
 	</State>
 	<State name="WalkDown" final="0" >
 		<GoalSelector type="identity" />

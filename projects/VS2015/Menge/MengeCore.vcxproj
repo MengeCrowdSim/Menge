@@ -360,6 +360,7 @@ xcopy /y $(TargetPath) $(ExeDir)
     <ClCompile Include="$(SrcDir)\MengeCore\Agents\Events\EventTriggerExternal.cpp" />
     <ClCompile Include="$(SrcDir)\MengeCore\Agents\Events\EventTriggerFactory.cpp" />
     <ClCompile Include="$(SrcDir)\MengeCore\Agents\Events\EventEffectAgentState.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeCore\Agents\Events\TargetAgentById.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(SrcDir)\mengeCore\Core.h" />
@@ -557,6 +558,7 @@ xcopy /y $(TargetPath) $(ExeDir)
     <ClInclude Include="$(SrcDir)\MengeCore\PluginEngine\CorePluginEngine.h" />
     <ClInclude Include="$(SrcDir)\MengeCore\Agents\Events\EventTriggerExternal.h" />
     <ClInclude Include="$(SrcDir)\MengeCore\Agents\Events\EventEffectAgentState.h" />
+    <ClInclude Include="$(SrcDir)\MengeCore\Agents\Events\TargetAgentById.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="tinyxml_lib.vcxproj">
