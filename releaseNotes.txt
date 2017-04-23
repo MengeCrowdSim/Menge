@@ -1,5 +1,17 @@
 ----------------------------------------------------------------
 
+	Features
+		Augmented the event system
+			- Added ExternalEventTrigger; a trigger object that can be exposed to external code to
+			  trigger events.
+			- Added EventEffectAgentState; an event effect that will change the state of target
+			  agents.
+			- Added TargetAgentById; an event target for a single agent identified by its unique id.
+			- Augmented the viewer to detect external triggers and connect keyboard and mouse
+			  events to them.  For details see src/Menge/MengeVis/Runtime/EventInjectContext.h
+			- Added new example exercising this functionality: examples/core/userEvent.xml. A single
+			  agent placed in a diamond-shaped environement. The arrow keys control what direction
+			  the agent moves (one of the four cardinal directions).
 	Bugs
 		Fixed the watermark references. Examples now correctly displaly Menge logo as a watermark.
 
