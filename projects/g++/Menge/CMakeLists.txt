@@ -31,7 +31,7 @@ ADD_SUBDIRECTORY(MengeVis)
 ADD_SUBDIRECTORY(mengeMain)
 
 file( 
-  GLOB
+  GLOB_RECURSE
   EXTRA_FILES
   ${CMAKE_SOURCE_DIR}/../resources/linux/*
   ${CMAKE_SOURCE_DIR}/../resources/common/*

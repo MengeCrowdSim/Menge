@@ -109,7 +109,7 @@
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(SolutionDir)..\..\resources\win\exe_rsrc\x86\*.*" "$(ExeDir)" /d /y
+      <Command>xcopy "$(SolutionDir)..\..\resources\win\exe_rsrc\x86\*.*" "$(ExeDir)" /y
 xcopy "$(SolutionDir)..\..\resources\win\exe_rsrc\*.*" "$(ExeDir)" /d /y
 xcopy "$(SolutionDir)..\..\resources\common\*.*" "$(ExeDir)" /d /y /e</Command>
     </PostBuildEvent>
@@ -133,7 +133,7 @@ xcopy "$(SolutionDir)..\..\resources\common\*.*" "$(ExeDir)" /d /y /e</Command>
       <SubSystem>Console</SubSystem>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(SolutionDir)..\..\resources\win\exe_rsrc\x64\*.*" "$(ExeDir)" /d /y
+      <Command>xcopy "$(SolutionDir)..\..\resources\win\exe_rsrc\x64\*.*" "$(ExeDir)" /y
 xcopy "$(SolutionDir)..\..\resources\win\exe_rsrc\*.*" "$(ExeDir)" /d /y
 xcopy "$(SolutionDir)..\..\resources\common\*.*" "$(ExeDir)" /d /y /e</Command>
     </PostBuildEvent>
@@ -160,7 +160,7 @@ xcopy "$(SolutionDir)..\..\resources\common\*.*" "$(ExeDir)" /d /y /e</Command>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(SolutionDir)..\..\resources\win\exe_rsrc\x86\*.*" "$(ExeDir)" /d /y
+      <Command>xcopy "$(SolutionDir)..\..\resources\win\exe_rsrc\x86\*.*" "$(ExeDir)" /y
 xcopy "$(SolutionDir)..\..\resources\win\exe_rsrc\*.*" "$(ExeDir)" /d /y
 xcopy "$(SolutionDir)..\..\resources\common\*.*" "$(ExeDir)" /d /y /e</Command>
     </PostBuildEvent>
@@ -187,7 +187,7 @@ xcopy "$(SolutionDir)..\..\resources\common\*.*" "$(ExeDir)" /d /y /e</Command>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(SolutionDir)..\..\resources\win\exe_rsrc\x64\*.*" "$(ExeDir)" /d /y
+      <Command>xcopy "$(SolutionDir)..\..\resources\win\exe_rsrc\x64\*.*" "$(ExeDir)" /y
 xcopy "$(SolutionDir)..\..\resources\win\exe_rsrc\*.*" "$(ExeDir)" /d /y
 xcopy "$(SolutionDir)..\..\resources\common\*.*" "$(ExeDir)" /d /y /e</Command>
     </PostBuildEvent>
