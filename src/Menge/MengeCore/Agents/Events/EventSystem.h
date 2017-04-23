@@ -39,12 +39,13 @@ namespace Menge {
 	class EventEffect;
 	class EventTarget;
 	Event * parseEvent( TiXmlElement * node, const std::string & specFldr );
+	class ExternalEvtTrigger;
 
 	/*!
 	 *	@brief		The main event engine -- causes event triggers to be evaluated
 	 *				and effects to be applied.
 	 */
-	class EventSystem {
+	class MENGE_API EventSystem {
 	public:
 		/*!
 		 *	@brief		Constructor.
@@ -85,6 +86,34 @@ namespace Menge {
 		 *	@returns	True if parsing was successful, false otherwise.
 		 */
 		bool parseEvents( TiXmlElement * node, const std::string & behaveFldr );
+
+		/*!
+		 *	@brief		Registers an external event trigger with the system. Any
+		 *	external event trigger that is not added explicitly will not be
+		 *	available to external systems upon query. 
+		 *
+		 *	@param		trigger		The external event trigger to add to the system.
+		 *	@throws		An event exception if the trigger does not have a unique name.
+		 *	@see listExternalTriggers()
+		 */
+		void addExternalEventTrigger(ExternalEvtTrigger * trigger);
+
+		/*!
+		 *	@brief		Provides the names of the external events registered with the
+		 *	event system.
+		 *
+		 *	@returns	The list of trigger names.
+		 */
+		std::vector<std::string> listExternalTriggers() const;
+
+		/*!
+		 *	@brief		Activate the external event trigger indicated by name.
+		 *	If the name doesn't refer to a known external trigger, no action will be taken.
+		 *
+		 *	@param name		The name of the trigger to activate.
+		 *	@returns	True if the trigger is activated.
+		 */
+		bool activateExternalTrigger(const std::string& name);
 
 		/*!
 		 *	@brief		Causes an event exception to be thrown based on the
@@ -128,6 +157,11 @@ namespace Menge {
 		 *	@brief		A mapping from effect names to effects.
 		 */
 		HASH_MAP< std::string, EventEffect * > _effects;
+
+		/*!
+		 *	@brief		The external event triggers.
+		 */
+		HASH_MAP< std::string, ExternalEvtTrigger * > _externalTriggers;
 	};
 }	// namespace Menge
 

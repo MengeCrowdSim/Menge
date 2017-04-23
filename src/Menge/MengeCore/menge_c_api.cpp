@@ -1,8 +1,10 @@
 #include "MengeCore/menge_c_api.h"
 
 #include "MengeCore/Agents/BaseAgent.h"
+#include "MengeCore/Agents/Events/EventSystem.h"
 #include "MengeCore/Agents/SimulatorInterface.h"
 #include "MengeCore/BFSM/FSM.h"
+#include "MengeCore/Core.h"
 #include "MengeCore/PluginEngine/CorePluginEngine.h"
 #include "MengeCore/Runtime/SimulatorDB.h"
 
@@ -48,13 +50,6 @@ extern "C" {
 
 	/////////////////////////////////////////////////////////////////////
 
-	size_t  AgentCount() {
-		assert( _simulator != 0x0 );
-		return _simulator->getNumAgents();
-	}
-
-	/////////////////////////////////////////////////////////////////////
-
 	void  SetTimeStep( float timeStep ) {
 		assert( _simulator != 0x0 );
 		_simulator->setTimeStep( timeStep );
@@ -65,6 +60,13 @@ extern "C" {
 	bool  DoStep() {
 		assert( _simulator != 0x0 );
 		return _simulator->step();
+	}
+
+	/////////////////////////////////////////////////////////////////////
+
+	size_t  AgentCount() {
+		assert(_simulator != 0x0);
+		return _simulator->getNumAgents();
 	}
 
 	/////////////////////////////////////////////////////////////////////
@@ -129,5 +131,34 @@ extern "C" {
 		}
 		return -1;
 	}
+
+	/////////////////////////////////////////////////////////////////////
+
+	std::vector<std::string> triggers;
+	bool triggersValid = false;
+
+	/////////////////////////////////////////////////////////////////////
+
+	int ExternalTriggerCount() {
+		if (!triggersValid) triggers = Menge::EVENT_SYSTEM->listExternalTriggers();
+		return static_cast<int>(triggers.size());
+	}
+
+	/////////////////////////////////////////////////////////////////////
+
+	const char * ExternalTriggerName(int i) {
+		if (i < ExternalTriggerCount()) {
+			return triggers[i].c_str();
+		}
+		return nullptr;
+	}
+
+	/////////////////////////////////////////////////////////////////////
+
+	void FireExternalTrigger(const char * triggerName) {
+		Menge::EVENT_SYSTEM->activateExternalTrigger(triggerName);
+	}
+
+	/////////////////////////////////////////////////////////////////////
 
 }	// extern"C"

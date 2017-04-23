@@ -298,16 +298,7 @@ xcopy /y $(TargetPath) $(ExeDir)
     <ClCompile Include="$(SrcDir)\mengeCore\BFSM\VelocityComponents\VelComponentDatabase.cpp" />
     <ClCompile Include="$(SrcDir)\mengeCore\BFSM\VelocityComponents\VelCompRoadMap.cpp" />
     <ClCompile Include="$(SrcDir)\mengeCore\BFSM\VelocityComponents\VelCompVF.cpp" />
-    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Tasks\NavMeshLocalizerTask.cpp">
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)%(Filename)1.obj</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)%(Filename)1.obj</ObjectFileName>
-      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
-      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(Filename)1.obj</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)%(Filename)1.obj</ObjectFileName>
-      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
-      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
-    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Tasks\NavMeshLocalizerTask.cpp" />
     <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Tasks\Task.cpp" />
     <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Tasks\TaskDatabase.cpp" />
     <ClCompile Include="$(SrcDir)\mengeCore\BFSM\Goals\Goal.cpp" />
@@ -358,41 +349,18 @@ xcopy /y $(TargetPath) $(ExeDir)
     <ClCompile Include="$(SrcDir)\mengeCore\resources\Portal.cpp" />
     <ClCompile Include="$(SrcDir)\mengeCore\resources\PortalPath.cpp" />
     <ClCompile Include="$(SrcDir)\mengeCore\resources\Resource.cpp" />
-    <ClCompile Include="$(SrcDir)\mengeCore\resources\ResourceManager.cpp">
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)%(Filename)1.obj</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)%(Filename)1.obj</ObjectFileName>
-      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
-      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(Filename)1.obj</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)%(Filename)1.obj</ObjectFileName>
-      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
-      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
-    </ClCompile>
-    <ClCompile Include="$(SrcDir)\mengeCore\resources\RoadMapPath.cpp">
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)%(Filename)1.obj</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)%(Filename)1.obj</ObjectFileName>
-      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
-      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(Filename)1.obj</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)%(Filename)1.obj</ObjectFileName>
-      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
-      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
-    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\resources\ResourceManager.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\resources\RoadMapPath.cpp" />
     <ClCompile Include="$(SrcDir)\mengeCore\resources\Route.cpp" />
     <ClCompile Include="$(SrcDir)\mengeCore\resources\VectorField.cpp" />
-    <ClCompile Include="$(SrcDir)\mengeCore\resources\WayPortal.cpp">
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)%(Filename)1.obj</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)%(Filename)1.obj</ObjectFileName>
-      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
-      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(Filename)1.obj</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)%(Filename)1.obj</ObjectFileName>
-      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
-      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
-    </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\resources\WayPortal.cpp" />
     <ClCompile Include="$(SrcDir)\MengeCore\Agents\AgentGenerators\NavMeshAgentGenerator.cpp" />
     <ClCompile Include="$(SrcDir)\MengeCore\menge_c_api.cpp" />
     <ClCompile Include="$(SrcDir)\MengeCore\PluginEngine\CorePluginEngine.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeCore\Agents\Events\EventTriggerExternal.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeCore\Agents\Events\EventTriggerFactory.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeCore\Agents\Events\EventEffectAgentState.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeCore\Agents\Events\TargetAgentById.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(SrcDir)\mengeCore\Core.h" />
@@ -588,6 +556,9 @@ xcopy /y $(TargetPath) $(ExeDir)
     <ClInclude Include="$(SrcDir)\MengeCore\menge_c_api.h" />
     <ClInclude Include="$(SrcDir)\MengeCore\PluginEngine\BasePluginEngine.h" />
     <ClInclude Include="$(SrcDir)\MengeCore\PluginEngine\CorePluginEngine.h" />
+    <ClInclude Include="$(SrcDir)\MengeCore\Agents\Events\EventTriggerExternal.h" />
+    <ClInclude Include="$(SrcDir)\MengeCore\Agents\Events\EventEffectAgentState.h" />
+    <ClInclude Include="$(SrcDir)\MengeCore\Agents\Events\TargetAgentById.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="tinyxml_lib.vcxproj">

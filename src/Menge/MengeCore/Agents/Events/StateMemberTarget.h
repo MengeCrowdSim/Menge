@@ -24,7 +24,7 @@
 #ifndef __STATE_MEMBER_TARGET_H__
 #define __STATE_MEMBER_TARGET_H__
 
-#include "AgentEventTarget.h"
+#include "MengeCore/Agents/Events/AgentEventTarget.h"
 
 namespace Menge {
 	// forward declaration

@@ -46,6 +46,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 #include "MengeVis/PluginEngine/VisPluginEngine.h"
 #include "MengeVis/Runtime/AgentContext/BaseAgentContext.h"
+#include "MengeVis/Runtime/EventInjectContext.h"
 #include "MengeVis/Runtime/MengeContext.h"
 #include "MengeVis/Runtime/SimSystem.h"
 #include "MengeVis/SceneGraph/ContextSwitcher.h"
@@ -132,6 +133,7 @@ int simMain( SimulatorDBEntry * dbEntry, const std::string & behaveFile,
 
 	using Menge::Agents::SimulatorInterface;
 	using MengeVis::Runtime::BaseAgentContext;
+	using MengeVis::Runtime::EventInjectionContext;
 	using MengeVis::Runtime::SimSystem;
 	using MengeVis::SceneGraph::Context;
 	using MengeVis::SceneGraph::ContextSwitcher;
@@ -200,7 +202,7 @@ int simMain( SimulatorDBEntry * dbEntry, const std::string & behaveFile,
 			view.setFixedStep( TIME_STEP );
 			view.setBGColor( 0.1f, 0.1f, 0.1f );
 			MengeVis::Runtime::MengeContext * ctx = new MengeVis::Runtime::MengeContext( sim );
-			scene->setContext( ctx );
+			scene->setContext( new EventInjectionContext( ctx ) );
 			view.newGLContext();
 			logger.line();
 

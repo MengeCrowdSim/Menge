@@ -36,7 +36,13 @@ file(
   ${CMAKE_SOURCE_DIR}/../resources/linux/*
   ${CMAKE_SOURCE_DIR}/../resources/common/*
 )
-
 file( COPY ${EXTRA_FILES} DESTINATION ${MENGE_EXE_DIR} )
+
+file(
+  GLOB
+  VIS_IMAGES
+  ${CMAKE_SOURCE_DIR}/../resources/common/images/*
+)
+file( COPY ${VIS_IMAGES} DESTINATION ${MENGE_EXE_DIR}/images )
 
 set( CMAKE_INSTALL_ALWAYS true )

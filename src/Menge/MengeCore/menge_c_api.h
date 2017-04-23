@@ -1,4 +1,4 @@
-/*
+﻿/*
  Menge Crowd Simulation Framework
 
  Copyright and trademark 2012-17 University of North Carolina at Chapel Hill
@@ -16,6 +16,11 @@
  <http://gamma.cs.unc.edu/Menge/>
 */
 
+/*!
+ *	@file		menge_c_api.h
+ *	@brief		Provides a limited c-style API to access Menge's functionality.
+ */
+
 #ifndef __MENGE_C_API__
 #define __MENGE_C_API__
 
@@ -25,6 +30,11 @@
 #endif
 
 extern "C" {
+	/*! @name		Simulator management
+	 *	@brief		Functions for initializing and working with the simulator.
+	 */	
+	//@{
+
 	/*!
 	 *	@brief		Initializes a simulator.  The simulator uses the given pedestrian @p model type
 	 *				and is initialized using the given behavior file and scene file.
@@ -42,13 +52,6 @@ extern "C" {
 									const char * pluginPath=0x0 );
 
 	/*!
-	 *	@brief		Reports the number of agents in the simulation.
-	 *
-	 *	@returns	The agent count.
-	 */
-	MENGE_API size_t  AgentCount();
-
-	/*!
 	 *	@brief		Sets the time step for the simulator.
 	 */
 	MENGE_API void  SetTimeStep( float timeStep );
@@ -59,6 +62,20 @@ extern "C" {
 	 *	@returns	True if the simulation can keep running.
 	 */
 	MENGE_API bool  DoStep();
+
+	//@}
+
+	/*!	@name		Agent functions
+	 *	@brief		Functions for querying the state of the simulator agents.
+	 */
+	//@{
+
+	/*!
+	 *	@brief		Reports the number of agents in the simulation.
+	 *
+	 *	@returns	The agent count.
+	 */
+	MENGE_API size_t  AgentCount();
 
 	/*!
 	 *	@brief		Reports the 3D position of the indicated agent.
@@ -94,20 +111,54 @@ extern "C" {
 	MENGE_API bool  GetAgentOrient( size_t i, float * x, float * y );
 
 	/*!
-	*	@brief		Reports the agent class for this particular class.
-	*
-	*	@param		i		The index of the desired agent.
-	*	@returns			The agent's class (-1 if it can't be found).
-	*/
+	 *	@brief		Reports the agent class for this particular class.
+	 *
+	 *	@param		i		The index of the desired agent.
+	 *	@returns			The agent's class (-1 if it can't be found).
+	 */
 	MENGE_API int GetAgentClass( size_t i );
 
 	/*!
-	*	@brief		Reports the radius of the given agent.
-	*
-	*	@param		i		The index of the desired agent.
-	*	@returns			The agent's radius (negative for errors).
-	*/
+	 *	@brief		Reports the radius of the given agent.
+	 *
+	 *	@param		i		The index of the desired agent.
+	 *	@returns			The agent's radius (negative for errors).
+	 */
 	MENGE_API float GetAgentRadius( size_t i );
+
+	//@}
+
+	/*! @name		External triggers.
+	 *	@brief		The interface for working with external triggers.
+	 *
+	 *	External triggers allow code _external_ to the simulator code to change the simulator
+	 *  state. They are event triggers that are exposed to the outside world and can be fired off
+	 *  by arbitrary code.
+	 */
+	//@{
+
+	/*!
+	 *	@brief		Reports the number of external triggers exposed in the simulator.
+	 *	@returns	The number of external triggers available.
+	 */
+	MENGE_API int ExternalTriggerCount();
+
+	/*!
+	 *	@brief		The name of the iᵗʰ external trigger. If `i` is _not_ a valid trigger index,
+	 *				`nullptr` is returned.
+	 *	@param		i		The index of the desired external trigger. Must be <= the value 
+	 *						returned by ExternalTriggerCount().
+	 *	@returns	The name of the iᵗʰ trigger, or null if `i` is invalid.
+	 */
+	MENGE_API const char * ExternalTriggerName(int i);
+
+	/*!
+	 *	@brief		Fires the trigger of the given name.
+	 *	If the name does not refer to a valid external trigger, nothing happens.
+	 *	@param	triggerName		The name of the trigger to fire.
+	 */
+	MENGE_API void FireExternalTrigger(const char * triggerName);
+	//@}
 }
 
 #endif	// __MENGE_C_API__

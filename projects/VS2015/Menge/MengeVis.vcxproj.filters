@@ -189,6 +189,9 @@
     <ClCompile Include="$(SrcDir)\MengeVis\Runtime\VisAgent\VisAgent.cpp">
       <Filter>Source Files\Runtime\VisAgent</Filter>
     </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\EventInjectContext.cpp">
+      <Filter>Source Files\Runtime</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(SrcDir)\MengeVis\Runtime\SimSystem.h">
@@ -343,6 +346,9 @@
     </ClInclude>
     <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VisAgent\VisAgent.h">
       <Filter>Header Files\Runtime\VisAgent</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\EventInjectContext.h">
+      <Filter>Header Files\Runtime</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
