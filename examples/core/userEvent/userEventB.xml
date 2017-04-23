@@ -3,21 +3,38 @@
 <BFSM>
 	<EventSystem conservative="1">
 		<Target name="standing" type="named_state_member" is_member="1" state="Stand" />
-		<Effect name="make_big" type="set_agent_property" property="r" dist="c" value="0.3" />
-		<Effect name="make_small" type="set_agent_property" property="r" dist="c" value="0.1" />
-		<Event name="left_shrinks">
-			<Trigger name="down_arrow" type="external" />
-			<Response effect="make_small" target="standing" />
-		</Event>
+		<Effect name="move_left" type="set_agent_state">
+			<StateSelector type="const" name="WalkLeft" />
+		</Effect>
+		<Event name="head_left">
+			<Trigger name="left_arrow" type="external" />
+			<Response effect="move_left" target="standing" />
+		</Event><!--
 		<Event name="right_grows">
 			<Trigger name="up_arrow" type="external" />
 			<Response effect="make_big" target="standing" />
-		</Event>
+		</Event>-->
 	</EventSystem>
 	
 	<State name="Stand" final="0" >
 		<GoalSelector type="identity" />
 		<VelComponent type="zero" />
+	</State>
+	<State name="WalkLeft" final="0" >
+		<GoalSelector type="identity" />
+		<VelComponent type="const_dir" x="-1" y="0" />
+	</State>
+	<State name="WalkRight" final="0" >
+		<GoalSelector type="identity" />
+		<VelComponent type="const_dir" x="1" y="0" />
+	</State>
+	<State name="WalkUp" final="0" >
+		<GoalSelector type="identity" />
+		<VelComponent type="const_dir" x="0" y="1" />
+	</State>
+	<State name="WalkDown" final="0" >
+		<GoalSelector type="identity" />
+		<VelComponent type="const_dir" x="0" y="1" />
 	</State>
 
 </BFSM>
