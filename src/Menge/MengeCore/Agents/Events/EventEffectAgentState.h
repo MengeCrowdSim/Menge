@@ -53,8 +53,9 @@ namespace Menge {
 	 *	- The `type` value specifies this effect -- setting the state of the agent.
 	 *	- The `reenter` value indicates if an agent already in the destination state moves
 	 *		(`reenter` != 0) or not (`reenter` == 0).
-	 *	- This EventEffect instance requires a child object: an instance of @ref StateSelector.
-	 *		The state the agent moves to will be determined by the @ref StateSelector.
+	 *	- This EventEffect instance requires a child object: an instance of 
+	 *		@ref Menge::Agents::StateSelector "StateSelector". The state the agent moves to will be determined by the
+	 *		@ref Menge::Agents::StateSelector "StateSelector".
 	 */
 	class MENGE_API EventEffectAgentState : public AgentEventEffect {
 		/*!

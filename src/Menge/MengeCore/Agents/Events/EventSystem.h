@@ -108,7 +108,9 @@ namespace Menge {
 
 		/*!
 		 *	@brief		Activate the external event trigger indicated by name.
+		 *	If the name doesn't refer to a known external trigger, no action will be taken.
 		 *
+		 *	@param name		The name of the trigger to activate.
 		 *	@returns	True if the trigger is activated.
 		 */
 		bool activateExternalTrigger(const std::string& name);

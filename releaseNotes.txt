@@ -1,6 +1,15 @@
 ----------------------------------------------------------------
+Release 0.9.1
+	????, ??, 2017
 
 	Features
+		Added docs and build targets for the docs to the source.
+		License updated to unrestricted Apache 2 license.
+		Added preliminary (and still somewhat buggy) GCF agent implementation.
+		Added VS 2015 project
+			- included re-organization of builds,
+			- change from SDL1.2 to SDL2
+			- Removal of explicit libpng dependency.
 		Augmented the event system
 			- Added ExternalEventTrigger; a trigger object that can be exposed to external code to
 			  trigger events.
@@ -12,7 +21,9 @@
 			- Added new example exercising this functionality: examples/core/userEvent.xml. A single
 			  agent placed in a diamond-shaped environement. The arrow keys control what direction
 			  the agent moves (one of the four cardinal directions).
+			- Exposed external triggers in the C-API.
 	Bugs
+		Updated build instructions in README.md
 		Fixed the watermark references. Examples now correctly displaly Menge logo as a watermark.
 
 ----------------------------------------------------------------
