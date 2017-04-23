@@ -176,6 +176,21 @@ namespace MengeVis {
 			// Reports if *any* events are connected.
 			bool _anyConnected{ false };
 			
+      // TODO: VS2013 doesn't support initializaiton lists on arrays. Restore the initialization
+      //  list after killing VS2013.
+
+#if 1
+      // A boolean indicating which events are connected -- indexed by enumeration.
+      bool _isConnected[ TOTAL_EVENTS ];
+
+      // The dimensions of each of the event actuator regions in the image listed as:
+      // min x, min y, max x, max y.
+      // These values are a hard-coded property of the underlying image file. If the image
+      // changes, these must change. They are expressed as *fractions* of the image with
+      // the lower-right hand corner serving as the origin.
+      float _imageDimensions[TOTAL_EVENTS][4];
+
+#else
 			// A boolean indicating which events are connected -- indexed by enumeration.
 			bool _isConnected[TOTAL_EVENTS] = {
 				false,	// RIGHT_ARROW
@@ -205,7 +220,7 @@ namespace MengeVis {
 				{ 0.105162524f, 0.572614108f, 0.210325048f, 0.970954357f},	// MIDDLE_MOUSE
 				{ 0.210325048f, 0.572614108f, 0.307839388f, 0.970954357f},	// RIGHT_MOUSE
 			};
-
+#endif
 		};
 	}
 }

@@ -27,6 +27,26 @@ namespace MengeVis {
 
 		EventInjectionContext::EventInjectionContext(Context * ctx) : _childContext(ctx), 
 																	  _image(nullptr) {
+			// TODO: I'm initializing these values here because VS2013 doesn't support
+			// initialization at declaration of array data members.
+			for ( int i = 0; i < TOTAL_EVENTS; ++i ) {
+				_isConnected[ i ] = false;
+			}
+			float dims[ TOTAL_EVENTS ][ 4 ]{
+				{ 0.783938815f, 0.062240664f, 0.986615679f, 0.502074689f},  // RIGHT_ARROW
+				{ 0.378585086f, 0.062240664f, 0.58126195f, 0.502074689f },	// LEFT_ARROW
+				{ 0.58126195f, 0.502074689f, 0.783938815f, 0.941908714f },	// UP_ARROW
+				{ 0.58126195f, 0.062240664f, 0.783938815f, 0.502074689f },	// DOWN_ARROW
+				{ 0.015296367f, 0.572614108f, 0.105162524f, 0.970954357f},	// LEFT_MOUSE
+				{ 0.105162524f, 0.572614108f, 0.210325048f, 0.970954357f},	// MIDDLE_MOUSE
+				{ 0.210325048f, 0.572614108f, 0.307839388f, 0.970954357f},	// RIGHT_MOUSE
+			};
+			for ( int r = 0; r < TOTAL_EVENTS; ++r ) {
+				for ( int c = 0; c < 4; ++c ) {
+					_imageDimensions[ r ][ c ] = dims[ r ][ c ];
+				}
+			}
+
 			_image = loadImage("images/user_action_interface.png");
 			identifyTriggers();
 		}
