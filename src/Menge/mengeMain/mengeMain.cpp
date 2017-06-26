@@ -36,10 +36,10 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-
 #include "MengeCore/Agents/SimulatorInterface.h"
 #include "MengeCore/Math/RandGenerator.h"
 #include "MengeCore/PluginEngine/CorePluginEngine.h"
+#include "MengeCore/ProjectSpec.h"
 #include "MengeCore/Runtime/Logger.h"
 #include "MengeCore/Runtime/os.h"
 #include "MengeCore/Runtime/SimulatorDB.h"
@@ -55,9 +55,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include "MengeVis/Viewer/GLViewer.h"
 #include "MengeVis/Viewer/ViewConfig.h"
 
-#include "mengeMain/ProjectSpec.h"
-
-#include "tclap/CmdLine.h"
+#include "thirdParty/tclap/CmdLine.h"
 
 #include <algorithm>
 #include <exception>
@@ -72,6 +70,7 @@ extern "C" FILE * __cdecl __iob_func(void) { return _iob; }
 
 using namespace Menge;
 using Menge::PluginEngine::CorePluginEngine;
+using Menge::ProjectSpec;
 using MengeVis::PluginEngine::VisPluginEngine;
 
 // Time step (in seconds)
@@ -102,6 +101,150 @@ std::string getPluginPath() {
 #else	// _WIN32
 	return os::path::join( 2, ROOT.c_str(), "plugins" );
 #endif	// _WIN32
+}
+
+/*!
+ *	@brief		Parse the command line arguments
+ *
+ *	@param		argc		the number of command-line arguments.
+ *	@param		argv		The command-line parameters.
+ *	@param		simDB		A pointer to the current simulator database.
+ *	@returns	True if a simulation should be attempted (i.e. the
+ *            project specification and command-line parameters require it
+ *            and false if not.
+ */
+bool parseCommandParameters( int argc, char* argv[], ProjectSpec* spec, const SimulatorDB& simDB ) {
+  bool valid = true;
+  // Command line argument fields
+  bool verbose = false;
+  try {
+    TCLAP::CmdLine cmd( "Crowd simulation with behavior.  ", ' ', "0.9" );
+    // arguments: flag, name, description, required, default value type description
+    TCLAP::ValueArg< std::string > projArg( "p", "project", "The name of the project file", false,
+                                            "", "string", cmd );
+    TCLAP::ValueArg< std::string > sceneArg( "s", "scene", "Scene configuration file", false, "",
+                                             "string", cmd );
+    TCLAP::ValueArg< std::string > behaveArg( "b", "behavior", "Scene behavior file", false, "",
+                                              "string", cmd );
+    TCLAP::ValueArg< std::string > viewCfgArg( "", "view", "A view config file to specify the "
+                                               "view - if this argument is specified, do not "
+                                               "specify the -i/-interactive argument.", false, "",
+                                               "string", cmd );
+    TCLAP::ValueArg< std::string > outputArg( "o", "output", "Name of output file (Only writes "
+                                              "output if file provided)", false, "",
+                                              "string", cmd );
+    TCLAP::ValueArg< std::string > versionArg( "", "scbVersion", "Version of scb file to write "
+                                               "(1.0, 2.0, 2.1, 2.2, 2.3, or 2.4 -- 2.1 is the "
+                                               "default", false, "2.1", "string", cmd );
+    TCLAP::ValueArg< float > durationArg( "d", "duration", "Maximum duration of simulation (if "
+                                          "final state is not achieved.)  Defaults to 400 seconds.",
+                                          false, -1.f, "float", cmd );
+    TCLAP::ValueArg< float > timeStepArg( "t", "timeStep", "Override the time step in the scene "
+                                          "specification with this one", false, -1.f, "float", cmd );
+    TCLAP::SwitchArg silentArg( "", "verbose", "Make the simulator print loading and simulating "
+                                "progress", cmd, false );
+    TCLAP::ValueArg< int > randomSeedArg( "r", "random", "Specify the global, default random seed. "
+                                          "If not defined, or zero is given, the default seed will "
+                                          "be extracted from the system clock every time a default "
+                                          "seed is requested.  Otherwise the constant value will "
+                                          "be provided.", false, 0, "int", cmd );
+    TCLAP::ValueArg< int > subSampleArg( "", "subSteps", "Specify the number of sub steps to take."
+                                         " If the simulation time step is 10 Hz with 1 substep, it"
+                                         " actually runs at 20 Hz, but output is only updated at"
+                                         " 10 Hz.", false, 0, "int", cmd );
+
+    std::string modelDoc = "The pedestrian model to use.  Should be one of: ";
+    modelDoc += simDB.paramList();
+    TCLAP::ValueArg< std::string > modelArg( "m", "model", modelDoc.c_str(), false, "",
+                                             "string", cmd );
+    TCLAP::SwitchArg listModelsArg( "l", "listModels", "Lists the models supported. If this is "
+                                    "specified, no simulation is run.", cmd, false );
+    TCLAP::SwitchArg listModelsFullArg( "L", "listModelsDetails", "Lists the models supported and"
+                                        " provides more details. If this is specified, no "
+                                        "simulation is run.", cmd, false );
+    TCLAP::ValueArg< std::string > dumpPathArg( "u", "dumpPath", "The path to a folder in which "
+                                                "screen grabs should be dumped.  Defaults to "
+                                                "current directory.  (Will create the directory "
+                                                "if it doesn't already exist.)", false, "",
+                                                "string", cmd );
+
+    cmd.parse( argc, argv );
+
+    if ( listModelsFullArg.getValue() ) {
+      std::cout << "\n" << simDB.longDescriptions() << "\n";
+      return false;
+    }
+    if ( listModelsArg.getValue() ) {
+      std::cout << "\n" << simDB.briefDescriptions() << "\n";
+      return false;
+    }
+
+    // Read the project file
+    std::string projName = projArg.getValue();
+    if ( projName != "" ) {
+      if ( !spec->loadFromXML( projName ) ) {
+        return false;
+      }
+    }
+
+    // Required arguments
+    std::string temp = sceneArg.getValue();
+    if ( temp != "" ) {
+      std::string tmp = os::path::join( 2, ".", temp.c_str() );
+      os::path::absPath( tmp, temp );
+      spec->setScene( temp );
+    }
+
+    temp = behaveArg.getValue();
+    if ( temp != "" ) {
+      std::string tmp = os::path::join( 2, ".", temp.c_str() );
+      os::path::absPath( tmp, temp );
+      spec->setBehavior( temp );
+    }
+
+    temp = modelArg.getValue();
+    if ( temp != "" ) spec->setModel( temp );
+
+    // Optional arguments
+    verbose = silentArg.getValue();
+    spec->setVerbosity( verbose );
+
+    temp = outputArg.getValue();
+    if ( temp != "" ) spec->setOutputName( temp );
+
+    temp = versionArg.getValue();
+    if ( temp != "" ) spec->setSCBVersion( temp );
+
+    float f = timeStepArg.getValue();
+    if ( f > 0.f ) spec->setTimeStep( f );
+
+    f = durationArg.getValue();
+    if ( f > 0.f ) spec->setDuration( f );
+
+    int seed = randomSeedArg.getValue();
+    if ( seed > -1 ) spec->setRandomSeed( seed );
+
+    temp = viewCfgArg.getValue();
+    if ( temp != "" ) spec->setView( temp );
+
+    spec->setSubSteps( (size_t)subSampleArg.getValue() );
+
+
+    temp = dumpPathArg.getValue();
+    if ( temp != "" ) {
+      std::string tmp = os::path::join( 2, ".", temp.c_str() );
+      os::path::absPath( tmp, temp );
+      spec->setDumpPath( temp );
+    }
+
+  } catch ( TCLAP::ArgException &e ) {
+    std::cerr << "Error parsing command-line arguments: " << e.error() << " for arg " << e.argId() << std::endl;
+  }
+
+  if ( verbose ) {
+    logger << Logger::INFO_MSG << ( *spec ) << "\n";
+  }
+  return valid;
 }
 
 /*!
@@ -242,8 +385,7 @@ int main( int argc, char* argv[] ) {
 	}
 
 	ProjectSpec projSpec;
-
-	if ( !projSpec.parseCommandParameters( argc, argv, &simDB ) ) {
+	if ( !parseCommandParameters( argc, argv, &projSpec, simDB ) ) {
 		return 0;
 	}
 
