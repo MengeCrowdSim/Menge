@@ -59,7 +59,8 @@ namespace Menge {
     _duration( 400.f ),
     _timeStep( -1.f ),
     _seed( 0 ),
-    _imgDumpPath( "." )
+    _imgDumpPath( "." ),
+    _subSteps( 0 )
   {
   }
 
