@@ -275,8 +275,8 @@ namespace Helbing {
 			glPushAttrib( GL_LINE_BIT );
 			glLineWidth( 3.f );
 			glBegin( GL_LINES );
-      glVertex3f( obst->getP0().x(), obst->getP0().y(), Y );
-      glVertex3f( obst->getP1().x(), obst->getP1().y(), Y );
+      glVertex3f( obst->getP0().x(), obst->getP0().y(), H );
+      glVertex3f( obst->getP1().x(), obst->getP1().y(), H );
 			glEnd();
 			glPopAttrib();
 
@@ -294,8 +294,8 @@ namespace Helbing {
 		const float FORCE_RADIUS = 4 * agt->_radius;
 		Vector2 forceEnd = norm( force ) * FORCE_RADIUS + agt->_pos;
 		glBegin( GL_LINES );
-    glVertex3f( agt->_pos.x(), agt->_pos.y(), Y );
-    glVertex3f( forceEnd.x(), forceEnd.y(), Y );
+    glVertex3f( agt->_pos.x(), agt->_pos.y(), H );
+    glVertex3f( forceEnd.x(), forceEnd.y(), H );
 		glEnd();
 		// annotate illustration
 		std::stringstream ss;

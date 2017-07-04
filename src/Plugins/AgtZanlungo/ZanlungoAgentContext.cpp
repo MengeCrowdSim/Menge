@@ -182,11 +182,11 @@ namespace Zanlungo {
 				Vector2 futurePos = agt->_pos + agt->_vel * TTI;
 				glColor4f( 1.f, 1.f, 1.f, 0.5f );
 				glBegin( GL_LINES );
-        glVertex3f( futurePos.x(), futurePos.y(), Y );
-        glVertex3f( agt->_pos.x(), agt->_pos.y(), Y );
+        glVertex3f( futurePos.x(), futurePos.y(), H );
+        glVertex3f( agt->_pos.x(), agt->_pos.y(), H );
 				glEnd();
 				glPushMatrix();
-        glTranslatef( futurePos.x(), futurePos.y(), Y );
+        glTranslatef( futurePos.x(), futurePos.y(), H );
 				Circle::drawCircle( agt->_radius, 1.f, 1.f, 1.f, 0.75f, GL_LINE );
 				glPopMatrix();
 				
@@ -199,11 +199,11 @@ namespace Zanlungo {
 						Vector2 futurePos2 = other->_pos + other->_vel * TTI;
 						glColor3f( 1.f, 0.f, 0.f );
 						glBegin( GL_LINES );
-            glVertex3f( futurePos2.x(), futurePos2.y(), Y );
-            glVertex3f( other->_pos.x(), other->_pos.y(), Y );
+            glVertex3f( futurePos2.x(), futurePos2.y(), H );
+            glVertex3f( other->_pos.x(), other->_pos.y(), H );
 						glEnd();
 						glPushMatrix();
-            glTranslatef( futurePos2.x(), futurePos2.y(), Y );
+            glTranslatef( futurePos2.x(), futurePos2.y(), H );
 						Circle::drawCircle( other->_radius, 1.f, 0.f, 0.f, 0.75f, GL_LINE );
 						glPopMatrix();
 					}
@@ -214,11 +214,11 @@ namespace Zanlungo {
 					Vector2 futurePos2 = other->_pos + other->_vel * TTI;
 					glColor3f( 1.f, 0.f, 0.f );
 					glBegin( GL_LINES );
-          glVertex3f( futurePos2.x(), futurePos2.y(), Y );
-          glVertex3f( other->_pos.x(), other->_pos.y(), Y );
+          glVertex3f( futurePos2.x(), futurePos2.y(), H );
+          glVertex3f( other->_pos.x(), other->_pos.y(), H );
 					glEnd();
 					glPushMatrix();
-          glTranslatef( futurePos2.x(), futurePos2.y(), Y );
+          glTranslatef( futurePos2.x(), futurePos2.y(), H );
 					Circle::drawCircle( other->_radius, 1.f, 0.f, 0.f, 0.75f, GL_LINE );
 					glPopMatrix();
 				
@@ -278,8 +278,8 @@ namespace Zanlungo {
 			glColor4f( 1.f, 1.f, 1.f, 1.f );
 			Vector2 forceEnd = agt->_pos + force;
 			glBegin( GL_LINES );
-      glVertex3f( agt->_pos.x(), agt->_pos.y(), Y );
-      glVertex3f( forceEnd.x(), forceEnd.y(), Y );
+      glVertex3f( agt->_pos.x(), agt->_pos.y(), H );
+      glVertex3f( forceEnd.x(), forceEnd.y(), H );
 			glEnd();
 			// annotate illustration
 			std::stringstream ss;
@@ -320,11 +320,11 @@ namespace Zanlungo {
 			glEnable( GL_BLEND );
 			glColor4f( 0.5f, 0.1f, 0.1f, 0.25f );
 			glBegin( GL_TRIANGLE_FAN );
-      glVertex3f( agt->_pos.x(), agt->_pos.y(), Y );
+      glVertex3f( agt->_pos.x(), agt->_pos.y(), H );
 			for ( int i = 0; i <= SAMPLES; ++i ) {
 				// rotate, add, draw
 				Vector2 pt = agt->_pos + dir;
-        glVertex3f( pt.x(), pt.y(), Y );
+        glVertex3f( pt.x(), pt.y(), H );
 				float x = dir * dX;
 				float y = dir * dY;
 				dir.set( x, y );
