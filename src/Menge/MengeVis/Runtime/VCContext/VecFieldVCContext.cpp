@@ -134,15 +134,15 @@ namespace MengeVis {
 				// lines parallel w/ x-axis
 				for ( int r = rowZero; r <= lastRow; ++r ) {
 					float y = minCorner.y() + r * cellSize;
-					glVertex3f( left, 0.f, y );
-					glVertex3f( right, 0.f, y );
+          glVertex3f( left, y, 0.f );
+          glVertex3f( right, y, 0.f );
 				}
 
 				// lines parallel w/ y-axis
 				for ( int c = colZero; c <= lastCol; ++c ) {
 					float x = minCorner.x() + c * cellSize;
-					glVertex3f( x, 0.f, bottom );
-					glVertex3f( x, 0.f, top );
+          glVertex3f( x, bottom, 0.f );
+          glVertex3f( x, top, 0.f );
 				}
 				glEnd();
 
@@ -156,8 +156,8 @@ namespace MengeVis {
 					for ( int c = colZero; c < lastCol; ++c ) {
 						Vector2 dir = vf->getFieldValue( r, c ) * UNIT_SCALE;
 						Vector2 end( dir.x() + x, dir.y() + y );
-						glVertex3f( x, 0.f, y );
-						glVertex3f( end.x(), 0.f, end.y() );
+            glVertex3f( x, y, 0.f );
+            glVertex3f( end.x(), end.y(), 0.f );
 						x += cellSize;
 					}
 					y += cellSize;

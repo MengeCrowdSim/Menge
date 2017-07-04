@@ -43,12 +43,12 @@ namespace MengeVis {
 				Vector2 c3( c * X, c * Y );
 
 				glPushMatrix();
-				glTranslatef( pivot.x(), 0.f, pivot.y() );
+        glTranslatef( pivot.x(), pivot.y(), 0.f );
 				glBegin( GL_POLYGON );
 				glVertex3f( 0.f, 0.f, 0.f );
-				glVertex3f( c1.x(), 0.f, c1.y() );
-				glVertex3f( c2.x(), 0.f, c2.y() );
-				glVertex3f( c3.x(), 0.f, c3.y() );
+        glVertex3f( c1.x(), c1.y(), 0.f );
+        glVertex3f( c2.x(), c2.y(), 0.f );
+        glVertex3f( c3.x(), c3.y(), 0.f );
 				glVertex3f( 0.f, 0.f, 0.f );
 				glEnd();
 				glPopMatrix();

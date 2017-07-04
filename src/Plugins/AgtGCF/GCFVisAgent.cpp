@@ -39,11 +39,11 @@ namespace GCF {
 			glPushMatrix();
 			const Vector2 & orient = agt->_ellipse.getOrientation();
 			float angle = atan2( orient.y(), orient.x() ) * 180.f / 3.141597f;
-			glRotatef( -angle, 0.f, 1.f, 0.f );
+      glRotatef( angle, 0.f, 0.f, 1.f );
 			float major = agt->_ellipse.getMajor();
 			float minor = agt->_ellipse.getMinor();
 
-			glScalef( major, 1.f, minor );
+      glScalef( major, minor, 1.f );
 			MengeVis::SceneGraph::Cylinder::drawCylinder( 1.f, 1.72f, r, g, b, 1.f );
 
 			glPopMatrix();

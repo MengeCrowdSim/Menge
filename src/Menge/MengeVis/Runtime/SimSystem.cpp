@@ -109,8 +109,8 @@ namespace MengeVis {
 						p1a.set( next->getP1() );
 						next = next->_nextObstacle;
 					}
-					Vector3 p0( p0a.x(), _sim->getElevation( p0a ), p0a.y() );
-					Vector3 p1( p1a.x(), _sim->getElevation( p1a ), p1a.y() );
+          Vector3 p0( p0a.x(), p0a.y(), _sim->getElevation( p0a ) );
+          Vector3 p1( p1a.x(), p1a.y(), _sim->getElevation( p1a ) );
 					VisObstacle * vo = new VisObstacle( p0, p1 );
 
 					scene->addNode( vo );
@@ -128,7 +128,7 @@ namespace MengeVis {
 				VisAgent * baseNode = VisAgentDB::getInstance( agt );
 				VisAgent * agtNode = baseNode->moveToClone();
 				float h = _sim->getElevation( agt );
-				agtNode->setPosition( agt->_pos.x(), h, agt->_pos.y() );
+        agtNode->setPosition( agt->_pos.x(), agt->_pos.y(), h );
 				scene->addNode( agtNode );
 				_visAgents[ a ] = agtNode;
 			}
@@ -150,7 +150,7 @@ namespace MengeVis {
 			for ( int a = 0; a < agtCount; ++a ) {
 				const BaseAgent * agt = _visAgents[ a ]->getAgent();
 				float h = _sim->getElevation( agt );
-				_visAgents[ a ]->setPosition( agt->_pos.x(), h, agt->_pos.y() );
+        _visAgents[ a ]->setPosition( agt->_pos.x(), agt->_pos.y(), h );
 			}
 		}
 

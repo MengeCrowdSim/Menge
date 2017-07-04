@@ -141,7 +141,7 @@ namespace MengeVis {
 						unsigned int vID = node.getVertexID( v );
 						const Vector2 & p = vertices[ vID ];
 						float elevation = node.getElevation( p );
-						glVertex3f( p.x(), elevation, p.y() );
+            glVertex3f( p.x(), p.y(), elevation );
 					}
 					glEnd();
 				}
@@ -156,10 +156,10 @@ namespace MengeVis {
 					const NavMeshNode * node = edge.getFirstNode();
 					Vector2 p0 = edge.getP0();
 					float h = node->getElevation( p0 );
-					glVertex3f( p0.x(), h, p0.y() );
+          glVertex3f( p0.x(), p0.y(), h );
 					Vector2 p1 = edge.getP1();
 					h = node->getElevation( p1 );
-					glVertex3f( p1.x(), h, p1.y() );
+          glVertex3f( p1.x(), p1.y(), h );
 				}
 				glEnd();
 
@@ -175,7 +175,7 @@ namespace MengeVis {
 						const NavMeshNode & node = navMesh->getNode( n );
 						Vector2 p = node.getCenter();
 						float elevation = node.getElevation( p );
-						glVertex3f( p.x(), elevation, p.y() );
+            glVertex3f( p.x(), p.y(), elevation );
 					}
 					glEnd();
 					glPopAttrib();
@@ -194,10 +194,10 @@ namespace MengeVis {
 					const NavMeshNode * node = obst.getNode();
 					Vector2 p0 = obst.getP0();
 					float h = node->getElevation( p0 );
-					glVertex3f( p0.x(), h, p0.y() );
+          glVertex3f( p0.x(), p0.y(), h );
 					Vector2 p1 = obst.getP1();
 					h = node->getElevation( p1 );
-					glVertex3f( p1.x(), h, p1.y() );
+          glVertex3f( p1.x(), p1.y(), h );
 				}
 				glEnd();
 
@@ -221,7 +221,7 @@ namespace MengeVis {
 					glColor3f( 1.f, 1.f, 0.f );
 					glLineWidth( 3.f );
 					glBegin( GL_LINE_STRIP );
-					glVertex3f( prev.x(), height, prev.y() );
+          glVertex3f( prev.x(), prev.y(), height );
 					// iterate through the rest
 					const size_t P_COUNT = path->getWayPointCount();
 					size_t i = path->getCurrentPortal();
@@ -237,23 +237,23 @@ namespace MengeVis {
 						p.set( path->getWayPoint( i ) );
 						float h = navMesh->getElevation( NODE_ID, p );
 						if ( absSq( p - prev ) > 0.001f ) {
-							glVertex3f( prev.x(), height, prev.y() );
+              glVertex3f( prev.x(), prev.y(), height );
 						}
 						prev.set( p );
 						height = h;
 					}
-					glVertex3f( prev.x(), height, prev.y() );
+          glVertex3f( prev.x(), prev.y(), height );
 
 					const Goal * goal = path->getGoal();
 					Vector2 goalPoint = goal->getTargetPoint( prev, agt->_radius );
 					height = navMesh->getElevation( path->getEndNode(), goalPoint );
-					glVertex3f( goalPoint.x(), height, goalPoint.y() );
+          glVertex3f( goalPoint.x(), goalPoint.y(), height );
 
 					glEnd();
 					glPopAttrib();
 
 					// draw goal
-					Vector3 goal3D( goalPoint.x(), height, goalPoint.y() );
+          Vector3 goal3D( goalPoint.x(), goalPoint.y(), height );
 					drawGoal( goal3D, agt->_radius );
 				}
 			}

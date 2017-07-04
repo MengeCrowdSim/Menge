@@ -84,9 +84,9 @@ namespace MengeVis {
 					for ( size_t j = 0; j < N_COUNT; ++j ) {
 						const GraphVertex * u = v->getNeighbor( j );
 						if ( vID < u->getID() ) {
-							glVertex3f( vPos.x(), 0.f, vPos.y() );
+              glVertex3f( vPos.x(), vPos.y(), 0.f );
 							Vector2 uPos = u->getPosition();
-							glVertex3f( uPos.x(), 0.f, uPos.y() );
+              glVertex3f( uPos.x(), uPos.y(), 0.f );
 						}
 					}
 				}
@@ -99,7 +99,7 @@ namespace MengeVis {
 				for ( size_t i = 0; i < V_COUNT; ++i ) {
 					const GraphVertex * v = graph->getVertex( i );
 					const Vector2 vPos = v->getPosition();
-					glVertex3f( vPos.x(), 0.f, vPos.y() );
+          glVertex3f( vPos.x(), vPos.y(), 0.f );
 				}
 				glEnd();
 
@@ -122,12 +122,12 @@ namespace MengeVis {
 					glColor3f( 1.f, 1.f, 0.5f );
 					glLineWidth( 2.f );
 					glBegin( GL_LINE_STRIP );
-					glVertex3f( agt->_pos.x(), 0.f, agt->_pos.y() );
+          glVertex3f( agt->_pos.x(), agt->_pos.y(), 0.f );
 					for ( size_t i = TARGET; i < WP_COUNT; ++i ) {
 						Vector2 p = path->getWayPoint( i );
-						glVertex3f( p.x(), 0.f, p.y() );
+            glVertex3f( p.x(), p.y(), 0.f );
 					}
-					glVertex3f( tgtPoint.x(), 0.f, tgtPoint.y() );
+          glVertex3f( tgtPoint.x(), tgtPoint.y(), 0.f );
 					glEnd();
 				} else {
 					tgtPoint = goal->getTargetPoint( agt->_pos, agt->_radius );

@@ -55,9 +55,9 @@ namespace MengeVis {
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
-	const Vector3 DEFAULT_POS = Vector3( 0.f, 1.f, -5.f );
+	const Vector3 DEFAULT_POS = Vector3( 0.f, -5.f, 1.f );
 	const Vector3 DEFAULT_TARGET = Vector3();
-	const Vector3 DEFAULT_UP = Vector3(0.0, 1.0, 0.0 );
+  const Vector3 DEFAULT_UP = Vector3( 0.0, 0.0, 1.0 );
 
 #endif	// DOXYGEN_SHOULD_SKIP_THIS
 
@@ -242,9 +242,9 @@ namespace MengeVis {
 		void GLCamera::viewYAxis( bool downPositive ) {
 			float camDist = _position.distance( _target );
 			if ( downPositive ) {
-				_position.set( _target.x(), _target.y() - camDist, _target.z() + 0.01f );
+				_position.set( _target.x(), _target.y() - camDist, _target.z() );
 			} else {
-				_position.set( _target.x(), _target.y() + camDist, _target.z() + 0.01f );
+				_position.set( _target.x(), _target.y() + camDist, _target.z() );
 			}
 		}
 
@@ -253,9 +253,9 @@ namespace MengeVis {
 		void GLCamera::viewZAxis( bool downPositive ) {
 			float camDist = _position.distance( _target );
 			if ( downPositive ) {
-				_position.set( _target.x(), _target.y(), _target.z() - camDist );
+        _position.set( _target.x(), _target.y() + 0.01f, _target.z() - camDist );
 			} else {
-				_position.set( _target.x(), _target.y(), _target.z() + camDist );
+        _position.set( _target.x(), _target.y() - 0.01f, _target.z() + camDist );
 			}
 		}
 
@@ -263,7 +263,7 @@ namespace MengeVis {
 
 		void GLCamera::pan( float angle ) {
 			Vector3 targetDisp = _target - _position;
-			targetDisp = targetDisp.rotateY( angle );
+			targetDisp = targetDisp.rotateZ( angle );
 			_target = _position + targetDisp;
 		}
 
@@ -345,7 +345,7 @@ namespace MengeVis {
 
 		void GLCamera::orbitVerticalAxis( float angle ) {
 			Vector3 cameraDir = _position - _target;
-			cameraDir = cameraDir.rotateY( angle );
+			cameraDir = cameraDir.rotateZ( angle );
 			_position = _target + cameraDir;
 		}
 
@@ -355,7 +355,7 @@ namespace MengeVis {
 			Vector3 cameraDisp = _position - _target;
 			Vector3 cameraDir = cameraDisp;
 			cameraDir.normalize();
-			float oldAngle = acos( cameraDir * Vector3( 0.0f, 1.0f, 0.0f ) );
+			float oldAngle = acos( cameraDir * Vector3( 0.0f, 0.0f, 1.0f ) );
 			if ( oldAngle - angle >= PI ) {
 				angle = oldAngle - PI  + 0.01f;
 			} else if ( oldAngle - angle <= 0.0f ) {

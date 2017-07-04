@@ -126,9 +126,9 @@ namespace MengeVis {
 			virtual void draw3DGL( bool select = false );
 
 			/*!
-			 *	@brief		The drawing depth for the 3D elements
+			 *	@brief		The drawing height for the 3D elements
 			 */
-			static const float Y;
+			static const float H;
 
 			/*!
 			 *	@brief		The currently selected visualization agent.

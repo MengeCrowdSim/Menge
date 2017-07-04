@@ -37,7 +37,7 @@ namespace MengeVis {
 			void GoalRenderer::doDrawGeometry() const {
 				glBegin( GL_POINTS );
 				const Vector2 p = _goal->getCentroid();
-				glVertex3f( p.x(), 0.f, p.y() );
+        glVertex3f( p.x(), p.y(), 0.f );
 				glEnd();
 			}
 		}
