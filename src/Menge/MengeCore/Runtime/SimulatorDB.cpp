@@ -58,67 +58,87 @@ namespace Menge {
 	::std::string SimulatorDB::paramList() const {
 		::std::string fmtList;
 		size_t i = 0;
-		const EntryList & eList = _entries;
-		const size_t COUNT = eList.size();
-		EntryList::const_iterator itr = eList.begin();
-		for ( ; itr != eList.end(); ++itr, ++i ) {
+		const size_t COUNT = _entries.size();
+    for ( size_t i = 0; i < COUNT; ++i ) {
 			if ( i == 0 ) {
 				// beginning of list
-				fmtList = (*itr)->commandLineName();
+        fmtList = _entries[i]->commandLineName();
 			} else if ( i < COUNT - 1 ) {
 				// middle of list
-				fmtList += ", " + (*itr)->commandLineName();
+        fmtList += ", " + _entries[ i ]->commandLineName();
 			} else if ( i == COUNT - 1 ) {
 				if ( COUNT > 2 ) {
 					fmtList += ", ";
 				}
-				fmtList += "and " + (*itr)->commandLineName();
+        fmtList += "and " + _entries[ i ]->commandLineName();
 			}
 		}
 		return fmtList;
-	}
+  }
+
+
+  /////////////////////////////////////////////////////////////////////////////
+
+  ::std::string SimulatorDB::name( int i ) const {
+    if ( i < 0 || i >= static_cast<int>( _entries.size() ) ) {
+      throw SimDBException( "Invalid model index" );
+    }
+    return _entries[ i ]->commandLineName();
+  }
 
 	/////////////////////////////////////////////////////////////////////////////
 
 	::std::string SimulatorDB::briefDescriptions() const {
 		::std::stringstream ss;
 		ss << "Available pedestrian models:\n";
-		const EntryList & eList = _entries;
-		EntryList::const_iterator itr = eList.begin();
-		for ( ; itr != eList.end(); ++itr ) {
-			ss << "\n\tParameter: " << (*itr)->commandLineName() << "\n";
-			ss << "\t\t" << (*itr)->briefDescription();
+    for ( size_t i = 0; i < _entries.size(); ++i) {
+      ss << "\n\tParameter: " << _entries[i]->commandLineName() << "\n";
+      ss << "\t\t" << _entries[ i ]->briefDescription();
 		}
 		return ss.str();
 	}
+
+  /////////////////////////////////////////////////////////////////////////////
+
+  ::std::string SimulatorDB::briefDescription( int i ) const {
+    if ( i < 0 || i >= static_cast<int>( _entries.size() ) ) {
+      throw SimDBException( "Invalid model index" );
+    }
+    return _entries[ i ]->briefDescription();
+  }
 
 	/////////////////////////////////////////////////////////////////////////////
 
 	::std::string SimulatorDB::longDescriptions() const {
 		::std::stringstream ss;
 		ss << "Available pedestrian models:\n";
-		const EntryList & eList = _entries;
-		EntryList::const_iterator itr = eList.begin();
-		for ( ; itr != eList.end(); ++itr ) {
+    for ( size_t i = 0; i < _entries.size(); ++i ) {
 			ss << "\n\t---------------------------------------------------------\n";
-			ss << "\tParameter: " << (*itr)->commandLineName() << "\n";
-			ss << "\t" << (*itr)->longDescription() << "\n";
+      ss << "\tParameter: " << _entries[ i ]->commandLineName() << "\n";
+      ss << "\t" << _entries[ i ]->longDescription() << "\n";
 		}
 		return ss.str(); 
-	}
+  }
+
+  /////////////////////////////////////////////////////////////////////////////
+
+  ::std::string SimulatorDB::longDescriptions( int i ) const {
+    if ( i < 0 || i >= static_cast<int>( _entries.size() ) ) {
+      throw SimDBException( "Invalid model index" );
+    }
+    return _entries[ i ]->longDescription();
+  }
 
 	/////////////////////////////////////////////////////////////////////////////
 
 	SimulatorDBEntry * SimulatorDB::getDBEntry( const std::string & modelName ) {
 		std::string name( modelName );
-		std::transform( name.begin(), name.end(), name.begin(), ::tolower );
-		EntryList & eList = _entries;
-		EntryList::const_iterator itr = eList.begin();
-		for ( ; itr != eList.end(); ++itr ) {
-			std::string testName = (*itr)->commandLineName();
+    std::transform( name.begin(), name.end(), name.begin(), ::tolower );
+    for ( size_t i = 0; i < _entries.size(); ++i ) {
+			std::string testName = _entries[i]->commandLineName();
 			std::transform( testName.begin(), testName.end(), testName.begin(), ::tolower );
 			if ( modelName == testName ) {
-				return *itr;
+        return _entries[ i ];
 			}
 		}
 		return 0x0;
@@ -127,11 +147,9 @@ namespace Menge {
 	/////////////////////////////////////////////////////////////////////////////
 
 	SimulatorDBEntry * SimulatorDB::registerEntry( SimulatorDBEntry * entry ) {
-		std::string entryName = entry->commandLineName();
-		EntryList & eList = _entries;
-		EntryList::const_iterator itr = eList.begin();
-		for ( ; itr != eList.end(); ++itr ) {
-			std::string name = (*itr)->commandLineName();
+    std::string entryName = entry->commandLineName();
+    for ( size_t i = 0; i < _entries.size(); ++i ) {
+      std::string name = _entries[i]->commandLineName();
 			std::transform( name.begin(), name.end(), name.begin(), ::tolower );
 			if ( entryName == name ) {
 				logger << Logger::ERR_MSG << "Failed to register a pedestrian model\n" 
@@ -144,7 +162,7 @@ namespace Menge {
 				return 0x0;
 			}
 		}
-		eList.push_back( entry );
+		_entries.push_back( entry );
 		return entry;
 	}
 }	 // namespace Menge
