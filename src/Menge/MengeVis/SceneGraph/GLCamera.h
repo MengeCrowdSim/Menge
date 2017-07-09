@@ -39,7 +39,7 @@ namespace MengeVis {
 			/*!
 			 *	@brief		Determines the projection matrix of the 3D camera
 			 */
-			enum CamEnum { ORTHO,
+			enum ProjectionType { ORTHO,
 				PERSP };
 			
 			/*!
@@ -86,6 +86,13 @@ namespace MengeVis {
 			 *	@brief		Sets the camera to use a perspective projection.
 			 */
 			void setPersp();
+
+      /*!
+       *  @brief    Reports the projection mode of the camera. 
+       *  
+       *  @returns  The enumeration indicating the projection type of the camera.
+       */
+      ProjectionType getProjection() const { return _type; }
 
 			/*!
 			 *	@brief		Called the first time a camera is put into use.
@@ -438,7 +445,7 @@ namespace MengeVis {
 			/*!
 			 *	@brief		Determines the camera projeciton type: orthographic or perspective.
 			 */
-			CamEnum _type;
+      ProjectionType _type;
 
 			/*!
 			 *	@brief		Position of camera -- used for both perspective and orthographic.

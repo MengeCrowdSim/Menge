@@ -124,7 +124,7 @@ namespace MengeVis {
 			 *
 			 *	@see		SceneGraph::GLCamera
 			 */
-			SceneGraph::GLCamera::CamEnum	_projType;
+      SceneGraph::GLCamera::ProjectionType _projType;
 		};
 
 		////////////////////////////////////////////////////////////////////////////
