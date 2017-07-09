@@ -136,7 +136,7 @@ namespace Menge {
 			 *				
 			 *  @returns    A const reference to the obstacle set
 			 */
-			const std::vector< Obstacle * > & getObstacles() {return _obstacles;}
+			const std::vector< Obstacle * > & getObstacles() const {return _obstacles;}
 
 			/*!
 			 *  @brief      Performs an agent based proximity query

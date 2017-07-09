@@ -173,7 +173,14 @@ namespace Menge {
 			 *
 			 *	@returns    a pointer to The spatial query object.
 			 */
-			SpatialQuery *  getSpatialQuery() { return _spatialQuery;};
+			SpatialQuery *  getSpatialQuery() { return _spatialQuery; };
+
+      /*!
+       *  @brief    Get a const reference to the spatial query instance of the simulator.
+       *
+       *  @returns    A const reference to the spatial query object.
+       */
+      const SpatialQuery& getSpatialQuery() const { return *_spatialQuery; }
 
 			/*!
 			 *	@brief		Reports if the spatial query has been set.
