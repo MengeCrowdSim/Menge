@@ -69,6 +69,11 @@ namespace MengeVis {
         _posY = -_posY;
       }
 
+      /*!
+       *  @brief    The name of the camera.
+       */
+      std::string _name;
+
 			/*!
 			 *	@brief		Camera x-position in world space.
 			 */

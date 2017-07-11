@@ -94,6 +94,20 @@ namespace MengeVis {
        */
       ProjectionType getProjection() const { return _type; }
 
+      /*!
+       *  @brief  Reports the name of this camera.
+       *
+       *  @returns    The camera name.
+       */
+      const std::string& get_name() const { return _name; }
+
+      /*!
+       *  @brief    Sets the camera's name.
+       *
+       *  @param    name    The camera's new name.
+       */
+      void set_name( const std::string& name ) { _name = name;  }
+
 			/*!
 			 *	@brief		Called the first time a camera is put into use.
 			 *				Failing to call this may lead to unexpected camera settings until
@@ -446,6 +460,11 @@ namespace MengeVis {
 			 *	@brief		Determines the camera projeciton type: orthographic or perspective.
 			 */
       ProjectionType _type;
+
+      /*!
+       *  @brief    The name of the camera.
+       */
+      std::string _name;
 
 			/*!
 			 *	@brief		Position of camera -- used for both perspective and orthographic.

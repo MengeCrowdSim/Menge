@@ -186,6 +186,13 @@ namespace MengeVis {
 				 child = child->NextSiblingElement()) {
 				if ( child->ValueStr() == "Camera" ) {
 					CameraParam cam;
+          // name
+          const char * name = child->Attribute( "name" );
+          if ( name != nullptr ) {
+            cam._name = name;
+          } else {
+            cam._name = "Camera " + std::to_string( _camSpecs.size() + 1 );
+          }
 					// position
 					if ( !child->Attribute( "xpos", &d ) ) {
 						logger << Logger::ERR_MSG << "\tCamera element on line " << child->Row();
@@ -479,6 +486,7 @@ namespace MengeVis {
 			camera.setTarget( cfg._tgtX, cfg._tgtY, cfg._tgtZ );
 			camera.setFarPlane( cfg._farPlane );
 			camera.setNearPlane( cfg._nearPlane );
+      camera.set_name( cfg._name );
 			if ( cfg._projType == SceneGraph::GLCamera::ORTHO ) {
 				camera.setOrtho( cfg._orthoScale );
 			} else {

@@ -69,29 +69,24 @@ namespace MengeVis {
 		//			            Implementation for  GLCamera                     
 		///////////////////////////////////////////////////////////////////////////
 
-		GLCamera::GLCamera() : _type(PERSP), _position(DEFAULT_POS), _target( DEFAULT_TARGET ),
-							  _up(DEFAULT_UP), _farPlane( 100.f ), _nearPlane(0.01f), _fov(45.f),
-							  _viewWidth(640), _viewHeight(480), _dirtyProj(false),
+		GLCamera::GLCamera() : _type(PERSP), _name("unnamed"), _position(DEFAULT_POS), 
+                _target( DEFAULT_TARGET ), _up(DEFAULT_UP), _farPlane( 100.f ), _nearPlane(0.01f),
+                _fov(45.f), _viewWidth(640), _viewHeight(480), _dirtyProj(false),
 							  _orthoHWidth(1.f) {}
 
 		///////////////////////////////////////////////////////////////////////////
 
-		GLCamera::GLCamera( const Vector3 & p) : _type(PERSP), _position(p),
-												 _target( DEFAULT_TARGET ), _up(DEFAULT_UP),
-												 _farPlane( 100.f ), _nearPlane(0.01f), _fov(45.f),
-												 _viewWidth(640), _viewHeight(480),
+		GLCamera::GLCamera( const Vector3 & p) : _type(PERSP), _name("unnamed"), _position(p),
+												 _target( DEFAULT_TARGET ), _up(DEFAULT_UP), _farPlane( 100.f ),
+                         _nearPlane(0.01f), _fov(45.f), _viewWidth(640), _viewHeight(480),
 												 _dirtyProj(false), _orthoHWidth(1.f) {}
 
 		///////////////////////////////////////////////////////////////////////////
 
-		GLCamera::GLCamera( const Vector3 & p, const Vector3 & t) : _type(PERSP), _position(p),
-																	_target( t ), _up(DEFAULT_UP),
-																	_farPlane( 100.f ),
-																	_nearPlane(0.01f), _fov(45.f),
-																	_viewWidth(640),
-																	_viewHeight(480),
-																	_dirtyProj(false),
-																	_orthoHWidth(1.f) {}
+		GLCamera::GLCamera( const Vector3 & p, const Vector3 & t) : _type(PERSP), _name("unnamed"),
+                                  _position(p), _target( t ), _up(DEFAULT_UP), _farPlane( 100.f ),
+																	_nearPlane(0.01f), _fov(45.f), _viewWidth(640), _viewHeight(480),
+																	_dirtyProj(false), _orthoHWidth(1.f) {}
 
 		///////////////////////////////////////////////////////////////////////////
 
