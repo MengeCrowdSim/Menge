@@ -194,11 +194,6 @@ xcopy "$(SolutionDir)..\..\resources\common\*.*" "$(ExeDir)" /d /y /e</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="$(SrcDir)\mengeMain\mengeMain.cpp" />
-    <ClCompile Include="$(SrcDir)\mengeMain\ProjectSpec.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="$(SrcDir)\mengeMain\common.h" />
-    <ClInclude Include="$(SrcDir)\mengeMain\ProjectSpec.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="MengeCore.vcxproj">
