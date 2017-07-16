@@ -18,16 +18,5 @@
     <ClCompile Include="$(SrcDir)\mengeMain\mengeMain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="$(SrcDir)\mengeMain\ProjectSpec.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="$(SrcDir)\mengeMain\common.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="$(SrcDir)\mengeMain\ProjectSpec.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

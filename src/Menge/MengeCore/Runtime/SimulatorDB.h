@@ -32,9 +32,9 @@
 #include "MengeCore/MengeException.h"
 #include "MengeCore/Runtime/SimulatorDBEntry.h"
 
-#include <list>
 #include <algorithm>
 #include <iostream>
+#include <vector>
 #ifndef _WIN32
 #include <typeinfo>
 #endif
@@ -85,7 +85,7 @@ namespace Menge {
 	/*!
 	 *	@brief		A list of database entries.
 	 */
-	typedef std::list< SimulatorDBEntry * >	EntryList;
+	typedef std::vector< SimulatorDBEntry * >	EntryList;
 
 	//////////////////////////////////////////////////////////////////////////////
 
@@ -123,7 +123,12 @@ namespace Menge {
 		 *				command-line parameter names, 
 		 *				e.g., model1, model2, ..., and modelN.
 		 */
-		::std::string paramList() const;
+    ::std::string paramList() const;
+
+    /*!
+     *  @brief    Reports the name of the ith model. Throws SimDBException for an invalid index.
+     */
+    ::std::string name( int i ) const;
 
 		/*!
 		 *	@brief		Formats all brief descriptions into a single
@@ -134,6 +139,12 @@ namespace Menge {
 		 */
 		::std::string briefDescriptions() const;
 
+    /*!
+     *  @brief    Reports the brief description of the ith model. Throws SimDBException for an 
+     *            invalid index.
+     */
+    ::std::string briefDescription( int i ) const;
+
 		/*!
 		 *	@brief		Formats all long descriptions into a single
 		 *				string.
@@ -141,7 +152,13 @@ namespace Menge {
 		 *	@returns	A formatted string consisting of all model's and
 		 *				their long descriptions.
 		 */
-		::std::string longDescriptions() const;
+    ::std::string longDescriptions() const;
+
+    /*!
+     *  @brief    Reports the long description of the ith model. Throws SimDBException for an 
+     *            invalid index.
+     */
+    ::std::string longDescriptions( int i ) const;
 
 		/*!
 		 *	@brief		Returns the database entry for the given command line parameter.
