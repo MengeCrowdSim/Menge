@@ -30,16 +30,6 @@
 #include "MengeCore/CoreConfig.h"
 #include "MengeCore/Runtime/Logger.h"
 
-// Forward declaration
-namespace Menge {
-  // This forward declaration is necessary to make the forward declaration of the global space
-  // out-stream << operator to work.
-  class ProjectSpec;
-}  // namespace Menge
-
-MENGE_API Menge::Logger& operator<<( Menge::Logger& out, const Menge::ProjectSpec& spec );
-
-
 namespace Menge {
   // Forward declaration
   class SimulatorDB;
@@ -288,7 +278,7 @@ namespace Menge {
      *	@param		spec		A ProjectSpec
      *	@returns	A reference to the output stream
      */
-    friend Logger& ::operator<<( Logger& out, const ProjectSpec& spec );
+    friend Logger& operator<<( Logger& out, const ProjectSpec& spec );
 
   private:
     /*!

@@ -208,23 +208,24 @@ namespace Menge {
   std::cout << "Returning true\n";
   return true;
   }
+
+  ////////////////////////////////////////////////////////////////
+
+  Logger& operator<<( Logger& out, const ProjectSpec& spec ) {
+    out << "<?xml version=\"1.0\"?>\n\n<Project\n";
+    out << "\tscene=\"" << spec._sceneXML << "\"\n";
+    out << "\tbehavior=\"" << spec._behaviorXML << "\"\n";
+    out << "\tmodel=\"" << spec._modelName << "\"\n";
+    out << "\toutput=\"" << spec._scbFileName << "\"\n";
+    out << "\tscbVersion=\"" << spec._scbVersion << "\"\n";
+    out << "\tview=\"" << spec._viewConfig << "\"\n";
+    out << "\tduration=\"" << spec._duration << "\"\n";
+    out << "\ttimeStep=\"" << spec._timeStep << "\"\n";
+    out << "\trandom=\"" << spec._seed << "\"\n";
+    out << "\tdumpPath=\"" << spec._imgDumpPath << "\"\n";
+    out << "\tsubSteps=\"" << spec._subSteps << "\"\n";
+    out << "/>";
+    return out;
+  }
+
 }  // namespace Menge
-
-////////////////////////////////////////////////////////////////
-
-Menge::Logger& operator<<( Menge::Logger& out, const Menge::ProjectSpec& spec ) {
-  out << "<?xml version=\"1.0\"?>\n\n<Project\n";
-  out << "\tscene=\"" << spec._sceneXML << "\"\n";
-  out << "\tbehavior=\"" << spec._behaviorXML << "\"\n";
-  out << "\tmodel=\"" << spec._modelName << "\"\n";
-  out << "\toutput=\"" << spec._scbFileName << "\"\n";
-  out << "\tscbVersion=\"" << spec._scbVersion << "\"\n";
-  out << "\tview=\"" << spec._viewConfig << "\"\n";
-  out << "\tduration=\"" << spec._duration << "\"\n";
-  out << "\ttimeStep=\"" << spec._timeStep << "\"\n";
-  out << "\trandom=\"" << spec._seed << "\"\n";
-  out << "\tdumpPath=\"" << spec._imgDumpPath << "\"\n";
-  out << "\tsubSteps=\"" << spec._subSteps << "\"\n";
-  out << "/>";
-  return out;
-}
