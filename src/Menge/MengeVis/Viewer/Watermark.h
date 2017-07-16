@@ -76,6 +76,21 @@ namespace MengeVis {
 			 */
 			void drawGL( float w, float h ) const;
 
+      /*! 
+       *  @brief    Reports the alignment of the watermark.
+       */
+      WatermarkAlign get_alignment() const { return _alignment; }
+
+      /*!
+      *  @brief    Reports the opacity of the watermark.
+      */
+      float get_opacity() const { return _opacity; }
+
+      /*!
+      *  @brief    Reports the scale of the watermark.
+      */
+      float get_scale() const { return _scale; }
+
 			friend Watermark *	parseWatermark( TiXmlElement * node, const std::string & viewFldr );
 			
 		protected:

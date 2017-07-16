@@ -36,20 +36,23 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
+#include "MengeCore/Runtime/os.h"
+#include "MengeVis/SceneGraph/GLLight.h"
 #include "MengeVis/Viewer/ViewConfig.h"
 #include "MengeVis/Viewer/Watermark.h"
-#include "MengeCore/Runtime/os.h"
 
 #include "tinyxml/tinyxml.h"
 
 #include <fstream>
 #include <iostream>
+#include <sstream>
 
 using Menge::Logger;
 
 namespace MengeVis {
 
 	using Menge::logger;
+  using SceneGraph::GLLight;
 
 	namespace Viewer {
 
@@ -95,7 +98,7 @@ namespace MengeVis {
 		//			Implementation of ViewConfig
 		////////////////////////////////////////////////////////////////////////////
 
-		ViewConfig::ViewConfig():_viewFldr("."), _waterMark(0x0) {
+		ViewConfig::ViewConfig() : _viewFldr("."), _waterMark(0x0) {
 			setDefaults();
 		}
 
@@ -144,6 +147,14 @@ namespace MengeVis {
 			double d;
 			int i;
 
+      _z_up = false;
+      if ( rootNode->Attribute( "z_up", &i ) ) {
+        _z_up = i != 0;;
+      }
+      if ( !_z_up ) {
+        logger << Logger::WARN_MSG << "\tView parameters expressed in left-handed, y-up frame.";
+      }
+
 			if ( !rootNode->Attribute( "width", &i ) ) {
 				logger << Logger::ERR_MSG << "\tView element on line " << rootNode->Row();
 				logger << " must specify width parameter.";
@@ -166,6 +177,7 @@ namespace MengeVis {
 				Menge::os::path::absPath( tmp, _bgImg );
 			}
 
+      bool parsed_font = false;
 			_camSpecs.clear();
 			_lightSpecs.clear();
 			TiXmlElement* child;
@@ -174,6 +186,13 @@ namespace MengeVis {
 				 child = child->NextSiblingElement()) {
 				if ( child->ValueStr() == "Camera" ) {
 					CameraParam cam;
+          // name
+          const char * name = child->Attribute( "name" );
+          if ( name != nullptr ) {
+            cam._name = name;
+          } else {
+            cam._name = "Camera " + std::to_string( _camSpecs.size() + 1 );
+          }
 					// position
 					if ( !child->Attribute( "xpos", &d ) ) {
 						logger << Logger::ERR_MSG << "\tCamera element on line " << child->Row();
@@ -242,6 +261,9 @@ namespace MengeVis {
 						cam._orthoScale = (float)d;
 					}
 					if ( valid ) {
+            if ( !_z_up ) {
+              cam.xformToZUp();
+            }
 						_camSpecs.push_back( cam );
 					}
 
@@ -334,10 +356,14 @@ namespace MengeVis {
 					if ( child->Attribute( "diffA", &d ) ) {
 						light._a = (float)d;
 					}
-					if ( valid ) {
+          if ( valid ) {
+            if ( !_z_up ) {
+              light.xformToZUp();
+            }
 						_lightSpecs.push_back( light );
 					}
 				} else if ( child->ValueStr() == "Font" ) {
+          parsed_font = true;
 					// font name
 					const char * name = child->Attribute( "name" );
 					if ( name != 0x0 ) {
@@ -368,8 +394,74 @@ namespace MengeVis {
 				logger << Logger::WARN_MSG << "No cameras specified; using default!";
 				_camSpecs.push_back( CameraParam() );
 			}
+      if ( valid && !_z_up ) {
+        logger << Logger::WARN_MSG << "Converted to z-up. " 
+          << "Replace your view configuration with the following xml:\n\n";
+        logger << toXML(parsed_font);
+      }
 			return valid;
 		}
+
+    ////////////////////////////////////////////////////////////////////////////
+
+    std::string ViewConfig::toXML( bool include_font ) const {
+      std::stringstream ss;
+      ss << "<?xml version=\"1.0\"?>\n\n";
+      ss << "<View width=\"" << _width << "\" height=\"" << _height << "\" z_up=\"1\"";
+      if ( !_bgImg.empty() ) {
+        ss << " bgImg=\"" << _bgImg << "\"";
+      }
+      ss << " >\n";
+      for ( const auto& cam : _camSpecs ) {
+        ss << "\t<Camera "
+          << "xpos=\"" << cam._posX << "\" ypos=\"" << cam._posY << "\" zpos=\"" << cam._posZ
+          << "\" xtgt=\"" << cam._tgtX << "\" ytgt=\"" << cam._tgtY << "\" ztgt=\"" << cam._tgtZ
+          << "\" far=\"" << cam._farPlane << "\" near=\"" << cam._nearPlane << "\" fov=\""
+          << cam._fov << "\" orthoScale=\"" << cam._orthoScale << "\"/>\n";
+      }
+      for ( const auto& light : _lightSpecs ) {
+        ss << "\t<Light "
+          << "x=\"" << light._x << "\" y=\"" << light._y << "\" z=\"" << light._z << "\" "
+          << "type=\"" << ( light._w == 0.f ? "directional" : "point" ) << "\" "
+          << "space=\"" << ( light._space == GLLight::WORLD ? "world" : "camera" ) << "\" "
+          << "diffR=\"" << light._r << "\" diffG=\"" << light._g << "\" diffB=\"" << light._b
+          << "\"/>\n";
+      }
+      if ( include_font ) {
+        ss << "\t<Font "
+          << "name=\"" << _fontName << "\" r=\"" << _fontColor[ 0 ] << "\" g=\""
+          << _fontColor[ 1 ] << "\" b=\"" << _fontColor[ 2 ] << "\" a=\"" << _fontColor[ 3 ]
+          << "\"/>\n";
+      }
+      if ( _waterMark != nullptr ) {
+        ss << "\t<Watermark file_name=\"" << _waterMark->getFilename() << "\" "
+          << "alignment=\"";
+        switch ( _waterMark->get_alignment() ) {
+          case NO_ALIGN:
+            ss << "bad alignment";
+            break;
+          case CENTERED:
+            ss << "centered";
+            break;
+          case BOTTOM_LEFT:
+            ss << "bottom_left";
+            break;
+          case BOTTOM_RIGHT:
+            ss << "bottom_right";
+            break;
+          case TOP_LEFT:
+            ss << "top_left";
+            break;
+          case TOP_RIGHT:
+            ss << "top_right";
+            break;
+        }
+        ss << "\" scale=\"" << _waterMark->get_scale() << "\" "
+          << "opacity=\"" << _waterMark->get_opacity() << "\"/>\n";
+      }
+      ss << "</View>\n";
+      return ss.str();
+    }
 
 		////////////////////////////////////////////////////////////////////////////
 
@@ -394,6 +486,7 @@ namespace MengeVis {
 			camera.setTarget( cfg._tgtX, cfg._tgtY, cfg._tgtZ );
 			camera.setFarPlane( cfg._farPlane );
 			camera.setNearPlane( cfg._nearPlane );
+      camera.set_name( cfg._name );
 			if ( cfg._projType == SceneGraph::GLCamera::ORTHO ) {
 				camera.setOrtho( cfg._orthoScale );
 			} else {
@@ -432,27 +525,27 @@ namespace MengeVis {
 				setLight( light, i );
 				lights.push_back( light );
 			}
-		}
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
+
+    Logger& operator<< ( Logger& out, const ViewConfig& cfg ) {
+      out << "View configuration:";
+      out << "\n\twidth:              " << cfg._width;
+      out << "\n\theight:             " << cfg._height;
+      for ( size_t i = 0; i < cfg._camSpecs.size(); ++i ) {
+        out << "\n\t" << i << " " << cfg._camSpecs[ i ];
+      }
+      for ( size_t i = 0; i < cfg._lightSpecs.size(); ++i ) {
+        out << "\n\t" << i << " " << cfg._lightSpecs[ i ];
+      }
+      out << "\n\tBackground image:   " << cfg._bgImg;
+      if ( cfg._waterMark ) {
+        out << "\n\tWatermark image: " << cfg._waterMark->getFilename();
+      }
+      return out;
+    }
 
 	}	// namespace Viewer
 }	// namespace MengeVis
 
-////////////////////////////////////////////////////////////////////////////
-
-Logger & operator<< ( Logger & out, const MengeVis::Viewer::ViewConfig & cfg ) {
-	out << "View configuration:";
-	out << "\n\twidth:              " << cfg._width;
-	out << "\n\theight:             " << cfg._height;
-	for ( size_t i = 0; i < cfg._camSpecs.size(); ++i ) {
-		out << "\n\t" << i << " " << cfg._camSpecs[i];
-	}
-	for ( size_t i = 0; i < cfg._lightSpecs.size(); ++i ) {
-		out << "\n\t" << i << " " << cfg._lightSpecs[i];
-	}
-	out << "\n\tBackground image:   " << cfg._bgImg;
-	if ( cfg._waterMark ) {
-		out << "\n\tWatermark image: " << cfg._waterMark->getFilename() ;
-	}
-
-	return out;
-}

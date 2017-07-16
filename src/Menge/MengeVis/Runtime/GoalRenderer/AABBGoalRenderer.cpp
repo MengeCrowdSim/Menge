@@ -33,11 +33,11 @@ namespace MengeVis {
 				const Vector2 & minPt = shape->getMinPoint();
 				const Vector2 & size = shape->getSize();;
 				glBegin( GL_POLYGON );
-				glVertex3f( minPt.x(), 0.f, minPt.y() );
-				glVertex3f( minPt.x() + size.x(), 0.f, minPt.y() );
-				glVertex3f( minPt.x() + size.x(), 0.f, minPt.y() + size.y() );
-				glVertex3f( minPt.x(), 0.f, minPt.y() + size.y() );
-				glVertex3f( minPt.x(), 0.f, minPt.y() );
+        glVertex3f( minPt.x(), minPt.y(), 0.f );
+        glVertex3f( minPt.x() + size.x(), minPt.y(), 0.f );
+        glVertex3f( minPt.x() + size.x(), minPt.y() + size.y(), 0.f );
+        glVertex3f( minPt.x(), minPt.y() + size.y(), 0.f );
+        glVertex3f( minPt.x(), minPt.y(), 0.f );
 				glEnd();
 			}
 		}	// namespace GoalVis

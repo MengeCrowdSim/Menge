@@ -34,7 +34,7 @@ namespace MengeVis {
 				glPushMatrix();
 				const Vector2 & pos = shape->getCenter();
 				float radius = shape->getRadius();
-				glTranslatef( pos.x(), 0.f, pos.y() );
+        glTranslatef( pos.x(), pos.y(), 0.f );
 				glScalef( radius, radius, radius );
 				SceneGraph::Circle::drawUnit();
 				glPopMatrix();

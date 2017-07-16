@@ -24,6 +24,7 @@
 #ifndef __VIEW_CONFIG_H__
 #define __VIEW_CONFIG_H__
 
+#include <algorithm>
 #include <string>
 #include <vector>
 #include "MengeVis/VisConfig.h"
@@ -55,6 +56,23 @@ namespace MengeVis {
 				_fov = 0.f;
 				_projType = SceneGraph::GLCamera::ORTHO;
 			}
+
+      /*!
+       *  Assuming the current camera parameters have been expressed in a left-handed, y-up frame,
+       *  performs the work necessary to move it to the equivalent right-handed, z-up frame.
+       */
+      void xformToZUp() {
+        // Swap z- and y-axes.
+        std::swap( _posY, _posZ );
+        std::swap( _tgtY, _tgtZ);
+        _tgtY = -_tgtY;
+        _posY = -_posY;
+      }
+
+      /*!
+       *  @brief    The name of the camera.
+       */
+      std::string _name;
 
 			/*!
 			 *	@brief		Camera x-position in world space.
@@ -111,7 +129,7 @@ namespace MengeVis {
 			 *
 			 *	@see		SceneGraph::GLCamera
 			 */
-			SceneGraph::GLCamera::CamEnum	_projType;
+      SceneGraph::GLCamera::ProjectionType _projType;
 		};
 
 		////////////////////////////////////////////////////////////////////////////
@@ -128,7 +146,17 @@ namespace MengeVis {
 				_r = _g = _b = 1.f;
 				_x = _y = _z = 1.f;
 				_w = 0.f;	// 0 --> directional, 1 --> point
-			}
+      }
+
+      /*!
+       *  Assuming the current camera parameters have been expressed in a left-handed, y-up frame,
+       *  performs the work necessary to move it to the equivalent right-handed, z-up frame.
+       */
+      void xformToZUp() {
+        // Swap z- and y-axes.
+        // TODO: Determine if I have to account for point lights differently from directional lights.
+        if ( _space == SceneGraph::GLLight::WORLD ) std::swap( _y, _z );
+      }
 
 			/*!
 			 *	@brief		The red channel of the light's diffuse color.
@@ -204,6 +232,11 @@ namespace MengeVis {
 			 */
 			bool readXML( const std::string & fileName );
 
+      /*!
+       *  @brief    Writes the current configuration to an XML string.
+       */
+      std::string toXML(bool include_font) const;
+
 			/*!
 			 *	@brief		Sets the view configuration to a set of default values.
 			 */
@@ -240,6 +273,11 @@ namespace MengeVis {
 			 *							will be deleted.
 			 */
 			void setLights( std::vector< SceneGraph::GLLight > & lights ) const;
+
+      /*!
+       *  @brief    If true, indicates that the view specification is in a z-up specification.
+       */
+      bool _z_up;
 
 			/*!
 			 *	@brief		The folder the view configuration file is located in.
@@ -286,18 +324,20 @@ namespace MengeVis {
 			 */
 			std::vector< LightParam >	_lightSpecs;
 		};
+
+
+    /*!
+     *	@brief		Streaming output operator to display configuration specification.
+     *
+     *	@param		out		The output stream to which to write the view configuration.
+     *	@param		cfg		The configuration to convert to a string.
+     *	@returns	The output stream.
+     */
+    MENGEVIS_API Menge::Logger& operator<< ( Menge::Logger & out,
+                                             const ViewConfig& cfg );
+
 	}	// namespace Viewer
 
 }	// namespace MengeVis
-
-/*!
- *	@brief		Streaming output operator to display configuration specification.
- *
- *	@param		out		The output stream to which to write the view configuration.
- *	@param		cfg		The configuration to convert to a string.
- *	@returns	The output stream.
- */
-MENGEVIS_API Menge::Logger & operator<< ( Menge::Logger & out,
-										  const MengeVis::Viewer::ViewConfig & cfg );
 
 #endif // __VIEW_CONFIG_H__

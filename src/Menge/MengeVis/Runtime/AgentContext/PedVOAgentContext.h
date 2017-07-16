@@ -68,8 +68,8 @@ namespace MengeVis {
 			// NORMAL space
 			glColor3f( 0.2f, 0.2f, 1.f );
 			glBegin( GL_POINTS );
-			glVertex3f( agent->_pos.x() + agent->_velNew.x(), Y,
-						agent->_pos.y() + agent->_velNew.y() );
+			glVertex3f( agent->_pos.x() + agent->_velNew.x(),
+                  agent->_pos.y() + agent->_velNew.y(), H );
 			glEnd();
 			writeTextRadially( "  v_new  ", agent->_pos + agent->_velNew, agent->_velNew, true );
 
@@ -80,7 +80,7 @@ namespace MengeVis {
 			vy /= agent->_turningBias;
 			glColor3f( 1.f, 0.1f, 1.f );
 			glBegin( GL_POINTS );
-			glVertex3f( agent->_pos.x() + vx, Y, agent->_pos.y() + vy );
+      glVertex3f( agent->_pos.x() + vx, agent->_pos.y() + vy, H );
 			glEnd();
 			Menge::Math::Vector2 vn( vx, vy );
 			writeTextRadially( "  v_new^x", agent->_pos + vn, vn, true );
@@ -117,10 +117,8 @@ namespace MengeVis {
 					float turnInv = 1.f / agent->_turningBias;
 
 					// scale
-					Menge::Math::Vector2 p( line._point.x(),
-											line._point.y() * agent->_turningBias );
-					Menge::Math::Vector2 d( line._direction.x(),
-											line._direction.y() * agent->_turningBias );
+					Menge::Math::Vector2 p( line._point.x(), line._point.y() * agent->_turningBias );
+					Menge::Math::Vector2 d( line._direction.x(), line._direction.y() * agent->_turningBias );
 					// rotate
 					float px = p * prefDir;
 					float py = p * n;
@@ -140,27 +138,25 @@ namespace MengeVis {
 				}
 				if ( rotated ) {
 					if ( isAgent ) {
-						drawHalfPlane( lAffine, agent->_pos, 1.f, 0.5f, 0.f, Y );
-						if ( !_showOrcaLines ) drawHalfPlane( lEuclid, agent->_pos, 1.f, 0.f, 0.f,
-															  Y );
+						drawHalfPlane( lAffine, agent->_pos, 1.f, 0.5f, 0.f, H );
+						if ( !_showOrcaLines ) drawHalfPlane( lEuclid, agent->_pos, 1.f, 0.f, 0.f, H );
 					} else {
-						drawHalfPlane( lAffine, agent->_pos, 0.5f, 0.5f, 0.5f, Y );
-						if ( !_showOrcaLines ) drawHalfPlane( lEuclid, agent->_pos, 0.75f, 0.75f,
-															  0.75f, Y );
+						drawHalfPlane( lAffine, agent->_pos, 0.5f, 0.5f, 0.5f, H );
+						if ( !_showOrcaLines ) drawHalfPlane( lEuclid, agent->_pos, 0.75f, 0.75f, 0.75f, H );
 					}
 				} else {
 					if ( isAgent ) {
-						drawHalfPlane( lEuclid, agent->_pos, 1.f, 0.f, 0.f, Y );
+						drawHalfPlane( lEuclid, agent->_pos, 1.f, 0.f, 0.f, H );
 					} else {
-						drawHalfPlane( lEuclid, agent->_pos, 0.75f, 0.75f, 0.75f, Y );
+						drawHalfPlane( lEuclid, agent->_pos, 0.75f, 0.75f, 0.75f, H );
 					}
 				}
 
 			} else {
 				if ( isAgent ) {
-					drawHalfPlane( line, agent->_pos, 1.f, 0.f, 0.f, Y );
+					drawHalfPlane( line, agent->_pos, 1.f, 0.f, 0.f, H );
 				} else {
-					drawHalfPlane( line, agent->_pos, 0.75f, 0.75f, 0.75f, Y );
+					drawHalfPlane( line, agent->_pos, 0.75f, 0.75f, 0.75f, H );
 				}
 			}
 		}

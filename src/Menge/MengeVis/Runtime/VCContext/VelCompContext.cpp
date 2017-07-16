@@ -105,16 +105,16 @@ namespace MengeVis {
 					const int SAMPLES = int( theta / ( 5.f * DEG_TO_RAD ) + 0.5f );
 					const float dTheta = theta / SAMPLES;
 					glPushMatrix();
-					glTranslatef( pos.x(), elevation, pos.y() );
+          glTranslatef( pos.x(), pos.y(), elevation );
 					glScalef( length, length, length );
 					glBegin( GL_POLYGON );
 					glVertex3f( 0.f, 0.f, 0.f );
-					glVertex3f( right.x(), 0.f, right.y() );
+          glVertex3f( right.x(), right.y(), 0.f );
 					for ( int i = 1; i <= SAMPLES; ++i ) {
 						float angle = sTheta + i * dTheta;
 						float x = cos( angle );
 						float y = sin( angle );
-						glVertex3f( x, 0.f, y );
+            glVertex3f( x, y, 0.f );
 					}
 					glEnd();
 
@@ -124,19 +124,19 @@ namespace MengeVis {
 				// draw preferred direction
 				Vector2 dir( pVel.getPreferred() );
 				glPushMatrix();
-				glTranslatef( pos.x(), elevation, pos.y() );
-				float angle = atan2( -dir.y(), dir.x() ) * RAD_TO_DEG;
-				glRotatef( angle, 0.f, 1.f, 0.f );
+        glTranslatef( pos.x(), pos.y(), elevation );
+				float angle = atan2( dir.y(), dir.x() ) * RAD_TO_DEG;
+        glRotatef( angle, 0.f, 0.f, 1.f );
 				glColor3f( 1.f, 0.25f, 0.25f );
 				glLineWidth( 3.f );
 				const float SIZE = 0.1f;
 				const float HALF_SIZE = SIZE * 0.5f;
 				glBegin( GL_LINE_STRIP );
 				glVertex3f( 0.f, 0.f, 0.f );
-				glVertex3f( length - SIZE, 0.f, 0.f );
-				glVertex3f( length - SIZE, 0.f, -HALF_SIZE );
+        glVertex3f( length - SIZE, 0.f, 0.f );
+        glVertex3f( length - SIZE, -HALF_SIZE, 0.f );
 				glVertex3f( length, 0.f, 0.f );
-				glVertex3f( length - SIZE, 0.f, HALF_SIZE );
+        glVertex3f( length - SIZE, HALF_SIZE, 0.f );
 				glVertex3f( length - SIZE, 0.f, 0.f );
 				glEnd();
 				glPopMatrix();
@@ -145,7 +145,7 @@ namespace MengeVis {
 				glPointSize( 5.f );
 				glColor3f( 0.3f, 1.f, 1.f );
 				glBegin( GL_POINTS );
-				glVertex3f( pVel.getTarget()._x, elevation, pVel.getTarget()._y );
+        glVertex3f( pVel.getTarget()._x, pVel.getTarget()._y, elevation );
 				glEnd();
 				glPopAttrib();
 			}
@@ -153,7 +153,7 @@ namespace MengeVis {
 			/////////////////////////////////////////////////////////////////////
 
 			void VelCompContext::drawGoal( const Vector2 & goalPoint, const BaseAgent * agent ) const {
-				drawGoal( Vector3( goalPoint.x(), 0.f, goalPoint.y() ), agent->_radius );
+        drawGoal( Vector3( goalPoint.x(), goalPoint.y(), 0.f ), agent->_radius );
 			}
 
 			/////////////////////////////////////////////////////////////////////

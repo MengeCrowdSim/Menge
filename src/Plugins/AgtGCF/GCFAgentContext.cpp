@@ -170,18 +170,18 @@ namespace GCF {
 
 			// horz/vert axes
 			glBegin( GL_LINE_STRIP );
-			glVertex3f( 0.f, MAX_Y, 0.f );
+      glVertex3f( 0.f, 0.f, MAX_Y );
 			glVertex3f( 0.f, 0.f, 0.f );
 			glVertex3f( Simulator::MAX_AGENT_DIST, 0.f, 0.f );
 			glEnd();
 
 			// Tick marks
 			glBegin( GL_LINES );
-			glVertex3f( Simulator::MAX_AGENT_DIST, MAX_Y, 0.f );
+      glVertex3f( Simulator::MAX_AGENT_DIST, 0.f, MAX_Y );
 			glVertex3f( Simulator::MAX_AGENT_DIST, 0.f, 0.f );
-			glVertex3f( Simulator::MAX_AGENT_DIST - Simulator::AGENT_INTERP_WIDTH,MAX_Y, 0.f );
+      glVertex3f( Simulator::MAX_AGENT_DIST - Simulator::AGENT_INTERP_WIDTH, 0.f, MAX_Y );
 			glVertex3f( Simulator::MAX_AGENT_DIST - Simulator::AGENT_INTERP_WIDTH, 0.f, 0.f );
-			glVertex3f( Simulator::AGENT_INTERP_WIDTH, MAX_Y, 0.f );
+      glVertex3f( Simulator::AGENT_INTERP_WIDTH, 0.f, MAX_Y );
 			glVertex3f( Simulator::AGENT_INTERP_WIDTH, 0.f, 0.f );
 			glEnd();
 
@@ -352,8 +352,8 @@ namespace GCF {
 			glPushAttrib( GL_LINE_BIT );
 			glLineWidth( 3.f );
 			glBegin( GL_LINES );
-			glVertex3f( obst->getP0().x(), Y, obst->getP0().y() );
-			glVertex3f( obst->getP1().x(), Y, obst->getP1().y() );
+      glVertex3f( obst->getP0().x(), obst->getP0().y(), H );
+      glVertex3f( obst->getP1().x(), obst->getP1().y(), H );
 			glEnd();
 			glPopAttrib();
 
@@ -371,8 +371,8 @@ namespace GCF {
 		const float FORCE_RADIUS = 4 * agt->_radius;
 		Vector2 forceEnd = agt->_pos + forceDir * (_onlyForceDir ? FORCE_RADIUS : forceMag);
 		glBegin( GL_LINES );
-		glVertex3f( agt->_pos.x(), Y, agt->_pos.y() );
-		glVertex3f( forceEnd.x(), Y, forceEnd.y() );
+    glVertex3f( agt->_pos.x(), agt->_pos.y(), H );
+    glVertex3f( forceEnd.x(), forceEnd.y(), H );
 		glEnd();
 		// annotate illustration
 		std::stringstream ss;

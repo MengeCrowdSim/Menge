@@ -64,7 +64,7 @@ namespace MengeVis {
 		//			Implementation of BaseAgentContext
 		////////////////////////////////////////////////////////////////////////////
 
-		const float BaseAgentContext::Y = 0.01f;
+		const float BaseAgentContext::H = 0.01f;
 
 		////////////////////////////////////////////////////////////////////////////
 
@@ -154,7 +154,7 @@ namespace MengeVis {
 				glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
 
 				glPushMatrix();
-				glTranslatef( agt->_pos.x(), Y, agt->_pos.y() );
+        glTranslatef( agt->_pos.x(), agt->_pos.y(), H );
 				float r = agt->_neighborDist;
 				SceneGraph::Circle::drawCircle( r, 1.f, 0.75f, 0.85f, 0.05f );
 				SceneGraph::Circle::drawCircle( r, 1.f, 0.75f, 0.85f, 1.f, GL_LINE );
@@ -201,7 +201,7 @@ namespace MengeVis {
 				glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
 
 				glPushMatrix();
-				glTranslatef( agt->_pos.x(), Y, agt->_pos.y() );
+        glTranslatef( agt->_pos.x(), agt->_pos.y(), H );
 				float r = agt->_maxSpeed;
 				SceneGraph::Circle::drawCircle( r, 0.75f, 1.f, 0.85f, 0.05f );
 				SceneGraph::Circle::drawCircle( r, 0.75f, 1.f, 0.85f, 1.f, GL_LINE );
@@ -219,8 +219,8 @@ namespace MengeVis {
 				glDisable( GL_BLEND );
 				glColor3f( 0.9f, 0.45f, 0.1f );
 				glBegin( GL_LINES );
-				glVertex3f( agt->_pos.x(), Y, agt->_pos.y() );
-				glVertex3f( vel.x(), Y, vel.y() );
+        glVertex3f( agt->_pos.x(), agt->_pos.y(), H );
+        glVertex3f( vel.x(), vel.y(), H );
 				glEnd();
 
 				writeTextRadially( "v", vel, agt->_vel, true );
@@ -235,8 +235,8 @@ namespace MengeVis {
 				glDisable( GL_BLEND );
 				glColor3f( 0.75f, 0.f, 1.f );
 				glBegin( GL_LINES );
-				glVertex3f( agt->_pos.x(), Y, agt->_pos.y() );
-				glVertex3f( vel.x(), Y, vel.y() );
+        glVertex3f( agt->_pos.x(), agt->_pos.y(), H );
+        glVertex3f( vel.x(), vel.y(), H );
 				glEnd();
 
 				writeTextRadially( "v_p", vel, agt->_velPref.getPreferredVel(), true );
@@ -251,8 +251,8 @@ namespace MengeVis {
 				glDisable( GL_BLEND );
 				glColor3f( 0.75f, 0.75f, 0.75f );
 				glBegin( GL_LINES );
-				glVertex3f( agt->_pos.x(), Y, agt->_pos.y() );
-				glVertex3f( orient.x(), Y, orient.y() );
+        glVertex3f( agt->_pos.x(), agt->_pos.y(), H );
+        glVertex3f( orient.x(), orient.y(), H );
 				glEnd();
 
 				writeTextRadially( "orient", orient, agt->_orient, true );

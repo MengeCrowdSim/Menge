@@ -127,8 +127,8 @@ namespace MengeVis {
 			int lineCount = 0;
 			while ( val <= gridMaxH ) {
 				if ( lineCount % ( _minorCount + 1 ) ) {
-					glVertex3f( -gridMaxW, DEPTH, val );
-					glVertex3f( gridMaxW, DEPTH, val );
+          glVertex3f( -gridMaxW, val, DEPTH );
+          glVertex3f( gridMaxW, val, DEPTH );
 				}
 				lineCount += 1;
 				val += minorDist;
@@ -138,8 +138,8 @@ namespace MengeVis {
 			lineCount = 0;
 			while ( val <= gridMaxW ) {
 				if ( lineCount % ( _minorCount + 1 ) ) {
-					glVertex3f( val, DEPTH, -gridMaxH );
-					glVertex3f( val, DEPTH, gridMaxH );
+          glVertex3f( val, -gridMaxH, DEPTH );
+          glVertex3f( val, gridMaxH, DEPTH );
 				}
 				lineCount += 1;
 				val += minorDist;
@@ -151,15 +151,15 @@ namespace MengeVis {
 			// horizontal
 			val = -gridMaxH;
 			while ( val <= gridMaxH ) {
-				glVertex3f( -gridMaxW, DEPTH, val );
-				glVertex3f( gridMaxW, DEPTH, val );
+        glVertex3f( -gridMaxW, val, DEPTH );
+        glVertex3f( gridMaxW, val, DEPTH );
 				val += _majorDist;
 			}
 			// vertical
 			val = -gridMaxW;
 			while ( val <= gridMaxW ) {
-				glVertex3f( val, DEPTH, -gridMaxH );
-				glVertex3f( val, DEPTH, gridMaxH );
+        glVertex3f( val, -gridMaxH, DEPTH );
+        glVertex3f( val, gridMaxH, DEPTH );
 				val += _majorDist;
 			}
 			
@@ -167,8 +167,8 @@ namespace MengeVis {
 			glColor4f( _lineColor.x(), _lineColor.y(), _lineColor.z(), 0.2f );
 			glLineWidth( 3.0f );
 			// vertical
-			glVertex3f( 0.0f, DEPTH, -gridMaxH );
-			glVertex3f( 0.0f, DEPTH, gridMaxH );
+      glVertex3f( 0.0f, -gridMaxH, DEPTH );
+      glVertex3f( 0.0f, gridMaxH, DEPTH );
 			// horizontal
 			glVertex3f( -gridMaxW, DEPTH, 0.0f );
 			glVertex3f( gridMaxW, DEPTH, 0.0f );

@@ -1,16 +1,10 @@
 <?xml version="1.0"?>
 
-<View width="779" height="461" >
-	<!-- Multiple cameras are mapped to a key from 1-9 in the order they are defined here -->
-	<Camera xpos="-98.8348" ypos="100.107" zpos="-231.776" xtgt="-1.62617" ytgt="-0.92607" ztgt="-0.830689" far="600" near="0.01" fov="0.0" orthoScale="25.5" />
-	<Camera xpos="-0.937845" ypos="270.172" zpos="-0.412367" xtgt="-0.937845" ytgt="1.56268e-005" ztgt="-0.422367" far="600" near="0.01" fov="0.0" orthoScale="51.6643" />
-
-	<!-- Comment out lights for a constant-illuminated visualization -->
-	<Light x="1" y="0" z="-1" type="directional" diffR="1.0" diffG="0.8" diffB="0.8" space="camera"/>
-	<Light x="-1" y="0" z="-1" type="directional" diffR="0.8" diffG="0.8" diffB="1.0" space="camera"/>
-	<Light x="0" y="1" z="0" type="directional" diffR="0.8" diffG="0.8" diffB="0.8" space="world"/> 
-	
-	<Watermark file_name="../../mengeLogo.png" alignment="bottom_right" scale="0.5" opacity="0.25"/>
-	
-
+<View width="779" height="461" z_up="1" >
+    <Camera xpos="-65.071" ypos="-202.149" zpos="165.712" xtgt="-1.25322" ytgt="0.0762103" ztgt="-1.69529" far="600" near="0.01" fov="0.0" orthoScale="25.5" />
+    <Camera xpos="-0.968053" ypos="-0.542457" zpos="270.172" xtgt="-0.968053" ytgt="-0.532457" ztgt="-1.97146e-005" far="600" near="0.01" fov="0.0" orthoScale="46.8169" />
+    <Light x="1" y="-1" z="0" type="directional" space="camera" diffR="1" diffG="0.8" diffB="0.8"/>
+    <Light x="-1" y="-1" z="0" type="directional" space="camera" diffR="0.8" diffG="0.8" diffB="1"/>
+    <Light x="0" y="0" z="1" type="directional" space="world" diffR="0.8" diffG="0.8" diffB="0.8"/>
+    <Watermark file_name="../../mengeLogo.png" alignment="bottom_right" scale="0.5" opacity="0.25"/>
 </View>

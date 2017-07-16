@@ -111,7 +111,7 @@ namespace MengeVis {
 		void VisAgent::setPosition() {
 			if ( _agent != 0x0 ) {
 				const Vector2 & pos = _agent->_pos;
-				_pos.set( pos.x(), 0.f, pos.y() );
+        _pos.set( pos.x(), pos.y(), 0.f );
 			}
 		}
 

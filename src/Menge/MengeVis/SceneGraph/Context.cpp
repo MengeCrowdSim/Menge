@@ -114,12 +114,12 @@ namespace MengeVis {
 										 const Vector2 & dir, bool currColor ) const {
 			TextWriter * writer = TextWriter::Instance();
 			double winx, winy, winz;
-			gluProject( pos.x(), 0.f, pos.y(), _modViewMat, _projMat, _viewMat,
+      gluProject( pos.x(), pos.y(), 0.f, _modViewMat, _projMat, _viewMat,
 						&winx, &winy, &winz );
 			float x = (float)winx;
 			float y = (float)winy;
 			Vector2 delta = pos + dir;
-			gluProject( delta.x(), 0.f, delta.y(), _modViewMat, _projMat, _viewMat,
+      gluProject( delta.x(), delta.y(), 0.f, _modViewMat, _projMat, _viewMat,
 						&winx, &winy, &winz );
 			float dx = (float)winx - x;
 			float dy = (float)winy - y;

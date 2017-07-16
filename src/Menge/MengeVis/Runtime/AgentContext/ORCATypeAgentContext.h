@@ -108,11 +108,11 @@ namespace MengeVis {
 			 *	@param		r			The red component of the half plane color
 			 *	@param		g			The green component of the half plane color
 			 *	@param		b			The blue component of the half plane color
-			 *	@param		Y			Value, on the y-axis (in world coordinates), of the
+			 *	@param		h			Value, on the verical-axis (in world coordinates), of the
 			 *							plane on which to draw the half plane
 			 */
 			void drawHalfPlane( const Menge::Math::Line & line, const Menge::Math::Vector2 & pos,
-								float r, float g, float b, float Y ) const;
+								float r, float g, float b, float h ) const;
 
 			/*!
 			 *	@brief		Draws the given ORCA line for the given agent
@@ -300,7 +300,7 @@ namespace MengeVis {
 		void ORCATypeAgentContext< Agent >::drawHalfPlane( const Menge::Math::Line & line,
 														   const Menge::Math::Vector2 & pos,
 														   float r, float g,
-														   float b, float Y ) const {
+														   float b, float h ) const {
 			const float DIST = 35.f;
 			Menge::Math::Vector2 norm( -line._direction.y(), line._direction.x() );
 			Menge::Math::Vector2 p0 = line._point + line._direction * DIST + pos;
@@ -313,16 +313,16 @@ namespace MengeVis {
 			glEnable( GL_BLEND );
 
 			glBegin( GL_QUADS );
-			glVertex3f( p0.x(), Y, p0.y() );
-			glVertex3f( p1.x(), Y, p1.y() );
-			glVertex3f( p2.x(), Y, p2.y() );
-			glVertex3f( p3.x(), Y, p3.y() );
+      glVertex3f( p0.x(), p0.y(), h );
+      glVertex3f( p1.x(), p1.y(), h );
+      glVertex3f( p2.x(), p2.y(), h );
+      glVertex3f( p3.x(), p3.y(), h );
 			glEnd();
 			glDisable( GL_BLEND );
 
 			glBegin( GL_LINES );
-			glVertex3f( p0.x(), Y, p0.y() );
-			glVertex3f( p3.x(), Y, p3.y() );
+      glVertex3f( p0.x(), p0.y(), h );
+      glVertex3f( p3.x(), p3.y(), h );
 			glEnd();
 		}
 
@@ -357,10 +357,10 @@ namespace MengeVis {
 					Menge::Math::Vector2 p2 = p1 - line._direction * ( 2 * DIST );
 					Menge::Math::Vector2 p3 = p2 + norm * DIST;
 
-					glVertex3f( p0.x(), this->Y, p0.y() );
-					glVertex3f( p1.x(), this->Y, p1.y() );
-					glVertex3f( p2.x(), this->Y, p2.y() );
-					glVertex3f( p3.x(), this->Y, p3.y() );
+          glVertex3f( p0.x(), p0.y(), this->H );
+          glVertex3f( p1.x(), p1.y(), this->H );
+          glVertex3f( p2.x(), p2.y(), this->H );
+          glVertex3f( p3.x(), p3.y(), this->H );
 				}
 				glEnd();
 				glDisable( GL_BLEND );
@@ -376,8 +376,8 @@ namespace MengeVis {
 					Menge::Math::Vector2 nearPt = line._point + t * line._direction;
 					Menge::Math::Vector2 p0 = nearPt + line._direction * DIST + agt->_pos;
 					Menge::Math::Vector2 p1 = nearPt - line._direction * DIST + agt->_pos;
-					glVertex3f( p0.x(), this->Y, p0.y() );
-					glVertex3f( p1.x(), this->Y, p1.y() );
+          glVertex3f( p0.x(), p0.y(), this->H );
+          glVertex3f( p1.x(), p1.y(), this->H );
 				}
 				glEnd();
 				// Label the orca lines from agents
@@ -439,7 +439,7 @@ namespace MengeVis {
 					Menge::Math::Vector2 center( agent->_pos + dir * minVel );
 					// First, draw leading circle
 					glPushMatrix();
-					glTranslatef( center.x(), this->Y, center.y() );
+          glTranslatef( center.x(), center.y(), this->H );
 					SceneGraph::Circle::drawCircle( Rmin, 0.1f, 1.f, 0.1f, 0.75f, GL_LINE );
 					glPopMatrix();
 
@@ -449,10 +449,10 @@ namespace MengeVis {
 																					-sx + cy );
 
 					glBegin( GL_LINES );
-					glVertex3f( r0.x(), this->Y, r0.y() );
-					glVertex3f( r1.x(), this->Y, r1.y() );
-					glVertex3f( l0.x(), this->Y, l0.y() );
-					glVertex3f( l1.x(), this->Y, l1.y() );
+          glVertex3f( r0.x(), r0.y(), this->H );
+          glVertex3f( r1.x(), r1.y(), this->H );
+          glVertex3f( l0.x(), l0.y(), this->H );
+          glVertex3f( l1.x(), l1.y(), this->H );
 					glEnd();
 
 					// Use right of way to compute velocities
@@ -477,16 +477,16 @@ namespace MengeVis {
 					// Other guy's velocity
 					glColor3f( 0.1f, 0.1f, 0.8f );
 					glBegin( GL_LINES );
-					glVertex3f( nbr->_pos.x(), this->Y, nbr->_pos.y() );
-					glVertex3f( nbr->_pos.x() + nbrVel.x(), this->Y, nbr->_pos.y() + nbrVel.y() );
+          glVertex3f( nbr->_pos.x(), nbr->_pos.y(), this->H );
+          glVertex3f( nbr->_pos.x() + nbrVel.x(), nbr->_pos.y() + nbrVel.y(), this->H );
 					glEnd();
 					this->writeTextRadially( "v_j", nbr->_pos + nbrVel, nbrVel, true );
 
 					// My velocity
 					glColor3f( 0.1f, 0.8f, 0.1f );
 					glBegin( GL_LINES );
-					glVertex3f( agent->_pos.x(), this->Y, agent->_pos.y() );
-					glVertex3f( agent->_pos.x() + agtVel.x(), this->Y, agent->_pos.y() + agtVel.y() );
+          glVertex3f( agent->_pos.x(), agent->_pos.y(), this->H );
+          glVertex3f( agent->_pos.x() + agtVel.x(), agent->_pos.y() + agtVel.y(), this->H );
 					glEnd();
 					this->writeTextRadially( "v_i", agent->_pos + agtVel, agtVel, true );
 
@@ -494,8 +494,8 @@ namespace MengeVis {
 					glColor3f( 0.1f, 0.8f, 0.8f );
 					glBegin( GL_LINES );
 					Menge::Math::Vector2 rel = agtVel - nbrVel;
-					glVertex3f( agent->_pos.x(), this->Y, agent->_pos.y() );
-					glVertex3f( agent->_pos.x() + rel.x(), this->Y, agent->_pos.y() + rel.y() );
+          glVertex3f( agent->_pos.x(), agent->_pos.y(), this->H );
+          glVertex3f( agent->_pos.x() + rel.x(), agent->_pos.y() + rel.y(), this->H );
 					glEnd();
 					this->writeTextRadially( "v_ij", agent->_pos + rel, rel, true );
 
@@ -519,9 +519,9 @@ namespace MengeVis {
 														  const Menge::Math::Line & line,
 														  bool isAgent ) const {
 			if ( isAgent ) {
-				drawHalfPlane( line, agent->_pos, 1.f, 0.f, 0.f, this->Y );
+				drawHalfPlane( line, agent->_pos, 1.f, 0.f, 0.f, this->H );
 			} else {
-				drawHalfPlane( line, agent->_pos, 0.75f, 0.75f, 0.75f, this->Y );
+				drawHalfPlane( line, agent->_pos, 0.75f, 0.75f, 0.75f, this->H );
 			}
 		}
 
@@ -536,8 +536,8 @@ namespace MengeVis {
 			glPointSize( 3.f );
 			glColor3f( 0.2f, 0.2f, 1.f );
 			glBegin( GL_POINTS );
-			glVertex3f( agent->_pos.x() + agent->_velNew.x(), this->Y,
-						agent->_pos.y() + agent->_velNew.y() );
+			glVertex3f( agent->_pos.x() + agent->_velNew.x(),
+                  agent->_pos.y() + agent->_velNew.y(), this->H );
 			glEnd();
 			this->writeTextRadially( "  v_new  ", agent->_pos + agent->_velNew, agent->_velNew, true );
 		}

@@ -153,7 +153,7 @@ namespace MengeVis {
 				float theta = i * dTheta;
 				float x = cos( theta );
 				float y = sin( theta );
-				glVertex3f( x, 0.f, y );
+        glVertex3f( x, y, 0.f );
 			}
 			glEnd();
 
@@ -230,29 +230,30 @@ namespace MengeVis {
 			// Simple cylinder
 			// bottom face
 			glBegin( GL_POLYGON );
-			glNormal3f( 0.f, -1.f, 0.f );
+      glNormal3f( 0.f, 0.f, -1.f );
 			for ( int i = SAMPLE_COUNT - 1; i >= 0; --i ) {
-				glVertex3f( points[ i ][ 0 ], 0.f, points[ i ][ 1 ] );
+        glVertex3f( points[ i ][ 0 ], points[ i ][ 1 ], 0.f );
 			}
 			glEnd();
-			
+
 			// top face
-			glNormal3f( 0.f, 1.f, 0.f );
+      glNormal3f( 0.f, 0.f, 1.f );
 			glBegin( GL_POLYGON );
 			for ( int i = 0 ; i < SAMPLE_COUNT; ++i ) {
-				glVertex3f( points[ i ][ 0 ], 1.f, points[ i ][ 1 ] );
+        glVertex3f( points[ i ][ 0 ], points[ i ][ 1 ], 1.f );
 			}
 			glEnd();
+
 			// walls
 			glBegin( GL_TRIANGLE_STRIP );
 			for ( int i = 0 ; i < SAMPLE_COUNT; ++i ) {
-				glNormal3f( points[ i ][ 0 ], 0.f, points[ i ][ 1 ] );
-				glVertex3f( points[ i ][ 0 ], 1.f, points[ i ][ 1 ] );
-				glVertex3f( points[ i ][ 0 ], 0.f, points[ i ][ 1 ] );
+        glNormal3f( points[ i ][ 0 ], points[ i ][ 1 ], 0.f );
+        glVertex3f( points[ i ][ 0 ], points[ i ][ 1 ], 1.f );
+        glVertex3f( points[ i ][ 0 ], points[ i ][ 1 ], 0.f );
 			}
-			glNormal3f( points[ 0 ][ 0 ], 0.f, points[ 0 ][ 1 ] );
-			glVertex3f( points[ 0 ][ 0 ], 1.f, points[ 0 ][ 1 ] );
-			glVertex3f( points[ 0 ][ 0 ], 0.f, points[ 0 ][ 1 ] );
+      glNormal3f( points[ 0 ][ 0 ], points[ 0 ][ 1 ], 0.f );
+      glVertex3f( points[ 0 ][ 0 ], points[ 0 ][ 1 ], 1.f );
+      glVertex3f( points[ 0 ][ 0 ], points[ 0 ][ 1 ], 0.f );
 			glEnd();
 
 			glEndList();
@@ -289,7 +290,7 @@ namespace MengeVis {
 			glPolygonMode( GL_FRONT_AND_BACK, style );
 			glColor4f(r,g,b,a);
 			glPushMatrix();
-			glScalef( radius, height, radius );
+      glScalef( radius, radius, height );
 			glCallList( GL_ID );
 			glPopMatrix();
 			glPopAttrib();
