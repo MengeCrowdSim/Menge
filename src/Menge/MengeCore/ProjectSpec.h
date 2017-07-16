@@ -278,7 +278,7 @@ namespace Menge {
      *	@param		spec		A ProjectSpec
      *	@returns	A reference to the output stream
      */
-    friend Logger& operator<<( Logger& out, const ProjectSpec& spec );
+    friend MENGE_API Logger& operator<<( Logger& out, const ProjectSpec& spec );
 
   private:
     /*!
