@@ -36,10 +36,10 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 */
 
-#include "MengeVis/SceneGraph/GLLight.H"
+#include "MengeCore/Runtime/os.h"
+#include "MengeVis/SceneGraph/GLLight.h"
 #include "MengeVis/Viewer/ViewConfig.h"
 #include "MengeVis/Viewer/Watermark.h"
-#include "MengeCore/Runtime/os.h"
 
 #include "tinyxml/tinyxml.h"
 
