@@ -3,7 +3,7 @@
   <ImportGroup Label="PropertySheets">
   </ImportGroup>
   <PropertyGroup Label="UserMacros" >
-    <MengeSrc>$(SolutionDir)..\..\..\src\Menge\</MengeSrc>
+    <MengeSrc>$(SolutionDir)..\..\..\src\Menge</MengeSrc>
     <MengeLib>$(SolutionDir)..\Menge\build\lib</MengeLib>
     <PluginSrc>$(SolutionDir)..\..\..\src\Plugins</PluginSrc>
   </PropertyGroup>
