@@ -57,7 +57,7 @@ It is worth noting that this simulation time step can be overridden on the [comm
 	
 @section sec_sceneAgentProfile Agent Profile Definitions
 
-Menge allows for crowds made up of a heterogeneous population.  This heterogeneity can be realized using two complementary mechanisms: profiles and distributions.  An agent profile reflects the idea that there may be different classifications of agents (e.g., old/young, male/female, etc.)  These different classifications (or *profiles*) arise from the idea that the agents which belong to different profiles are possessed of quite different property values.  However, inside a single profile, there can still be variability across the agents.  This is done using *distributions*.  For example, agents modelling young male pedestrians may have a mean preferred walking speed of 1.5 m/s with a standard deviation of 0.1 m/s.  In contrast, old females would have a mean walking speed of 0.9 m/s and a standard deviation of 0.05 m/s.  
+%Menge allows for crowds made up of a heterogeneous population.  This heterogeneity can be realized using two complementary mechanisms: profiles and distributions.  An agent profile reflects the idea that there may be different classifications of agents (e.g., old/young, male/female, etc.)  These different classifications (or *profiles*) arise from the idea that the agents which belong to different profiles are possessed of quite different property values.  However, inside a single profile, there can still be variability across the agents.  This is done using *distributions*.  For example, agents modelling young male pedestrians may have a mean preferred walking speed of 1.5 m/s with a standard deviation of 0.1 m/s.  In contrast, old females would have a mean walking speed of 0.9 m/s and a standard deviation of 0.05 m/s.  
 
 Ultimately, the agent profile is directly concerned with defining *per-agent* parameters.  We specify an agent profile in the following manner:
 
@@ -81,7 +81,7 @@ The `<Common>` tag has the following values (order doesn't matter and exclusion 
 - `max_neighbors`: the maximum number of nearby *agents* which will be computed for defining an agent response.  Smaller numbers lead to faster simulations but can lead to simulation artifacts.
 - `obstacle_set`: All obstacles have a identifier (typically a power of two).  The agent's `obstacle_set` serves as a mask.  If the bit-wise and of the `obstacle_set` value and the obstacle's identifier is non-zero, the agent can "see" and respond to the obstacle, otherwise, it is ignored (see @ref page_ObstSet).
 - `neighbor_dist`: the maximum distance an agent can be and still be a neighbor candidate.  
-- `r`: in Menge, agents are largely modeled as circular disks.  This is the radius of that disk.
+- `r`: in %Menge, agents are largely modeled as circular disks.  This is the radius of that disk.
 - `class`: the visualization class of the agent.  Used by the visualizer.  Generally, agents with different class will be drawn differently.
 - `pref_speed`: the agents preferred speed (in m/s).
 - `max_speed`: the agents maximum speed of travel (in m/s).  The result of the pedestrian model's velocity computation will be clamped to this speed.
@@ -93,7 +93,7 @@ Finally, a profile can consist of zero or more [velocity modifiers](@ref Menge::
 
 @subsection subsec_sceneProfVariability Property Variability
 
-In the example above, every agent assigned the same profile would have the same property values.  Menge provides a mechanism to define distributions of values for any or all of the properties contained in an `<AgentProfile>` child tag (both `<Common>` and `<Model>` tags.  It looks like this (illustrated with the *common* property `pref_speed`):
+In the example above, every agent assigned the same profile would have the same property values.  %Menge provides a mechanism to define distributions of values for any or all of the properties contained in an `<AgentProfile>` child tag (both `<Common>` and `<Model>` tags.  It looks like this (illustrated with the *common* property `pref_speed`):
 
 	<AgentProfile name="PROFILE_NAME">
 		<Common max_angle_vel="360" max_neighbors="10" obstacleSet="1" neighbor_dist="5" r="0.19" class="1" pref_speed="1.04" max_speed="2" max_accel="5" >
