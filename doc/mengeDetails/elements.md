@@ -3,7 +3,7 @@ Elements                {#page_Elements}
 
 @section sec_elemSummary Element Summary
 
-Menge is comprised of *xx* different element types.  Each serves a particular purpose in the overall crowd simulation task.  By implementing each element's unique interface, the Menge framework can simulate scenarios across a vast behavioral space.
+%Menge is comprised of *xx* different element types.  Each serves a particular purpose in the overall crowd simulation task.  By implementing each element's unique interface, the %Menge framework can simulate scenarios across a vast behavioral space.
 
 @section sec_elemTypes Element Types
 
@@ -21,7 +21,7 @@ The element types are as follows:
 		+ [Elevations](@ref page_Elevation): Mechanism by which agents can move in domains that are not flat planes.
 		+ [Obstacle Sets](@ref page_ObstSet): Mechanism by which obstacles are introduced into the scene.
 		+ [Spatial Queries](@ref page_SpatialQuery): Mechanism by which spatial queries (e.g., k-nearest neighbors) are satisfied.
-		+ [Tasks](@ref page_Tasks): Mechanism by which arbitrary computation can be introduced into the Menge paradigm.  
+		+ [Tasks](@ref page_Tasks): Mechanism by which arbitrary computation can be introduced into the %Menge paradigm.  
 		
 	- [Behavioral Finite State Machine](@ref sec_Arch_BFSM)
 	
@@ -30,7 +30,7 @@ The element types are as follows:
 		+ [Actions](@ref page_Actions): Actions assigned to a state are applied to agents upon entering that state and can optionally be undone when the agent leaves the state.
 		+ [Events](@ref page_Events)
 		
-			Menge supports an event system for affecting agent behaviors.  The event system is comprised of three elements: an event trigger, effect, and target.
+			%Menge supports an event system for affecting agent behaviors.  The event system is comprised of three elements: an event trigger, effect, and target.
 			- [Event Triggers](@ref sec_EVT_Trigger): The definition of a condition on simulation state which causes an event to be applied to the simulation.
 			- [Event Effects](@ref sec_EVT_Effect): The definition of a response to an event (such as changing agent states, changing the simulation domain, etc.)
 			- [Event Targets](@ref sec_EVT_Target): The definition of the simulation entity that will be affected by the Event Effect.
@@ -45,6 +45,6 @@ The element types are as follows:
 		+ [Velocity Modifiers](@ref page_VelMod): A mechanism through which an agent's preferred velocity can be modified based on aribtrary simulation state.
 	- Future Elements
 	
-		There are plans to extend Menge's expressive ability by adding new element types.  We are always open to suggestions which will increase Menge's usefulness.
+		There are plans to extend %Menge's expressive ability by adding new element types.  We are always open to suggestions which will increase %Menge's usefulness.
 		
 		- Agent Sources: Entities which can dynamically introduce new agents into the simulation at arbitrary times rather than purely as initial conditions.
