@@ -118,7 +118,7 @@ bool parseCommandParameters( int argc, char* argv[], ProjectSpec* spec, const Si
   // Command line argument fields
   bool verbose = false;
   try {
-    TCLAP::CmdLine cmd( "Crowd simulation with behavior.  ", ' ', "0.9" );
+    TCLAP::CmdLine cmd( "Crowd simulation with behavior.  ", ' ', "0.9.2" );
     // arguments: flag, name, description, required, default value type description
     TCLAP::ValueArg< std::string > projArg( "p", "project", "The name of the project file", false,
                                             "", "string", cmd );
@@ -127,15 +127,13 @@ bool parseCommandParameters( int argc, char* argv[], ProjectSpec* spec, const Si
     TCLAP::ValueArg< std::string > behaveArg( "b", "behavior", "Scene behavior file", false, "",
                                               "string", cmd );
     TCLAP::ValueArg< std::string > viewCfgArg( "", "view", "A view config file to specify the "
-                                               "view - if this argument is specified, do not "
-                                               "specify the -i/-interactive argument.", false, "",
-                                               "string", cmd );
-    TCLAP::ValueArg< std::string > outputArg( "o", "output", "Name of output file (Only writes "
-                                              "output if file provided)", false, "",
+                                               "view.", false, "", "string", cmd );
+    TCLAP::ValueArg< std::string > outputArg( "o", "output", "Name of output scb file (Only writes"
+                                              " output if file provided)", false, "",
                                               "string", cmd );
     TCLAP::ValueArg< std::string > versionArg( "", "scbVersion", "Version of scb file to write "
                                                "(1.0, 2.0, 2.1, 2.2, 2.3, or 2.4 -- 2.1 is the "
-                                               "default", false, "2.1", "string", cmd );
+                                               "default", false, "", "string", cmd );
     TCLAP::ValueArg< float > durationArg( "d", "duration", "Maximum duration of simulation (if "
                                           "final state is not achieved.)  Defaults to 400 seconds.",
                                           false, -1.f, "float", cmd );
@@ -147,11 +145,11 @@ bool parseCommandParameters( int argc, char* argv[], ProjectSpec* spec, const Si
                                           "If not defined, or zero is given, the default seed will "
                                           "be extracted from the system clock every time a default "
                                           "seed is requested.  Otherwise the constant value will "
-                                          "be provided.", false, 0, "int", cmd );
+                                          "be provided.", false, -1, "int", cmd );
     TCLAP::ValueArg< int > subSampleArg( "", "subSteps", "Specify the number of sub steps to take."
                                          " If the simulation time step is 10 Hz with 1 substep, it"
                                          " actually runs at 20 Hz, but output is only updated at"
-                                         " 10 Hz.", false, 0, "int", cmd );
+                                         " 10 Hz.", false, -1, "int", cmd );
 
     std::string modelDoc = "The pedestrian model to use.  Should be one of: ";
     modelDoc += simDB.paramList();
@@ -227,8 +225,8 @@ bool parseCommandParameters( int argc, char* argv[], ProjectSpec* spec, const Si
     temp = viewCfgArg.getValue();
     if ( temp != "" ) spec->setView( temp );
 
-    spec->setSubSteps( (size_t)subSampleArg.getValue() );
-
+    int sub_steps = subSampleArg.getValue();
+    if (sub_steps > -1) spec->setSubSteps(static_cast<size_t>(sub_steps));
 
     temp = dumpPathArg.getValue();
     if ( temp != "" ) {
