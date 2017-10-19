@@ -3,9 +3,9 @@ Implementing new Pedestrian Models                {#page_PedModel}
 
 @section sec_overivew Overview
 
-The Menge architectural philosophy limits the type of pedestrian models which can be easily implemented as plug-ins.  Menge works with a particular class of pedestrian models, those that can be thought of as a function which map a per-agent preferred velocity and local state (nearby obstacles and agents) into a feasible velocity.  While this abstraction doesn't include all viable pedestrian simulators, it is a very common and convenient abstraction.  This type of pedestrian model is also referred to as a local collision avoidance or local navigation algorithm.
+The %Menge architectural philosophy limits the type of pedestrian models which can be easily implemented as plug-ins.  %Menge works with a particular class of pedestrian models, those that can be thought of as a function which map a per-agent preferred velocity and local state (nearby obstacles and agents) into a feasible velocity.  While this abstraction doesn't include all viable pedestrian simulators, it is a very common and convenient abstraction.  This type of pedestrian model is also referred to as a local collision avoidance or local navigation algorithm.
 
-In order to introduce a new pedestrian model into the Menge system, there are certain classes which must be implemented and some which are optional, they include:
+In order to introduce a new pedestrian model into the %Menge system, there are certain classes which must be implemented and some which are optional, they include:
 
 - Simulator class (required)
 - Pedestrian class (required)
@@ -15,11 +15,11 @@ In order to introduce a new pedestrian model into the Menge system, there are ce
 
 The Simulator and Pedestrian classes are responsible for the run-time computation which maps the preferred velocity to a feasible velocity.  The Simulator class holds the *global* simulation parameters.  The Pedestrian class holds the per-agent simulation parameters and performs the actual computation.
 
-The Simulator database entry class is how the plug-in registers the new pedestrian model with Menge (see @ref page_extension).  Menge uses it to instantiate the model-specific features at run time.  The agent initializer is only required if there are per-agent parameter values (beyond the BaseAgent properties enumerated in the `<Common>` tag.  Finally, you can extend the BaseAgentContext to provide an interactive visualization of the agent's velocity computation.  If you do not explicitly define one, the new pedestrian model will use the BaseAgentContext which allows for interactive querying of basic agent properties.
+The Simulator database entry class is how the plug-in registers the new pedestrian model with %Menge (see @ref page_extension).  %Menge uses it to instantiate the model-specific features at run time.  The agent initializer is only required if there are per-agent parameter values (beyond the BaseAgent properties enumerated in the `<Common>` tag.  Finally, you can extend the BaseAgentContext to provide an interactive visualization of the agent's velocity computation.  If you do not explicitly define one, the new pedestrian model will use the BaseAgentContext which allows for interactive querying of basic agent properties.
 
 @section sec_pedModel The Pedestrian Model
 
-This section discusses the required elements (including the quasi-optional agent initializer).  These must be implemented in order for the model to be usable by Menge.  We recommend that you place all of your pedestrian model elements in a common namespace.
+This section discusses the required elements (including the quasi-optional agent initializer).  These must be implemented in order for the model to be usable by %Menge.  We recommend that you place all of your pedestrian model elements in a common namespace.
 
 @subsection subsec_simulator Pedestrian Simulator
 
@@ -51,7 +51,7 @@ Replace `TagName` with a uniquely identifying string that is not `Common` (as th
 	
 Each attribute of the tag `TagName` will be passed into this function (as a parameter-value pair of strings).  The `setExpParam` function should test the parameter name, making sure it is expected, and confirm that the value is consistent with expectations.  If the parameter is expected and the string value is acceptable, it should return true, otherwise return false.
 
-It is recommended that the global parameters be stored as static members of the simulator.  This is a reasonable choice because Menge will only instantiate one Simulator at a time.  As global members of the simulator, each agent will have easy access to the global parameters without necessarily increasing the agent's memory footprint.
+It is recommended that the global parameters be stored as static members of the simulator.  This is a reasonable choice because %Menge will only instantiate one Simulator at a time.  As global members of the simulator, each agent will have easy access to the global parameters without necessarily increasing the agent's memory footprint.
 
 @subsection subsec_model Pedestrian Model
 
@@ -75,8 +75,8 @@ See PedOrca or PedHelbing for an example in how to implement these functions.
 
 @section sec_register Registering the Pedestrian Model
 
-Pedestrian models are registered with Menge via the templated class SimulatorDBEntry.  It is templated on both the simulator and the agent classes.  The simulator database entry performs several tasks:
-- It provides the command-line parameter which should be used to invoke this model (SimulatorDBEntry::commandLineName).  This name must be unique from all other models available to Menge -- if it is not unique, an error message wil be generated. 
+Pedestrian models are registered with %Menge via the templated class SimulatorDBEntry.  It is templated on both the simulator and the agent classes.  The simulator database entry performs several tasks:
+- It provides the command-line parameter which should be used to invoke this model (SimulatorDBEntry::commandLineName).  This name must be unique from all other models available to %Menge -- if it is not unique, an error message wil be generated. 
 - It provides a short description of the model (SimulatorDBEntry::briefDescription) -- displayed in response to the -l command-line argument -- and a detailed description of the model (SimulatorDBEntry::longDescription) -- displayed in response to the -L command-line argument.
 - It provides a name to be displayed in the title bar of the interactive viewer (SimulatorDBEntry::viewerName).
 - It instantiates a custom agent context (see @ref sec_pedVis) if one exists, or a basic agent context by default (SimulatorDBEntry::getAgentContext).
