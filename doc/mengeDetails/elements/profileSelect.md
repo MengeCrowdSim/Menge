@@ -19,5 +19,5 @@ This version of Menge includes the following implementations of the profile sele
 documentation for details on its semantics and how to instantiate this profile selector.
 - The [random profile selector](@ref Menge::Agents::ProfileSelectorRandom).  See the class 
 documentation for details on its semantics and how to instantiate this profile selector.
-
-Future versions of Menge will include profile selectors which can operate on sets of profiles, e.g., assigning profiles randomly or based on weighted distributions.
+- The [weighted profile selector](@ref Menge::Agents::ProfileSelectorWeighted).  See the class 
+documentation for details on its semantics and how to instantiate this profile selector.
