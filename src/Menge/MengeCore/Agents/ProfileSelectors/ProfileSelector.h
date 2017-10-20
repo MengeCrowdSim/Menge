@@ -112,7 +112,7 @@ namespace Menge {
 			 *	@param		profiles	A mapping from profile name to initializer.
 			 *	@returns	True if successful, false otherwise.
 			 */
-			virtual bool cacheProfiles( HASH_MAP< std::string, AgentInitializer * > profiles ) = 0;
+			virtual bool cacheProfiles( HASH_MAP< std::string, AgentInitializer * >& profiles ) = 0;
 		};
 
 	}	// namespace Agents
