@@ -53,7 +53,7 @@ namespace Menge {
 		////////////////////////////////////////////////////////////////////////////
 
 		bool ConstProfileSelector::cacheProfiles( HASH_MAP< std::string,
-												  AgentInitializer * > profiles ) {
+												  AgentInitializer * >& profiles ) {
 			HASH_MAP< std::string, AgentInitializer * >::iterator itr =
 				profiles.find( _profileName );
 			if ( itr != profiles.end() ) {
