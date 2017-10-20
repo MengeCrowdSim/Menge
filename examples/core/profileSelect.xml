@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<Project 
+	scene="profileSelect/profileSelectS.xml" 
+	behavior="profileSelect/profileSelectB.xml" 
+	view="profileSelect/profileSelectV.xml" 
+	model="orca"
+	dumpPath="images/test"
+/>
