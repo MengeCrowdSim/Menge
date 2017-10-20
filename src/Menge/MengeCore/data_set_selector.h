@@ -103,7 +103,7 @@ namespace Menge {
 				float accum_weight = 0.f;
 				for (auto& item : _data) {
 					accum_weight += item.weight;
-					if (accum_weight > TGT_WEIGHT) result = item.data;
+					if (accum_weight > TGT_WEIGHT) return item.data;
 				}
 			}
 			return result;
