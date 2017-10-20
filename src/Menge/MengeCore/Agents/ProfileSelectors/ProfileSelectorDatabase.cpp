@@ -39,6 +39,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 #include "MengeCore/Agents/ProfileSelectors/ProfileSelectorDatabase.h"
 
 #include "MengeCore/Agents/ProfileSelectors/ConstProfileSelector.h"
+#include "MengeCore/Agents/ProfileSelectors/profile_selector_random.h"
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
@@ -62,6 +63,7 @@ namespace Menge {
 	template <>
 	void ElementDB< Agents::ProfileSelectorFactory, Agents::ProfileSelector >::addBuiltins() {
 		addFactory( new Agents::ConstProfileSelectorFactory() );
+		addFactory(new Agents::ProfileSelectorRandomFactory());
 	}
 }	// namespace Menge
 
