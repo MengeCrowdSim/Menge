@@ -20,6 +20,7 @@ Release 0.9.2
 			- "weighted" profile selector. Assigns a profile to a newly created agent by drawing a
 			profile from a *weighted* set. The probability of selecting a particular profile is
 			proportional to its relative weight in the set.
+			- Adds a new demo (profileSelect) to illustrate how to use the new selectors.
 
 ----------------------------------------------------------------
 Release 0.9.1
