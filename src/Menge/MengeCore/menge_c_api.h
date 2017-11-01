@@ -65,6 +65,24 @@ extern "C" {
 
 	//@}
 
+	/*! @name       FSM introspection */
+	//@{
+
+	/*!
+	 *	@brief		Reports the name of the state with the given id.
+	 *	@param		state_id	The id of the desired state.
+	 *	@returns	A pointer to the c-string of the state's name. Nullptr if state_id does not
+	 *				refer to a valid state.
+	 */
+	MENGE_API const char* GetStateName(size_t state_id);
+
+	/*!
+	 *	@brief		Reports the number of states in the BFSM.
+	 */
+	MENGE_API size_t StateCount();
+
+	//@}
+
 	/*!	@name		Agent functions
 	 *	@brief		Functions for querying the state of the simulator agents.
 	 */
@@ -98,6 +116,24 @@ extern "C" {
 	 *	@returns			True if the values were successfully set.
 	 */
 	MENGE_API bool  GetAgentVelocity( size_t i, float * x, float * y, float * z );
+
+	/*!
+	 *	@brief		Reports the 2D preferred velocity of the indicated agent.
+	 *	@param		i		The index of the desired agent.
+	 *	@param[out] x		The preferred velocity's x-component.
+	 *	@param[out] y		The preferred velocity's y-component.
+	 *	@returns			True if the values were successfully set.
+	 */
+	MENGE_API bool GetAgentPrefVelocity(size_t i, float* x, float*y);
+
+	/*!
+	 *	@brief		Reports the id of the state the indicated agent is currently in.
+	 *
+	 *	@param		i			The index of the desired agent.
+	 *	@param[out]	state_id	The id of the state the agent is currently in.
+	 *	@returns				True if the values were successfully set.
+	 */
+	MENGE_API bool GetAgentState(size_t i, size_t* state_id);
 
 	/*!
 	 *	@brief		Reports the 2D orientation of the indicated agent.  It is the facing direction
