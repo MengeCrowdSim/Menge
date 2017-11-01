@@ -21,6 +21,9 @@ Release 0.9.2
 			profile from a *weighted* set. The probability of selecting a particular profile is
 			proportional to its relative weight in the set.
 			- Adds a new demo (profileSelect) to illustrate how to use the new selectors.
+		C-wrapper
+			- Added per-agent preferred velocity and state id.
+			- Added state introspection (number and names of states).
 
 ----------------------------------------------------------------
 Release 0.9.1

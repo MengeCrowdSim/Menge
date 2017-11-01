@@ -238,7 +238,7 @@ namespace Menge {
 			 *
 			 *	@returns	The state's name.
 			 */
-			std::string getName() const { return _name; }
+			const std::string& getName() const { return _name; }
 
 			/*!
 			 *	@brief		Returns the number of agents in this state.
