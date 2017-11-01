@@ -4,6 +4,7 @@
 #include "MengeCore/Agents/Events/EventSystem.h"
 #include "MengeCore/Agents/SimulatorInterface.h"
 #include "MengeCore/BFSM/FSM.h"
+#include "MengeCore/BFSM/State.h"
 #include "MengeCore/Core.h"
 #include "MengeCore/PluginEngine/CorePluginEngine.h"
 #include "MengeCore/Runtime/SimulatorDB.h"
@@ -64,6 +65,26 @@ extern "C" {
 
 	/////////////////////////////////////////////////////////////////////
 
+	const char* GetStateName(size_t state_id) {
+		assert(_simulator != nullptr);
+		Menge::BFSM::FSM* bfsm = _simulator->getBFSM();
+		if (state_id < bfsm->getNodeCount()) {
+			Menge::BFSM::State* state = bfsm->getNode(state_id);
+			return state->getName().c_str();
+		}
+		return nullptr;
+	}
+
+	/////////////////////////////////////////////////////////////////////
+
+	size_t StateCount() {
+		assert(_simulator != nullptr);
+		Menge::BFSM::FSM* bfsm = _simulator->getBFSM();
+		return bfsm->getNodeCount();
+	}
+
+	/////////////////////////////////////////////////////////////////////
+
 	size_t  AgentCount() {
 		assert(_simulator != 0x0);
 		return _simulator->getNumAgents();
@@ -92,6 +113,33 @@ extern "C" {
 			*x = agt->_vel._x;
 			*y = 0; // get elevation
 			*z = agt->_vel._y;
+			return true;
+		}
+		return false;
+	}
+
+	/////////////////////////////////////////////////////////////////////
+
+	bool GetAgentPrefVelocity(size_t i, float* x, float* y) {
+		assert(_simulator != nullptr);
+		Menge::Agents::BaseAgent* agt = _simulator->getAgent(i);
+		if (agt != nullptr) {
+			const auto& vel_pref = agt->_velPref.getPreferredVel();
+			*x = vel_pref._x;
+			*y = vel_pref._y;
+			return true;
+		}
+		return false;
+	}
+
+	/////////////////////////////////////////////////////////////////////
+
+	bool GetAgentState(size_t i, size_t* state_id) {
+		assert(_simulator != nullptr);
+		Menge::Agents::BaseAgent* agt = _simulator->getAgent(i);
+		if (agt != nullptr) {
+			const auto* bfsm = _simulator->getBFSM();
+			*state_id = bfsm->getAgentStateID(agt->_id);
 			return true;
 		}
 		return false;
