@@ -73,7 +73,7 @@ namespace Menge {
 
 	/////////////////////////////////////////////////////////////////////
 
-	void RoadMapPath::setPrefDirection( const Agents::BaseAgent * agent,
+	bool RoadMapPath::setPrefDirection( const Agents::BaseAgent * agent,
 										Agents::PrefVelocity & pVel ) {
 		// Assume that when I'm overlapping one node, that I can see the next
 		// Test to see if I can advance target way point
@@ -122,15 +122,20 @@ namespace Menge {
 			_validPos = agent->_pos;
 			pVel.setTarget( curr );
 		} else {
-			// This should never be the zero vector.
-			//	_validPos is set when the current waypoint is visible
-			//  this code is only achieved when it is NOT visible
-			//	POSSIBLY, something weird could happen where the next waypoint isn't visible, but
-			//		that breaks the earlier assertion.
-			dir = norm( _validPos - agent->_pos );
-			pVel.setTarget( _validPos );
+			if (Menge::SPATIAL_QUERY->queryVisibility(agent->_pos, _validPos, agent->_radius)) {
+				// This should never be the zero vector.
+				//	_validPos is set when the current waypoint is visible
+				//  this code is only achieved when it is NOT visible
+				//	POSSIBLY, something weird could happen where the next waypoint isn't visible, but
+				//		that breaks the earlier assertion.
+				dir = norm(_validPos - agent->_pos);
+				pVel.setTarget(_validPos);
+			} else {
+				return false;
+			}
 		}
 		pVel.setSingle( dir );
+		return true;
 	}
 
 	/////////////////////////////////////////////////////////////////////

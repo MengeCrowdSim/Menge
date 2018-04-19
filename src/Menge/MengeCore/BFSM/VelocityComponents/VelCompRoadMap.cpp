@@ -117,7 +117,23 @@ namespace Menge {
 				_lock.releaseRead();
 			}
 			pVel.setSpeed( agent->_prefSpeed );
-			path->setPrefDirection( agent, pVel );
+			if (!path->setPrefDirection(agent, pVel)) {
+				// Path got lost; replan and retry. If that couldn't produce a trajectory it
+				// becomes an irrecoverable error.
+				delete path;
+				Vector2 goalPoint = goal->getCentroid();
+				path = _roadmap->getPath(agent, goal);
+				// While this operation doesn't change the structure of the map (agent->_id is already a key),
+				// we lock it to prevent any *other* write operation from interfering.
+				_lock.lockWrite();
+				_paths[agent->_id] = path;
+				_lock.releaseWrite();
+				if (!path->setPrefDirection(agent, pVel)) {
+					throw VelCompFatalException(
+						"Agent " + std::to_string(agent->_id) + 
+						" following a roadmap path could *not* set preferred velocity");
+				}
+			}
 		}
 
 		/////////////////////////////////////////////////////////////////////
