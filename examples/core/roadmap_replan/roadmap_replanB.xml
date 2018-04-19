@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+
+<BFSM>
+	<GoalSet id="0">
+        <Goal id="0" max_x="2.29" max_y="4.57" min_x="0.81" min_y="2.33" type="AABB" weight="1.00"/>
+        <Goal id="1" type="point" weight="1.00" x="-0.07" y="-5.85"/>
+	</GoalSet>
+	
+	<State name="SingleWalk" final="0" >
+		<GoalSelector type="explicit" goal_set="0" goal="1" />
+		<VelComponent type="road_map" file_name="simple_roadmap.txt" />
+	</State>
+	<State name="MobWalk" final="0" >
+		<GoalSelector type="explicit" goal_set="0" goal="0" />
+		<VelComponent type="road_map" file_name="simple_roadmap.txt" />
+	</State>
+	
+	<State name="Done" final="1">
+		<GoalSelector type="identity" />
+		<VelComponent type="zero" />
+	</State>
+
+	<Transition from="SingleWalk" to="Done">
+		<Condition type="goal_reached" distance="0.25" />
+	</Transition>
+
+	<Transition from="MobWalk" to="Done">
+		<Condition type="goal_reached" distance="0.25" />
+	</Transition>
+
+</BFSM>
