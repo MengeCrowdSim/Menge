@@ -77,12 +77,14 @@ namespace Menge {
 		inline void setGoalPos( const BFSM::Goal * goal ) { _goal = goal; }
 
 		/*!
-		 *	@brief		Sets the direction of the preferred velocity (and target).
+		 *  @brief      Sets the direction of the preferred velocity (and target).
 		 *
-		 *	@param		agent		The agent to compute the preferred direciton for.
-		 *	@param		pVel		The preferred velocity to set.
+		 *  @param      agent     The agent to compute the preferred direciton for.
+		 *  @param      pVel      The preferred velocity to set.
+		 *  @returns    false if the preferred velocity could not be set and the agent
+		 *              must plan a new path.
 		 */
-		void setPrefDirection( const Agents::BaseAgent * agent, Agents::PrefVelocity & pVel ); 
+		bool setPrefDirection( const Agents::BaseAgent * agent, Agents::PrefVelocity & pVel ); 
 
 		/*!
 		 *	@brief		Reports the number of waypoints in the path.
