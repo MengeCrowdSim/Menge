@@ -10,38 +10,39 @@
 namespace Menge {
 
 /*!
- *	@brief		The underlying definition of a set-based selector. The set-based selector
- *  contains a unique collection of `Data` elements. Data instances can be drawn from the
- *  set based on index, uniform random selection, or weighted random selection.
+ @brief   The underlying definition of a set-based selector.
+
+ The set-based selector contains a unique collection of `Data` elements. Data instances can be drawn
+ from the set based on index, uniform random selection, or weighted random selection.
  */
 template <typename Data>
 class SetSelector {
  public:
   /*!
-   *	@brief	Reports the number of data elements in the set. *Not* thread safe.
+   @brief   Reports the number of data elements in the set. *Not* thread safe.
    */
   size_t size() const { return _data.size(); }
 
   /*!
-   *	@brief	Reports the number of data elements in the set. Thread safe version.
+   @brief   Reports the number of data elements in the set. Thread safe version.
    */
   size_t size_concurrent() const;
 
   /*!
-   *	@brief	Adds a data element to the set (with an implied unit weight of 1.0). This is
-   *	thread safe.
-   *
-   *	@param	data	The data element to add to the set. The data element must live longer
-   *					than this set.
+   @brief   Adds a data element to the set (with an implied unit weight of 1.0). This is thread
+            safe.
+
+   @param data  The data element to add to the set. The data element must live longer than this
+                set.
    */
   void addData(Data* data) { addData(data, 1.f); }
 
   /*!
-   *	@brief	Adds a data element to the set with the given weight. This is thread safe.
-   *
-   *	@param	data	The data element to add to the set. The data element must live longer
-   *					than this set.
-   *	@param  weight	The weight for this element.
+   @brief   Adds a data element to the set with the given weight. This is thread safe.
+
+   @param data    The data element to add to the set. The data element must live longer than this
+                  set.
+   @param weight  The weight for this element.
    */
   void addData(Data* data, float weight) {
     _lock.lockWrite();
@@ -51,11 +52,12 @@ class SetSelector {
   }
 
   /*!
-   *	@brief	Returns the ith element in the set (where i = `index`). The ordering is defined
-   *  by the order in which they were added to the set through calls to addData(). *Not*
-   *	thread safe.
-   *
-   *	@param index	The index of the desired data element.
+   @brief   Returns the ith element in the set (where i = `index`).
+   
+   The ordering is defined by the order in which they were added to the set through calls to
+   addData(). *Not* thread safe.
+
+   @param index  The index of the desired data element.
    */
   Data* getByIndex(size_t index) {
     assert(index < _data.size());
@@ -63,11 +65,12 @@ class SetSelector {
   }
 
   /*!
-   *	@brief	Returns the ith element in the set (where i = `index`). The ordering is defined
-   *  by the order in which they were added to the set through calls to addData(). The
-   *	thread safe version.
-   *
-   *	@param index	The index of the desired data element.
+   @brief   Returns the ith element in the set (where i = `index`).
+   
+   The ordering is defined by the order in which they were added to the set through calls to
+   addData(). The thread safe version.
+
+   @param index  The index of the desired data element.
    */
   Data* getByIndexConcurrent(size_t index) {
     _lock.lockRead();
@@ -77,7 +80,7 @@ class SetSelector {
   }
 
   /*!
-   *	@brief	Select one of the elements where all elements have equal probability.
+   @brief   Select one of the elements where all elements have equal probability.
    */
   Data* getRandom() const {
     const size_t DATA_COUNT = _data.size();
@@ -91,8 +94,7 @@ class SetSelector {
   }
 
   /*!
-   *	@brief	Select on of the elements with probabilities proportional to their relative
-   *	weights.
+   @brief   Select on of the elements with probabilities proportional to their relative weights.
    */
   Data* getWeighted() const {
     Data* result = nullptr;

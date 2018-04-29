@@ -49,7 +49,7 @@ namespace Menge {
 namespace Agents {
 
 ////////////////////////////////////////////////////////////////
-//					Implementation of NavMeshElevation
+//          Implementation of NavMeshElevation
 ////////////////////////////////////////////////////////////////
 
 NavMeshElevation::NavMeshElevation() : Elevation(), _navMesh(0x0), _localizer(0x0) {}

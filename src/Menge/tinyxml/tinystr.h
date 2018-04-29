@@ -42,7 +42,7 @@ distribution.
 #include <assert.h>
 #include <string.h>
 
-/*	The support for explicit isn't that universal, and it isn't really
+/*  The support for explicit isn't that universal, and it isn't really
         required - it is used to check that the TiXmlString class isn't incorrectly
         used. Be nice to old compilers and macro it here:
 */
@@ -160,13 +160,13 @@ class TiXmlString {
   void clear() {
     // Lee:
     // The original was just too strange, though correct:
-    //	TiXmlString().swap(*this);
+    //  TiXmlString().swap(*this);
     // Instead use the quit & re-init:
     quit();
     init(0, 0);
   }
 
-  /*	Function to reserve a big amount of data when we know we'll need it. Be aware that this
+  /*  Function to reserve a big amount of data when we know we'll need it. Be aware that this
           function DOES NOT clear the content of the TiXmlString if any exists.
   */
   void reserve(size_type cap);
@@ -195,7 +195,7 @@ class TiXmlString {
   void init(size_type sz, size_type cap) {
     if (cap) {
       // Lee: the original form:
-      //	rep_ = static_cast<Rep*>(operator new(sizeof(Rep) + cap));
+      //  rep_ = static_cast<Rep*>(operator new(sizeof(Rep) + cap));
       // doesn't work in some cases of new being overloaded. Switching
       // to the normal allocation, although use an 'int' for systems
       // that are overly picky about structure alignment.

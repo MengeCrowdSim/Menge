@@ -17,11 +17,11 @@
 */
 
 /*!
- *	@file		AgentGeneratorDatabase.h
- *	@brief		Central database for querying available agent generator implementations.
- *
- *	For agent generators to be used in simulation, they must register
- *	themselves into the AgentGeneratorDatabase.  This is done via the PluginEngine.
+ @file    AgentGeneratorDatabase.h
+ @brief    Central database for querying available agent generator implementations.
+
+ For agent generators to be used in simulation, they must register themselves into the
+ AgentGeneratorDatabase.  This is done via the PluginEngine.
  */
 
 #ifndef __AGENT_GENERATOR_DATABASE_H__
@@ -35,7 +35,7 @@ namespace Menge {
 
 namespace Agents {
 /*!
- *	@brief		The database of registered agent generator implementations.
+ @brief    The database of registered agent generator implementations.
  */
 typedef ElementDB<AgentGeneratorFactory, AgentGenerator> AgentGeneratorDB;
 

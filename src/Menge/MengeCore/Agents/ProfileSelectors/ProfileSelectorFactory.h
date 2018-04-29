@@ -17,9 +17,8 @@
 */
 
 /*!
- *	@file		ProfileSelectorFactory.h
- *	@brief		The factory for parsing xml data and instantiating
- *				profile selector implementations.
+ @file    ProfileSelectorFactory.h
+ @brief    The factory for parsing xml data and instantiating profile selector implementations.
  */
 
 #ifndef __PROFILE_SELECTOR_FACTORY_H__
@@ -33,8 +32,8 @@ namespace Menge {
 
 namespace Agents {
 /*!
- *	@brief		A class for parsing the xml description of an agent profile selector
- *				elements and instantiating particular instances.
+ @brief    A class for parsing the xml description of an agent profile selector elements and
+          instantiating particular instances.
  */
 class MENGE_API ProfileSelectorFactory : public ElementFactory<ProfileSelector> {};
 }  // namespace Agents

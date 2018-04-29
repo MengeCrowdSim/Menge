@@ -50,7 +50,7 @@ namespace Menge {
 namespace BFSM {
 
 /////////////////////////////////////////////////////////////////////
-//					Implementation of StateDescrip
+//          Implementation of StateDescrip
 /////////////////////////////////////////////////////////////////////
 
 StateDescrip::StateDescrip(const std::string& name, bool isFinal)
@@ -85,7 +85,7 @@ Logger& operator<<(Logger& out, const StateDescrip& state) {
   // TODO: realize this
   // std::list< Action * >::const_iterator aItr = state._actions.begin();
   // for ( ; aItr != state._actions.end(); ++aItr ) {
-  //	out << "\n" << (**aItr);
+  //  out << "\n" << (**aItr);
   //}
   return out;
 }
@@ -154,7 +154,7 @@ bool parseState(TiXmlElement* node, const std::string& behaveFldr,
                   "state "
                << s->_name << ".  Simulation cannot proceed.";
         // This doesn't result in a default -- this is an error.
-        //	A Goal selector MUST be specified.
+        //  A Goal selector MUST be specified.
         delete s;
         return false;
       }

@@ -1,7 +1,7 @@
 /*!
- *	@file		VisAgentDatabase.h
- *	@brief		The definition of the database for all agent visualizations.
- */
+ @file    VisAgentDatabase.h
+ @brief   The definition of the database for all agent visualizations.
+*/
 
 #ifndef __VIS_AGENT_DATABASE_H__
 #define __VIS_AGENT_DATABASE_H__
@@ -19,7 +19,7 @@ namespace MengeVis {
 namespace Runtime {
 class VisAgent;
 /*!
- *	@brief		The database of registered agent visualization types.
+ @brief   The database of registered agent visualization types.
  */
 typedef VisElementDB<VisAgent, Menge::Agents::BaseAgent> VisAgentDB;
 

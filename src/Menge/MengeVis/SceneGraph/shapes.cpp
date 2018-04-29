@@ -52,7 +52,7 @@ void initShapes() {
 }
 
 ///////////////////////////////////////////////////////////////////////////
-//				IMPLEMENTATION FOR Shape primitives
+//        IMPLEMENTATION FOR Shape primitives
 ///////////////////////////////////////////////////////////////////////////
 
 void glSphere(int samples) {
@@ -79,9 +79,9 @@ void glSphere(int samples) {
 
   for (int i = 0; i <= samples; ++i) {
     // vertical normal rotated around the x-axis (towards positive z)
-    //		[ -sx cx 0 ]^T
+    //    [ -sx cx 0 ]^T
     // That rotated around vertical axis
-    //		[ cysx  cx  -sxsy ]	// this is both the normal and the position
+    //    [ cysx  cx  -sxsy ]  // this is both the normal and the position
     int idx = i % samples;
     float sy = s[idx];
     float cy = c[idx];
@@ -117,9 +117,9 @@ void glSphere(int samples) {
 
   for (int i = 0; i <= samples; ++i) {
     // vertical normal rotated around the x-axis (towards positive z)
-    //		[ -sx cx 0 ]^T
+    //    [ -sx cx 0 ]^T
     // That rotated around vertical axis
-    //		[ cysx  cx  -sxsy ]	// this is both the normal and the position
+    //    [ cysx  cx  -sxsy ]  // this is both the normal and the position
     int idx = i % samples;
     float sy = s[idx];
     float cy = c[idx];
@@ -131,7 +131,7 @@ void glSphere(int samples) {
 }
 
 ///////////////////////////////////////////////////////////////////////////
-//				IMPLEMENTATION FOR Circle Shape
+//        IMPLEMENTATION FOR Circle Shape
 ///////////////////////////////////////////////////////////////////////////
 
 bool Circle::IS_REGISTERED = false;
@@ -199,7 +199,7 @@ void Circle::drawCircle(float radius, float r, float g, float b, float a, GLenum
 void Circle::drawUnit() { glCallList(GL_ID); }
 
 ///////////////////////////////////////////////////////////////////////////
-//				IMPLEMENTATION FOR Cylinder Shape
+//        IMPLEMENTATION FOR Cylinder Shape
 ///////////////////////////////////////////////////////////////////////////
 
 bool Cylinder::IS_REGISTERED = false;

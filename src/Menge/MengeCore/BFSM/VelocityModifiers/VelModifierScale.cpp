@@ -74,30 +74,30 @@ VelModifier* ScaleVelModifier::copy() const { return new ScaleVelModifier(_scale
 
   /////////////////////////////////////////////////////////////////////
 #if 0
-		VelModContext * ScaleVelModifier::getContext() {
-			return new ScaleVMContext(this);
-		}
+    VelModContext * ScaleVelModifier::getContext() {
+      return new ScaleVMContext(this);
+    }
 
-		/////////////////////////////////////////////////////////////////////
-		//				Implementation of ScaleVMContext
-		/////////////////////////////////////////////////////////////////////
-		
-		ScaleVMContext::ScaleVMContext(ScaleVelModifier *vm):VelModContext(), _vm(vm) {
-		};
+    /////////////////////////////////////////////////////////////////////
+    //        Implementation of ScaleVMContext
+    /////////////////////////////////////////////////////////////////////
 
-		/////////////////////////////////////////////////////////////////////
+    ScaleVMContext::ScaleVMContext(ScaleVelModifier *vm):VelModContext(), _vm(vm) {
+    };
 
-		std::string ScaleVMContext::getUIText( const std::string & indent ) const {
-			std::stringstream ss;
-			ss << indent << "Scale Applied: " << _vm->getScale();
-			return ss.str();
-		}
+    /////////////////////////////////////////////////////////////////////
 
-		/////////////////////////////////////////////////////////////////////
+    std::string ScaleVMContext::getUIText( const std::string & indent ) const {
+      std::stringstream ss;
+      ss << indent << "Scale Applied: " << _vm->getScale();
+      return ss.str();
+    }
 
-		void ScaleVMContext::draw3DGL( const Agents::BaseAgent * agt) {
-			// draw preferred velocity
-		}
+    /////////////////////////////////////////////////////////////////////
+
+    void ScaleVMContext::draw3DGL( const Agents::BaseAgent * agt) {
+      // draw preferred velocity
+    }
 #endif
 /////////////////////////////////////////////////////////////////////
 //                   Implementation of ScaleVMFactory

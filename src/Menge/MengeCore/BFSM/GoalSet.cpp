@@ -50,7 +50,7 @@ namespace Menge {
 namespace BFSM {
 
 /////////////////////////////////////////////////////////////////////
-//					Implementation of GoalSet
+//          Implementation of GoalSet
 /////////////////////////////////////////////////////////////////////
 
 GoalSet::GoalSet() : _goals(), _goalIDs(), _totalWeight(0.f), _randVal(0.f, 1.f) {}

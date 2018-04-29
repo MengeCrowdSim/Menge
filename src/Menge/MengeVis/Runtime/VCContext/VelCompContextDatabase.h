@@ -35,7 +35,7 @@ namespace VCContext {
 class VelCompContext;
 }  // namespace VCContext
    /*!
-    *	@brief		The database of registered agent contexts.
+    @brief    The database of registered agent contexts.
     */
 typedef VisElementDB<VCContext::VelCompContext, Menge::BFSM::VelComponent> VCContextDB;
 

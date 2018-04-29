@@ -49,7 +49,7 @@ namespace Agents {
 using Math::FloatGenerator;
 
 /////////////////////////////////////////////////////////////////////
-//					Implementation of AgentGeneratorFactory
+//          Implementation of AgentGeneratorFactory
 /////////////////////////////////////////////////////////////////////
 
 bool AgentGeneratorFactory::setFromXML(AgentGenerator* gen, TiXmlElement* node,

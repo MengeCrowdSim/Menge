@@ -51,7 +51,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 namespace Menge {
 
 /////////////////////////////////////////////////////////////////////
-//					Implementation of EventResponse
+//          Implementation of EventResponse
 /////////////////////////////////////////////////////////////////////
 
 EventResponse::EventResponse() : _effectName(), _effect(0x0), _targetName(), _target(0x0) {}
@@ -67,7 +67,7 @@ void EventResponse::finalize() {
   // Find the target and effect from the event system
   HASH_MAP<std::string, EventEffect*>::iterator eItr = EVENT_SYSTEM->_effects.find(_effectName);
   // Only asserting this reasonable because I tested the names
-  //	at parse time.
+  //  at parse time.
   assert(eItr != EVENT_SYSTEM->_effects.end() && "Missing effect at response finalization");
 
   HASH_MAP<std::string, EventTarget*>::iterator tItr = EVENT_SYSTEM->_targets.find(_targetName);

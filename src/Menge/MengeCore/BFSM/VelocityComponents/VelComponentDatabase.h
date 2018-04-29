@@ -17,11 +17,11 @@
 */
 
 /*!
- *	@file		VelComponentDatabase.h
- *	@brief		Central database for querying available behavior velocity components.
- *
- *	For velocity components to be used in the finite state machine, they must register
- *	themselves into the VelCompDB.  This is done via the PluginEngine.
+ @file    VelComponentDatabase.h
+ @brief    Central database for querying available behavior velocity components.
+
+ For velocity components to be used in the finite state machine, they must register themselves into
+ the VelCompDB. This is done via the PluginEngine.
  */
 
 #ifndef __VEL_COMPONENT_DATABASE_H__
@@ -34,7 +34,7 @@
 namespace Menge {
 namespace BFSM {
 /*!
- *	@brief		The database of registered velocity component implementations.
+ @brief    The database of registered velocity component implementations.
  */
 typedef ElementDB<VelCompFactory, VelComponent> VelCompDB;
 

@@ -78,11 +78,11 @@ RoadMapVelComponent::~RoadMapVelComponent() {
 
 void RoadMapVelComponent::onExit(Agents::BaseAgent* agent) {
   // This test is necessary.  Because state advancement can jump MULTIPLE states in a
-  //	singletime step, it is possible to enter and exit a state with a roadmap velocity
-  //	without ever actually calling "setPrefVelocity" on that velocity component.
+  //  singletime step, it is possible to enter and exit a state with a roadmap velocity
+  //  without ever actually calling "setPrefVelocity" on that velocity component.
   //
-  //	Roadmap initializes the path in setPrefVelocity - so, things don't get properly
-  //	initialized.
+  //  Roadmap initializes the path in setPrefVelocity - so, things don't get properly
+  //  initialized.
   _lock.lockWrite();
   PathMap::iterator itr = _paths.find(agent->_id);
   if (itr != _paths.end()) {
@@ -102,7 +102,7 @@ void RoadMapVelComponent::setPrefVelocity(const Agents::BaseAgent* agent, const 
   if (itr == _paths.end()) {
     _lock.releaseRead();
     // compute the path and add it to the map
-    //	Create path for the agent
+    //  Create path for the agent
     path = _roadmap->getPath(agent, goal);
     if (path == nullptr) {
       throw VelCompFatalException("Agent " + std::to_string(agent->_id) +
@@ -120,7 +120,6 @@ void RoadMapVelComponent::setPrefVelocity(const Agents::BaseAgent* agent, const 
     // Path got lost; replan and retry. If that couldn't produce a trajectory it
     // becomes an irrecoverable error.
     delete path;
-    Vector2 goalPoint = goal->getCentroid();
     path = _roadmap->getPath(agent, goal);
     if (path == nullptr) {
       throw VelCompFatalException("Agent " + std::to_string(agent->_id) +

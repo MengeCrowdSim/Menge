@@ -17,11 +17,10 @@
 */
 
 /*!
- *	@file		SimulatorState.h
- *	@brief		A snapshot of the simulator state.
- *
- *	TODO: Make this a complete snapshot.
+ @file    SimulatorState.h
+ @brief    A snapshot of the simulator state.
  */
+// TODO: Make this a complete snapshot.
 
 #ifndef __SIMULATOR_STATE_H__
 #define __SIMULATOR_STATE_H__
@@ -34,40 +33,39 @@ namespace Menge {
 
 namespace Agents {
 /*!
- *	@brief		A class which caches the state of the simulator.
- *
- *	This version of the class is, as yet, incomplete.  Ultimately, it
- *	will store all critical parameters of the simulator such that the
- *	simulation can be restarted from this state.
- *
- *	This version is currently used to determine agent's starting state.
+ @brief    A class which caches the state of the simulator.
+
+ This version of the class is, as yet, incomplete. Ultimately, it will store all critical parameters
+ of the simulator such that the simulation can be restarted from this state.
+
+ This version is currently used to determine agent's starting state.
  */
 class SimulatorState {
  public:
   /*!
-   *	@brief		Constructor.
+   @brief    Constructor.
    */
   SimulatorState();
 
   /*!
-   *	@brief		Sets the state for the given agent.
-   *
-   *	@param		id			The identifier of the agent.
-   *	@param		stateName	The name of the state to which the agent belongs.
+   @brief    Sets the state for the given agent.
+
+   @param    id      The identifier of the agent.
+   @param    stateName  The name of the state to which the agent belongs.
    */
   void setAgentState(size_t id, const std::string& stateName);
 
   /*!
-   *	@brief		Reports the state name for the given agent.
-   *
-   *	@param		id			The identifier of the agent.
-   *	@returns	The name of this agent's start state.
+   @brief    Reports the state name for the given agent.
+
+   @param    id      The identifier of the agent.
+   @returns  The name of this agent's start state.
    */
   const std::string getAgentState(size_t id) const;
 
  protected:
   /*!
-   *	@brief		A mapping from agent id to state name
+   @brief    A mapping from agent id to state name
    */
   HASH_MAP<size_t, std::string> _agentStates;
 };

@@ -49,15 +49,15 @@ using Math::FloatGenerator;
 /////////////////////////////////////////////////////////////////////
 
 /*!
- *	@brief		Helper function for parsing property actions
- *
- *	It converts the xml string indicating the property to an
- *	enumerated value
- *
- *	@param		opName		The name of the operand as specified in the
- *							xml specification.
- *	@returns	The corresponding enumeration.  If there is no corresponding
- *				enumeration, NO_PROPERTY is returned.
+ *  @brief    Helper function for parsing property actions
+
+ *  It converts the xml string indicating the property to an
+ *  enumerated value
+
+ *  @param    opName    The name of the operand as specified in the
+ *              xml specification.
+ *  @returns  The corresponding enumeration.  If there is no corresponding
+ *        enumeration, NO_PROPERTY is returned.
  */
 BFSM::PropertyOperand parsePropertyName(const std::string& opName) {
   if (opName == "max_speed") {
@@ -79,7 +79,7 @@ BFSM::PropertyOperand parsePropertyName(const std::string& opName) {
 }
 
 /////////////////////////////////////////////////////////////////////
-//					Implementation of AgentPropertyManipulator
+//          Implementation of AgentPropertyManipulator
 /////////////////////////////////////////////////////////////////////
 
 AgentPropertyManipulator::AgentPropertyManipulator()
@@ -89,7 +89,7 @@ AgentPropertyManipulator::AgentPropertyManipulator()
 
 AgentPropertyManipulator::~AgentPropertyManipulator() {
   // Is this delete safe?  This may require a destroy method if it is
-  //	instantiated in MengeCore and used in external dll
+  //  instantiated in MengeCore and used in external dll
   if (_operandGen) delete _operandGen;
   _originalMap.clear();
 }
@@ -182,7 +182,7 @@ void AgentPropertyManipulator::setGenerator(FloatGenerator* gen) {
 }
 
 /////////////////////////////////////////////////////////////////////
-//					Implementation of SetPropertyManipulator
+//          Implementation of SetPropertyManipulator
 /////////////////////////////////////////////////////////////////////
 
 float SetPropertyManipulator::newValue(float value, size_t agentID) {

@@ -7,7 +7,7 @@ namespace MengeVis {
 
 namespace {
 // TODO: Make it so this works despite the fact that I can't use "delete" on this global
-//	member.
+//  member.
 Runtime::VisAgent _defaulRenderer;
 }  // namespace
 

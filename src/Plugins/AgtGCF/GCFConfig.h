@@ -17,8 +17,8 @@
 */
 
 /*!
- *	@file		GCFConfig.h
- *	@brief		Configures the shared library aspect of the includes.
+ @file		GCFConfig.h
+ @brief		Configures the shared library aspect of the includes.
  */
 
 #ifndef __GCF_CONFIG_H__

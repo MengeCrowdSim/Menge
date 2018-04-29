@@ -17,8 +17,8 @@
 */
 
 /*!
- *	@file		consts.h
- *	@brief		Some common mathematical constants.
+ @file    consts.h
+ @brief    Some common mathematical constants.
  */
 
 #ifndef __CONSTS_H__
@@ -31,36 +31,37 @@
 namespace Menge {
 
 /*!
- *	@brief		A convenient definition of infinity.
+ @brief    A convenient definition of infinity.
  */
 extern MENGE_API const float INFTY;
 
 /*!
- *	@brief		pi.
+ @brief    pi.
  */
 extern MENGE_API const float PI;
 
 /*!
- *	@brief		2 * pi.
+ @brief    2 * pi.
  */
 extern MENGE_API const float TWOPI;
 
 /*!
- *	@brief		pi / 2.
+ @brief    pi / 2.
  */
 extern MENGE_API const float HALFPI;
+
 /*!
- *	@brief		Scale factor for converting degrees to radians.
+ @brief    Scale factor for converting degrees to radians.
  */
 extern MENGE_API const float DEG_TO_RAD;
 
 /*!
- *	@brief		Scale factor for converting radians to degrees.
+ @brief    Scale factor for converting radians to degrees.
  */
 extern MENGE_API const float RAD_TO_DEG;
 
 /*!
- *	@brief		Suitably small number for testing for functional zero values.
+ @brief    Suitably small number for testing for functional zero values.
  */
 extern MENGE_API const float EPS;
 

@@ -10,12 +10,12 @@ namespace GoalVis {
 using Menge::Math::Vector2;
 
 /////////////////////////////////////////////////////////////////////
-//					Implementation of GoalRenderer
+//          Implementation of GoalRenderer
 /////////////////////////////////////////////////////////////////////
 
 void GoalRenderer::drawGL() const {
   // TODO: Write the type of the goal as well as displaying the assignment and
-  //	capacity of the goal.
+  //  capacity of the goal.
   glPushAttrib(GL_ENABLE_BIT | GL_COLOR_BUFFER_BIT | GL_POLYGON_BIT | GL_DEPTH_BUFFER_BIT);
   glDepthMask(GL_FALSE);
   glColor4f(0.75f, 0.1f, 0.75f, 0.25f);

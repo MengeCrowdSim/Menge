@@ -17,11 +17,11 @@
 */
 
 /*!
- *	@file		VelModifierDatabase.h
- *	@brief		Central database for querying available behavior velocity modifiers.
- *
- *	For velocity modifiers to be used in the finite state machine, they must register
- *	themselves into the VelModDB.  This is done via the PluginEngine.
+ @file    VelModifierDatabase.h
+ @brief    Central database for querying available behavior velocity modifiers.
+
+ For velocity modifiers to be used in the finite state machine, they must register themselves into
+ the VelModDB. This is done via the PluginEngine.
  */
 
 #ifndef __VEL_MOD_DATABASE_H__
@@ -35,7 +35,7 @@ namespace Menge {
 
 namespace BFSM {
 /*!
- *	@brief		The database of registered velocity component implementations.
+ @brief    The database of registered velocity component implementations.
  */
 typedef ElementDB<VelModFactory, VelModifier> VelModDB;
 

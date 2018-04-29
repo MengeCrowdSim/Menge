@@ -17,10 +17,10 @@
 */
 
 /*!
- *	@file		MengeException.h
- *	@brief		The base definition for exceptions in Menge.
- *
- *	TODO: Refactor all exceptions to inherit from this class.
+ @file    MengeException.h
+ @brief    The base definition for exceptions in Menge.
+
+ TODO: Refactor all exceptions to inherit from this class.
  */
 
 #ifndef __MENGE_EXCEPTION_H__
@@ -34,36 +34,36 @@
 namespace Menge {
 
 /*!
- *	@brief		Base exception class for menge operations.
+ @brief    Base exception class for menge operations.
  */
 class MENGE_API MengeException : public std::exception {
  public:
   /*!
-   *	@brief		Default constructor.
+   @brief    Default constructor.
    */
   MengeException() : std::exception() {}
 
   /*!
-   *	@brief		Constructor with message.
-   *
-   *	@param		s		The exception-specific message.
+   @brief    Constructor with message.
+
+   @param    s    The exception-specific message.
    */
   MengeException(const std::string& s) : std::exception(), _msg(s) {}
 
   /*!
-   *	@brief		Destructor.
+   @brief    Destructor.
    */
   ~MengeException() throw() {}
 
   /*!
-   *	@brief		Provides the exception message.
-   *
-   *	@returns	A pointer to the exception message.
+   @brief    Provides the exception message.
+
+   @returns  A pointer to the exception message.
    */
   virtual const char* what() const throw() { return _msg.c_str(); }
 
   /*!
-   *	@brief		The exception message.
+   @brief    The exception message.
    */
   std::string _msg;
 };
@@ -71,22 +71,22 @@ class MENGE_API MengeException : public std::exception {
 #pragma warning(default : 4275)
 
 /*!
- *	@brief		Base class for *fatal* exceptions.
- *
- *	A fatal exception is one that requires the simulator to stop because
- *	it has achieved an inoperable state.
+ @brief    Base class for *fatal* exceptions.
+
+ A fatal exception is one that requires the simulator to stop because it has achieved an inoperable
+ state.
  */
 class MENGE_API MengeFatalException : public virtual MengeException {
  public:
   /*!
-   *	@brief		Default constructor.
+   @brief    Default constructor.
    */
   MengeFatalException() : MengeException() {}
 
   /*!
-   *	@brief		Constructor with message.
-   *
-   *	@param		s		The exception-specific message.
+   @brief    Constructor with message.
+
+   @param    s    The exception-specific message.
    */
   MengeFatalException(const std::string& s) : MengeException(s) {}
 };

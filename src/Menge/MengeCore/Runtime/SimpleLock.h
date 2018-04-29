@@ -17,8 +17,8 @@
 */
 
 /*!
- *	@file	SimpleLock.h
- *	@brief	The definition of a simple thrading lock
+ @file  SimpleLock.h
+ @brief  The definition of a simple thrading lock
  */
 
 #ifndef __SIMPLE_LOCK_H__
@@ -33,46 +33,45 @@
 namespace Menge {
 
 /*!
- *	@brief		The definition of a simple mutex-style lock.
- *
- *	This lock provides a simple mutex to guarantee thread-safe concurrency.
- *	Use of this lock guarantees that only one thread at a time can acquire
- *	the lock.
- *
+ @brief    The definition of a simple mutex-style lock.
+
+ This lock provides a simple mutex to guarantee thread-safe concurrency. Use of this lock guarantees
+ that only one thread at a time can acquire the lock.
+
  */
 class MENGE_API SimpleLock {
  public:
   /*!
-   *	@brief		Constructor.
+   @brief    Constructor.
    */
   SimpleLock();
 
   /*!
-   *	@brief		Destructor.
+   @brief    Destructor.
    */
   virtual ~SimpleLock();
 
   /*!
-   *	@brief		Requests access to the mutex.  When this function
-   *				returns, the lock will be uniquely acquired by the calling thread.
-   *				The calling thread *must* call release otherwise
-   *				deadlocks may occur.
+   @brief    Requests access to the mutex.
+   
+   When this function returns, the lock will be uniquely acquired by the calling thread. The calling
+   thread *must* call release otherwise deadlocks may occur.
    */
   void lock() const;
 
   /*!
-   *	@brief		Releases the acquired lock.  This must only be called
-   *				by the thread which had previously successfully called lock.
+   @brief    Releases the acquired lock.
+   
+   This must only be called by the thread which had previously successfully called lock.
    */
   void release() const;
 
 #ifdef _OPENMP
  private:
   /*!
-   *	@brief		The openmp lock used for synchronization.
-   *
-   *	This is mutable so the corresponding functions can be called in a const
-   *	context.
+   @brief    The openmp lock used for synchronization.
+
+   This is mutable so the corresponding functions can be called in a const context.
    */
   mutable omp_lock_t _lock;
 #endif  // _OPENMP

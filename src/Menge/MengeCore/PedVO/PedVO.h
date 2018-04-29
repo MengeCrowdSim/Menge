@@ -17,8 +17,8 @@
 */
 
 /*!
- *	@file		PedVO.h
- *	@brief		The definition of the PedVO pedestrian plug-in
+ @file    PedVO.h
+ @brief    The definition of the PedVO pedestrian plug-in
  */
 
 #ifndef __PEDVO_H__

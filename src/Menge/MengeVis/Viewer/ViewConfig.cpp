@@ -57,16 +57,16 @@ using SceneGraph::GLLight;
 namespace Viewer {
 
 ////////////////////////////////////////////////////////////////////////////
-//			Implementation of ViewConfig helpers
+//      Implementation of ViewConfig helpers
 ////////////////////////////////////////////////////////////////////////////
 
 /*!
- *	@brief		Streaming output operator to display camera specification.
- *
- *	@param		out			The output stream to which to write the view
+ *  @brief    Streaming output operator to display camera specification.
+
+ *  @param    out      The output stream to which to write the view
  *configuration.
- *	@param		camParam	The camera parameters to convert to a string.
- *	@returns	The output stream.
+ *  @param    camParam  The camera parameters to convert to a string.
+ *  @returns  The output stream.
  */
 Logger& operator<<(Logger& out, const CameraParam& camParam) {
   out << "Camera - Pos: ( " << camParam._posX << ", " << camParam._posY << ", ";
@@ -81,12 +81,12 @@ Logger& operator<<(Logger& out, const CameraParam& camParam) {
 ////////////////////////////////////////////////////////////////////////////
 
 /*!
- *	@brief		Streaming output operator to display light specification.
- *
- *	@param		out				The output stream to which to write the view
+ *  @brief    Streaming output operator to display light specification.
+
+ *  @param    out        The output stream to which to write the view
  *configuration.
- *	@param		lightParam		The light parameters to convert to a string.
- *	@returns	The output stream.
+ *  @param    lightParam    The light parameters to convert to a string.
+ *  @returns  The output stream.
  */
 Logger& operator<<(Logger& out, const LightParam& lightParam) {
   out << "Light - Pos: ( " << lightParam._x << ", " << lightParam._y << ", ";
@@ -97,7 +97,7 @@ Logger& operator<<(Logger& out, const LightParam& lightParam) {
 }
 
 ////////////////////////////////////////////////////////////////////////////
-//			Implementation of ViewConfig
+//      Implementation of ViewConfig
 ////////////////////////////////////////////////////////////////////////////
 
 ViewConfig::ViewConfig() : _viewFldr("."), _waterMark(0x0) { setDefaults(); }

@@ -47,7 +47,7 @@ namespace Agents {
 using Math::Vector2;
 
 ////////////////////////////////////////////////////////////////
-//					Implementation of BaseAgent
+//          Implementation of BaseAgent
 ////////////////////////////////////////////////////////////////
 
 BaseAgent::BaseAgent() {
@@ -81,12 +81,12 @@ void BaseAgent::update(float timeStep) {
   float delV = abs(_vel - _velNew);
   // Check to see if new velocity violates acceleration constraints...
   // TODO: Make the acceleration constraint respect collisions (particularly with
-  //		obstacles.  I.e. confirm that the new velocity STILL won't collide
-  //		with the neighboring obstacles.
-  //	The slick way to do this is to replace the float in the _nearObstacles to
-  //		represent the minimum acceleration required to avoid collision with the
-  //		obstacle in the next time step.  Then I can simply take the larger of the
-  ///		user-define max acceleration and the smallest required acceleration
+  //    obstacles.  I.e. confirm that the new velocity STILL won't collide
+  //    with the neighboring obstacles.
+  //  The slick way to do this is to replace the float in the _nearObstacles to
+  //    represent the minimum acceleration required to avoid collision with the
+  //    obstacle in the next time step.  Then I can simply take the larger of the
+  ///    user-define max acceleration and the smallest required acceleration
   if (delV > _maxAccel * timeStep) {
     float w = _maxAccel * timeStep / delV;
     _vel = (1.f - w) * _vel + w * _velNew;
@@ -103,9 +103,9 @@ void BaseAgent::update(float timeStep) {
 
 void BaseAgent::updateOrient(float timeStep) {
   // This stabilizes orientation
-  //	As the agent slows down, the target orientation becomes preferred direction.
-  //	We define a threshold as a fraction of preferred speed.
-  //	If the agents speed is at or above that threshold, orientation is defined by the
+  //  As the agent slows down, the target orientation becomes preferred direction.
+  //  We define a threshold as a fraction of preferred speed.
+  //  If the agents speed is at or above that threshold, orientation is defined by the
   //  movement vector.
   //  If the speed is zero, the orientation is the direction of preferred velocity.
   //  The transition function is designd such that the transition from movement direction

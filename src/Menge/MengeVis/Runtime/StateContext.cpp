@@ -99,15 +99,15 @@ SceneGraph::ContextResult StateContext::handleKeyboard(SDL_Event& e) {
     bool noMods = !(hasCtrl || hasAlt || hasShift);
     // TODO: Once I have transition contexts
     // if ( e.type == SDL_KEYDOWN ) {
-    //	if ( !hasCtrl && !hasAlt && hasShift ) {
-    //		if ( e.key.keysym.sym == SDLK_UP ) {
-    //			++_activeTransition;
-    //			if ( _activeTransition >= _transContexts.size() ) {
-    //				_activeTransition = NO_ACTIVE_ID;
-    //			}
-    //			result.set( true, true );
-    //		}
-    //	}
+    //  if ( !hasCtrl && !hasAlt && hasShift ) {
+    //    if ( e.key.keysym.sym == SDLK_UP ) {
+    //      ++_activeTransition;
+    //      if ( _activeTransition >= _transContexts.size() ) {
+    //        _activeTransition = NO_ACTIVE_ID;
+    //      }
+    //      result.set( true, true );
+    //    }
+    //  }
     //}
   }
   return result;

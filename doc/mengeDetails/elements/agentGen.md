@@ -32,7 +32,7 @@ This version of Menge includes the following implementations of the agent genera
 - The [rectangular grid generator](@ref Menge::Agents::RectGridGenerator).
 - The [hexagonal lattice generator](@ref Menge::Agents::HexLatticeGenerator).
 - The [explicit navigation mesh generator](@ref Menge::Agents::NavMeshGenerator).
-	
+
 See the class documentation for details on their semantics and how to instantiate this profile
 selector.
 

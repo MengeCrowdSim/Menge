@@ -49,12 +49,12 @@ namespace Menge {
 using Math::Vector2;
 
 /*!
- *	@brief		The minimum width for an edge to be considered valid.
+ *  @brief    The minimum width for an edge to be considered valid.
  */
 const float MIN_EDGE_WIDTH = 0.00001f;
 
 /////////////////////////////////////////////////////////////////////
-//					Implementation of NavMeshEdge
+//          Implementation of NavMeshEdge
 /////////////////////////////////////////////////////////////////////
 
 NavMeshEdge::NavMeshEdge()
@@ -187,20 +187,20 @@ Vector2 NavMeshEdge::targetPoint(const Vector2& pos, float radius) const {
   assert(_width > 2.f * radius &&
          "Agent's radius bigger than the portal width -- can't pass through");
   // Be smart about this
-  //	If the position projects onto the portal, then simply find the closest point to the
-  //		"effective" portal
+  //  If the position projects onto the portal, then simply find the closest point to the
+  //    "effective" portal
   //  If the position lies to the left of p0
-  //		We simply rotate the direction from end point to test position by the appropriate
-  //			angle.  We do this as follows:
-  //		d = || pos - p0 ||
-  //		dHat = || pos - p0 || / d
-  //		l = sqrtf( d^2 - radius^2 )
-  //		cosTheta = r / d
-  //		sinTheta = l / d
-  //		gx = R * ( cosTheta * dHat.x + sinTheta * dHat.y ) + p0.x
-  //		gy = R * ( cosTheta * dHat.y - sinTheta * dHat.x ) + p0.y
-  //	If the position lies to the right of p0, it does the same computation, but with
-  //		the opposite rotation
+  //    We simply rotate the direction from end point to test position by the appropriate
+  //      angle.  We do this as follows:
+  //    d = || pos - p0 ||
+  //    dHat = || pos - p0 || / d
+  //    l = sqrtf( d^2 - radius^2 )
+  //    cosTheta = r / d
+  //    sinTheta = l / d
+  //    gx = R * ( cosTheta * dHat.x + sinTheta * dHat.y ) + p0.x
+  //    gy = R * ( cosTheta * dHat.y - sinTheta * dHat.x ) + p0.y
+  //  If the position lies to the right of p0, it does the same computation, but with
+  //    the opposite rotation
 
   // Does pos project onto the portal
   Vector2 p1 = _point + _dir * _width;
@@ -418,8 +418,8 @@ void NavMeshEdge::setClearDirections(const Vector2& pos, float radius, const Vec
   float d2 = absSq(d0);
   if (d2 < R2) {
     // Already colliding with the left portal edge
-    //	If the portal is wide enough to allow the agent through, I can't collide with
-    //	both.  So, this is the only possible collision.
+    //  If the portal is wide enough to allow the agent through, I can't collide with
+    //  both.  So, this is the only possible collision.
     // Simply move parallel with the portal (into the opening) to get out of collision
     pVel.setSingle(portalDir);
     return;

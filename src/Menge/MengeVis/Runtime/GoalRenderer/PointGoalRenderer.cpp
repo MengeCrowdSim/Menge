@@ -9,7 +9,7 @@ namespace GoalVis {
 using Menge::BFSM::PointGoal;
 
 /////////////////////////////////////////////////////////////////////
-//					Implementation of PointGoalRenderer
+//          Implementation of PointGoalRenderer
 /////////////////////////////////////////////////////////////////////
 
 std::string PointGoalRenderer::getElementName() const { return PointGoal::NAME; }

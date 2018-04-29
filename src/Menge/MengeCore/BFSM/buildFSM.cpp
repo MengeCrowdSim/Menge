@@ -37,8 +37,8 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 */
 
 /*!
- *	@file	buildFSM.cpp
- *	@brief	Functionality to realize Behavior FSM from configuration.
+ *  @file  buildFSM.cpp
+ *  @brief  Functionality to realize Behavior FSM from configuration.
  */
 
 #include "MengeCore/BFSM/FSMDescrip.h"
@@ -93,9 +93,9 @@ FSM* buildFSM(FSMDescrip& fsmDescrip, Agents::SimulatorInterface* sim, bool VERB
   fsm->_goalSets.insert(fsmDescrip._goalSets.begin(), fsmDescrip._goalSets.end());
   fsmDescrip._goalSets.clear();
 
-  //	1. Create states
-  //		a. Add velocity components and actions
-  //		b. add to fsm
+  //  1. Create states
+  //    a. Add velocity components and actions
+  //    b. add to fsm
 
   std::list<StateDescrip*>::const_iterator sItr = fsmDescrip._states.begin();
   for (; sItr != fsmDescrip._states.end(); ++sItr) {
@@ -202,7 +202,7 @@ FSM* buildFSM(FSMDescrip& fsmDescrip, Agents::SimulatorInterface* sim, bool VERB
     logger << " transitions\n";
   }
 
-  //	2. Create transitions
+  //  2. Create transitions
   std::map<std::string, std::list<Transition*> >::iterator stItr = fsmDescrip._transitions.begin();
   for (; stItr != fsmDescrip._transitions.end(); ++stItr) {
     const std::string fromName = stItr->first;
@@ -252,10 +252,10 @@ FSM* buildFSM(FSMDescrip& fsmDescrip, Agents::SimulatorInterface* sim, bool VERB
   fsm->addTask(SPATIAL_QUERY->getTask());
   if (sim->getElevationInstance()) {
     // NOTE: The elevation instance is null because none were specified.
-    //	Eventually, the default elevation will be set.
+    //  Eventually, the default elevation will be set.
     // HOWEVER, if the default ever changes such that it requires a task,
-    //	this won't catch it!!!  So, make sure the default never requires
-    //	a task.
+    //  this won't catch it!!!  So, make sure the default never requires
+    //  a task.
     fsm->addTask(sim->getElevationInstance()->getTask());
   }
 
@@ -263,7 +263,7 @@ FSM* buildFSM(FSMDescrip& fsmDescrip, Agents::SimulatorInterface* sim, bool VERB
   logger << " registered tasks.\n";
   fsm->doTasks();
 
-  //	5. Initialize all agents
+  //  5. Initialize all agents
   if (VERBOSE) logger << Logger::INFO_MSG << "Initializing agents:\n";
   Agents::SimulatorState* initState = sim->getInitialState();
 

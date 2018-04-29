@@ -17,9 +17,10 @@
 */
 
 /*!
- *	@file		NullViewer.h
- *	@brief		Specification for a do-nothing viewer.  This is the
- *				offline simulator.
+ @file    NullViewer.h
+ @brief   Specification for a do-nothing viewer.
+ 
+ This is the offline simulator.
  */
 
 #ifndef __NULL_VIEWER_H__
@@ -38,60 +39,56 @@ class GLScene;
 namespace Viewer {
 
 /*!
- *	@brief		The off-line context for running a simulation.
- *
- *				The NullViewer is a mock viewer, similar to the GLViewer
- *				It takes a SceneGraph node and repeatedly updates the scene
- *				However, there is no visualization.  It's purpose is simply
- *				to run the scene.
- *
- *				The POINT of this type of thing is to load up an empty scene
- *				with a non-trivial system that has some secondary, non-visual
- *				side effects and simply exercise it.
+ @brief   The off-line context for running a simulation.
+
+ The NullViewer is a mock viewer, similar to the GLViewer. It takes a SceneGraph node and repeatedly
+ updates the scene. However, there is no visualization. Its purpose is simply to run the scene.
+
+ The POINT of this type of thing is to load up an empty scene with a non-trivial system that has
+ some secondary, non-visual side effects and simply exercise it.
  */
 class MENGEVIS_API NullViewer {
  public:
   /*!
-   *	@brief		Default constructor.
+   @brief   Default constructor.
    */
   NullViewer();
 
   /*!
-   *	@brief		Destructor.
+   @brief   Destructor.
    */
   ~NullViewer();
 
   /*!
-   *	@brief		The scene to run.
+   @brief   The scene to run.
    */
   void setScene(SceneGraph::GLScene* scene);
 
   /*!
-   *	@brief		The main loop.
+   @brief   The main loop.
    */
   void run();
 
   /*!
-   *	@brief		Sets the simulator to use a fixed time step, with the given value.
-   *
-   *	@param		stepSize		The size of the fixed step the viewer should advance
-   *								its GLScene.
+   @brief   Sets the simulator to use a fixed time step, with the given value.
+
+   @param   stepSize    The size of the fixed step the viewer should advance its GLScene.
    */
   void setFixedStep(float stepSize);
 
  protected:
   /*!
-   *	@brief		The GLScene to draw.
+   @brief   The GLScene to draw.
    */
   SceneGraph::GLScene* _scene;
 
   /*!
-   *	@brief		The step size for fixed-step simulation.
+   @brief   The step size for fixed-step simulation.
    */
   float _stepSize;
 
   /*!
-   *	@brief		Timer for determining computation time.
+   @brief   Timer for determining computation time.
    */
   LapTimer _fpsTimer;
 };

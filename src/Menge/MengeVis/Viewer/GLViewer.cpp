@@ -97,7 +97,7 @@ using Menge::logger;
 using Menge::Logger;
 
 ///////////////////////////////////////////////////////////////////////////
-//				IMPLEMENTATION FOR GLViewer
+//        IMPLEMENTATION FOR GLViewer
 ///////////////////////////////////////////////////////////////////////////
 
 Uint32 GLViewer::FLAGS = SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE;
@@ -183,7 +183,7 @@ GLViewer::GLViewer(ViewConfig& cfg)
 
 GLViewer::~GLViewer() {
   if (_scene != 0x0) {
-    // delete _scene;	TODO: Figure out why navigation mesh causes problems here
+    // delete _scene;  TODO: Figure out why navigation mesh causes problems here
     _scene = 0x0;
   }
 
@@ -531,9 +531,9 @@ bool GLViewer::handleMouse(SDL_Event& e) {
         _downY = e.button.y;
         if (!(hasCtrl || hasAlt || hasShift) && _scene != 0x0) {
           // TODO: This won't work when there are widgets
-          //		 Would this be better off embedded into the scene?
-          //		 After all, a manipulator merely has a special context...
-          //		 So, should a context have some kind of drawable function?
+          //     Would this be better off embedded into the scene?
+          //     After all, a manipulator merely has a special context...
+          //     So, should a context have some kind of drawable function?
           //
           int selectPoint[2] = {_downX, _downY};
           redraw = _scene->selectGL(_cameras[_currCam], _width, _height, &selectPoint[0]);
@@ -548,12 +548,12 @@ bool GLViewer::handleMouse(SDL_Event& e) {
       _cameras[_currCam].zoom(amount);
       redraw = true;
       //} else if ( e.button.button == SDL_BUTTON_WHEELDOWN ) {
-      //	float amount = -0.5;
-      //	if ( hasCtrl ) amount *= 2;
-      //	if ( hasAlt ) amount *= 2;
-      //	if ( hasShift ) amount *= 2;
-      //	_cameras[ _currCam ].zoom( amount );
-      //	redraw = true;
+      //  float amount = -0.5;
+      //  if ( hasCtrl ) amount *= 2;
+      //  if ( hasAlt ) amount *= 2;
+      //  if ( hasShift ) amount *= 2;
+      //  _cameras[ _currCam ].zoom( amount );
+      //  redraw = true;
     } else if (e.type == SDL_MOUSEBUTTONUP) {
     } else {
       logger << Logger::ERR_MSG << "handleMouse called with invalid event type: ";
@@ -655,7 +655,7 @@ bool GLViewer::handleKeyboard(SDL_Event& e) {
 
 void GLViewer::drawWorldAxis() const {
   // NOTE: This doesn't GUARANTEE that it's being drawn in the correct space
-  //		It assumes that the modelview matrix is the camera matrix
+  //    It assumes that the modelview matrix is the camera matrix
   glPushAttrib(GL_LINE_BIT | GL_ENABLE_BIT | GL_CURRENT_BIT);
   glDisable(GL_LIGHTING);
   glDisable(GL_DEPTH_TEST);

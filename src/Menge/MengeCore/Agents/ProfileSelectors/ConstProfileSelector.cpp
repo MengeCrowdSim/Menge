@@ -43,7 +43,7 @@ namespace Menge {
 namespace Agents {
 
 ////////////////////////////////////////////////////////////////////////////
-//			Implementation of ConstProfileSelector
+//      Implementation of ConstProfileSelector
 ////////////////////////////////////////////////////////////////////////////
 
 ConstProfileSelector::ConstProfileSelector() : ProfileSelector(), _profileName(""), _init(0x0) {}
@@ -65,7 +65,7 @@ bool ConstProfileSelector::cacheProfiles(HASH_MAP<std::string, AgentInitializer*
 }
 
 ////////////////////////////////////////////////////////////////////////////
-//			Implementation of ConstProfileSelectorFactory
+//      Implementation of ConstProfileSelectorFactory
 ////////////////////////////////////////////////////////////////////////////
 
 ConstProfileSelectorFactory::ConstProfileSelectorFactory() : ProfileSelectorFactory() {

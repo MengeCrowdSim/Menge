@@ -17,8 +17,8 @@
 */
 
 /*!
- *	@file		Karamouzas.h
- *	@brief		Collection of Karamouzas 2009 Agent and Simulator.
+ @file		Karamouzas.h
+ @brief		Collection of Karamouzas 2009 Agent and Simulator.
  */
 
 #ifndef __KARAMOUZAS_H__

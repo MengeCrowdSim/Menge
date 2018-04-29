@@ -50,9 +50,9 @@ namespace BFSM {
 //                   Implementation of VelModifier
 /////////////////////////////////////////////////////////////////////
 #if 0
-		VelModContext * VelModifier::getContext() {
-			return new VelModContext();                  
-		}
+    VelModContext * VelModifier::getContext() {
+      return new VelModContext();                  
+    }
 #endif
 ////////////////////////////////////////////////////////////
 
@@ -63,7 +63,7 @@ void VelModifier::onEnter(const Agents::BaseAgent* agent) { registerAgent(agent)
 void VelModifier::onLeave(const Agents::BaseAgent* agent) { unregisterAgent(agent); };
 
 /////////////////////////////////////////////////////////////////////
-//					Implementation of parsing function
+//          Implementation of parsing function
 /////////////////////////////////////////////////////////////////////
 
 VelModifier* parseVelModifier(TiXmlElement* node, const std::string& behaveFldr) {

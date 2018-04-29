@@ -17,8 +17,8 @@
 */
 
 /*!
- *	@file		fsmCommon.h
- *	@brief		Collection of convenient pre-compiler information for fsm definitions.
+ @file    fsmCommon.h
+ @brief    Collection of convenient pre-compiler information for fsm definitions.
  */
 
 #ifndef __FSM_COMMON_H__

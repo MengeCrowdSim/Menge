@@ -17,8 +17,8 @@
 */
 
 /*!
- *  @file       PedVOSimulator.h
- *  @brief      Contains the ORCA::Simulator class.
+ @file       PedVOSimulator.h
+ @brief      Contains the ORCA::Simulator class.
  */
 
 #ifndef __PEDVO_SIMULATOR_H__
@@ -29,18 +29,18 @@
 #include "MengeCore/mengeCommon.h"
 
 /*!
- *	@namespace		PedVO
- *	@brief			Contains the specification of the pedestrian model
- *					based on Pedestrian Velocity Obstacles.
+ @namespace    PedVO
+ @brief      Contains the specification of the pedestrian model based on Pedestrian Velocity
+            Obstacles.
  */
 namespace PedVO {
 /*!
- *  @brief      Defines the simulator operating on ORCA::Agent.
+ @brief      Defines the simulator operating on ORCA::Agent.
  */
 class Simulator : public Menge::Agents::SimulatorBase<Agent> {
  public:
   /*!
-   *  @brief      Constructor.
+   @brief      Constructor.
    */
   Simulator() : Menge::Agents::SimulatorBase<Agent>() {}
 
@@ -48,19 +48,19 @@ class Simulator : public Menge::Agents::SimulatorBase<Agent> {
   friend class Agent;
 
   /*!
-   *	@brief		The cosine of the threshold angle beyond which the constraints
-   *				should be tilted.  If the dot product between the preferred
-   *				*direction* and the constraint's normal is greater than or
-   *				equal then this threshhold, the obstacle is tilted.
-   *
-   *				This is also used to perform the minimum rotation.
+   @brief    The cosine of the threshold angle beyond which the constraints should be tilted.
+   
+   If the dot product between the preferred *direction* and the constraint's normal is greater than
+   or equal then this threshhold, the obstacle is tilted.
+
+   This is also used to perform the minimum rotation.
    */
   static float COS_OBST_TURN;
 
   /*!
-   *	@brief		The sine of the threshold angle beyond which the constraints
-   *				should be tilted.  Used in conjunction with COS_OBST_TURN to
-   *				perform the minmum tilt.
+   @brief    The sine of the threshold angle beyond which the constraints should be tilted.
+   
+   Used in conjunction with COS_OBST_TURN to perform the minmum tilt.
    */
   static float SIN_OBST_TURN;
 };

@@ -45,7 +45,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 namespace Menge {
 
 //////////////////////////////////////////////////////////////////////////////////////
-//						Implementation of MinHeap
+//            Implementation of MinHeap
 //////////////////////////////////////////////////////////////////////////////////////
 
 AStarMinHeap::AStarMinHeap(unsigned int* heap, float* data, bool* state, unsigned int* path,
@@ -64,9 +64,9 @@ AStarMinHeap::AStarMinHeap(unsigned int* heap, float* data, bool* state, unsigne
 
 void AStarMinHeap::initialize(size_t N) {
   // This code assumes that the f-value is the first block of the data
-  //	and _inHeap is the first block of the state
+  //  and _inHeap is the first block of the state
   // TODO: Is it stritly necessary to initialize the values as a block?
-  //		Can't they be implictly initialized by the value of _minIndex
+  //    Can't they be implictly initialized by the value of _minIndex
   memset(_f, 0x7f, sizeof(float) * 3 * N);
   memset(_inHeap, 0x0, sizeof(bool) * 2 * N);
   // note: don't need to initialize the heap array

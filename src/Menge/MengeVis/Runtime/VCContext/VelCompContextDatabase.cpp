@@ -12,7 +12,7 @@ namespace MengeVis {
 namespace {
 // TODO: Define a null velocity component context that works on defaults.
 // TODO: Make it so this works despite the fact that I can't use "delete" in this global
-//	member.
+//  member.
 Runtime::VCContext::VelCompContext _defaultContext;
 }  // namespace
 

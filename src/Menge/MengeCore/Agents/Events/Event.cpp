@@ -54,7 +54,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 namespace Menge {
 
 /////////////////////////////////////////////////////////////////////
-//					Implementation of Event
+//          Implementation of Event
 /////////////////////////////////////////////////////////////////////
 
 Event::Event(const std::string& name) : _name(name), _trigger(0x0), _responses() {}

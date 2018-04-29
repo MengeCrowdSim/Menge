@@ -49,7 +49,7 @@ namespace Menge {
 namespace Agents {
 
 ////////////////////////////////////////////////////////////////////////////
-//			Implementation of NavMeshObstacleSet
+//      Implementation of NavMeshObstacleSet
 ////////////////////////////////////////////////////////////////////////////
 
 NavMeshObstacleSet::NavMeshObstacleSet() : ListObstacleSet() {}
@@ -67,7 +67,7 @@ bool NavMeshObstacleSet::extractFromNavMesh(NavMeshPtr nm) {
 };
 
 ////////////////////////////////////////////////////////////////////////////
-//			Implementation of ExplicitObstacleSetFactory
+//      Implementation of ExplicitObstacleSetFactory
 ////////////////////////////////////////////////////////////////////////////
 
 NavMeshObstacleSetFactory::NavMeshObstacleSetFactory() : ObstacleSetFactory() {

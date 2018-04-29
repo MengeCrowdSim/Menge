@@ -76,20 +76,20 @@ void Portal::set(const Vector2& p0, const Vector2& p1) {
 Vector2 Portal::nearestPoint(const Vector2& pos, float radius) {
   assert(_mag > radius && "Agent's with radius bigger than the portal width can't pass through");
   // Be smart about this
-  //	If the position projects onto the portal, then simply find the closest point to the
-  //		"effective" portal
+  //  If the position projects onto the portal, then simply find the closest point to the
+  //    "effective" portal
   //  If the position lies to the left of p0
-  //		We simply rotate the direction from end point to test position by the appropriate
-  //			angle.  We do this as follows:
-  //		d = || pos - p0 ||
-  //		dHat = || pos - p0 || / d
-  //		l = sqrtf( d^2 - radius^2 )
-  //		cosTheta = r / d
-  //		sinTheta = l / d
-  //		gx = R * ( cosTheta * dHat.x + sinTheta * dHat.y ) + p0.x
-  //		gy = R * ( cosTheta * dHat.y - sinTheta * dHat.x ) + p0.y
-  //	If the position lies to the right of p0, it does the same computation, but with
-  //		the opposite rotation
+  //    We simply rotate the direction from end point to test position by the appropriate
+  //      angle.  We do this as follows:
+  //    d = || pos - p0 ||
+  //    dHat = || pos - p0 || / d
+  //    l = sqrtf( d^2 - radius^2 )
+  //    cosTheta = r / d
+  //    sinTheta = l / d
+  //    gx = R * ( cosTheta * dHat.x + sinTheta * dHat.y ) + p0.x
+  //    gy = R * ( cosTheta * dHat.y - sinTheta * dHat.x ) + p0.y
+  //  If the position lies to the right of p0, it does the same computation, but with
+  //    the opposite rotation
 
   // Does pos project onto the portal
   Vector2 disp = pos - _p0;

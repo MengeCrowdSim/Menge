@@ -17,8 +17,8 @@
 */
 
 /*!
- *  @file     FSMEnumeration.h
- *  @brief    Enumerated types for the State class.
+ @file     FSMEnumeration.h
+ @brief    Enumerated types for the State class.
  */
 
 #ifndef __STATE_ENUM_H__
@@ -30,7 +30,7 @@ namespace Menge {
 
 namespace BFSM {
 /*!
- *	@brief		The set of properties on which a PropertyAction can be used.
+ @brief    The set of properties on which a PropertyAction can be used.
  */
 enum PropertyOperand {
   NO_PROPERTY,    ///< The "NULL" property - indicating no valid property.
@@ -44,7 +44,7 @@ enum PropertyOperand {
 };
 
 /*!
- *	@brief		An enumeration for defining inital velocity for agents
+ @brief    An enumeration for defining inital velocity for agents
  */
 enum InitVelEnum {
   ZERO_INIT_VEL,  ///< The agents will start with the zero velocity
@@ -54,11 +54,11 @@ enum InitVelEnum {
 }  // namespace BFSM
 
 /*!
- *	@brief		Friend function for printing string versions of the PropertyOperand enum
- *
- *	@param		out		The stream to write the string to.
- *	@param		op		The ProperyOperand to write.
- *	@returns	A reference to the output stream.
+ @brief    Friend function for printing string versions of the PropertyOperand enum
+
+ @param    out    The stream to write the string to.
+ @param    op    The ProperyOperand to write.
+ @returns  A reference to the output stream.
  */
 Logger& operator<<(Logger& out, const BFSM::PropertyOperand op);
 

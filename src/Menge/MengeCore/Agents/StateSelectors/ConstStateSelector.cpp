@@ -43,7 +43,7 @@ namespace Menge {
 namespace Agents {
 
 ////////////////////////////////////////////////////////////////////////////
-//			Implementation of ConstProfileSelectorFactory
+//      Implementation of ConstProfileSelectorFactory
 ////////////////////////////////////////////////////////////////////////////
 
 ConstStateSelectorFactory::ConstStateSelectorFactory() : StateSelectorFactory() {

@@ -28,7 +28,7 @@ class BaseAgentContext;
 class VisAgent;
 
 /*!
- *	@brief		The database of registered agent contexts.
+ @brief   The database of registered agent contexts.
  */
 typedef VisElementDB<BaseAgentContext, VisAgent> AgentContextDB;
 

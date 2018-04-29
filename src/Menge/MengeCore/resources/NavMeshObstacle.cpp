@@ -48,22 +48,22 @@ namespace Menge {
 using Math::Vector2;
 
 /*!
- *	@brief		The minimum width for an edge to be considered valid.
+ *  @brief    The minimum width for an edge to be considered valid.
  */
 const float MIN_EDGE_WIDTH = 0.00001f;
 
 size_t NavMeshObstacle::NO_NEIGHBOR_OBST = std::numeric_limits<size_t>::max();
 
 ////////////////////////////////////////////////////////////////
-//			Implementation of NavMeshObstacle
+//      Implementation of NavMeshObstacle
 ////////////////////////////////////////////////////////////////
 
 #ifdef _WIN32
 // This disables a 64-bit compatibility warning - pushing a 32-bit value into a 64-bit value.
 // This can cause problems with SIGN EXTENSION.
 // In this case, I know the value in being put into the pointer slot is an unsigned
-//	int, so sign extension is not a problem.  Plus, they never get interpreted as
-//	pointers.  These indices are eventually mapped to REAL pointers.
+//  int, so sign extension is not a problem.  Plus, they never get interpreted as
+//  pointers.  These indices are eventually mapped to REAL pointers.
 #pragma warning(disable : 4312)
 #endif
 

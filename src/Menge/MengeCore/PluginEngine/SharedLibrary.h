@@ -23,8 +23,8 @@
 // the article and can be freely used                                        //
 ///////////////////////////////////////////////////////////////////////////////
 /*!
- *	@file		SharedLibrary.h
- *	@brief		Functions for loading and unloading shared libraries.
+ @file    SharedLibrary.h
+ @brief    Functions for loading and unloading shared libraries.
  */
 #ifndef __PLUGIN_SHARED_LIBRARY_H__
 #define __PLUGIN_SHARED_LIBRARY_H__
@@ -57,21 +57,21 @@ namespace Menge {
 #if defined(PLUGIN_WIN32)
 
 /*!
- *	@brief		Class with static functions for loading/unloading shared libraries
+ @brief    Class with static functions for loading/unloading shared libraries
  */
 class SharedLibrary {
  public:
   /*!
-   *	@brief		Handle by which DLLs are referenced.
+   @brief    Handle by which DLLs are referenced.
    */
   typedef HMODULE HandleType;
 
   /*!
-   *	@brief		Loads the DLL from the given path.
-   *
-   *	@param		Path of the dll to be loaded.
-   *	@returns	The Handle for the DLL
-   *	@throws		std::runtime_error if there is an error in loading the dll
+   @brief    Loads the DLL from the given path.
+
+   @param    Path of the dll to be loaded.
+   @returns  The Handle for the DLL
+   @throws    std::runtime_error if there is an error in loading the dll
    */
   MENGE_API static HandleType Load(const std::string& path) {
     HMODULE moduleHandle = ::LoadLibraryA(path.c_str());
@@ -83,10 +83,10 @@ class SharedLibrary {
   }
 
   /*!
-   *	@brief		Unloads the DLL for the given handle
-   *
-   *	@param		The Handle for the DLL
-   *	@throws		std::runtime_error if there is an error in unloading the dll
+   @brief    Unloads the DLL for the given handle
+
+   @param    The Handle for the DLL
+   @throws    std::runtime_error if there is an error in unloading the dll
    */
   MENGE_API static void Unload(HandleType sharedLibraryHandle) {
     BOOL result = ::FreeLibrary(sharedLibraryHandle);
@@ -96,13 +96,13 @@ class SharedLibrary {
   }
 
   /*!
-   *	@brief		Templated class for returning a pointer to a function with the
-   *				given signature from the indicated dll.
-   *
-   *	@param		handle		The dll's handle.
-   *	@param		funcName	The name of the function
-   *	@returns	The desired function pointer.
-   *	@throws		std::runtime_error if there is an error in getting the pointer.
+   @brief    Templated class for returning a pointer to a function with the given signature from the
+            indicated dll.
+
+   @param    handle    The dll's handle.
+   @param    funcName  The name of the function
+   @returns  The desired function pointer.
+   @throws    std::runtime_error if there is an error in getting the pointer.
    */
   template <typename TSignature>
   static TSignature* GetFunctionPointer(HandleType handle, const std::string& funcName) {
@@ -122,21 +122,21 @@ class SharedLibrary {
 #if defined(PLUGIN_LINUX)
 
 /*!
- *	@brief		Class with static functions for loading/unloading shared libraries
+ @brief    Class with static functions for loading/unloading shared libraries
  */
 class SharedLibrary {
  public:
   /*!
-   *	@brief		Handle by which shared libraries are referenced.
+   @brief    Handle by which shared libraries are referenced.
    */
   typedef void* HandleType;
 
   /*!
-   *	@brief		Loads the shared library from the given path.
-   *
-   *	@param		path		Path of the shared library to be loaded.
-   *	@returns	The Handle for the shared library
-   *	@throws		std::runtime_error if there is an error in loading the shared library
+   @brief    Loads the shared library from the given path.
+
+   @param    path    Path of the shared library to be loaded.
+   @returns  The Handle for the shared library
+   @throws    std::runtime_error if there is an error in loading the shared library
    */
   MENGE_API static HandleType Load(const std::string& path) {
     void* sharedObject = ::dlopen(path.c_str(), RTLD_NOW);
@@ -149,10 +149,10 @@ class SharedLibrary {
   }
 
   /*!
-   *	@brief		Unloads the shared library for the given handle
-   *
-   *	@param		sharedLibraryHandle		The Handle for the shared library
-   *	@throws		std::runtime_error if there is an error in unloading the shared library
+   @brief    Unloads the shared library for the given handle
+
+   @param    sharedLibraryHandle    The Handle for the shared library
+   @throws    std::runtime_error if there is an error in unloading the shared library
    */
   MENGE_API static void Unload(HandleType sharedLibraryHandle) {
     int result = ::dlclose(sharedLibraryHandle);
@@ -162,13 +162,13 @@ class SharedLibrary {
   }
 
   /*!
-   *	@brief		Templated class for returning a pointer to a function with the
-   *				given signature from the indicated dll.
-   *
-   *	@param		handle		The dll's handle.
-   *	@param		funcName	The name of the function
-   *	@returns	The desired function pointer.
-   *	@throws		std::runtime_error if there is an error in getting the pointer.
+   @brief    Templated class for returning a pointer to a function with the given signature from the
+            indicated dll.
+
+   @param    handle    The dll's handle.
+   @param    funcName  The name of the function
+   @returns  The desired function pointer.
+   @throws    std::runtime_error if there is an error in getting the pointer.
    */
   template <typename TSignature>
   static TSignature* GetFunctionPointer(HandleType handle, const std::string& funcName) {

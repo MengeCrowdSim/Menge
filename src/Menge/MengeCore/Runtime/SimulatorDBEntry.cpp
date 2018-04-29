@@ -184,11 +184,11 @@ float SimulatorDBEntry::simDuration() const { return _sim != 0x0 ? _sim->getGlob
 
 ////////////////////////////////////////////////////////////////////////////
 #if 0
-	BaseAgentContext * SimulatorDBEntry::contextFromSystem( SimSystem * simSystem ) {
-		return new BaseAgentContext( simSystem->getVisAgents(), simSystem->getAgentCount() ); 
-	}
+  BaseAgentContext * SimulatorDBEntry::contextFromSystem( SimSystem * simSystem ) {
+    return new BaseAgentContext( simSystem->getVisAgents(), simSystem->getAgentCount() ); 
+  }
 
-	////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////
 #endif
 Agents::AgentInitializer* SimulatorDBEntry::getAgentInitalizer() const {
   return new Agents::AgentInitializer();

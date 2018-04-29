@@ -17,11 +17,11 @@
 */
 
 /*!
- *	@file		TaskDatabase.h
- *	@brief		Central database for querying available behavior actions.
- *
- *	For tasks to be used in the finite state machine, they must register
- *	themselves into the TaskDatabase.  This is done via the PluginEngine.
+ @file    TaskDatabase.h
+ @brief    Central database for querying available behavior actions.
+
+ For tasks to be used in the finite state machine, they must register themselves into the
+ TaskDatabase. This is done via the PluginEngine.
  */
 
 #ifndef __TASK_DATABASE_H__
@@ -36,7 +36,7 @@ namespace Menge {
 namespace BFSM {
 
 /*!
- *	@brief		The database of registered task implementations.
+ @brief    The database of registered task implementations.
  */
 typedef ElementDB<TaskFactory, Task> TaskDB;
 
@@ -45,13 +45,13 @@ typedef ElementDB<TaskFactory, Task> TaskDB;
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
 /*!
- *	@brief		Explicit specialization of addBuiltins for the Task Database
+ @brief    Explicit specialization of addBuiltins for the Task Database
  */
 template <>
 void ElementDB<BFSM::TaskFactory, BFSM::Task>::addBuiltins();
 
 /*!
- *	@brief		Explicit specialization of getElementName for the Task Database
+ @brief    Explicit specialization of getElementName for the Task Database
  */
 template <>
 std::string ElementDB<BFSM::TaskFactory, BFSM::Task>::getElementName();

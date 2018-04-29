@@ -17,8 +17,8 @@
 */
 
 /*!
- *	@file		DummyConfig.h
- *	@brief		Configures the shared library aspect of the includes.
+ @file		DummyConfig.h
+ @brief		Configures the shared library aspect of the includes.
  */
 
 #ifndef __DUMMY_CONFIG_H__

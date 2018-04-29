@@ -49,7 +49,7 @@ namespace Menge {
 namespace Agents {
 
 ////////////////////////////////////////////////////////////////////////////
-//			Implementation of NavMeshGenerator
+//      Implementation of NavMeshGenerator
 ////////////////////////////////////////////////////////////////////////////
 
 NavMeshGenerator::NavMeshGenerator() : AgentGenerator(), _positions() {}
@@ -85,7 +85,7 @@ void NavMeshGenerator::addPosition(const Vector2& p) {
 }
 
 ////////////////////////////////////////////////////////////////////////////
-//			Implementation of ExplicitGeneratorFactory
+//      Implementation of ExplicitGeneratorFactory
 ////////////////////////////////////////////////////////////////////////////
 
 NavMeshGeneratorFactory::NavMeshGeneratorFactory() : AgentGeneratorFactory() {

@@ -17,9 +17,9 @@
 */
 
 /*!
- *	@file		GLContextManager.h
- *	@brief		The mechanism by which OpenGL memory structures are restored after
- *				an OpenGL context change..
+ @file    GLContextManager.h
+ @brief   The mechanism by which OpenGL memory structures are restored after an OpenGL context
+          change.
  */
 
 #ifndef __GL_CONTEXT_MANAGER_H__
@@ -31,36 +31,35 @@
 namespace MengeVis {
 
 /*!
- *	@brief		Handles updating the scene graph when there is a new OpenGL context.
- *
- *	Through this class and its static members, all of the resources used in the scene graph
- *	are refreshed when the OpenGL context changes.
- *
- *	Each resource registers a refresh callback  to the manager and then the viewer, when
- *	changin GL Contexts, calls newGLContext() to have the resources update.
- *
- *	If any new resources are added to the SceneGraph which have OpenGL-dependent memory
- *	(such as textures, display lists, arrays of data, etc.) that class must provide
- *	a static callback method and register it so its data can be restored in the new
- *	context (e.g. ImageData, Circle, Cylinder, etc.).
+ @brief   Handles updating the scene graph when there is a new OpenGL context.
+
+ Through this class and its static members, all of the resources used in the scene graph are
+ refreshed when the OpenGL context changes.
+
+ Each resource registers a refresh callback  to the manager and then the viewer, when changin GL
+ Contexts, calls newGLContext() to have the resources update.
+
+ If any new resources are added to the SceneGraph which have OpenGL-dependent memory (such as
+ textures, display lists, arrays of data, etc.) that class must provide a static callback method and
+ register it so its data can be restored in the new context (e.g. ImageData, Circle, Cylinder,
+ etc.).
  */
 class MENGEVIS_API GLContextManager {
   /*!
-   *	@brief		A list of callbacks for performing context changes.
+   @brief   A list of callbacks for performing context changes.
    */
   static std::list<void (*)()> _rsrcCallbacks;
 
  public:
   /*!
-   *	@brief		Register a new class callback to the context manager.
-   *
-   *	@param		newGLContext	A pointer to the callback function.
+   @brief   Register a new class callback to the context manager.
+
+   @param   newGLContext    A pointer to the callback function.
    */
   static void addCallback(void (*newGLContext)());
 
   /*!
-   *	@brief		Called when the OpenGL context changes - triggers all of
-   *				the registered callbacks.
+   @brief   Called when the OpenGL context changes - triggers all of the registered callbacks.
    */
   static void newGLContext();
 };

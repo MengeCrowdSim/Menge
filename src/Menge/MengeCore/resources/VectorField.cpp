@@ -144,8 +144,8 @@ Vector2 VectorField::getFieldValue(const Vector2& pos) {
 
 Vector2 VectorField::getFieldValueInterp(const Vector2& pos) {
   // NOTE: this doesn't use anything smart when it comes to performing
-  //	the bilinear interpolation.  The x and y components of the vector
-  //	are interpolated independently
+  //  the bilinear interpolation.  The x and y components of the vector
+  //  are interpolated independently
   assert(_data != 0x0 && "Requesting a field value without having field data");
   int rowIndex, colIndex;
   getCell(pos, rowIndex, colIndex);

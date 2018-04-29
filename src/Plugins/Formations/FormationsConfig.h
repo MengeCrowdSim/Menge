@@ -17,8 +17,8 @@
 */
 
 /*!
- *	@file		FORMATIONSConfig.h
- *	@brief		Configures the shared library aspect of the includes.
+ @file		FORMATIONSConfig.h
+ @brief		Configures the shared library aspect of the includes.
  */
 
 #ifndef __FORMATIONS_CONFIG_H__

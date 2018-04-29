@@ -26,7 +26,7 @@ Any questions or comments should be sent to the authors menge@cs.unc.edu
 namespace Menge {
 
 /////////////////////////////////////////////////////////////////////
-//					Implementation of ExternalEvtTriggerFactory
+//          Implementation of ExternalEvtTriggerFactory
 /////////////////////////////////////////////////////////////////////
 
 bool ExternalEvtTriggerFactory::setFromXML(EventTrigger* trigger, TiXmlElement* node,

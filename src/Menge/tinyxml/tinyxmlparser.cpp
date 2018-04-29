@@ -47,14 +47,14 @@ TiXmlBase::Entity TiXmlBase::entity[NUM_ENTITY] = {{"&amp;", 5, '&'},
                                                    {"&apos;", 6, '\''}};
 
 // Bunch of unicode info at:
-//		http://www.unicode.org/faq/utf_bom.html
+//    http://www.unicode.org/faq/utf_bom.html
 // Including the basic of this table, which determines the #bytes in the
 // sequence from the lead byte. 1 placed for invalid sequences --
 // although the result will be junk, pass it through as much as possible.
 // Beware of the non-characters in UTF-8:
-//				ef bb bf (Microsoft "lead bytes")
-//				ef bf be
-//				ef bf bf
+//        ef bb bf (Microsoft "lead bytes")
+//        ef bf be
+//        ef bf bf
 
 const unsigned char TIXML_UTF_LEAD_0 = 0xefU;
 const unsigned char TIXML_UTF_LEAD_1 = 0xbbU;
@@ -143,17 +143,17 @@ void TiXmlBase::ConvertUTF32ToUTF8(unsigned long input, char* output, int* lengt
   // to figure out alhabetical vs. not across encoding. So take a very
   // conservative approach.
 
-  //	if ( encoding == TIXML_ENCODING_UTF8 )
-  //	{
+  //  if ( encoding == TIXML_ENCODING_UTF8 )
+  //  {
   if (anyByte < 127)
     return isalpha(anyByte);
   else
     return 1;  // What else to do? The unicode set is huge...get the english ones right.
-  //	}
-  //	else
-  //	{
-  //		return isalpha( anyByte );
-  //	}
+  //  }
+  //  else
+  //  {
+  //    return isalpha( anyByte );
+  //  }
 }
 
 /*static*/ int TiXmlBase::IsAlphaNum(unsigned char anyByte, TiXmlEncoding /*encoding*/) {
@@ -162,17 +162,17 @@ void TiXmlBase::ConvertUTF32ToUTF8(unsigned long input, char* output, int* lengt
   // to figure out alhabetical vs. not across encoding. So take a very
   // conservative approach.
 
-  //	if ( encoding == TIXML_ENCODING_UTF8 )
-  //	{
+  //  if ( encoding == TIXML_ENCODING_UTF8 )
+  //  {
   if (anyByte < 127)
     return isalnum(anyByte);
   else
     return 1;  // What else to do? The unicode set is huge...get the english ones right.
-  //	}
-  //	else
-  //	{
-  //		return isalnum( anyByte );
-  //	}
+  //  }
+  //  else
+  //  {
+  //    return isalnum( anyByte );
+  //  }
 }
 
 class TiXmlParsingData {
@@ -353,7 +353,7 @@ const char* TiXmlBase::SkipWhiteSpace(const char* p, TiXmlEncoding encoding) {
 }
 
 /*static*/ bool TiXmlBase::StreamTo(std::istream* in, int character, TIXML_STRING* tag) {
-  // assert( character > 0 && character < 128 );	// else it won't work in utf-8
+  // assert( character > 0 && character < 128 );  // else it won't work in utf-8
   while (in->good()) {
     int c = in->peek();
     if (c == character) return true;
@@ -478,7 +478,7 @@ const char* TiXmlBase::GetEntity(const char* p, char* value, int* length, TiXmlE
 
   // So it wasn't an entity, its unrecognized, or something like that.
   *value = *p;  // Don't put back the last one, since we return it!
-  //*length = 1;	// Leave unrecognized entities - this doesn't really work.
+  //*length = 1;  // Leave unrecognized entities - this doesn't really work.
   // Just writes strange XML.
   return p + 1;
 }
@@ -808,10 +808,10 @@ void TiXmlElement::StreamIn(std::istream* in, TIXML_STRING* tag) {
     return;
   } else if (tag->at(tag->length() - 1) == '>') {
     // There is more. Could be:
-    //		text
-    //		cdata text (which looks like another node)
-    //		closing tag
-    //		another node.
+    //    text
+    //    cdata text (which looks like another node)
+    //    closing tag
+    //    another node.
     for (;;) {
       StreamWhiteSpace(in, tag);
 
@@ -1180,9 +1180,9 @@ const char* TiXmlAttribute::Parse(const char* p, TiXmlParsingData* data, TiXmlEn
   p = SkipWhiteSpace(p, encoding);
   if (!p || !*p) return 0;
 
-  //	int tabsize = 4;
-  //	if ( document )
-  //		tabsize = document->TabSize();
+  //  int tabsize = 4;
+  //  if ( document )
+  //    tabsize = document->TabSize();
 
   if (data) {
     data->Stamp(p, encoding);

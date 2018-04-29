@@ -24,7 +24,7 @@ using MengeVis::Runtime::GoalVis::GoalRenderer;
 using MengeVis::Runtime::VCContext::VelCompContext;
 
 /////////////////////////////////////////////////////////////////////
-//					Implementation of VisPluginEngine
+//          Implementation of VisPluginEngine
 /////////////////////////////////////////////////////////////////////
 
 VisPluginEngine::VisPluginEngine() : BasePluginEngine<VisPluginEngine, Plugin<VisPluginEngine> >() {

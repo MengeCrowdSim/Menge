@@ -45,7 +45,7 @@ namespace SceneGraph {
 using Menge::Math::Matrix4x4;
 
 ///////////////////////////////////////////////////////////////////////////
-//				IMPLEMENTATION FOR GLNode
+//        IMPLEMENTATION FOR GLNode
 ///////////////////////////////////////////////////////////////////////////
 
 GLNode::GLNode(GLDagNode* parent) : _parent(0x0), _visible(true) {
@@ -59,7 +59,7 @@ GLNode::GLNode(GLDagNode* parent) : _parent(0x0), _visible(true) {
 GLNode::~GLNode() {}
 
 ///////////////////////////////////////////////////////////////////////////
-//				IMPLEMENTATION FOR GLDagNode
+//        IMPLEMENTATION FOR GLDagNode
 ///////////////////////////////////////////////////////////////////////////
 
 GLDagNode::GLDagNode(GLDagNode* parent) : GLNode(parent), _children(0x0), _childCount(0) {}
@@ -78,8 +78,8 @@ GLDagNode::~GLDagNode() {
 ///////////////////////////////////////////////////////////////////////////
 
 // This isn't the most efficient memory management, time-wise, but if you assume
-//	that the construction of the graph is pre-processing then it optimizes evaluation over
-//	construction.
+//  that the construction of the graph is pre-processing then it optimizes evaluation over
+//  construction.
 void GLDagNode::addChild(GLNode* child) {
   GLNode** newChildren = new GLNode*[_childCount + 1];
   for (size_t i = 0; i < _childCount; ++i) {

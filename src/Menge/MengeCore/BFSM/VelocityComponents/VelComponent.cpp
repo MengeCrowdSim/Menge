@@ -53,12 +53,12 @@ namespace BFSM {
 //                   Implementation of VelComponent
 /////////////////////////////////////////////////////////////////////
 #if 0
-		VelCompContext * VelComponent::getContext() {
-			return new VelCompContext();
-		}
+    VelCompContext * VelComponent::getContext() {
+      return new VelCompContext();
+    }
 #endif
 /////////////////////////////////////////////////////////////////////
-//					Implementation of parsing function
+//          Implementation of parsing function
 /////////////////////////////////////////////////////////////////////
 
 VelComponent* parseVelComponent(TiXmlElement* node, const std::string& behaveFldr) {

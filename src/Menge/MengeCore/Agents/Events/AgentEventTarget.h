@@ -17,8 +17,8 @@
 */
 
 /*!
- *	@file		AgentEventTarget.h
- *	@brief		The definition of the event target for agents.
+ @file    AgentEventTarget.h
+ @brief   The definition of the event target for agents.
  */
 
 #ifndef __AGENT_EVENT_TARGET_H__
@@ -30,27 +30,27 @@
 
 namespace Menge {
 /*!
- *	@brief		The base class for all event targets which target agents.
- *
- *	Event targets are fundamentally defined by what the target of the
- *	effect is.  Each event target specifies a single kind of target.
- *	This event target produces a set of one or more agents to effect.
+ @brief    The base class for all event targets which target agents.
+
+ Event targets are fundamentally defined by what the target of the effect is. Each event target
+ specifies a single kind of target. This event target produces a set of one or more agents to 
+ effect.
  */
 class MENGE_API AgentEventTarget : public EventTarget {
  public:
   /*!
-   *	@brief		Returns an iterator to the beginning of the target's elements.
+   @brief    Returns an iterator to the beginning of the target's elements.
    */
   std::vector<Agents::BaseAgent*>::iterator begin() { return _elements.begin(); }
 
   /*!
-   *	@brief		Returns an iterator to the end of the target's elements.
+   @brief    Returns an iterator to the end of the target's elements.
    */
   std::vector<Agents::BaseAgent*>::iterator end() { return _elements.end(); }
 
  protected:
   /*!
-   *	@brief		The agents targeted by the event effect.
+   @brief    The agents targeted by the event effect.
    */
   std::vector<Agents::BaseAgent*> _elements;
 };
@@ -58,7 +58,7 @@ class MENGE_API AgentEventTarget : public EventTarget {
 /////////////////////////////////////////////////////////////////////
 
 /*!
- *	@brief		Factory for the AgentEventTarget.
+ @brief    Factory for the AgentEventTarget.
  */
 class MENGE_API AgentEventTargetFactory : public EventTargetFactory {};
 

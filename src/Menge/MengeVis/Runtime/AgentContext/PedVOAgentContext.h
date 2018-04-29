@@ -17,9 +17,8 @@
 */
 
 /*!
- *  @file       PedVOAgentContext.h
- *  @brief      A basic context for interacting with and displaying
- *				PedVO agent parameters
+ @file    PedVOAgentContext.h
+ @brief   A basic context for interacting with and displaying PedVO agent parameters.
  */
 
 #ifndef __PEDVO_AGENT_CONTEXT_H__
@@ -31,12 +30,12 @@
 namespace MengeVis {
 namespace Runtime {
 /*!
- *	@brief		Declaration of ORCA-type agent context for PedVO agents.
+ @brief    Declaration of ORCA-type agent context for PedVO agents.
  */
 typedef ORCATypeAgentContext<PedVO::Agent> PedVOAgentContext;
 
 ////////////////////////////////////////////////////////////////
-//			Implementation of PedVOAgentContext
+//      Implementation of PedVOAgentContext
 ////////////////////////////////////////////////////////////////
 
 // Specialization
@@ -55,11 +54,10 @@ std::string ORCATypeAgentContext<PedVO::Agent>::getElementName() const {
 ////////////////////////////////////////////////////////////////
 
 /*!
- *	@brief		Draw the optimized velocity for the current set of orca lines
- *
- *	@param		agent		A pointer to the agent for which the velocity is drawn
- *							computeNewVelocity will be called on the
- *agent
+ @brief   Draw the optimized velocity for the current set of orca lines
+
+ @param   agent   A pointer to the agent for which the velocity is drawn. computeNewVelocity() will
+                  be called on the agent.
  */
 template <>
 inline void ORCATypeAgentContext<PedVO::Agent>::drawOptVelocity(PedVO::Agent* agent) const {
@@ -91,13 +89,13 @@ inline void ORCATypeAgentContext<PedVO::Agent>::drawOptVelocity(PedVO::Agent* ag
 ////////////////////////////////////////////////////////////////
 
 /*!
- *	@brief		Draws the given ORCA line for the given agent
- *
- *	@param		agent		A pointer to the agent to whom this line applies
- *	@param		line		The actual line
- *	@param		isAgent		A boolean reporting if the orca line comes from an agent.
- *							true --> agent, false --> obstacle
- */
+ @brief   Draws the given ORCA line for the given agent.
+
+ @param   agent     A pointer to the agent to whom this line applies.
+ @param   line      The actual line.
+ @param   isAgent   A boolean reporting if the orca line comes from an agent.  true --> agent,
+                    false --> obstacle.
+*/
 template <>
 void ORCATypeAgentContext<PedVO::Agent>::drawORCALine(const PedVO::Agent* agent,
                                                       const Menge::Math::Line& line,

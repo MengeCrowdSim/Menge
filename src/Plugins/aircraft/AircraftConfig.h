@@ -17,8 +17,8 @@
 */
 
 /*!
- *	@file		AircraftConfig.h
- *	@brief		Configures the shared library aspect of the includes.
+ @file		AircraftConfig.h
+ @brief		Configures the shared library aspect of the includes.
  */
 
 #ifndef __AIRCRAFT_CONFIG_H__

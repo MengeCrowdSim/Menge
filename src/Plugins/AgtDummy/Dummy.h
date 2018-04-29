@@ -17,8 +17,8 @@
 */
 
 /*!
- *	@file		Dummy.h
- *	@brief		Collection of Dummy Agent and Simulator for simple inclusion.
+ @file		Dummy.h
+ @brief		Collection of Dummy Agent and Simulator for simple inclusion.
  */
 
 #ifndef __DUMMY_H__

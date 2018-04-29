@@ -17,9 +17,8 @@
 */
 
 /*!
- *	@file		VisConfig.h
- *	@brief		Sets up the proper compiler directives for
- *				platform and dll export/import
+ @file    VisConfig.h
+ @brief   Sets up the proper compiler directives for platform and dll export/import
  */
 
 #ifndef __VIS_CONFIG_H__
@@ -37,12 +36,12 @@
 //// First determine compiling environment
 #if defined(WIN32) || defined(_WIN32)
 /*!
- * @brief defines the build environment as windows
+ @brief   Defines the build environment as windows.
  */
 #define PLUGIN_WIN32 1
 #else
 /*!
- * @brief defines the build environment as linux
+ @brief   Defines the build environment as linux.
  */
 #define PLUGIN_LINUX 1
 #endif

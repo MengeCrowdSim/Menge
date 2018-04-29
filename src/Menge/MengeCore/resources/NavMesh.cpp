@@ -51,7 +51,7 @@ namespace Menge {
 using Math::Vector2;
 
 /////////////////////////////////////////////////////////////////////
-//					Implementation of NavMesh
+//          Implementation of NavMesh
 /////////////////////////////////////////////////////////////////////
 
 const std::string NavMesh::LABEL("navmesh");
@@ -254,7 +254,7 @@ bool NavMesh::addGroup(const std::string& grpName, size_t grpSize) {
 
 #ifdef _WIN32
 // This disables a 64-bit compatibility warning - pushing a 64-bit value into a 32-bit value.
-//	In this case, I know the value in the pointers that are being re-interpreted as
+//  In this case, I know the value in the pointers that are being re-interpreted as
 //  unsigned ints are REALLY just unsigned ints, so it is safe.
 #pragma warning(disable : 4311)
 #endif
@@ -265,9 +265,9 @@ bool NavMesh::finalize() {
     NavMeshNode& node = _nodes[n];
     for (size_t e = 0; e < node._edgeCount; ++e) {
       // TODO: This might not work in building 64-bit code.
-      //		The pointer will be larger than the unsigned int.  But as I'm pushing an
-      //		unsigned int into a pointer slot, it'll probably be safe.  Needs to be
-      //		tested.
+      //    The pointer will be larger than the unsigned int.  But as I'm pushing an
+      //    unsigned int into a pointer slot, it'll probably be safe.  Needs to be
+      //    tested.
 
       size_t eID = reinterpret_cast<size_t>(node._edges[e]);
       assert(eID >= 0 && eID < _eCount && "Finalizing invalid edge id from node");
@@ -323,7 +323,7 @@ bool NavMesh::finalize() {
         obst._nextObstacle = 0x0;
       } else {
         obst._nextObstacle = &_obstacles[nID];
-        //	Wire up "_prevObstacle" with the previous obstacle
+        //  Wire up "_prevObstacle" with the previous obstacle
         _obstacles[nID]._prevObstacle = &_obstacles[curr];
       }
       curr = nID;
@@ -348,52 +348,52 @@ bool NavMesh::finalize() {
 //////////////////////////////////////////////////////////////////////////////////////
 
 // void NavMesh::addObstacles( Agents::SimulatorInterface * simulator ) {
-//	// Construct each contiguous obstacle
+//  // Construct each contiguous obstacle
 
-//	std::vector< bool > processed( _obstCount, false );
-//	std::vector< Vector2 > vertices;
-//	for ( size_t o = 0; o < _obstCount; ++o ) {
-//		if ( processed[ o ] ) continue;
-//		Agents::Obstacle * start = &_obstacles[ o ];
-//		Agents::Obstacle * curr = start;
+//  std::vector< bool > processed( _obstCount, false );
+//  std::vector< Vector2 > vertices;
+//  for ( size_t o = 0; o < _obstCount; ++o ) {
+//    if ( processed[ o ] ) continue;
+//    Agents::Obstacle * start = &_obstacles[ o ];
+//    Agents::Obstacle * curr = start;
 //
-//		bool closed = true;
-//		while ( curr != 0x0 && !processed[ curr->_id ] ) {
-//			processed[ curr->_id ] = true;
-//			curr = curr->_nextObstacle;
-//		}
+//    bool closed = true;
+//    while ( curr != 0x0 && !processed[ curr->_id ] ) {
+//      processed[ curr->_id ] = true;
+//      curr = curr->_nextObstacle;
+//    }
 //
-//		vertices.clear();
-//		// set open/closed
-//		if ( curr == 0x0 ||
-//			curr != start ) {	// set open
-//			closed = false;
-//			curr = start;
-//			while ( curr->_prevObstacle ) {
-//				processed[ curr->_id ] = true;
-//				curr = curr->_prevObstacle;
-//			}
-//			vertices.push_back( curr->getP0() );
-//			while ( curr->_nextObstacle ) {
-//				vertices.push_back( curr->getP0() );
-//			}
-//			vertices.push_back( curr->getP1() );
-//		} else {
-//			vertices.push_back( curr->getP0() );
-//			curr = curr->_nextObstacle;
-//			while ( curr != start ) {
-//				vertices.push_back( curr->getP0() );
-//				curr = curr->_nextObstacle;
-//			}
-//		}
-//		// This will cause the obstacle to be considered visible to ALL agents
-//		//	unless their obstacle set is set to 0.
-//		const unsigned int ALL_OBST_CLASSES = 0xffffffff;
-//		// Assume it's a loop
+//    vertices.clear();
+//    // set open/closed
+//    if ( curr == 0x0 ||
+//      curr != start ) {  // set open
+//      closed = false;
+//      curr = start;
+//      while ( curr->_prevObstacle ) {
+//        processed[ curr->_id ] = true;
+//        curr = curr->_prevObstacle;
+//      }
+//      vertices.push_back( curr->getP0() );
+//      while ( curr->_nextObstacle ) {
+//        vertices.push_back( curr->getP0() );
+//      }
+//      vertices.push_back( curr->getP1() );
+//    } else {
+//      vertices.push_back( curr->getP0() );
+//      curr = curr->_nextObstacle;
+//      while ( curr != start ) {
+//        vertices.push_back( curr->getP0() );
+//        curr = curr->_nextObstacle;
+//      }
+//    }
+//    // This will cause the obstacle to be considered visible to ALL agents
+//    //  unless their obstacle set is set to 0.
+//    const unsigned int ALL_OBST_CLASSES = 0xffffffff;
+//    // Assume it's a loop
 //
-//		//TODO: FIX THIS
-//		//simulator->getSpatialQuery()->addObstacle( vertices, closed, ALL_OBST_CLASSES );
-//	}
+//    //TODO: FIX THIS
+//    //simulator->getSpatialQuery()->addObstacle( vertices, closed, ALL_OBST_CLASSES );
+//  }
 //}
 
 //////////////////////////////////////////////////////////////////////////////////////

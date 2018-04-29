@@ -170,7 +170,7 @@ void CircleShape::setDirections(const Vector2& q, float r, Agents::PrefVelocity&
     const float distSq = absSq(relPos);
     if (distSq < TARGET_R_SQD) {
       // Goal reached -- I'm inside the effective circle -- current position is the
-      //	goal and no movement is necessary
+      //  goal and no movement is necessary
       directions.setSingle(Vector2(0.f, 0.f));
       directions.setTarget(q);
     } else {
@@ -310,13 +310,13 @@ float AABBShape::squaredDistance(const Vector2& pt) const {
 
 void AABBShape::setDirections(const Vector2& q, float r, Agents::PrefVelocity& directions) const {
   // based on the voronoi regions of the AABB
-  //	 (-1,1)  |        (0,1)        |  (1,1)
+  //   (-1,1)  |        (0,1)        |  (1,1)
   // ----------------------------------------
-  //	         |                     |
-  //	 (-1, 0) |        (0,0)        |  (1,0)
-  //	         |                     |
+  //           |                     |
+  //   (-1, 0) |        (0,0)        |  (1,0)
+  //           |                     |
   // ----------------------------------------
-  //	 (-1,-1) |       (0,-1)        |  (1,-1)
+  //   (-1,-1) |       (0,-1)        |  (1,-1)
   //
 
   // the x- and y- coordinates of the nearest point
@@ -382,15 +382,15 @@ void AABBShape::setDirections(const Vector2& q, float r, Agents::PrefVelocity& d
 
 Vector2 AABBShape::getTargetPoint(const Vector2& q, float r) const {
   // based on the voronoi regions of the AABB
-  //	 0 |         1          |  2
+  //   0 |         1          |  2
   // ----------------------------------------
-  //	   |                    |
-  //	 3 |         4          |  5
-  //	   |                    |
+  //     |                    |
+  //   3 |         4          |  5
+  //     |                    |
   // ----------------------------------------
-  //	 6 |         7          |  8
+  //   6 |         7          |  8
   //
-  //	Approximated by simply offsetting the sides by r.
+  //  Approximated by simply offsetting the sides by r.
 
   Vector2 size = _maxPt - _minPt;
   float X = q._x;
@@ -482,7 +482,7 @@ bool OBBShape::containsPoint(const Vector2& pt) const {
 
 bool OBBShape::containsPoint(const Vector2& pt, const Vector2& pos) const {
   // point relative to the center
-  //	Scaled by 2 so I can use the size value directly to do the test
+  //  Scaled by 2 so I can use the size value directly to do the test
   Vector2 p = (pt - pos) * 2.f;
   // rotate it
   const float x = p.x() * _cosTheta + p.y() * _sinTheta;
@@ -511,10 +511,10 @@ void OBBShape::setAngle(float angle) {
 
 float OBBShape::squaredDistance(const Vector2& pt) const {
   // First rotate so that the OBB is an AABB then use the same logic as
-  //	with the AABB
+  //  with the AABB
   Vector2 disp = pt - _pivot;
   // the LOCAL x- and y- coordinates of the nearest point, initialized to the
-  //	local value of the query point.
+  //  local value of the query point.
   float X = disp.x() * _cosTheta + disp.y() * _sinTheta;
   float Y = disp.y() * _cosTheta - disp.x() * _sinTheta;
 
@@ -540,7 +540,7 @@ float OBBShape::squaredDistance(const Vector2& pt) const {
 
 void OBBShape::setDirections(const Vector2& q, float r, Agents::PrefVelocity& directions) const {
   // First rotate so that the OBB is an AABB then use the same logic as
-  //	with the AABB
+  //  with the AABB
   Vector2 disp = q - _pivot;
   // Rotation from world to geometry: R = [Bx By]^T.
   Vector2 Bx = getXBasis();
@@ -551,13 +551,13 @@ void OBBShape::setDirections(const Vector2& q, float r, Agents::PrefVelocity& di
   float Y = By * disp;
 
   // based on the voronoi regions of the AABB
-  //	 (-1,1)  |        (0,1)        |  (1,1)
+  //   (-1,1)  |        (0,1)        |  (1,1)
   // ----------------------------------------
-  //	         |                     |
-  //	 (-1, 0) |        (0,0)        |  (1,0)
-  //	         |                     |
+  //           |                     |
+  //   (-1, 0) |        (0,0)        |  (1,0)
+  //           |                     |
   // ----------------------------------------
-  //	 (-1,-1) |       (0,-1)        |  (1,-1)
+  //   (-1,-1) |       (0,-1)        |  (1,-1)
   //
 
   // the x- and y-coordintes of the left and right directions
@@ -627,7 +627,7 @@ void OBBShape::setDirections(const Vector2& q, float r, Agents::PrefVelocity& di
 
 Vector2 OBBShape::getTargetPoint(const Vector2& q, float r) const {
   // First rotate so that the OBB is an AABB then use the same logic as
-  //	with the AABB
+  //  with the AABB
   Vector2 disp = q - _pivot;
   // Rotation from world to geometry: R = [Bx By]^T.
   Vector2 Bx = getXBasis();
@@ -638,15 +638,15 @@ Vector2 OBBShape::getTargetPoint(const Vector2& q, float r) const {
   float Y = By * disp;
 
   // based on the voronoi regions of the AABB
-  //	 0 |         1          |  2
+  //   0 |         1          |  2
   // ----------------------------------------
-  //	   |                    |
-  //	 3 |         4          |  5
-  //	   |                    |
+  //     |                    |
+  //   3 |         4          |  5
+  //     |                    |
   // ----------------------------------------
-  //	 6 |         7          |  8
+  //   6 |         7          |  8
   //
-  //	Approximated by simply offsetting the sides by r.
+  //  Approximated by simply offsetting the sides by r.
 
   const float D = 2.f * r;
 

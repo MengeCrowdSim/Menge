@@ -57,7 +57,7 @@ void Action::onLeave(Agents::BaseAgent* agent) {
 }
 
 /////////////////////////////////////////////////////////////////////
-//					Implementation of parsing function
+//          Implementation of parsing function
 /////////////////////////////////////////////////////////////////////
 
 Action* parseAction(TiXmlElement* node, const std::string& behaveFldr) {

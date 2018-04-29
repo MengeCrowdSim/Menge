@@ -48,7 +48,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 namespace Menge {
 /////////////////////////////////////////////////////////////////////
-//					Implementation of EventSystem
+//          Implementation of EventSystem
 /////////////////////////////////////////////////////////////////////
 
 bool EventSystem::CONSERVATIVE_SETUP = true;
@@ -134,7 +134,7 @@ void EventSystem::finalize() {
 
 /////////////////////////////////////////////////////////////////////
 
-void EventSystem::finalizeException(const std::string msg) {
+void EventSystem::finalizeException(const std::string& msg) {
   if (CONSERVATIVE_SETUP) {
     logger << Logger::ERR_MSG << msg;
     throw EventFatalException(msg);

@@ -57,7 +57,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 namespace Menge {
 
 /////////////////////////////////////////////////////////////////////
-//					Implementation of Graph
+//          Implementation of Graph
 /////////////////////////////////////////////////////////////////////
 
 const std::string Graph::LABEL("graph");

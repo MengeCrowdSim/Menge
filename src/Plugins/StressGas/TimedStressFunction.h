@@ -31,32 +31,33 @@ class BaseAgent;
 namespace StressGAS {
 
 /**
- *	@brief		The StressFunction that defines stress accumulation based on the passage of
- *				time.
- *
- *	Agents simply accumulate stress as time passes.  The rate at which they accumulate stress
- *	is:
- *	    `\delta t` / `duration`
- *	where `\delta` t is the size of the time step and `duration` is the total time a user would
- *	require to go from zero stress to full stress.
+ @brief		The StressFunction that defines stress accumulation based on the passage of time.
+
+ Agents simply accumulate stress as time passes.  The rate at which they accumulate stress
+ is:
+
+    `\delta t` / `duration`
+
+ where `\delta` t is the size of the time step and `duration` is the total time a user would
+ require to go from zero stress to full stress.
  */
 class EXPORT_API TimedStressFunction : public StressFunction {
  public:
   /**
-   *	@brief	Constructor.
-   *
-   *	@param	duration			The duration for the agent to reach 100% stress.
-   *	@param	agent				The agent to apply stress to.
-   *	@param	stressor			The agent stressor to use on the agent.
-   *	@param	coolDuration		The amount of time (in seconds) required to cool down from
+   @brief	Constructor.
+
+   @param	duration			  The duration for the agent to reach 100% stress.
+   @param	agent				    The agent to apply stress to.
+   @param	stressor			  The agent stressor to use on the agent.
+   @param	coolDuration		The amount of time (in seconds) required to cool down from.
    */
   TimedStressFunction(float duration, Menge::Agents::BaseAgent* agent, AgentStressor* stressor,
                       float coolDuration);
 
   /*!
-   *	@brief		Updates the stress level for this agent.
-   *
-   *	@returns	The stress value for the function's agent.
+   @brief		Updates the stress level for this agent.
+
+   @returns	The stress value for the function's agent.
    */
   virtual float updateStress();
 

@@ -48,7 +48,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 namespace Menge {
 
 //////////////////////////////////////////////////////////////////////////////////////
-//						Implementation of NavMeshNode
+//            Implementation of NavMeshNode
 //////////////////////////////////////////////////////////////////////////////////////
 
 NavMeshNode::NavMeshNode()
@@ -122,8 +122,8 @@ NavMeshEdge* NavMeshNode::getConnection(unsigned int nodeID) {
 // This disables a 64-bit compatibility warning - pushing a 32-bit value into a 64-bit value.
 // This can cause problems with SIGN EXTENSION.
 // In this case, I know the value in being put into the pointer slot is an unsigned
-//	int, so sign extension is not a problem.  Plus, they never get interpreted as
-//	pointers.  These indices are eventually mapped to REAL pointers.
+//  int, so sign extension is not a problem.  Plus, they never get interpreted as
+//  pointers.  These indices are eventually mapped to REAL pointers.
 #pragma warning(disable : 4312)
 #endif
 bool NavMeshNode::loadFromAscii(std::ifstream& f) {

@@ -17,8 +17,8 @@
 */
 
 /*!
- *	@file		GoalDatabase.h
- *	@brief		Central database for querying available agent goals.
+ @file    GoalDatabase.h
+ @brief    Central database for querying available agent goals.
  */
 
 #ifndef __GOAL_DATABASE_H__
@@ -33,7 +33,7 @@ namespace Menge {
 namespace BFSM {
 
 /*!
- *	@brief		The database of registered goal implementations.
+ @brief    The database of registered goal implementations.
  */
 typedef ElementDB<GoalFactory, Goal> GoalDB;
 
@@ -42,13 +42,13 @@ typedef ElementDB<GoalFactory, Goal> GoalDB;
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
 /*!
- *	@brief		Explicit specialization of addBuiltins for the Goal Database
+ @brief    Explicit specialization of addBuiltins for the Goal Database
  */
 template <>
 void ElementDB<BFSM::GoalFactory, BFSM::Goal>::addBuiltins();
 
 /*!
- *	@brief		Explicit specialization of getElementName for the Goal Database
+ @brief    Explicit specialization of getElementName for the Goal Database
  */
 template <>
 std::string ElementDB<BFSM::GoalFactory, BFSM::Goal>::getElementName();

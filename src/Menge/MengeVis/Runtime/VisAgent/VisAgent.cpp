@@ -126,8 +126,8 @@ void VisAgent::getColor(float& r, float& g, float& b) {
   } else {
     if (_agent != 0x0) {
       // TODO: this is bad.  I only support six classes
-      //		Ultimately, replace this with a class that determines colors based
-      //		on arbitrary rules
+      //    Ultimately, replace this with a class that determines colors based
+      //    on arbitrary rules
       size_t colorClass = _agent->_class % 6;
       switch (colorClass) {
         case 0:

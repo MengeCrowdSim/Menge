@@ -14,22 +14,22 @@ class BaseAgent;
 class AgentInitializer;
 
 /*!
- *	@brief		A profile selector that selects a profile from a set with weighted
- *				probability.
- *	To specify a const profile selector, use the following syntax:
- *
- *	```xml
- *	<ProfileSelector type="weighted">
- *		<Profile name="PROFILE_NAME0" weight="[float]"/>
- *		<Profile name="PROFILE_NAME1" weight="[float]"/>
- *		...
- *		<Profile name="PROFILE_NAMEN" weight="[float]"/>
- *	</ProfileSelector>
- *	```
- *
- *	Simply exchange the `PROFILE_NAME#` with a defined, named profile in the scene
- *	specification file. The weight's can be any *postive* real value. The probability that
- *  a particular profile gets selected is proportional to its relative weight.
+ @brief   A profile selector that selects a profile from a set with weighted probability.
+
+ To specify a const profile selector, use the following syntax:
+
+ ```xml
+ <ProfileSelector type="weighted">
+   <Profile name="PROFILE_NAME0" weight="[float]"/>
+   <Profile name="PROFILE_NAME1" weight="[float]"/>
+   ...
+  <Profile name="PROFILE_NAMEN" weight="[float]"/>
+ </ProfileSelector>
+ ```
+
+ Simply exchange the `PROFILE_NAME#` with a defined, named profile in the scene specification file.
+ The weight's can be any *postive* real value. The probability that a particular profile gets
+ selected is proportional to its relative weight.
  */
 class MENGE_API ProfileSelectorWeighted final : public ProfileSelector {
  public:
@@ -50,7 +50,7 @@ class MENGE_API ProfileSelectorWeighted final : public ProfileSelector {
 };
 
 /*!
- *	@brief		The factor for the ProfileSelectorWeighted.
+ @brief    The factor for the ProfileSelectorWeighted.
  */
 class MENGE_API ProfileSelectorWeightedFactory : public ProfileSelectorFactory {
  public:

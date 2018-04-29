@@ -50,7 +50,7 @@ namespace Menge {
 using Math::Vector2;
 
 /////////////////////////////////////////////////////////////////////
-//					Implementation of NavMeshLocation
+//          Implementation of NavMeshLocation
 /////////////////////////////////////////////////////////////////////
 
 const unsigned int NavMeshLocation::NO_NODE = std::numeric_limits<unsigned int>::max();
@@ -98,7 +98,7 @@ void NavMeshLocation::setPath(PortalPath* path) {
 }
 
 /////////////////////////////////////////////////////////////////////
-//					Implementation of NavMeshLocalizer
+//          Implementation of NavMeshLocalizer
 /////////////////////////////////////////////////////////////////////
 
 const std::string NavMeshLocalizer::LABEL("navmesh_localizer");
@@ -198,7 +198,7 @@ void NavMeshLocalizer::setNode(size_t agentID, unsigned int nodeID) {
 unsigned int NavMeshLocalizer::updateLocation(const Agents::BaseAgent* agent, bool force) const {
   const size_t ID = agent->_id;
   // NOTE: This will create a default location instance if the agent didn't already
-  //	have one
+  //  have one
   _locLock.lockRead();
   NavMeshLocation& loc = _locations[ID];
   _locLock.releaseRead();
@@ -264,7 +264,7 @@ unsigned int NavMeshLocalizer::updateLocation(const Agents::BaseAgent* agent, bo
 
 unsigned int NavMeshLocalizer::findNodeBlind(const Vector2& p, float tgtElev) const {
   // TODO(curds01) 10/1/2016 - This cast is bad because I can lose precision
-  //	(after I get 4 billion nodes...)
+  //  (after I get 4 billion nodes...)
   const unsigned int nCount = static_cast<unsigned int>(_navMesh->getNodeCount());
   float elevDiff = 1e6f;
   unsigned int maxNode = NavMeshLocation::NO_NODE;

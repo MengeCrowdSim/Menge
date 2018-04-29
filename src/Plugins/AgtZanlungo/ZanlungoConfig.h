@@ -17,8 +17,8 @@
 */
 
 /*!
- *	@file		ZanlungoConfig.h
- *	@brief		Configures the shared library aspect of the includes.
+ @file		ZanlungoConfig.h
+ @brief		Configures the shared library aspect of the includes.
  */
 
 #ifndef __ZANLUNGO_CONFIG_H__

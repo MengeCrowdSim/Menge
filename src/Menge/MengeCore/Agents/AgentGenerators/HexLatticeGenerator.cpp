@@ -49,32 +49,32 @@ namespace Menge {
 namespace Agents {
 
 ////////////////////////////////////////////////////////////////////////////
-//			Implementation of Helper functions
+//      Implementation of Helper functions
 ////////////////////////////////////////////////////////////////////////////
 
 /*!
- *	@brief		Computes the effective density of an agent to achieve the target
- *				density.
- *
- *	@param		density		The target density.
- *	@returns	The radius of the disk which, if maximally packed, achieves the
- *				target density.
+ *  @brief    Computes the effective density of an agent to achieve the target
+ *        density.
+
+ *  @param    density    The target density.
+ *  @returns  The radius of the disk which, if maximally packed, achieves the
+ *        target density.
  */
 float effectiveRadius(float density) { return 1.f / sqrt(2.f * density * sqrt(3.f)); }
 
 ////////////////////////////////////////////////////////////////////////////
 
 /*!
- *	@brief		Computes the rank distance based on a target radius.
- *				rank distance is the distance between two rows in the lattice.
- *
- *	@param		radius		The target radius of the disk.
- *	@returns	The distance between rows.
+ *  @brief    Computes the rank distance based on a target radius.
+ *        rank distance is the distance between two rows in the lattice.
+
+ *  @param    radius    The target radius of the disk.
+ *  @returns  The distance between rows.
  */
 float rankDistance(float radius) { return radius * sqrt(3.f); }
 
 ////////////////////////////////////////////////////////////////////////////
-//			Implementation of HexLatticeGenerator
+//      Implementation of HexLatticeGenerator
 ////////////////////////////////////////////////////////////////////////////
 
 HexLatticeGenerator::HexLatticeGenerator()
@@ -172,7 +172,7 @@ void HexLatticeGenerator::set(const Vector2& anchor, AnchorAlignEnum align, Latt
       break;
   }
   // Recompute _anchor based on _anchorAlign - essentially, change the anchor point
-  //	such that the first agent is always placed at the origin.
+  //  such that the first agent is always placed at the origin.
   // This is the rotated displacement of the center/right corner to the origin
   if (align == CENTER) {
     _anchor = anchor - Vector2(_cosRot * actualWidth, _sinRot * actualWidth) * 0.5f;
@@ -185,7 +185,7 @@ void HexLatticeGenerator::set(const Vector2& anchor, AnchorAlignEnum align, Latt
 }
 
 ////////////////////////////////////////////////////////////////////////////
-//			Implementation of HexLatticeGeneratorFactory
+//      Implementation of HexLatticeGeneratorFactory
 ////////////////////////////////////////////////////////////////////////////
 
 HexLatticeGeneratorFactory::HexLatticeGeneratorFactory() : AgentGeneratorFactory() {

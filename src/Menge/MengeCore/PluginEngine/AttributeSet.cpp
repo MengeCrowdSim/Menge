@@ -47,7 +47,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 namespace Menge {
 
 /////////////////////////////////////////////////////////////////////
-//					Implementation of AttributeSet
+//          Implementation of AttributeSet
 /////////////////////////////////////////////////////////////////////
 
 AttributeSet::AttributeSet() : _attrs() {}
@@ -197,7 +197,7 @@ void AttributeSet::clear() {
 bool AttributeSet::extract(TiXmlElement* node) {
   bool valid = true;
   // Don't simply die at the first attribute error.  Find multiple errors
-  //	and THEN throw an exception.
+  //  and THEN throw an exception.
   for (size_t i = 0; i < _attrs.size(); ++i) {
     valid = valid && _attrs[i]->extract(node);
   }
@@ -208,8 +208,8 @@ bool AttributeSet::extract(TiXmlElement* node) {
 
 bool AttributeSet::isUniqueName(const std::string& name) {
   // This requires every name to be unique
-  //	This includes distribution prefixes.  A distribution prefix CANNOT be
-  //	the same as another attribute name.
+  //  This includes distribution prefixes.  A distribution prefix CANNOT be
+  //  the same as another attribute name.
   for (size_t i = 0; i < _attrs.size(); ++i) {
     if (_attrs[i]->getName() == name) return false;
   }

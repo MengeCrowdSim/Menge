@@ -17,8 +17,8 @@
 */
 
 /*!
- *	@file		EventException.h
- *	@brief		The definition of event-related exceptions.
+ @file    EventException.h
+ @brief    The definition of event-related exceptions.
  */
 
 #ifndef __EVENT_EXCEPTION_H__
@@ -29,37 +29,37 @@
 
 namespace Menge {
 /*!
- *	@brief		The base event exception.
+ @brief    The base event exception.
  */
 class MENGE_API EventException : public virtual MengeException {
  public:
   /*!
-   *	@brief		Default constructor.
+   @brief    Default constructor.
    */
   EventException() : MengeException() {}
 
   /*!
-   *	@brief		Constructor with message.
-   *
-   *	@param		s		The exception-specific message.
+   @brief    Constructor with message.
+
+   @param    s    The exception-specific message.
    */
   EventException(const std::string& s) : MengeException(s) {}
 };
 
 /*!
- *	@brief		The fatal event exception.
+ @brief    The fatal event exception.
  */
 class MENGE_API EventFatalException : public EventException, public MengeFatalException {
  public:
   /*!
-   *	@brief		Default constructor.
+   @brief    Default constructor.
    */
   EventFatalException() : MengeException(), EventException(), MengeFatalException() {}
 
   /*!
-   *	@brief		Constructor with message.
-   *
-   *	@param		s		The exception-specific message.
+   @brief    Constructor with message.
+
+   @param    s    The exception-specific message.
    */
   EventFatalException(const std::string& s)
       : MengeException(s), EventException(), MengeFatalException() {}

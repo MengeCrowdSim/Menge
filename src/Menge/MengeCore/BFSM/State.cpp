@@ -222,9 +222,9 @@ void State::leave(Agents::BaseAgent* agent) {
 
 size_t State::getPopulation() const {
   // It is assumed that every agent actually in the state has a
-  //	representation in _goals.
-  //	This works because goal persistence is stored in the goal
-  //	selector.
+  //  representation in _goals.
+  //  This works because goal persistence is stored in the goal
+  //  selector.
   _goalLock.lockRead();
   size_t size = _goals.size();
   _goalLock.releaseRead();

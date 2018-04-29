@@ -51,7 +51,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 namespace Menge {
 
 /////////////////////////////////////////////////////////////////////
-//					Implementation of Attribute
+//          Implementation of Attribute
 /////////////////////////////////////////////////////////////////////
 
 void Attribute::clear() {
@@ -63,7 +63,7 @@ void Attribute::clear() {
 }
 
 /////////////////////////////////////////////////////////////////////
-//					Implementation of StringAttribute
+//          Implementation of StringAttribute
 /////////////////////////////////////////////////////////////////////
 
 bool StringAttribute::extract(TiXmlElement* node) {
@@ -83,7 +83,7 @@ bool StringAttribute::extract(TiXmlElement* node) {
 }
 
 /////////////////////////////////////////////////////////////////////
-//					Implementation of IntAttribute
+//          Implementation of IntAttribute
 /////////////////////////////////////////////////////////////////////
 
 bool IntAttribute::extract(TiXmlElement* node) {
@@ -102,7 +102,7 @@ bool IntAttribute::extract(TiXmlElement* node) {
 }
 
 /////////////////////////////////////////////////////////////////////
-//					Implementation of FloatAttribute
+//          Implementation of FloatAttribute
 /////////////////////////////////////////////////////////////////////
 
 bool FloatAttribute::extract(TiXmlElement* node) {
@@ -121,7 +121,7 @@ bool FloatAttribute::extract(TiXmlElement* node) {
 }
 
 ////////////////////////////////////////////////////////////////////
-//					Implementation of BoolAttribute
+//          Implementation of BoolAttribute
 /////////////////////////////////////////////////////////////////////
 
 bool BoolAttribute::extract(TiXmlElement* node) {
@@ -140,7 +140,7 @@ bool BoolAttribute::extract(TiXmlElement* node) {
 }
 
 ////////////////////////////////////////////////////////////////////
-//					Implementation of SizeTAttribute
+//          Implementation of SizeTAttribute
 /////////////////////////////////////////////////////////////////////
 
 bool SizeTAttribute::extract(TiXmlElement* node) {
@@ -165,7 +165,7 @@ bool SizeTAttribute::extract(TiXmlElement* node) {
 }
 
 ////////////////////////////////////////////////////////////////////
-//					Implementation of FloatDistributionAttribute
+//          Implementation of FloatDistributionAttribute
 /////////////////////////////////////////////////////////////////////
 
 FloatDistributionAttribute::~FloatDistributionAttribute() {
@@ -197,7 +197,7 @@ bool FloatDistributionAttribute::extract(TiXmlElement* node) {
 }
 
 ////////////////////////////////////////////////////////////////////
-//					Implementation of Vec2DDistributionAttribute
+//          Implementation of Vec2DDistributionAttribute
 /////////////////////////////////////////////////////////////////////
 
 Vec2DDistributionAttribute::~Vec2DDistributionAttribute() {
@@ -229,7 +229,7 @@ bool Vec2DDistributionAttribute::extract(TiXmlElement* node) {
 }
 
 ////////////////////////////////////////////////////////////////////
-//					Implementation of IntDistributionAttribute
+//          Implementation of IntDistributionAttribute
 /////////////////////////////////////////////////////////////////////
 
 IntDistributionAttribute::~IntDistributionAttribute() {

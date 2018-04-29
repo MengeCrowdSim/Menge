@@ -43,7 +43,7 @@ namespace Menge {
 using Math::Vector2;
 
 /////////////////////////////////////////////////////////////////////
-//					Implementation of WayPortal
+//          Implementation of WayPortal
 /////////////////////////////////////////////////////////////////////
 
 WayPortal::WayPortal(const NavMeshEdge* edge, unsigned int nodeID, bool p0IsLeft)
@@ -63,9 +63,9 @@ Vector2 WayPortal::intersectionPoint(const Vector2& point, const Vector2& dir) c
   Vector2 p0 = _edge->getP0();
   float denom = det(pDir, dir);
   // if ( fabs( denom ) <= EPS ) {
-  //	// If the line is parallel with the portal, just use the point
-  //	// This is a horrible, horrible hack.
-  //	return point;
+  //  // If the line is parallel with the portal, just use the point
+  //  // This is a horrible, horrible hack.
+  //  return point;
   //}
   assert(fabs(denom) > EPS && "Parallel lines don't intersect");
 

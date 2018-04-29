@@ -17,8 +17,8 @@
 */
 
 /*!
- *	@file		ScreenGrab.h
- *	@brief		Functionality for capturing screen grabs to the file system.
+ @file    ScreenGrab.h
+ @brief   Functionality for capturing screen grabs to the file system.
  */
 
 #ifndef __SCREENGRAB_H__
@@ -27,14 +27,13 @@
 namespace MengeVis {
 
 /*!
- *	@brief			Function to create a png from the current screenbuffer
- *
- *  @param			windowWidth		the current width of the Menge window
- *  @param			windowHeight	the current height of the Menge windiw
- *  @param			filename		string representation of the target
- *filename.
- *
- *	@returns		whether or not the output was successful
+ @brief   Function to create a png from the current screenbuffer
+
+ @param   windowWidth     The current width of the Menge window.
+ @param   windowHeight    The current height of the Menge window.
+ @param   filename        Path to the file to write.
+
+ @returns True if the output was successful
  */
 bool snapshotPNG(int windowWidth, int windowHeight, const char* filename);
 }  // namespace MengeVis

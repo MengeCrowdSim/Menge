@@ -17,8 +17,8 @@
 */
 
 /*!
- *	@file		GoalSelectorRandom.h
- *	@brief		The definition of the random goal selector.
+ @file    GoalSelectorRandom.h
+ @brief    The definition of the random goal selector.
  */
 
 #ifndef __GOAL_SELECTOR_RANDOM_H__
@@ -32,42 +32,42 @@ namespace Menge {
 
 namespace BFSM {
 /*!
- *	@brief		The random goal selector selects a goal from a goal set with
- *				uniform probability (i.e., it ignores the goal weights).
+ @brief    The random goal selector selects a goal from a goal set with uniform probability (i.e., it
+          ignores the goal weights).
  */
 class MENGE_API RandomGoalSelector : public SetGoalSelector {
  public:
   /*!
-   *	@brief		Interface function for acquiring per-agent goals.
-   *
-   *	@param		agent		The agent for whom a goal is extracted.
-   *	@returns	A pointer to a goal.
-   *	// TODO: Figure out who owns this goal.
+   @brief    Interface function for acquiring per-agent goals.
+
+   @param    agent    The agent for whom a goal is extracted.
+   @returns  A pointer to a goal.
+   // TODO: Figure out who owns this goal.
    */
   virtual Goal* getGoal(const Agents::BaseAgent* agent) const;
 };
 
 /*!
- *	@brief		Factory for the RandomGoalSelector.
+ @brief    Factory for the RandomGoalSelector.
  */
 class MENGE_API RandomGoalSelectorFactory : public SetGoalSelectorFactory {
  public:
   /*!
-   *	@brief		The name of the goal selector type.
-   *
-   *	The goal selector's name must be unique among all registered goal selectors.
-   *	Each goal selector factory must override this function.
-   *
-   *	@returns	A string containing the unique goal selector name.
+   @brief    The name of the goal selector type.
+
+   The goal selector's name must be unique among all registered goal selectors. Each goal selector
+   factory must override this function.
+
+   @returns  A string containing the unique goal selector name.
    */
   virtual const char* name() const { return "random"; }
 
   /*!
-   *	@brief		A description of the goal selector.
-   *
-   *	Each goal selector factory must override this function.
-   *
-   *	@returns	A string containing the goal selector description.
+   @brief    A description of the goal selector.
+
+   Each goal selector factory must override this function.
+
+   @returns  A string containing the goal selector description.
    */
   virtual const char* description() const {
     return "A goal selector.  Assigns the agent a goal drawn randomly "
@@ -76,9 +76,9 @@ class MENGE_API RandomGoalSelectorFactory : public SetGoalSelectorFactory {
 
  protected:
   /*!
-   *	@brief		Create an instance of this class's goal selector.
-   *
-   *	@returns		A pointer to a newly instantiated GoalSelector class.
+   @brief    Create an instance of this class's goal selector.
+
+   @returns    A pointer to a newly instantiated GoalSelector class.
    */
   GoalSelector* instance() const { return new RandomGoalSelector(); }
 };

@@ -45,7 +45,7 @@ namespace Menge {
 namespace Agents {
 
 /////////////////////////////////////////////////////////////////////
-//					Implementation of ObstacleSetFactory
+//          Implementation of ObstacleSetFactory
 /////////////////////////////////////////////////////////////////////
 
 ObstacleSetFactory::ObstacleSetFactory() : ElementFactory<ObstacleSet>(), _classID(0) {

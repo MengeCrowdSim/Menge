@@ -48,7 +48,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 namespace Menge {
 
 /////////////////////////////////////////////////////////////////////
-//					Implementation of StateEvtTrigger
+//          Implementation of StateEvtTrigger
 /////////////////////////////////////////////////////////////////////
 
 StateEvtTrigger::StateEvtTrigger() : EventTrigger(), _stateName(), _state(0x0) {}
@@ -65,7 +65,7 @@ void StateEvtTrigger::finalize() {
 }
 
 /////////////////////////////////////////////////////////////////////
-//					Implementation of StateEvtTriggerFactory
+//          Implementation of StateEvtTriggerFactory
 /////////////////////////////////////////////////////////////////////
 
 StateEvtTriggerFactory::StateEvtTriggerFactory() : EventTriggerFactory() {
@@ -85,6 +85,31 @@ bool StateEvtTriggerFactory::setFromXML(EventTrigger* trigger, TiXmlElement* nod
   sTrigger->_stateName = _attrSet.getString(_stateID);
 
   return true;
+}
+
+/////////////////////////////////////////////////////////////////////
+//          Implementation of StatePopIncreaseTrigger
+/////////////////////////////////////////////////////////////////////
+
+// _lastPop is initialized to a ridiculously high number in order to keep
+//  the event from triggering upon initialization.  The first call to
+//  testCondition will bring it back down.
+StatePopIncreaseTrigger::StatePopIncreaseTrigger() : StateEvtTrigger(), _lastPop(100000000) {}
+
+/////////////////////////////////////////////////////////////////////
+
+void StatePopIncreaseTrigger::finalize() {
+  StateEvtTrigger::finalize();
+  _lastPop = _state->getPopulation();
+}
+
+/////////////////////////////////////////////////////////////////////
+
+bool StatePopIncreaseTrigger::testCondition() {
+  size_t currPop = _state->getPopulation();
+  bool increased = currPop > _lastPop;
+  _lastPop = currPop;
+  return increased;
 }
 
 }  // namespace Menge

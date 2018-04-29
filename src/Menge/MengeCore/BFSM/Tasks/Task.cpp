@@ -45,7 +45,7 @@ namespace Menge {
 namespace BFSM {
 
 /////////////////////////////////////////////////////////////////////
-//					Implementation of parsing function
+//          Implementation of parsing function
 /////////////////////////////////////////////////////////////////////
 
 Task* parseTask(TiXmlElement* node, const std::string& behaveFldr) {
