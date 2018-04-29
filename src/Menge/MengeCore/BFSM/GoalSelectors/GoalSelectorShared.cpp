@@ -71,8 +71,8 @@ bool SharedGoalSelectorFactory::setFromXML(GoalSelector* selector, TiXmlElement*
   assert(sgs != 0x0 &&
          "Trying to set attributes of a shared goal selector on an incompatible object");
   // NOTE: This does NOT call the parent's setFromXML because it is a special-purpose
-  //		stub. It only sub-classes the GoalSelectorFactory so it can sit in the same
-  //		factory database.
+  //    stub. It only sub-classes the GoalSelectorFactory so it can sit in the same
+  //    factory database.
 
   // get the file name
   const char* sNameCStr = node->Attribute("state_name");

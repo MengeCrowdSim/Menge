@@ -17,8 +17,8 @@
 */
 
 /*!
- *	@file		ORCA.h
- *	@brief		Collection of ORCA Agent and Simulator for simple inclusion.
+ @file    ORCA.h
+ @brief    Collection of ORCA Agent and Simulator for simple inclusion.
  */
 
 #ifndef __ORCA_H__

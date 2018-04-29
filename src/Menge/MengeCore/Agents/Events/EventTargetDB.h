@@ -17,11 +17,11 @@
 */
 
 /*!
- *	@file		EventTargetDB.h
- *	@brief		Central database for querying available event target implementations.
- *
- *	For event targets to be used in simulation, they must register
- *	themselves into the EventTargetDB.  This is done via the PluginEngine.
+ @file    EventTargetDB.h
+ @brief    Central database for querying available event target implementations.
+
+ For event targets to be used in simulation, they must register themselves into the EventTargetDB.
+ This is done via the PluginEngine.
  */
 
 #ifndef __EVENT_TARGET_DATABASE_H__
@@ -33,7 +33,7 @@
 
 namespace Menge {
 /*!
- *	@brief		The database of registered event targets implementations.
+ @brief    The database of registered event targets implementations.
  */
 typedef ElementDB<EventTargetFactory, EventTarget> EventTargetDB;
 

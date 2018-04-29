@@ -44,7 +44,7 @@ namespace MengeVis {
 namespace SceneGraph {
 
 ///////////////////////////////////////////////////////////////////////////
-//				IMPLEMENTATION FOR TextWriter
+//        IMPLEMENTATION FOR TextWriter
 ///////////////////////////////////////////////////////////////////////////
 
 TextWriter* TextWriter::_instance = 0x0;
@@ -184,9 +184,9 @@ void TextWriter::printText(const std::string& text, float left, float bottom, in
     glColor4fv(&_defColor[0]);
   }
   // for each line
-  //	Render the line
+  //  Render the line
   //  put the surface into the texture
-  //	render the quad
+  //  render the quad
   int startIndex = 0;
   nlIndex = (int)text.find_first_of("\n");
   while (nlIndex > -1) {
@@ -208,7 +208,7 @@ void TextWriter::printText(const std::string& text, float left, float bottom, in
 
   glPopAttrib();
   glPopMatrix();
-  //		draw a character
+  //    draw a character
   glMatrixMode(GL_PROJECTION);
   glPopMatrix();
   glMatrixMode(GL_MODELVIEW);

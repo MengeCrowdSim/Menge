@@ -17,8 +17,8 @@
 */
 
 /*!
- *	@file		Watermark.h
- *	@brief		Data for controlling a watermark.
+ @file    Watermark.h
+ @brief   Data for controlling a watermark.
  */
 
 #ifndef __WATER_MARK_H__
@@ -35,7 +35,7 @@ class Image;
 
 namespace Viewer {
 /*!
- *	@brief		The potential alignment of the watermark.
+ @brief   The potential alignment of the watermark.
  */
 enum WatermarkAlign {
   NO_ALIGN,      ///< Undefined alignment.
@@ -47,47 +47,47 @@ enum WatermarkAlign {
 };
 
 /*!
- *	@brief		A class for handling the watermark functionality.
- *
- *	A watermark is a semi-transparent image drawn over the top of the scene.
+ @brief   A class for handling the watermark functionality.
+
+ A watermark is a semi-transparent image drawn over the top of the scene.
  */
 class Watermark {
  public:
   /*!
-   *	@brief		Constructor.
+   @brief   Constructor.
    */
   Watermark();
 
   /*!
-   *	@brief		Destructor.
+   @brief   Destructor.
    */
   ~Watermark();
 
   /*!
-   *	@brief		Returns the file name for the water mark.
+   @brief   Returns the file name for the water mark.
    */
   const std::string& getFilename() const { return _fileName; }
 
   /*!
-   *	@brief		Draws the watermark to the screen.
-   *
-   *	@param		w		The width of the screen (in pixels).
-   *	@param		h		The height of the screen (in pixels).
+   @brief   Draws the watermark to the screen.
+
+   @param   w   The width of the screen (in pixels).
+   @param   h   The height of the screen (in pixels).
    */
   void drawGL(float w, float h) const;
 
   /*!
-   *  @brief    Reports the alignment of the watermark.
+   @brief   Reports the alignment of the watermark.
    */
   WatermarkAlign get_alignment() const { return _alignment; }
 
   /*!
-   *  @brief    Reports the opacity of the watermark.
+   @brief   Reports the opacity of the watermark.
    */
   float get_opacity() const { return _opacity; }
 
   /*!
-   *  @brief    Reports the scale of the watermark.
+   @brief   Reports the scale of the watermark.
    */
   float get_scale() const { return _scale; }
 
@@ -95,41 +95,42 @@ class Watermark {
 
  protected:
   /*!
-   *	@brief		File name of the watermark.
+   @brief   File name of the watermark.
    */
   std::string _fileName;
 
   /*!
-   *	@brief		A pointer to the image the watermark uses.
+   @brief   A pointer to the image the watermark uses.
    */
   Image* _img;
 
   /*!
-   *	@brief		The alignment of the watermark.
+   @brief   The alignment of the watermark.
    */
   WatermarkAlign _alignment;
 
   /*!
-   *	@brief		The opacity of the watermark.  Should be a value
-   *				in the range [0, 1], where 0 is completely transparent
-   *				and 1 is completely opaque.
+   @brief   The opacity of the watermark.
+   
+   Should be a value in the range [0, 1], where 0 is completely transparent and 1 is completely
+   opaque.
    */
   float _opacity;
 
   /*!
-   *	@brief		The scale of the watermark.
-   *				If the alignment is FULL_SCREEN, this can cause tiling.
+   @brief   The scale of the watermark.
+
+   If the alignment is FULL_SCREEN, this can cause tiling.
    */
   float _scale;
 };
 
 /*!
- *	@brief		Parses a water mark xml specification and returns the corresponding
- *				instance.
- *
- *	@param		node		The XML node containing the watermark definition.
- *	@param		viewFldr	The path to the view configuration file.
- *	@returns	A pointer to a water mark, if the definition was valid (NULL otherwise).
+ @brief   Parses a water mark xml specification and returns the corresponding instance.
+
+ @param   node        The XML node containing the watermark definition.
+ @param   viewFldr    The path to the view configuration file.
+ @returns A pointer to a water mark, if the definition was valid (NULL otherwise).
  */
 Watermark* parseWatermark(TiXmlElement* node, const std::string& viewFldr);
 }  // namespace Viewer

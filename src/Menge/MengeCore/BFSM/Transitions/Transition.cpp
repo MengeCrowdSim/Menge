@@ -52,7 +52,7 @@ namespace Menge {
 namespace BFSM {
 
 /////////////////////////////////////////////////////////////////////
-//					Implementation of Transition
+//          Implementation of Transition
 /////////////////////////////////////////////////////////////////////
 
 Transition::Transition(const Transition& trans)
@@ -153,7 +153,7 @@ Transition* parseTransition(TiXmlElement* node, const std::string& behaveFldr,
 
   valid = valid && condition != 0x0 && target != 0x0;
   // 4) If no Condition tag exists, it fails, if no Target tag exists && there was no to
-  //		tag, it fails
+  //    tag, it fails
   if (!valid) {
     logger << Logger::ERR_MSG
            << "Missing target and/or condition specification for "

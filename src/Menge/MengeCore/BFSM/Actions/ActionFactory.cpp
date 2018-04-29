@@ -43,7 +43,7 @@ namespace Menge {
 namespace BFSM {
 
 /////////////////////////////////////////////////////////////////////
-//					Implementation of ActionFactory
+//          Implementation of ActionFactory
 /////////////////////////////////////////////////////////////////////
 
 ActionFactory::ActionFactory() : ElementFactory<Action>() {
@@ -61,5 +61,6 @@ bool ActionFactory::setFromXML(Action* action, TiXmlElement* node,
 
   return true;
 }
+
 }  // namespace BFSM
 }  // namespace Menge

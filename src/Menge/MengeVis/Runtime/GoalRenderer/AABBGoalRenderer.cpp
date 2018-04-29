@@ -14,7 +14,7 @@ using Menge::Math::AABBShape;
 using Menge::Math::Vector2;
 
 /////////////////////////////////////////////////////////////////////
-//					Implementation of AABBGoalRenderer
+//          Implementation of AABBGoalRenderer
 /////////////////////////////////////////////////////////////////////
 
 std::string AABBGoalRenderer::getElementName() const { return AABBGoal::NAME; }

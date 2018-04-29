@@ -20,15 +20,15 @@
 #define __STRESSGAS_CONFIG_H__
 
 /*!
- *	@namespace		StressGAS
- *	@brief			The name space for the GAS-based pedestrian stress model.
- *
- *	Generalized Adaptive Syndrome (GAS) is a model that describes how people's behavior changes
- *	as stress increases.  This plugins provides functionality for introducing stress onto agents
- *	and observing corresponding changes in their behaviors.  The primary element in the plug-in
- *	is the BaseStressAction and its derivatives which control when an agent begins to accumulate
- *	stress, how it accumualtes, how stress stops accumulating, and what happens afterwards.
- */
+@namespace		StressGAS
+@brief			The name space for the GAS-based pedestrian stress model.
+
+Generalized Adaptive Syndrome (GAS) is a model that describes how people's behavior changes as
+stress increases. This plugins provides functionality for introducing stress onto agents and
+observing corresponding changes in their behaviors. The primary element in the plug-in is the
+BaseStressAction and its derivatives which control when an agent begins to accumulate stress, how it
+accumualtes, how stress stops accumulating, and what happens afterwards.
+*/
 namespace StressGAS {}
 // Now set up compiler-dependent export/import symbols
 

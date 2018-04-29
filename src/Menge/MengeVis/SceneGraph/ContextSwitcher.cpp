@@ -43,7 +43,7 @@ namespace MengeVis {
 namespace SceneGraph {
 
 ///////////////////////////////////////////////////////////////////////////
-//				IMPLEMENTATION FOR ContextSwitcher
+//        IMPLEMENTATION FOR ContextSwitcher
 ///////////////////////////////////////////////////////////////////////////
 
 ContextSwitcher::ContextSwitcher() : Context(), _activeContext(0x0) {}
@@ -107,13 +107,13 @@ void ContextSwitcher::update() {
 
 ContextResult ContextSwitcher::handleKeyboard(SDL_Event& e) {
   // The work flow is like this:
-  //		Escape is the only key that the switcher will definitely interpret
-  //		If the escape key is selected, the active context is cleared
-  //	If the key is not escape:
-  //		If there is an active context, it gets the chance to handle it
-  //		If the active context doesn't handle it, then the switcher tries
-  //			switching
-  //		otherwise, it returns back to the caller
+  //    Escape is the only key that the switcher will definitely interpret
+  //    If the escape key is selected, the active context is cleared
+  //  If the key is not escape:
+  //    If there is an active context, it gets the chance to handle it
+  //    If the active context doesn't handle it, then the switcher tries
+  //      switching
+  //    otherwise, it returns back to the caller
   ContextResult result(false, false);
   SDL_Keymod mods = SDL_GetModState();
   bool hasCtrl = (mods & KMOD_CTRL) > 0;

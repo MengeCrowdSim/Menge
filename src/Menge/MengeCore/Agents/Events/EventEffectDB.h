@@ -17,11 +17,11 @@
 */
 
 /*!
- *	@file		EventEffectDB.h
- *	@brief		Central database for querying available event effect implementations.
- *
- *	For event effects to be used in simulation, they must register
- *	themselves into the EventEffectDB.  This is done via the PluginEngine.
+ @file    EventEffectDB.h
+ @brief    Central database for querying available event effect implementations.
+
+ For event effects to be used in simulation, they must register themselves into the EventEffectDB.
+ This is done via the PluginEngine.
  */
 
 #ifndef __EVENT_EFFECT_DATABASE_H__
@@ -33,7 +33,7 @@
 
 namespace Menge {
 /*!
- *	@brief		The database of registered event effects implementations.
+ @brief    The database of registered event effects implementations.
  */
 typedef ElementDB<EventEffectFactory, EventEffect> EventEffectDB;
 

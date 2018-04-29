@@ -17,8 +17,8 @@
 */
 
 /*!
- *	@file		common.h
- *	@brief		A set of common includes for the core Menge library
+ @file    common.h
+ @brief   A set of common includes for the core Menge library.
  */
 
 #ifndef __MENGE_COMMON_H__
@@ -26,8 +26,8 @@
 
 #ifdef _MSC_VER
 // Visual Studio does not properly support exception specifciation
-//	 i.e. void func() throw(x)
-//	This prevents it from spewing warnings.
+//   i.e. void func() throw(x)
+//  This prevents it from spewing warnings.
 #pragma warning(disable : 4290)
 #endif
 

@@ -14,21 +14,20 @@ class BaseAgent;
 class AgentInitializer;
 
 /*!
- *	@brief		A profile selector that selects a profile from a set with uniform
- *				probability.
- *	To specify a const profile selector, use the following syntax:
- *
- *	```xml
- *	<ProfileSelector type="random">
- *		<Profile name="PROFILE_NAME0"/>
- *		<Profile name="PROFILE_NAME1"/>
- *		...
- *		<Profile name="PROFILE_NAMEN"/>
- *	</ProfileSelector>
- *	```
- *
- *	Simply exchange the `PROFILE_NAME#` with a defined, named profile in the scene
- *	specification file.
+ @brief   A profile selector that selects a profile from a set with uniform probability.
+
+ To specify a const profile selector, use the following syntax:
+
+ ```xml
+ <ProfileSelector type="random">
+   <Profile name="PROFILE_NAME0"/>
+   <Profile name="PROFILE_NAME1"/>
+   ...
+   <Profile name="PROFILE_NAMEN"/>
+ </ProfileSelector>
+ ```
+ 
+ Simply exchange the `PROFILE_NAME#` with a defined, named profile in the scene specification file.
  */
 class MENGE_API ProfileSelectorRandom final : public ProfileSelector {
  public:
@@ -44,7 +43,7 @@ class MENGE_API ProfileSelectorRandom final : public ProfileSelector {
 };
 
 /*!
- *	@brief		The factor for the ProfileSelectorRandom.
+ @brief   The factor for the ProfileSelectorRandom.
  */
 class MENGE_API ProfileSelectorRandomFactory : public ProfileSelectorFactory {
  public:

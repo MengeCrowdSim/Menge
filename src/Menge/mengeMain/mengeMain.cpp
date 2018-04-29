@@ -87,9 +87,9 @@ std::string ROOT;
 SimulatorDB simDB;
 
 /*!
- *	@brief		Utility function for defining the plugin directory.
- *
- *	@param		The path to the plugins.
+ *  @brief    Utility function for defining the plugin directory.
+
+ *  @param    The path to the plugins.
  */
 std::string getPluginPath() {
 #ifdef _WIN32
@@ -104,12 +104,12 @@ std::string getPluginPath() {
 }
 
 /*!
- *	@brief		Parse the command line arguments
- *
- *	@param		argc		the number of command-line arguments.
- *	@param		argv		The command-line parameters.
- *	@param		simDB		A pointer to the current simulator database.
- *	@returns	True if a simulation should be attempted (i.e. the
+ *  @brief    Parse the command line arguments
+
+ *  @param    argc    the number of command-line arguments.
+ *  @param    argv    The command-line parameters.
+ *  @param    simDB    A pointer to the current simulator database.
+ *  @returns  True if a simulation should be attempted (i.e. the
  *            project specification and command-line parameters require it
  *            and false if not.
  */
@@ -265,25 +265,28 @@ bool parseCommandParameters(int argc, char* argv[], ProjectSpec* spec, const Sim
 }
 
 /*!
- *	@brief		Initialize and start the simulation.
- *
- *	@param		dbEntry			The SimulatorDBEntry that describes the simulator
- *								to be instantiated.
- *	@param		behaveFile		The path to a valid behavior specification file.
- *	@param		sceneFile		The path to a valid scene specification file.
- *	@param		outFile			The path to the output file to write.  If it is the
- *								empty string, no output file will be
+ *  @brief    Initialize and start the simulation.
+
+ *  @param    dbEntry      The SimulatorDBEntry that describes the simulator
+ *                to be instantiated.
+ *  @param    behaveFile    The path to a valid behavior specification file.
+ *  @param    sceneFile    The path to a valid scene specification file.
+ *  @param    outFile      The path to the output file to write.  If it is the
+ *                empty string, no output file will be
  *written.
- *	@param		scbVersion		The string indicating the version of scb file to
+ *  @param    scbVersion    The string indicating the version of scb file to
  *write.
- *	@param		visualize		Determines if the simulation should be visualized.
- *								If true, an OpenGL visualizer is spawned, if
- *false the simulation runs offline.
- *	@param		viewCfgFile		If visualizing, a path to an optional view
- *configuration specification.  If none is provided, defaults are used.
- *	@param		dumpPath		The path to write screen grabs.  Only used in
+ *  @param    visualize    Determines if the simulation should be visualized.
+ *                If true, an OpenGL visualizer is spawned, if
+ *false
+ *                the simulation runs offline.
+ *  @param    viewCfgFile    If visualizing, a path to an optional view
+ *configuration
+ *                specification.  If none is provided, defaults are
+ *used.
+ *  @param    dumpPath    The path to write screen grabs.  Only used in
  *windows.
- *	@returns	0 for a successful run, non-zero otherwise.
+ *  @returns  0 for a successful run, non-zero otherwise.
  */
 int simMain(SimulatorDBEntry* dbEntry, const std::string& behaveFile, const std::string& sceneFile,
             const std::string& outFile, const std::string& scbVersion, bool visualize,

@@ -264,7 +264,7 @@ bool FSM::allFinal() const {
 
 bool FSM::doStep() {
   // NOTE: This is a cast from size_t to int to be compatible with older implementations
-  //		of openmp which require signed integers as loop variables
+  //    of openmp which require signed integers as loop variables
   SIM_TIME = this->_sim->getGlobalTime();
   EVENT_SYSTEM->evaluateEvents();
   int agtCount = (int)this->_sim->getNumAgents();
@@ -310,18 +310,18 @@ void FSM::finalize() {
   doTasks();
 }
 #if 0
-		/////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////
 
-		FsmContext * FSM::getContext() {
-			FsmContext * ctx = new FsmContext( this );
-			// TODO: Populate the context
-			for ( size_t i = 0; i < _nodes.size(); ++i ) {
-				StateContext * sCtx = new StateContext( _nodes[ i ] );
-				ctx->addStateContext( _nodes[i]->getID(), sCtx );
-			}
-			
-			return ctx;
-		}
+    FsmContext * FSM::getContext() {
+      FsmContext * ctx = new FsmContext( this );
+      // TODO: Populate the context
+      for ( size_t i = 0; i < _nodes.size(); ++i ) {
+        StateContext * sCtx = new StateContext( _nodes[ i ] );
+        ctx->addStateContext( _nodes[i]->getID(), sCtx );
+      }
+
+      return ctx;
+    }
 #endif
 }  // namespace BFSM
 }  // namespace Menge

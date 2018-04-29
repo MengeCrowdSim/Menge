@@ -46,20 +46,20 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 namespace Menge {
 
-	namespace BFSM {
+  namespace BFSM {
 
-		/////////////////////////////////////////////////////////////////////
-		//                   Implementation of VelModContext
-		/////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////
+    //                   Implementation of VelModContext
+    /////////////////////////////////////////////////////////////////////
 
-		std::string VelModContext::getUIText( const std::string & indent ) const {
-			std::stringstream ss;
-			ss << indent << "No context defined";
-			return ss.str();
-		}
+    std::string VelModContext::getUIText( const std::string & indent ) const {
+      std::stringstream ss;
+      ss << indent << "No context defined";
+      return ss.str();
+    }
 
-		/////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////
 
-	}	// namespace BFSM
-}	// namespace Menge
+  }  // namespace BFSM
+}  // namespace Menge
 #endif

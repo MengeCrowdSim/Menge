@@ -50,13 +50,13 @@ using Math::UniformFloatGenerator;
 using Math::Vector2;
 
 /////////////////////////////////////////////////////////////////////
-//					Implementation of AgentGeneratorException
+//          Implementation of AgentGeneratorException
 /////////////////////////////////////////////////////////////////////
 
 AgentGeneratorException AGENT_GENERATOR_EXCEPTION;
 
 /////////////////////////////////////////////////////////////////////
-//					Implementation of AgentGenerator
+//          Implementation of AgentGenerator
 /////////////////////////////////////////////////////////////////////
 
 AgentGenerator::AgentGenerator() : Element(), _disp(0x0), _dir(0x0) {}
@@ -77,9 +77,9 @@ void AgentGenerator::setNoiseGenerator(FloatGenerator* gen) {
   _disp = gen;
   if (!_dir) {
     // NOTE: This isn't perfect uniform probability
-    //	The closed interval means that 0 degrees is SLIGHTLY
-    //	more probably than any other direction (but the skew
-    //	is considered negligible in practice).
+    //  The closed interval means that 0 degrees is SLIGHTLY
+    //  more probably than any other direction (but the skew
+    //  is considered negligible in practice).
     _dir = new UniformFloatGenerator(0.f, TWOPI);
   }
 }

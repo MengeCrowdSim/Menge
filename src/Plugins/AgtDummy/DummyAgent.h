@@ -17,8 +17,8 @@
 */
 
 /*!
- *	@file		DummyAgent.h
- *	@brief		The definition of a simple "dummy" agent.
+ @file		DummyAgent.h
+ @brief		The definition of a simple "dummy" agent.
  */
 
 #ifndef __DUMMY_AGENT_H__
@@ -28,34 +28,34 @@
 
 namespace Dummy {
 /*!
- *	@brief		The "dummy" agent class.
+ @brief		The "dummy" agent class.
  *
- *	The dummy agent does nothing clever or even correct.  Given
- *	the preferred velocity, its final velocity is simply a random
- *	perturbation of the preferred velocity.
+ The dummy agent does nothing clever or even correct. Given the preferred velocity, its final
+ velocity is simply a random perturbation of the preferred velocity.
  */
 class Agent : public Menge::Agents::BaseAgent {
  public:
   /*!
-   *	@brief		Constructor
+   @brief		Constructor
    */
   Agent();
 
   /*!
-   *  @brief      Destroys this agent instance.
+   @brief      Destroys this agent instance.
    */
   ~Agent();
 
   /*!
-   *  @brief      Computes the new velocity of this agent.
+   @brief      Computes the new velocity of this agent.
    */
   void computeNewVelocity();
 
   /*!
-   *	@brief		Used by the plugin system to know what artifacts to associate with
-   *				agents of this type.  Every sub-class of must return a globally
-   *				unique value if it should be associated with unique artifacts.
-   */
+  @brief		Used by the plugin system to know what artifacts to associate with agents of this type.
+
+  Every sub-class of must return a globally unique value if it should be associated with unique
+  artifacts.
+  */
   virtual std::string getStringId() const { return NAME; }
 
   /*! @brief	The name identifier for this agent type. */

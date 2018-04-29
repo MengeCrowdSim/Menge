@@ -22,7 +22,7 @@ using SceneGraph::ContextResult;
 using SceneGraph::GLCamera;
 
 ////////////////////////////////////////////////////////////////////////////
-//			Implementation of EventInjectContext
+//      Implementation of EventInjectContext
 ////////////////////////////////////////////////////////////////////////////
 
 EventInjectionContext::EventInjectionContext(Context* ctx) : _childContext(ctx), _image(nullptr) {
@@ -94,7 +94,7 @@ ContextResult EventInjectionContext::handleMouse(SDL_Event& e) {
 
 ContextResult EventInjectionContext::handleKeyboard(SDL_Event& e) {
   // TODO: Process the mouse for *this* context - it never does anything with the
-  //	context result.
+  //  context result.
   if (e.key.type == SDL_KEYDOWN) {
     auto itr = _triggers.find(e.key.keysym.sym);
     if (itr != _triggers.end()) {

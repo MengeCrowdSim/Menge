@@ -48,7 +48,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 namespace Menge {
 
 /////////////////////////////////////////////////////////////////////
-//					Implementation of Logger
+//          Implementation of Logger
 /////////////////////////////////////////////////////////////////////
 
 Logger logger;
@@ -201,11 +201,11 @@ void Logger::writeTail() {
 /////////////////////////////////////////////////////////////////////
 
 /*!
- *	@brief		Simple helper function for doing text search and replace
- *
- *	@param		source		The string to change.
- *	@param		find		The sub-strings to find and replace in the main string.
- *	@param		replace		The sub-string to input into the main string.
+ *  @brief    Simple helper function for doing text search and replace
+
+ *  @param    source    The string to change.
+ *  @param    find    The sub-strings to find and replace in the main string.
+ *  @param    replace    The sub-string to input into the main string.
  */
 inline void findAndReplace(std::string& source, const std::string& find,
                            const std::string& replace) {

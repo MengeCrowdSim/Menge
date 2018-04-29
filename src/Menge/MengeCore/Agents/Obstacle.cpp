@@ -110,7 +110,7 @@ float Obstacle::circleIntersection(const Vector2& dir, const Vector2& start, flo
   Vector2 b = getP1() - start;
 
   // rotate the segment so that the direction is aligned with the x-axis
-  //	TODO: Where is this exploited???
+  //  TODO: Where is this exploited???
   float x = a.x() * forward.x() + a.y() * forward.y();
   float y = a.y() * forward.x() - a.x() * forward.y();
   a.set(x, y);
@@ -132,8 +132,8 @@ float Obstacle::circleIntersection(const Vector2& dir, const Vector2& start, flo
     float t = D * (-a);     // projection of origin on the line
     if (t >= -radius && t <= dist + radius) {
       // The projection of the circle center lies within the projection of
-      //	the minkowski sum on the line (i.e. extends past the points by
-      //	a distance equal to the radius).
+      //  the minkowski sum on the line (i.e. extends past the points by
+      //  a distance equal to the radius).
       if ((t >= 0 && t <= dist) || (t < 0 && absSq(a) < radSqd) ||
           (t > dist && absSq(b) < radSqd)) {
         return 0.f;
@@ -143,12 +143,12 @@ float Obstacle::circleIntersection(const Vector2& dir, const Vector2& start, flo
 
   // Not currently colliding -- now compute potential collision in the future
   // M points to the side of the line on which the origin (aka agent) lies
-  //	This creates the leading edge of the minkowski sum (defined by (a2, b2)).
+  //  This creates the leading edge of the minkowski sum (defined by (a2, b2)).
   Vector2 M(C < 0.f ? -N : N);
   Vector2 a2(a + M * radius);
   Vector2 b2(b + M * radius);
   // I use this to do quick and dirty floating-point SIGN tests
-  //	This may not be particularly portable
+  //  This may not be particularly portable
   union {
     float f;
     unsigned int u;
@@ -166,7 +166,7 @@ float Obstacle::circleIntersection(const Vector2& dir, const Vector2& start, flo
   } else {
     // both end points are on the same side of the line
     // Note: Both of these are possible if the obstacle is near parallel
-    //	to the forward direction
+    //  to the forward direction
     float minT = INFTY;
     float aDist2 = a.y() * a.y();
     if (aDist2 < radSqd) {
@@ -175,12 +175,12 @@ float Obstacle::circleIntersection(const Vector2& dir, const Vector2& start, flo
       float dx = sqrtf(radSqd - aDist2);
       float x = a.x() - dx;  // collision point candidate
       // This is a bit tricky - I don't have to consider a.x() + dx
-      //		1) the direction is in the positive x-axis direction, so I know
-      //			the earliest collision must have a lesser x-value.
-      //		2) It's POSSIBLE for x to have a negative value, but if that's
-      //			true, then a.x() + dx must ALSO be negative, otherwise
-      //			the point is inside the circle and it would be detected
-      //			as a collision.  So, it's enough to just test one value
+      //    1) the direction is in the positive x-axis direction, so I know
+      //      the earliest collision must have a lesser x-value.
+      //    2) It's POSSIBLE for x to have a negative value, but if that's
+      //      true, then a.x() + dx must ALSO be negative, otherwise
+      //      the point is inside the circle and it would be detected
+      //      as a collision.  So, it's enough to just test one value
       if (x > 0.f) {
         float t = x / (dist * D.x());
         if (t < minT) {
@@ -215,7 +215,7 @@ bool Obstacle::pointOnObstacle(const Vector2& pt) const {
   if (t > _length || t < 0.f) return false;
   float dispSq = absSq(disp);
   // the point doesn't lie on the line, because its displacement to the originating
-  //	point is not the same as t^2.
+  //  point is not the same as t^2.
   if (fabs(t * t - dispSq) > 0.001f) return false;
   return true;
 }

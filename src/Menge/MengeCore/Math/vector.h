@@ -17,8 +17,8 @@
 */
 
 /*!
- *	@file		vector.h
- *	@brief		Collection of Vector2, Vector3, and constants for simple inclusion.
+ @file    vector.h
+ @brief   Collection of Vector2, Vector3, and constants for simple inclusion.
  */
 
 #ifndef __VECTOR_H__

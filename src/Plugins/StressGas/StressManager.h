@@ -37,72 +37,69 @@ class BaseAgent;
 namespace StressGAS {
 
 /*!
- * @class StressManager
- *
- * @brief	Manages stress applied to agents over time. Determines if stress needs to be applied,
- * and does so.
- *
- * This class contains several maps to initial agent values, and agents under effect
- *
+@class StressManager
+
+@brief	Manages stress applied to agents over time. Determines if stress needs to be applied, and
+        does so.
+
+This class contains several maps to initial agent values, and agents under effect.
  */
 class StressManager {
  public:
   /*!
-   * @brief	Default constructor
+   @brief	Default constructor
    */
   StressManager();
 
   /*!
-   * @brief	Destructor
+   @brief	Destructor
    */
   ~StressManager();
 
   /*!
-   * @brief	Checks if stress needs to be applied, does so if necessary
+   @brief	Checks if stress needs to be applied, does so if necessary
    */
   void updateStress();
 
   /*!
-   * @brief	Adds stress to the provided agent.
-   * @param	agentId		The identifier for the agent that gets stress.
+   @brief	Adds stress to the provided agent.
+   @param	agentId		The identifier for the agent that gets stress.
    */
   void stressAgent(size_t agentId);
 
   /*!
-   * @brief	Reports if the given agent is in the stress system.
-   *
-   * @param	agent	The BaseAgent to check.
-   * @returns	True if the given agent is in the system
+   @brief	Reports if the given agent is in the stress system.
+
+   @param	agent	The BaseAgent to check.
+   @returns	True if the given agent is in the system
    */
   bool isInSystem(const Menge::Agents::BaseAgent* agent);
 
   /*!
-   * @brief	Reports the stress function for the given agent.
-   *
-   * @param	agent	The agent to query -- assumed to be non-null.
-   *
-   * @return	Null if there is no stress function for this agent, otherwise a pointer to that
-   * 			agent's stress function.
+   @brief	Reports the stress function for the given agent.
+
+   @param	agent	The agent to query -- assumed to be non-null.
+   @return	Null if there is no stress function for this agent, otherwise a pointer to that agent's
+            stress function.
    */
   StressFunction* getStressFunction(const Menge::Agents::BaseAgent* agent);
 
   /*!
-   * @brief	Sets stress function for the given agent. If there is currently a function it
-   * 			will be deleted and removed.
-   *
-   * @param 		  	agent	The agent -- assumed to be non-null.
-   * @param [in,out]	func 	The function to register for this agent; must be non-null but
-   * 							this is not tested.
+   @brief	Sets stress function for the given agent. If there is currently a function it will be
+          deleted and removed.
+
+   @param 		  	  agent	  The agent -- assumed to be non-null.
+   @param [in,out]	func 	  The function to register for this agent; must be non-null but this is
+                            not tested.
    */
   void setStressFunction(const Menge::Agents::BaseAgent* agent, StressFunction* func);
 
   /*!
-   * @brief	Pops the stress function described by agent.
-   *
-   * @param	agent	The agent to query -- assumed to be non-null.
-   *
-   * @return	Null if the agent has no registered function; otherwise the registered stress
-   * 			function will be removed from the manager.
+   @brief	Pops the stress function described by agent.
+
+   @param	agent	  The agent to query -- assumed to be non-null.
+   @return	Null if the agent has no registered function; otherwise the registered stress function
+            will be removed from the manager.
    */
   StressFunction* popStressFunction(const Menge::Agents::BaseAgent* agent);
 

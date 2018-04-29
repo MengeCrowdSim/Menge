@@ -57,7 +57,7 @@ namespace Math {
 ////////////////////////////////////////////////////////////////
 
 // determines the time to collision of a ray from the origin with a circle (center, radius)
-//	Returns an "infinity" style number if no collision
+//  Returns an "infinity" style number if no collision
 float rayCircleTTC(const Vector2& dir, const Vector2& center, float radius) {
   float a = absSq(dir);
   float b = -2 * (dir * center);
@@ -82,8 +82,8 @@ float rayCircleTTC(const Vector2& dir, const Vector2& center, float radius) {
 ////////////////////////////////////////////////////////////////
 
 // Computes the spherical linear interpolation between two vectors
-//	the result is (conceptually) (1-t)*p0 + t*p1
-//	sinTheta is the sine of the angle between p1 and p1
+//  the result is (conceptually) (1-t)*p0 + t*p1
+//  sinTheta is the sine of the angle between p1 and p1
 Vector2 slerp(float t, const Vector2& p0, const Vector2& p1, float sinTheta) {
   float theta = asin(sinTheta);
   float t0 = sin((1 - t) * theta) / sinTheta;

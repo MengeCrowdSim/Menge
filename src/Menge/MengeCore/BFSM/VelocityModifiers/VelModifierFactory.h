@@ -17,9 +17,8 @@
 */
 
 /*!
- *	@file		VelModifierFactory.h
- *	@brief		The factory for parsing xml data and instantiating
- *				velocity Modifierss.
+ @file    VelModifierFactory.h
+ @brief    The factory for parsing xml data and instantiating velocity Modifierss.
  */
 
 #ifndef __VEL_MODIFIER_FACTORY_H__
@@ -35,8 +34,8 @@ namespace Menge {
 
 namespace BFSM {
 /*!
- *	@brief		A class for parsing the xml description of a velocity MODIFIER
- *				and instantiating particular instances.
+ @brief    A class for parsing the xml description of a velocity MODIFIER and instantiating
+          particular instances.
  */
 class MENGE_API VelModFactory : public ElementFactory<VelModifier> {};
 }  // namespace BFSM

@@ -44,7 +44,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 namespace Menge {
 
 /////////////////////////////////////////////////////////////////////
-//					Implementation of PortalRoute
+//          Implementation of PortalRoute
 /////////////////////////////////////////////////////////////////////
 
 PortalRoute::PortalRoute(unsigned int start, unsigned int end)

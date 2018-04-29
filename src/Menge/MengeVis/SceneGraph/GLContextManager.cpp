@@ -41,7 +41,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 namespace MengeVis {
 
 ///////////////////////////////////////////////////////////////////////////
-//				IMPLEMENTATION FOR GLContextManager
+//        IMPLEMENTATION FOR GLContextManager
 ///////////////////////////////////////////////////////////////////////////
 
 std::list<void (*)()> GLContextManager::_rsrcCallbacks;

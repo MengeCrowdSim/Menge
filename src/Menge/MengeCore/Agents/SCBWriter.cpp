@@ -210,7 +210,7 @@ void SCBFrameWriter2_2::writeFrame(std::ofstream& file, SimulatorInterface* sim,
     file.write((char*)&state, sizeof(float));
     // pref velocity
     // NOTE: This does not use _velPref.getSpeed() because it may be modified
-    //		by intention filters.  This factors those out.
+    //    by intention filters.  This factors those out.
     const Math::Vector2 vDir = agt->_velPref.getPreferredVel();
     file.write((char*)&vDir, 2 * sizeof(float));
     // velocity

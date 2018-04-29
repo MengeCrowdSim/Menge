@@ -17,11 +17,11 @@
 */
 
 /*!
- *	@file		TargetDatabase.h
- *	@brief		Central database for querying available behavior transition targets.
- *
- *	For transition targets to be used in the finite state machine, they must register
- *	themselves into the TargetDatabase.  This is done via the PluginEngine.
+ @file    TargetDatabase.h
+ @brief    Central database for querying available behavior transition targets.
+
+ For transition targets to be used in the finite state machine, they must register themselves into
+ the TargetDatabase.  This is done via the PluginEngine.
  */
 
 #ifndef __TARGET_DATABASE_H__
@@ -35,7 +35,7 @@ namespace Menge {
 
 namespace BFSM {
 /*!
- *	@brief		The database of registered transition targets.
+ @brief    The database of registered transition targets.
  */
 typedef ElementDB<TargetFactory, TransitionTarget> TargetDB;
 
@@ -44,13 +44,13 @@ typedef ElementDB<TargetFactory, TransitionTarget> TargetDB;
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
 /*!
- *	@brief		Explicit specialization of addBuiltins for the TransitionTarget Database
+ @brief    Explicit specialization of addBuiltins for the TransitionTarget Database
  */
 template <>
 void ElementDB<BFSM::TargetFactory, BFSM::TransitionTarget>::addBuiltins();
 
 /*!
- *	@brief		Explicit specialization of getElementName for the TransitionTarget Database
+ @brief    Explicit specialization of getElementName for the TransitionTarget Database
  */
 template <>
 std::string ElementDB<BFSM::TargetFactory, BFSM::TransitionTarget>::getElementName();

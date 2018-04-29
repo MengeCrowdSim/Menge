@@ -47,7 +47,7 @@ using Menge::logger;
 using Menge::Logger;
 
 ///////////////////////////////////////////////////////////////////////////
-//				IMPLEMENTATION FOR ImageData
+//        IMPLEMENTATION FOR ImageData
 ///////////////////////////////////////////////////////////////////////////
 
 std::map<std::string, ImageData*> ImageData::RESOURCES;
@@ -172,8 +172,8 @@ void ImageData::drawGL() const {
 
 void ImageData::newGLContext() {
   // I don't call glDeleteTexture because at this point, I assume
-  //	that I've already lost it by changing contexts and merely need
-  //	to recreate the gl texture.
+  //  that I've already lost it by changing contexts and merely need
+  //  to recreate the gl texture.
   std::map<std::string, ImageData*>::iterator itr = RESOURCES.begin();
   for (; itr != RESOURCES.end(); ++itr) {
     itr->second->initGL();
@@ -195,7 +195,7 @@ unsigned char ImageData::getPixelAt(int x, int y) const {
 }
 
 ///////////////////////////////////////////////////////////////////////////
-//				IMPLEMENTATION FOR Image
+//        IMPLEMENTATION FOR Image
 ///////////////////////////////////////////////////////////////////////////
 
 Image::Image(ImageData* data) : ManagedDataWrapper<ImageData>(data) {}

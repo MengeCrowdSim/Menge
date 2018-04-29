@@ -48,9 +48,9 @@ namespace Menge {
 
 // Specialization
 /*!
- *	@brief		Reports the database name.
- *
- *	@returns	The string representation of the database name.
+ *  @brief    Reports the database name.
+
+ *  @returns  The string representation of the database name.
  */
 template <>
 std::string ElementDB<Agents::ProfileSelectorFactory, Agents::ProfileSelector>::getElementName() {
@@ -58,7 +58,7 @@ std::string ElementDB<Agents::ProfileSelectorFactory, Agents::ProfileSelector>::
 }
 
 /*!
- *	@brief		Initialization of built in database elements.
+ *  @brief    Initialization of built in database elements.
  */
 template <>
 void ElementDB<Agents::ProfileSelectorFactory, Agents::ProfileSelector>::addBuiltins() {

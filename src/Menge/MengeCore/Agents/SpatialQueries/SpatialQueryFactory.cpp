@@ -43,7 +43,7 @@ namespace Menge {
 namespace Agents {
 
 /////////////////////////////////////////////////////////////////////
-//					Implementation of SpatialQueryFactory
+//          Implementation of SpatialQueryFactory
 /////////////////////////////////////////////////////////////////////
 
 SpatialQueryFactory::SpatialQueryFactory() : ElementFactory<SpatialQuery>() {

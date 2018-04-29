@@ -17,8 +17,8 @@
 */
 
 /*!
- *  @file       DummySimulator.h
- *  @brief      Contains the Dummy::Simulator class.
+ @file       DummySimulator.h
+ @brief      Contains the Dummy::Simulator class.
  */
 
 #ifndef __DUMMY_SIMULATOR_H__
@@ -30,50 +30,44 @@
 #include "MengeCore/mengeCommon.h"
 
 /*!
- *	@namespace		Dummy
- *	@brief			The name space for the Dummy pedestrian model.
- *
- *	The dummy pedestrian model is an incredibly simple example model.
- *	Agents compute a new velocity by randomly perturbing their preferred
- *	velocity.  It is an example of the minimum implementation necessary
- *	to create a pedestrian model plug-in.
+ @namespace		Dummy
+ @brief			  The name space for the Dummy pedestrian model.
+
+ The dummy pedestrian model is an incredibly simple example model. Agents compute a new velocity by
+ randomly perturbing their preferred velocity. It is an example of the minimum implementation
+ necessary to create a pedestrian model plug-in.
  */
 namespace Dummy {
 /*!
- *	@brief		The simulator for the Dummy pedestrian model.
+ @brief		The simulator for the Dummy pedestrian model.
  */
 class Simulator : public Menge::Agents::SimulatorBase<Agent> {
  public:
   /*!
-   *  @brief      Constructor.
+   @brief      Constructor.
    */
   Simulator() : Menge::Agents::SimulatorBase<Agent>() {}
 
   /*!
-   *	@brief			Reports if there are non-common Experiment parameters that
-   *					this simulator requires in the XML file.
-   *	@returns		By default, the simulator base ONLY uses common parameters.
-   *					Always returns false.
+   @brief			Reports if there are non-common Experiment parameters that this simulator requires in
+              the XML file.
+   @returns		By default, the simulator base ONLY uses common parameters. Always returns false.
    */
   virtual bool hasExpTarget() { return true; }
 
   /*!
-   *	@brief			Reports if the given Experiment attribute tag name belongs to this
-   *					simulator.
-   *  @param		tagName		the name of the considered tag
-   *	@returns		By default, the simulator base ONLY uses common parameters.
-   *					Always returns false.
+   @brief			Reports if the given Experiment attribute tag name belongs to this simulator.
+
+   @param		  tagName		The name of the considered tag.
+   @returns		By default, the simulator base ONLY uses common parameters. Always returns false.
    */
   virtual bool isExpTarget(const std::string& tagName) { return tagName == "Dummy"; }
 
   /*!
-   *	@brief			Given an Experiment parameter name and value, sets the appropriate
-   *					simulator parameter.
-   *	@param			paramName		A string containing the parameter name for
-   *the experiment.
-   *	@param			value			A string containing the value for the
-   *parameter.
-   *	@returns		whether or not parameters were successfully set
+   @brief		Given an Experiment parameter name and value, sets the appropriate simulator parameter.
+   @param		paramName		A string containing the parameter name for the experiment.
+   @param		value			  A string containing the value for the parameter.
+   @returns		Whether or not parameters were successfully set.
    */
   virtual bool setExpParam(const std::string& paramName,
                            const std::string& value) throw(Menge::Agents::XMLParamException);
@@ -82,12 +76,12 @@ class Simulator : public Menge::Agents::SimulatorBase<Agent> {
   friend class Agent;
 
   /*!
-   *	@brief		The standard deviation of speed
+   @brief		The standard deviation of speed.
    */
   static Menge::Math::NormalFloatGenerator _speedDeviation;
 
   /*!
-   *	@brief		The uniform distribution of direction
+   @brief		The uniform distribution of direction.
    */
   static Menge::Math::UniformFloatGenerator _angleDeviation;
 };

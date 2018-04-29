@@ -43,16 +43,16 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 namespace Menge {
 
 /////////////////////////////////////////////////////////////////////
-//					Implementation of ReadersWriterLock
+//          Implementation of ReadersWriterLock
 /////////////////////////////////////////////////////////////////////
 
 // NOTE: This implemenation is naively simple.
-//	OpenMP does not allow for sophisticated readers-writer locks.  It contains
-//	no semaphores.  So, this implementation simply serializes ALL reads and
-//	writes.  Not optimal, but safe.
+//  OpenMP does not allow for sophisticated readers-writer locks.  It contains
+//  no semaphores.  So, this implementation simply serializes ALL reads and
+//  writes.  Not optimal, but safe.
 //
 // TODO: Update this implementation when the threading paradigm is changed to
-//	support more sophisticated constructs.
+//  support more sophisticated constructs.
 
 #ifdef _OPENMP
 
@@ -65,7 +65,7 @@ ReadersWriterLock::~ReadersWriterLock() { omp_destroy_lock(&_lock); }
 ///////////////////////////////////////////////////////////////////////
 
 // NOTE: The code below is left in place, commented out, to facilitate debugging
-//	of future concurrency issues.
+//  of future concurrency issues.
 void ReadersWriterLock::lockRead() const { omp_set_lock(&_lock); }
 
 ///////////////////////////////////////////////////////////////////////

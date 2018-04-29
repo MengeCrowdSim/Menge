@@ -119,7 +119,7 @@ bool TimerCondFactory::setFromXML(Condition* condition, TiXmlElement* node,
   FloatGenerator* gen = _attrSet.getFloatGenerator(_durGenID);
   if (useGlobal) {
     // This allows for a randomly generated const value.  As opposed to simply
-    //	specifying a global const.
+    //  specifying a global const.
     tCond->_durGen = new ConstFloatGenerator(gen->getValue());
     // TODO: determine if this is safe across dlls.  It may need to be a destroy.
     delete gen;

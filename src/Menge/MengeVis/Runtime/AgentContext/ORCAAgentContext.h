@@ -17,9 +17,8 @@
 */
 
 /*!
- *  @file       ORCAAgentContext.h
- *  @brief      A basic context for interacting with and displaying
- *				ORCA agent parameters
+ @file    ORCAAgentContext.h
+ @brief   A basic context for interacting with and displaying ORCA agent parameters
  */
 
 #ifndef __ORCA_AGENT_CONTEXT_H__
@@ -31,12 +30,12 @@
 namespace MengeVis {
 namespace Runtime {
 /*!
- *	@brief		Specialization of the ORCA context for ORCA::Agent.
+ @brief   Specialization of the ORCA context for ORCA::Agent.
  */
 typedef ORCATypeAgentContext<ORCA::Agent> OrcaAgentContext;
 
 ////////////////////////////////////////////////////////////////
-//			Implementation of ORCAAgentContext
+//      Implementation of ORCAAgentContext
 ////////////////////////////////////////////////////////////////
 
 // Specialization

@@ -47,9 +47,9 @@ namespace Menge {
 
 // Specialization
 /*!
- *	@brief		Reports the database name.
- *
- *	@returns	The string representation of the database name.
+ *  @brief    Reports the database name.
+
+ *  @returns  The string representation of the database name.
  */
 template <>
 std::string ElementDB<Agents::ObstacleSetFactory, Agents::ObstacleSet>::getElementName() {
@@ -57,7 +57,7 @@ std::string ElementDB<Agents::ObstacleSetFactory, Agents::ObstacleSet>::getEleme
 }
 
 /*!
- *	@brief		Initialization of built in database elements.
+ *  @brief    Initialization of built in database elements.
  */
 template <>
 void ElementDB<Agents::ObstacleSetFactory, Agents::ObstacleSet>::addBuiltins() {

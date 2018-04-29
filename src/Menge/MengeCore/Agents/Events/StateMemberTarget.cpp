@@ -49,7 +49,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 namespace Menge {
 
 /////////////////////////////////////////////////////////////////////
-//					Implementation of NamedStateMemberTarget
+//          Implementation of NamedStateMemberTarget
 /////////////////////////////////////////////////////////////////////
 
 void NamedStateMemberTarget::finalize() {
@@ -79,7 +79,7 @@ void NamedStateMemberTarget::update() {
 }
 
 /////////////////////////////////////////////////////////////////////
-//					Implementation of NamedStateMemberTargetFactory
+//          Implementation of NamedStateMemberTargetFactory
 /////////////////////////////////////////////////////////////////////
 
 NamedStateMemberTargetFactory::NamedStateMemberTargetFactory() : AgentEventTargetFactory() {

@@ -47,7 +47,7 @@ using Menge::Math::Vector3;
 using SceneGraph::GLNode;
 
 ////////////////////////////////////////////////////////////////////////////
-//			Implementation of VisObstacle
+//      Implementation of VisObstacle
 ////////////////////////////////////////////////////////////////////////////
 
 VisObstacle::VisObstacle(const Vector3& p0, const Vector3& p1) : GLNode(), _p0(p0), _p1(p1) {}
@@ -56,7 +56,7 @@ VisObstacle::VisObstacle(const Vector3& p0, const Vector3& p1) : GLNode(), _p0(p
 
 void VisObstacle::drawGL(bool select) {
   // TODO: remove this from here place it somewhere where it gets called upon
-  //	context initialization
+  //  context initialization
   if (!select) {
     glPushAttrib(GL_LINE_BIT | GL_ENABLE_BIT);
     glDisable(GL_LIGHTING);

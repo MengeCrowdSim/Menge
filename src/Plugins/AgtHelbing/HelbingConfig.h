@@ -17,8 +17,8 @@
 */
 
 /*!
- *	@file		HelbingConfig.h
- *	@brief		Configures the shared library aspect of the includes.
+ @file		HelbingConfig.h
+ @brief		Configures the shared library aspect of the includes.
  */
 
 #ifndef __HELBING_CONFIG_H__

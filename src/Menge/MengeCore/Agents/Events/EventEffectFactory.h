@@ -17,8 +17,8 @@
 */
 
 /*!
- *	@file	EventEffectFactory.h
- *	@brief	The definition of the basic event effect factory.
+ @file  EventEffectFactory.h
+ @brief  The definition of the basic event effect factory.
  */
 
 #ifndef __EVENT_EFFECT_FACTORY_H__
@@ -31,7 +31,7 @@
 namespace Menge {
 
 /*!
- *	@brief		The base class for generating event effects.
+ @brief    The base class for generating event effects.
  */
 class MENGE_API EventEffectFactory : public ElementFactory<EventEffect> {};
 

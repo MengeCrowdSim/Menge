@@ -17,9 +17,8 @@
 */
 
 /*!
- *	@file		Core.h
- *	@brief		A set of global variables for use by the entire
- *				finite state machine.
+ @file    Core.h
+ @brief    A set of global variables for use by the entire finite state machine.
  */
 
 #ifndef __CORE_H__
@@ -28,8 +27,8 @@
 #include "MengeCore/CoreConfig.h"
 
 /*!
- * @namespace Menge
- * @brief	The core namespace.  All elements of Menge are contained in this namespace.
+ @namespace Menge
+ @brief  The core namespace.  All elements of Menge are contained in this namespace.
  */
 namespace Menge {
 
@@ -47,37 +46,37 @@ class FSM;
 class EventSystem;
 
 /*!
- *	@brief		The fsm running for the simulation.
+ @brief    The fsm running for the simulation.
  */
 extern MENGE_API BFSM::FSM* ACTIVE_FSM;
 
 /*!
- *	@brief		The global simulation time.
+ @brief    The global simulation time.
  */
 extern MENGE_API float SIM_TIME;
 
 /*!
- *	@brief		The simulation time step.
+ @brief    The simulation time step.
  */
 extern MENGE_API float SIM_TIME_STEP;
 
 /*!
- *	@brief		The spatial query structure for the simulation.
+ @brief    The spatial query structure for the simulation.
  */
 extern MENGE_API Agents::SpatialQuery* SPATIAL_QUERY;
 
 /*!
- *	@brief		The elevation structure for the simulation.
+ @brief    The elevation structure for the simulation.
  */
 extern MENGE_API Agents::Elevation* ELEVATION;
 
 /*!
- *	@brief		The simulator for use with some plugins that need it
+ @brief    The simulator for use with some plugins that need it
  */
 extern MENGE_API Agents::SimulatorInterface* SIMULATOR;
 
 /*!
- *	@brief		The event system.
+ @brief    The event system.
  */
 extern MENGE_API EventSystem* EVENT_SYSTEM;
 

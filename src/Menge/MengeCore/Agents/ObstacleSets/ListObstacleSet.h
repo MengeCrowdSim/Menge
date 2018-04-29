@@ -17,9 +17,10 @@
 */
 
 /*!
- *	@file		ListObstacleSet.h
- *	@brief		An abstract class for any obstacle set which will need an _obstacles list.
- *				Provides transformations from vertex vectors
+ @file    ListObstacleSet.h
+ @brief    An abstract class for any obstacle set which will need an _obstacles list. 
+ 
+ Provides transformations from vertex vectors
  */
 
 #ifndef __LIST_OBSTACLE_SET_H__
@@ -38,54 +39,54 @@ namespace Menge {
 namespace Agents {
 
 /*!
- *	@brief		Definition of obstacle set class which produces obstacles based on
- *				explicit definition in an XML file.
+ @brief    Definition of obstacle set class which produces obstacles based on explicit definition in
+          an XML file.
  */
 class MENGE_API ListObstacleSet : public ObstacleSet {
  public:
   /*!
-   *	@brief		Constructor
+   @brief    Constructor
    */
   ListObstacleSet();
 
  protected:
   /*!
-   *	@brief		Destructor
+   @brief    Destructor
    */
   ~ListObstacleSet();
 
  public:
   /*!
-   *	@brief		Reports the number of obstacles in the set
-   *
-   *	@returns	The number of obstacles in this set
+   @brief    Reports the number of obstacles in the set
+
+   @returns  The number of obstacles in this set
    */
   virtual size_t obstacleCount() { return _obstacles.size(); }
 
   /*!
-   *	@brief		Get the ith obstacle.
-   *
-   *	@param		i		The index of the requested obstacle.
-   *	@returns	The Obstacle object
-   *	@throws		ObstacleSetException if the index, i, is invalid.
+   @brief    Get the ith obstacle.
+
+   @param    i    The index of the requested obstacle.
+   @returns  The Obstacle object.
+   @throws    ObstacleSetException if the index, `i`, is invalid.
    */
   virtual Obstacle* getObstacle(size_t i);
 
   /*!
-   *	@brief		Adds an obstacle  to the generator
-   *
-   *	@param		o		The Obstacle Object to be added
-   *	@returns	true if the obstacle was added successfully
-   *	@throws		ObstacleSetException if the obstacle is malformed
+   @brief    Adds an obstacle  to the generator.
+
+   @param    o    The Obstacle Object to be added
+   @returns  true if the obstacle was added successfully
+   @throws    ObstacleSetException if the obstacle is malformed
    */
   bool addObstacle(Obstacle* o);
 
   /*!
-   *	@brief		Adds an obstacle  to the generator from a list of vertices
-   *
-   *	@param		o 		ObstacleVertexList struct representing the incoming obstacle
-   *	@returns	true if the obstacle was added successfully
-   *	@throws		ObstacleSetException if the obstacle is malformed
+   @brief    Adds an obstacle  to the generator from a list of vertices.
+
+   @param    o     ObstacleVertexList struct representing the incoming obstacle.
+   @returns  true if the obstacle was added successfully.
+   @throws    ObstacleSetException if the obstacle is malformed.
    */
   bool addObstacle(ObstacleVertexList o);
 
@@ -93,7 +94,7 @@ class MENGE_API ListObstacleSet : public ObstacleSet {
 
  protected:
   /*!
-   *	@brief		The obstacles in an internal list
+   @brief    The obstacles in an internal list
    */
   std::vector<Obstacle*> _obstacles;
 };

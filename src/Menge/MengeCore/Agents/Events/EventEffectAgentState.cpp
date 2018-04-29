@@ -15,7 +15,7 @@ using BFSM::State;
 using std::string;
 
 /////////////////////////////////////////////////////////////////////
-//					Implementation of EventEffectAgentState
+//          Implementation of EventEffectAgentState
 /////////////////////////////////////////////////////////////////////
 
 EventEffectAgentState::EventEffectAgentState() : AgentEventEffect(), _selector(nullptr) {}
@@ -49,7 +49,7 @@ State* EventEffectAgentState::StateForAgent() const {
 }
 
 /////////////////////////////////////////////////////////////////////
-//					Implementation of EventEffectAgentStateFactory
+//          Implementation of EventEffectAgentStateFactory
 /////////////////////////////////////////////////////////////////////
 
 EventEffectAgentStateFactory::EventEffectAgentStateFactory() : EventEffectFactory() {

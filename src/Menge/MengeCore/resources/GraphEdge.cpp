@@ -43,7 +43,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 namespace Menge {
 
 /////////////////////////////////////////////////////////////////////
-//					Implementation of GraphEdge
+//          Implementation of GraphEdge
 /////////////////////////////////////////////////////////////////////
 
 GraphEdge::GraphEdge() : _distance(0.f), _nbr(0x0) {}

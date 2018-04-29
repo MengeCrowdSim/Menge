@@ -33,14 +33,14 @@ The basic scene specification XML has the following form:
 @endcode
 	
 The major elements of the scene specification are:
-	- The header: `<Experiment ... />` (@ref sec_sceneHeader)
-	- Global simulation parameters: `<Common ... />` and `<Modeli ... />` (@ref sec_sceneSimParam )
-	- Agent profile definitions: `<AgentProfile ... />` (@ref sec_sceneAgentProfile)
-	- Agent group definitions: `<AgentGroup ... />` (@ref sec_sceneAgentGroup)
-	- Spatial query object: `<SpatialQuery ... />` (@ref sec_sceneSpaceQuery)
-	- Elevation specification: `<Elevation ... />` (@ref sec_sceneElevation)
-	- Obstacle definition: `<ObstacleSet ... />` (@ref sec_sceneObstacles)
-	
+  - The header: `<Experiment ... />` (@ref sec_sceneHeader)
+  - Global simulation parameters: `<Common ... />` and `<Modeli ... />` (@ref sec_sceneSimParam )
+  - Agent profile definitions: `<AgentProfile ... />` (@ref sec_sceneAgentProfile)
+  - Agent group definitions: `<AgentGroup ... />` (@ref sec_sceneAgentGroup)
+  - Spatial query object: `<SpatialQuery ... />` (@ref sec_sceneSpaceQuery)
+  - Elevation specification: `<Elevation ... />` (@ref sec_sceneElevation)
+  - Obstacle definition: `<ObstacleSet ... />` (@ref sec_sceneObstacles)
+
 The order of the major elements does not matter.  Each section is detailed below.
 
 @section sec_sceneHeader Header
@@ -52,11 +52,11 @@ The header is simple.  It is the same across all simulation scenarios.  In addit
 Each pedestrian model requires values across a certain parameter space.  Some of these parameters are considered unique per agent.  Others are the same for all agents in the simulation -- these are considered *global* parameters.  Implementing the pedestrian model interface includes defining these global parameters.  All global parameter definitions are included as child tags of the `<Experiment>` tag.  There are some parameters which are common to all simulators (as all pedestrian models inherit from a common class).  These are contained in the `<Common>` tag. Global parameters unique to a particular model are contained in a uniquely defined tag.  This tag is a sibling to the global `<Common>` tag.
 
 Currently, there is only one global simulation parameter: time step.  Thus a typical `<Common>` tag would like this:
-	
-		<Common time_step="0.1" />
-		
+
+    <Common time_step="0.1" />
+
 It is worth noting that this simulation time step can be overridden on the [command line](@ref page_CommandLine) or in the [project specification](@ref page_ProjectSpec).
-	
+
 @section sec_sceneAgentProfile Agent Profile Definitions
 
 %Menge allows for crowds made up of a heterogeneous population.  This heterogeneity can be realized using two complementary mechanisms: profiles and distributions.  An agent profile reflects the idea that there may be different classifications of agents (e.g., old/young, male/female, etc.)  These different classifications (or *profiles*) arise from the idea that the agents which belong to different profiles are possessed of quite different property values.  However, inside a single profile, there can still be variability across the agents.  This is done using *distributions*.  For example, agents modelling young male pedestrians may have a mean preferred walking speed of 1.5 m/s with a standard deviation of 0.1 m/s.  In contrast, old females would have a mean walking speed of 0.9 m/s and a standard deviation of 0.05 m/s.  

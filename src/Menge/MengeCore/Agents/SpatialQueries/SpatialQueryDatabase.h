@@ -17,11 +17,11 @@
 */
 
 /*!
- *	@file		SpatialQueryDatabase.h
- *	@brief		Central database for querying available spatial query implementations.
- *
- *	For spatial queries to be used in simulation, they must register
- *	themselves into the SpatialQueryDatabase.  This is done via the PluginEngine.
+ @file    SpatialQueryDatabase.h
+ @brief    Central database for querying available spatial query implementations.
+
+ For spatial queries to be used in simulation, they must register themselves into the
+ SpatialQueryDatabase. This is done via the PluginEngine.
  */
 
 #ifndef __SPATIAL_QUERY_DATABASE_H__
@@ -35,7 +35,7 @@ namespace Menge {
 
 namespace Agents {
 /*!
- *	@brief		The database of registered spatial query implementations.
+ @brief    The database of registered spatial query implementations.
  */
 typedef ElementDB<SpatialQueryFactory, SpatialQuery> SpatialQueryDB;
 

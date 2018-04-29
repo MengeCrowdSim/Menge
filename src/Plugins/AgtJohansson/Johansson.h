@@ -17,8 +17,8 @@
 */
 
 /*!
- *	@file		Johansson.h
- *	@brief		Collection of Johansson 2007 Agent and Simulator.
+ @file		Johansson.h
+ @brief		Collection of Johansson 2007 Agent and Simulator.
  */
 
 #ifndef __JOHANSSON_H__

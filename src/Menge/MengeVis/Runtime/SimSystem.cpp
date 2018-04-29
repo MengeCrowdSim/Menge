@@ -65,7 +65,7 @@ using SceneGraph::GLScene;
 using SceneGraph::SystemStopException;
 
 ////////////////////////////////////////////////////////////////////////////
-//			Implementation of SimSystem
+//      Implementation of SimSystem
 ////////////////////////////////////////////////////////////////////////////
 
 SimSystem::SimSystem(SimulatorInterface* sim)
@@ -91,9 +91,9 @@ bool SimSystem::updateScene(float time) {
 
 void SimSystem::addObstacleToScene(GLScene* scene) {
   // TODO: If the bsptree (ObstacleKDTree.h) chops up the obstacles, this isn't doing the
-  //		right thing.  Currently, the bsptree chops them
-  //	THIS IS A HACK to address the issues of the ObstacleKDTree
-  //		The right thing to do is modify things so that they are not chopped up.
+  //    right thing.  Currently, the bsptree chops them
+  //  THIS IS A HACK to address the issues of the ObstacleKDTree
+  //    The right thing to do is modify things so that they are not chopped up.
   std::set<const Obstacle*> handled;
   const std::vector<Obstacle*>& obstacles = _sim->getSpatialQuery()->getObstacles();
   for (size_t o = 0; o < obstacles.size(); ++o) {

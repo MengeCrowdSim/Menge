@@ -46,7 +46,7 @@ namespace MengeVis {
 namespace SceneGraph {
 
 ///////////////////////////////////////////////////////////////////////////
-//					Implementation of GLGroundPlane
+//          Implementation of GLGroundPlane
 ///////////////////////////////////////////////////////////////////////////
 
 GLGroundPlane::GLGroundPlane(float width, float height, float majorDist, int minorCount)

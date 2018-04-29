@@ -56,25 +56,25 @@ namespace Menge {
 using Math::Vector2;
 
 /////////////////////////////////////////////////////////////////////
-//					Implementation of PathPlanner - HELPER
+//          Implementation of PathPlanner - HELPER
 /////////////////////////////////////////////////////////////////////
 
 /*!
- *	@brief		Creates unique keys for a route based on start and end nodes.
- *
- *	Mangles the start and end node identifiers into a RouteKey for
- *	using in the map.  The map is a single, unsigned int of the same
- *	size as size_t.  The value is cut in half with the upper bits
- *	containing the start value, and the lower bits containing the
- *	end value.
- *	This limits the number of nodes in the navigation mesh to the
- *	size of size_t.  On a 32-bit machine, that's 16 bits per node index
- *	(for 65K total nodes). On a 64-bit machine, it is 32 bits per node
- *	index, allowing 4 billion nodes.
- *
- *	@param		start		ID of start node.
- *	@param		end			ID of end node.
- *	@returns	A unique node key based on the start and end nodes.
+ *  @brief    Creates unique keys for a route based on start and end nodes.
+
+ *  Mangles the start and end node identifiers into a RouteKey for
+ *  using in the map.  The map is a single, unsigned int of the same
+ *  size as size_t.  The value is cut in half with the upper bits
+ *  containing the start value, and the lower bits containing the
+ *  end value.
+ *  This limits the number of nodes in the navigation mesh to the
+ *  size of size_t.  On a 32-bit machine, that's 16 bits per node index
+ *  (for 65K total nodes). On a 64-bit machine, it is 32 bits per node
+ *  index, allowing 4 billion nodes.
+
+ *  @param    start    ID of start node.
+ *  @param    end      ID of end node.
+ *  @returns  A unique node key based on the start and end nodes.
  */
 RouteKey makeRouteKey(unsigned int start, unsigned int end) {
   const int SHIFT = sizeof(size_t) * 4;  // size in bytes * 8 bits/byte / 2
@@ -85,7 +85,7 @@ RouteKey makeRouteKey(unsigned int start, unsigned int end) {
 }
 
 /////////////////////////////////////////////////////////////////////
-//					Implementation of PathPlanner
+//          Implementation of PathPlanner
 /////////////////////////////////////////////////////////////////////
 
 PathPlanner::PathPlanner(NavMeshPtr ptr)
@@ -202,7 +202,7 @@ PortalRoute* PathPlanner::computeRoute(unsigned int startID, unsigned int endID,
 #ifdef _WIN32
 // Visual studio 2005 compiler is giving an erroneous warning
 // It feels that:
-//		unsigned int prev = *itr;
+//    unsigned int prev = *itr;
 // Is trying to cast a value of type size_t into a value of type unsigned int
 // which, if true, would possibly lose data.  However, this is simply incorrect,
 // as the iterator is to a list of unsigned ints.
@@ -290,8 +290,8 @@ PortalRoute* PathPlanner::cacheRoute(unsigned int startID, unsigned int endID, P
       if (rWidth > w) {
         // The next width has the capacity to handle agents on this route
         // It is assumed that it hasn't ever been shown optimal for this route's
-        //	required clearance (otherwise, we would've simply used it.
-        //	Test to see if it is the same route
+        //  required clearance (otherwise, we would've simply used it.
+        //  Test to see if it is the same route
         if (route->isEquivalent((*rItr))) {
           result = *rItr;
           assert(route->_bestSmallest < result->_bestSmallest &&

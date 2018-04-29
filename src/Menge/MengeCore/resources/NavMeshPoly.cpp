@@ -48,7 +48,7 @@ using Math::Vector2;
 using std::memcpy;
 
 //////////////////////////////////////////////////////////////////////////////////////
-//						Implementation of NavMeshPoly
+//            Implementation of NavMeshPoly
 //////////////////////////////////////////////////////////////////////////////////////
 
 NavMeshPoly::NavMeshPoly() : _vertIDs(0x0), _vertCount(0), _A(0.f), _B(0.f), _C(0.f) {}
@@ -79,11 +79,11 @@ NavMeshPoly& NavMeshPoly::operator=(const NavMeshPoly& p) {
 
 bool NavMeshPoly::containsPoint(const Vector2& point) const {
   // classic polygon test by counting intersections between polygon and a line segment
-  //	connecting the point and some infinitely distant point (specifically, a point
-  //	with the same y-value as point, but x = -infinity.
-  //	An even number means the point is outside, odd means inside.
-  //	Have to handle the special case where the segment intersects a vertex carefully
-  //		(otherwise it accidentally gets counted twice.)
+  //  connecting the point and some infinitely distant point (specifically, a point
+  //  with the same y-value as point, but x = -infinity.
+  //  An even number means the point is outside, odd means inside.
+  //  Have to handle the special case where the segment intersects a vertex carefully
+  //    (otherwise it accidentally gets counted twice.)
 
   const float X = point.x();
   const float Y = point.y();
@@ -91,36 +91,36 @@ bool NavMeshPoly::containsPoint(const Vector2& point) const {
   // Test the bounding area
   // TODO: Why is this commented out?
   // if ( X < _minX ||
-  //	 X > _maxX ||
-  //	 Y < _minY ||
-  //	 Y > _maxY ) return false;
+  //   X > _maxX ||
+  //   Y < _minY ||
+  //   Y > _maxY ) return false;
   int count = 0;  // number of intersections
   for (size_t e = 0; e < _vertCount; ++e) {
     const Vector2& p0 = _vertices[_vertIDs[e]];
 
     if (p0.y() == Y && p0.x() <= X) {
       // There is a special case here where the line passes through the point
-      //	tangentially to the polygon (i.e. it doesn't cut into the polygon.
+      //  tangentially to the polygon (i.e. it doesn't cut into the polygon.
       //
-      //	   a\    /b
+      //     a\    /b
       //       \  /
       //       c\/______x
       //
       // The line segment through the test point x intersects point c, but the
-      //	line segment doesn't cut through the polygon.  Counting this would be
-      //	incorrect.
+      //  line segment doesn't cut through the polygon.  Counting this would be
+      //  incorrect.
       //
       // The solution is to test points a and b and make sure they lie on opposite
-      //	sides of the line through x.  If they do, it counts
+      //  sides of the line through x.  If they do, it counts
       //
       // However if the test point IS the vertex, then it DOES count.
       if (p0.x() == X) {
         // the point is in the polygon
-        //	this is slightly fragile -- the point will register as inside any
-        //	polygon built on this point.
+        //  this is slightly fragile -- the point will register as inside any
+        //  polygon built on this point.
         //
         // A similar problem exists if x lies on the boundary of the polygon -- both
-        //	 polygons will consider it to be "inside".
+        //   polygons will consider it to be "inside".
         return true;
       } else {
         size_t prev = e == 0 ? (_vertCount - 1) : (e - 1);
@@ -128,8 +128,8 @@ bool NavMeshPoly::containsPoint(const Vector2& point) const {
         float pY = _vertices[_vertIDs[prev]].y();
         float nY = _vertices[_vertIDs[next]].y();
         // if both y-values lie on the same side of the line, it is incidental contact.
-        //	Don't count the contact
-        //	There can be problems with signed zero values.  Otherwise, probably safe.
+        //  Don't count the contact
+        //  There can be problems with signed zero values.  Otherwise, probably safe.
         if ((pY > Y && nY > Y) || (pY < Y && nY < Y)) continue;
       }
       // If the line segment intersects the first point, count it and move on.
@@ -200,7 +200,7 @@ bool NavMeshPoly::loadFromAscii(std::ifstream& f) {
 
 bool NavMeshPoly::loadFromBinary(std::ifstream& f) {
   // TODO: This can lead to problems.  If the size of size_t changes,
-  //	but the file spec doesn't, this will read the wrong amount of data.
+  //  but the file spec doesn't, this will read the wrong amount of data.
   unsigned int data;
   f.read((char*)&data, sizeof(int));
   _vertCount = static_cast<size_t>(data);

@@ -54,7 +54,7 @@ ObstacleAction::ObstacleAction() : Action(), _setOperand(0), _originalMap() {}
 
 ObstacleAction::~ObstacleAction() {
   // Is this delete safe?  This may require a destroy method if it is
-  //	instantiated in MengeCore and used in external dll
+  //  instantiated in MengeCore and used in external dll
   _originalMap.clear();
 }
 

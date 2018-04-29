@@ -43,7 +43,7 @@ namespace Menge {
 namespace Agents {
 
 /////////////////////////////////////////////////////////////////////
-//					Implementation of SpatialQuery
+//          Implementation of SpatialQuery
 /////////////////////////////////////////////////////////////////////
 
 SpatialQuery::SpatialQuery() : Element(), _testVisibility(false) {}

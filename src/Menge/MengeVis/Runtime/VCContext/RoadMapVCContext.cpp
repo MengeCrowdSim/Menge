@@ -131,7 +131,7 @@ void RoadMapVCContext::draw3DGL(const BaseAgent* agt, const Goal* goal) {
   }
 
   // draw goal
-  //	TODO: REALLY draw the goal
+  //  TODO: REALLY draw the goal
   drawGoal(tgtPoint, agt);
 
   // draw the preferred velocity

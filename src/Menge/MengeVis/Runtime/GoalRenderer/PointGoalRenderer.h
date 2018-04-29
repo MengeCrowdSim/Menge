@@ -25,14 +25,15 @@ namespace MengeVis {
 namespace Runtime {
 namespace GoalVis {
 /*!
- *	@brief		Class responsible for rendering point goals to the OpenGL context.
+ @brief    Class responsible for rendering point goals to the OpenGL context.
  */
 class MENGEVIS_API PointGoalRenderer : public GoalRenderer {
  public:
   /*!
-   *	@brief		The value used to store this element in the visual element database.
-   *				This string value should correspond to the getStringId method of the
-   *				corresponding simulation element.
+   @brief   The value used to store this element in the visual element database.
+
+   This string value should correspond to the getStringId method of the corresponding simulation
+   element.
    */
   virtual std::string getElementName() const;
 };

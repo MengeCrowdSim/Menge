@@ -54,7 +54,7 @@ void TiXmlBase::EncodeString(const TIXML_STRING& str, TIXML_STRING* outString) {
     if (c == '&' && i < ((int)str.length() - 2) && str[i + 1] == '#' && str[i + 2] == 'x') {
       // Hexadecimal character reference.
       // Pass through unchanged.
-      // &#xA9;	-- copyright symbol, for example.
+      // &#xA9;  -- copyright symbol, for example.
       //
       // The -1 is a bug fix from Rob Laveaux. It keeps
       // an overflow from happening if there is no ';'.
@@ -93,8 +93,8 @@ void TiXmlBase::EncodeString(const TIXML_STRING& str, TIXML_STRING* outString) {
       sprintf(buf, "&#x%02X;", (unsigned)(c & 0xff));
 #endif
 
-      //*ME:	warning C4267: convert 'size_t' to 'int'
-      //*ME:	Int-Cast to make compiler happy ...
+      //*ME:  warning C4267: convert 'size_t' to 'int'
+      //*ME:  Int-Cast to make compiler happy ...
       outString->append(buf, (int)strlen(buf));
       ++i;
     } else {
@@ -711,18 +711,18 @@ bool TiXmlDocument::LoadFile(TiXmlEncoding encoding) {
 
 bool TiXmlDocument::SaveFile() const {
   // See STL_STRING_BUG below.
-  //	StringToBuffer buf( value );
+  //  StringToBuffer buf( value );
   //
-  //	if ( buf.buffer && SaveFile( buf.buffer ) )
-  //		return true;
+  //  if ( buf.buffer && SaveFile( buf.buffer ) )
+  //    return true;
   //
-  //	return false;
+  //  return false;
   return SaveFile(Value());
 }
 
 bool TiXmlDocument::LoadFile(const char* _filename, TiXmlEncoding encoding) {
   // There was a really terrifying little bug here. The code:
-  //		value = filename
+  //    value = filename
   // in the STL case, cause the assignment method of the std::string to
   // be called. What is strange, is that the std::string had the same
   // address as it's c_str() method, and so bad things happen. Looks
@@ -1225,7 +1225,7 @@ const TiXmlAttribute* TiXmlAttributeSet::Find(const std::string& name) const {
 }
 
 /*
-TiXmlAttribute*	TiXmlAttributeSet::Find( const std::string& name )
+TiXmlAttribute*  TiXmlAttributeSet::Find( const std::string& name )
 {
         for( TiXmlAttribute* node = sentinel.next; node != &sentinel; node = node->next )
         {
@@ -1245,7 +1245,7 @@ const TiXmlAttribute* TiXmlAttributeSet::Find(const char* name) const {
 }
 
 /*
-TiXmlAttribute*	TiXmlAttributeSet::Find( const char* name )
+TiXmlAttribute*  TiXmlAttributeSet::Find( const char* name )
 {
         for( TiXmlAttribute* node = sentinel.next; node != &sentinel; node = node->next )
         {

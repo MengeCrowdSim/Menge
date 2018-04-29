@@ -17,10 +17,10 @@
 */
 
 /*!
- *	@file		StateSelector.h
- *	@brief		The definition of the agent initial state selector element.
- *				This is the mechanism which determines which state in the FSM the agent
- *starts in.
+ @file    StateSelector.h
+ @brief    The definition of the agent initial state selector element.
+
+ This is the mechanism which determines which state in the FSM the agent starts in.
  */
 #ifndef __STATE_SELECTOR_H__
 #define __STATE_SELECTOR_H__
@@ -35,70 +35,69 @@ namespace Agents {
 class BaseAgent;
 
 /*!
- *	@brief		Exception class for state selector computation.
+ @brief    Exception class for state selector computation.
  */
 class MENGE_API StateSelectorException : public virtual MengeException {
  public:
   /*!
-   *	@brief		Default constructor.
+   @brief    Default constructor.
    */
   StateSelectorException() : MengeException() {}
 
   /*!
-   *	@brief		Constructor with message.
-   *
-   *	@param		s		The exception-specific message.
+   @brief    Constructor with message.
+
+   @param    s    The exception-specific message.
    */
   StateSelectorException(const std::string& s) : MengeException(s) {}
 };
 
 /*!
- *	@brief		The fatal state selector exception.
+ @brief    The fatal state selector exception.
  */
 class MENGE_API StateSelectorFatalException : public StateSelectorException,
                                               public MengeFatalException {
  public:
   /*!
-   *	@brief		Default constructor.
+   @brief    Default constructor.
    */
   StateSelectorFatalException()
       : MengeException(), StateSelectorException(), MengeFatalException() {}
 
   /*!
-   *	@brief		Constructor with message.
-   *
-   *	@param		s		The exception-specific message.
+   @brief    Constructor with message.
+
+   @param    s    The exception-specific message.
    */
   StateSelectorFatalException(const std::string& s)
       : MengeException(s), StateSelectorException(), MengeFatalException() {}
 };
 
 /*!
- *	@brief		The base class for selecting an agent's intial state.
- *
- *	This is an abstract class, primarily defining the mechanism for selecting
- *	an agent's initial state.
+ @brief    The base class for selecting an agent's intial state.
+
+ This is an abstract class, primarily defining the mechanism for selecting an agent's initial state.
  */
 class MENGE_API StateSelector : public Element {
  public:
   /*!
-   *	@brief		Constructor
+   @brief    Constructor
    */
   StateSelector();
 
  protected:
   /*!
-   *	@brief		Virtual destructor.
+   @brief    Virtual destructor.
    */
   virtual ~StateSelector();
 
  public:
   /*!
-   *	@brief		Provides the name of a state.
-   *
-   *	Ths must be overriden by child classes.
-   *
-   *	@returns:		The name of the state.
+   @brief    Provides the name of a state.
+
+   Ths must be overriden by child classes.
+
+   @returns:    The name of the state.
    */
   virtual std::string getState() = 0;
 };

@@ -50,7 +50,7 @@ namespace Menge {
 using Math::Vector2;
 
 /////////////////////////////////////////////////////////////////////
-//					Implementation of RoadMapPath
+//          Implementation of RoadMapPath
 /////////////////////////////////////////////////////////////////////
 
 RoadMapPath::RoadMapPath(size_t pointCount)
@@ -74,20 +74,20 @@ void RoadMapPath::setWayPoint(size_t i, const Vector2& pos) {
 bool RoadMapPath::setPrefDirection(const Agents::BaseAgent* agent, Agents::PrefVelocity& pVel) {
   // Assume that when I'm overlapping one node, that I can see the next
   // Test to see if I can advance target way point
-  //	while I'm overlapping current target, advance it
-  //		assert that it is visible
+  //  while I'm overlapping current target, advance it
+  //    assert that it is visible
   //
   // test to see if current target is visible
-  //	if visible
-  //			direction towards it
-  //			current position last valid
+  //  if visible
+  //      direction towards it
+  //      current position last valid
   //   else
-  //			direction towards last valid position
+  //      direction towards last valid position
   // TODO: This has flaws because the ObstacleKDTree is finding segments visible when it
-  //	should not.
+  //  should not.
   bool isVisible = false;
   // TODO: Should I compute this blindly?  Although it is used in potentially three places
-  //		mostly, it won't be used.
+  //    mostly, it won't be used.
   Vector2 target = _goal->getTargetPoint(agent->_pos, agent->_radius);
 
   // First confirm I can still see the point I'm headed toward.
@@ -124,10 +124,10 @@ bool RoadMapPath::setPrefDirection(const Agents::BaseAgent* agent, Agents::PrefV
   } else {
     if (Menge::SPATIAL_QUERY->linkIsTraversible(agent->_pos, _validPos, agent->_radius)) {
       // This should never be the zero vector.
-      //	_validPos is set when the current waypoint is visible
+      //  _validPos is set when the current waypoint is visible
       //  this code is only achieved when it is NOT visible
-      //	POSSIBLY, something weird could happen where the next waypoint isn't visible, but
-      //		that breaks the earlier assertion.
+      //  POSSIBLY, something weird could happen where the next waypoint isn't visible, but
+      //    that breaks the earlier assertion.
       dir = norm(_validPos - agent->_pos);
       pVel.setTarget(_validPos);
     } else {

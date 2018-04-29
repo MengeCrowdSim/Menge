@@ -189,7 +189,7 @@ bool mkdir(const std::string& path) {
     DWORD err = GetLastError();
     if (err == ERROR_ALREADY_EXISTS) {
       // This is a funny case -- it prints an error message bug reports true
-      //		because the folder actually exists.
+      //    because the folder actually exists.
       logger << Logger::ERR_MSG << "Cannot make directory.  Path already exists: ";
       logger << path << "\n";
       return true;

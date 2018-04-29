@@ -56,7 +56,7 @@ using Menge::Math::Vector2;
 using Menge::Math::Vector3;
 
 ///////////////////////////////////////////////////////////////////////////
-//				IMPLEMENTATION FOR Context
+//        IMPLEMENTATION FOR Context
 ///////////////////////////////////////////////////////////////////////////
 
 void Context::uiSetup(int vWidth, int vHeight) {
@@ -161,7 +161,7 @@ void Context::writeToScreen(const std::string& txt, TextWriter::Alignment align,
 }
 
 ///////////////////////////////////////////////////////////////////////////
-//				IMPLEMENTATION FOR SelectContext
+//        IMPLEMENTATION FOR SelectContext
 ///////////////////////////////////////////////////////////////////////////
 
 bool SelectContext::selectGL(const GLScene* scene, const GLCamera& camera, int vWidth, int vHeight,

@@ -47,7 +47,7 @@ namespace Agents {
 using Math::Vector2;
 
 ////////////////////////////////////////////////////////////////
-//					Implementation of PrefVelocity
+//          Implementation of PrefVelocity
 ////////////////////////////////////////////////////////////////
 
 PrefVelocity::PrefVelocity()
@@ -77,11 +77,11 @@ PrefVelocity::PrefVelocity(const PrefVelocity& vel)
 
 PrefVelocity& PrefVelocity::operator=(const PrefVelocity& vel) {
   // NOTE:
-  //	This doesn't include the typical if ( this != &vel ) test.
-  //	The reason for this is, it is considered highly unlikely that the user will
-  //	ever do a = a (even indirectly), and, as such, it is deemed better to simply
-  //	perform the copying cost instead of incurring the test for EVERY
-  //	other event.
+  //  This doesn't include the typical if ( this != &vel ) test.
+  //  The reason for this is, it is considered highly unlikely that the user will
+  //  ever do a = a (even indirectly), and, as such, it is deemed better to simply
+  //  perform the copying cost instead of incurring the test for EVERY
+  //  other event.
   _left = vel._left;
   _right = vel._right;
   _speed = vel._speed;

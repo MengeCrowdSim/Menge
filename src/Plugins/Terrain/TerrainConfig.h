@@ -17,8 +17,8 @@
 */
 
 /*!
- *	@file		TerrainConfig.h
- *	@brief		Configures the shared library aspect of the includes.
+ @file		TerrainConfig.h
+ @brief		Configures the shared library aspect of the includes.
  */
 
 #ifndef __TERRAIN_CONFIG_H__

@@ -115,7 +115,7 @@ bool ProbTargetFactory::setFromXML(TransitionTarget* target, TiXmlElement* node,
   if (!TargetFactory::setFromXML(tgt, node, behaveFldr)) return false;
 
   // ProbTargetFactory does *not* use the attribute set directly
-  //	All of its parameters are child tags which it parses by hand.
+  //  All of its parameters are child tags which it parses by hand.
   // Scan the child tags for State tags
   for (TiXmlElement* child = node->FirstChildElement(); child;
        child = child->NextSiblingElement()) {

@@ -17,10 +17,11 @@
 */
 
 /*!
- *  @file       KaramouzasAgent.h
- *  @brief      Contains the Karamouzas::Agent class
- *				Implements Karamouzas's 2009 pedestrian model
- *				"A Predictive Collision Avoidance Model for Pedestrian Simulation"
+ @file       KaramouzasAgent.h
+ @brief      Contains the Karamouzas::Agent class.
+
+ Implements Karamouzas's 2009 pedestrian model "A Predictive Collision Avoidance Model for
+            Pedestrian Simulation"
  */
 
 #ifndef __KARAMOUZAS_AGENT_H__
@@ -30,29 +31,30 @@
 
 namespace Karamouzas {
 /*!
- *	@brief		The agent definition for the Karamouzas 2009 agent.
+ @brief		The agent definition for the Karamouzas 2009 agent.
  */
 class Agent : public Menge::Agents::BaseAgent {
  public:
   /*!
-   *	@brief		A variant of the copy constructor.
+   @brief		A variant of the copy constructor.
    */
   Agent();
 
   /*!
-   *  @brief      Destroys this agent instance.
+   @brief      Destroys this agent instance.
    */
   ~Agent();
 
   /*!
-   *  @brief      Computes the new velocity of this agent.
+   @brief      Computes the new velocity of this agent.
    */
   void computeNewVelocity();
 
   /*!
-   *	@brief		Used by the plugin system to know what artifacts to associate with
-   *				agents of this type.  Every sub-class of must return a globally
-   *				unique value if it should be associated with unique artifacts.
+   @brief		Used by the plugin system to know what artifacts to associate with agents of this type.
+   
+   Every sub-class of must return a globally unique value if it should be associated with unique
+   artifacts.
    */
   virtual std::string getStringId() const { return NAME; }
 
@@ -60,12 +62,12 @@ class Agent : public Menge::Agents::BaseAgent {
   static const std::string NAME;
 
   /*!
-   *	@brief		The personal space (in meters) of the agent
+   @brief		The personal space (in meters) of the agent
    */
   float _perSpace;
 
   /*!
-   *	@brief		The anticipation time (in seconds) of the agent
+   @brief		The anticipation time (in seconds) of the agent
    */
   float _anticipation;
 };

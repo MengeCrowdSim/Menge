@@ -17,8 +17,8 @@
 */
 
 /*!
- *	@file		EventResponse.h
- *	@brief		A response to an event trigger.
+ @file    EventResponse.h
+ @brief    A response to an event trigger.
  */
 
 #ifndef __EVENT_RESPONSE_H__
@@ -33,52 +33,51 @@ class EventEffect;
 class EventTarget;
 
 /*!
- *	@brief		A response to an event trigger.  It combines an effect with
- *				a target.
+ @brief    A response to an event trigger.  It combines an effect with a target.
  */
 class EventResponse {
  public:
   /*!
-   *	@brief		Constructor.
+   @brief    Constructor.
    */
   EventResponse();
 
   /*!
-   *	@brief		Constructor.
-   *
-   *	@param		effect		The name of the effect for this response.
-   *	@param		target		The name of the target for this response.
+   @brief    Constructor.
+
+   @param    effect    The name of the effect for this response.
+   @param    target    The name of the target for this response.
    */
   EventResponse(const std::string& effect, const std::string& target);
 
   /*!
-   *	@brief		Finalizes the response.
+   @brief    Finalizes the response.
    */
   void finalize();
 
   /*!
-   *	@brief		Applies the response to the simulation.
+   @brief    Applies the response to the simulation.
    */
   void apply();
 
  protected:
   /*!
-   *	@brief		The name of the effect.
+   @brief    The name of the effect.
    */
   std::string _effectName;
 
   /*!
-   *	@brief		The effect in this response.
+   @brief    The effect in this response.
    */
   EventEffect* _effect;
 
   /*!
-   *	@brief		The name of the target.
+   @brief    The name of the target.
    */
   std::string _targetName;
 
   /*!
-   *	@brief		The target for this response.
+   @brief    The target for this response.
    */
   EventTarget* _target;
 };

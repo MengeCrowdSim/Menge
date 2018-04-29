@@ -45,7 +45,7 @@ namespace Menge {
 namespace BFSM {
 
 /////////////////////////////////////////////////////////////////////
-//					Implementation of GoalSelectorFactory
+//          Implementation of GoalSelectorFactory
 /////////////////////////////////////////////////////////////////////
 
 GoalSelectorFactory::GoalSelectorFactory() : ElementFactory<GoalSelector>() {

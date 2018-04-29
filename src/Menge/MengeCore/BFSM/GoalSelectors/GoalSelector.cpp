@@ -47,7 +47,7 @@ namespace Menge {
 namespace BFSM {
 
 /////////////////////////////////////////////////////////////////////
-//					Implementation of GoalSelector
+//          Implementation of GoalSelector
 /////////////////////////////////////////////////////////////////////
 
 Goal* GoalSelector::assignGoal(const Agents::BaseAgent* agent) {
@@ -116,7 +116,7 @@ void GoalSelector::freeGoal(const Agents::BaseAgent* agent, Goal* goal) {
 }
 
 /////////////////////////////////////////////////////////////////////
-//					Implementation of parsing function
+//          Implementation of parsing function
 /////////////////////////////////////////////////////////////////////
 
 GoalSelector* parseGoalSelector(TiXmlElement* node, const std::string& behaveFldr) {

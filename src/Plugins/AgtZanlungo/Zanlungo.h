@@ -17,8 +17,8 @@
 */
 
 /*!
- *	@file		Zanlungo.h
- *	@brief		The definition of the Zanlungo pedestrian plug-in
+ @file		Zanlungo.h
+ @brief		The definition of the Zanlungo pedestrian plug-in.
  */
 
 #ifndef __ZANLUNGO_H__

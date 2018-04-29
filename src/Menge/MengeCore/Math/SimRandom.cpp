@@ -52,15 +52,15 @@ using namespace std;
 namespace Math {
 
 /*
-//	Functions r4_normalR and r4_normal_01R are derived from John Burkardt's
-//	code (with the given licensing information).  They have been modified
-//	to remove the static members so that they could be used in a thread-safe
-//	re-entrant manner (by placing the burden on the caller to account for
-//	the fact that the normal generator produces two values at a time.
+//  Functions r4_normalR and r4_normal_01R are derived from John Burkardt's
+//  code (with the given licensing information).  They have been modified
+//  to remove the static members so that they could be used in a thread-safe
+//  re-entrant manner (by placing the burden on the caller to account for
+//  the fact that the normal generator produces two values at a time.
 //
-//	Modified: 05 October 2013, Sean Curtis
+//  Modified: 05 October 2013, Sean Curtis
 //
-//	Original credit
+//  Original credit
 //  Licensing:
 //    This code is distributed under the GNU LGPL license.
 //

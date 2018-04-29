@@ -219,27 +219,27 @@ float SampleTimer::lap(float scale) {
 ////////////////////////////////////////////////////////////////////////////
 
 /*!
- *	@brief		Class for storing sets of timers for profiling aspects of
- *				the simulation.
+ *  @brief    Class for storing sets of timers for profiling aspects of
+ *        the simulation.
  */
 class Profiler {
   /*!
-   *	@brief		Pointer for singleton instance.
+   *  @brief    Pointer for singleton instance.
    */
   static Profiler* PROFILER;
 
   /*!
-   *	@brief		Private constructor.
+   *  @brief    Private constructor.
    */
   Profiler() {}
 
   ////////////////////////////////////////////////////////////////////////////
  public:
   /*!
-   *	@brief		Returns a pointer to the singleton instance, creating it as
-   *				necessary.
-   *
-   *	@returns	A pointer to the single instance of profiler
+   *  @brief    Returns a pointer to the singleton instance, creating it as
+   *        necessary.
+
+   *  @returns  A pointer to the single instance of profiler
    */
   static Profiler* getInstance() {
     if (PROFILER == 0x0) {
@@ -251,11 +251,11 @@ class Profiler {
   ////////////////////////////////////////////////////////////////////////////
 
   /*!
-   *	@brief		Creates a lap timer which uses the given label for display.
-   *
-   *	@param		label		The string to display when reporting the profiling
-   *							results.
-   *	@returns	The identifier for the created timer.
+   *  @brief    Creates a lap timer which uses the given label for display.
+
+   *  @param    label    The string to display when reporting the profiling
+   *              results.
+   *  @returns  The identifier for the created timer.
    */
   size_t addTimer(const ::std::string& label) {
     assert(_timers.size() == _dispStrings.size() && "Mis-match in timer and display strings");
@@ -268,16 +268,16 @@ class Profiler {
   ////////////////////////////////////////////////////////////////////////////
 
   /*!
-   *	@brief		Reports the number of timers
+   *  @brief    Reports the number of timers
    */
   size_t timerCount() const { return _timers.size(); }
 
   ////////////////////////////////////////////////////////////////////////////
 
   /*!
-   *	@brief		Starts the ith timer.
-   *
-   *	@param		i			The identifier for the timer.  Only checked in debug
+   *  @brief    Starts the ith timer.
+
+   *  @param    i      The identifier for the timer.  Only checked in debug
    *mode.
    */
   void start(size_t i) {
@@ -288,16 +288,16 @@ class Profiler {
   ////////////////////////////////////////////////////////////////////////////
 
   /*!
-   *	@brief		Reports the time elapsed between this call and the last start for the
-   *				ith timer.
-   *
-   *	@param		i			The identifier for the timer.  Only checked in debug
+   *  @brief    Reports the time elapsed between this call and the last start for the
+   *        ith timer.
+
+   *  @param    i      The identifier for the timer.  Only checked in debug
    *mode.
-   *	@param		scale		The scale of the units to report the elapsed time in.
-   *							e.g., 1.0 --> seconds, 0.001 -->, 1e-6 -->
+   *  @param    scale    The scale of the units to report the elapsed time in.
+   *              e.g., 1.0 --> seconds, 0.001 -->, 1e-6 -->
    *microseconds.
-   *	@returns	The elapsed time of the ith timer's last call (scaled by the given
-   *				amount).
+   *  @returns  The elapsed time of the ith timer's last call (scaled by the given
+   *        amount).
    */
   float elapsed(size_t i, float scale) {
     assert(i < _timers.size() && "Timer index outside of valid range in Profiler::elapsed()");
@@ -307,16 +307,17 @@ class Profiler {
   ////////////////////////////////////////////////////////////////////////////
 
   /*!
-   *	@brief		Reports the time elapsed from the previous call to lap() or start() to
-   *				this call for the ith timer.  The clock is still "running" and the
-   *next lap starts.
-   *
-   *	@param		i			The identifier for the timer.  Only checked in debug
+   *  @brief    Reports the time elapsed from the previous call to lap() or start() to
+   *        this call for the ith timer.  The clock is still "running" and the
+   *next
+   *        lap starts.
+
+   *  @param    i      The identifier for the timer.  Only checked in debug
    *mode.
-   *	@param		scale		The scale of the units to report the elapsed time in.
-   *							e.g., 1.0 --> seconds, 0.001 -->, 1e-6 -->
+   *  @param    scale    The scale of the units to report the elapsed time in.
+   *              e.g., 1.0 --> seconds, 0.001 -->, 1e-6 -->
    *microseconds.
-   *	@returns	The time elapsed (for units see "scale").
+   *  @returns  The time elapsed (for units see "scale").
    */
   float lap(size_t i, float scale) {
     assert(i < _timers.size() && "Timer index outside of valid range in Profiler::lap()");
@@ -326,15 +327,15 @@ class Profiler {
   ////////////////////////////////////////////////////////////////////////////
 
   /*!
-   *	@brief		Reports the average lap time across all recorded laps for the ith
-   *				timer.
-   *
-   *	@param		i			The identifier for the timer.  Only checked in debug
+   *  @brief    Reports the average lap time across all recorded laps for the ith
+   *        timer.
+
+   *  @param    i      The identifier for the timer.  Only checked in debug
    *mode.
-   *	@param		scale		The scale of the units to report the elapsed time in.
-   *							e.g., 1.0 --> seconds, 0.001 -->, 1e-6 -->
+   *  @param    scale    The scale of the units to report the elapsed time in.
+   *              e.g., 1.0 --> seconds, 0.001 -->, 1e-6 -->
    *microseconds.
-   *	@returns	The time elapsed (for units see "scale").
+   *  @returns  The time elapsed (for units see "scale").
    */
   float average(size_t i, float scale) {
     assert(i < _timers.size() && "Timer index outside of valid range in Profiler::average()");
@@ -344,11 +345,11 @@ class Profiler {
   ////////////////////////////////////////////////////////////////////////////
 
   /*!
-   *	@brief		Reports the number of laps the ith counter has had.
-   *
-   *	@param		i			The identifier for the timer.  Only checked in debug
+   *  @brief    Reports the number of laps the ith counter has had.
+
+   *  @param    i      The identifier for the timer.  Only checked in debug
    *mode.
-   *	@returns	The number of laps.
+   *  @returns  The number of laps.
    */
   int laps(size_t i) {
     assert(i < _timers.size() && "Timer index outside of valid range in Profiler::laps()");
@@ -358,16 +359,16 @@ class Profiler {
   ////////////////////////////////////////////////////////////////////////////
 
   /*!
-   *	@brief		Reports the average lap time across all recorded laps for the first
-   *				"count" timers.
-   *
-   *	@param		count		The first count timers' average times will be reported.
-   *							Only checked in debug mode.
-   *	@param		scale		The scale of the units to report the elapsed time in.
-   *							e.g., 1.0 --> seconds, 0.001 -->, 1e-6 -->
+   *  @brief    Reports the average lap time across all recorded laps for the first
+   *        "count" timers.
+
+   *  @param    count    The first count timers' average times will be reported.
+   *              Only checked in debug mode.
+   *  @param    scale    The scale of the units to report the elapsed time in.
+   *              e.g., 1.0 --> seconds, 0.001 -->, 1e-6 -->
    *microseconds.
-   *	@param		averages	A pointer to an array of floats sufficiently large to hold
-   *							count values.
+   *  @param    averages  A pointer to an array of floats sufficiently large to hold
+   *              count values.
    */
   void averages(size_t count, float scale, float* averages) {
     assert(count <= _timers.size() && "Timer index outside of valid range in Profiler::averages()");
@@ -379,11 +380,11 @@ class Profiler {
   ////////////////////////////////////////////////////////////////////////////
 
   /*!
-   *	@brief		Returns the display string for the given LapTimer.
-   *
-   *	@param		i		The index of the desired timer -- only validated in debug
+   *  @brief    Returns the display string for the given LapTimer.
+
+   *  @param    i    The index of the desired timer -- only validated in debug
    *mode.
-   *	@returns	The display string for the indicated LapTimer.
+   *  @returns  The display string for the indicated LapTimer.
    */
   const ::std::string& displayString(size_t i) {
     assert(i < _timers.size() && "Timer index outside of valid range in Profiler::displayString()");
@@ -392,12 +393,12 @@ class Profiler {
 
  private:
   /*!
-   *	@brief		A vector of timers used in profiling.
+   *  @brief    A vector of timers used in profiling.
    */
   ::std::vector<LapTimer> _timers;
 
   /*!
-   *	@brief		A vector of display strings for the timers.
+   *  @brief    A vector of display strings for the timers.
    */
   ::std::vector< ::std::string> _dispStrings;
 };

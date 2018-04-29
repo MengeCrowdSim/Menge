@@ -15,7 +15,7 @@ using Menge::Math::CircleShape;
 using Menge::Math::Vector2;
 
 /////////////////////////////////////////////////////////////////////
-//					Implementation of CircleGoalRenderer
+//          Implementation of CircleGoalRenderer
 /////////////////////////////////////////////////////////////////////
 
 std::string CircleGoalRenderer::getElementName() const { return CircleGoal::NAME; }

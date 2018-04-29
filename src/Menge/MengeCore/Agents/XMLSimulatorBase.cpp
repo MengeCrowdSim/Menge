@@ -45,7 +45,7 @@ namespace Menge {
 namespace Agents {
 
 ////////////////////////////////////////////////////////////////////
-//			Implementation of XMLSimulatorBase
+//      Implementation of XMLSimulatorBase
 ////////////////////////////////////////////////////////////////////
 
 XMLSimulatorBase::XMLSimulatorBase() { _initState = new SimulatorState(); }

@@ -42,7 +42,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 namespace PedVO {
 ////////////////////////////////////////////////////////////////
-//					Implementation of PedVO::Simulator
+//          Implementation of PedVO::Simulator
 ////////////////////////////////////////////////////////////////
 
 float Simulator::COS_OBST_TURN = 1.f;

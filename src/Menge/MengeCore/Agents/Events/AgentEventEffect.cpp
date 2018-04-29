@@ -44,7 +44,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 namespace Menge {
 
 /////////////////////////////////////////////////////////////////////
-//					Implementation of AgentEventEffect
+//          Implementation of AgentEventEffect
 /////////////////////////////////////////////////////////////////////
 
 void AgentEventEffect::apply(EventTarget* target) {
@@ -64,4 +64,5 @@ void AgentEventEffect::apply(EventTarget* target) {
 bool AgentEventEffect::isCompatible(EventTarget* target) {
   return dynamic_cast<AgentEventTarget*>(target) != 0x0;
 }
+
 }  // namespace Menge

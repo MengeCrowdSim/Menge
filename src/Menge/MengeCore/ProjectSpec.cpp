@@ -45,7 +45,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 namespace Menge {
 ////////////////////////////////////////////////////////////////
-//			Implementation of ProjectSpec
+//      Implementation of ProjectSpec
 ////////////////////////////////////////////////////////////////
 
 ProjectSpec::ProjectSpec()

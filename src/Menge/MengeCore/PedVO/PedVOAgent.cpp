@@ -51,7 +51,7 @@ using Menge::Math::sqr;
 using Menge::Math::Vector2;
 
 ///////////////////////////////////////////////////////////////////////
-//				Implementation of PedVO::Agent
+//        Implementation of PedVO::Agent
 ///////////////////////////////////////////////////////////////////////
 
 // AGENT DEFAULT PARAMETERS
@@ -118,7 +118,7 @@ void Agent::adaptPreferredVelocity() {
     //// OBSTACLES
     const float OBST_AREA = 0.75f;
     const float OBST_AREA_SQ_INV = 1.f / (2 * OBST_AREA * OBST_AREA);
-    const float OBST_SCALE = norm;  // * 6.25f;	// what is the "density" of an obstacle?
+    const float OBST_SCALE = norm;  // * 6.25f;  // what is the "density" of an obstacle?
     for (size_t i = 0; i < _nearObstacles.size(); ++i) {
       const Menge::Agents::Obstacle* const obst = _nearObstacles[i].obstacle;
       Vector2 nearPt;
@@ -239,12 +239,12 @@ void Agent::obstacleLine(size_t obstNbrID, const float invTau, bool flip) {
   Vector2 leftLegDirection, rightLegDirection;
 
   /*!
-   *	These booleans short-cut the later code in which we make sure a leg direction does not
-   *	cut into a "neighboring" obstacle.
-   *
-   *	In the case where the agent is "obliquely viewing" the obstacle near the left or right
-   *	edge, we end up testing one of the legs against obstacle 1 itself.  However, by
-   *	definition, we know that both legs lie outside of the obstacle.
+   *  These booleans short-cut the later code in which we make sure a leg direction does not
+   *  cut into a "neighboring" obstacle.
+
+   *  In the case where the agent is "obliquely viewing" the obstacle near the left or right
+   *  edge, we end up testing one of the legs against obstacle 1 itself.  However, by
+   *  definition, we know that both legs lie outside of the obstacle.
    */
   bool prevIsCurrent = false;
   bool nextIsCurrent = false;
@@ -621,13 +621,13 @@ void Agent::computeNewVelocity() {
     Vector2 vel(_velNew.x(), _velNew.y() * _turningBias);
     // Rotate it back
     // Flip the y-value so I perform rotation in the other direction
-    //	I'm multiplying v * R, where R is the matrix:
+    //  I'm multiplying v * R, where R is the matrix:
     //
     //   R  = [ prefDir'  n' ]  (i.e. concatenation of two column vectors
     //
-    //	I rotated INTO affine space using prefDir and n.  To reverse the rotation
-    //	I had to flip the signs of the upper right and lower left corners.  That's
-    //	What the negation of prefDir.y does.
+    //  I rotated INTO affine space using prefDir and n.  To reverse the rotation
+    //  I had to flip the signs of the upper right and lower left corners.  That's
+    //  What the negation of prefDir.y does.
     prefDir.set(prefDir.x(), -prefDir.y());
     Vector2 n(-prefDir.y(), prefDir.x());
     float vx = vel * prefDir;
@@ -648,9 +648,9 @@ bool linearProgram1(const std::vector<Menge::Math::Line>& lines, size_t lineNo, 
                     const Vector2& optVelocity, bool directionOpt, float turnBias,
                     Vector2& result) {
   // Despite turn the dot product is the same
-  //	This is because the point got scaled by <1, 1/turn> and the dir got scaled by
-  //	<1, turn>.  So, pt.x * dir.x + pt.y * dir.y = pt.x * dir.x + pt.y /turn * dir.y * turn
-  //	So, they are mathematically equivalent.
+  //  This is because the point got scaled by <1, 1/turn> and the dir got scaled by
+  //  <1, turn>.  So, pt.x * dir.x + pt.y * dir.y = pt.x * dir.x + pt.y /turn * dir.y * turn
+  //  So, they are mathematically equivalent.
   float dotProduct = lines[lineNo]._point * lines[lineNo]._direction;
   float discriminant;
   if (turnBias != 1.f) {

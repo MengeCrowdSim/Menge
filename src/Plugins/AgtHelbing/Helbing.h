@@ -17,8 +17,8 @@
 */
 
 /*!
- *	@file		Helbing.h
- *	@brief		The definition of the Helbing pedestrian plug-in
+ @file		Helbing.h
+ @brief		The definition of the Helbing pedestrian plug-in
  */
 
 #ifndef __HELBING_H__

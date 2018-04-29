@@ -101,10 +101,10 @@ Goal* NearestNMGoalSelector::getGoal(const Agents::BaseAgent* agent) const {
     }
   }
   // 2. For each goal in the set, determine which node the center is in
-  //	  (NavMeshLocalizer)
-  //		a. For each start-end goal pair, determine the shortest passable path.
-  //		   (PathPlanner)
-  //		b. based on _getNearest, take the nearest/farthest.
+  //    (NavMeshLocalizer)
+  //    a. For each start-end goal pair, determine the shortest passable path.
+  //       (PathPlanner)
+  //    b. based on _getNearest, take the nearest/farthest.
   //
   if (bestGoal == 0x0) {
     logger << Logger::ERR_MSG;

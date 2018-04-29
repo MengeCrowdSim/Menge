@@ -17,8 +17,8 @@
 */
 
 /*!
- *	@file	EventTargetFactory.h
- *	@brief	The definition of the basic event target factory.
+ @file  EventTargetFactory.h
+ @brief  The definition of the basic event target factory.
  */
 
 #ifndef __EVENT_TARGET_FACTORY_H__
@@ -31,7 +31,7 @@
 namespace Menge {
 
 /*!
- *	@brief		The base class for generating event targets.
+ @brief    The base class for generating event targets.
  */
 class MENGE_API EventTargetFactory : public ElementFactory<EventTarget> {};
 

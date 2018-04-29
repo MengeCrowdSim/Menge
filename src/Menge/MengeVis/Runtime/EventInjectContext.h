@@ -1,8 +1,8 @@
 #pragma once
 /*!
- *	@file	EventInjectContext.h
- *	@brief	The definition of a context that captures ExternalEventTriggers in the system
- *			and maps them to user actions.
+ @file    EventInjectContext.h
+ @brief   The definition of a context that captures ExternalEventTriggers in the system and maps
+          them to user actions.
  */
 
 #include "MengeCore/mengeCommon.h"
@@ -22,121 +22,120 @@ class Image;
 namespace MengeVis {
 namespace Runtime {
 /*!
- *	@brief		A context that connects user actions to Menge::ExternalEventTrigger.
- *
- *	The EventInjectionContext serves as a layer between UI and the simulator. It keys on
- *	ExternalEventTrigger instances with particular names. Each of the specific names is
- *	triggered by a specific user action. The following table shows the actions and
- *	the name of the trigger that gets fired:
- *
- *	User Action               | Trigger Name
- *  --------------------------|---------------------
- *  Press left arrow          | left_arrow
- *	Press right arrow         | right_arrow
- *	Press up arrow            | up_arrow
- *	Press down arrow          | down_arrow
- *	Click left mouse button   | left_mouse
- *	Click right mouse button  | right_mouse
- *	Click middle mouse button | middle_mouse
- * @cond
- *	Roll mouse wheel up       | mouse_wheel_up
- *	Roll mouse wheel down     | mouse_wheel_down
- * @endcond
- *
- *	Note: no mouse data is provided (i.e., mouse position, state of modifiers, etc.)
- *	The simple user action is sufficient to fire the trigger.
- *
- *	The EventInjectionContext also contains a child context. Events that trigger simulation
- *	events are _also_ propagated down to the child context.
- *
- *	Finally, if the EvenEjectionContext finds appropriate external triggers, it will
- *	display the valid event actions in the display (the display of which is toggle-able
- *	by the user).
+ @brief   A context that connects user actions to Menge::ExternalEventTrigger.
+
+ The EventInjectionContext serves as a layer between UI and the simulator. It keys on
+ ExternalEventTrigger instances with particular names. Each of the specific names is triggered by a
+ specific user action. The following table shows the actions and the name of the trigger that gets
+ fired:
+
+ User Action               | Trigger Name
+ --------------------------|---------------------
+ Press left arrow          | left_arrow
+ Press right arrow         | right_arrow
+ Press up arrow            | up_arrow
+ Press down arrow          | down_arrow
+ Click left mouse button   | left_mouse
+ Click right mouse button  | right_mouse
+ Click middle mouse button | middle_mouse
+ @cond
+   Roll mouse wheel up       | mouse_wheel_up
+   Roll mouse wheel down     | mouse_wheel_down
+ @endcond
+
+ Note: no mouse data is provided (i.e., mouse position, state of modifiers, etc.). The simple user
+ action is sufficient to fire the trigger.
+
+ The EventInjectionContext also contains a child context. Events that trigger simulation events are
+ _also_ propagated down to the child context.
+
+ Finally, if the EvenEjectionContext finds appropriate external triggers, it will display the valid
+ event actions in the display (the display of which is toggle-able by the user).
  */
 class MENGEVIS_API EventInjectionContext : public SceneGraph::Context {
  public:
   /*!
-   *	@brief	Constructor.
-   *
-   *	@param	ctx		The optional pass-through context.
+   @brief   Constructor.
+
+   @param   ctx   The optional pass-through context.
    */
   EventInjectionContext(SceneGraph::Context* ctx = nullptr);
 
-  /*! @brief	Destructor. */
+  /*!
+   @brief   Destructor.
+   */
   ~EventInjectionContext();
 
   /*!
-   *	@brief		The draw function for the context.
-   *
-   *	@param		vWidth		The width of the viewport (in pixels).
-   *	@param		vHeight		The height of the viewport (in pixels).
+   @brief   The draw function for the context.
+
+   @param   vWidth    The width of the viewport (in pixels).
+   @param   vHeight   The height of the viewport (in pixels).
    */
   void drawGL(int vWidth, int vHeight) override;
 
   /*!
-   *	@brief		Performs selection based on a click on screen space.
-   *				Uses the OpenGL selection mechanism.
-   *
-   *	@param		scene			The scene to select in.
-   *	@param		camera			The camera.
-   *	@param		vWidth			The width of the viewport.
-   *	@param		vHeight			The height of the viewport.
-   *	@param		selectPoint		The point (in screen space) at which object
-   *selection should take place.
-   *	@returns	A boolean indicating whether a redraw needs to take place.
+   @brief   Performs selection based on a click on screen space.
+
+   Uses the OpenGL selection mechanism.
+
+   @param   scene         The scene to select in.
+   @param   camera        The camera.
+   @param   vWidth        The width of the viewport.
+   @param   vHeight       The height of the viewport.
+   @param   selectPoint   The point (in screen space) at which object selection should take place.
+   @returns A boolean indicating whether a redraw needs to take place.
    */
   bool selectGL(const SceneGraph::GLScene* scene, const SceneGraph::GLCamera& camera, int vWidth,
                 int vHeight, int* selectPoint) override;
 
   /*!
-   *	@brief		Give the context the opportunity to respond to a mouse
-   *				event.
-   *
-   *	@param		e		The SDL event with the mouse event data.
-   *	@returns	A ContextResult instance reporting if the event was handled and
-   *				if redrawing is necessary.
+   @brief   Give the context the opportunity to respond to a mouse event.
+
+   @param   e   The SDL event with the mouse event data.
+   @returns A ContextResult instance reporting if the event was handled and if redrawing is
+            necessary.
    */
   SceneGraph::ContextResult handleMouse(SDL_Event& e) override;
 
   /*!
-   *	@brief		Give the context the opportunity to respond to a keyboard
-   *				event.
-   *
-   *	@param		e		The SDL event with the keyboard event data.
-   *	@returns	A ContextResult instance reporting if the event was handled and
-   *				if redrawing is necessary.
+   @brief   Give the context the opportunity to respond to a keyboard event.
+
+   @param   e   The SDL event with the keyboard event data.
+   @returns A ContextResult instance reporting if the event was handled and if redrawing is
+            necessary.
    */
   SceneGraph::ContextResult handleKeyboard(SDL_Event& e) override;
 
   /*!
-   *	@brief		Allow the context to update any time-dependent state it might have to
-   *				the given global time.
+   @brief   Allow the context to update any time-dependent state it might have to the given global
+            time.
    */
   void update() override;
 
   /*!
-   *	@brief		Callback for when the OpenGL context is changed.
+   @brief   Callback for when the OpenGL context is changed.
    */
   void newGLContext() override;
 
   /*!
-   *	@brief		Called when the context is activated.
+   @brief   Called when the context is activated.
    */
   void activate() override;
 
   /*!
-   *	@brief		Called when the context is deactivated.
+   @brief   Called when the context is deactivated.
    */
   void deactivate() override;
 
  protected:
   /*!
-   *	@brief		Draw UI elements into the context.
-   *
-   *	@param		vWidth		The width of the viewport (in pixels).
-   *	@param		vHeight		The height of the viewport (in pixels).
-   *	@param		select		Defines if the drawing is being done for selection
-   *							purposes (true) or visualization (false).
+   @brief   Draw UI elements into the context.
+
+   @param   vWidth    The width of the viewport (in pixels).
+   @param   vHeight   The height of the viewport (in pixels).
+   @param   select    Defines if the drawing is being done for selection purposes (true) or
+                      visualization (false).
    */
   void drawUIGL(int vWidth, int vHeight, bool select = false) override;
 
@@ -167,9 +166,9 @@ class MENGEVIS_API EventInjectionContext : public SceneGraph::Context {
   };
 
   // Map from SDL enum values to the trigger name that it triggers.
-  //	KeyCodes are signed 32-bit ints
-  //	Mouse codes are unsigned 32-bit ints
-  //	Mouse wheel requires test of the sign of the wheel motion.
+  //  KeyCodes are signed 32-bit ints
+  //  Mouse codes are unsigned 32-bit ints
+  //  Mouse wheel requires test of the sign of the wheel motion.
   HASH_MAP<unsigned int, std::string> _triggers;
 
   // Reports if *any* events are connected.

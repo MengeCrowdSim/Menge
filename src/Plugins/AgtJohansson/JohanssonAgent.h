@@ -17,8 +17,8 @@
 */
 
 /*!
- *	@file		JohanssonAgent.h
- *	@brief		Definition of Johansson 2007 agent.
+ @file		JohanssonAgent.h
+ @brief		Definition of Johansson 2007 agent.
  */
 
 #ifndef __JOHANSSON_AGENT_H__
@@ -28,32 +28,32 @@
 
 namespace Johansson {
 /*!
- *	@brief		Definition of Johansson 2007 agent.
- *
- *	A social-force agent model. This assumes that all agents
- *	have unit-weight.
+ @brief		Definition of Johansson 2007 agent.
+
+ A social-force agent model. This assumes that all agents have unit-weight.
  */
 class Agent : public Menge::Agents::BaseAgent {
  public:
   /*!
-   *	@brief		Default constructor.
+   @brief		Default constructor.
    */
   Agent();
 
   /*!
-   *  @brief      Destroys this agent instance.
+   @brief      Destroys this agent instance.
    */
   ~Agent();
 
   /*!
-   *  @brief      Computes the new velocity of this agent.
+   @brief      Computes the new velocity of this agent.
    */
   void computeNewVelocity();
 
   /*!
-   *	@brief		Used by the plugin system to know what artifacts to associate with
-   *				agents of this type.  Every sub-class of must return a globally
-   *				unique value if it should be associated with unique artifacts.
+   @brief		Used by the plugin system to know what artifacts to associate with agents of this type.
+   
+   Every sub-class of must return a globally unique value if it should be associated with unique
+   artifacts.
    */
   virtual std::string getStringId() const { return NAME; }
 
@@ -61,7 +61,7 @@ class Agent : public Menge::Agents::BaseAgent {
   static const std::string NAME;
 
   /*!
-   *	@brief		The directional weight - repulsive force depends on direction to agent
+   @brief		The directional weight - repulsive force depends on direction to agent
    */
   float _dirWeight;
 };

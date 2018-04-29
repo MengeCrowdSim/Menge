@@ -17,8 +17,8 @@
 */
 
 /*!
- *	@file		Plugin.h
- *	@brief		The basic specification of a plug in
+ @file    Plugin.h
+ @brief    The basic specification of a plug in
  */
 
 #ifndef __PLUGIN_H__
@@ -34,26 +34,26 @@
 namespace Menge {
 namespace PluginEngine {
 /*!
- *	@brief		The base plug-in class
+ @brief    The base plug-in class
  */
 template <typename EngineType>
 class Plugin {
  public:
   /*!
-   *	@brief		Plugin function pointer for functions which return strings.
+   @brief    Plugin function pointer for functions which return strings.
    */
   typedef const char* GetCharPtrFcn();
 
   /*!
-   *	@brief		Declaration of registration function pointer type
+   @brief    Declaration of registration function pointer type
    */
   typedef void RegisterPluginFcn(EngineType*);
 
   /*!
-   *	@brief		Constructor.
-   *
-   *	@param		filename		The filename of the plugin to instantiate.
-   *	@throws		std::exception if there is a problem initializing the plugin.
+   @brief    Constructor.
+
+   @param    filename    The filename of the plugin to instantiate.
+   @throws    std::exception if there is a problem initializing the plugin.
    */
   Plugin(const std::string& filename)
       : _handle(0), _registerFcnAddr(0x0), _getNameFcnAddr(0x0), _getDescFcnAddr(0x0) {
@@ -78,61 +78,61 @@ class Plugin {
   }
 
   /*!
-   *	@brief		Destructor.
+   @brief    Destructor.
    */
   ~Plugin() {
     if (_handle != 0) SharedLibrary::Unload(_handle);
   }
 
   /*!
-   *	@brief		Reports the name of the registraiton function for this plugin type.
+   @brief    Reports the name of the registraiton function for this plugin type.
    */
   const char* getRegisterName() const {
     throw MengeFatalException("Failed to define plugin register function name.");
   }
 
   /*!
-   *	@brief		Registers the plugin to the PluginEngine.
-   *
-   *	@param		engine		The PluginEngine.
+   @brief    Registers the plugin to the PluginEngine.
+
+   @param    engine    The PluginEngine.
    */
   void registerPlugin(EngineType* engine) { _registerFcnAddr(engine); }
 
   /*!
-   *	@brief		Returns the name of the plugin.
-   *
-   *	@returns	The name of the plug-in.
+   @brief    Returns the name of the plugin.
+
+   @returns  The name of the plug-in.
    */
   const char* getName() { return _getNameFcnAddr(); }
 
   /*!
-   *	@brief		Returns the description of the plugin.
-   *
-   *	@returns	The description of the plug-in.
+   @brief    Returns the description of the plugin.
+
+   @returns  The description of the plug-in.
    */
   const char* getDescription() { return _getDescFcnAddr(); }
 
  private:
   /*!
-   *	@brief		The shared library handle.
+   @brief    The shared library handle.
    */
   SharedLibrary::HandleType _handle;
 
   /*!
-   *	@brief		A function pointer to the plugin registration function.
-   *
-   *	This should get initialized in the constructor.
+   @brief    A function pointer to the plugin registration function.
+
+   This should get initialized in the constructor.
    */
   RegisterPluginFcn* _registerFcnAddr;
 
   /*!
-   *	@brief		A function pointer to the function which returns the plugin name.
+   @brief    A function pointer to the function which returns the plugin name.
    */
   GetCharPtrFcn* _getNameFcnAddr;
 
   /*!
-   *	@brief		A function pointer to the function which returns the plugin
-   *				description.
+   @brief    A function pointer to the function which returns the plugin
+   description.
    */
   GetCharPtrFcn* _getDescFcnAddr;
 };

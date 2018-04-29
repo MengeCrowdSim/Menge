@@ -48,7 +48,7 @@ namespace Menge {
 namespace Agents {
 
 ////////////////////////////////////////////////////////////////////////////
-//			Implementation of ExplicitGenerator
+//      Implementation of ExplicitGenerator
 ////////////////////////////////////////////////////////////////////////////
 
 ExplicitGenerator::ExplicitGenerator() : AgentGenerator(), _positions() {}
@@ -69,7 +69,7 @@ void ExplicitGenerator::setAgentPosition(size_t i, BaseAgent* agt) {
 void ExplicitGenerator::addPosition(const Vector2& p) { _positions.push_back(p); }
 
 ////////////////////////////////////////////////////////////////////////////
-//			Implementation of ExplicitGeneratorFactory
+//      Implementation of ExplicitGeneratorFactory
 ////////////////////////////////////////////////////////////////////////////
 
 bool ExplicitGeneratorFactory::setFromXML(AgentGenerator* gen, TiXmlElement* node,

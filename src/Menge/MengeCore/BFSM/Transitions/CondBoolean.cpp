@@ -150,7 +150,7 @@ AndCondition::AndCondition(const AndCondition& cond) : Bool2Condition(cond) {}
 
 bool AndCondition::conditionMet(Agents::BaseAgent* agent, const Goal* goal) {
   // This relies on the compiler to only evaluate the second condition if the
-  //	first is true.
+  //  first is true.
   return _op1->conditionMet(agent, goal) && _op2->conditionMet(agent, goal);
 }
 
@@ -172,7 +172,7 @@ OrCondition::OrCondition(const OrCondition& cond) : Bool2Condition(cond) {}
 
 bool OrCondition::conditionMet(Agents::BaseAgent* agent, const Goal* goal) {
   // This relies on the compiler to only evaluate the second condition if the
-  //	first is false.
+  //  first is false.
   return _op1->conditionMet(agent, goal) || _op2->conditionMet(agent, goal);
 }
 

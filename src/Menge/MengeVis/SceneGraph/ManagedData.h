@@ -17,13 +17,12 @@
 */
 
 /*!
- *	@file		ManagedData.h
- *	@brief		The interface for handling resources from a disk system.
- *
- *	ManagedData are heavy-weight on-disk resources.  They are managed in the
- *	sense that they are only read from the disk once and stored in memory as
- *	a single instance.  If multiple entities need the same on-disk resource,
- *	they share the underlying data in opaque containers.
+ @file    ManagedData.h
+ @brief   The interface for handling resources from a disk system.
+
+ ManagedData are heavy-weight on-disk resources. They are managed in the sense that they are only
+ read from the disk once and stored in memory as a single instance. If multiple entities need the
+ same on-disk resource, they share the underlying data in opaque containers.
  */
 
 #ifndef __MANAGED_DATA_H__
@@ -37,83 +36,80 @@
 namespace MengeVis {
 
 /*!
- *	@brief		The interface for managed data (essentially smart poitners).
+ @brief   The interface for managed data (essentially smart poitners).
  */
 class MENGEVIS_API ManagedData {
  public:
   /*!
-   *	@brief		Constructor.
+   @brief   Constructor.
    */
   ManagedData() : _refCount(0) {}
 
   /*!
-   *	@brief		Virtual destructor.
-   *
-   *	Sub-classes of ManagedData, upon their destruction, must remove themselves
-   *	from the resource set.  It does this by performing a call to
-   *	removeResource with appropriate template values and parameters.
-   *	See ImageData::~ImageData as an example.
+   @brief   Virtual destructor.
+
+   Sub-classes of ManagedData, upon their destruction, must remove themselves from the resource set.
+   It does this by performing a call to removeResource with appropriate template values and
+   parameters. See ImageData::~ImageData() as an example.
    */
   virtual ~ManagedData() {}
 
   /*!
-   *	@brief		Increment references to the managed data.
-   *
-   *	Any object that carries a pointer to managed data should call this function
-   *	when acquiring and storing a pointer to that data.
-   *
-   *	@returns	The total number of references.
+   @brief   Increment references to the managed data.
+
+   Any object that carries a pointer to managed data should call this function when acquiring and
+   storing a pointer to that data.
+
+   @returns The total number of references.
    */
   int incRef() { return ++_refCount; }
 
   /*!
-   *	@brief		Decrement references to the managed data.
-   *
-   *	Any object that carries a pointer to managed data should call this function
-   *	upon destruction (thereby removing its reference from the managed data's reference
-   *	count.
-   *
-   *	@returns	The number of remaining references.
+   @brief   Decrement references to the managed data.
+
+   Any object that carries a pointer to managed data should call this function upon destruction
+   (thereby removing its reference from the managed data's reference count.
+
+   @returns   The number of remaining references.
    */
   int decRef() { return --_refCount; }
 
   /*!
-   *	@brief		Reports if the data is referenced.
-   *
-   *	Any object that carries a pointer to managed data, after dereferencing itself
-   *	upon destruction, should determine if it is no longer referenced and delete
-   *	the object if this function returns true.  NOTE: this is not thread-safe.
-   *
-   *	@returns	True if the underlying managed data is no longer referenced, false
-   *				otherwise.
+   @brief   Reports if the data is referenced.
+
+   Any object that carries a pointer to managed data, after dereferencing itself upon destruction,
+   should determine if it is no longer referenced and delete the object if this function returns
+   true.  NOTE: this is not thread-safe.
+
+   @returns True if the underlying managed data is no longer referenced, false otherwise.
    */
   bool isUnreferenced() const { return _refCount == 0; }
 
  protected:
   /*!
-   *	@brief		The number of data wrappers using this managed data.
+   @brief   The number of data wrappers using this managed data.
    */
   int _refCount;
 };
 
 /*!
- *	@brief		A wrapper for managed data - automatically handles referencing
- *				and deletion of managed data.
- *
- *	Any class that uses managed data directly (i.e., a class derived from
- *	ManagedData) should sub-class the ManagedData wrapper and implement its
- *	interface.  The wrapper will automatically take care of reference counts.
+ @brief   A wrapper for managed data - automatically handles referencing and deletion of managed
+          data.
+
+ Any class that uses managed data directly (i.e., a class derived from ManagedData) should sub-class
+ the ManagedData wrapper and implement its interface. The wrapper will automatically take care of
+ reference counts.
  */
 template <class TData>
 class ManagedDataWrapper {
  public:
   /*!
-   *	@brief		Constructor.
-   *
-   *	All classes which must call this constructor in their own constructors.
-   *	See Image::Image for an example.
-   *
-   *	@param		data		A pointer to an instance of ManagedData.
+   @brief   Constructor.
+
+   All classes which must call this constructor in their own constructors. See Image::Image for an 
+   example.
+
+   @param   data    A pointer to an instance of ManagedData.
    */
   ManagedDataWrapper(TData* data) {
     data->incRef();
@@ -121,12 +117,11 @@ class ManagedDataWrapper {
   }
 
   /*!
-   *	@brief		Technically, decrements the data's reference count
-   *				and garbage collects it when necessary.
-   *
-   *	Sub-classes of ManagedDataWrapper should call this in their destructor
-   *	after destorying all the rest of their memory.
-   *	See Image::~Image for an example.
+   @brief   Technically, decrements the data's reference count and garbage collects it when
+            necessary.
+
+   Sub-classes of ManagedDataWrapper should call this in their destructor after destorying all the
+   rest of their memory. See Image::~Image() for an example.
    */
   void freeData() {
     if (_data->decRef() == 0) {
@@ -136,35 +131,36 @@ class ManagedDataWrapper {
 
  protected:
   /*!
-   *	@brief		The managed data for this wrapper.
+   @brief    The managed data for this wrapper.
    */
   TData* _data;
 };
 
 // These templated functions serve as the basis for loading new instances of a resource (or
-//	grabbing them from the cached database.)
+//  grabbing them from the cached database.)
 //
 // To use them the derived class needs to satisfy the following requirements:
-//	1. The class, Data,  must have a PUBLIC static member: std::map< std::string, TData * >
-//		This class is a map that maps filenames to pointers to the corresponding loaded
-//		data.  If the filename is not a key in this map, then the data has never been loaded
-//	2. You must provide a function: Data * readData( const std::string )
-//		This function constructs a new Data, reads the file and populates the data file,
-//		ADDS THE DATA FILE TO THE MAP, and returns the pointer to the data.
-//	3. The wrapper class, T, must instantiate using TData * as the only argument with the
-//		constructor.
+//  1. The class, Data,  must have a PUBLIC static member: std::map< std::string, TData * >
+//    This class is a map that maps filenames to pointers to the corresponding loaded
+//    data.  If the filename is not a key in this map, then the data has never been loaded
+//  2. You must provide a function: Data * readData( const std::string )
+//    This function constructs a new Data, reads the file and populates the data file,
+//    ADDS THE DATA FILE TO THE MAP, and returns the pointer to the data.
+//  3. The wrapper class, T, must instantiate using TData * as the only argument with the
+//    constructor.
 //
 // If I do this, then any final user can simply call "T * myT = loadT( fileName );"  And get
-//		a pointer to the data contained in the fileName which prevents duplicate loading and
-//		automatically tracks references so when all the T's that reference a particular
-//TData 		are destroyed.
+//    a pointer to the data contained in the fileName which prevents duplicate loading and
+//    automatically tracks references so when all the T's that reference a particular
+//TData
+//    are destroyed.
 
 /*!
- *	@brief		Templated function for acquiring a managed data resource from its name.
- *
- *	@param		name		The name of the on-disk resource.
- *	@param		map			The mapping from name to in-memory resource.
- *	@returns	A pointer to the ManagedData instance if it is in memory, NULL otherwise.
+ @brief   Templated function for acquiring a managed data resource from its name.
+
+ @param   name    The name of the on-disk resource.
+ @param   map     The mapping from name to in-memory resource.
+ @returns A pointer to the ManagedData instance if it is in memory, NULL otherwise.
  */
 template <typename TData>
 TData* getResource(const std::string& name, std::map<std::string, TData*>& map) {
@@ -178,16 +174,15 @@ TData* getResource(const std::string& name, std::map<std::string, TData*>& map) 
 ///////////////////////////////////////////////////////////////////////////
 
 /*!
- *	@brief		Templated function for loading a managed data resource.
- *
- *	For each type of managed data and its wrapper, a function should exist that
- *	simply calls this function, templated on the wrapper and managed data types
- *	providing the name and the managed data reader function.  See Image for an example.
- *
- *	@param		fileName		The name of the on-disk resource.
- *	@param		reader			A pointer to the resource reading function.
- *	@returns	A pointer to the wrapper for the managed data.  NULL if the
- *				resource couldn't be acquired.
+ @brief   Templated function for loading a managed data resource.
+
+ For each type of managed data and its wrapper, a function should exist that simply calls this
+ function, templated on the wrapper and managed data types providing the name and the managed data
+ reader function.  See Image for an example.
+
+ @param   fileName    The name of the on-disk resource.
+ @param   reader      A pointer to the resource reading function.
+ @returns A pointer to the wrapper for the managed data. NULL if the resource couldn't be acquired.
  */
 template <typename T, typename TData>
 T* loadManagedData(const std::string& fileName, TData* (*reader)(const std::string&)) {
@@ -207,14 +202,13 @@ T* loadManagedData(const std::string& fileName, TData* (*reader)(const std::stri
 ///////////////////////////////////////////////////////////////////////////
 
 /*!
- *	@brief		Tempalted function for removing a resource from the managed databse.
- *
- *	This *should* be called by the managed data instance in its destructor.
- *	The data is no longer valid and should need to be reloaded before re-use.
- *
- *	@param		data		A pointer to the managed data.
- *	@param		map			The map of names to manage data instances of this
- *type.
+ @brief   Tempalted function for removing a resource from the managed databse.
+
+ This *should* be called by the managed data instance in its destructor. The data is no longer valid
+ and should need to be reloaded before re-use.
+
+ @param   data    A pointer to the managed data.
+ @param   map     The map of names to manage data instances of this type.
  */
 template <typename TData>
 void removeResource(TData* data, std::map<std::string, TData*>& map) {

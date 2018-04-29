@@ -35,7 +35,7 @@ namespace GoalVis {
 class GoalRenderer;
 }
 /*!
- *	@brief		The database of registered agent contexts.
+ @brief   The database of registered agent contexts.
  */
 typedef VisElementDB<GoalVis::GoalRenderer, Menge::BFSM::Goal> GoalRendererDB;
 

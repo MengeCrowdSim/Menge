@@ -63,14 +63,14 @@ using Menge::toFloat;
 using Menge::UtilException;
 
 ////////////////////////////////////////////////////////////////////////////
-//			Implementation of Watermark helper function
+//      Implementation of Watermark helper function
 ////////////////////////////////////////////////////////////////////////////
 
 /*!
- *	@brief		helper function to convert a string to water mark alignment
- *
- *	@param		s		the string representing the alignment
- *	@returns	a WatermarkAlign corresponding to the given string
+ *  @brief    helper function to convert a string to water mark alignment
+
+ *  @param    s    the string representing the alignment
+ *  @returns  a WatermarkAlign corresponding to the given string
  */
 WatermarkAlign getAlignment(std::string s) {
   WatermarkAlign align = NO_ALIGN;
@@ -89,7 +89,7 @@ WatermarkAlign getAlignment(std::string s) {
 }
 
 ////////////////////////////////////////////////////////////////////////////
-//			Implementation of Watermark
+//      Implementation of Watermark
 ////////////////////////////////////////////////////////////////////////////
 
 Watermark::Watermark()
@@ -177,12 +177,12 @@ void Watermark::drawGL(float w, float h) const {
 }
 
 ////////////////////////////////////////////////////////////////////////////
-//			Implementation of Watermark
+//      Implementation of Watermark
 ////////////////////////////////////////////////////////////////////////////
 
 Watermark* parseWatermark(TiXmlElement* node, const std::string& viewFldr) {
   // collect parameters
-  //	Filename - make sure it exists
+  //  Filename - make sure it exists
   Watermark* mark = 0x0;
   const char* fNameCStr = node->Attribute("file_name");
   Image* img = 0x0;
@@ -227,7 +227,7 @@ Watermark* parseWatermark(TiXmlElement* node, const std::string& viewFldr) {
     logger << " is missing the \"alignment\" attribute.  Default will be used.";
   }
 
-  //	opacity
+  //  opacity
   float opacity = 0.5f;
   const char* opacityStr = node->Attribute("opacity");
   if (opacityStr) {
@@ -255,7 +255,7 @@ Watermark* parseWatermark(TiXmlElement* node, const std::string& viewFldr) {
     logger << " will be used.";
   }
 
-  //	scale
+  //  scale
   float scale = 0.5f;
   const char* scaleStr = node->Attribute("scale");
   if (scaleStr) {

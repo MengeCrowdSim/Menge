@@ -54,23 +54,23 @@ namespace Menge {
 namespace Agents {
 
 ////////////////////////////////////////////////////////////////
-//					Implementation of HELPERS
+//          Implementation of HELPERS
 ////////////////////////////////////////////////////////////////
 
 /*!
- *	@brief		A visiblity cone.  In order for an agent to be visible, they must lie
- *				within the visibility cone.
- *
+ *  @brief    A visiblity cone.  In order for an agent to be visible, they must lie
+ *        within the visibility cone.
+
  */
 class VisibilityCone {
  public:
   /*!
-   *	@brief		Constructor - the visiblity cone is defined by two vectors.
-   *				The cone is assumed to be the smaller angle subtending the two
-   *				vectors.  The constructor orders them appropriately.
-   *
-   *	@param		dir0		One bound on the cone.
-   *	@param		dir1		The other bound on the cone.
+   *  @brief    Constructor - the visiblity cone is defined by two vectors.
+   *        The cone is assumed to be the smaller angle subtending the two
+   *        vectors.  The constructor orders them appropriately.
+
+   *  @param    dir0    One bound on the cone.
+   *  @param    dir1    The other bound on the cone.
    */
   VisibilityCone(const Vector2& dir0, const Vector2& dir1) {
     if (det(dir0, dir1) > 0) {
@@ -83,14 +83,14 @@ class VisibilityCone {
   }
 
   /*!
-   *	@brief		Reports if any portion of a line segment lies within the visibility
-   *				cone.
-   *
-   *	@param		p0		One end of the line segment.
-   *	@param		p1		The other end of the line segment.
-   *	@returns	A boolean which indicates if any portion of the segment lies in the
-   *				cone (true) and is visible, or if it lies outside and is not visible
-   *				(false).
+   *  @brief    Reports if any portion of a line segment lies within the visibility
+   *        cone.
+
+   *  @param    p0    One end of the line segment.
+   *  @param    p1    The other end of the line segment.
+   *  @returns  A boolean which indicates if any portion of the segment lies in the
+   *        cone (true) and is visible, or if it lies outside and is not visible
+   *        (false).
    */
   bool isVisible(const Vector2& p0, const Vector2& p1) const {
     // if either point is visible, then it is true
@@ -103,7 +103,7 @@ class VisibilityCone {
     if (right1 <= 0 && left1 <= 0) return true;
 
     // otherwise, if the two points lie outside the cone on opposite sides
-    //		then the cone intersects the center.
+    //    then the cone intersects the center.
     if (right0 > 0 && left1 > 0) {
       return det(p1 - p0, -p0) > 0.f;
     } else if (right1 > 0 && left0 > 0) {
@@ -113,11 +113,11 @@ class VisibilityCone {
   }
 
   /*!
-   *	@brief		Reports if the point lies within the visibility cone.
-   *
-   *	@param		p		The point to test.
-   *	@returns	A boolean which indicates if the point lies in the cone (true) and
-   *				is visible, or if it lies outside and is not visible (false).
+   *  @brief    Reports if the point lies within the visibility cone.
+
+   *  @param    p    The point to test.
+   *  @returns  A boolean which indicates if the point lies in the cone (true) and
+   *        is visible, or if it lies outside and is not visible (false).
    */
   bool isVisible(const Vector2& p) const {
     if (det(p, _right) > 0) return false;
@@ -126,12 +126,12 @@ class VisibilityCone {
   }
 
   /*!
-   *	@brief		Intersects this cone with the given cone, changing the extent
-   *				of this cone to adhere to the intersected span.
-   *
-   *	@param		cone		The cone to intersect this cone with.
-   *	@returns	A boolean reporting if there is a non-empty intersection (true)
-   *				or if there is no proper intersection (false).
+   *  @brief    Intersects this cone with the given cone, changing the extent
+   *        of this cone to adhere to the intersected span.
+
+   *  @param    cone    The cone to intersect this cone with.
+   *  @returns  A boolean reporting if there is a non-empty intersection (true)
+   *        or if there is no proper intersection (false).
    */
   bool intersect(const VisibilityCone& cone) {
     Vector2 iRight(det(_right, cone._right) > 0 ? cone._right : _right);
@@ -146,64 +146,64 @@ class VisibilityCone {
   }
 
   /*!
-   *	@brief		The left bound of the cone.
+   *  @brief    The left bound of the cone.
    */
   Vector2 _left;
 
   /*!
-   *	@brief		the right bound of the cone.
+   *  @brief    the right bound of the cone.
    */
   Vector2 _right;
 };
 
 /*!
- *	@brief		An entry of a nav mesh node including the distance to
- *				the node.  Used in the queue to search nearby nodes.
+ *  @brief    An entry of a nav mesh node including the distance to
+ *        the node.  Used in the queue to search nearby nodes.
  */
 class NeighborEntry {
  public:
   /*!
-   *	@brief		Constructor
-   *
-   *	@param		distSq			The squared distance from some reference point
-   *								to the nearest point on the mesh
+   *  @brief    Constructor
+
+   *  @param    distSq      The squared distance from some reference point
+   *                to the nearest point on the mesh
    *polygon.
-   *	@param		cone			The visibility cone, in which all agents and portals
-   *								must lie, to be considered viable
+   *  @param    cone      The visibility cone, in which all agents and portals
+   *                must lie, to be considered viable
    *candidates.
-   *	@param		nodeID			The identifier of the navigation mesh node.
+   *  @param    nodeID      The identifier of the navigation mesh node.
    */
   NeighborEntry(float distSq, const VisibilityCone& cone, unsigned int nodeID)
       : _distSq(distSq), _cone(cone), _nodeID(nodeID) {}
 
   /*!
-   *	@brief		Comparator - provided for creating a min_heap.
-   *
-   *	@param		entry			The other entry against which to compare this entry.
-   *	@returns	True if the squared distance for this entry is less that of the given
-   *				entry.
+   *  @brief    Comparator - provided for creating a min_heap.
+
+   *  @param    entry      The other entry against which to compare this entry.
+   *  @returns  True if the squared distance for this entry is less that of the given
+   *        entry.
    */
   bool operator<(const NeighborEntry& entry) const { return _distSq < entry._distSq; }
 
   /*!
-   *	@brief		The squared distance from some reference point to the node.
+   *  @brief    The squared distance from some reference point to the node.
    */
   float _distSq;
 
   /*!
-   *	@brief		The cone of visibility in which all agents and portals must lie
-   *				to be considered a viable candidate.
+   *  @brief    The cone of visibility in which all agents and portals must lie
+   *        to be considered a viable candidate.
    */
   VisibilityCone _cone;
 
   /*!
-   *	@brief		The identifier of the node.
+   *  @brief    The identifier of the node.
    */
   unsigned int _nodeID;
 };
 
 ////////////////////////////////////////////////////////////////
-//					Implementation of NavMeshSpatialQuery
+//          Implementation of NavMeshSpatialQuery
 ////////////////////////////////////////////////////////////////
 
 NavMeshSpatialQuery::NavMeshSpatialQuery() : _localizer(0x0) {}
@@ -228,9 +228,9 @@ void NavMeshSpatialQuery::agentQuery(ProximityQuery* filter, float& rangeSq) con
          "Can't use NavMesh for spatial query if the point isn't on the mesh");
 
   // This does not need any synchronization elements
-  //	The writing and the reading happen in two, independent computational
-  //	stages.  (i.e., the writing to the node occupancy happens in a task.)
-  //	This is all read-only operations and can be done simultaneously.
+  //  The writing and the reading happen in two, independent computational
+  //  stages.  (i.e., the writing to the node occupancy happens in a task.)
+  //  This is all read-only operations and can be done simultaneously.
   const OccupantSet* occupants = _localizer->getNodeOccupants(currNode);
   if (occupants->size() > 1) {
     OccupantSetCItr itr = occupants->begin();

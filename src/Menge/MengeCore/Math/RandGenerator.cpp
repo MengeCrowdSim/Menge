@@ -64,22 +64,22 @@ namespace Math {
 /////////////////////////////////////////////////////////////////////
 
 /*!
- *	@brief		The global seed for the number generators.
- *
- *	If the seed is zero, the number generators will get a
- *	unique seed based on the system clock.  If it is non-zero
- *	they will get this seed (unless they locally override it
- *	explicitly).
+ *  @brief    The global seed for the number generators.
+
+ *  If the seed is zero, the number generators will get a
+ *  unique seed based on the system clock.  If it is non-zero
+ *  they will get this seed (unless they locally override it
+ *  explicitly).
  */
 int GLOBAL_SEED = 0;
 
 /*!
- *	@brief		The number of generators that have been created.
- *				This is used to create a constant, fixed variety.
- *				If every generator gets exactly the same seed, then
- *				the results are strongly correlated.  By incrementing
- *				the seed by the number of times the getSeed is called
- *				it guarantees uncorrelated pseudo-random sequences.
+ *  @brief    The number of generators that have been created.
+ *        This is used to create a constant, fixed variety.
+ *        If every generator gets exactly the same seed, then
+ *        the results are strongly correlated.  By incrementing
+ *        the seed by the number of times the getSeed is called
+ *        it guarantees uncorrelated pseudo-random sequences.
  */
 int SEED_REQUESTS = 0;
 
@@ -90,10 +90,10 @@ void setDefaultGeneratorSeed(int seed) { GLOBAL_SEED = seed; }
 /////////////////////////////////////////////////////////////////////
 
 /*!
- *	@brief		Based on the default seed state, return a random
- *				generator seed.
- *
- *	@returns	A seed for a number generator.
+ *  @brief    Based on the default seed state, return a random
+ *        generator seed.
+
+ *  @returns  A seed for a number generator.
  */
 int getDefaultSeed() {
   if (GLOBAL_SEED) {
@@ -552,7 +552,7 @@ Logger& operator<<(Logger& out, const WeightedIntGenerator& gen) {
 /////////////////////////////////////////////////////////////////////
 
 // Given an xml node which SHOULD have the definition of a 2D generator, this
-//	instantiates one
+//  instantiates one
 Vec2DGenerator* create2DGenerator(TiXmlElement* node, float scale) {
   int seed = getDefaultSeed();
   Vec2DGenerator* gen = 0x0;

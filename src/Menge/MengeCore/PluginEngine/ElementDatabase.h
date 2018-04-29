@@ -17,9 +17,8 @@
 */
 
 /*!
- *	@file		ElementDatabase.h
- *	@brief		The base (templated) implementation of the database
- *				that tracks plug-in elements.
+ @file    ElementDatabase.h
+ @brief    The base (templated) implementation of the database that tracks plug-in elements.
  */
 
 #ifndef __ELEMENT_DATABASE_H__
@@ -35,35 +34,35 @@
 namespace Menge {
 
 /*!
- *	@brief		The base functionality of an element database.
- *
- *	Queries for parsing element XML and instantiating the appropriate elements
- *	for the finite state machine pass through the appropriate element database.
- *
- *	For plug-in-compatible elements, they should have their own database and
- *	factory.  For simplicity, they should sub-class a specialization of this template.
+ @brief    The base functionality of an element database.
+
+ Queries for parsing element XML and instantiating the appropriate elements for the finite state
+ machine pass through the appropriate element database.
+
+ For plug-in-compatible elements, they should have their own database and factory. For simplicity,
+ they should sub-class a specialization of this template.
  */
 template <class Factory, class Element>
 class ElementDB {
  public:
   /*!
-   *	@brief		Reports the number of registered target factories.
-   *
-   *	@returns	The number of registered target factories.
+   @brief    Reports the number of registered target factories.
+
+   @returns  The number of registered target factories.
    */
   static inline size_t count() { return _factories.size(); }
 
   /*!
-   *	@brief		Returns an instance of the TransitionTarget defined in the XML node.
-   *
-   *	The caller is responsible for deleting the TransitionTarget instance.
-   *
-   *	@param		node		The tinyxml node holding the TransitionTarget definition.
-   *	@param		behaveFldr	The path to the behavior file.  If the transition references
-   *							resources in the file system, it should be defined
-   *relative to the behavior file location.  This is the folder containing that path.
-   *	@returns	A pointer to a TransitionTarget instance for the given Condtion XML data.
-   *				If no valid TargetFactory matches the data, NULL is returned.
+   @brief    Returns an instance of the TransitionTarget defined in the XML node.
+
+   The caller is responsible for deleting the TransitionTarget instance.
+
+   @param    node        The tinyxml node holding the TransitionTarget definition.
+   @param    behaveFldr  The path to the behavior file. If the transition references resources in
+                        the file system, it should be defined relative to the behavior file
+                        location. This is the folder containing that path.
+   @returns  A pointer to a element instance for the given element XML data. If no valid factory
+            matches the data, NULL is returned.
    */
   static Element* getInstance(TiXmlElement* node, const std::string& behaveFldr) {
     // extract type name
@@ -97,7 +96,7 @@ class ElementDB {
   }
 
   /*!
-   *	@brief		Initializes the database.
+   @brief    Initializes the database.
    */
   static void initialize() {
     if (!_initialized) {
@@ -107,23 +106,20 @@ class ElementDB {
   }
 
   /*!
-   *	@brief		Adds the built-in factories to the database.
-   *
-   *	Sub-classes will specialize this function to add the built-in factory
-   *	types.
+   @brief    Adds the built-in factories to the database.
+
+   Sub-classes will specialize this function to add the built-in factory types.
    */
   static void addBuiltins();
 
   /*!
-   *	@brief		Adds a new Target factory to the database.
-   *
-   *	The database takes ownership of the data pointed to.
-   *	To be added, the new factory must have a unique name to all
-   *	previous actions.  If the factory *cannot* be added, it will
-   *	be deleted.
-   *
-   *	@param		factory		A pointer to the factory to add.
-   *	@returns	True if the factory is successfully added, false othrewise.
+   @brief    Adds a new Target factory to the database.
+
+   The database takes ownership of the data pointed to. To be added, the new factory must have a
+   unique name to all previous actions.  If the factory *cannot* be added, it will be deleted.
+
+   @param    factory    A pointer to the factory to add.
+   @returns  True if the factory is successfully added.
    */
   static bool addFactory(Factory* factory) {
     std::string testName(factory->name());
@@ -148,14 +144,14 @@ class ElementDB {
   }
 
   /*!
-   *	@brief		Returns the name of the element managed by this database.
-   *
-   *  @returns    the name of the element managed by this database
+   @brief    Returns the name of the element managed by this database.
+
+   @returns    the name of the element managed by this database
    */
   static std::string getElementName();
 
   /*!
-   *	@brief		Removes all registered factories from the database.
+   @brief    Removes all registered factories from the database.
    */
   static void clear() {
     typename std::list<Factory*>::iterator itr = _factories.begin();
@@ -167,21 +163,21 @@ class ElementDB {
 
  protected:
   /*!
-   *	@brief		Tracks whether the database has been initialized, so that
-   *				multiple calls to initialize will not cause problems.
+   @brief    Tracks whether the database has been initialized, so that multiple calls to initialize
+            will not cause problems.
    */
   static bool _initialized;
 
   /*!
-   *	@brief		The registered factories.
+   @brief    The registered factories.
    */
   static std::list<Factory*> _factories;
 };
 
 // The two functions, addBuiltins and getElementName are *not* defined in-line
-//	because of a quirk of visual studio's template system.  By defining the
-//	default functionality for the template OUTSIDE the class definition,
-//	these can be properly, explicitly specialized in separate C++ files.
+//  because of a quirk of visual studio's template system.  By defining the
+//  default functionality for the template OUTSIDE the class definition,
+//  these can be properly, explicitly specialized in separate C++ files.
 
 template <class Factory, class Element>
 void ElementDB<Factory, Element>::addBuiltins() {}

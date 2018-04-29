@@ -17,11 +17,11 @@
 */
 
 /*!
- *	@file		StateSelectorDatabase.h
- *	@brief		Central database for querying available profile selector implementations.
- *
- *	For profile selectors to be used in simulation, they must register
- *	themselves into the ProfileSelectorDatabase.  This is done via the PluginEngine.
+ @file    StateSelectorDatabase.h
+ @brief    Central database for querying available profile selector implementations.
+
+ For profile selectors to be used in simulation, they must register themselves into the
+ ProfileSelectorDatabase.  This is done via the PluginEngine.
  */
 
 #ifndef __STATE_SELECTOR_DATABASE_H__
@@ -35,7 +35,7 @@ namespace Menge {
 
 namespace Agents {
 /*!
- *	@brief		The database of registered state selector implementations.
+ @brief    The database of registered state selector implementations.
  */
 typedef ElementDB<StateSelectorFactory, StateSelector> StateSelectorDB;
 

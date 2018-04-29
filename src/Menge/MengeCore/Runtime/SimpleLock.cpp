@@ -41,11 +41,11 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 namespace Menge {
 
 /////////////////////////////////////////////////////////////////////
-//					Implementation of SimpleLock
+//          Implementation of SimpleLock
 /////////////////////////////////////////////////////////////////////
 
 // TODO: Update this implementation when the threading paradigm is changed to
-//	support more sophisticated constructs.
+//  support more sophisticated constructs.
 
 #ifdef _OPENMP
 

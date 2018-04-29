@@ -52,7 +52,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 namespace Menge {
 
 /////////////////////////////////////////////////////////////////////
-//					Implementation of PortalPath
+//          Implementation of PortalPath
 /////////////////////////////////////////////////////////////////////
 
 PortalPath::PortalPath(const Vector2& startPos, const BFSM::Goal* goal, const PortalRoute* route,
@@ -102,11 +102,11 @@ void PortalPath::setPreferredDirection(const Agents::BaseAgent* agent, float hea
     Vector2 goalDir(_waypoints[_currPortal] - agent->_pos);
     float dist = abs(goalDir);
     // If the displacement to the next way point is large enough
-    //	(i.e., not essentially zero), use it, otherwise, peek
-    //	into the next waypoint.
+    //  (i.e., not essentially zero), use it, otherwise, peek
+    //  into the next waypoint.
     //
-    //	The goal is to always provide a goalDir to the portal
-    //	that is well-defined and unit-length.
+    //  The goal is to always provide a goalDir to the portal
+    //  that is well-defined and unit-length.
     bool bigEnough = dist >= EPS;
     if (bigEnough) {
       goalDir /= dist;
@@ -191,10 +191,10 @@ unsigned int PortalPath::updateLocation(const Agents::BaseAgent* agent, const Na
         changed = true;
       } else {
         // Agent is not in current, previous or next polygons - agent got
-        //	pushed off path - find a new path
-        //	Path needs the nav mesh
+        //  pushed off path - find a new path
+        //  Path needs the nav mesh
         // Assume that I must be in a neighboring node (the alternative is
-        //	catstrophic)
+        //  catstrophic)
         // search current node's neighbors that aren't previous and aren't next
         const size_t NBR_COUNT = currNode->getNeighborCount();
         for (size_t n = 0; n < NBR_COUNT; ++n) {
@@ -209,16 +209,16 @@ unsigned int PortalPath::updateLocation(const Agents::BaseAgent* agent, const Na
 
         // It is possible for the agent, in some cases, to advance several nodes in a
         //  single time step (e.g., when the navigation mesh has many long, skinny
-        //	triangles and the agent steps across the narrow fan).
-        //	In this case, the agent should search forwards along the path before
-        //	blindly searching.
+        //  triangles and the agent steps across the narrow fan).
+        //  In this case, the agent should search forwards along the path before
+        //  blindly searching.
 
-        //	TODO:
-        //		If it gets "lost" at the beginning of a long path, I'm doing a bunch of
-        //		wasted testing. Given how far the agent is from a particular portal, I
-        //		know I should probably stop looking as the portals are only going to
-        //		get farther.  So, that means the inside query should CHEAPLY compute
-        //		some sense of distance to the polygon so I can drop out.
+        //  TODO:
+        //    If it gets "lost" at the beginning of a long path, I'm doing a bunch of
+        //    wasted testing. Given how far the agent is from a particular portal, I
+        //    know I should probably stop looking as the portals are only going to
+        //    get farther.  So, that means the inside query should CHEAPLY compute
+        //    some sense of distance to the polygon so I can drop out.
         if (changed == false) {
           size_t testPortal = _currPortal + 2;
           while (testPortal < PORTAL_COUNT) {
@@ -235,7 +235,7 @@ unsigned int PortalPath::updateLocation(const Agents::BaseAgent* agent, const Na
         }
         if (changed == false) {
           // I exited the loop without finding an intermediate node -- test the goal
-          //	node
+          //  node
           const NavMeshNode* testNode = &(navMesh->getNode((unsigned int)_route->getEndNode()));
           if (testNode->containsPoint(p)) {
             _currPortal = PORTAL_COUNT;
@@ -269,11 +269,11 @@ unsigned int PortalPath::updateLocation(const Agents::BaseAgent* agent, const Na
   }
   /*
   // TODO: Implement the idea of replanning the path based on getting pushed off
-  //		approach vector
+  //    approach vector
   if ( !changed && _currPortal < _route->getPortalCount() ) {
           // vector from crossing point to current position.
-          //	examine angle between original approach vector and current approach vector.
-          //	If the angle > some threshold, replan.
+          //  examine angle between original approach vector and current approach vector.
+          //  If the angle > some threshold, replan.
   }
   */
   if (_currPortal < _route->getPortalCount()) {

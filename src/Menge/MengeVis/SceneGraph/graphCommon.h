@@ -17,8 +17,8 @@
 */
 
 /*!
- *	@file	graphCommon.h
- *	@brief	Various important pre-compiler directives for the scene graph.
+ @file    graphCommon.h
+ @brief   Various important pre-compiler directives for the scene graph.
  */
 
 #ifndef __GRAPH_COMMON_H__
@@ -39,21 +39,21 @@
 
 #ifndef GL_BGR
 /*!
- *	@brief		OpenGL constant for determing pixel order for 3-color textures.
+ @brief   OpenGL constant for determing pixel order for 3-color textures.
  */
 #define GL_BGR 0x80E0
 #endif
 
 #ifndef GL_BGRA
 /*!
- *	@brief		OpenGL constant for determing pixel order for 4-color textures.
+ @brief   OpenGL constant for determing pixel order for 4-color textures.
  */
 #define GL_BGRA 0x80E1
 #endif
 
 #ifndef GL_CLAMP_TO_EDGE
 /*!
- *	@brief		OpenGL constant for determing texture behavior.
+ @brief   OpenGL constant for determing texture behavior.
  */
 #define GL_CLAMP_TO_EDGE 0x812F
 #endif

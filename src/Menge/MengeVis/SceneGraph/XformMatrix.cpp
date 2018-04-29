@@ -48,7 +48,7 @@ using Menge::Math::Matrix4x4;
 using Menge::Math::Vector3;
 
 ///////////////////////////////////////////////////////////////////////////
-//				IMPLEMENTATION FOR XformMatrix
+//        IMPLEMENTATION FOR XformMatrix
 ///////////////////////////////////////////////////////////////////////////
 
 XformMatrix::XformMatrix()
@@ -157,9 +157,9 @@ void XformMatrix::rotationInverseMatrix(Matrix4x4& mat) {
 
 void XformMatrix::getMatrix(Matrix4x4& mat) {
   // Matrix is a composition of 5 matrices:
-  //	SCALE * rotAxisInverse * ROTATE * rotAxis * TRANSLATE
+  //  SCALE * rotAxisInverse * ROTATE * rotAxis * TRANSLATE
   // re-written (with cached values) as:
-  //	SCALE * PRE-ROTATE * ROTATE * POST-ROTATE * TRANSLATE
+  //  SCALE * PRE-ROTATE * ROTATE * POST-ROTATE * TRANSLATE
   if (!isClean(MAT)) {
     setClean(MAT);
 
@@ -177,11 +177,11 @@ void XformMatrix::getMatrix(Matrix4x4& mat) {
 
 void XformMatrix::getInverseMatrix(Matrix4x4& mat) {
   // Inverse matrix is a composition of 5 matrices:
-  //	(SCALE * rotAxisInverse * ROTATE * rotAxis * TRANSLATE)^-1
+  //  (SCALE * rotAxisInverse * ROTATE * rotAxis * TRANSLATE)^-1
   // re-written (with cached values) as:
-  //	(SCALE * PRE-ROTATE * ROTATE * POST-ROTATE * TRANSLATE)^-1
+  //  (SCALE * PRE-ROTATE * ROTATE * POST-ROTATE * TRANSLATE)^-1
   //  = T^-1 * PRE-ROTATE * R^-1 * POST-ROTATE * S^-1
-  //		-- NOTE: PRE-ROTATE^-1 = POST-ROTATE (and vice versa)
+  //    -- NOTE: PRE-ROTATE^-1 = POST-ROTATE (and vice versa)
   if (!isClean(IMAT)) {
     setClean(IMAT);
     Matrix4x4 temp1(false), temp2(false), rotMat(false);

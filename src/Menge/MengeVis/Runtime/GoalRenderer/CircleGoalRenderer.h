@@ -25,24 +25,24 @@ namespace MengeVis {
 namespace Runtime {
 namespace GoalVis {
 /*!
- *	@brief		Class responsible for rendering circle goals to the OpenGL context.
+ @brief   Class responsible for rendering circle goals to the OpenGL context.
  */
 class MENGEVIS_API CircleGoalRenderer : public GoalRenderer {
  public:
   /*!
-   *	@brief		The value used to store this element in the visual element database.
-   *				This string value should correspond to the getStringId method of the
-   *				corresponding simulation element.
+   @brief   The value used to store this element in the visual element database.
+
+   This string value should correspond to the getStringId method of the corresponding simulation
+   element.
    */
   virtual std::string getElementName() const;
 
  protected:
   /*!
-   *	@brief		The method for handling the details of a particular goal.
-   *
-   *	This is called twice by drawGL().  If there is an expensive operation, it would
-   *  be best to be cached because it will be called twice every time a goal is
-   *	drawn.
+   @brief   The method for handling the details of a particular goal.
+
+   This is called twice by drawGL().  If there is an expensive operation, it would be best to be
+   cached because it will be called twice every time a goal is drawn.
    */
   virtual void doDrawGeometry() const;
 };

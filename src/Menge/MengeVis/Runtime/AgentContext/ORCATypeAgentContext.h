@@ -17,12 +17,11 @@
 */
 
 /*!
- *  @file       ORCATypeAgentContext.h
- *  @brief      A basic context for interacting with and displaying
- *				ORCA-type agent parameters.
- *
- *	ORCA-type agents are those that solve w.r.t. a set of linear constraints
- *	this context gives some basic functionality for displaying those constraints
+ @file    ORCATypeAgentContext.h
+ @brief   A basic context for interacting with and displaying ORCA-type agent parameters.
+
+ ORCA-type agents are those that solve w.r.t. a set of linear constraints this context gives some
+ basic functionality for displaying those constraints.
  */
 
 #ifndef __ORCA_TYPE_AGENT_CONTEXT_H__
@@ -37,139 +36,133 @@
 namespace MengeVis {
 namespace Runtime {
 /*!
- *	@brief		Context class for displaying various aspects of the
- *				ORCA-type agent computation.
+ @brief   Context class for displaying various aspects of the ORCA-type agent computation.
  */
 template <class Agent>
 class ORCATypeAgentContext : public BaseAgentContext {
  public:
   /*!
-   *	@brief		Default constructor.
+   @brief   Default constructor.
    */
   ORCATypeAgentContext();
 
   /*!
-   *	@brief		Sets the agent for this context.
-   *
-   *	This method works in conjunction with the VisElementDatabase. When this
-   *	visualization element is triggered, the database will supply the triggering
-   *	element.
-   *
-   *	@param		agent		The agent to interact with.
+   @brief    Sets the agent for this context.
+
+   This method works in conjunction with the VisElementDatabase. When this visualization element is
+   triggered, the database will supply the triggering element.
+
+   @param   agent   The agent to interact with.
    */
   virtual void setElement(VisAgent* agent);
 
   /*!
-   *	@brief		Returns the name of the context for display.
-   *
-   *	@returns		The name of this context.
+   @brief   Returns the name of the context for display.
+
+   @returns   The name of this context.
    */
   virtual std::string contextName() const { return "UNDEFINED ORCA TYPE"; }
 
   /*!
-   *	@brief		The value used to store this element in the visual element database.
-   *				This string value should correspond to the getStringId method of the
-   *				corresponding simulation element.
+   @brief   The value used to store this element in the visual element database.
+
+   This string value should correspond to the getStringId method of the corresponding simulation
+   element.
    */
   virtual std::string getElementName() const { return "undefined_orca"; }
 
   /*!
-   *	@brief		Give the context the opportunity to respond to a keyboard
-   *				event.
-   *
-   *	@param		e		The SDL event with the keyboard event data.
-   *	@returns	A ContextResult instance reporting if the event was handled and
-   *				if redrawing is necessary.
+   @brief   Give the context the opportunity to respond to a keyboard event.
+
+   @param   e   The SDL event with the keyboard event data.
+   @returns A ContextResult instance reporting if the event was handled and if redrawing is
+            necessary.
    */
   virtual SceneGraph::ContextResult handleKeyboard(SDL_Event& e);
 
   /*!
-   *	@brief		Allow the context to update any time-dependent state it might have to
-   *				the given global time.
+   @brief Allow the context to update any time-dependent state it might have to the given global
+          time.
    */
   virtual void update();
 
  protected:
   /*!
-   *	@brief		Draw context elements into the 3D world.
-   *
-   *	@param		select		Defines if the drawing is being done for selection
-   *							purposes (true) or visualization (false).
+   @brief    Draw context elements into the 3D world.
+
+   @param   select    Defines if the drawing is being done for selection purposes (true) or
+                      visualization (false).
    */
   virtual void draw3DGL(bool select = false);
 
   /*!
-   *	@brief		Helper function for drawing a halfplane
-   *	@param		line		The line object which defines the half plane
-   *	@param		pos			The relative position to draw the plane
-   *							Typically the position of the agent on which the
-   *half-plane is applied.
-   *	@param		r			The red component of the half plane color
-   *	@param		g			The green component of the half plane color
-   *	@param		b			The blue component of the half plane color
-   *	@param		h			Value, on the verical-axis (in world coordinates), of
-   *the plane on which to draw the half plane
+   @brief   Helper function for drawing a halfplane
+
+   @param   line    The line object which defines the half plane.
+   @param   pos     The relative position to draw the plane. Typically the position of the agent on
+                    which the half-plane is applied.
+   @param   r       The red component of the half plane color.
+   @param   g       The green component of the half plane color.
+   @param   b       The blue component of the half plane color.
+   @param   h       Value, on the verical-axis (in world coordinates), of the plane on which to draw
+                    the half plane.
    */
   void drawHalfPlane(const Menge::Math::Line& line, const Menge::Math::Vector2& pos, float r,
                      float g, float b, float h) const;
 
   /*!
-   *	@brief		Draws the given ORCA line for the given agent
-   *
-   *	@param		agent		A pointer to the agent to whom this line applies
-   *	@param		line		The actual line
-   *	@param		isAgent		A boolean reporting if the orca line comes from an agent.
-   *							true --> agent, false --> obstacle
+   @brief   Draws the given ORCA line for the given agent
+
+   @param   agent     A pointer to the agent to whom this line applies.
+   @param   line      The actual line.
+   @param   isAgent   A boolean reporting if the orca line comes from an agent. true --> agent,
+                      false --> obstacle.
    */
   void drawORCALine(const Agent* agent, const Menge::Math::Line& line, bool isAgent) const;
 
   /*!
-   *	@brief		Draw the optimized velocity for the current set of orca lines
-   *
-   *	@param		agent		A pointer to the agent for which the velocity is drawn
-   *							computeNewVelocity will be called on the
-   *agent
+   @brief   Draw the optimized velocity for the current set of orca lines
+
+   @param   agent   A pointer to the agent for which the velocity is drawn computeNewVelocity() will
+                    be called on the agent.
    */
   void drawOptVelocity(Agent* agent) const;
 
   /*!
-   *	@brief		Creates a formatted string to be printed in the context
-   *				for a particular agent
-   *
-   *	@param		agent		A pointer to the agent for which the information is
-   *							displayed.
-   *	@returns	A formatted string for display in the context's 2D gui.
+   @brief   Creates a formatted string to be printed in the context for a particular agent.
+
+   @param   agent   A pointer to the agent for which the information is displayed.
+   @returns A formatted string for display in the context's 2D gui.
    */
   virtual std::string agentText(const Menge::Agents::BaseAgent* agent) const;
 
   /*!
-   *	@brief		Determines if the ORCA lines are drawn
+   @brief   Determines if the ORCA lines are drawn.
    */
   bool _showOrcaLines;
 
   /*!
-   *	@brief		Function for drawing the ORCA lines acting on agt
-   *
-   *	@param		agt			A pointer to the agent whose ORCA lines will be
-   *drawn.
+   @brief   Function for drawing the ORCA lines acting on `agt`.
+
+   @param   agt     A pointer to the agent whose ORCA lines will be drawn.
    */
   void drawORCALines(const Agent* agt) const;
 
   /*!
-   *	@brief		Determines if the ORCA line construction is visualized
+   @brief   Determines if the ORCA line construction is visualized.
    */
   bool _visualizeORCA;
 
   /*!
-   *	@brief		The agent to visualize
+   @brief   The agent to visualize.
    */
   size_t _visNbrID;
 
   /*!
-   *	@brief		The function that draws the visualization of the orca construction
-   *
-   *	@param		agt			A pointer to the agent for whom the *computation* of
-   *							a single ORCA line is illustrated.
+   @brief   The function that draws the visualization of the orca construction.
+
+   @param   agt   A pointer to the agent for whom the *computation* of a single ORCA line is
+                  illustrated.
    */
   void visORCA(const Agent* agt) const;
 };
