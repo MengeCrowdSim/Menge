@@ -41,6 +41,16 @@ In Linux, these can all be acquired at the same time with the following command:
 
   `sudo apt-get install libsdl2-ttf-dev libsdl2-image-dev libsdl2-dev`
 
+### Running tests
+
+```
+  mkdir build
+  cd build
+  cmake ..
+  make && make test
+```
+
+
 ### Building Menge
 
 #### Windows
