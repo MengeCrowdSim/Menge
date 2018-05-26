@@ -185,7 +185,7 @@ namespace Menge {
 	//	these can be properly, explicitly specialized in separate C++ files.
 
 	template < class Factory, class Element >
-	void ElementDB< Factory, Element >::addBuiltins() {}
+		void ElementDB< Factory, Element >::addBuiltins() {}
 
 	template < class Factory, class Element >
 	std::string ElementDB< Factory, Element >::getElementName(){ return "unnamed"; }
