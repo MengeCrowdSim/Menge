@@ -1,13 +1,33 @@
 #include <iostream>
+#include <MengeVis/Runtime/SimSystem.h>
+#include <path_utils.h>
 #include "gtest/gtest.h"
+#include "gmock/gmock.h"
 #include "../../Menge/MengeCore/Runtime/SimulatorDB.h"
 #include "../../Menge/MengeCore/PluginEngine/CorePluginEngine.h"
+#include "MengeVis/SceneGraph/GLScene.h"
 
 
 using namespace Menge;
 using Menge::PluginEngine::CorePluginEngine;
 using Menge::Agents::SimulatorInterface;
 
+using MengeVis::Runtime::SimSystem;
+using MengeVis::SceneGraph::GLDagNode;
+
+using MengeVis::Runtime::SimSystem;
+
+
+using ::testing::AtLeast;
+using ::testing::_;
+
+class MockScene : public MengeVis::SceneGraph::GLScene {
+public:
+//    bool addNode( GLNode * node, GLDagNode * parent = 0x0 );
+    MOCK_METHOD2(addNode, bool(MengeVis::SceneGraph::GLNode * node, MengeVis::SceneGraph::GLDagNode * parent));
+
+
+};
 
 TEST(CharacterizingCorePluginEngine, defaultSimulationEngines) {
     SimulatorDB simDB;
@@ -30,7 +50,7 @@ TEST(CharacterizingSimulatorInterface, creatingAnInstance) {
 // Maximum duration of simulation (in seconds)
     float SIM_DURATION = 800.f;
 // Controls whether the simulation is verbose or not
-    bool VERBOSE = true;
+    bool VERBOSE = false;
 
 
     const std::string &behaveFile = "/home/mauricio/dev/Menge/examples/core/4square/4squareB.xml";
@@ -43,4 +63,17 @@ TEST(CharacterizingSimulatorInterface, creatingAnInstance) {
 
     EXPECT_FALSE(sim == 0x00);
 
+
+    MengeVis::Runtime::SimSystem * system = new MengeVis::Runtime::SimSystem( sim );
+
+    EXPECT_FALSE(system == 0x00);
+
+    MockScene scene;
+
+    system->populateScene( &scene );
+
+    EXPECT_CALL(scene, addNode(_, _)).Times(AtLeast(1));
+
 }
+
+
