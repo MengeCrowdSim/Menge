@@ -6,6 +6,8 @@ ADD_EXECUTABLE(mengeCoreTest ${SRCS})
 TARGET_LINK_LIBRARIES(
   mengeCoreTest
   mengeCore
+
+   mengeVis
   libgtest
   libgmock
 )
@@ -13,6 +15,7 @@ TARGET_LINK_LIBRARIES(
 
 include_directories("../../Menge")
 
+include_directories("../../")
 
 add_test(NAME mengeCoreTest
   COMMAND mengeCoreTest)
