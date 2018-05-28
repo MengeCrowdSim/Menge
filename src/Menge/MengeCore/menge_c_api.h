@@ -195,6 +195,60 @@ extern "C" {
 	 */
 	MENGE_API void FireExternalTrigger(const char * triggerName);
 	//@}
+
+	/*!
+	 *	@brief		Report the total number of obstacles in the simulation.
+	 *
+	 *	@returns	The total number of obstacles.
+	 */
+	MENGE_API size_t ObstacleCount();
+
+	/*!
+	 *	@brief		Given the index of one obstacle, reports the index of the next obstacle in
+	 *				the loop.
+	 *
+	 *	@param		i		The index of the query obstacle.
+	 *	@returns	The index of the obstacle's whose point p0 is the same as this obstacles p1.
+	 */
+	MENGE_API size_t GetNextObstacle( size_t i );
+
+	/*!
+	*	@brief		Given the index of an obstacle, returns both endpoints, p0 and p1, that make
+	*				up the obstacle.
+	*
+	*	@param		i		The index of the query obstacle
+	*	@param		x0		The x-position of end point p0, set by this function.
+	*	@param		y0		The y-position of end point p0, set by this function.
+	*	@param		z0		The z-position of end point p0, set by this function.
+	*	@param		x1		The x-position of end point p1, set by this function.
+	*	@param		y1		The y-position of end point p1, set by this function.
+	*	@param		z1		The z-position of end point p1, set by this function.
+	*	@returns	True if the values have been properly set.
+	*/
+	MENGE_API bool GetObstacleEndPoints( size_t i, float * x0, float * y0, float * z0,
+										 float * x1, float * y1, float * z1 );
+
+	/*!
+	*	@brief		Given the index of an obstacle, returns its first endpoint, p0.
+	*
+	*	@param		i		The index of the query obstacle
+	*	@param		x0		The x-position of end point p0, set by this function.
+	*	@param		y0		The y-position of end point p0, set by this function.
+	*	@param		z0		The z-position of end point p0, set by this function.
+	*	@returns	True if the values have been properly set.
+	*/
+	MENGE_API bool GetObstacleP0( size_t i, float * x0, float * y0, float * z0 );
+
+	/*!
+	*	@brief		Given the index of an obstacle, returns its second endpoints, p1.
+	*
+	*	@param		i		The index of the query obstacle
+	*	@param		x1		The x-position of end point p1, set by this function.
+	*	@param		y1		The y-position of end point p1, set by this function.
+	*	@param		z1		The z-position of end point p1, set by this function.
+	*	@returns	True if the values have been properly set.
+	*/
+	MENGE_API bool GetObstacleP1( size_t i, float * x1, float * y1, float * z1 );
 }
 
 #endif	// __MENGE_C_API__
