@@ -21,7 +21,8 @@ Menge::Agents::SimulatorInterface * _simulator = 0x0;
 
 extern "C" {
 
-	bool   InitSimulator( const char * behaveFile,
+	using Menge::Agents::BaseAgent;
+	bool InitSimulator( const char * behaveFile,
 						  const char * sceneFile,
 						  const char * model,
 						  const char * pluginPath ) {
@@ -51,14 +52,14 @@ extern "C" {
 
 	/////////////////////////////////////////////////////////////////////
 
-	void  SetTimeStep( float timeStep ) {
+	void SetTimeStep( float timeStep ) {
 		assert( _simulator != 0x0 );
 		_simulator->setTimeStep( timeStep );
 	}
 
 	/////////////////////////////////////////////////////////////////////
 
-	bool  DoStep() {
+	bool DoStep() {
 		assert( _simulator != 0x0 );
 		return _simulator->step();
 	}
@@ -92,9 +93,9 @@ extern "C" {
 
 	/////////////////////////////////////////////////////////////////////
 
-	bool  GetAgentPosition( size_t i, float * x, float * y, float * z ) {
+	bool GetAgentPosition( size_t i, float * x, float * y, float * z ) {
 		assert( _simulator != 0x0 );
-		Menge::Agents::BaseAgent * agt = _simulator->getAgent( i );
+		BaseAgent * agt = _simulator->getAgent( i );
 		if ( agt != 0x0 ) {
 			*x = agt->_pos._x;
 			*y = _simulator->getElevation( agt );
@@ -106,9 +107,9 @@ extern "C" {
 
 	/////////////////////////////////////////////////////////////////////
 
-	bool  GetAgentVelocity( size_t i, float * x, float * y, float * z ) {
+	bool GetAgentVelocity( size_t i, float * x, float * y, float * z ) {
 		assert( _simulator != 0x0 );
-		Menge::Agents::BaseAgent * agt = _simulator->getAgent( i );
+		BaseAgent * agt = _simulator->getAgent( i );
 		if ( agt != 0x0 ) {
 			*x = agt->_vel._x;
 			*y = 0; // get elevation
@@ -149,7 +150,7 @@ extern "C" {
 
 	bool GetAgentOrient( size_t i, float * x, float * y ) {
 		assert( _simulator != 0x0 );
-		Menge::Agents::BaseAgent * agt = _simulator->getAgent( i );
+		BaseAgent * agt = _simulator->getAgent( i );
 		if ( agt != 0x0 ) {
 			*x = agt->_orient._x;
 			*y = agt->_orient._y;
@@ -162,7 +163,7 @@ extern "C" {
 
 	int GetAgentClass( size_t i ) {
 		assert( _simulator != 0x0 );
-		Menge::Agents::BaseAgent * agt = _simulator->getAgent( i );
+		BaseAgent * agt = _simulator->getAgent( i );
 		if ( agt != 0x0 ) {
 			return static_cast<int>( agt->_class );
 		}
@@ -173,7 +174,7 @@ extern "C" {
 
 	float GetAgentRadius( size_t i ) {
 		assert( _simulator != 0x0 );
-		Menge::Agents::BaseAgent * agt = _simulator->getAgent( i );
+		BaseAgent * agt = _simulator->getAgent( i );
 		if ( agt != 0x0 ) {
 			return agt->_radius;
 		}
