@@ -1,8 +1,11 @@
 #include "MengeCore/menge_c_api.h"
 
+#include <algorithm>
+
 #include "MengeCore/Agents/BaseAgent.h"
 #include "MengeCore/Agents/Events/EventSystem.h"
 #include "MengeCore/Agents/SimulatorInterface.h"
+#include "MengeCore/Agents/SpatialQueries/SpatialQuery.h"
 #include "MengeCore/BFSM/FSM.h"
 #include "MengeCore/BFSM/State.h"
 #include "MengeCore/Core.h"
@@ -22,6 +25,10 @@ Menge::Agents::SimulatorInterface * _simulator = 0x0;
 extern "C" {
 
 	using Menge::Agents::BaseAgent;
+	using Menge::Agents::Obstacle;
+	using Menge::Math::Vector2;
+	using std::find;
+
 	bool InitSimulator( const char * behaveFile,
 						  const char * sceneFile,
 						  const char * model,
@@ -210,4 +217,69 @@ extern "C" {
 
 	/////////////////////////////////////////////////////////////////////
 
+  size_t ObstacleCount() {
+    assert(_simulator != 0x0);
+    return _simulator->getSpatialQuery()->getObstacles().size();
+  }
+
+  /////////////////////////////////////////////////////////////////////
+
+  size_t GetNextObstacle(size_t i) {
+    assert(_simulator != 0x0);
+    const std::vector< Obstacle* > & obstacles = _simulator->getSpatialQuery()->getObstacles();
+    assert(i < obstacles.size());
+    const Obstacle * queryObstacle = obstacles[i];
+    const Obstacle * nextObstacle = queryObstacle->next();
+    std::vector<Obstacle*>::const_iterator itr =
+      find(obstacles.begin(), obstacles.end(), nextObstacle);
+    assert(itr != obstacles.end());
+    return itr - obstacles.begin();
+  }
+
+  /////////////////////////////////////////////////////////////////////
+
+  bool GetObstacleEndPoints(size_t i, float * x0, float * y0, float * z0,
+                            float * x1, float * y1, float * z1) {
+    assert(_simulator != 0x0);
+    const std::vector< Obstacle* > & obstacles = _simulator->getSpatialQuery()->getObstacles();
+    assert(i < obstacles.size());
+    const Obstacle * queryObstacle = obstacles[i];
+    const Vector2 & p0 = queryObstacle->getP0();
+    *x0 = p0._x;
+    *y0 = 0.0; // TODO: Use elevation to set this more intelligently.
+    *z0 = p0._y;
+    const Vector2 & p1 = queryObstacle->getP1();
+    *x1 = p1._x;
+    *y1 = 0.0; // TODO: Use elevation to set this more intelligently.
+    *z1 = p1._y;
+    return true;
+  }
+
+  /////////////////////////////////////////////////////////////////////
+
+  bool GetObstacleP0(size_t i, float * x0, float * y0, float * z0) {
+    assert(_simulator != 0x0);
+    const std::vector< Obstacle* > & obstacles = _simulator->getSpatialQuery()->getObstacles();
+    assert(i < obstacles.size());
+    const Obstacle * queryObstacle = obstacles[i];
+    const Vector2 & p0 = queryObstacle->getP0();
+    *x0 = p0._x;
+    *y0 = 0.0; // TODO: Use elevation to set this more intelligently.
+    *z0 = p0._y;
+    return true;
+  }
+
+  /////////////////////////////////////////////////////////////////////
+
+  bool GetObstacleP1(size_t i, float * x1, float * y1, float * z1) {
+    assert(_simulator != 0x0);
+    const std::vector< Obstacle* > & obstacles = _simulator->getSpatialQuery()->getObstacles();
+    assert(i < obstacles.size());
+    const Obstacle * queryObstacle = obstacles[i];
+    const Vector2 & p1 = queryObstacle->getP1();
+    *x1 = p1._x;
+    *y1 = 0.0; // TODO: Use elevation to set this more intelligently.
+    *z1 = p1._y;
+    return true;
+  }
 }	// extern"C"
