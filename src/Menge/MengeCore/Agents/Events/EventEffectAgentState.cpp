@@ -62,7 +62,7 @@ namespace Menge {
 	bool EventEffectAgentStateFactory::setFromXML(EventEffect * effect, TiXmlElement * node,
 		const std::string & behaveFldr) const {
 		EventEffectAgentState * aEffect = dynamic_cast< EventEffectAgentState * >(effect);
-		assert(aEffect != 0x0 && "Trying to set agent event effect properties on an "
+		assert(aEffect != 0x0 && "Trying to set agent state event effect on an "
 			"incompatible object");
 
 		// This parses the target
@@ -70,7 +70,7 @@ namespace Menge {
 
 		// Extract the StateSelector from the XML.
 		auto selectorNode = node->FirstChildElement("StateSelector");
-		assert(selectorNode != nullptr && "The set_agent_property event effect requries a "
+		assert(selectorNode != nullptr && "The 'set_agent_state' event effect requries a "
 			"StateSelector child.");
 		
 		aEffect->_selector = StateSelectorDB::getInstance(selectorNode, behaveFldr);
