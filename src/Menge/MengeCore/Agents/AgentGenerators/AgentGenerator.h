@@ -88,9 +88,11 @@ namespace Menge {
 		 *	To make use of the spatial noise, the AgentGenerator must be instantiated in
 		 *	the scene specification file as in the following example:
 		 *
-		 *		<Generator type="TYPE_NAME" ...
-		 *			displace_dist="u" displace_min="0.0" displace_max="0.5"
-		 *		/>
+		 *	@code{xml}
+		 *	<Generator type="TYPE_NAME" ...
+		 *		displace_dist="u" displace_min="0.0" displace_max="0.5"
+		 *	/>
+		 *	@endcode
 		 *
 		 *	The noise is a standard Menge distribution with a "displace_" prefix.  In this
 		 *	example, a uniform noise is applied to the computed position.  (The ellipses 

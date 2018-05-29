@@ -54,13 +54,14 @@ namespace Menge {
 		 *
 		 *	To specify a hexagonal lattice generator, use the following syntax:
 		 *
-		 *		<Generator type="hex_lattice" 
-		 *				anchor_x="float" anchor_y="float"
-		 *				alignment="string" row_direction="string"
-		 *				density="float" width="float"
-		 *				population="int" rotation="float"
-		 *			>
-		 *		</Generator>
+		 *	@code{xml}
+		 *	<Generator type="hex_lattice" 
+		 *			anchor_x="float" anchor_y="float"
+		 *			alignment="string" row_direction="string"
+		 *			density="float" width="float"
+		 *			population="int" rotation="float"
+		 *		/>
+		 *	@endcode
 		 *
 		 *	The various parameters have the following interpretation:
 		 *		- `anchor_x` and `anchor_y` represent the *anchor* point of the local 

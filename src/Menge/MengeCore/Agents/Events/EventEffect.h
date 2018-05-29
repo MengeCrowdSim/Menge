@@ -36,11 +36,15 @@ namespace Menge {
 	/*!
 	 *	@brief		The definition of a response to an event. 
 	 *
-	 *	Event effects determine how the simulation changes due to a triggered
-	 *	event.  The EventEffect is responsible for changing the simulation of the
-	 *	event target (and optionally caching the original state).  Essentially,
-	 *	the event effect is the operator, and the corresponding EventTarget is 
-	 *	the operand.
+	 *	Event effects determine how the simulation changes due to a triggered event.  The 
+	 *	%EventEffect works in conjunction with the EventTarget class. The effect is the *operator*
+	 *	and the target is the *operand*. The two are, in some sense coupled. Ultimately, effects
+	 *	can change any aspect of the simulator state. However, any *particular* effect can only
+	 *	operate on a particular aspect of the simulator (e.g., velocity components, agents, states,
+	 *	etc.) That means event effects must be partnered with *compatible* EventTarget instances.
+	 *
+	 *	The %EventEffect interface provides a means for defining what kind of targets are
+	 *	compatible and for applying its operation onto the target itself.
 	 */
 	class MENGE_API EventEffect : public Element {
 	public:
