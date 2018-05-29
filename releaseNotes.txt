@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
 Release 0.9.2
-	???? ??, 2018
+	May 28, 2018
 	
 	Features
 		Moved `ProjectSpec` out of main menge application and into core library
@@ -26,6 +26,10 @@ Release 0.9.2
 		C-wrapper
 			- Added per-agent preferred velocity and state id.
 			- Added state introspection (number and names of states).
+		Improved documentation
+			Behavior specification
+			Event system (and event effects)
+			Still so much to write....
 
 	Bugs
 		VelCompRoadmap would allow agents to get stuck if they were pushed far enough away from 
