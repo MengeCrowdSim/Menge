@@ -40,13 +40,14 @@ namespace Menge {
 		 *
 		 *	To specify an rectangular grid generator, use the following syntax:
 		 *
-		 *		<Generator type="rect_grid" 
-		 *				anchor_x="float" anchor_y="float"
-		 *				offset_x="float" offset_y="float"
-		 *				count_x="int" count_y="int"
-		 *				rotation="float"
-		 *			>
-		 *		</Generator>
+		 *	@code{xml}
+		 *	<Generator type="rect_grid" 
+		 *			anchor_x="float" anchor_y="float"
+		 *			offset_x="float" offset_y="float"
+		 *			count_x="int" count_y="int"
+		 *			rotation="float"
+		 *		/>
+		 *	@endcode
 		 *
 		 *	The various parameters have the following interpretation:
 		 *		- `anchor_x` and `anchor_y` represent the *anchor* point of a rectangular

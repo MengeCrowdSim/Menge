@@ -7,28 +7,30 @@ The scene specification defines the *elements* of the simulation: the static obs
 
 The basic scene specification XML has the following form:
 
-	<?xml version="1.0"?>
-	<Experiment version="2.0">
-		<Common ... />
-		<Model1 ... />
-		...
-		<ModelN ... />
-		
-		<AgentProfile ... />
-		...
-		<AgentProfile ... />
-		
-		<AgentGroup ... />
-		...
-		<AgentGroup ... />
-		
-		<SpatialQuery ... />
-		<Elevation ... />
-		
-		<ObstacleSet ... />
-		...
-		<ObstacleSet ... />
-	</Experiment>
+@code{xml}
+<?xml version="1.0"?>
+<Experiment version="2.0">
+	<Common ... />
+	<Model1 ... />
+	...
+	<ModelN ... />
+	
+	<AgentProfile ... />
+	...
+	<AgentProfile ... />
+	
+	<AgentGroup ... />
+	...
+	<AgentGroup ... />
+	
+	<SpatialQuery ... />
+	<Elevation ... />
+	
+	<ObstacleSet ... />
+	...
+	<ObstacleSet ... />
+</Experiment>
+@endcode
 	
 The major elements of the scene specification are:
 	- The header: `<Experiment ... />` (@ref sec_sceneHeader)
@@ -61,15 +63,17 @@ It is worth noting that this simulation time step can be overridden on the [comm
 
 Ultimately, the agent profile is directly concerned with defining *per-agent* parameters.  We specify an agent profile in the following manner:
 
-	<AgentProfile name="PROFILE_NAME">
-		<Common max_angle_vel="360" max_neighbors="10" obstacleSet="1" neighbor_dist="5" r="0.19" class="1" pref_speed="1.04" max_speed="2" max_accel="5" />
-        <Model1 prop1="value1" prop2="value2"/>
-		...
-		<ModelN prop1="value1" prop2="value2"/>
-		<VelModifier type="vmName" ... />
-		...
-		<VelModifier type="vmName" ... />
-	</AgentProfile>
+@code{xml}
+<AgentProfile name="PROFILE_NAME">
+	<Common max_angle_vel="360" max_neighbors="10" obstacleSet="1" neighbor_dist="5" r="0.19" class="1" pref_speed="1.04" max_speed="2" max_accel="5" />
+	<Model1 prop1="value1" prop2="value2"/>
+	...
+	<ModelN prop1="value1" prop2="value2"/>
+	<VelModifier type="vmName" ... />
+	...
+	<VelModifier type="vmName" ... />
+</AgentProfile>
+@endcode
 	
 The agent profile must be given a name -- this is how the profile is referred to later by the `<AgentGenerator>` tags.
 
@@ -95,14 +99,16 @@ Finally, a profile can consist of zero or more [velocity modifiers](@ref Menge::
 
 In the example above, every agent assigned the same profile would have the same property values.  %Menge provides a mechanism to define distributions of values for any or all of the properties contained in an `<AgentProfile>` child tag (both `<Common>` and `<Model>` tags.  It looks like this (illustrated with the *common* property `pref_speed`):
 
-	<AgentProfile name="PROFILE_NAME">
-		<Common max_angle_vel="360" max_neighbors="10" obstacleSet="1" neighbor_dist="5" r="0.19" class="1" pref_speed="1.04" max_speed="2" max_accel="5" >
-			<Property name="pref_speed" dist="n" mean="1.3" std_dev="0.1" />
-		</Common>
-        <Model1 prop1="value1" prop2="value2"/>
-		...
-		<ModelN prop1="value1" prop2="value2"/>
-	</AgentProfile>
+@code{xml}
+<AgentProfile name="PROFILE_NAME">
+	<Common max_angle_vel="360" max_neighbors="10" obstacleSet="1" neighbor_dist="5" r="0.19" class="1" pref_speed="1.04" max_speed="2" max_accel="5" >
+		<Property name="pref_speed" dist="n" mean="1.3" std_dev="0.1" />
+	</Common>
+	<Model1 prop1="value1" prop2="value2"/>
+	...
+	<ModelN prop1="value1" prop2="value2"/>
+</AgentProfile>
+@endcode
 
 Note, that the `<Common>` tag is no longer a self-contained tag.  It now has a child tag: `<Property>`.  The property tag is how we define variability for a particular property.  We do so by specifying the property name (`name`) and a distribution (`dist`).  In this case, we're defining a normal distribution with a mean value of 1.3 m/s and a standard deviation of 0.1 m/s.  As agents are assigned this profile, their preferred speed values will be assigned according to this distribution (see @ref page_Distribution for more details).  Any property with such a property tag will have its single value overridden by the distribution.
 
@@ -112,15 +118,17 @@ It is quite common that multiple profiles will be largely similar.  In fact, one
 
 The `<AgentProfile>` tag has an additional property: `inherits`.  One `<AgentProfile>` can refer to an earlier profile, inheriting all of its values (including property distributions).  Then, only those properties that are different need be specified.  Inheritance would look like this:
 
-	<AgentProfile name="source">
-		<Common max_angle_vel="360" max_neighbors="10" obstacleSet="1" neighbor_dist="5" r="0.19" class="1" pref_speed="1.04" max_speed="2" max_accel="5" >
-			<Property name="pref_speed" dist="n" mean="1.3" std_dev="0.1" />
-		</Common>
-	</AgentProfile>
+@code{xml}
+<AgentProfile name="source">
+	<Common max_angle_vel="360" max_neighbors="10" obstacleSet="1" neighbor_dist="5" r="0.19" class="1" pref_speed="1.04" max_speed="2" max_accel="5" >
+		<Property name="pref_speed" dist="n" mean="1.3" std_dev="0.1" />
+	</Common>
+</AgentProfile>
 
-	<AgentProfile name="child" inherits="source">
-		<Common class="2"/>
-	</AgentProfile>
+<AgentProfile name="child" inherits="source">
+	<Common class="2"/>
+</AgentProfile>
+@endcode
 
 The agent profiles must appear in the *correct* order in the specification file.  The parent profile must appear before the profiles that inherit from it.
 
@@ -128,11 +136,13 @@ The agent profiles must appear in the *correct* order in the specification file.
 
 The agent profile merely defines a type or class of agent; it does not instantiate agents in the simulation.  The `<Agent Group>` tag is responsible for instantiating agents.  An agent is instantiated by defining three aspects: its profile, its position, and its initial behavioral state.  Each of these three aspects is defined by its own element (see @ref page_Elements): a Profile Selector, an Agent Generator, and a State Selector.  The syntax of the `<AgentGroup>` tag looks like this:
 
-	<AgentGroup>
-		<ProfileSelector type="<typeName>" ... />
-		<StateSelector type="<typeName>" ... />
-		<Generator type="<typeName>" ... />
-	</AgentGroup>
+@code{xml}
+<AgentGroup>
+	<ProfileSelector type="<typeName>" ... />
+	<StateSelector type="<typeName>" ... />
+	<Generator type="<typeName>" ... />
+</AgentGroup>
+@endcode
 
 @subsection subsec_sceneProfSelect Profile Selector
 

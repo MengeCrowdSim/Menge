@@ -38,7 +38,12 @@ namespace Menge {
 	}
 	
 	/*!
-	 *	@brief		The event effect class that operates on sets of agents.
+	 *	@brief		The *abstract* event effect class that operates on sets of agents.
+	 *
+	 *	This event effect operates on agents. It provides an interface to confirm it is combined
+	 *	with a compatible target type (AgentEventTarget). It also provides an implementation that
+	 *	iterates through the target set of operand agents. Sub-classes must implement the 
+	 *	agentEffect() method to provide the details of its *specific* effect.
 	 */
 	class MENGE_API AgentEventEffect : public EventEffect {
 	public:

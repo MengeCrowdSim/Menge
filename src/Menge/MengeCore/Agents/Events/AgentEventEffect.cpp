@@ -48,7 +48,7 @@ namespace Menge {
 	/////////////////////////////////////////////////////////////////////
 
 	void AgentEventEffect::apply( EventTarget * target ) {
-		assert( dynamic_cast< AgentEventTarget * >( target ) != 0x0 &&
+		assert( isCompatible( target ) &&
 				"Incompatible target type passed to an AgentEventEffect instance" );
 		// static cast assumes that the previous assertion is valid
 		AgentEventTarget * tgt = static_cast< AgentEventTarget * >( target );

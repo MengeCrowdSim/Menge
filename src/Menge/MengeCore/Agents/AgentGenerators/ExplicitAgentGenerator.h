@@ -40,12 +40,14 @@ namespace Menge {
 		 *
 		 *	To specify an explicit agent generator, use the following syntax:
 		 *
-		 *		<Generator type="explicit">
-		 *			<Agent p_x="float" p_y="float"/>
-		 *			<Agent p_x="float" p_y="float"/>
-		 *			...
-		 *			<Agent p_x="float" p_y="float"/>
-		 *		</Generator>
+		 *	@code{xml}
+		 *	<Generator type="explicit">
+		 *		<Agent p_x="float" p_y="float"/>
+		 *		<Agent p_x="float" p_y="float"/>
+		 *		...
+		 *		<Agent p_x="float" p_y="float"/>
+		 *	</Generator>
+		 *	@endcode
 		 *
 		 *	The values `p_x` and `p_y` represent the intial position of the agent in
 		 *	simulation space.

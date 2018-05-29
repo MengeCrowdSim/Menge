@@ -44,6 +44,33 @@ namespace Menge {
 	/*!
 	 *	@brief		The main event engine -- causes event triggers to be evaluated
 	 *				and effects to be applied.
+	 *
+	 *  The %EventSystem drives %Menge's event mechanism. Events are added to the simulator through
+	 *	the behavior specification. If no events are added to the simulator, the `EventSystem` tag
+	 *	can be omitted from the behavior specification. The following example shows the syntax
+	 *	for declaring the event system and provides a vague illustration for adding an event.
+	 *
+	 *  @code{xml}
+	 *	<?xml version="1.0"?>
+	 *	<BFSM>
+	 *		<EventSystem conservative="1">
+	 *			<Target name="my_target" type="target_element" ... />
+	 *			<Effect name="my_effect" type="effect_element" ... />
+	 *			<Event name="my_event">
+	 *				<Trigger name="something_happened" type="trigger_element" />
+	 *				<Response effect="my_effect" target="my_target" />
+	 *			</Event>
+	 *		</EventSystem>
+	 *	...
+	 *	</BFSM>
+	 *	@endcode
+	 *
+	 *	The `<%EventSystem>` tag has a single property: 
+	 *		- `conservative` determines how the event system handles errors in the declaration of
+	 *		events. If the value is non-null, the system is conservative and any errors in the
+	 *		definition of events are treated as *fatal* errors and the program exits (having
+	 *		written the cause of the problem to the log). If zero, the program will log a
+	 *		*warning*, omit the event, and proceed with simulation.
 	 */
 	class MENGE_API EventSystem {
 	public:

@@ -28,12 +28,13 @@ The element types are as follows:
 		The behavior of each agent can change as the simulation progresses.  We accomplish this by use of a finite state machine.  An agent exists in a single state at any given time.  The state defines the agent's *preferred velocity*.  As the agent moves from state to state, its preferred velocity (and even how it is computed) can radically change.  Agents can transition from one state to another state based on FSM *structural* transitions or external events.  As agents enter and leave states, actions can be applied to the agent, changing (permanently *or* temporarily) properties of the agent.
 		
 		+ [Actions](@ref page_Actions): Actions assigned to a state are applied to agents upon entering that state and can optionally be undone when the agent leaves the state.
-		+ [Events](@ref page_Events)
+		+ [Events](@ref page_EventSystem)
 		
 			%Menge supports an event system for affecting agent behaviors.  The event system is comprised of three elements: an event trigger, effect, and target.
-			- [Event Triggers](@ref sec_EVT_Trigger): The definition of a condition on simulation state which causes an event to be applied to the simulation.
-			- [Event Effects](@ref sec_EVT_Effect): The definition of a response to an event (such as changing agent states, changing the simulation domain, etc.)
-			- [Event Targets](@ref sec_EVT_Target): The definition of the simulation entity that will be affected by the Event Effect.
+			- [Event Triggers](@ref page_EventTrigger): The definition of a condition on simulation state which causes an event to be applied to the simulation.
+			- [Event Effects](@ref page_EventEffect): The definition of a response to an event (such as changing agent states, changing the simulation domain, etc.)
+			- [Event Targets](@ref page_EventTarget): The definition of the simulation entity that will be affected by the Event Effect.
+
 		+ [Goals](@ref page_Goal): The definition of a region in space the agent wants to reach.
 		+ [Goal Selectors](@ref page_GoalSelect): The mechanism by which the agent selects a goal.
 		+ Transitions
