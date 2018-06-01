@@ -747,19 +747,123 @@ namespace Menge {
 			 */
 			virtual Vector2 getCentroid() const;
 
-			/*!
-			 *	@brief		Returns the x-axis of the OBB's local frame
-			 *				
-			 *	@returns	The direction of the obb's x-axis.
-			 */
-			Vector2 getXBasis() const { return Vector2(_cosTheta, -_sinTheta); }
+      /*!
+       @brief   Converts a position vector from the geometry origin to P, expressed in the geometry
+                frame (`r_GP`) to a position vector from the world origin to P, expressed in the 
+                world frame (`r_WP`).
 
-			/*!
-			 *	@brief		Returns the y-axis of the OBB's local frame
-			 *				
-			 *	@returns	The direction of the obb's y-axis.
-			 */
-			Vector2 getYBasis() const { return Vector2(_sinTheta, _cosTheta); }
+      @param  r_GP    The position vector from the geometry origin to a point P, expressed in the
+                      geometry frame.
+      @retval r_WP_W  The position vector from world origin to the point P, expressed in the world
+                      frame.
+       */
+      Vector2 convertToWorld(const Vector2& r_GP) const;
+
+      /*!
+      @brief  Converts a position vector from the world origin to P, expressed in the world frame
+              (`r_WP`) to a position vector from the geometry origin to P, expressed in the
+              geometry frame (`r_GP`).
+
+      @param  r_WP    The position vector from the world origin to a point P, expressed in the world
+                      frame.
+      @retval r_GP_G  The position vector from geometry origin to the point P, expressed in the 
+                      geometry frame.
+      */
+      Vector2 convertToGeometry(const Vector2& r_WP) const;
+
+      /*!
+      @brief    Returns the x-axis of the OBB's local frame expressed in the world frame.
+
+      If we say that Bx = getXBasis() and By = getYBasis(), are *column* vectors, we can define the 2x2
+      matrix R_WG = [Bx By] - a rotation taking vectors expressed in the geometry frame and expressing
+      them in the world frame.
+
+      For example, the position vector from the pivot to the far corner, expressed in the geometry
+      frame would be `r_PC_G = [w h]^T`. We can express that same vector in the world frame as:
+      `r_PC_W = R_WG * r_PC_G`.
+
+      Conversely, the matrix `R_GW = R_WG^T = [Bx By]^T` re-expresses in the *geometry* frame a vector
+      that was previously expressed in the world frame.
+
+      In practice, for a position vector from the world origin to point Q expressed in the world frame,
+      r_WQ_W, we can calculate a position vector from the geometry frame's origin r_WG (the OBB's
+      pivot) and expressed in the geometry frame as:
+      `r_GQ = [(r_WQ - r_WG) * Bx, (r_WQ - r_WG) * By]^T` or
+      `r_GQ = R_GW * (r_WQ - r_WG)`.
+
+      Functionally, that becomes:
+
+      ```
+      Vector2 r_WQ_W;
+      Vector2 Bx = getXBasis();
+      Vector2 By = getYBasis();
+      Vector2 r_GQ_W = r_WQ - _pivot;
+      Vector2 r_GQ_G(r_GQ_W * Bx, r_GQ_W * By);
+      ```
+
+      Mapping the opposite direction is a bit trickier (in the absence of a 2x2 matrix).
+
+      ```
+      Vector2 r_GQ_G;
+      Vector2 Bx = getXBasis();
+      Vector2 By = getYBasis();
+      Vector2 r_GQ_W(r_GQ_G * Vector2(Bx._x, By._x), r_GQ_G * Vector2(Bx._y, By._y));
+      Vector2 r_WQ_W = _pivot + r_GQ_W;
+      ```
+
+      See [Drake's monogram notation](http://drake.mit.edu/doxygen_cxx/group__multibody__notation__basics.html)
+      for details on how to interpret the symbols, `r_WQ_W`, `R_WG`, etc.
+
+      @returns  The direction of the obb's x-axis expressed in the world frame.
+      */
+      Vector2 getXBasis() const { return Vector2(_cosTheta, _sinTheta); }
+
+      /*!
+      @brief    Returns the y-axis of the OBB's local frame expressed in the world frame
+
+      If we say that Bx = getXBasis() and By = getYBasis(), are *column* vectors, we can define the 2x2
+      matrix R_WG = [Bx By] - a rotation taking vectors expressed in the geometry frame and expressing
+      them in the world frame.
+
+      For example, the position vector from the pivot to the far corner, expressed in the geometry
+      frame would be `r_PC_G = [w h]^T`. We can express that same vector in the world frame as:
+      `r_PC_W = R_WG * r_PC_G`.
+
+      Conversely, the matrix `R_GW = R_WG^T = [Bx By]^T` re-expresses in the *geometry* frame a vector
+      that was previously expressed in the world frame.
+
+      In practice, for a position vector from the world origin to point Q expressed in the world frame,
+      r_WQ_W, we can calculate a position vector from the geometry frame's origin r_WG (the OBB's
+      pivot) and expressed in the geometry frame as:
+      `r_GQ = [(r_WQ - r_WG) * Bx, (r_WQ - r_WG) * By]^T` or
+      `r_GQ = R_GW * (r_WQ - r_WG)`.
+
+      Functionally, that becomes:
+
+      ```
+      Vector2 r_WQ_W;
+      Vector2 r_GQ_W = r_WQ - _pivot;
+      Vector2 Bx = getXBasis();
+      Vector2 By = getYBasis();
+      Vector2 r_GQ_G(r_GQ_W * Bx, r_GQ_W * By);
+      ```
+
+      Mapping the opposite direction is a bit trickier (in the absence of a 2x2 matrix).
+
+      ```
+      Vector2 r_GQ_G;
+      Vector2 Bx = getXBasis();
+      Vector2 By = getYBasis();
+      Vector2 r_GQ_W(r_GQ_G * Vector2(Bx._x, By._x), r_GQ_G * Vector2(Bx._y, By._y));
+      Vector2 r_WQ_W = _pivot + r_GQ_W;
+      ```
+
+      See [Drake's monogram notation](http://drake.mit.edu/doxygen_cxx/group__multibody__notation__basics.html)
+      for details on how to interpret the symbols, `r_WQ_W`, `R_WG`, etc.
+
+      @returns  The direction of the obb's y-axis expressed in the world frame.
+      */
+      Vector2 getYBasis() const { return Vector2(-_sinTheta, _cosTheta); }
 
 			/*!
 			 *	@brief		Returns the size of the obb (w, h)
