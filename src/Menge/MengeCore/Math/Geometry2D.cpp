@@ -584,10 +584,13 @@ namespace Menge {
 			// First rotate so that the OBB is an AABB then use the same logic as
 			//	with the AABB
 			Vector2 disp = q - _pivot;
-			// the LOCAL x- and y- coordinates of the nearest point, initialized to the
-			//	local value of the query point.
-			float X = disp.x() * _cosTheta + disp.y() * _sinTheta;
-			float Y = disp.y() * _cosTheta - disp.x() * _sinTheta;
+      // Rotation from world to geometry: R = [Bx By]^T.
+      Vector2 Bx = getXBasis();
+      Vector2 By = getYBasis();
+      // the LOCAL x- and y- coordinates of the nearest point, initialized to the
+      //  local value of the query point.
+      float X = Bx * disp;
+      float Y = By * disp;
 
 			// based on the voronoi regions of the AABB
 			//	 (-1,1)  |        (0,1)        |  (1,1)
@@ -646,24 +649,22 @@ namespace Menge {
 				}
 
 				Vector2 localPt(X, Y);
-				Vector2 rot0 = getXBasis();
-				Vector2 rot1 = getYBasis();
-				Vector2 targetPt(_pivot + Vector2(localPt * rot0, localPt * rot1));
-				directions.setTarget(targetPt);
-				Vector2 prefDir(norm(targetPt - q));
-				if (dimensions) {
-					// there is actually a span
-					localPt.set(xL, yL);
-					Vector2 leftPt(_pivot + Vector2(localPt * rot0, localPt * rot1));
-					localPt.set(xR, yR);
-					Vector2 rightPt(_pivot + Vector2(localPt * rot0, localPt * rot1));
-					directions.setSpan(norm(leftPt - q),
-						norm(rightPt - q),
-						prefDir);
-				}
-				else {
-					directions.setSingle(prefDir);
-				}
+        // Rotation from geometry to world is: R = [Bx, By]
+        Vector2 rot0(Bx._x, By._x);
+        Vector2 rot1(Bx._y, By._y);
+        Vector2 targetPt(_pivot + Vector2(localPt * rot0, localPt * rot1));
+        directions.setTarget(targetPt);
+        Vector2 prefDir(norm(targetPt - q));
+        if (dimensions) {
+          // there is actually a span
+          localPt.set(xL, yL);
+          Vector2 leftPt(_pivot + Vector2(localPt * rot0, localPt * rot1));
+          localPt.set(xR, yR);
+          Vector2 rightPt(_pivot + Vector2(localPt * rot0, localPt * rot1));
+          directions.setSpan(norm(leftPt - q), norm(rightPt - q), prefDir);
+        } else {
+          directions.setSingle(prefDir);
+        }
 			}
 		}
 
@@ -673,8 +674,13 @@ namespace Menge {
 			// First rotate so that the OBB is an AABB then use the same logic as
 			//	with the AABB
 			Vector2 disp = q - _pivot;
-			float X = disp.x() * _cosTheta + disp.y() * _sinTheta;
-			float Y = disp.y() * _cosTheta - disp.x() * _sinTheta;
+      // Rotation from world to geometry: R = [Bx By]^T.
+      Vector2 Bx = getXBasis();
+      Vector2 By = getYBasis();
+      // the LOCAL x- and y- coordinates of the nearest point, initialized to the
+      //  local value of the query point.
+      float X = Bx * disp;
+      float Y = By * disp;
 
 			// based on the voronoi regions of the AABB
 			//	 0 |         1          |  2
@@ -717,8 +723,11 @@ namespace Menge {
 			}
 
 			Vector2 localPt(X, Y);
-			
-			return _pivot + Vector2(localPt * getXBasis(), localPt * getYBasis());
+      // Rotation from geometry to world is: R = [Bx, By]
+      Vector2 rot0(Bx._x, By._x);
+      Vector2 rot1(Bx._y, By._y);
+
+      return _pivot + Vector2(localPt * rot0, localPt * rot1);
 		}
 
 		/////////////////////////////////////////////////////////////////////
@@ -727,7 +736,23 @@ namespace Menge {
 			return _pivot + getXBasis() * (_size.x() * 0.5f) + getYBasis() * (_size.y() * 0.5f);
 		}
 
-		/////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////
+
+    Vector2 OBBShape::convertToWorld(const Vector2& r_GP) const {
+      Vector2 Bx = getXBasis();
+      Vector2 By = getYBasis();
+      Vector2 r_GP_W(r_GP * Vector2(Bx._x, By._x), r_GP * Vector2(Bx._y, By._y));
+      return _pivot + r_GP_W;
+    }
+
+    /////////////////////////////////////////////////////////////////////
+
+    Vector2 OBBShape::convertToGeometry(const Vector2& r_WP) const {
+      Vector2 r_GP_W = r_WP - _pivot;
+      return Vector2(r_GP_W * getXBasis(), r_GP_W * getYBasis());
+    }
+
+    /////////////////////////////////////////////////////////////////////
 		//                   Implementation of XML Parsing
 		/////////////////////////////////////////////////////////////////////
 		
