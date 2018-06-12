@@ -23,7 +23,6 @@ using ::testing::_;
 
 class MockScene : public MengeVis::SceneGraph::GLScene {
 public:
-//    bool addNode( GLNode * node, GLDagNode * parent = 0x0 );
     MOCK_METHOD2(addNode, bool(MengeVis::SceneGraph::GLNode * node, MengeVis::SceneGraph::GLDagNode * parent));
 
 
@@ -61,12 +60,12 @@ TEST(CharacterizingSimulatorInterface, creatingAnInstance) {
                                                                      SIM_DURATION, behaveFile, sceneFile, outFile,
                                                                      scbVersion, VERBOSE);
 
-    EXPECT_FALSE(sim == 0x00);
+    EXPECT_FALSE(sim == nullptr);
 
 
     MengeVis::Runtime::SimSystem * system = new MengeVis::Runtime::SimSystem( sim );
 
-    EXPECT_FALSE(system == 0x00);
+    EXPECT_FALSE(system == nullptr);
 
     MockScene scene;
 
