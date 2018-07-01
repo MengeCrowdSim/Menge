@@ -3,8 +3,8 @@
 #include <path_utils.h>
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
-#include "../../Menge/MengeCore/Runtime/SimulatorDB.h"
-#include "../../Menge/MengeCore/PluginEngine/CorePluginEngine.h"
+#include "MengeCore/Runtime/SimulatorDB.h"
+#include "MengeCore/PluginEngine/CorePluginEngine.h"
 #include "MengeVis/SceneGraph/GLScene.h"
 
 
