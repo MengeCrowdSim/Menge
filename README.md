@@ -44,10 +44,7 @@ In Linux, these can all be acquired at the same time with the following command:
 ### Running tests
 
 ```
-  mkdir build
-  cd build
-  cmake ..
-  make && make test
+  cd projects/g++ && make && make test
 ```
 
 
