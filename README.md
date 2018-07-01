@@ -44,7 +44,7 @@ In Linux, these can all be acquired at the same time with the following command:
 ### Running tests
 
 ```
-  cd projects/g++ && make && make test
+  cd projects/g++ && make && make test-debug
 ```
 
 
