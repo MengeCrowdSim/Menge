@@ -1,6 +1,5 @@
 #include <iostream>
 #include <MengeVis/Runtime/SimSystem.h>
-#include <path_utils.h>
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
 #include "MengeCore/Runtime/SimulatorDB.h"

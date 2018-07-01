@@ -1,9 +1,10 @@
-.PHONY: release debug clean clean-release clean-debug install
+.PHONY: release debug clean clean-release clean-debug install test-debug
 
 DIRS:= build build/release build/debug
 
 all: $(DIRS) release
 
+test: $(DIRS) test-debug
 
 $(DIRS):
 	mkdir $@
