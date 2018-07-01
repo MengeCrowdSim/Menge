@@ -8,4 +8,4 @@ add_definitions(-std=c++11)
 # Model dlls
 ADD_SUBDIRECTORY(Menge)
 ADD_SUBDIRECTORY(Plugins)
-
+ADD_SUBDIRECTORY(test)
