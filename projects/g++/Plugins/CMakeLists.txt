@@ -2,14 +2,14 @@ cmake_minimum_required(VERSION 2.8)
 
 project(PED_PLUGINS)
 
-set(MENGE_EXE_DIR ${CMAKE_SOURCE_DIR}/Exe) 
+set(MENGE_EXE_DIR ${CMAKE_SOURCE_DIR}/../../Exe) 
 if ( ${CMAKE_BUILD_TYPE} MATCHES "Debug" )
   set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${MENGE_EXE_DIR}/plugins/debug)
 else ( ${CMAKE_BUILD_TYPE} MATCHES "Debug" )
   set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${MENGE_EXE_DIR}/plugins)
 ENDIF ( ${CMAKE_BUILD_TYPE} MATCHES "Debug" )
-set(PLUGIN_SOURCE_DIR ${CMAKE_SOURCE_DIR}/src/Plugins)
-set(MENGE_SOURCE_DIR ${CMAKE_SOURCE_DIR}/src/Menge)
+set(PLUGIN_SOURCE_DIR ${CMAKE_SOURCE_DIR}/../../src/Plugins)
+set(MENGE_SOURCE_DIR ${CMAKE_SOURCE_DIR}/../../src/Menge)
 set(MENGE_LIB_DIR ${CMAKE_BINARY_DIR}/lib )
 
 link_directories( ${MENGE_LIB_DIR}/)

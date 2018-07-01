@@ -40,6 +40,8 @@ clean-release:
 clean-debug:
 	( cd build/debug && $(MAKE) --no-print-directory clean )
 
+test:
+	( cd build/debug && cmake -DCMAKE_BUILD_TYPE=debug ../.. && $(MAKE) --no-print-directory && make --no-print-directory test)
 
 #release:
 #	( cd build/release && cmake -DCMAKE_BUILD_TYPE=release ../.. && $(MAKE) --no-print-directory && make  --no-print-directory install)

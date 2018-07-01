@@ -1,5 +1,5 @@
-file(GLOB SRCS *.cpp)
-
+file(GLOB SRCS ../../../../src/test/MengeCore/*.cpp)
+message(${SRCS})
 ADD_EXECUTABLE(mengeCoreTest ${SRCS})
 
 
@@ -13,9 +13,6 @@ TARGET_LINK_LIBRARIES(
 )
 
 
-include_directories("../../Menge")
-
-include_directories("../../")
 
 add_test(NAME mengeCoreTest
   COMMAND mengeCoreTest)

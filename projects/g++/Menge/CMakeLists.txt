@@ -2,8 +2,8 @@ cmake_minimum_required(VERSION 2.8)
 
 project(MENGE)
 
-set(MENGE_SRC_DIR ${CMAKE_SOURCE_DIR}/src/Menge)
-set(MENGE_EXE_DIR ${CMAKE_SOURCE_DIR}/Exe) 
+set(MENGE_SRC_DIR ${CMAKE_SOURCE_DIR}/../../src/Menge)
+set(MENGE_EXE_DIR ${CMAKE_SOURCE_DIR}/../../Exe) 
 set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/lib/)
 link_directories (${LIBRARY_OUTPUT_PATH}/)
 

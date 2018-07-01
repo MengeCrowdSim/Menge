@@ -5,6 +5,7 @@ if(APPLE)
     set(CMAKE_MACOSX_RPATH ON)
 endif()
 add_definitions(-std=c++11)
+enable_testing()
 # Model dlls
 ADD_SUBDIRECTORY(Menge)
 ADD_SUBDIRECTORY(Plugins)
