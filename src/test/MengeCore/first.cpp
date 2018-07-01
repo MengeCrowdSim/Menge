@@ -36,7 +36,7 @@ TEST(CharacterizingCorePluginEngine, defaultSimulationEngines) {
     EXPECT_EQ(simDB.name(1), "pedvo");
 }
 
-TEST(CharacterizingSimulatorInterface, creatingAnInstance) {
+TEST(CharacterizingSimulatorInterface, DISABLED_creatingAnInstance) {
 
     SimulatorDB simDB;
     CorePluginEngine plugins(&simDB);
