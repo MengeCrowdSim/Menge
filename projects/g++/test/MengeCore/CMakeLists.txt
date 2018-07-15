@@ -1,4 +1,4 @@
-file(GLOB SRCS ../../../../src/test/MengeCore/*.cpp)
+file(GLOB SRCS ${MENGE_ROOT_TEST_DIR}/MengeCore/*.cpp)
 message(${SRCS})
 ADD_EXECUTABLE(mengeCoreTest ${SRCS})
 

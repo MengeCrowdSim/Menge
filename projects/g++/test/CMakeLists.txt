@@ -12,6 +12,7 @@ ENDIF ( ${CMAKE_BUILD_TYPE} MATCHES "Debug" )
 set(PLUGIN_SOURCE_DIR ${CMAKE_SOURCE_DIR}/../../src/Plugins)
 set(MENGE_SOURCE_DIR ${CMAKE_SOURCE_DIR}/../../src/Menge)
 set(MENGE_LIB_DIR ${CMAKE_BINARY_DIR}/lib )
+set (MENGE_ROOT_TEST_DIR ../../../../src/test/)
 
 link_directories( ${MENGE_LIB_DIR}/)
 
