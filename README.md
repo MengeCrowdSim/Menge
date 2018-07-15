@@ -1,4 +1,4 @@
-# Menge [![Build Status](https://travis-ci.org/MengeCrowdSim/Menge.svg?branch=master)](https://travis-ci.org/MengeCrowdSim/Menge)
+ [![Build Status](https://travis-ci.org/MengeCrowdSim/Menge.svg?branch=master)](https://travis-ci.org/MengeCrowdSim/Menge)
 
 See [Menge home page](http://gamma.cs.unc.edu/Menge/) for details.
 
@@ -28,7 +28,7 @@ While a simulation is running, a visualization window will be displayed.
 
 ## Build instructions
 
-### Depenencies
+### Dependencies
 
 Menge visualization has several dependencies.  For windows, they are included in the project. For
 Linux and OSX, they need to be installed.  The dependencies include:
