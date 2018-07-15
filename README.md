@@ -1,4 +1,4 @@
-# Menge
+# Menge [![Build Status](https://travis-ci.org/MengeCrowdSim/Menge.svg?branch=master)](https://travis-ci.org/MengeCrowdSim/Menge)
 
 See [Menge home page](http://gamma.cs.unc.edu/Menge/) for details.
 
