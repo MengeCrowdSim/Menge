@@ -1,9 +1,10 @@
-.PHONY: release debug clean clean-release clean-debug install
+.PHONY: release debug clean clean-release clean-debug install test-debug
 
 DIRS:= build build/release build/debug
 
 all: $(DIRS) release
 
+test: $(DIRS) test-debug
 
 $(DIRS):
 	mkdir $@
@@ -40,6 +41,10 @@ clean-release:
 clean-debug:
 	( cd build/debug && $(MAKE) --no-print-directory clean )
 
+test-debug:
+	( cd build/debug && cmake -DCMAKE_BUILD_TYPE=debug ../.. && $(MAKE) --no-print-directory && make --no-print-directory test)
+#	ctags -R  --language-force=c++ *.*
+#	ctags -eR  --language-force=c++ *.*
 
 #release:
 #	( cd build/release && cmake -DCMAKE_BUILD_TYPE=release ../.. && $(MAKE) --no-print-directory && make  --no-print-directory install)

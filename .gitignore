@@ -1,4 +1,4 @@
-debug/
+*debug/
 Exe/
 release/
 doc/
@@ -18,3 +18,4 @@ ipch/
 doc/output
 doc/tags
 examples/**/*.png
+src/thirdParty/googletest
