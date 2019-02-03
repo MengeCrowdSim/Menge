@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<Project 
+  scene="drop_toS.xml" 
+  behavior="drop_toB.xml" 
+  view="drop_toV.xml" 
+  model="orca"
+  dumpPath="images/drop_to"
+  timeStep=".1"
+  outSamples="3"
+  random="5"
+/>

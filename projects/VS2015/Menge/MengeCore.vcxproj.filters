@@ -279,6 +279,9 @@
     <ClCompile Include="$(SrcDir)\mengeCore\Agents\Events\StateMemberTarget.cpp">
       <Filter>Source Files\Agents\Events</Filter>
     </ClCompile>
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\Events\state_population_trigger.cpp">
+      <Filter>Source Files\Agents\Events</Filter>
+    </ClCompile>
     <ClCompile Include="$(SrcDir)\mengeCore\Agents\ObstacleSets\ExplicitObstacleSet.cpp">
       <Filter>Source Files\Agents\ObstacleSets</Filter>
     </ClCompile>
@@ -815,6 +818,9 @@
     <ClInclude Include="$(SrcDir)\mengeCore\Agents\Events\StateMemberTarget.h">
       <Filter>Header Files\Agents\Events</Filter>
     </ClInclude>
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\Events\state_population_trigger.h">
+      <Filter>Header Files\Agents\Events</Filter>
+    </ClCompile>
     <ClInclude Include="$(SrcDir)\mengeCore\Agents\ObstacleSets\ExplicitObstacleSet.h">
       <Filter>Header Files\Agents\ObstacleSets</Filter>
     </ClInclude>

@@ -37,7 +37,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 */
 
 #include "MengeCore/Agents/Events/EventTriggerDB.h"
-#include "MengeCore/Agents/Events/StateEvtTrigger.h"
+#include "MengeCore/Agents/Events/state_population_trigger.h"
 #include "MengeCore/Agents/Events/EventTriggerExternal.h"
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
@@ -60,8 +60,8 @@ namespace Menge {
 	 */
 	template <>
 	void ElementDB< EventTriggerFactory, EventTrigger >::addBuiltins() {
-		addFactory( new StatePopIncTriggerFactory() );
 		addFactory( new ExternalEvtTriggerFactory() );
+    addFactory(new StatePopulationTriggerFactory());
 	}
 
 }	// namespace Menge
