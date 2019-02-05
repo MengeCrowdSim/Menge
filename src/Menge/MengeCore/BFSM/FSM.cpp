@@ -137,6 +137,17 @@ namespace Menge {
 			}
 		}
 
+    bool FSM::forceStateTransition(Agents::BaseAgent* agent, State* target_state, 
+                                   bool force_reentry) {
+      State* curr_state = _currNode[agent->_id];
+      if (force_reentry || curr_state != target_state) {
+        curr_state->leave(agent);
+        target_state->enter(agent);
+        _currNode[agent->_id] = target_state;
+      }
+      return curr_state != target_state;
+    }
+
 		/////////////////////////////////////////////////////////////////////
 		 
 		void FSM::computePrefVelocity( Agents::BaseAgent * agent ) {

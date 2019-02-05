@@ -152,6 +152,20 @@ namespace Menge {
 			 */
 			void advance( Agents::BaseAgent * agent );
 
+      /** @brief  Forcibly moves the given agent to the indicated state.
+
+       Causes the `agent` to leave its current state and enter the given `target_state`. Whether or
+       not this happens if the agent is already in the `target_state` depends on the `force`
+       parameter.
+
+       @param  agent          The agent whose state _may_ change.
+       @param  target_state   The target state to move the agent to.
+       @param  force          If true, the agent will leave/enter states even if it's already in the
+                              target state. If false, agents already in the target state are
+                              untouched.
+       @returns  true if the agent's previous state was different from its final state.  */
+      bool forceStateTransition(Agents::BaseAgent* agent, State* target_state, bool force_reentry);
+
 			/*!
 			 *	@brief		Computes the preferred velocity for the given agent
 			 *				based on the FSM's record of which state the agent is in.
