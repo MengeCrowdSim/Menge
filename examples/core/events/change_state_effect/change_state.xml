@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<Project 
+  scene="change_stateS.xml" 
+  behavior="change_stateB.xml" 
+  view="change_stateV.xml" 
+  model="orca"
+  dumpPath="images/change_state"
+  timeStep=".1"
+  outSamples="3"
+  random="5"
+/>

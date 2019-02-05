@@ -40,6 +40,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 #include "MengeCore/Agents/Events/AgentPropertyEffect.h"
 #include "MengeCore/Agents/Events/EventEffectAgentState.h"
+#include "MengeCore/Agents/Events/change_state_effect.h"
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
@@ -65,6 +66,7 @@ namespace Menge {
 		addFactory( new OffsetAgentPropertyEffectFactory() );
 		addFactory( new ScaleAgentPropertyEffectFactory() );
 		addFactory(new EventEffectAgentStateFactory());
+    addFactory(new ChangeStateEffectFactory());
 	}
 
 }	// namespace Menge

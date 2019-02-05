@@ -39,6 +39,7 @@ menge.exe -p ../examples/core/events/state_population_event/do_decrease.xml
 menge.exe -p ../examples/core/events/state_population_event/do_increase.xml
 menge.exe -p ../examples/core/events/state_population_event/drop_to.xml
 menge.exe -p ../examples/core/events/state_population_event/rise_to.xml
+menge.exe -p ../examples/core/events/change_state_effect/change_state.xml
 
 menge.exe -p ../examples/plugin/propertyX.xml
 menge.exe -p ../examples/plugin/terrain.xml
