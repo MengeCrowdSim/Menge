@@ -37,7 +37,10 @@ set -x
 ./menge -p ../examples/core/soccer.xml
 ./menge -p ../examples/core/stadium.xml
 ./menge -p ../examples/core/swap.xml
-./menge -p ../examples/core/event.xml
+./menge -p ../examples/core/events/state_population_event/do_decrease.xml
+./menge -p ../examples/core/events/state_population_event/do_increase.xml
+./menge -p ../examples/core/events/state_population_event/drop_to.xml
+./menge -p ../examples/core/events/state_population_event/rise_to.xml
 
 ./menge -p ../examples/plugin/propertyX.xml
 ./menge -p ../examples/plugin/terrain.xml
