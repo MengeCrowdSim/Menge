@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<Project 
+  scene="do_increaseS.xml" 
+  behavior="do_increaseB.xml" 
+  view="do_increaseV.xml" 
+  model="orca"
+  dumpPath="images/do_increase"
+/>
