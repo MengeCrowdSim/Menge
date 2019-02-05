@@ -88,30 +88,4 @@ namespace Menge {
 		return true;
 	}
 
-	/////////////////////////////////////////////////////////////////////
-	//					Implementation of StatePopIncreaseTrigger
-	/////////////////////////////////////////////////////////////////////
-
-	// _lastPop is initialized to a ridiculously high number in order to keep
-	//	the event from triggering upon initialization.  The first call to
-	//	testCondition will bring it back down.
-	StatePopIncreaseTrigger::StatePopIncreaseTrigger() : StateEvtTrigger(), _lastPop(100000000) {
-	}
-
-	/////////////////////////////////////////////////////////////////////
-
-	void StatePopIncreaseTrigger::finalize() {
-		StateEvtTrigger::finalize();
-		_lastPop = _state->getPopulation();
-	}
-
-	/////////////////////////////////////////////////////////////////////
-
-	bool StatePopIncreaseTrigger::testCondition() {
-		size_t currPop = _state->getPopulation();
-		bool increased = currPop > _lastPop;
-		_lastPop = currPop;
-		return increased;
-	}
-
 }	// namespace Menge 

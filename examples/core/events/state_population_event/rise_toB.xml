@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<BFSM>
+  <EventSystem conservative="1">
+    <Target name="left_waiting_agents" type="named_state_member" is_member="1" state="MoveLeft" />
+    <Effect name="left_waiting_start" type="set_agent_property"  property="pref_speed" dist="c"
+            value="1.3"/>
+    <Event name="left_done_waiting">
+      <Trigger name="down_done" type="state_population" threshold="10" behavior="rise_to"
+               state="GoalReachedDown" />
+      <Response effect="left_waiting_start" target="left_waiting_agents" />
+    </Event>
+  </EventSystem>
+
+  <GoalSet id="0">
+    <Goal id="0" type="AABB" min_x="-2" max_x="2" min_y="-10" max_y="-5" weight="1.0" />
+    <Goal id="1" type="AABB" min_x="-10" min_y="-2" max_x="-5" max_y="2" />
+  </GoalSet>
+
+  <State name="MoveDown" speedPolicy="min" final="0" >
+    <GoalSelector type="explicit" goal_set="0" goal="0" />
+    <VelComponent type="goal" weight="1.0" />
+  </State>
+  <State name="GoalReachedDown" speedPolicy="min" final="1" >
+    <GoalSelector type="identity" />
+    <VelComponent type="zero" />
+  </State>
+
+  <Transition order="1" from="MoveDown" to="GoalReachedDown">
+    <Condition type="goal_reached" distance="0.25" />
+  </Transition>
+
+  <State name="MoveLeft" speedPolicy="min" final="0" >
+    <GoalSelector type="explicit" goal_set="0" goal="1" />
+    <VelComponent type="goal" weight="1.0" />
+  </State>
+  <State name="GoalReachedLeft" speedPolicy="min" final="1" >
+    <GoalSelector type="identity" />
+    <VelComponent type="zero" />
+  </State>
+
+  <Transition order="1" from="MoveLeft" to="GoalReachedLeft">
+    <Condition type="goal_reached" distance="0.25" />
+  </Transition>
+</BFSM>

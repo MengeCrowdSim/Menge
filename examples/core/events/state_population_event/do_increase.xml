@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<Project 
+  scene="left_to_rightS.xml" 
+  behavior="do_increaseB.xml" 
+  view="left_to_rightV.xml" 
+  model="orca"
+  dumpPath="images/do_increase"
+/>

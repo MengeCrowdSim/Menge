@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<Project 
+  scene="crossingS.xml" 
+  behavior="rise_toB.xml" 
+  view="crossingV.xml" 
+  model="orca"
+  dumpPath="images/rise_to"
+  timeStep=".1"
+  outSamples="3"
+  random="5"
+/>

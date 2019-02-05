@@ -35,7 +35,10 @@ menge.exe -p ../examples/core/sharedGoal.xml
 menge.exe -p ../examples/core/soccer.xml
 menge.exe -p ../examples/core/stadium.xml
 menge.exe -p ../examples/core/swap.xml
-menge.exe -p ../examples/core/event.xml
+menge.exe -p ../examples/core/events/state_population_event/do_decrease.xml
+menge.exe -p ../examples/core/events/state_population_event/do_increase.xml
+menge.exe -p ../examples/core/events/state_population_event/drop_to.xml
+menge.exe -p ../examples/core/events/state_population_event/rise_to.xml
 
 menge.exe -p ../examples/plugin/propertyX.xml
 menge.exe -p ../examples/plugin/terrain.xml
