@@ -19,3 +19,4 @@ doc/output
 doc/tags
 examples/**/*.png
 src/thirdParty/googletest
+.vs/

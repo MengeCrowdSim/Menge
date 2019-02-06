@@ -1,0 +1,354 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Runtime">
+      <UniqueIdentifier>{023631c4-a47b-49d5-869b-80f5d5b644ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Runtime">
+      <UniqueIdentifier>{667d8f62-4df9-4989-bfa2-3e8cc4b4475c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Viewer">
+      <UniqueIdentifier>{df475e94-d1d8-4765-8fe1-33cced9685cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Viewer">
+      <UniqueIdentifier>{8122e3a6-4d66-40e7-bc5b-17bd8e97b981}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\SceneGraph">
+      <UniqueIdentifier>{2a0f46cd-c5a2-4cab-8c2a-7e0823612db3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\SceneGraph">
+      <UniqueIdentifier>{b151c591-4481-4bf8-8c8d-eafb9753ec6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Runtime\AgentContext">
+      <UniqueIdentifier>{497cbaa1-c8db-4b65-bcfc-2d5724390f67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Runtime\AgentContext">
+      <UniqueIdentifier>{3265aaaa-8a45-4194-a42d-475762fa609f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Runtime\VCContext">
+      <UniqueIdentifier>{161221bc-5c79-4dbf-8e4e-f180800096c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Runtime\VCContext">
+      <UniqueIdentifier>{02d61c87-5d5d-43eb-9cb8-6dc25f1ef082}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Runtime\GoalRenderer">
+      <UniqueIdentifier>{115974ab-5415-402e-8455-2e969968e48f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Runtime\GoalRenderer">
+      <UniqueIdentifier>{8af8a263-41e9-4b0c-a89c-7631e980146a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\PluginEngine">
+      <UniqueIdentifier>{bfb6bdc2-24d1-416f-b686-874202f79ab1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\PluginEngine">
+      <UniqueIdentifier>{504f186f-9f07-46a5-8708-f76df94ef013}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Runtime\VisAgent">
+      <UniqueIdentifier>{0efa082a-5403-4f54-91ef-ea436b179615}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Runtime\VisAgent">
+      <UniqueIdentifier>{df8c67bb-795b-419f-a469-44ba05e02ef2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\SimSystem.cpp">
+      <Filter>Source Files\Runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\VisObstacle.cpp">
+      <Filter>Source Files\Runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeVis\SceneGraph\Context.cpp">
+      <Filter>Source Files\SceneGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeVis\SceneGraph\ContextSwitcher.cpp">
+      <Filter>Source Files\SceneGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeVis\SceneGraph\GLCamera.cpp">
+      <Filter>Source Files\SceneGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeVis\SceneGraph\GLContextManager.cpp">
+      <Filter>Source Files\SceneGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeVis\SceneGraph\GLGroundPlane.cpp">
+      <Filter>Source Files\SceneGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeVis\SceneGraph\GLLight.cpp">
+      <Filter>Source Files\SceneGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeVis\SceneGraph\GLNode.cpp">
+      <Filter>Source Files\SceneGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeVis\SceneGraph\GLScene.cpp">
+      <Filter>Source Files\SceneGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeVis\SceneGraph\image.cpp">
+      <Filter>Source Files\SceneGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeVis\SceneGraph\Select.cpp">
+      <Filter>Source Files\SceneGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeVis\SceneGraph\shapes.cpp">
+      <Filter>Source Files\SceneGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeVis\SceneGraph\TextWriter.cpp">
+      <Filter>Source Files\SceneGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeVis\SceneGraph\Transform.cpp">
+      <Filter>Source Files\SceneGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeVis\SceneGraph\XformMatrix.cpp">
+      <Filter>Source Files\SceneGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeVis\Viewer\GLViewer.cpp">
+      <Filter>Source Files\Viewer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeVis\Viewer\NullViewer.cpp">
+      <Filter>Source Files\Viewer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeVis\Viewer\Profiler.cpp">
+      <Filter>Source Files\Viewer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeVis\Viewer\ScreenGrab.cpp">
+      <Filter>Source Files\Viewer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeVis\Viewer\ViewConfig.cpp">
+      <Filter>Source Files\Viewer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeVis\Viewer\Watermark.cpp">
+      <Filter>Source Files\Viewer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\StateContext.cpp">
+      <Filter>Source Files\Runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\AgentContextDatabase.cpp">
+      <Filter>Source Files\Runtime\AgentContext</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\AgentContext\BaseAgentContext.cpp">
+      <Filter>Source Files\Runtime\AgentContext</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\MengeContext.cpp">
+      <Filter>Source Files\Runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\VCContext\VelCompContext.cpp">
+      <Filter>Source Files\Runtime\VCContext</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\VCContext\VelCompContextDatabase.cpp">
+      <Filter>Source Files\Runtime\VCContext</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\VCContext\VCConstContext.cpp">
+      <Filter>Source Files\Runtime\VCContext</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\VCContext\VCGoalContext.cpp">
+      <Filter>Source Files\Runtime\VCContext</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\VCContext\NavMeshVCContext.cpp">
+      <Filter>Source Files\Runtime\VCContext</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\VCContext\RoadMapVCContext.cpp">
+      <Filter>Source Files\Runtime\VCContext</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\GoalRenderer\GoalRendererDatabase.cpp">
+      <Filter>Source Files\Runtime\GoalRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\GoalRenderer\GoalRenderer.cpp">
+      <Filter>Source Files\Runtime\GoalRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\GoalRenderer\AABBGoalRenderer.cpp">
+      <Filter>Source Files\Runtime\GoalRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\GoalRenderer\OBBGoalRenderer.cpp">
+      <Filter>Source Files\Runtime\GoalRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\GoalRenderer\CircleGoalRenderer.cpp">
+      <Filter>Source Files\Runtime\GoalRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\VCContext\VecFieldVCContext.cpp">
+      <Filter>Source Files\Runtime\VCContext</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\GoalRenderer\PointGoalRenderer.cpp">
+      <Filter>Source Files\Runtime\GoalRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeVis\PluginEngine\VisPluginEngine.cpp">
+      <Filter>Source Files\PluginEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\VisAgent\VisAgentDatabase.cpp">
+      <Filter>Source Files\Runtime\VisAgent</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\VisAgent\VisAgent.cpp">
+      <Filter>Source Files\Runtime\VisAgent</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\EventInjectContext.cpp">
+      <Filter>Source Files\Runtime</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\SimSystem.h">
+      <Filter>Header Files\Runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VisObstacle.h">
+      <Filter>Header Files\Runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\SceneGraph\Context.h">
+      <Filter>Header Files\SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\SceneGraph\ContextSwitcher.h">
+      <Filter>Header Files\SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\SceneGraph\GLCamera.h">
+      <Filter>Header Files\SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\SceneGraph\GLContextManager.h">
+      <Filter>Header Files\SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\SceneGraph\GLGroundPlane.h">
+      <Filter>Header Files\SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\SceneGraph\GLLight.h">
+      <Filter>Header Files\SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\SceneGraph\GLNode.h">
+      <Filter>Header Files\SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\SceneGraph\GLScene.h">
+      <Filter>Header Files\SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\SceneGraph\graphCommon.h">
+      <Filter>Header Files\SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\SceneGraph\image.h">
+      <Filter>Header Files\SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\SceneGraph\ManagedData.h">
+      <Filter>Header Files\SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\SceneGraph\Select.h">
+      <Filter>Header Files\SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\SceneGraph\shapes.h">
+      <Filter>Header Files\SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\SceneGraph\System.h">
+      <Filter>Header Files\SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\SceneGraph\TextWriter.h">
+      <Filter>Header Files\SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\SceneGraph\Transform.h">
+      <Filter>Header Files\SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\SceneGraph\XformMatrix.h">
+      <Filter>Header Files\SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\Viewer\GLViewer.h">
+      <Filter>Header Files\Viewer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\Viewer\NullViewer.h">
+      <Filter>Header Files\Viewer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\Viewer\Profiler.h">
+      <Filter>Header Files\Viewer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\Viewer\ScreenGrab.h">
+      <Filter>Header Files\Viewer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\Viewer\ViewConfig.h">
+      <Filter>Header Files\Viewer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\Viewer\Watermark.h">
+      <Filter>Header Files\Viewer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\VisConfig.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\StateContext.h">
+      <Filter>Header Files\Runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\AgentContext\AgentContextDatabase.h">
+      <Filter>Header Files\Runtime\AgentContext</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\AgentContext\BaseAgentContext.h">
+      <Filter>Header Files\Runtime\AgentContext</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\AgentContext\ORCAAgentContext.h">
+      <Filter>Header Files\Runtime\AgentContext</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\AgentContext\ORCATypeAgentContext.h">
+      <Filter>Header Files\Runtime\AgentContext</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\AgentContext\PedVOAgentContext.h">
+      <Filter>Header Files\Runtime\AgentContext</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\MengeContext.h">
+      <Filter>Header Files\Runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VisElementDatabase.h">
+      <Filter>Header Files\Runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VisElementException.h">
+      <Filter>Header Files\Runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VCContext\VelCompContext.h">
+      <Filter>Header Files\Runtime\VCContext</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VCContext\VelCompContextDatabase.h">
+      <Filter>Header Files\Runtime\VCContext</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VCContext\VCConstContext.h">
+      <Filter>Header Files\Runtime\VCContext</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VCContext\VCGoalContext.h">
+      <Filter>Header Files\Runtime\VCContext</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VCContext\NavMeshVCContext.h">
+      <Filter>Header Files\Runtime\VCContext</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VCContext\RoadMapVCContext.h">
+      <Filter>Header Files\Runtime\VCContext</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VCContext\VecFieldVCContext.h">
+      <Filter>Header Files\Runtime\VCContext</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\GoalRenderer\GoalRendererDatabase.h">
+      <Filter>Header Files\Runtime\GoalRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\GoalRenderer\GoalRenderer.h">
+      <Filter>Header Files\Runtime\GoalRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\GoalRenderer\AABBGoalRenderer.h">
+      <Filter>Header Files\Runtime\GoalRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\GoalRenderer\PointGoalRenderer.h">
+      <Filter>Header Files\Runtime\GoalRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\GoalRenderer\OBBGoalRenderer.h">
+      <Filter>Header Files\Runtime\GoalRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\GoalRenderer\CircleGoalRenderer.h">
+      <Filter>Header Files\Runtime\GoalRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\PluginEngine\VisPluginEngine.h">
+      <Filter>Header Files\PluginEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VisAgent\VisAgentDatabase.h">
+      <Filter>Header Files\Runtime\VisAgent</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VisAgent\VisAgent.h">
+      <Filter>Header Files\Runtime\VisAgent</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\EventInjectContext.h">
+      <Filter>Header Files\Runtime</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
