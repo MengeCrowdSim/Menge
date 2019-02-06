@@ -51,7 +51,7 @@ extern "C" {
 	 *
 	 *	@returns	The name of the plug in.
 	 */
-	MYMODEL_API const char * getName() {
+	MENGE_API const char * getName() {
 		// http://gamma.cs.unc.edu/DenseCrowds/narain-siga09.pdf
 		return "My Pedestrian Model, based on  Aggregate Dynamics for Dense Crowd Simulation";
 	}
@@ -61,7 +61,7 @@ extern "C" {
 	 *
 	 *	@returns	A description of the plugin.
 	 */
-	MYMODEL_API const char * getDescription() {
+	MENGE_API const char * getDescription() {
 		return	"A simple example of a pedestrian model.  This model computes a "
 			    "new velocity following this paper: http://gamma.cs.unc.edu/DenseCrowds/narain-siga09.pdf";
 	}
@@ -71,7 +71,7 @@ extern "C" {
 	 *
 	 *	@param		engine		A pointer to the plugin engine.
 	 */
-	MYMODEL_API void registerCorePlugin( Menge::PluginEngine::CorePluginEngine * engine ) {
+MENGE_API void registerCorePlugin( Menge::PluginEngine::CorePluginEngine * engine ) {
 		engine->registerModelDBEntry( new MyModel::MyModelDBEntry() );
 	}
 }
