@@ -248,6 +248,7 @@ xcopy /y $(TargetPath) $(ExeDir)
     <ClCompile Include="$(SrcDir)\mengeCore\Agents\Events\StateEvtTrigger.cpp" />
     <ClCompile Include="$(SrcDir)\mengeCore\Agents\Events\StateMemberTarget.cpp" />
     <ClCompile Include="$(SrcDir)\mengeCore\Agents\Events\state_population_trigger.cpp" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\Events\change_state_effect.cpp" />
     <ClCompile Include="$(SrcDir)\mengeCore\Agents\ObstacleSets\ExplicitObstacleSet.cpp" />
     <ClCompile Include="$(SrcDir)\mengeCore\Agents\ObstacleSets\ListObstacleSet.cpp" />
     <ClCompile Include="$(SrcDir)\mengeCore\Agents\ObstacleSets\NavMeshObstacleSet.cpp" />
@@ -430,6 +431,7 @@ xcopy /y $(TargetPath) $(ExeDir)
     <ClInclude Include="$(SrcDir)\mengeCore\Agents\Events\StateEvtTrigger.h" />
     <ClInclude Include="$(SrcDir)\mengeCore\Agents\Events\StateMemberTarget.h" />
     <ClCompile Include="$(SrcDir)\mengeCore\Agents\Events\state_population_trigger.h" />
+    <ClCompile Include="$(SrcDir)\mengeCore\Agents\Events\change_state_effect.h" />
     <ClInclude Include="$(SrcDir)\mengeCore\Agents\ObstacleSets\ExplicitObstacleSet.h" />
     <ClInclude Include="$(SrcDir)\mengeCore\Agents\ObstacleSets\ListObstacleSet.h" />
     <ClInclude Include="$(SrcDir)\mengeCore\Agents\ObstacleSets\NavMeshObstacleSet.h" />
