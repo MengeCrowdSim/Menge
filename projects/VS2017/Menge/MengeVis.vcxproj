@@ -1,0 +1,302 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\SimSystem.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\VisObstacle.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\SceneGraph\Context.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\SceneGraph\ContextSwitcher.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\SceneGraph\GLCamera.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\SceneGraph\GLContextManager.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\SceneGraph\GLGroundPlane.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\SceneGraph\GLLight.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\SceneGraph\GLNode.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\SceneGraph\GLScene.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\SceneGraph\image.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\SceneGraph\Select.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\SceneGraph\shapes.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\SceneGraph\TextWriter.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\SceneGraph\Transform.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\SceneGraph\XformMatrix.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\Viewer\GLViewer.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\Viewer\NullViewer.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\Viewer\Profiler.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\Viewer\ScreenGrab.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\Viewer\ViewConfig.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\Viewer\Watermark.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\StateContext.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\VCContext\VelCompContext.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\AgentContextDatabase.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\AgentContext\BaseAgentContext.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\MengeContext.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\VCContext\VelCompContextDatabase.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\VCContext\NavMeshVCContext.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\VCContext\VCConstContext.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\VCContext\VCGoalContext.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\VCContext\RoadMapVCContext.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\VCContext\VecFieldVCContext.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\GoalRenderer\AABBGoalRenderer.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\GoalRenderer\CircleGoalRenderer.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\GoalRenderer\GoalRenderer.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\GoalRenderer\GoalRendererDatabase.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\GoalRenderer\OBBGoalRenderer.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\GoalRenderer\PointGoalRenderer.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\PluginEngine\VisPluginEngine.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\VisAgent\VisAgent.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\VisAgent\VisAgentDatabase.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\EventInjectContext.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\SimSystem.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VisObstacle.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\SceneGraph\Context.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\SceneGraph\ContextSwitcher.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\SceneGraph\GLCamera.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\SceneGraph\GLContextManager.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\SceneGraph\GLGroundPlane.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\SceneGraph\GLLight.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\SceneGraph\GLNode.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\SceneGraph\GLScene.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\SceneGraph\graphCommon.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\SceneGraph\image.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\SceneGraph\ManagedData.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\SceneGraph\Select.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\SceneGraph\shapes.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\SceneGraph\System.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\SceneGraph\TextWriter.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\SceneGraph\Transform.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\SceneGraph\XformMatrix.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\Viewer\GLViewer.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\Viewer\NullViewer.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\Viewer\Profiler.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\Viewer\ScreenGrab.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\Viewer\ViewConfig.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\Viewer\Watermark.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\StateContext.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VCContext\VelCompContext.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\VisConfig.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\AgentContext\AgentContextDatabase.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\AgentContext\BaseAgentContext.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\AgentContext\ORCAAgentContext.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\AgentContext\ORCATypeAgentContext.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\AgentContext\PedVOAgentContext.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\MengeContext.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VisElementDatabase.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VisElementException.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VCContext\VelCompContextDatabase.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VCContext\NavMeshVCContext.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VCContext\VCConstContext.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VCContext\VCGoalContext.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VCContext\RoadMapVCContext.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VCContext\VecFieldVCContext.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\GoalRenderer\AABBGoalRenderer.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\GoalRenderer\CircleGoalRenderer.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\GoalRenderer\GoalRenderer.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\GoalRenderer\GoalRendererDatabase.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\GoalRenderer\OBBGoalRenderer.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\GoalRenderer\PointGoalRenderer.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\PluginEngine\VisPluginEngine.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VisAgent\VisAgent.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VisAgent\VisAgentDatabase.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\EventInjectContext.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{57FA5E04-F7D0-47B7-900D-CA2BA94E9D52}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>MengeVis</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(SolutionDir)..\userMacros.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(SolutionDir)..\userMacros.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(SolutionDir)..\userMacros.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(SolutionDir)..\userMacros.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(BuildRoot)\lib\</OutDir>
+    <IntDir>$(BuildRoot)\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+    <TargetName>$(ProjectName)_d</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <TargetName>$(ProjectName)_d</TargetName>
+    <IntDir>$(BuildRoot)\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <OutDir>$(BuildRoot)\lib\x64\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(BuildRoot)\lib\</OutDir>
+    <IntDir>$(BuildRoot)\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <IntDir>$(BuildRoot)\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <OutDir>$(BuildRoot)\lib\x64\</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;MENGEVIS_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SrcDir)\;$(SrcDir)\..\;$(SrcDir)\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>MengeCore_d.lib;tinyxml_d.lib;OpenGL32.lib;Glu32.lib;SDL2_ttf.lib;SDL2_image.lib;SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)MengeVis_d.dll</OutputFile>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\resources\win\lib\x86;$(BuildRoot)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <PostBuildEvent>
+      <Message>Copy DLL to executable folder</Message>
+      <Command>if not exist $(ExeDir)  md $(ExeDir)
+xcopy /y $(TargetPath) $(ExeDir)
+	  </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;MENGEVIS_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SrcDir)\;$(SrcDir)\..\;$(SrcDir)\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>MengeCore_d.lib;tinyxml_d.lib;OpenGL32.lib;Glu32.lib;SDL2_ttf.lib;SDL2_image.lib;SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)MengeVis_d.dll</OutputFile>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\resources\win\lib\x64;$(BuildRoot)\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+    <PostBuildEvent>
+      <Message>Copy DLL to executable folder</Message>
+      <Command>if not exist $(ExeDir)  md $(ExeDir)
+xcopy /y $(TargetPath) $(ExeDir)
+	  </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SrcDir)\;$(SrcDir)\..\;$(SrcDir)\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;MENGEVIS_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <OpenMPSupport>true</OpenMPSupport>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ShowIncludes>false</ShowIncludes>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>MengeCore.lib;tinyxml.lib;OpenGL32.lib;Glu32.lib;SDL2_ttf.lib;SDL2_image.lib;SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)MengeVis.dll</OutputFile>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\resources\win\lib\x86;$(BuildRoot)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <PostBuildEvent>
+      <Message>Copy DLL to executable folder</Message>
+      <Command>if not exist $(ExeDir)  md $(ExeDir)
+xcopy /y $(TargetPath) $(ExeDir)
+</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SrcDir)\;$(SrcDir)\..\;$(SrcDir)\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;MENGEVIS_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <OpenMPSupport>true</OpenMPSupport>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ShowIncludes>false</ShowIncludes>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>MengeCore.lib;tinyxml.lib;OpenGL32.lib;Glu32.lib;SDL2_ttf.lib;SDL2_image.lib;SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)MengeVis.dll</OutputFile>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\resources\win\lib\x64;$(BuildRoot)\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+    </Link>
+    <PostBuildEvent>
+      <Message>Copy DLL to executable folder</Message>
+      <Command>if not exist $(ExeDir)  md $(ExeDir)
+xcopy /y $(TargetPath) $(ExeDir)
+</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
