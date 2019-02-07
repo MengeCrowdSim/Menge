@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="config_files">
+      <UniqueIdentifier>{d7f3dd32-4eed-46ec-9ff0-83bbbce3a400}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="details">
+      <UniqueIdentifier>{aa646181-0553-4e20-b868-a790e2ac505f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="details\MengeCore">
+      <UniqueIdentifier>{5c899a60-3bdb-4759-bb3b-c36f0fbdce34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="details\MengeCore\Elements">
+      <UniqueIdentifier>{d7c7000b-e2ff-4fa4-9ee2-85e09fc04183}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="details\Plugins">
+      <UniqueIdentifier>{7fed4ddb-46d1-45cb-bac5-27ba8bafca46}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(SolutionDir)..\..\..\doc\Menge.cfg">
+      <Filter>config_files</Filter>
+    </None>
+    <None Include="$(SolutionDir)..\..\..\doc\MengeCore.cfg">
+      <Filter>config_files</Filter>
+    </None>
+    <None Include="$(SolutionDir)..\..\..\doc\MengeFull.cfg">
+      <Filter>config_files</Filter>
+    </None>
+    <None Include="$(SolutionDir)..\..\..\doc\MengeVis.cfg">
+      <Filter>config_files</Filter>
+    </None>
+    <None Include="$(SolutionDir)..\..\..\doc\Plugins.cfg">
+      <Filter>config_files</Filter>
+    </None>
+    <None Include="$(SolutionDir)..\..\..\doc\mengeDetails\architecture.md">
+      <Filter>details\MengeCore</Filter>
+    </None>
+    <None Include="$(SolutionDir)..\..\..\doc\mengeDetails\behaveSpec.md">
+      <Filter>details\MengeCore</Filter>
+    </None>
+    <None Include="$(SolutionDir)..\..\..\doc\mengeDetails\commandLine.md">
+      <Filter>details\MengeCore</Filter>
+    </None>
+    <None Include="$(SolutionDir)..\..\..\doc\mengeDetails\distribution.md">
+      <Filter>details\MengeCore</Filter>
+    </None>
+    <None Include="$(SolutionDir)..\..\..\doc\mengeDetails\elements.md">
+      <Filter>details\MengeCore</Filter>
+    </None>
+    <None Include="$(SolutionDir)..\..\..\doc\mengeDetails\examples.md">
+      <Filter>details\MengeCore</Filter>
+    </None>
+    <None Include="$(SolutionDir)..\..\..\doc\mengeDetails\extendInstructions.md">
+      <Filter>details\MengeCore</Filter>
+    </None>
+    <None Include="$(SolutionDir)..\..\..\doc\mengeDetails\impl_pedModel.md">
+      <Filter>details\MengeCore</Filter>
+    </None>
+    <None Include="$(SolutionDir)..\..\..\doc\mengeDetails\mainpage.md">
+      <Filter>details\MengeCore</Filter>
+    </None>
+    <None Include="$(SolutionDir)..\..\..\doc\mengeDetails\outSpec.md">
+      <Filter>details\MengeCore</Filter>
+    </None>
+    <None Include="$(SolutionDir)..\..\..\doc\mengeDetails\projSpec.md">
+      <Filter>details\MengeCore</Filter>
+    </None>
+    <None Include="$(SolutionDir)..\..\..\doc\mengeDetails\sceneSpec.md">
+      <Filter>details\MengeCore</Filter>
+    </None>
+    <None Include="$(SolutionDir)..\..\..\doc\mengeDetails\viewSpec.md">
+      <Filter>details\MengeCore</Filter>
+    </None>
+    <None Include="$(SolutionDir)..\..\..\doc\mengeDetails\elements\actions.md">
+      <Filter>details\MengeCore\Elements</Filter>
+    </None>
+    <None Include="$(SolutionDir)..\..\..\doc\mengeDetails\elements\agentGen.md">
+      <Filter>details\MengeCore\Elements</Filter>
+    </None>
+    <None Include="$(SolutionDir)..\..\..\doc\mengeDetails\elements\elevation.md">
+      <Filter>details\MengeCore\Elements</Filter>
+    </None>
+    <None Include="$(SolutionDir)..\..\..\doc\mengeDetails\elements\events.md">
+      <Filter>details\MengeCore\Elements</Filter>
+    </None>
+    <None Include="$(SolutionDir)..\..\..\doc\mengeDetails\elements\goals.md">
+      <Filter>details\MengeCore\Elements</Filter>
+    </None>
+    <None Include="$(SolutionDir)..\..\..\doc\mengeDetails\elements\goalSelect.md">
+      <Filter>details\MengeCore\Elements</Filter>
+    </None>
+    <None Include="$(SolutionDir)..\..\..\doc\mengeDetails\elements\obstacleSet.md">
+      <Filter>details\MengeCore\Elements</Filter>
+    </None>
+    <None Include="$(SolutionDir)..\..\..\doc\mengeDetails\elements\profileSelect.md">
+      <Filter>details\MengeCore\Elements</Filter>
+    </None>
+    <None Include="$(SolutionDir)..\..\..\doc\mengeDetails\elements\spaceQuery.md">
+      <Filter>details\MengeCore\Elements</Filter>
+    </None>
+    <None Include="$(SolutionDir)..\..\..\doc\mengeDetails\elements\spaceQuery_.md">
+      <Filter>details\MengeCore\Elements</Filter>
+    </None>
+    <None Include="$(SolutionDir)..\..\..\doc\mengeDetails\elements\stateSelect.md">
+      <Filter>details\MengeCore\Elements</Filter>
+    </None>
+    <None Include="$(SolutionDir)..\..\..\doc\mengeDetails\elements\tasks.md">
+      <Filter>details\MengeCore\Elements</Filter>
+    </None>
+    <None Include="$(SolutionDir)..\..\..\doc\mengeDetails\elements\transition.md">
+      <Filter>details\MengeCore\Elements</Filter>
+    </None>
+    <None Include="$(SolutionDir)..\..\..\doc\mengeDetails\elements\velComp.md">
+      <Filter>details\MengeCore\Elements</Filter>
+    </None>
+    <None Include="$(SolutionDir)..\..\..\doc\mengeDetails\elements\velMod.md">
+      <Filter>details\MengeCore\Elements</Filter>
+    </None>
+    <None Include="$(SolutionDir)..\..\..\doc\pluginDetails\examples.md">
+      <Filter>details\Plugins</Filter>
+    </None>
+    <None Include="$(SolutionDir)..\..\..\doc\pluginDetails\mainpage.md">
+      <Filter>details\Plugins</Filter>
+    </None>
+  </ItemGroup>
+</Project>
