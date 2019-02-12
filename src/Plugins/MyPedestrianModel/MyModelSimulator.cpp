@@ -61,6 +61,7 @@ namespace MyModel {
 
 	bool Simulator::setExpParam( const std::string & paramName, const std::string & value )
 		throw( XMLParamException ) {
+		std::printf("Setting exp param my model");
 		try {
 			if ( paramName == "stddev" ) {
 				float stddev = toFloat( value );
@@ -81,22 +82,26 @@ namespace MyModel {
 	////////////////////////////////////////////////////////////////////
 
 	void Simulator::doStep() {
-//		assert( _spatialQuery != 0x0 && "Can't run without a spatial query instance defined" );
-//
-//				_spatialQuery->updateAgents();
-//				int AGT_COUNT = static_cast< int >( _agents.size() );
-//		#pragma omp parallel for
-//				for (int i = 0; i < AGT_COUNT; ++i) {
-//					computeNeighbors( &(_agents[i]) );
-//					_agents[i].computeNewVelocity();
-//				}
-//
-//		#pragma omp parallel for
-//				for (int i = 0; i < AGT_COUNT; ++i) {
-//					_agents[i].update( TIME_STEP );
-//				}
-//
-//				_globalTime += TIME_STEP;
+		assert( _spatialQuery != 0x0 && "Can't run without a spatial query instance defined" );
+
+				_spatialQuery->updateAgents();
+				int AGT_COUNT = static_cast< int >( _agents.size() );
+		#pragma omp parallel for
+				for (int i = 0; i < AGT_COUNT; ++i) {
+					computeNeighbors( &(_agents[i]) );
+
+                    if (i == 0) {
+                        _agents[i].computeNewVelocity();
+                        std::printf("First agent computation\n");
+                    }
+                }
+
+		#pragma omp parallel for
+				for (int i = 0; i < AGT_COUNT; ++i) {
+					_agents[i].update( TIME_STEP );
+				}
+
+				_globalTime += TIME_STEP;
 
 	}
 

@@ -3,20 +3,30 @@
 	<SpatialQuery type="kd-tree" test_visibility="false" />
 	
     <Common time_step="0.1" />
-    <!--<MyModel stddev="0.1" />-->
+    <MyModel stddev="0.05" />
 
 	<AgentProfile name="group1" >
 		<!--<MyModel/>-->
 	</AgentProfile>
 
-	Agents come from both sides
+	<!--1000 Agents come from both sides-->
+    <!--<AgentGroup>-->
+        <!--<ProfileSelector type="const" name="group1" />-->
+        <!--<StateSelector type="const" name="Walk" />-->
+		<!--<Generator type="rect_grid"-->
+					<!--anchor_x="-500" anchor_y="-10"-->
+					<!--offset_x="1" offset_y="0"-->
+					<!--count_x="1000" count_y="1"-->
+					<!--/>-->
+    <!--</AgentGroup>-->
+	<!--10 Agents come from both sides-->
     <AgentGroup>
         <ProfileSelector type="const" name="group1" />
         <StateSelector type="const" name="Walk" />
 		<Generator type="rect_grid"
-					anchor_x="-500" anchor_y="-10"
+					anchor_x="-5" anchor_y="-10"
 					offset_x="1" offset_y="0"
-					count_x="1000" count_y="1"
+					count_x="10" count_y="1"
 					/>
     </AgentGroup>
 

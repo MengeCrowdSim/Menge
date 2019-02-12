@@ -68,9 +68,9 @@ namespace MyModel {
 		//	belong to the simulator.
 		#pragma omp critical 
 		{
+            std::printf("Computing new velocity my model\n");
 			// compute random deviation
 			speedDelta = Simulator::_speedDeviation.getValue() / Simulator::TIME_STEP;
-//			speedDelta = Simulator::_speedDeviation.getValue();
 			angle = Simulator::_angleDeviation.getValue();
 		}
 		Vector2 deviation( cos( angle ) * speedDelta, sin( angle ) * speedDelta );

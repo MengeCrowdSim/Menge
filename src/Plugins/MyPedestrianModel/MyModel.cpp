@@ -72,6 +72,7 @@ extern "C" {
 	 *	@param		engine		A pointer to the plugin engine.
 	 */
 MENGE_API void registerCorePlugin( Menge::PluginEngine::CorePluginEngine * engine ) {
+
 		engine->registerModelDBEntry( new MyModel::MyModelDBEntry() );
 	}
 }
