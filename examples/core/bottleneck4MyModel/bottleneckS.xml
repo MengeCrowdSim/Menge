@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<Experiment version="2.0">
+	<SpatialQuery type="kd-tree" test_visibility="false" />
+	
+    <Common time_step="0.1" />
+    <!--<MyModel stddev="0.1" />-->
+
+	<AgentProfile name="group1" >
+		<!--<MyModel/>-->
+	</AgentProfile>
+
+	Agents come from both sides
+    <AgentGroup>
+        <ProfileSelector type="const" name="group1" />
+        <StateSelector type="const" name="Walk" />
+		<Generator type="rect_grid"
+					anchor_x="-500" anchor_y="-10"
+					offset_x="1" offset_y="0"
+					count_x="1000" count_y="1"
+					/>
+    </AgentGroup>
+
+	<!--Agents comming from right-->
+	<!--<AgentGroup>-->
+        <!--<ProfileSelector type="const" name="group1" />-->
+        <!--<StateSelector type="const" name="Walk" />-->
+		<!--<Generator type="rect_grid"-->
+					<!--anchor_x="0" anchor_y="-10"-->
+					<!--offset_x="1" offset_y="0"-->
+					<!--count_x="1000" count_y="1"-->
+					<!--/>-->
+    <!--</AgentGroup>-->
+	
+    <ObstacleSet type="explicit" class="1">
+		<Obstacle  closed="1" >
+			<Vertex p_x="-30" p_y="-5" />
+			<Vertex p_x="-1" p_y="-5" />
+			<Vertex p_x="-1" p_y="5" />
+			<Vertex p_x="-30" p_y="5" />
+		</Obstacle>
+		
+		<Obstacle  closed="1" >
+			<Vertex p_x="30" p_y="-5" />
+			<Vertex p_x="30" p_y="5" />
+			<Vertex p_x="1" p_y="5" />
+			<Vertex p_x="1" p_y="-5" />
+		</Obstacle>
+	</ObstacleSet>
+</Experiment>

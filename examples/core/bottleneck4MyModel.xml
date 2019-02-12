@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<Project 
+	scene="bottleneck4MyModel/bottleneckS.xml"
+	behavior="bottleneck4MyModel/bottleneckB.xml"
+	view="bottleneck4MyModel/bottleneckV.xml"
+	model="orca"
+	dumpPath="images/bottleneck"
+/>
