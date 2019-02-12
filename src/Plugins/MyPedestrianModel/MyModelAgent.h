@@ -28,7 +28,7 @@
 
 namespace MyModel {
 	/*!
-	 *	@brief		The "dummy" agent class.
+	 *	@brief		My model agent class.
 	 *
 	 *	The dummy agent does nothing clever or even correct.  Given
 	 *	the preferred velocity, its final velocity is simply a random

@@ -3,7 +3,7 @@
 License
 
 Menge
-Copyright © and trademark ™ 2012-14 University of North Carolina at Chapel Hill. 
+Copyright ï¿½ and trademark ï¿½ 2012-14 University of North Carolina at Chapel Hill. 
 All rights reserved.
 
 Permission to use, copy, modify, and distribute this software and its documentation 
@@ -622,6 +622,8 @@ namespace PedVO {
 
 	/* Search for the best new velocity. */
 	void Agent::computeNewVelocity() {
+
+	    printf("Computing new velocity PedVO Agent \n");
 		adaptPreferredVelocity();
 
 		Vector2 optVel;

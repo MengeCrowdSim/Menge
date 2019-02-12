@@ -77,6 +77,8 @@ namespace MyModel {
 		virtual bool setExpParam( const std::string & paramName, const std::string & value )
 			throw ( Menge::Agents::XMLParamException );
 
+		virtual void doStep();
+
 	protected:
 		friend class Agent;
 

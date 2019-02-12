@@ -12,7 +12,17 @@
 		<PedVO factor="1.57" buffer="0.9" tau="3" tauObst="0.1" turningBias="1.0" />
         <Helbing mass="80" />
         <ORCA tau="3.0" tauObst="0.15" />
+		<Dummy/>
         <GCF stand_depth="0.18" move_scale="0.53" slow_width="0.25" sway_change="0.05" />
+	</AgentProfile>
+
+	<AgentProfile name="group2" >
+		<!--<Common max_angle_vel="360" max_neighbors="10" obstacleSet="1" neighbor_dist="5" r="0.19"  pref_speed="1.04" max_speed="2" max_accel="5" priority="0.0"/>-->
+		<!--<PedVO factor="1.57" buffer="0.9" tau="3" tauObst="0.1" turningBias="1.0" />-->
+        <!--<Helbing mass="80" />-->
+        <!--<ORCA tau="3.0" tauObst="0.15" />-->
+		<Dummy/>
+        <!--<GCF stand_depth="0.18" move_scale="0.53" slow_width="0.25" sway_change="0.05" />-->
 	</AgentProfile>
 	
     <AgentGroup>
@@ -21,7 +31,7 @@
 		<Generator type="rect_grid"
 					anchor_x="-18" anchor_y="-6"
 					offset_x="1" offset_y="0"
-					count_x="5" count_y="1"
+					count_x="15" count_y="1"
 					/>
     </AgentGroup>
 	

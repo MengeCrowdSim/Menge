@@ -47,7 +47,7 @@ namespace MyModel {
 	//                     Implementation of MyModel::Agent
 	/////////////////////////////////////////////////////////////////////////////
 		
-	const std::string Agent::NAME = "MyModel";
+	const std::string Agent::NAME = "mymodel";
 
 	/////////////////////////////////////////////////////////////////////////////
 
@@ -70,6 +70,7 @@ namespace MyModel {
 		{
 			// compute random deviation
 			speedDelta = Simulator::_speedDeviation.getValue() / Simulator::TIME_STEP;
+//			speedDelta = Simulator::_speedDeviation.getValue();
 			angle = Simulator::_angleDeviation.getValue();
 		}
 		Vector2 deviation( cos( angle ) * speedDelta, sin( angle ) * speedDelta );

@@ -61,6 +61,7 @@ namespace MengeVis {
 		template<>
 		inline void ORCATypeAgentContext< PedVO::Agent >::drawOptVelocity( PedVO::Agent * agent )
 			const {
+		    std::printf("Calling: Compute new velocity\n");
 			// Draw the optimized velocity (transformed and untransformed
 			agent->computeNewVelocity();
 			glPushAttrib( GL_POINT_BIT );
