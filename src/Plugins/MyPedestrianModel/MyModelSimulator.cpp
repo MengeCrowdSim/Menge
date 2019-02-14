@@ -81,20 +81,27 @@ namespace MyModel {
 
 	////////////////////////////////////////////////////////////////////
 
+	void Simulator::initializeGrid(){
+	    std::printf("Initializing grid\n");
+		mainGrid = new SharedGrid(100,100);
+		mainGrid->setupGridCells();
+		densityField.m_grid = mainGrid;
+	}
+
 	void Simulator::doStep() {
         std::printf("Agent do step computation\n");
         assert( _spatialQuery != 0x0 && "Can't run without a spatial query instance defined" );
         _spatialQuery->updateAgents();
         int AGT_COUNT = static_cast< int >( _agents.size() );
 
+        std::printf("Updating density field\n");
+        densityField.update(_agents);
 		#pragma omp parallel for
         for (int i = 0; i < AGT_COUNT; ++i) {
-//					computeNeighbors( &(_agents[i]) );
 
-//                    if (i == 0) {
                     _agents[i].computeNewVelocity();
-//                    }
-                }
+
+		}
 
 		#pragma omp parallel for
 				for (int i = 0; i < AGT_COUNT; ++i) {
@@ -104,6 +111,8 @@ namespace MyModel {
 				_globalTime += TIME_STEP;
 
 	}
+
+
 
 
 }	//namespace MyModel

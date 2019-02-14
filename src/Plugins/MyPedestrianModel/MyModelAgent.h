@@ -24,6 +24,7 @@
 #ifndef __MYMODEL_AGENT_H__
 #define	__MYMODEL_AGENT_H__
 
+#include <glm/vec2.hpp>
 #include "MengeCore/Agents/BaseAgent.h"
 
 namespace MyModel {
@@ -36,6 +37,8 @@ namespace MyModel {
 	 */
 	class Agent : public Menge::Agents::BaseAgent {
 	public:
+        glm::vec2 position;
+
 		/*!
 		 *	@brief		Constructor
 		 */

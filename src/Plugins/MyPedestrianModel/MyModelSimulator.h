@@ -28,7 +28,10 @@
 #include "MengeCore/mengeCommon.h"
 #include "MengeCore/Agents/SimulatorBase.h"	
 #include "MengeCore/Math/RandGenerator.h"
-
+#include "DensityField.h"
+#include <iostream>
+#include <math.h>
+using namespace std;
 /*!
  *	@namespace		MyModel
  *	@brief			The name space for the MyModel pedestrian model.
@@ -47,7 +50,7 @@ namespace MyModel {
 		/*!
 		 *  @brief      Constructor.
 		 */
-		Simulator(): Menge::Agents::SimulatorBase< Agent >() {}
+		Simulator(): Menge::Agents::SimulatorBase< Agent >() {initializeGrid();}
 
 		/*!
 		 *	@brief			Reports if there are non-common Experiment parameters that
@@ -78,6 +81,11 @@ namespace MyModel {
 			throw ( Menge::Agents::XMLParamException );
 
 		virtual void doStep();
+
+		SharedGrid* mainGrid;
+		DensityField densityField;
+
+		void initializeGrid();
 
 	protected:
 		friend class Agent;

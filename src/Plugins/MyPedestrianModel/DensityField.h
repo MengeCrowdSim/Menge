@@ -7,54 +7,59 @@
 
 
 #include "Grid.h"
-#include "PopulationManager.h"
-#include "Person.h"
+#include "MyModelAgent.h"
 
+using namespace std;
 
-class DensityField {
-public:
+namespace MyModel {
 
-    float m_density_expo;
+    class DensityField {
+    public:
 
-    SharedGrid *m_grid;
-    PopulationManager *popManager;
+        float density_exponent;
 
-    float m_min_density, m_max_density;
+        SharedGrid *m_grid;
 
-    /*!
-    *	@brief		Constructor
-    */
-    DensityField();
+        float m_min_density, m_max_density;
 
-    /*!
-    *	@brief		Clears densities and velocities computed for each cell
-    *               in the previous doStep
-    */
-    void clearDensitiesAndAVGVelocities();
-    /*!
-    *	@brief		Assigns densities and velocities to every cell.
-    *               Every nearby agent provides a density to the closest four
-    *               cells, and a equivalent part of his velocity
-    */
-    void assignDensitiesAndVelocities();
-    /*!
-    *	@brief		Calculated in a cell the density provided by nearby
-    *   	        agents and added the velocities provided by each of these
-    *  	            agents. These velocities are divided into the total computed
-    *     	        density of the cell
-    */
-    void divideVelocities();
-    /*!
-    *	@brief		Updates the cells's velocity and density
-    */
-    void update();
-    /*!
-    *	@brief		Assigns min and max densities
-    */
+        /*!
+        *	@brief		Constructor
+        */
+        DensityField();
 
-    void assignMinMax(float min, float max);
+        /*!
+        *	@brief		Clears densities and velocities computed for each cell
+        *               in the previous doStep
+        */
+        void clearDensitiesAndAVGVelocities();
 
-};
+        /*!
+        *	@brief		Assigns densities and velocities to every cell.
+        *               Every nearby agent provides a density to the closest four
+        *               cells, and a equivalent part of his velocity
+        */
+        void assignDensitiesAndVelocities(vector<Agent> agents);
 
+        /*!
+        *	@brief		Calculated in a cell the density provided by nearby
+        *   	        agents and added the velocities provided by each of these
+        *  	            agents. These velocities are divided into the total computed
+        *     	        density of the cell
+        */
+        void divideVelocities();
 
+        /*!
+        *	@brief		Updates the cells's velocity and density
+        */
+        void update(vector<Agent> agents);
+
+        /*!
+        *	@brief		Assigns min and max densities
+        */
+
+        void assignMinMax(float min, float max);
+
+    };
+
+}
 #endif //FULL_MENGE_PED_SIM_DENSITYFIELD_H
