@@ -9,14 +9,16 @@
 		<!--<MyModel/>-->
 	</AgentProfile>
 
-	1000 Agents come from both sides
+	<!--1000 Agents come from both sides-->
     <AgentGroup>
         <ProfileSelector type="const" name="group1" />
         <StateSelector type="const" name="Walk" />
-		<Generator type="rect_grid"
-					anchor_x="-500" anchor_y="-10"
-					offset_x="1" offset_y="0"
-					count_x="1500" count_y="1"
+		<Generator type="hex_lattice"
+				   anchor_x="0" anchor_y="10"
+				   alignment="center" row_direction="x"
+				   density="1.8" width="40"
+				   population="500" rotation="0"
+				   displace_dist="n" displace_mean="0.3" displace_stddev="0.3"
 					/>
     </AgentGroup>
 

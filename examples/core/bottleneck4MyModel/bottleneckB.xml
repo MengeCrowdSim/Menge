@@ -2,14 +2,14 @@
 
 <BFSM>
 	<GoalSet id="0">
-		<Goal type="AABB" id="0" min_x="-20" min_y="6" max_x="-10" max_y="8" />
+		<Goal type="AABB" id="0" min_x="-20" min_y="-200" max_x="20" max_y="-10" />
 	</GoalSet>
 	
 	<State name="Walk" final="0" >
 		<GoalSelector type="explicit" goal_set="0" goal="0"  />
 		<VelComponent type="road_map" file_name="bottleneckMap.txt" />
 	</State>
-	<State name="Wait" final="1">
+	<State name="Wait" final="1">z
 		<GoalSelector type="identity" />
 		<VelComponent type="zero" />
 	</State>
