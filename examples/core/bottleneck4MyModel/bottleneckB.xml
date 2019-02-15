@@ -2,20 +2,23 @@
 
 <BFSM>
 	<GoalSet id="0">
-		<Goal type="AABB" id="0" min_x="-20" min_y="-200" max_x="20" max_y="-10" />
+		<Goal type="AABB" id="0" min_x="10" min_y="8" max_x="17" max_y="14" />
+		<Goal type="AABB" id="1" min_x="10" min_y="26" max_x="20" max_y="30" />
 	</GoalSet>
-	
-	<State name="Walk" final="0" >
-		<GoalSelector type="explicit" goal_set="0" goal="0"  />
-		<VelComponent type="road_map" file_name="bottleneckMap.txt" />
-	</State>
-	<State name="Wait" final="1">z
+
+	<State name="Walk" final="0">
+		<GoalSelector type="explicit" goal_set="0" goal="1"/>
+        <VelComponent type="goal"  />
+
+    </State>
+	<State name="Wait" final="2">
 		<GoalSelector type="identity" />
 		<VelComponent type="zero" />
 	</State>
 
+
 	<Transition from="Walk" to="Wait" >
-		<Condition type="goal_reached" distance="0.25" />
+		<Condition type="goal_reached" distance="0" />
 	</Transition>
 
 </BFSM>

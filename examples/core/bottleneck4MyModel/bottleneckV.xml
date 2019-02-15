@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 
-<View width="640" height="480" z_up="1" >
-    <Camera xpos="0" ypos="-10" zpos="10" xtgt="0" ytgt="-0" ztgt="0" far="50" near="0.01" fov="0" orthoScale="0.272147"/>
-    <Camera xpos="-50.4039" ypos="1.68529" zpos="42.0134" xtgt="-2.92525" ytgt="1.48571" ztgt="-3.08614" far="500" near="0.01" fov="45" orthoScale="1"/>
+<View width="800" height="600" z_up="1" >
+    <!--<Camera xpos="10" ypos="15" zpos="19.13" xtgt="15" ytgt="15" ztgt="10e-900" far="5000" near="100" fov="0" orthoScale="-10.11887"/>-->
+    <Camera xpos="-0.00195143" ypos="-0.00220079" zpos="19.13" xtgt="-0.00195143" ytgt="0.0077992" ztgt="4.07539e-006" far="500" near="0.01" fov="0" orthoScale="0.240759"/>
     <Light x="1" y="0" z="-1" type="directional" space="camera" diffR="1" diffG="0.8" diffB="0.8"/>
     <Light x="-1" y="0" z="-1" type="directional" space="camera" diffR="0.8" diffG="0.8" diffB="1"/>
     <Light x="0" y="0" z="1" type="directional" space="world" diffR="0.8" diffG="0.8" diffB="0.8"/>
-    <!--<Watermark file_name="../../mengeLogo.png" alignment="bottom_right" scale="0.5" opacity="0.25"/>-->
+    <Watermark file_name="../../mengeLogo.png" alignment="bottom_right" scale="0.5" opacity="0.25"/>
 </View>

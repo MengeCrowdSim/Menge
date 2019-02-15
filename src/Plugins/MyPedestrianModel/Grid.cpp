@@ -33,6 +33,7 @@ namespace MyModel {
             return false;
         if (y >= grid_height)
             return false;
+        cout << "Cell with the given position found: " << cell_pos.x << "," << cell_pos.y << "\n";
 
         return true;
     }

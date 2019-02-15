@@ -18,7 +18,7 @@ namespace MyModel {
 
         float density_exponent;
 
-        SharedGrid *m_grid;
+        SharedGrid *grid;
 
         float m_min_density, m_max_density;
 

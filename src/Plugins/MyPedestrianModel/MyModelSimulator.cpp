@@ -85,7 +85,7 @@ namespace MyModel {
 	    std::printf("Initializing grid\n");
 		mainGrid = new SharedGrid(100,100);
 		mainGrid->setupGridCells();
-		densityField.m_grid = mainGrid;
+		densityField.grid = mainGrid;
 	}
 
 	void Simulator::doStep() {
