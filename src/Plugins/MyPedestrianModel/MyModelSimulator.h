@@ -94,6 +94,8 @@ namespace MyModel {
 		int mapMinY;
 		int mapMaxY;
 
+        bool gridInitialized = false;
+
 		void initializeGrid();
 
 	protected:

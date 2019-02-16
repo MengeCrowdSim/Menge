@@ -27,17 +27,14 @@ namespace MyModel {
 
 
     bool Grid::checkExists(glm::vec2 cell_pos) {
-        int x = cell_pos.x;
-        int y = cell_pos.y;
+        float x = cell_pos.x;
+        float y = cell_pos.y;
 
-        if (x < minX) return false;
-        if (x > maxX) return false;
-        if (y < minY) return false;
-        if (y > minY) return false;
+        if (x <= minX) return false;
+        if (x >= maxX) return false;
+        if (y <= minY) return false;
+        return y < maxY;
 
-        cout << "Cell with the given position found: " << cell_pos.x << "," << cell_pos.y << "\n";
-
-        return true;
     }
 
     void Grid::getNeighbours(glm::vec2 cell, glm::vec2 *cells) {
@@ -91,15 +88,10 @@ namespace MyModel {
                 cell_matrix[i][j].grid_size = glm::vec2(numCellsX, numCellsY);
             }
         }
-
-
     }
 
     SharedCell &SharedGrid::findCellByPos(glm::vec2 pos) {
         SharedCell &cell = cell_matrix[pos.x - minX][pos.y - minY];
-        if (not cell.cell_position.x == pos.x && not cell.cell_position.y == pos.y) {
-            cout << "POSITION ERROR\n";
-        }
         return cell;
     }
 

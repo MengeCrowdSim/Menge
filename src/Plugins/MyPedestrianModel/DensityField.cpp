@@ -14,18 +14,20 @@ namespace MyModel {
     }
 
     void MyModel::DensityField::clearDensitiesAndAVGVelocities() {
-        int num_cellsX = grid->numCellsX;
-        int num_cellsY = grid->numCellsY;
+
         SharedCell *curr_cell;
         glm::vec2 curr_cell_pos;
-
-        for (int i = 0; i < num_cellsX; i++)
-            for (int j = 0; j < num_cellsY; j++) {
+        std::printf("Starting to clear densities and velocities\n");
+        for (int i = grid->minX; i < grid->maxX; i++) {
+            for (int j = grid->minY; j < grid->maxY; j++) {
                 curr_cell_pos = glm::vec2(i, j);
                 curr_cell = &grid->findCellByPos(curr_cell_pos);
                 curr_cell->m_density = 0;
                 curr_cell->m_avg_velocity = glm::vec2(0.0f);
             }
+        }
+        std::printf("Densities cleared\n");
+
     }
 
     void MyModel::DensityField::assignDensitiesAndVelocities(vector<Agent> agents) {
@@ -50,11 +52,6 @@ namespace MyModel {
             cellBpos = glm::vec2(ceil(person_pos.x), floor(person_pos.y));
             cellCpos = glm::vec2(ceil(person_pos.x), ceil(person_pos.y));
             cellDpos = glm::vec2(floor(person_pos.x), ceil(person_pos.y));
-
-            cout << "Cell A position: " << cellApos.x << "," << cellApos.y << "\n";
-            cout << "Cell B position: " << cellBpos.x << "," << cellBpos.y << "\n";
-            cout << "Cell C position: " << cellCpos.x << "," << cellCpos.y << "\n";
-            cout << "Cell D position: " << cellDpos.x << "," << cellDpos.y << "\n";
 
 
             deltaX = person_pos.x - cellApos.x;
@@ -103,19 +100,20 @@ namespace MyModel {
 
         float density;
 
-        for (int i = 0; i < num_cellsX; i++)
-            for (int j = 0; j < num_cellsY; j++) {
+        for (int i = grid->minX; i < grid->maxX; i++) {
+            for (int j = grid->minY; j < grid->maxY; j++) {
                 curr_cell_pos = glm::vec2(i, j);
                 curr_cell = &grid->findCellByPos(curr_cell_pos);
-
-
                 density = curr_cell->m_density;
                 if (density != 0.0f)
                     curr_cell->m_avg_velocity /= density;
+
             }
+        }
     }
 
     void MyModel::DensityField::update(vector<Agent> agents) {
+        std::printf("Updating density field\n");
         clearDensitiesAndAVGVelocities();
         assignDensitiesAndVelocities(agents);
         std::printf("Density Field updated\n");

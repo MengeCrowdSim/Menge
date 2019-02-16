@@ -99,6 +99,5 @@ namespace MyModel {
         */
         SharedCell &findCellByPos(glm::vec2 pos);
 
-
     };
 }

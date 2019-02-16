@@ -8,6 +8,7 @@ using namespace std;
 Cell :: Cell()
 {
     cell_position = glm::vec2(0.0f);
+    grid_size = glm::vec2(0.0f);
 }
 
 

@@ -98,23 +98,20 @@ namespace MyModel {
 	    std::printf("Initializing grid\n");
 		mainGrid = new SharedGrid(mapMinX, mapMinY, mapMaxX, mapMaxY);
 		densityField.grid = mainGrid;
+		gridInitialized = true;
 	}
 
 	void Simulator::doStep() {
-	    if (not mapMinY) initializeGrid();
-
+		if (not gridInitialized) initializeGrid();
         std::printf("Agent do step computation\n");
         assert( _spatialQuery != 0x0 && "Can't run without a spatial query instance defined" );
         _spatialQuery->updateAgents();
         int AGT_COUNT = static_cast< int >( _agents.size() );
 
-        std::printf("Updating density field\n");
         densityField.update(_agents);
 		#pragma omp parallel for
         for (int i = 0; i < AGT_COUNT; ++i) {
-
-                    _agents[i].computeNewVelocity();
-
+			_agents[i].computeNewVelocity();
 		}
 
 		#pragma omp parallel for

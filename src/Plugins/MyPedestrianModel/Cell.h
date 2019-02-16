@@ -13,7 +13,6 @@
 class Cell {
 public:
     glm::vec2 cell_position;
-
     glm::vec2 grid_size;
 
 
@@ -25,22 +24,12 @@ class SharedCell : public Cell
 {
 public:
 
-    float m_density;
-    glm::vec2 m_avg_velocity;
+    float m_density = 0;
+    glm::vec2 m_avg_velocity = glm::vec2(0, 0);
 
 
     SharedCell();
 };
 
-class GroupCell : public Cell
-{
-public:
-
-    glm::vec2 m_tot_velocity;
-
-
-    GroupCell();
-
-};
 
 #endif //FULL_MENGE_PED_SIM_CELL_H

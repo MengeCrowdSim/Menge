@@ -2,11 +2,11 @@
 <Experiment version="2.0">
 	<SpatialQuery type="kd-tree" test_visibility="false" />
     <Common time_step="0.1" />
-    <MyModel stddev="0.05" map_min_x="-20"  map_min_y="-20" map_max_x="20" map_max_y="20" />
+    <MyModel stddev="0.05" map_min_x="-25"  map_min_y="-25" map_max_x="25" map_max_y="25" />
 
 	<AgentProfile name="group1" >
 		<Common time_step="0.1" />
-		<MyModel stddev="0.05" map_min_x="-20"  map_min_y="-20" map_max_x="20" map_max_y="20"  />
+		<!--<MyModel stddev="0.05" map_min_x="-20"  map_min_y="-20" map_max_x="20" map_max_y="20"  />-->
 	</AgentProfile>
 
     <AgentGroup>
