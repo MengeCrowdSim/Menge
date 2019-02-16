@@ -15,7 +15,24 @@ namespace MyModel {
     class Grid {
     public:
 
-        int grid_width, grid_height;
+        /*!
+         *	@brief
+         *	Posible map positions
+         *	Example:
+         *
+         *	-2  -1   0   1
+         *	----------------
+         * |   |   |   |   | -1
+         *	----------------
+         * |   |   |   |   | 0
+         *	----------------
+         * |   |   |   |   | 1
+         *	----------------
+         * minX = -2, maxX = 1
+         * minY = -1, maxX = 1
+         */
+        int minX,  minY,  maxX,  maxY;
+        int numCellsX, numCellsY;
 
         /*!
          *	@brief		Constructor
@@ -25,9 +42,9 @@ namespace MyModel {
         /*!
          *	@brief		Constructor
          */
-        Grid(int width, int height);
+        Grid(int min_x, int min_y, int max_x, int max_y);
 
-        void setupGridCells(int width, int height);
+        void setupGridCells(int min_x, int min_y, int max_x, int max_y);
 
         virtual void setupGridCells() = 0;
 
@@ -68,7 +85,7 @@ namespace MyModel {
         /*!
          *	@brief		Constructor
          */
-        SharedGrid(int width, int height);
+        SharedGrid(int min_x, int min_y, int max_x, int max_y);
 
         /*!
         *	@brief		Builds the grid with the correct quantity
@@ -81,5 +98,7 @@ namespace MyModel {
         *	@brief		Given a cell coordinates returns the corresponding cell
         */
         SharedCell &findCellByPos(glm::vec2 pos);
+
+
     };
 }

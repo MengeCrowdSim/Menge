@@ -14,8 +14,8 @@ namespace MyModel {
     }
 
     void MyModel::DensityField::clearDensitiesAndAVGVelocities() {
-        int num_cellsX = grid->grid_width;
-        int num_cellsY = grid->grid_height;
+        int num_cellsX = grid->numCellsX;
+        int num_cellsY = grid->numCellsY;
         SharedCell *curr_cell;
         glm::vec2 curr_cell_pos;
 
@@ -96,8 +96,8 @@ namespace MyModel {
     }
 
     void MyModel::DensityField::divideVelocities() {
-        int num_cellsX = grid->grid_width;
-        int num_cellsY = grid->grid_height;
+        int num_cellsX = grid->numCellsX;
+        int num_cellsY = grid->numCellsY;
         SharedCell *curr_cell;
         glm::vec2 curr_cell_pos;
 

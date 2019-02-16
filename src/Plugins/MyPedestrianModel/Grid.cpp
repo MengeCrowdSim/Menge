@@ -12,27 +12,29 @@ using namespace std;
 
 namespace MyModel {
     Grid::Grid() {
-        grid_width = grid_height = 0;
+        minX = minY = maxX = maxY = 0;
     }
 
-    Grid::Grid(int width, int height) {
-        grid_width = width;
-        grid_height = height;
+
+    Grid::Grid(int min_x, int min_y, int max_x, int max_y){
+        minX = min_x;
+        minY = min_y;
+        maxX = max_x;
+        maxY = max_y;
+        numCellsX = abs(maxX - minX);
+        numCellsY = abs(maxY - minY);
     }
+
 
     bool Grid::checkExists(glm::vec2 cell_pos) {
         int x = cell_pos.x;
         int y = cell_pos.y;
 
-        if (x < 0)
-            return false;
-        if (x >= grid_width)
-            return false;
+        if (x < minX) return false;
+        if (x > maxX) return false;
+        if (y < minY) return false;
+        if (y > minY) return false;
 
-        if (y < 0)
-            return false;
-        if (y >= grid_height)
-            return false;
         cout << "Cell with the given position found: " << cell_pos.x << "," << cell_pos.y << "\n";
 
         return true;
@@ -73,21 +75,20 @@ namespace MyModel {
     }
 
     SharedGrid::SharedGrid() : Grid() {
-        max_slope = min_slope = 0.0f;
+
     }
 
-    SharedGrid::SharedGrid(int width, int height) : Grid(width, height) {
-        min_slope = 0.0f;
-        max_slope = 0.0f;
+    SharedGrid::SharedGrid(int min_x, int min_y, int max_x, int max_y) : Grid(min_x, min_y, max_x, max_y) {
+        setupGridCells();
     }
 
     void SharedGrid::setupGridCells() {
-        cell_matrix.resize(grid_width);
-        for (int i = 0; i < grid_width; i++) {
-            cell_matrix[i].resize(grid_height);
-            for (int j = 0; j < grid_height; j++) {
-                cell_matrix[i][j].cell_position = glm::vec2(i, j);
-                cell_matrix[i][j].grid_size = glm::vec2(grid_width, grid_height);
+        cell_matrix.resize(numCellsX);
+        for (int i = 0; i < numCellsX; i++) {
+            cell_matrix[i].resize(numCellsY);
+            for (int j = 0; j < numCellsY; j++) {
+                cell_matrix[i][j].cell_position = glm::vec2(i + minX, j + minY);
+                cell_matrix[i][j].grid_size = glm::vec2(numCellsX, numCellsY);
             }
         }
 
@@ -95,6 +96,11 @@ namespace MyModel {
     }
 
     SharedCell &SharedGrid::findCellByPos(glm::vec2 pos) {
-        return cell_matrix[pos.x][pos.y];
+        SharedCell &cell = cell_matrix[pos.x - minX][pos.y - minY];
+        if (not cell.cell_position.x == pos.x && not cell.cell_position.y == pos.y) {
+            cout << "POSITION ERROR\n";
+        }
+        return cell;
     }
+
 }

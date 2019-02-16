@@ -67,6 +67,17 @@ namespace MyModel {
 				float stddev = toFloat( value );
 				const float HALF_RANGE = 3.f * stddev;
 				_speedDeviation.set( 0.f, stddev, -HALF_RANGE, HALF_RANGE );
+			} else if (paramName == "map_min_x"){
+				mapMinX = toFloat(value);
+
+			} else if (paramName == "map_min_y"){
+				mapMiny = toFloat(value);
+
+			} else if (paramName == "map_max_x"){
+				mapMaxX = toFloat(value);
+
+			} else if (paramName == "map_max_Y"){
+				mapMaxY = toFloat(value);
 			} else if ( ! SimulatorBase<Agent>::setExpParam( paramName, value ) ) {
 				// Simulator base didn't recognize the parameter either
 				return false;
@@ -81,10 +92,10 @@ namespace MyModel {
 
 	////////////////////////////////////////////////////////////////////
 
-	void Simulator::initializeGrid(){
+	void Simulator::initializeGrid() {
 	    std::printf("Initializing grid\n");
-		mainGrid = new SharedGrid(100,100);
-		mainGrid->setupGridCells();
+
+		mainGrid = new SharedGrid(mapMinX, mapMiny, mapMaxX, mapMaxY);
 		densityField.grid = mainGrid;
 	}
 

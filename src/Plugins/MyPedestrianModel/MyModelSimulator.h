@@ -85,6 +85,15 @@ namespace MyModel {
 		SharedGrid* mainGrid;
 		DensityField densityField;
 
+		/*!
+		 *	@brief		map min x,y and max x,y delimit the map.
+		 *	Define the possible positions where the agents will move.
+		 */
+		int mapMinX;
+		int mapMaxX;
+		int mapMiny;
+		int mapMaxY;
+
 		void initializeGrid();
 
 	protected:
@@ -99,7 +108,8 @@ namespace MyModel {
 		 *	@brief		The uniform distribution of direction
 		 */
 		static Menge::Math::UniformFloatGenerator	_angleDeviation;
-	};
+
+    };
 }	// namespace MyModel
 
 #endif	 // __MYMODEL_SIMULATOR_H__
