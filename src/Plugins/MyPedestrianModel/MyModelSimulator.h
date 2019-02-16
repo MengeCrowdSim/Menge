@@ -50,7 +50,7 @@ namespace MyModel {
 		/*!
 		 *  @brief      Constructor.
 		 */
-		Simulator(): Menge::Agents::SimulatorBase< Agent >() {initializeGrid();}
+		Simulator(): Menge::Agents::SimulatorBase< Agent >() {}
 
 		/*!
 		 *	@brief			Reports if there are non-common Experiment parameters that
@@ -91,7 +91,7 @@ namespace MyModel {
 		 */
 		int mapMinX;
 		int mapMaxX;
-		int mapMiny;
+		int mapMinY;
 		int mapMaxY;
 
 		void initializeGrid();
