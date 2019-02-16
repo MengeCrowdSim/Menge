@@ -3,75 +3,58 @@
 	<SpatialQuery type="kd-tree" test_visibility="false" />
 	
     <Common time_step="0.1" />
-    <MyModel stddev="0.05" />
+    <MyModel stddev="0.05" map_min_x="-20"  map_min_y="-20" map_max_x="20" map_max_y="20" />
 
 	<AgentProfile name="group1" >
 		<!--<MyModel/>-->
 	</AgentProfile>
 
-	<!--1000 Agents come from both sides-->
-	<AgentGroup>
-	<ProfileSelector type="const" name="group1" />
-	<StateSelector type="const" name="Walk" />
-	<Generator type="hex_lattice"
-	anchor_x="5" anchor_y="8"
-	alignment="center" row_direction="x"
-	density="1.8" width="1"
-	population="2" rotation="0"
-	displace_dist="n" displace_mean="0.03" displace_stddev="0.3"
-	/>
-	</AgentGroup>
+    <AgentGroup>
+        <ProfileSelector type="const" name="group1" />
+        <StateSelector type="const" name="Walk" />
+		<Generator type="hex_lattice"
+				   anchor_x="0" anchor_y="-20"
+				   alignment="center" row_direction="x"
+				   density="1.8" width="40"
+				   population="500" rotation="0"
+				   displace_dist="n" displace_mean="0.3" displace_stddev="0.3"
+					/>
+    </AgentGroup>
 
-    <!--1000 Agents come from both sides-->
-    <!--<AgentGroup>-->
-        <!--<ProfileSelector type="const" name="group1" />-->
-        <!--<StateSelector type="const" name="Walk" />-->
-		<!--<Generator type="hex_lattice"-->
-				   <!--anchor_x="0" anchor_y="10"-->
-				   <!--alignment="center" row_direction="x"-->
-				   <!--density="1.8" width="40"-->
-				   <!--population="500" rotation="0"-->
-				   <!--displace_dist="n" displace_mean="0.3" displace_stddev="0.3"-->
-					<!--/>-->
-    <!--</AgentGroup>-->
 
-	<!--10 Agents come from both sides-->
-    <!--<AgentGroup>-->
-        <!--<ProfileSelector type="const" name="group1" />-->
-        <!--<StateSelector type="const" name="Walk" />-->
-		<!--<Generator type="rect_grid"-->
-					<!--anchor_x="-5" anchor_y="-10"-->
-					<!--offset_x="1" offset_y="0"-->
-					<!--count_x="10" count_y="1"-->
-					<!--/>-->
-    <!--</AgentGroup>-->
-
-	<!--Agents comming from right-->
-	<!--<AgentGroup>-->
-        <!--<ProfileSelector type="const" name="group1" />-->
-        <!--<StateSelector type="const" name="Walk" />-->
-		<!--<Generator type="rect_grid"-->
-					<!--anchor_x="0" anchor_y="-10"-->
-					<!--offset_x="1" offset_y="0"-->
-					<!--count_x="1000" count_y="1"-->
-					<!--/>-->
-    <!--</AgentGroup>-->
-	
-    <ObstacleSet type="explicit" class="1">
+	<ObstacleSet type="explicit" class="1">
 		<Obstacle  closed="1" >
-			<Vertex p_x="0" p_y="0" />
-			<Vertex p_x="25" p_y="0" />
-			<Vertex p_x="25" p_y="25" />
-			<Vertex p_x="17.5" p_y="25" />
-			<Vertex p_x="17.5" p_y="7.5" />
-			<Vertex p_x="0" p_y="7.5" />
+			<Vertex p_x="-30" p_y="-5" />
+			<Vertex p_x="-1" p_y="-5" />
+			<Vertex p_x="-1" p_y="5" />
+			<Vertex p_x="-30" p_y="5" />
 		</Obstacle>
 
 		<Obstacle  closed="1" >
-			<Vertex p_x="0" p_y="15" />
-			<Vertex p_x="10" p_y="15" />
-			<Vertex p_x="10" p_y="25" />
-			<Vertex p_x="0" p_y="25" />
+			<Vertex p_x="30" p_y="-5" />
+			<Vertex p_x="30" p_y="5" />
+			<Vertex p_x="1" p_y="5" />
+			<Vertex p_x="1" p_y="-5" />
 		</Obstacle>
 	</ObstacleSet>
+
+
+	<!--L scene -->
+    <!--<ObstacleSet type="explicit" class="1">-->
+		<!--<Obstacle  closed="1" >-->
+			<!--<Vertex p_x="0" p_y="0" />-->
+			<!--<Vertex p_x="25" p_y="0" />-->
+			<!--<Vertex p_x="25" p_y="25" />-->
+			<!--<Vertex p_x="17.5" p_y="25" />-->
+			<!--<Vertex p_x="17.5" p_y="7.5" />-->
+			<!--<Vertex p_x="0" p_y="7.5" />-->
+		<!--</Obstacle>-->
+
+		<!--<Obstacle  closed="1" >-->
+			<!--<Vertex p_x="0" p_y="15" />-->
+			<!--<Vertex p_x="10" p_y="15" />-->
+			<!--<Vertex p_x="10" p_y="25" />-->
+			<!--<Vertex p_x="0" p_y="25" />-->
+		<!--</Obstacle>-->
+	<!--</ObstacleSet>-->
 </Experiment>
