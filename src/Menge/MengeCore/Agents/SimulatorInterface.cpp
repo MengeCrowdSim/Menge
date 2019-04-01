@@ -137,13 +137,6 @@ namespace Menge {
 
 		////////////////////////////////////////////////////////////////
 
-		bool SimulatorInterface::queryVisibility( const Vector2& point1, const Vector2& point2,
-												  float radius ) const {
-			return _spatialQuery->queryVisibility( point1, point2, radius );
-		}
-
-		////////////////////////////////////////////////////////////////
-
 		void SimulatorInterface::finalize() {
 			if ( _fsm == 0x0 ) throw BFSM::FSMFatalException( "No BFSM defined for simulation." );
 			if ( _elevation == 0x0 ) {
