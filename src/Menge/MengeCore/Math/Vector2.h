@@ -567,8 +567,9 @@ namespace Menge {
 													   float threshSqd );
 
 		/*! 
-		 *  @brief      Computes the signed distance from a line connecting the
-		 *              specified points to a specified point.
+		 *  @brief      Computes the _scaled_ signed distance from a line connecting the
+		 *              specified points to a specified point. The scale is the length of the line
+     *              segment defined by a and b.
 		 *  @param      a               The first point on the line.
 		 *  @param      b               The second point on the line.
 		 *  @param      c               The point to which the signed distance is to

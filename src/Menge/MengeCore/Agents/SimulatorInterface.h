@@ -190,26 +190,6 @@ namespace Menge {
 			bool hasSpatialQuery() const { return _spatialQuery != 0x0; }
 
 			/*!
-			 *  @brief      Performs a visibility query between the two specified
-			 *              points with respect to the obstacles.
-			 *
-			 *	The obstacles are one-sided.  So, the ordering of point1 and point2 matter.
-			 *	Looking from the inside out is not equivalent to looking from the outside in.
-			 *
-			 *  @param      point1          The first point of the query.
-			 *  @param      point2          The second point of the query.
-			 *  @param      radius          The minimal distance between the line
-			 *                              connecting the two points and the obstacles
-			 *                              in order for the points to be mutually
-			 *                              visible (optional). Must be non-negative.
-			 *  @returns    A boolean specifying whether the two points are mutually
-			 *              visible. Returns true when the obstacles have not been
-			 *              processed.
-			 */
-			bool queryVisibility( const Math::Vector2 & point1, const Math::Vector2 & point2,
-								  float radius = 0.0f ) const;
-
-			/*!
 			 *  @brief      Returns the global time of the simulation.
 			 *
 			 *  @returns    The present global time of the simulation (zero initially).
