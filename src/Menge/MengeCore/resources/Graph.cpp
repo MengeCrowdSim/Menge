@@ -198,7 +198,12 @@ namespace Menge {
 		size_t startID = getClosestVertex( agent->_pos, agent->_radius );
 		// Find the closest visible node to goal position
 		Vector2 goalPos = goal->getCentroid();
+    // TODO(curds01): Investigate finding a path to the goal *area* rather than centroid; more
+    // difficult, but provides the possibility to get more efficient paths.
 		size_t endID = getClosestVertex( goalPos, agent->_radius );
+    if (startID == -1 || endID == -1) {
+      return nullptr;
+    }
 		// Compute the path based on those nodes
 		RoadMapPath * path = getPath( startID, endID );
 		if ( path ) { 
@@ -218,22 +223,21 @@ namespace Menge {
 
 	size_t Graph::getClosestVertex( const Vector2 & point, float radius ) {
 		assert( _vCount > 0 && "Trying to operate on an empty roadmap" );
-		// TODO: Make this faster
+		// TODO: Make this faster via a spatial hash - in other words, test them in the order of
+    // closest to farthest.
 
 		float bestDistSq = INFTY;
 		size_t bestID = -1;
 		for ( size_t i = 0; i < _vCount; ++i ) {
 			float testDistSq = absSq( _vertices[i].getPosition() - point );
 			if ( testDistSq < bestDistSq ) {
-				if ( Menge::SPATIAL_QUERY->queryVisibility( point, _vertices[i].getPosition(),
+				if ( Menge::SPATIAL_QUERY->linkIsTraversible( point, _vertices[i].getPosition(),
 															radius ) ) {
 					bestDistSq = testDistSq;
 					bestID = i;
 				}
 			}
 		}
-
-		assert( bestID != -1 && "Roadmap Graph was unable to find a visible vertex" );
 		
 		return bestID;
 	}

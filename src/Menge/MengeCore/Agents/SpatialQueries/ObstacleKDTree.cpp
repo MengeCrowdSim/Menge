@@ -83,6 +83,13 @@ namespace Menge {
 			queryTreeRecursive(filter, filter->getQueryPoint(), range, _tree );
 		}
 
+    /////////////////////////////////////////////////////////////////////////////
+
+    bool ObstacleKDTree::linkIsTraversible(const Vector2& q1, const Vector2& q2, 
+                                           float radius) const {
+      return linkIsTraversibleRecursive(q1, q2, radius, _tree);
+    }
+
 		/////////////////////////////////////////////////////////////////////////////
 
 		bool ObstacleKDTree::queryVisibility(const Vector2& q1, const Vector2& q2,
@@ -262,11 +269,90 @@ namespace Menge {
 			}
 		}
 
-		/////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////
 
-		bool ObstacleKDTree::queryVisibilityRecursive(const Vector2& q1, const Vector2& q2,
+    bool ObstacleKDTree::linkIsTraversibleRecursive(
+      // TODO(curds01): Modify this to account for "meaningless" collisions. This is currently just
+      // a copy-and-paste from queryVisibilityRecursive().
+      const Vector2& q1, const Vector2& q2, float radius, const ObstacleTreeNode* node) const {
+      if (node == 0) {
+        return true;
+      } else {
+        const Obstacle* const obstacle1 = node->_obstacle;
+        const Obstacle* const obstacle2 = obstacle1->_nextObstacle;
+
+        const float q1LeftOfI = leftOf(obstacle1->_point, obstacle2->_point, q1);
+        const float q2LeftOfI = leftOf(obstacle1->_point, obstacle2->_point, q2);
+        // TODO(curds01): This name is incorrect. This is the inverse of the *squared* length of the
+        // obstacle.
+        const float invLengthI = 1.0f / absSq(obstacle2->_point - obstacle1->_point);
+
+        // In all of these tests we hope for a proof of intraversibility -- such a proof is
+        // sufficient to return without evaluating any more of the tree.
+
+        if (q1LeftOfI >= 0.0f && q2LeftOfI >= 0.0f) {
+          // The link lies completely on the "left" side of the obstacle. To be traversible, it must
+          //   - be traversible w.r.t. all the obstacles on the left side AND
+          //   - be at least radius distance away from the *line* OR
+          //     traversible w.r.t. all the obstacles on the right side.
+          // NOTE: It doesn't seem like we're actually testing against *this* obstacle, per se.
+          // This *may* be correct (and probably is), however the opaque explanation for that needs
+          // to be determined and documented.
+          //
+          // NOTE: This case does do any logic of its own. Essentially, this tests both sides for
+          // traversibility with an *optimization* that says, if the whole link is farther from
+          // the obstacle line than radius units, the other side need not be tested.
+          return linkIsTraversibleRecursive(q1, q2, radius, node->_left) &&
+            ((sqr(q1LeftOfI) * invLengthI >= sqr(radius) &&  // short-circuit avoids recursing right
+              sqr(q2LeftOfI) * invLengthI >= sqr(radius)) ||
+             linkIsTraversibleRecursive(q1, q2, radius, node->_right));
+        } else if (q1LeftOfI <= 0.0f && q2LeftOfI <= 0.0f) {
+          // The link lies completely on the "right" side of the obstacle. See note on the
+          // "completely-on-the-left-side" case.
+          return linkIsTraversibleRecursive(q1, q2, radius, node->_right) &&
+            ((sqr(q1LeftOfI) * invLengthI >= sqr(radius) &&  // short-circuit avoids recursing left
+              sqr(q2LeftOfI) * invLengthI >= sqr(radius)) ||
+             linkIsTraversibleRecursive(q1, q2, radius, node->_left));
+        } else if (q1LeftOfI >= 0.0f && q2LeftOfI <= 0.0f) {
+          // One can traverse through obstacle from left to right.
+          return linkIsTraversibleRecursive(q1, q2, radius, node->_left) &&
+            linkIsTraversibleRecursive(q1, q2, radius, node->_right);
+        } else {
+          // q1 on right, q2 on left. This crosses the *line* from outside to inside. Now it depends
+          // on where on the line the obstacle lies -- with radius of the crossing point?
+          const float point1LeftOfQ = leftOf(q1, q2, obstacle1->_point);
+          const float point2LeftOfQ = leftOf(q1, q2, obstacle2->_point);
+          const float invLengthQ = 1.0f / absSq(q2 - q1);
+
+          // Several conditions which make this traversible:
+          //  1. If the obstacle lies entirely on one side of the query link's line AND
+          //  2. The obstacle lies at least radius distance away from the line OR
+          //     q1 is closer than radius and q2 is greater than radius distance AND
+          //  3. It's traversible w.r.t. the right- and left-hand sides of the tree.
+
+          // Conditions that prevent this from being traversible.
+          //  1. Obstacle points lie on opposite side of test link (we already know that the test
+          //     link lies on opposite sides of the obstacle line) AND q1 lies farther than radius
+          //     units away from the obstacle.
+          //  2. Obstacle end point lies with radius of the link query AND q1 lies
+          const float rad_sqd = sqr(radius);
+          return (point1LeftOfQ * point2LeftOfQ >= 0.0f &&  // obstacle on one side or the other.
+                  ((sqr(point1LeftOfQ) * invLengthQ > rad_sqd &&
+                    sqr(point2LeftOfQ) * invLengthQ > rad_sqd) ||
+                   (sqr(q1LeftOfI) * invLengthI <= rad_sqd &&
+                    sqr(q2LeftOfI) * invLengthI >= rad_sqd)) &&
+                  linkIsTraversibleRecursive(q1, q2, radius, node->_left) &&
+                  linkIsTraversibleRecursive(q1, q2, radius, node->_right));
+        }
+      }
+    }
+
+    /////////////////////////////////////////////////////////////////////////////
+
+    bool ObstacleKDTree::queryVisibilityRecursive(const Vector2& q1, const Vector2& q2,
 										  float radius, 
 										  const ObstacleTreeNode* node) const {
+      // NOTE: See linkIsTraversible for explanation of this code.
 			if (node == 0) {
 				return true;
 			} else {

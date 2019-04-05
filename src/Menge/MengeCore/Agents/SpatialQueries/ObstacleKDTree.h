@@ -96,6 +96,10 @@ namespace Menge {
 			 */
 			void obstacleQuery( ProximityQuery *query) const;
 
+      /*! @brief  Implementation of SpatialQuery::linkIsTraversible().  */
+      bool linkIsTraversible(const Math::Vector2& q1, const Math::Vector2& q2,
+                             float radius) const;
+
 			/*!
 			 *  @brief      Queries the visibility between two points within a
 			 *              specified radius.
@@ -134,6 +138,9 @@ namespace Menge {
 			void queryTreeRecursive( ProximityQuery *query, Math::Vector2 pt, float& rangeSq,
 									 const ObstacleTreeNode* node ) const;
 
+      /*! @brief  Implementation of linkIsTraversible() via recursion.  */
+      bool linkIsTraversibleRecursive(const Math::Vector2& q1, const Math::Vector2& q2,
+                                      float radius, const ObstacleTreeNode* node) const;
 			/*!
 			 *	@brief		Perform the work, recursively, to determine if q1 can see q2, w.r.t.
 			 *				the obstacles.

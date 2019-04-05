@@ -158,6 +158,37 @@ namespace Menge {
 			 */
 			virtual void obstacleQuery( ProximityQuery * query) const = 0;
 
+      /*!
+       @brief  Reports if an agent can traverse the straight-line path from `q1` to `q2`.
+
+       This query performs a per-obstacle test to determine if the obstacle limits traversibility.
+       This test is closely related to an intersection test between a line segment (an individual
+       obstacle) and a capsule (the traversible link between `q1` and `q2` convolved with a disk of
+       the given `radius`. Generally, if the line segment intersects the link, the link is _not_
+       traversible. However, this isn't universally true.
+
+       First, obstacles have "sides". An obstacle doesn't obstruct if the path from `q1` to `q2
+       passes from _inside_ the obstacle to _outside_ the obstacle.
+
+       Second, even an agent whose center lies _outside_ an obstacle (but intersecting the obstacle)
+       may not be considered obstructed. This query link represents the path of an agent. We cannot
+       guarantee that the starting position is collision free. As such, an obstacle might intersect
+       the capsule in an otherwise meaningless way. These meaningless collisions do not prevent the
+       link from being traversible.
+
+       To be a "meaningless" collision the following must be true:
+
+         - The line segment must intersect a circle centered at `q1` with the given `radius`.
+         - The direciton of the link (`q2 - q1`) must point _away_ from the line segment.
+
+      @param  q1      The start point of the link to be tested.
+      @param  q2      The end point of the link to be tested.
+      @param  radius  The radius of the agent to traverse the link.
+      @returns  True if the link is deemed a traversible path.
+      */
+      virtual bool linkIsTraversible(const Math::Vector2& q1, const Math::Vector2& q2,
+                                     float radius) const = 0;
+
 			/*!
 			 *  @brief      Queries the visibility between two points within a
 			 *              specified radius.

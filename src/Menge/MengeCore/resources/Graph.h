@@ -98,7 +98,7 @@ namespace Menge {
 		 *	@param		agent		The agent for whom to compute the path.
 		 *	@param		goal		The agent's goal.
 		 *	@returns	A pointer to a RoadMapPath.  If there is an error,
-		 *				the poitner will be NULL.
+		 *				the pointer will be NULL.
 		 */
 		RoadMapPath * getPath( const Agents::BaseAgent * agent, const BFSM::Goal * goal );
 
@@ -134,7 +134,7 @@ namespace Menge {
 		 *
 		 *	@param		point		The point to connect to the graph.
 		 *	@param		radius		The radius of the agent testing.
-		 *	@returns	The index of the closest node.
+		 *	@returns	The index of the closest node (-1 if no node can be connected).
 		 */
 		size_t getClosestVertex( const Vector2 & point, float radius );
 
