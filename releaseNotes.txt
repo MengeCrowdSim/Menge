@@ -5,6 +5,8 @@ Release 0.9.3
     Bug fixes
         OBBShape had inconsistent definitions for getXBasis() and getYBasis().
             Documentation clarified, usage unified.
+		RoadMap velocity component couldn't create a path for agents who were in collision with an
+		    obstacle. Addressed in [PR 118](https://github.com/MengeCrowdSim/Menge/pull/118)
 	
 	Features
 		State population event trigger - upgrade the event triggers that depend on state population.

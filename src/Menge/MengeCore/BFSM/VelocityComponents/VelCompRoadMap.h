@@ -126,6 +126,7 @@ namespace Menge {
 			 *	@param		agent		The agent for which a preferred velocity is computed.
 			 *	@param		goal		The agent's goal (although this may be ignored).
 			 *	@param		pVel		The instance of Agents::PrefVelocity to set.
+       *  @throws   VelCompFatalException if a path cannot be found from agent position to goal.
 			 */
 			virtual void setPrefVelocity( const Agents::BaseAgent * agent, const Goal * goal,
 										  Agents::PrefVelocity & pVel ) const;

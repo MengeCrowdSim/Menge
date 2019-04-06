@@ -98,6 +98,12 @@ namespace Menge {
 				_obstTree.obstacleQuery( query);
 			}
 
+      /*! @brief  Implementation of SpatialQuery::linkIsTraversible().  */
+      bool linkIsTraversible(const Math::Vector2& q1, const Vector2& q2, float radius) const
+        override {
+        return _obstTree.linkIsTraversible(q1, q2, radius);
+      }
+
 			/*!
 			 *  @brief      Queries the visibility between two points within a
 			 *              specified radius.

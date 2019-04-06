@@ -92,24 +92,30 @@ namespace Menge {
 		// TODO: Should I compute this blindly?  Although it is used in potentially three places
 		//		mostly, it won't be used.
 		Vector2 target = _goal->getTargetPoint( agent->_pos, agent->_radius );
+
+    // First confirm I can still see the point I'm headed toward.
 		if ( _targetID < _wayPointCount ) {
 			isVisible =
-				Menge::SPATIAL_QUERY->queryVisibility( agent->_pos, _wayPoints[ _targetID ],
+				Menge::SPATIAL_QUERY->linkIsTraversible( agent->_pos, _wayPoints[ _targetID ],
 				agent->_radius );
 		} else {
-			isVisible = Menge::SPATIAL_QUERY->queryVisibility( agent->_pos, target,
+			isVisible = Menge::SPATIAL_QUERY->linkIsTraversible( agent->_pos, target,
 															   agent->_radius );
 		}
+
+    // See if I can't advance my current waypoint to one further along my path.
 		size_t testID = _targetID + 1;
+    // TODO(curds01): Should I be advancing the counter if the current isn't visible? If so, justify
+    // this.
 		while ( testID < _wayPointCount &&
-				Menge::SPATIAL_QUERY->queryVisibility( agent->_pos, _wayPoints[ testID ],
+				Menge::SPATIAL_QUERY->linkIsTraversible( agent->_pos, _wayPoints[ testID ],
 				agent->_radius ) ) {
 			_targetID = testID;
 			isVisible = true;
 			++testID;
 		}
 		if ( _targetID == _wayPointCount - 1 ) {
-			if ( Menge::SPATIAL_QUERY->queryVisibility( agent->_pos, target, agent->_radius ) ) {
+			if ( Menge::SPATIAL_QUERY->linkIsTraversible( agent->_pos, target, agent->_radius ) ) {
 				++_targetID;
 				isVisible = true;
 			}
@@ -122,7 +128,7 @@ namespace Menge {
 			_validPos = agent->_pos;
 			pVel.setTarget( curr );
 		} else {
-			if (Menge::SPATIAL_QUERY->queryVisibility(agent->_pos, _validPos, agent->_radius)) {
+			if (Menge::SPATIAL_QUERY->linkIsTraversible(agent->_pos, _validPos, agent->_radius)) {
 				// This should never be the zero vector.
 				//	_validPos is set when the current waypoint is visible
 				//  this code is only achieved when it is NOT visible
