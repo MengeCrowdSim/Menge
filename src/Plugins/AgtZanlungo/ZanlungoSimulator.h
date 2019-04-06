@@ -17,7 +17,7 @@
 */
 
 #ifndef __ZANLUNGO_SIMULATOR_H__
-#define	__ZANLUNGO_SIMULATOR_H__
+#define __ZANLUNGO_SIMULATOR_H__
 
 /*!
  *  @file       ZanlungoSimulator.h
@@ -27,9 +27,9 @@
  *				"Social Force Model with Explicit Collision Prediction"
  */
 
-#include "ZanlungoAgent.h"
-#include "MengeCore/mengeCommon.h"
 #include "MengeCore/Agents/SimulatorBase.h"
+#include "MengeCore/mengeCommon.h"
+#include "ZanlungoAgent.h"
 
 /*!
  *	@namespace		Zanlungo
@@ -37,70 +37,71 @@
  *					based on the Zanlungo et al., 2011 paper.
  */
 namespace Zanlungo {
-	/*!
-	 *  @brief      Defines the simulator operating on a Zanlungo::Agent.
-	 */
-	class Simulator : public Menge::Agents::SimulatorBase< Agent > {
-	public:
-		/*!
-		 *  @brief      Constructor.
-		 */
-		Simulator() : Menge::Agents::SimulatorBase< Agent >() {}
+/*!
+ *  @brief      Defines the simulator operating on a Zanlungo::Agent.
+ */
+class Simulator : public Menge::Agents::SimulatorBase<Agent> {
+ public:
+  /*!
+   *  @brief      Constructor.
+   */
+  Simulator() : Menge::Agents::SimulatorBase<Agent>() {}
 
-		/*!
-		 *	@brief			Reports if there are non-common Experiment parameters that
-		 *					this simulator requires in the XML file.
-		 *	@returns		By default, the simulator base ONLY uses common parameters.
-		 *					Always returns false.
-		 */
-		virtual bool hasExpTarget() { return true; }
+  /*!
+   *	@brief			Reports if there are non-common Experiment parameters that
+   *					this simulator requires in the XML file.
+   *	@returns		By default, the simulator base ONLY uses common parameters.
+   *					Always returns false.
+   */
+  virtual bool hasExpTarget() { return true; }
 
-		/*!
-		 *	@brief			Reports if the given Experiment attribute tag name belongs to this
-		 *					simulator.
-		 *  @param		tagName		the name of the considered tag
-		 *	@returns		By default, the simulator base ONLY uses common parameters.
-		 *					Always returns false.
-		 */
-		virtual bool isExpTarget( const std::string & tagName ) { return tagName == "Zanlungo"; }
+  /*!
+   *	@brief			Reports if the given Experiment attribute tag name belongs to this
+   *					simulator.
+   *  @param		tagName		the name of the considered tag
+   *	@returns		By default, the simulator base ONLY uses common parameters.
+   *					Always returns false.
+   */
+  virtual bool isExpTarget(const std::string& tagName) { return tagName == "Zanlungo"; }
 
-		/*!
-		 *	@brief			Given an Experiment parameter name and value, sets the appropriate
-		 *					simulator parameter.
-		 *	@param			paramName		A string containing the parameter name for the
-		 *									experiment.
-		 *	@param			value			A string containing the value for the parameter.
-		 *	@returns		whether or not parameters were successfully set
-		 */
-		virtual bool setExpParam( const std::string & paramName, const std::string & value )
-			throw( Menge::Agents::XMLParamException );
+  /*!
+   *	@brief			Given an Experiment parameter name and value, sets the appropriate
+   *					simulator parameter.
+   *	@param			paramName		A string containing the parameter name for
+   *the experiment.
+   *	@param			value			A string containing the value for the
+   *parameter.
+   *	@returns		whether or not parameters were successfully set
+   */
+  virtual bool setExpParam(const std::string& paramName,
+                           const std::string& value) throw(Menge::Agents::XMLParamException);
 
-	protected:
-		friend class Agent;
-		/*!
-		 *	@brief		The magnitude of the inter-agent repulsion forces
-		 *				In the paper, this is the parameter A in the agent repulsion force
-		 */
-		static float	AGENT_SCALE;
+ protected:
+  friend class Agent;
+  /*!
+   *	@brief		The magnitude of the inter-agent repulsion forces
+   *				In the paper, this is the parameter A in the agent repulsion force
+   */
+  static float AGENT_SCALE;
 
-		/*!
-		 *	@brief		The magnitude of the agent-obstacle repulsion forces
-		 *				This variable is not in the paper (dealing with obstacles is not
-		 *				discussed.)  However, this is the equivalent of AGENT_SCALE
-		 *				but for obstacles.
-		 */
-		static float	OBST_SCALE;
+  /*!
+   *	@brief		The magnitude of the agent-obstacle repulsion forces
+   *				This variable is not in the paper (dealing with obstacles is not
+   *				discussed.)  However, this is the equivalent of AGENT_SCALE
+   *				but for obstacles.
+   */
+  static float OBST_SCALE;
 
-		/*!
-		 *	@brief		The reaction time used to define the driving force
-		 */
-		static float	REACTION_TIME;
+  /*!
+   *	@brief		The reaction time used to define the driving force
+   */
+  static float REACTION_TIME;
 
-		/*!
-		 *	@brief		The the fall-off distance of repulsive forces
-		 *				In the paper, this is the parameter B in the agent repulsion force.
-		 */
-		static float	FORCE_DISTANCE;
-	};
-}	// namespace Zanlungo
-#endif	 // __ZANLUNGO_SIMULATOR_H__
+  /*!
+   *	@brief		The the fall-off distance of repulsive forces
+   *				In the paper, this is the parameter B in the agent repulsion force.
+   */
+  static float FORCE_DISTANCE;
+};
+}  // namespace Zanlungo
+#endif  // __ZANLUNGO_SIMULATOR_H__

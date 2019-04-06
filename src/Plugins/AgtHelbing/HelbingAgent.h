@@ -23,66 +23,66 @@
  */
 
 #ifndef __HELBING_AGENT_H__
-#define	__HELBING_AGENT_H__
+#define __HELBING_AGENT_H__
 
 #include "MengeCore/Agents/BaseAgent.h"
 
 namespace Helbing {
-	/*!
-	 *	@brief		Agent definition for the Helbing pedestrian model.
-	 */
-	class Agent : public Menge::Agents::BaseAgent {
-	public:
-		/*!
-		 *	@brief		A variant of the copy constructor.
-		 */
-		Agent();
+/*!
+ *	@brief		Agent definition for the Helbing pedestrian model.
+ */
+class Agent : public Menge::Agents::BaseAgent {
+ public:
+  /*!
+   *	@brief		A variant of the copy constructor.
+   */
+  Agent();
 
-		/*!
-		 *  @brief      Destroys this agent instance.
-		 */
-		~Agent();
+  /*!
+   *  @brief      Destroys this agent instance.
+   */
+  ~Agent();
 
-		/*!
-		 *  @brief      Computes the new velocity of this agent.
-		 */
-		void computeNewVelocity();
+  /*!
+   *  @brief      Computes the new velocity of this agent.
+   */
+  void computeNewVelocity();
 
-		/*!
-		*	@brief		Used by the plugin system to know what artifacts to associate with
-		*				agents of this type.  Every sub-class of must return a globally
-		*				unique value if it should be associated with unique artifacts.
-		*/
-		virtual std::string getStringId() const { return NAME; }
+  /*!
+   *	@brief		Used by the plugin system to know what artifacts to associate with
+   *				agents of this type.  Every sub-class of must return a globally
+   *				unique value if it should be associated with unique artifacts.
+   */
+  virtual std::string getStringId() const { return NAME; }
 
-		/*! @brief	The name identifier for this agent type. */
-		static const std::string NAME;
+  /*! @brief	The name identifier for this agent type. */
+  static const std::string NAME;
 
-		/*!
-		 *	@brief		Compute the force due to another agent
-		 *	@param		other			A pointer to a neighboring agent
-		 *	@returns	The force imparted by the other agent on this agent
-		 */
-		Menge::Math::Vector2 agentForce( const Agent * other ) const;
+  /*!
+   *	@brief		Compute the force due to another agent
+   *	@param		other			A pointer to a neighboring agent
+   *	@returns	The force imparted by the other agent on this agent
+   */
+  Menge::Math::Vector2 agentForce(const Agent* other) const;
 
-		/*!
-		 *	@brief		Compute the force due to a nearby obstacle
-		 *	@param		obst			A pointer to the obstacle
-		 *	@returns	The force imparted by the obstacle on this agent
-		 */
-		Menge::Math::Vector2 obstacleForce( const Menge::Agents::Obstacle * obst ) const;
+  /*!
+   *	@brief		Compute the force due to a nearby obstacle
+   *	@param		obst			A pointer to the obstacle
+   *	@returns	The force imparted by the obstacle on this agent
+   */
+  Menge::Math::Vector2 obstacleForce(const Menge::Agents::Obstacle* obst) const;
 
-		/*!
-		 *	@brief		Computes the driving force for the agent
-		 *	@returns	The vector corresponding to the agent's driving force.
-		 */
-		Menge::Math::Vector2 drivingForce() const;
+  /*!
+   *	@brief		Computes the driving force for the agent
+   *	@returns	The vector corresponding to the agent's driving force.
+   */
+  Menge::Math::Vector2 drivingForce() const;
 
-		/*!
-		 *	@brief		The mass of the agent
-		 */
-		float		_mass;
-	};
-}	// namespace Helbing
+  /*!
+   *	@brief		The mass of the agent
+   */
+  float _mass;
+};
+}  // namespace Helbing
 
-#endif	// __HELBING_AGENT_H__
+#endif  // __HELBING_AGENT_H__

@@ -22,45 +22,45 @@
  */
 
 #ifndef __DUMMY_AGENT_H__
-#define	__DUMMY_AGENT_H__
+#define __DUMMY_AGENT_H__
 
 #include "MengeCore/Agents/BaseAgent.h"
 
 namespace Dummy {
-	/*!
-	 *	@brief		The "dummy" agent class.
-	 *
-	 *	The dummy agent does nothing clever or even correct.  Given
-	 *	the preferred velocity, its final velocity is simply a random
-	 *	perturbation of the preferred velocity.
-	 */
-	class Agent : public Menge::Agents::BaseAgent {
-	public:
-		/*!
-		 *	@brief		Constructor
-		 */
-		Agent();
+/*!
+ *	@brief		The "dummy" agent class.
+ *
+ *	The dummy agent does nothing clever or even correct.  Given
+ *	the preferred velocity, its final velocity is simply a random
+ *	perturbation of the preferred velocity.
+ */
+class Agent : public Menge::Agents::BaseAgent {
+ public:
+  /*!
+   *	@brief		Constructor
+   */
+  Agent();
 
-		/*!
-		 *  @brief      Destroys this agent instance.
-		 */
-		~Agent();
+  /*!
+   *  @brief      Destroys this agent instance.
+   */
+  ~Agent();
 
-		/*!
-		 *  @brief      Computes the new velocity of this agent.
-		 */
-		void computeNewVelocity();
+  /*!
+   *  @brief      Computes the new velocity of this agent.
+   */
+  void computeNewVelocity();
 
-		/*!
-		*	@brief		Used by the plugin system to know what artifacts to associate with
-		*				agents of this type.  Every sub-class of must return a globally
-		*				unique value if it should be associated with unique artifacts.
-		*/
-		virtual std::string getStringId() const { return NAME; }
+  /*!
+   *	@brief		Used by the plugin system to know what artifacts to associate with
+   *				agents of this type.  Every sub-class of must return a globally
+   *				unique value if it should be associated with unique artifacts.
+   */
+  virtual std::string getStringId() const { return NAME; }
 
-		/*! @brief	The name identifier for this agent type. */
-		static const std::string NAME;
-	};
-}	// namespace Dummy
+  /*! @brief	The name identifier for this agent type. */
+  static const std::string NAME;
+};
+}  // namespace Dummy
 
-#endif	// __DUMMY_AGENT_H__
+#endif  // __DUMMY_AGENT_H__

@@ -27,5 +27,4 @@
 #include "ZanlungoAgent.h"
 #include "ZanlungoSimulator.h"
 
-#endif	// __ZANLUNGO_H__
-	
+#endif  // __ZANLUNGO_H__

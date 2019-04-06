@@ -26,8 +26,8 @@
  */
 
 #include "HelbingAgent.h"
-#include "MengeCore/mengeCommon.h"
 #include "MengeCore/Agents/SimulatorBase.h"
+#include "MengeCore/mengeCommon.h"
 
 /*!
  *	@namespace		Helbing
@@ -36,75 +36,76 @@
  *					Helbing et al., 2000 paper.
  */
 namespace Helbing {
-	/*!
-	 *  @brief      Defines the simulator operating on a Helbing::Agent.
-	 */
-	class Simulator : public Menge::Agents::SimulatorBase< Agent > {
-	public:
-		/*!
-		 *  @brief      Constructor.
-		 */
-		Simulator() : Menge::Agents::SimulatorBase< Agent >() {}
+/*!
+ *  @brief      Defines the simulator operating on a Helbing::Agent.
+ */
+class Simulator : public Menge::Agents::SimulatorBase<Agent> {
+ public:
+  /*!
+   *  @brief      Constructor.
+   */
+  Simulator() : Menge::Agents::SimulatorBase<Agent>() {}
 
-		/*!
-		 *	@brief			Reports if there are non-common Experiment parameters that
-		 *					this simulator requires in the XML file.
-		 *	@returns		By default, the simulator base ONLY uses common parameters.
-		 *					Always returns false.
-		 */
-		virtual bool hasExpTarget() { return true; }
+  /*!
+   *	@brief			Reports if there are non-common Experiment parameters that
+   *					this simulator requires in the XML file.
+   *	@returns		By default, the simulator base ONLY uses common parameters.
+   *					Always returns false.
+   */
+  virtual bool hasExpTarget() { return true; }
 
-		/*!
-		 *	@brief			Reports if the given Experiment attribute tag name belongs to this
-		 *					simulator.
-		 *  @param		tagName		the name of the considered tag
-		 *	@returns		By default, the simulator base ONLY uses common parameters.
-		 *					Always returns false.
-		 */
-		virtual bool isExpTarget( const std::string & tagName ) { return tagName == "Helbing"; }
+  /*!
+   *	@brief			Reports if the given Experiment attribute tag name belongs to this
+   *					simulator.
+   *  @param		tagName		the name of the considered tag
+   *	@returns		By default, the simulator base ONLY uses common parameters.
+   *					Always returns false.
+   */
+  virtual bool isExpTarget(const std::string& tagName) { return tagName == "Helbing"; }
 
-		/*!
-		 *	@brief			Given an Experiment parameter name and value, sets the appropriate
-		 *					simulator parameter.
-		 *	@param			paramName		A string containing the parameter name for the
-		 *									experiment.
-		 *	@param			value			A string containing the value for the parameter.
-		 *	@returns		whether or not parameters were successfully set
-		 */
-		virtual bool setExpParam( const std::string & paramName, const std::string & value )
-			throw( Menge::Agents::XMLParamException );
+  /*!
+   *	@brief			Given an Experiment parameter name and value, sets the appropriate
+   *					simulator parameter.
+   *	@param			paramName		A string containing the parameter name for
+   *the experiment.
+   *	@param			value			A string containing the value for the
+   *parameter.
+   *	@returns		whether or not parameters were successfully set
+   */
+  virtual bool setExpParam(const std::string& paramName,
+                           const std::string& value) throw(Menge::Agents::XMLParamException);
 
-	protected:
-		friend class Agent;
-		/*!
-		 *	@brief		The magnitude of the inter-agent repulsion forces
-		 */
-		static float	AGENT_SCALE;
+ protected:
+  friend class Agent;
+  /*!
+   *	@brief		The magnitude of the inter-agent repulsion forces
+   */
+  static float AGENT_SCALE;
 
-		/*!
-		 *	@brief		The magnitude of the agent-obstacle repulsion forces
-		 */
-		static float	OBST_SCALE;
+  /*!
+   *	@brief		The magnitude of the agent-obstacle repulsion forces
+   */
+  static float OBST_SCALE;
 
-		/*!
-		 *	@brief		The reaction time used to define the driving force
-		 */
-		static float	REACTION_TIME;
+  /*!
+   *	@brief		The reaction time used to define the driving force
+   */
+  static float REACTION_TIME;
 
-		/*!
-		 *	@brief		The magnitude of the body force applied when agents collide
-		 */
-		static float	BODY_FORCE;
+  /*!
+   *	@brief		The magnitude of the body force applied when agents collide
+   */
+  static float BODY_FORCE;
 
-		/*!
-		 *	@brief		The magnitude of the friction force applied when agents collide
-		 */
-		static float	FRICTION;
+  /*!
+   *	@brief		The magnitude of the friction force applied when agents collide
+   */
+  static float FRICTION;
 
-		/*!
-		 *	@brief		The the fall-off distance of repulsive forces
-		 */
-		static float	FORCE_DISTANCE;
-	};
-}	// namespace Helbing
-#endif	 // __HELBING_SIMULATOR_H__
+  /*!
+   *	@brief		The the fall-off distance of repulsive forces
+   */
+  static float FORCE_DISTANCE;
+};
+}  // namespace Helbing
+#endif  // __HELBING_SIMULATOR_H__
