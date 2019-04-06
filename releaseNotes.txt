@@ -13,6 +13,9 @@ Release 0.9.3
 			- replace old, single-behavior trigger with single multi-behavior trigger.
 			- Update examples (organization and invocation) for new trigger.
 		Change state event effect - the result of an event moves target agents into a target state.
+		
+	Miscellaneous
+		Introduce clang-format specification and clang-format everything.
 
 ----------------------------------------------------------------
 Release 0.9.2
