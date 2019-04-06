@@ -46,141 +46,144 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 namespace Menge {
 
-	namespace Agents {
+namespace Agents {
 
-		////////////////////////////////////////////////////////////////////////////
-		//			Implementation of NavMeshGenerator
-		////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
+//			Implementation of NavMeshGenerator
+////////////////////////////////////////////////////////////////////////////
 
-		NavMeshGenerator::NavMeshGenerator() : AgentGenerator(), _positions() {
-		}
+NavMeshGenerator::NavMeshGenerator() : AgentGenerator(), _positions() {}
 
-		////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
 
-		void NavMeshGenerator::setAgentPosition(size_t i, BaseAgent * agt) {
-			if (i >= _positions.size()) {
-				throw AgentGeneratorFatalException("NavMeshGenerator trying to access an agent "
-													"outside of the specified population");
-			}
-			agt->_pos = addNoise( _positions[ i ] );
-			unsigned int node = _localizer->getNode(agt, _groupName);
-			if (node == NavMeshLocation::NO_NODE) {
-				std::stringstream ss;
-				ss << "NavMeshGenerator was unable to put agent " << agt->_id << " at position ";
-				ss << agt->_pos << " onto the mesh in group " << _groupName << ".";
-				throw AgentGeneratorFatalException(ss.str());
-			}
-		}
+void NavMeshGenerator::setAgentPosition(size_t i, BaseAgent* agt) {
+  if (i >= _positions.size()) {
+    throw AgentGeneratorFatalException(
+        "NavMeshGenerator trying to access an agent "
+        "outside of the specified population");
+  }
+  agt->_pos = addNoise(_positions[i]);
+  unsigned int node = _localizer->getNode(agt, _groupName);
+  if (node == NavMeshLocation::NO_NODE) {
+    std::stringstream ss;
+    ss << "NavMeshGenerator was unable to put agent " << agt->_id << " at position ";
+    ss << agt->_pos << " onto the mesh in group " << _groupName << ".";
+    throw AgentGeneratorFatalException(ss.str());
+  }
+}
 
-		////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
 
-		void NavMeshGenerator::addPosition(const Vector2 & p) {
-			assert(_navMesh.hasData() && "Attempting to add agent position without having "
-					"registered a navigation mesh");
-			assert(_localizer.hasData() && "Attempting to add agent position without having "
-					"registered a navigation mesh localizer");
-			_positions.push_back(p);
-		}
+void NavMeshGenerator::addPosition(const Vector2& p) {
+  assert(_navMesh.hasData() &&
+         "Attempting to add agent position without having "
+         "registered a navigation mesh");
+  assert(_localizer.hasData() &&
+         "Attempting to add agent position without having "
+         "registered a navigation mesh localizer");
+  _positions.push_back(p);
+}
 
-		////////////////////////////////////////////////////////////////////////////
-		//			Implementation of ExplicitGeneratorFactory
-		////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
+//			Implementation of ExplicitGeneratorFactory
+////////////////////////////////////////////////////////////////////////////
 
-		NavMeshGeneratorFactory::NavMeshGeneratorFactory() : AgentGeneratorFactory() {
-			_fileNameID = _attrSet.addStringAttribute("file_name", true /*required*/);
-			_polyGroupID = _attrSet.addStringAttribute("group_name", false /*required*/);
-		}
+NavMeshGeneratorFactory::NavMeshGeneratorFactory() : AgentGeneratorFactory() {
+  _fileNameID = _attrSet.addStringAttribute("file_name", true /*required*/);
+  _polyGroupID = _attrSet.addStringAttribute("group_name", false /*required*/);
+}
 
-		/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
 
-		bool NavMeshGeneratorFactory::setFromXML(AgentGenerator * gen, TiXmlElement * node,
-												  const std::string & specFldr) const {
-			NavMeshGenerator * eGen = dynamic_cast< NavMeshGenerator * >(gen);
-			assert(eGen != 0x0 && "Trying to set attributes of an nav mesh explicit agent "
-					"generator component on an incompatible object");
+bool NavMeshGeneratorFactory::setFromXML(AgentGenerator* gen, TiXmlElement* node,
+                                         const std::string& specFldr) const {
+  NavMeshGenerator* eGen = dynamic_cast<NavMeshGenerator*>(gen);
+  assert(eGen != 0x0 &&
+         "Trying to set attributes of an nav mesh explicit agent "
+         "generator component on an incompatible object");
 
-			if (!AgentGeneratorFactory::setFromXML(eGen, node, specFldr)) return false;
+  if (!AgentGeneratorFactory::setFromXML(eGen, node, specFldr)) return false;
 
-			// get the group name
-			std::string gName = _attrSet.getString(_polyGroupID);
-			eGen->setGroupname(gName);
-			
-			// get the file name
-			std::string fName;
-			std::string path = os::path::join(2, specFldr.c_str(),
-											   _attrSet.getString(_fileNameID).c_str());
-			os::path::absPath(path, fName);
-			// nav mesh
-			NavMeshPtr nmPtr;
-			try {
-				nmPtr = loadNavMesh(fName);
-			}
-			catch (ResourceException) {
-				logger << Logger::ERR_MSG << "Couldn't instantiate the navigation mesh referenced "
-					"on line " << node->Row() << ".";
-				return false;
-			}
-			eGen->setNavMesh(nmPtr);
-			// nav mesh localizer
-			NavMeshLocalizerPtr nmlPtr;
-			try {
-				nmlPtr = loadNavMeshLocalizer(fName, true);
-			}
-			catch (ResourceException) {
-				logger << Logger::ERR_MSG << "Couldn't instantiate the navigation mesh localizer "
-					"required by the elevation on line " << node->Row() << ".";
-				return false;
-			}
-			eGen->setNavMeshLocalizer(nmlPtr);
+  // get the group name
+  std::string gName = _attrSet.getString(_polyGroupID);
+  eGen->setGroupname(gName);
 
-			for (TiXmlElement * child = node->FirstChildElement();
-				  child;
-				  child = child->NextSiblingElement()) {
-				if (child->ValueStr() == "Agent") {
-					try {
-						Vector2 p = parseAgent(child);
-						eGen->addPosition(p);
-					}
-					catch (AgentGeneratorException) {
-						return false;
-					}
-				}
-				else {
-					logger << Logger::WARN_MSG << "Found an unexpected child tag in an AgentGroup "
-						"on line " << node->Row() << ".  Ignoring the tag: ";
-					logger << child->ValueStr() << ".";
-				}
-			}
+  // get the file name
+  std::string fName;
+  std::string path = os::path::join(2, specFldr.c_str(), _attrSet.getString(_fileNameID).c_str());
+  os::path::absPath(path, fName);
+  // nav mesh
+  NavMeshPtr nmPtr;
+  try {
+    nmPtr = loadNavMesh(fName);
+  } catch (ResourceException) {
+    logger << Logger::ERR_MSG
+           << "Couldn't instantiate the navigation mesh referenced "
+              "on line "
+           << node->Row() << ".";
+    return false;
+  }
+  eGen->setNavMesh(nmPtr);
+  // nav mesh localizer
+  NavMeshLocalizerPtr nmlPtr;
+  try {
+    nmlPtr = loadNavMeshLocalizer(fName, true);
+  } catch (ResourceException) {
+    logger << Logger::ERR_MSG
+           << "Couldn't instantiate the navigation mesh localizer "
+              "required by the elevation on line "
+           << node->Row() << ".";
+    return false;
+  }
+  eGen->setNavMeshLocalizer(nmlPtr);
 
-			return true;
-		}
+  for (TiXmlElement* child = node->FirstChildElement(); child;
+       child = child->NextSiblingElement()) {
+    if (child->ValueStr() == "Agent") {
+      try {
+        Vector2 p = parseAgent(child);
+        eGen->addPosition(p);
+      } catch (AgentGeneratorException) {
+        return false;
+      }
+    } else {
+      logger << Logger::WARN_MSG
+             << "Found an unexpected child tag in an AgentGroup "
+                "on line "
+             << node->Row() << ".  Ignoring the tag: ";
+      logger << child->ValueStr() << ".";
+    }
+  }
 
-		////////////////////////////////////////////////////////////////////////////
+  return true;
+}
 
-		Vector2 NavMeshGeneratorFactory::parseAgent(TiXmlElement * node) const {
-			float x, y;
-			double dVal;
-			bool valid = true;
-			if (node->Attribute("p_x", &dVal)) {
-				x = (float)dVal;
-			}
-			else {
-				valid = false;
-			}
-			if (node->Attribute("p_y", &dVal)) {
-				y = (float)dVal;
-			}
-			else {
-				valid = false;
-			}
-			if (!valid) {
-				logger << Logger::ERR_MSG << "Agent on line " << node->Row() << " didn't define "
-					"position!";
-				throw AgentGeneratorFatalException("Agent in explicit generator didn't define a "
-													"position");
-			}
-			return Vector2(x, y);
-		}
+////////////////////////////////////////////////////////////////////////////
 
-	}	// namespace Agents
-}	// namespace Menge
+Vector2 NavMeshGeneratorFactory::parseAgent(TiXmlElement* node) const {
+  float x, y;
+  double dVal;
+  bool valid = true;
+  if (node->Attribute("p_x", &dVal)) {
+    x = (float)dVal;
+  } else {
+    valid = false;
+  }
+  if (node->Attribute("p_y", &dVal)) {
+    y = (float)dVal;
+  } else {
+    valid = false;
+  }
+  if (!valid) {
+    logger << Logger::ERR_MSG << "Agent on line " << node->Row()
+           << " didn't define "
+              "position!";
+    throw AgentGeneratorFatalException(
+        "Agent in explicit generator didn't define a "
+        "position");
+  }
+  return Vector2(x, y);
+}
+
+}  // namespace Agents
+}  // namespace Menge

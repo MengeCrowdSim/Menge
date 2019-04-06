@@ -5,25 +5,26 @@
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 namespace MengeVis {
 
-	namespace {
-		Runtime::BaseAgentContext _defaultContext;
-	}	// namespace
+namespace {
+Runtime::BaseAgentContext _defaultContext;
+}  // namespace
 
-	// Specialization
-	template<> Runtime::BaseAgentContext *
-		Runtime::VisElementDB<Runtime::BaseAgentContext, Runtime::VisAgent>::getDefaultElement() {
-		return &_defaultContext;
-	}
-
-	template<> void
-		Runtime::VisElementDB<Runtime::BaseAgentContext, Runtime::VisAgent>::addBuiltins() {
-		addVisElement( new Runtime::OrcaAgentContext() );
-		addVisElement( new Runtime::PedVOAgentContext() );
-	}
-
-	template<> std::string
-		Runtime::VisElementDB<Runtime::BaseAgentContext, Runtime::VisAgent>::getElementName() {
-		return "agent_context";
-	}
+// Specialization
+template <>
+Runtime::BaseAgentContext*
+Runtime::VisElementDB<Runtime::BaseAgentContext, Runtime::VisAgent>::getDefaultElement() {
+  return &_defaultContext;
 }
-#endif	// DOXYGEN_SHOULD_SKIP_THIS
+
+template <>
+void Runtime::VisElementDB<Runtime::BaseAgentContext, Runtime::VisAgent>::addBuiltins() {
+  addVisElement(new Runtime::OrcaAgentContext());
+  addVisElement(new Runtime::PedVOAgentContext());
+}
+
+template <>
+std::string Runtime::VisElementDB<Runtime::BaseAgentContext, Runtime::VisAgent>::getElementName() {
+  return "agent_context";
+}
+}  // namespace MengeVis
+#endif  // DOXYGEN_SHOULD_SKIP_THIS

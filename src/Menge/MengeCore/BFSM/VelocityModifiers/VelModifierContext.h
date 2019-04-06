@@ -25,10 +25,10 @@
 #if 0
 
 #ifndef __VEL_MOD_CONTEXT_H__
-#define	__VEL_MOD_CONTEXT_H__
+#define __VEL_MOD_CONTEXT_H__
 
-#include "Context.h"
 #include <vector>
+#include "Context.h"
 
 namespace Menge {
 
@@ -101,5 +101,5 @@ namespace Menge {
 
 	}	// namespace BFSM
 }	// namespace Menge
-#endif	// __VEL_MOD_CONTEXT_H__
-#endif // 0
+#endif  // __VEL_MOD_CONTEXT_H__
+#endif  // 0

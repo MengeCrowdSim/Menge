@@ -20,7 +20,7 @@
  *	@file		VelModifierDatabase.h
  *	@brief		Central database for querying available behavior velocity modifiers.
  *
- *	For velocity modifiers to be used in the finite state machine, they must register 
+ *	For velocity modifiers to be used in the finite state machine, they must register
  *	themselves into the VelModDB.  This is done via the PluginEngine.
  */
 
@@ -33,20 +33,22 @@
 
 namespace Menge {
 
-	namespace BFSM {
-		/*!
-		 *	@brief		The database of registered velocity component implementations.
-		 */
-		typedef ElementDB< VelModFactory, VelModifier > VelModDB;
+namespace BFSM {
+/*!
+ *	@brief		The database of registered velocity component implementations.
+ */
+typedef ElementDB<VelModFactory, VelModifier> VelModDB;
 
-	}	// namespace BFSM
+}  // namespace BFSM
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
-	template<> void ElementDB< BFSM::VelModFactory, BFSM::VelModifier>::addBuiltins();
-	template<> std::string ElementDB< BFSM::VelModFactory, BFSM::VelModifier >::getElementName();
+template <>
+void ElementDB<BFSM::VelModFactory, BFSM::VelModifier>::addBuiltins();
+template <>
+std::string ElementDB<BFSM::VelModFactory, BFSM::VelModifier>::getElementName();
 
-#endif	// DOXYGEN_SHOULD_SKIP_THIS
+#endif  // DOXYGEN_SHOULD_SKIP_THIS
 
-}	// namespace Menge	
-#endif	// __VEL___VEL_MOD_DATABASE_H__
+}  // namespace Menge
+#endif  // __VEL___VEL_MOD_DATABASE_H__

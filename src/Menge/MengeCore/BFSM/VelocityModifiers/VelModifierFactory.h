@@ -25,22 +25,21 @@
 #ifndef __VEL_MODIFIER_FACTORY_H__
 #define __VEL_MODIFIER_FACTORY_H__
 
-#include "MengeCore/CoreConfig.h"
 #include <string>
+#include "MengeCore/CoreConfig.h"
 
-#include "MengeCore/PluginEngine/ElementFactory.h"
 #include "MengeCore/BFSM/VelocityModifiers/VelModifier.h"
+#include "MengeCore/PluginEngine/ElementFactory.h"
 
 namespace Menge {
 
-	namespace BFSM {
-		/*!
-		 *	@brief		A class for parsing the xml description of a velocity MODIFIER
-		 *				and instantiating particular instances.
-		 */
-		class MENGE_API VelModFactory : public ElementFactory< VelModifier > {
-		};
-	}	// namespace BFSM
-}	// namespace Menge
+namespace BFSM {
+/*!
+ *	@brief		A class for parsing the xml description of a velocity MODIFIER
+ *				and instantiating particular instances.
+ */
+class MENGE_API VelModFactory : public ElementFactory<VelModifier> {};
+}  // namespace BFSM
+}  // namespace Menge
 
-#endif // __VEL_MODIFIER_FACTORY_H__
+#endif  // __VEL_MODIFIER_FACTORY_H__

@@ -24,174 +24,173 @@
 #ifndef __SELECT_H__
 #define __SELECT_H__
 
-#include "MengeVis/VisConfig.h"
-#include <vector>
 #include <string>
+#include <vector>
+#include "MengeVis/VisConfig.h"
 
 namespace MengeVis {
 
-	namespace SceneGraph {
+namespace SceneGraph {
 
-		/*!
-		 *	@brief	The class interface for selectable objects -- objects which can be selectedc
-		 *			in the OpenGL context by clicking on them.
-		 */
-		class MENGEVIS_API Selectable {
-		public:
-			/*!
-			 *	@brief		Constructor.
-			 */
-			Selectable();
+/*!
+ *	@brief	The class interface for selectable objects -- objects which can be selectedc
+ *			in the OpenGL context by clicking on them.
+ */
+class MENGEVIS_API Selectable {
+ public:
+  /*!
+   *	@brief		Constructor.
+   */
+  Selectable();
 
-			/*!
-			 *	@brief		Performs the OpenGL task to make this object selectable.
-			 */
-			void loadSelectName() const;
+  /*!
+   *	@brief		Performs the OpenGL task to make this object selectable.
+   */
+  void loadSelectName() const;
 
-			/*!
-			 *	@brief		Returns this object's globally unique *selection* id.
-			 *
-			 *	@returns	The selection id - a positive value.
-			 */
-			unsigned int getID() const { return _id; }
-			
-			/*!
-			 *	@brief		A dummy function that makes Selectable polymorphic.
-			 *				It enables the use of dynamic_cast.  Otherwise, it is a no-op.
-			 */
-			virtual void dummy() { return; }
+  /*!
+   *	@brief		Returns this object's globally unique *selection* id.
+   *
+   *	@returns	The selection id - a positive value.
+   */
+  unsigned int getID() const { return _id; }
 
-			/*!
-			 *	@brief		Retrives a pointer to the currently selected node.
-			 *
-			 *	@returns	A pointer to the selected object -- NULL if no object is selected.
-			 */
-			static Selectable * getSelectedObject() { return _selectedObject; }
+  /*!
+   *	@brief		A dummy function that makes Selectable polymorphic.
+   *				It enables the use of dynamic_cast.  Otherwise, it is a no-op.
+   */
+  virtual void dummy() { return; }
 
-			/*!
-			 *	@brief		Returns the "name" of the currently selected object.
-			 *
-			 *	In this case, "name" refers to the OpenGL identifier.  It corresponds to
-			 *	a *selectable* object's id (see Selectable::getID).
-			 *
-			 *	@returns	The OpenGL name (selectable id) of the currently selected object.
-			 *				If no object is selected, it returns zero.
-			 */
-			static unsigned int getSelectedName() { return _selectedName; }
+  /*!
+   *	@brief		Retrives a pointer to the currently selected node.
+   *
+   *	@returns	A pointer to the selected object -- NULL if no object is selected.
+   */
+  static Selectable* getSelectedObject() { return _selectedObject; }
 
-			/*!
-			 *	@brief		Clears the current selection
-			 */
-			static void clearSelectedObject() { 
-				if ( _selectedObject ) _selectedObject->_selected = false;
-				_selectedObject = 0x0; 
-				_selectedName = 0;
-			}
+  /*!
+   *	@brief		Returns the "name" of the currently selected object.
+   *
+   *	In this case, "name" refers to the OpenGL identifier.  It corresponds to
+   *	a *selectable* object's id (see Selectable::getID).
+   *
+   *	@returns	The OpenGL name (selectable id) of the currently selected object.
+   *				If no object is selected, it returns zero.
+   */
+  static unsigned int getSelectedName() { return _selectedName; }
 
-			/*!
-			 *	@brief		Forces an arbitrary selectable to be selected
-			 *
-			 *	@param		obj		A selectable object to set as selected.
-			 */
-			static void setSelectedObject( Selectable * obj ) {
-				clearSelectedObject();
-				_selectedName = obj->_id;
-				_selectedObject = obj;
-				obj->_selected = true;
-			}
+  /*!
+   *	@brief		Clears the current selection
+   */
+  static void clearSelectedObject() {
+    if (_selectedObject) _selectedObject->_selected = false;
+    _selectedObject = 0x0;
+    _selectedName = 0;
+  }
 
-			/*!
-			 *	@brief		The selection set up.
-			 *
-			 *	To perform selection, this needs to be called prior to drawing the scene of
-			 *	selectable objects.
-			 */
-			static void selectStart();
+  /*!
+   *	@brief		Forces an arbitrary selectable to be selected
+   *
+   *	@param		obj		A selectable object to set as selected.
+   */
+  static void setSelectedObject(Selectable* obj) {
+    clearSelectedObject();
+    _selectedName = obj->_id;
+    _selectedObject = obj;
+    obj->_selected = true;
+  }
 
-			/*!
-			 *	@brief		The selection take down.
-			 *
-			 *	When performing selection, after calling Selectable::selectStart and drawing the
-			 *	scene, this must be called to conclude the selection process.
-			 *
-			 *	@returns	A boolean reporting if the selection *changed* (true) or not (false).
-			 */
-			static bool selectEnd();
+  /*!
+   *	@brief		The selection set up.
+   *
+   *	To perform selection, this needs to be called prior to drawing the scene of
+   *	selectable objects.
+   */
+  static void selectStart();
 
-			/*!
-			 *	@brief		Reports the next available selection name
-			 */
-			static unsigned int nextSelectName() { return ID; }
+  /*!
+   *	@brief		The selection take down.
+   *
+   *	When performing selection, after calling Selectable::selectStart and drawing the
+   *	scene, this must be called to conclude the selection process.
+   *
+   *	@returns	A boolean reporting if the selection *changed* (true) or not (false).
+   */
+  static bool selectEnd();
 
-		protected:
-			/*!
-			 *	@brief		Globally unique OpenGL name for selection.
-			 */
-			unsigned int	_id;
+  /*!
+   *	@brief		Reports the next available selection name
+   */
+  static unsigned int nextSelectName() { return ID; }
 
-			/*!
-			 *	@brief		Reports if this node is selcted.
-			 *
-			 *	This can be used by contexts or objects that change how they are drawn based
-			 *	on selection state.
-			 */
-			bool			_selected;
+ protected:
+  /*!
+   *	@brief		Globally unique OpenGL name for selection.
+   */
+  unsigned int _id;
 
-		private:
-			/*!
-			 *	@brief		An OpenGL construct.  The size of a buffer to hold selection
-			 *				candiadtes.
-			 */
-			static const unsigned int BUFFER_SIZE;
+  /*!
+   *	@brief		Reports if this node is selcted.
+   *
+   *	This can be used by contexts or objects that change how they are drawn based
+   *	on selection state.
+   */
+  bool _selected;
 
-			/*!
-			 *	@brief		The OpenGL buffer for holding selection candidates.
-			 */
-			static unsigned int * _buffer;
+ private:
+  /*!
+   *	@brief		An OpenGL construct.  The size of a buffer to hold selection
+   *				candiadtes.
+   */
+  static const unsigned int BUFFER_SIZE;
 
-			/*!
-			 *	@brief		A gobal counter of the number of selectable objects in the scene.
-			 *		
-			 *	Used to assign a new globally unique selection id to the next Selectable.
-			 */
-			static unsigned int ID;
+  /*!
+   *	@brief		The OpenGL buffer for holding selection candidates.
+   */
+  static unsigned int* _buffer;
 
-			/*!
-			 *	@brief		The currently selected object 
-			 *
-			 *	This system currently only supports selection of one item at a time.  
-			 *	TODO: support multiple selection as required.
-			 */
-			static Selectable *	_selectedObject;
+  /*!
+   *	@brief		A gobal counter of the number of selectable objects in the scene.
+   *
+   *	Used to assign a new globally unique selection id to the next Selectable.
+   */
+  static unsigned int ID;
 
-			/*!
-			 *	@brief		The OpenGL Selection name of the currently selected object.
-			 */
-			static unsigned int	_selectedName;
+  /*!
+   *	@brief		The currently selected object
+   *
+   *	This system currently only supports selection of one item at a time.
+   *	TODO: support multiple selection as required.
+   */
+  static Selectable* _selectedObject;
 
-			/*!
-			 *	@brief		Set of all selectable objects (their ids serve as indices into the
-			 *				list).
-			 */
-			static std::vector< Selectable * >	_selectables;
+  /*!
+   *	@brief		The OpenGL Selection name of the currently selected object.
+   */
+  static unsigned int _selectedName;
 
-		};
+  /*!
+   *	@brief		Set of all selectable objects (their ids serve as indices into the
+   *				list).
+   */
+  static std::vector<Selectable*> _selectables;
+};
 
-		/*!
-		 *	@brief		An STL Vector of Selectable objects.
-		 */
-		typedef std::vector< Selectable * > SelectableVector;
-		
-		/*!
-		 *	@brief		An iterator for the SelectableVector.
-		 */
-		typedef SelectableVector::iterator SelectableVectorItr;
-		
-		/*!
-		 *	@brief		A const iterator for the SelectableVector.
-		 */
-		typedef SelectableVector::const_iterator SelectableVectorCItr;
+/*!
+ *	@brief		An STL Vector of Selectable objects.
+ */
+typedef std::vector<Selectable*> SelectableVector;
 
-	}	// namespace SceneGraph
-}	// namespace MengeVis
-#endif	// __SELECT_H__
+/*!
+ *	@brief		An iterator for the SelectableVector.
+ */
+typedef SelectableVector::iterator SelectableVectorItr;
+
+/*!
+ *	@brief		A const iterator for the SelectableVector.
+ */
+typedef SelectableVector::const_iterator SelectableVectorCItr;
+
+}  // namespace SceneGraph
+}  // namespace MengeVis
+#endif  // __SELECT_H__

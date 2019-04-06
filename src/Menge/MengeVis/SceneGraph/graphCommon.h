@@ -41,7 +41,7 @@
 /*!
  *	@brief		OpenGL constant for determing pixel order for 3-color textures.
  */
-#define GL_BGR 0x80E0 
+#define GL_BGR 0x80E0
 #endif
 
 #ifndef GL_BGRA
@@ -55,7 +55,7 @@
 /*!
  *	@brief		OpenGL constant for determing texture behavior.
  */
-#define GL_CLAMP_TO_EDGE	0x812F
+#define GL_CLAMP_TO_EDGE 0x812F
 #endif
 
-#endif	// __GRAPH_COMMON_H__
+#endif  // __GRAPH_COMMON_H__

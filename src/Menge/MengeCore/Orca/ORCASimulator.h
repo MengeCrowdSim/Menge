@@ -24,27 +24,27 @@
 #ifndef __ORCA_SIMULATOR_H__
 #define __ORCA_SIMULATOR_H__
 
-#include "MengeCore/mengeCommon.h"
-#include "MengeCore/Agents/SimulatorBase.h"	
+#include "MengeCore/Agents/SimulatorBase.h"
 #include "MengeCore/Orca/ORCAAgent.h"
+#include "MengeCore/mengeCommon.h"
 
 /*!
  *	@namespace	ORCA
  *	@brief		The namespace for the ORCA local collision avoidance model.
  */
 namespace ORCA {
-	/*!
-	*  @brief      Defines the simulator operating on ORCA::Agent.
-	*/
-	class Simulator : public Menge::Agents::SimulatorBase< Agent > {
-	public:
-		/*!
-		 *  @brief      Constructs a simulator instance.
-		 */
-		Simulator(): Menge::Agents::SimulatorBase< Agent >() {}
+/*!
+ *  @brief      Defines the simulator operating on ORCA::Agent.
+ */
+class Simulator : public Menge::Agents::SimulatorBase<Agent> {
+ public:
+  /*!
+   *  @brief      Constructs a simulator instance.
+   */
+  Simulator() : Menge::Agents::SimulatorBase<Agent>() {}
 
-	private:
-		friend class Agent;
-	};
-}	// namespace ORCA
+ private:
+  friend class Agent;
+};
+}  // namespace ORCA
 #endif

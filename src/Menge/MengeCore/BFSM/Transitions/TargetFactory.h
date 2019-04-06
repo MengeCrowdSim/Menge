@@ -25,22 +25,21 @@
 #ifndef __TARGET_FACTORY_H__
 #define __TARGET_FACTORY_H__
 
-#include "MengeCore/CoreConfig.h"
 #include "MengeCore/BFSM/Transitions/Target.h"
+#include "MengeCore/CoreConfig.h"
 #include "MengeCore/PluginEngine/ElementFactory.h"
 
 #include <string>
 
 namespace Menge {
 
-	namespace BFSM {
-		/*!
-		 *	@brief		A class for parsing the xml description of a TransitionTarget
-		 *				and instantiating particular instances.
-		 */
-		class MENGE_API TargetFactory : public ElementFactory< TransitionTarget > {
-		};
+namespace BFSM {
+/*!
+ *	@brief		A class for parsing the xml description of a TransitionTarget
+ *				and instantiating particular instances.
+ */
+class MENGE_API TargetFactory : public ElementFactory<TransitionTarget> {};
 
-	}	// namespace BFSM
-}	// namespace Menge
-#endif // __TARGET_FACTORY_H__
+}  // namespace BFSM
+}  // namespace Menge
+#endif  // __TARGET_FACTORY_H__

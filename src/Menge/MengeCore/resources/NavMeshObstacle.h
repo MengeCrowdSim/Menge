@@ -22,64 +22,64 @@
  */
 
 #ifndef __NAV_MESH_OBSTACLE__
-#define	__NAV_MESH_OBSTACLE__
+#define __NAV_MESH_OBSTACLE__
 
-#include "MengeCore/Agents/Obstacle.h"
 #include <fstream>
+#include "MengeCore/Agents/Obstacle.h"
 
 namespace Menge {
 
-	// FORWARD DECLARATIONS
-	class NavMeshNode;
-	class NavMesh;
+// FORWARD DECLARATIONS
+class NavMeshNode;
+class NavMesh;
 
-	/*!
-	 *	@brief		Specification of an obstacle.  It is the same as a pedModel
-	 *				specification but includes a pointer to a node to which it is
-	 *				attached.
-	 */
-	class MENGE_API NavMeshObstacle : public Agents::Obstacle {
-	public:
-		/*!
-		 *	@brief		The index value if the obstacle has no neighboring obstacle
-		 */
-		static size_t NO_NEIGHBOR_OBST;
+/*!
+ *	@brief		Specification of an obstacle.  It is the same as a pedModel
+ *				specification but includes a pointer to a node to which it is
+ *				attached.
+ */
+class MENGE_API NavMeshObstacle : public Agents::Obstacle {
+ public:
+  /*!
+   *	@brief		The index value if the obstacle has no neighboring obstacle
+   */
+  static size_t NO_NEIGHBOR_OBST;
 
-		/*!
-		 *	@brief		Constructor
-		 */
-		NavMeshObstacle(): Agents::Obstacle(), _node(0x0) {}
+  /*!
+   *	@brief		Constructor
+   */
+  NavMeshObstacle() : Agents::Obstacle(), _node(0x0) {}
 
-		/*!
-		 *	@brief		Sets the obstacle properties from an obstacle definition
-		 *				in the given ascii file stream.
-		 *	
-		 *	@param		f			The input file stream.
-		 *	@param		vertices	The array of vertices into which the definition
-		 *							indexes.
-		 *	@returns	A boolean indicating successful parsing (true) or failure
-		 *				(false).
-		 */
-		bool loadFromAscii( std::ifstream & f, Math::Vector2 * vertices );
+  /*!
+   *	@brief		Sets the obstacle properties from an obstacle definition
+   *				in the given ascii file stream.
+   *
+   *	@param		f			The input file stream.
+   *	@param		vertices	The array of vertices into which the definition
+   *							indexes.
+   *	@returns	A boolean indicating successful parsing (true) or failure
+   *				(false).
+   */
+  bool loadFromAscii(std::ifstream& f, Math::Vector2* vertices);
 
-		/*!
-		 *	@brief		Retrieve the nav mesh node to which this obstacle is adjacent.
-		 *
-		 *	@returns	A pointer to the node.
-		 */
-		inline const NavMeshNode * getNode() const { return _node; }
+  /*!
+   *	@brief		Retrieve the nav mesh node to which this obstacle is adjacent.
+   *
+   *	@returns	A pointer to the node.
+   */
+  inline const NavMeshNode* getNode() const { return _node; }
 
-		friend class NavMeshNode;
-		friend class NavMesh;
+  friend class NavMeshNode;
+  friend class NavMesh;
 
-	protected:
-		/*!
-		 *	@brief		A nav mesh node to which this obstacle is attached.
-		 *				It could be attached to multiple, but this is the node
-		 *				for which it serves as an edge.
-		 */
-		NavMeshNode *	_node;
-	};
-}	// namespace Menge
+ protected:
+  /*!
+   *	@brief		A nav mesh node to which this obstacle is attached.
+   *				It could be attached to multiple, but this is the node
+   *				for which it serves as an edge.
+   */
+  NavMeshNode* _node;
+};
+}  // namespace Menge
 
-#endif	 // __NAV_MESH_OBSTACLE__
+#endif  // __NAV_MESH_OBSTACLE__

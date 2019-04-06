@@ -23,7 +23,7 @@
  */
 
 #ifndef __CORE_H__
-#define	__CORE_H__
+#define __CORE_H__
 
 #include "MengeCore/CoreConfig.h"
 
@@ -33,54 +33,54 @@
  */
 namespace Menge {
 
-	// forward declarations
-	namespace Agents {
-		class SpatialQuery;
-		class SimulatorInterface;
-		class Elevation;
-	}
+// forward declarations
+namespace Agents {
+class SpatialQuery;
+class SimulatorInterface;
+class Elevation;
+}  // namespace Agents
 
-	namespace BFSM {
-		class FSM;
-	}
+namespace BFSM {
+class FSM;
+}
 
-	class EventSystem;
+class EventSystem;
 
-	/*!
-	 *	@brief		The fsm running for the simulation.
-	 */
-	extern MENGE_API BFSM::FSM * ACTIVE_FSM;
+/*!
+ *	@brief		The fsm running for the simulation.
+ */
+extern MENGE_API BFSM::FSM* ACTIVE_FSM;
 
-	/*!
-	 *	@brief		The global simulation time.
-	 */
-	extern MENGE_API float SIM_TIME;
+/*!
+ *	@brief		The global simulation time.
+ */
+extern MENGE_API float SIM_TIME;
 
-	/*!
-	 *	@brief		The simulation time step.
-	 */
-	extern MENGE_API float SIM_TIME_STEP;
+/*!
+ *	@brief		The simulation time step.
+ */
+extern MENGE_API float SIM_TIME_STEP;
 
-	/*!
-	 *	@brief		The spatial query structure for the simulation.
-	 */
-	extern MENGE_API Agents::SpatialQuery * SPATIAL_QUERY;
+/*!
+ *	@brief		The spatial query structure for the simulation.
+ */
+extern MENGE_API Agents::SpatialQuery* SPATIAL_QUERY;
 
-	/*!
-	 *	@brief		The elevation structure for the simulation.
-	 */
-	extern MENGE_API Agents::Elevation * ELEVATION;
+/*!
+ *	@brief		The elevation structure for the simulation.
+ */
+extern MENGE_API Agents::Elevation* ELEVATION;
 
-	/*!
-	 *	@brief		The simulator for use with some plugins that need it
-	 */
-	extern MENGE_API Agents::SimulatorInterface * SIMULATOR;
+/*!
+ *	@brief		The simulator for use with some plugins that need it
+ */
+extern MENGE_API Agents::SimulatorInterface* SIMULATOR;
 
-	/*!
-	 *	@brief		The event system.
-	 */
-	extern MENGE_API EventSystem * EVENT_SYSTEM;
+/*!
+ *	@brief		The event system.
+ */
+extern MENGE_API EventSystem* EVENT_SYSTEM;
 
-}	// namespace Menge
+}  // namespace Menge
 
-#endif	//__CORE_H__
+#endif  //__CORE_H__

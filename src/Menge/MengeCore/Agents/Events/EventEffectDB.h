@@ -20,29 +20,31 @@
  *	@file		EventEffectDB.h
  *	@brief		Central database for querying available event effect implementations.
  *
- *	For event effects to be used in simulation, they must register 
+ *	For event effects to be used in simulation, they must register
  *	themselves into the EventEffectDB.  This is done via the PluginEngine.
  */
 
 #ifndef __EVENT_EFFECT_DATABASE_H__
 #define __EVENT_EFFECT_DATABASE_H__
 
-#include "MengeCore/PluginEngine/ElementDatabase.h"
-#include "MengeCore/Agents/Events/EventEffectFactory.h"
 #include "MengeCore/Agents/Events/EventEffect.h"
+#include "MengeCore/Agents/Events/EventEffectFactory.h"
+#include "MengeCore/PluginEngine/ElementDatabase.h"
 
 namespace Menge {
-	/*!
-	 *	@brief		The database of registered event effects implementations.
-	 */
-	typedef ElementDB< EventEffectFactory, EventEffect > EventEffectDB;
+/*!
+ *	@brief		The database of registered event effects implementations.
+ */
+typedef ElementDB<EventEffectFactory, EventEffect> EventEffectDB;
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
-	template<> void ElementDB< EventEffectFactory, EventEffect >::addBuiltins();
-	template<> std::string ElementDB< EventEffectFactory, EventEffect >::getElementName();
+template <>
+void ElementDB<EventEffectFactory, EventEffect>::addBuiltins();
+template <>
+std::string ElementDB<EventEffectFactory, EventEffect>::getElementName();
 
-#endif // DOXYGEN_SHOULD_SKIP_THIS
-}	// namespace Menge
+#endif  // DOXYGEN_SHOULD_SKIP_THIS
+}  // namespace Menge
 
-#endif	// __EVENT_EFFECT_DATABASE_H__
+#endif  // __EVENT_EFFECT_DATABASE_H__

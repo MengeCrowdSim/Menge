@@ -26,15 +26,16 @@
 
 namespace MengeVis {
 
-	/*!
-	 *	@brief			Function to create a png from the current screenbuffer
-	 *
-	 *  @param			windowWidth		the current width of the Menge window
-	 *  @param			windowHeight	the current height of the Menge windiw
-	 *  @param			filename		string representation of the target filename. 
-	 *
-	 *	@returns		whether or not the output was successful
-	 */
-	bool snapshotPNG(int windowWidth, int windowHeight, const char* filename);
-}	// namespace MengeVis
-#endif	// __SCREENGRAB_H__
+/*!
+ *	@brief			Function to create a png from the current screenbuffer
+ *
+ *  @param			windowWidth		the current width of the Menge window
+ *  @param			windowHeight	the current height of the Menge windiw
+ *  @param			filename		string representation of the target
+ *filename.
+ *
+ *	@returns		whether or not the output was successful
+ */
+bool snapshotPNG(int windowWidth, int windowHeight, const char* filename);
+}  // namespace MengeVis
+#endif  // __SCREENGRAB_H__

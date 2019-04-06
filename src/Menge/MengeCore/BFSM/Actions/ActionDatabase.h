@@ -20,42 +20,44 @@
  *	@file		ActionDatabase.h
  *	@brief		Central database for querying available behavior actions.
  *
- *	For actions to be used in the finite state machine, they must register 
+ *	For actions to be used in the finite state machine, they must register
  *	themselves into the ActionDatabase.  This is done via the PluginEngine.
  */
 
 #ifndef __ACTION_DATABASE_H__
 #define __ACTION_DATABASE_H__
 
-#include "MengeCore/BFSM/Actions/ActionFactory.h"
 #include "MengeCore/BFSM/Actions/Action.h"
+#include "MengeCore/BFSM/Actions/ActionFactory.h"
 #include "MengeCore/PluginEngine/ElementDatabase.h"
 
 namespace Menge {
 
-	namespace BFSM {
-		
-		/*!
-		 *	@brief		The database of registered action implementations.
-		 */
-		typedef ElementDB< ActionFactory, Action > ActionDB;
-	}	// namespace BFSM
+namespace BFSM {
 
-#ifndef DOXYGEN_SHOULD_SKIP_THIS	
-	/*!
-	 *	@brief		Explicit specialization of addBuiltins for the Action Database
-	 */
-	template<> void ElementDB< BFSM::ActionFactory, BFSM::Action >::addBuiltins();
+/*!
+ *	@brief		The database of registered action implementations.
+ */
+typedef ElementDB<ActionFactory, Action> ActionDB;
+}  // namespace BFSM
 
-	/*!
-	 *	@brief		Explicit specialization of getElementName for the Action Database
-	 */
-	template<> std::string ElementDB< BFSM::ActionFactory, BFSM::Action >::getElementName();
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*!
+ *	@brief		Explicit specialization of addBuiltins for the Action Database
+ */
+template <>
+void ElementDB<BFSM::ActionFactory, BFSM::Action>::addBuiltins();
 
-#endif	 // DOXYGEN_SHOULD_SKIP_THIS
+/*!
+ *	@brief		Explicit specialization of getElementName for the Action Database
+ */
+template <>
+std::string ElementDB<BFSM::ActionFactory, BFSM::Action>::getElementName();
 
-}	// namespace Menge
+#endif  // DOXYGEN_SHOULD_SKIP_THIS
+
+}  // namespace Menge
 
 // Declarations of explicit specialization
 
-#endif	// __ACTION_DATABASE_H__
+#endif  // __ACTION_DATABASE_H__

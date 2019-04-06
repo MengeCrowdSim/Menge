@@ -18,28 +18,27 @@ Any questions or comments should be sent to the authors menge@cs.unc.edu
 
 #include "MengeCore/Agents/Events/EventTriggerExternal.h"
 
-#include "MengeCore/Core.h"
 #include "MengeCore/Agents/Events/EventSystem.h"
+#include "MengeCore/Core.h"
 
 #include <cassert>
 
 namespace Menge {
 
-	/////////////////////////////////////////////////////////////////////
-	//					Implementation of ExternalEvtTriggerFactory
-	/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+//					Implementation of ExternalEvtTriggerFactory
+/////////////////////////////////////////////////////////////////////
 
-	bool ExternalEvtTriggerFactory::setFromXML(EventTrigger * trigger,
-											   TiXmlElement * node,
-											   const std::string & specFldr) const {
-		ExternalEvtTrigger * xTrigger = dynamic_cast< ExternalEvtTrigger * >(trigger);
-		assert(xTrigger != 0x0 &&
-			"Trying to set attributes of an external event trigger on an incompatible object");
+bool ExternalEvtTriggerFactory::setFromXML(EventTrigger* trigger, TiXmlElement* node,
+                                           const std::string& specFldr) const {
+  ExternalEvtTrigger* xTrigger = dynamic_cast<ExternalEvtTrigger*>(trigger);
+  assert(xTrigger != 0x0 &&
+         "Trying to set attributes of an external event trigger on an incompatible object");
 
-		if (!EventTriggerFactory::setFromXML(xTrigger, node, specFldr)) return false;
+  if (!EventTriggerFactory::setFromXML(xTrigger, node, specFldr)) return false;
 
-		EVENT_SYSTEM->addExternalEventTrigger(xTrigger);
+  EVENT_SYSTEM->addExternalEventTrigger(xTrigger);
 
-		return true;
-	}
-}	// namespace Menge
+  return true;
+}
+}  // namespace Menge

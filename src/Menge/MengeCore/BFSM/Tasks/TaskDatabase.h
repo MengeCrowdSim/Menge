@@ -20,41 +20,43 @@
  *	@file		TaskDatabase.h
  *	@brief		Central database for querying available behavior actions.
  *
- *	For tasks to be used in the finite state machine, they must register 
+ *	For tasks to be used in the finite state machine, they must register
  *	themselves into the TaskDatabase.  This is done via the PluginEngine.
  */
 
 #ifndef __TASK_DATABASE_H__
 #define __TASK_DATABASE_H__
 
-#include "MengeCore/PluginEngine/ElementDatabase.h"
-#include "MengeCore/BFSM/Tasks/TaskFactory.h"
 #include "MengeCore/BFSM/Tasks/Task.h"
+#include "MengeCore/BFSM/Tasks/TaskFactory.h"
+#include "MengeCore/PluginEngine/ElementDatabase.h"
 
 namespace Menge {
 
-	namespace BFSM {
-		
-		/*!
-		 *	@brief		The database of registered task implementations.
-		 */
-		typedef ElementDB< TaskFactory, Task > TaskDB;
+namespace BFSM {
 
-	}	// namespace BFSM
+/*!
+ *	@brief		The database of registered task implementations.
+ */
+typedef ElementDB<TaskFactory, Task> TaskDB;
+
+}  // namespace BFSM
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
-	/*!
-	 *	@brief		Explicit specialization of addBuiltins for the Task Database
-	 */
-	template<> void ElementDB< BFSM::TaskFactory, BFSM::Task >::addBuiltins();
-	
-	/*!
-	 *	@brief		Explicit specialization of getElementName for the Task Database
-	 */
-	template<> std::string ElementDB< BFSM::TaskFactory, BFSM::Task >::getElementName();
+/*!
+ *	@brief		Explicit specialization of addBuiltins for the Task Database
+ */
+template <>
+void ElementDB<BFSM::TaskFactory, BFSM::Task>::addBuiltins();
 
-#endif	// DOXYGEN_SHOULD_SKIP_THIS
+/*!
+ *	@brief		Explicit specialization of getElementName for the Task Database
+ */
+template <>
+std::string ElementDB<BFSM::TaskFactory, BFSM::Task>::getElementName();
 
-}	// namespace Menge
-#endif	// __TASK_DATABASE_H__
+#endif  // DOXYGEN_SHOULD_SKIP_THIS
+
+}  // namespace Menge
+#endif  // __TASK_DATABASE_H__

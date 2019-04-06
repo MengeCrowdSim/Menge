@@ -32,192 +32,200 @@
 
 namespace Menge {
 
-	using Menge::Math::Vector2;
+using Menge::Math::Vector2;
 
-	/*!
-	 *	@brief		Determines if it uses simple funnel algorithm (no deque, just restart)
-	 *				or complex (using deque)
-	 */
-	// TODO: Determine which is faster.
-	//#define SIMPLE_FUNNEL
+/*!
+ *	@brief		Determines if it uses simple funnel algorithm (no deque, just restart)
+ *				or complex (using deque)
+ */
+// TODO: Determine which is faster.
+//#define SIMPLE_FUNNEL
 
-	// FORWARD DECLARATION
-	class PortalPath;
-	class FunnelPlanner;
+// FORWARD DECLARATION
+class PortalPath;
+class FunnelPlanner;
 
-	/*!
-	 *	@brief		The apex of the funnel.
-	 */
-	class FunnelApex {
-	public:
-		/*!
-		 *	@brief		Constructor
-		 *
-		 *	@param		id			The index of the portal associated with this
-		 *							apex.  If -1, it is the start position.
-		 *	@param		point		The location of the start point.
-		 */
-		FunnelApex( size_t id, const Vector2 & point ): _id(id), _pos(point) {}
+/*!
+ *	@brief		The apex of the funnel.
+ */
+class FunnelApex {
+ public:
+  /*!
+   *	@brief		Constructor
+   *
+   *	@param		id			The index of the portal associated with this
+   *							apex.  If -1, it is the start position.
+   *	@param		point		The location of the start point.
+   */
+  FunnelApex(size_t id, const Vector2& point) : _id(id), _pos(point) {}
 
-		/*!
-		 *	@brief		Sets the values of the apex
-		 *
-		 *	@param		id			The index of the portal associated with this
-		 *							apex.  If -1, it is the start position.
-		 *	@param		point		The location of the start point.
-		 */
-		inline void set( size_t id, const Vector2 & point ) { _id = id; _pos.set(point); }
+  /*!
+   *	@brief		Sets the values of the apex
+   *
+   *	@param		id			The index of the portal associated with this
+   *							apex.  If -1, it is the start position.
+   *	@param		point		The location of the start point.
+   */
+  inline void set(size_t id, const Vector2& point) {
+    _id = id;
+    _pos.set(point);
+  }
 
-		friend class FunnelPlanner;
-	protected:
-		/*!
-		 *	@brief		The identifier associated with this apex point.
-		 *				if -1, it is the start position, otherwise, a point
-		 *				extracted from the portal with the given id.
-		 */
-		size_t	_id;
+  friend class FunnelPlanner;
 
-		/*!
-		 *	@brief		The position of the apex.
-		 */
-		Vector2 _pos;
-	};
+ protected:
+  /*!
+   *	@brief		The identifier associated with this apex point.
+   *				if -1, it is the start position, otherwise, a point
+   *				extracted from the portal with the given id.
+   */
+  size_t _id;
 
-	/////////////////////////////////////////////////////////////////////
+  /*!
+   *	@brief		The position of the apex.
+   */
+  Vector2 _pos;
+};
 
-	/*!
-	 *	@brief		The edge of a funnel.
-	 */
-	class FunnelEdge {
-	public:
-		/*!
-		 *	@brief		Default constructor.  No initialization.
-		 */
-		FunnelEdge(){}
+/////////////////////////////////////////////////////////////////////
 
-	#ifdef SIMPLE_FUNNEL
-		/*!
-		 *	@brief		Constructor.
-		 *
-		 *	@param		id		The identifier of the portal from which this
-		 *						direction arises.
-		 *	@param		dir	The direction from the apex to the portal.
-		 */
-		FunnelEdge( size_t id, const Vector2 & dir ):_id(id), _dir(dir) {}
-	#else
-		/*!
-		 *	@brief		Constructor.
-		 *
-		 *	@param		id		The identifier of the portal from which this
-		 *						direction arises.
-		 *	@param		end		The identifier of the portal at which this
-		 *						wedge ends.
-		 *	@param		dir		The direction from the apex to the portal.
-		 *	@param		origin	The origin of this funnel "wedge".
-		 */
-		FunnelEdge( size_t id, size_t end, const Vector2 & dir, const Vector2 & origin ) :
-			_id(id), _endID(end), _dir(dir), _origin(origin) {}
-	#endif
+/*!
+ *	@brief		The edge of a funnel.
+ */
+class FunnelEdge {
+ public:
+  /*!
+   *	@brief		Default constructor.  No initialization.
+   */
+  FunnelEdge() {}
 
-		/*!
-		 *	@brief		Reports if the given direction is to the left of this edge.
-		 *
-		 *	@param		dir		The direction to test.
-		 *	@returns	A boolean reporting if the direction is to the left of this
-		 *				edge (true) or to the right (false).
-		 */
-		inline bool isOnLeft( const Vector2 & dir ) const { return det( _dir, dir ) > EPS; }
+#ifdef SIMPLE_FUNNEL
+  /*!
+   *	@brief		Constructor.
+   *
+   *	@param		id		The identifier of the portal from which this
+   *						direction arises.
+   *	@param		dir	The direction from the apex to the portal.
+   */
+  FunnelEdge(size_t id, const Vector2& dir) : _id(id), _dir(dir) {}
+#else
+  /*!
+   *	@brief		Constructor.
+   *
+   *	@param		id		The identifier of the portal from which this
+   *						direction arises.
+   *	@param		end		The identifier of the portal at which this
+   *						wedge ends.
+   *	@param		dir		The direction from the apex to the portal.
+   *	@param		origin	The origin of this funnel "wedge".
+   */
+  FunnelEdge(size_t id, size_t end, const Vector2& dir, const Vector2& origin)
+      : _id(id), _endID(end), _dir(dir), _origin(origin) {}
+#endif
 
-		/*!
-		 *	@brief		Reports if the given direction is to the right of this edge.
-		 *
-		 *	@param		dir		The direction to test.
-		 *	@returns	A boolean reporting if the direction is to the right of this
-		 *				edge (true) or to the left (false).
-		 */
-		inline bool isOnRight( const Vector2 & dir ) const { return det( dir, _dir ) > EPS; }
+  /*!
+   *	@brief		Reports if the given direction is to the left of this edge.
+   *
+   *	@param		dir		The direction to test.
+   *	@returns	A boolean reporting if the direction is to the left of this
+   *				edge (true) or to the right (false).
+   */
+  inline bool isOnLeft(const Vector2& dir) const { return det(_dir, dir) > EPS; }
 
-		/*!
-		 *	@brief		Sets the properties of the funnel edge.
-		 *
-		 *	@param		id		The id of the portal to which this funnel edge is associated.
-		 *	@param		dir		The direction of the edge.
-		 */
-		inline void set( size_t id, const Vector2 & dir ) { _id = id; _dir.set( dir ); }
+  /*!
+   *	@brief		Reports if the given direction is to the right of this edge.
+   *
+   *	@param		dir		The direction to test.
+   *	@returns	A boolean reporting if the direction is to the right of this
+   *				edge (true) or to the left (false).
+   */
+  inline bool isOnRight(const Vector2& dir) const { return det(dir, _dir) > EPS; }
 
-		friend class FunnelPlanner;
+  /*!
+   *	@brief		Sets the properties of the funnel edge.
+   *
+   *	@param		id		The id of the portal to which this funnel edge is
+   *associated.
+   *	@param		dir		The direction of the edge.
+   */
+  inline void set(size_t id, const Vector2& dir) {
+    _id = id;
+    _dir.set(dir);
+  }
 
-	protected:
-	#ifdef SIMPLE_FUNNEL
-		/*!
-		 *	@brief		The identifier of the portal for this direction
-		 */
-		size_t	_id;
+  friend class FunnelPlanner;
 
-	#else
-		/*!
-		 *	@brief		The identifier of the portal from which this wedge originates.
-		 */
-		size_t	_id;
-		/*!
-		 *	@brief		The identifier of the portal that ENDS the wedge.
-		 */
-		size_t  _endID;
+ protected:
+#ifdef SIMPLE_FUNNEL
+  /*!
+   *	@brief		The identifier of the portal for this direction
+   */
+  size_t _id;
 
-		/*!
-		 *	@brief		The origin of the wedge
-		 */
-		Vector2 _origin;
-	#endif
+#else
+  /*!
+   *	@brief		The identifier of the portal from which this wedge originates.
+   */
+  size_t _id;
+  /*!
+   *	@brief		The identifier of the portal that ENDS the wedge.
+   */
+  size_t _endID;
 
-		/*!
-		 *	@brief		The direction of this funnel edge
-		 */
-		Vector2 _dir;
-	};
+  /*!
+   *	@brief		The origin of the wedge
+   */
+  Vector2 _origin;
+#endif
 
-	/////////////////////////////////////////////////////////////////////
+  /*!
+   *	@brief		The direction of this funnel edge
+   */
+  Vector2 _dir;
+};
 
-	/*!
-	 *	@brief		The class that implements the funnel algorithm.
-	 */
-	class FunnelPlanner {
-	public:
-		/*!
-		 *	@brief		Constructor
-		 */
-		FunnelPlanner();
+/////////////////////////////////////////////////////////////////////
 
-		/*!
-		 *	@brief		Destructor
-		 */
-		~FunnelPlanner();
+/*!
+ *	@brief		The class that implements the funnel algorithm.
+ */
+class FunnelPlanner {
+ public:
+  /*!
+   *	@brief		Constructor
+   */
+  FunnelPlanner();
 
-		/*!
-		 *	@brief		Computes the crossings for the given path based on
-		 *				the funnel algorithm.
-		 *
-		 *	@param		radius			The radius of the agent.
-		 *	@param		startPos		The starting position of the path.
-		 *	@param		path			A pointer to a portal path.
-		 *	@param		startPortal		The portal in the path to start wtih
-		 */
-		void computeCrossing( float radius, const Vector2 & startPos, PortalPath * path,
-							  size_t startPortal=0 );
+  /*!
+   *	@brief		Destructor
+   */
+  ~FunnelPlanner();
 
-	#ifndef SIMPLE_FUNNEL
-	protected:
-		/*!
-		 *	@brief		The queue for the left side of the funnel.
-		 */
-		std::list< FunnelEdge >	_left;
+  /*!
+   *	@brief		Computes the crossings for the given path based on
+   *				the funnel algorithm.
+   *
+   *	@param		radius			The radius of the agent.
+   *	@param		startPos		The starting position of the path.
+   *	@param		path			A pointer to a portal path.
+   *	@param		startPortal		The portal in the path to start wtih
+   */
+  void computeCrossing(float radius, const Vector2& startPos, PortalPath* path,
+                       size_t startPortal = 0);
 
-		/*!
-		 *	@brief		The queue for the right side of the funnel.
-		 */
-		std::list< FunnelEdge >	_right;
-	#endif // SIMPLE_FUNNEL
-	};
-}	// namespace Menge
+#ifndef SIMPLE_FUNNEL
+ protected:
+  /*!
+   *	@brief		The queue for the left side of the funnel.
+   */
+  std::list<FunnelEdge> _left;
 
-#endif	// __FUNNEL_H__
+  /*!
+   *	@brief		The queue for the right side of the funnel.
+   */
+  std::list<FunnelEdge> _right;
+#endif  // SIMPLE_FUNNEL
+};
+}  // namespace Menge
+
+#endif  // __FUNNEL_H__

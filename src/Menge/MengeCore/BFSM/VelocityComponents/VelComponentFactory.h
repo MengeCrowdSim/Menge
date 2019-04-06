@@ -25,20 +25,19 @@
 #ifndef __VEL_COMPONENT_FACTORY_H__
 #define __VEL_COMPONENT_FACTORY_H__
 
-#include "MengeCore/CoreConfig.h"
 #include "MengeCore/BFSM/VelocityComponents/VelComponent.h"
+#include "MengeCore/CoreConfig.h"
 #include "MengeCore/PluginEngine/ElementFactory.h"
 
 #include <string>
 
 namespace Menge {
-	namespace BFSM {
-		/*!
-		 *	@brief		A class for parsing the xml description of a velocity component
-		 *				and instantiating particular instances.
-		 */
-		class MENGE_API VelCompFactory : public ElementFactory< VelComponent > {
-		};
-	}	// namespace BFSM
-}	// namespace Menge
-#endif // __VEL_COMPONENT_FACTORY_H__
+namespace BFSM {
+/*!
+ *	@brief		A class for parsing the xml description of a velocity component
+ *				and instantiating particular instances.
+ */
+class MENGE_API VelCompFactory : public ElementFactory<VelComponent> {};
+}  // namespace BFSM
+}  // namespace Menge
+#endif  // __VEL_COMPONENT_FACTORY_H__

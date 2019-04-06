@@ -25,21 +25,20 @@
 #ifndef __CONDITION_FACTORY_H__
 #define __CONDITION_FACTORY_H__
 
-#include "MengeCore/CoreConfig.h"
 #include "MengeCore/BFSM/Transitions/Condition.h"
+#include "MengeCore/CoreConfig.h"
 #include "MengeCore/PluginEngine/ElementFactory.h"
 
 #include <string>
 
 namespace Menge {
 
-	namespace BFSM {
-		/*!
-		 *	@brief		The class for parsing the xml description of a Condition
-		 *				and instantiating particular instances.
-		 */
-		class MENGE_API ConditionFactory : public ElementFactory< Condition > {
-		};
-	}	// namespace BFSM
-}	// namespace Menge
-#endif // __CONDITION_FACTORY_H__
+namespace BFSM {
+/*!
+ *	@brief		The class for parsing the xml description of a Condition
+ *				and instantiating particular instances.
+ */
+class MENGE_API ConditionFactory : public ElementFactory<Condition> {};
+}  // namespace BFSM
+}  // namespace Menge
+#endif  // __CONDITION_FACTORY_H__

@@ -21,17 +21,16 @@
  *	@brief		Collection of Vector2, Vector3, and constants for simple inclusion.
  */
 
-
 #ifndef __VECTOR_H__
 
 #define __VECTOR_H__
 #include <cassert>
 
-#include <math.h>
 #include <float.h>
+#include <math.h>
 
-#include "MengeCore/Math/consts.h"
 #include "MengeCore/Math/Vector2.h"
 #include "MengeCore/Math/Vector3.h"
+#include "MengeCore/Math/consts.h"
 
-#endif	// __VECTOR_H__
+#endif  // __VECTOR_H__

@@ -20,33 +20,35 @@
  *	@file		VelComponentDatabase.h
  *	@brief		Central database for querying available behavior velocity components.
  *
- *	For velocity components to be used in the finite state machine, they must register 
+ *	For velocity components to be used in the finite state machine, they must register
  *	themselves into the VelCompDB.  This is done via the PluginEngine.
  */
 
 #ifndef __VEL_COMPONENT_DATABASE_H__
 #define __VEL_COMPONENT_DATABASE_H__
 
-#include "MengeCore/PluginEngine/ElementDatabase.h"
 #include "MengeCore/BFSM/VelocityComponents/VelComponent.h"
 #include "MengeCore/BFSM/VelocityComponents/VelComponentFactory.h"
+#include "MengeCore/PluginEngine/ElementDatabase.h"
 
 namespace Menge {
-	namespace BFSM {
-		/*!
-		 *	@brief		The database of registered velocity component implementations.
-		 */
-		typedef ElementDB< VelCompFactory, VelComponent > VelCompDB;
+namespace BFSM {
+/*!
+ *	@brief		The database of registered velocity component implementations.
+ */
+typedef ElementDB<VelCompFactory, VelComponent> VelCompDB;
 
-	}	// namespace BFSM
+}  // namespace BFSM
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
-	template<> void ElementDB< BFSM::VelCompFactory, BFSM::VelComponent >::addBuiltins();
-	template<> std::string ElementDB< BFSM::VelCompFactory, BFSM::VelComponent >::getElementName();
+template <>
+void ElementDB<BFSM::VelCompFactory, BFSM::VelComponent>::addBuiltins();
+template <>
+std::string ElementDB<BFSM::VelCompFactory, BFSM::VelComponent>::getElementName();
 
-#endif	// DOXYGEN_SHOULD_SKIP_THIS
-	
-}	// namespace Menge
+#endif  // DOXYGEN_SHOULD_SKIP_THIS
 
-#endif	// __VEL_COMPONENT_DATABASE_H__
+}  // namespace Menge
+
+#endif  // __VEL_COMPONENT_DATABASE_H__

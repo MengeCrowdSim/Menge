@@ -20,7 +20,7 @@
  *	@file		ObstacleSetDatabase.h
  *	@brief		Central database for querying available obstacle set implementations.
  *
- *	For obstacle sets to be used in simulation, they must register 
+ *	For obstacle sets to be used in simulation, they must register
  *	themselves into the ObstacleSetDB.  This is done via the PluginEngine.
  */
 
@@ -33,25 +33,25 @@
 
 namespace Menge {
 
-	namespace Agents {
-		/*!
-		 *	@brief		The database of registered aobstacle set implementations.
-		 */
-		typedef ElementDB< ObstacleSetFactory, ObstacleSet > ObstacleSetDB;
+namespace Agents {
+/*!
+ *	@brief		The database of registered aobstacle set implementations.
+ */
+typedef ElementDB<ObstacleSetFactory, ObstacleSet> ObstacleSetDB;
 
-	}	// namespace Agents
+}  // namespace Agents
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
-	// Declarations of explicit specialization
-	template<> 
-	void ElementDB< Agents::ObstacleSetFactory, Agents::ObstacleSet >::addBuiltins();
+// Declarations of explicit specialization
+template <>
+void ElementDB<Agents::ObstacleSetFactory, Agents::ObstacleSet>::addBuiltins();
 
-	template<> 
-	std::string ElementDB< Agents::ObstacleSetFactory, Agents::ObstacleSet >::getElementName();
+template <>
+std::string ElementDB<Agents::ObstacleSetFactory, Agents::ObstacleSet>::getElementName();
 
-#endif	 // DOXYGEN_SHOULD_SKIP_THIS
+#endif  // DOXYGEN_SHOULD_SKIP_THIS
 
-}	// namespace Menge
+}  // namespace Menge
 
-#endif	// __OBSTACLE_SET_DATABASE_H__
+#endif  // __OBSTACLE_SET_DATABASE_H__

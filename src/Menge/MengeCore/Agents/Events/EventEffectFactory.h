@@ -24,17 +24,16 @@
 #ifndef __EVENT_EFFECT_FACTORY_H__
 #define __EVENT_EFFECT_FACTORY_H__
 
+#include "MengeCore/Agents/Events/EventEffect.h"
 #include "MengeCore/CoreConfig.h"
 #include "MengeCore/PluginEngine/ElementFactory.h"
-#include "MengeCore/Agents/Events/EventEffect.h"
 
 namespace Menge {
 
-	/*!
-	 *	@brief		The base class for generating event effects.
-	 */
-	class MENGE_API EventEffectFactory : public ElementFactory< EventEffect > {
-	};
+/*!
+ *	@brief		The base class for generating event effects.
+ */
+class MENGE_API EventEffectFactory : public ElementFactory<EventEffect> {};
 
-}	// namespace Menge
-#endif	// __EVENT_EFFECT_FACTORY_H__
+}  // namespace Menge
+#endif  // __EVENT_EFFECT_FACTORY_H__

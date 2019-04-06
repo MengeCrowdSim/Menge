@@ -25,19 +25,18 @@
 #ifndef __PROFILE_SELECTOR_FACTORY_H__
 #define __PROFILE_SELECTOR_FACTORY_H__
 
+#include "MengeCore/Agents/ProfileSelectors/ProfileSelector.h"
 #include "MengeCore/CoreConfig.h"
 #include "MengeCore/PluginEngine/ElementFactory.h"
-#include "MengeCore/Agents/ProfileSelectors/ProfileSelector.h"
 
 namespace Menge {
 
-	namespace Agents {
-		/*!
-		 *	@brief		A class for parsing the xml description of an agent profile selector
-		 *				elements and instantiating particular instances.
-		 */
-		class MENGE_API ProfileSelectorFactory : public ElementFactory< ProfileSelector > {
-		};
-	}	// namespace Agents
-}	// namespace Menge
-#endif // __PROFILE_SELECTOR_FACTORY_H__
+namespace Agents {
+/*!
+ *	@brief		A class for parsing the xml description of an agent profile selector
+ *				elements and instantiating particular instances.
+ */
+class MENGE_API ProfileSelectorFactory : public ElementFactory<ProfileSelector> {};
+}  // namespace Agents
+}  // namespace Menge
+#endif  // __PROFILE_SELECTOR_FACTORY_H__

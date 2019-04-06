@@ -20,30 +20,32 @@
  *	@file		EventTriggerDB.h
  *	@brief		Central database for querying available event trigger implementations.
  *
- *	For event triggers to be used in simulation, they must register 
+ *	For event triggers to be used in simulation, they must register
  *	themselves into the EventTriggerDB.  This is done via the PluginEngine.
  */
 
 #ifndef __EVENT_TRIGGER_DATABASE_H__
 #define __EVENT_TRIGGER_DATABASE_H__
 
-#include "MengeCore/PluginEngine/ElementDatabase.h"
-#include "MengeCore/Agents/Events/EventTriggerFactory.h"
 #include "MengeCore/Agents/Events/EventTrigger.h"
+#include "MengeCore/Agents/Events/EventTriggerFactory.h"
+#include "MengeCore/PluginEngine/ElementDatabase.h"
 
 namespace Menge {
-	/*!
-	 *	@brief		The database of registered event triggers implementations.
-	 */
-	typedef ElementDB< EventTriggerFactory, EventTrigger > EventTriggerDB;
+/*!
+ *	@brief		The database of registered event triggers implementations.
+ */
+typedef ElementDB<EventTriggerFactory, EventTrigger> EventTriggerDB;
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
-	template<> void ElementDB< EventTriggerFactory, EventTrigger >::addBuiltins();
-	template<> std::string ElementDB< EventTriggerFactory, EventTrigger >::getElementName();
+template <>
+void ElementDB<EventTriggerFactory, EventTrigger>::addBuiltins();
+template <>
+std::string ElementDB<EventTriggerFactory, EventTrigger>::getElementName();
 
-#endif	 // DOXYGEN_SHOULD_SKIP_THIS
+#endif  // DOXYGEN_SHOULD_SKIP_THIS
 
-}	// namespace Menge
+}  // namespace Menge
 
-#endif	// __EVENT_TRIGGER_DATABASE_H__
+#endif  // __EVENT_TRIGGER_DATABASE_H__

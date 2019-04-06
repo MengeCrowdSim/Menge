@@ -24,17 +24,16 @@
 #ifndef __EVENT_TARGET_FACTORY_H__
 #define __EVENT_TARGET_FACTORY_H__
 
-#include "MengeCore/CoreConfig.h"
 #include "MengeCore/Agents/Events/EventTarget.h"
+#include "MengeCore/CoreConfig.h"
 #include "MengeCore/PluginEngine/ElementFactory.h"
 
 namespace Menge {
 
-	/*!
-	 *	@brief		The base class for generating event targets.
-	 */
-	class MENGE_API EventTargetFactory : public ElementFactory< EventTarget > {
-	};
+/*!
+ *	@brief		The base class for generating event targets.
+ */
+class MENGE_API EventTargetFactory : public ElementFactory<EventTarget> {};
 
-}	// namespace Menge
-#endif	// __EVENT_TARGET_FACTORY_H__
+}  // namespace Menge
+#endif  // __EVENT_TARGET_FACTORY_H__

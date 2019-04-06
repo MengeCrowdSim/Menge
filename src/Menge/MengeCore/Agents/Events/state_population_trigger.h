@@ -45,7 +45,7 @@ class StatePopulationTriggerFactory;
        <Target name="my_target" .../>
        <Effect name="my_effect" .../>
        <Event name="change_on_population">
-         <Trigger type="state_population" name="my_trigger_name" behavior="<behavior>" 
+         <Trigger type="state_population" name="my_trigger_name" behavior="<behavior>"
                   threshold="10" state="<state to monitor> />
          <Response effect="my_effect" target="my_target" />
        </Event>
@@ -63,7 +63,7 @@ class StatePopulationTriggerFactory;
     - `threshold`: the threshold value for the trigger behavior. This value is _not_ required for
        the 'on_increase' and 'on_decrease' behavior types, but is required for all others.
 
-   Examples of this trigger can be found in: 
+   Examples of this trigger can be found in:
 
      - `examples/core\events/state_population_event/`.
 
@@ -82,7 +82,7 @@ class StatePopulationTriggerFactory;
       i  │┅┅┛                                 ┇
       o  │                                    ┇
       n  └━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━
-                              t 
+                              t
 
    The particular behavior chosen, will cause triggers at varying times depending on the reltionahip
    between the size of the population and the change in the size of population. Each behavior
@@ -166,7 +166,7 @@ class StatePopulationTriggerFactory;
 
  */
 class MENGE_API StatePopulationTrigger : public StateEvtTrigger {
-public:
+ public:
   /** @brief  Constructor.  */
   StatePopulationTrigger();
 
@@ -174,17 +174,9 @@ public:
   void finalize() override;
 
   /** @brief  The various modes the trigger can operate in.  */
-  enum Mode {
-    UNDEFINED,
-    ON_INCREASE,
-    ON_DECREASE,
-    RISE_TO,
-    DROP_TO,
-    WHILE_HIGHER,
-    WHILE_LOWER
-  };
+  enum Mode { UNDEFINED, ON_INCREASE, ON_DECREASE, RISE_TO, DROP_TO, WHILE_HIGHER, WHILE_LOWER };
 
-  Mode mode() const { return _mode;  }
+  Mode mode() const { return _mode; }
 
   /** @brief  Sets the trigger's behavior node from a valid string. Reports true if the given `mode`
               requires a threshold value.
@@ -192,12 +184,11 @@ public:
   bool set_mode(const std::string& mode_name);
 
   /** @brief  Sets the threshold value for the trigger.  */
-  void set_threshold(size_t t) { _threshold = t;  }
+  void set_threshold(size_t t) { _threshold = t; }
 
   friend class StatePopulationTriggerFactory;
 
-protected:
-
+ protected:
   /** @brief  Implements EventTrigger::testCondition().  */
   bool testCondition() override;
 
@@ -215,7 +206,7 @@ protected:
 
 /** @brief  The factory for StatePopulationTrigger event triggers.  */
 class MENGE_API StatePopulationTriggerFactory final : public StateEvtTriggerFactory {
-public:
+ public:
   /** @brief  Constructor.  */
   StatePopulationTriggerFactory();
 
@@ -227,16 +218,16 @@ public:
     return "Event trigger which fires based on a state's population.";
   };
 
-protected:
+ protected:
   /**
    @brief  Implements EventEffectFactory::setFromXML().  */
-  bool setFromXML(EventTrigger * trigger, TiXmlElement * node,
-                  const std::string & specFldr) const override;
+  bool setFromXML(EventTrigger* trigger, TiXmlElement* node,
+                  const std::string& specFldr) const override;
 
   /** @brief Implements EventEffectFactory::instance().  */
-  EventTrigger * instance() const override { return new StatePopulationTrigger(); }
+  EventTrigger* instance() const override { return new StatePopulationTrigger(); }
 
-private:
+ private:
   /** @brief  The identifier for the "behavior" string attribute.  */
   size_t _behaviorID;
 

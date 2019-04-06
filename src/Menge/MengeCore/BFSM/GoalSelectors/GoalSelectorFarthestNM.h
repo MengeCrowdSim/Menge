@@ -18,154 +18,152 @@
 
 /*!
  *	@file		GoalSelectorFarthestNM.h
- *	@brief		The definition of the farthest navigation mesh goal selector. 
+ *	@brief		The definition of the farthest navigation mesh goal selector.
  */
 
 #ifndef __GOAL_SELECTOR_FARTHEST_NM_H__
 #define __GOAL_SELECTOR_FARTHEST_NM_H__
 
-#include "MengeCore/CoreConfig.h"
-#include "MengeCore/BFSM/fsmCommon.h"
 #include "MengeCore/BFSM/GoalSelectors/GoalSelectorSet.h"
+#include "MengeCore/BFSM/fsmCommon.h"
+#include "MengeCore/CoreConfig.h"
 #include "MengeCore/resources/NavMesh.h"
 #include "MengeCore/resources/NavMeshLocalizer.h"
 
 namespace Menge {
 
-	namespace BFSM {
-		/*!
-		 *	@brief		The farthest nav mesh goal selector selects the goal from a 
-		 *				goal set that is farthest to the agent in terms of path length
-		 *				through the navigation mesh.
-		 */
-		class MENGE_API FarthestNMGoalSelector : public SetGoalSelector {
-		public:
-			/*!
-			 *	@brief		Constructor.
-			 */
-			FarthestNMGoalSelector();
+namespace BFSM {
+/*!
+ *	@brief		The farthest nav mesh goal selector selects the goal from a
+ *				goal set that is farthest to the agent in terms of path length
+ *				through the navigation mesh.
+ */
+class MENGE_API FarthestNMGoalSelector : public SetGoalSelector {
+ public:
+  /*!
+   *	@brief		Constructor.
+   */
+  FarthestNMGoalSelector();
 
-			/*!
-			 *	@brief		Interface function for acquiring per-agent goals.
-			 *
-			 *	@param		agent		The agent for whom a goal is extracted.
-			 *	@returns	A pointer to a goal.  
-			 *	// TODO: Figure out who owns this goal.
-			 */
-			virtual Goal * getGoal( const Agents::BaseAgent * agent ) const;
+  /*!
+   *	@brief		Interface function for acquiring per-agent goals.
+   *
+   *	@param		agent		The agent for whom a goal is extracted.
+   *	@returns	A pointer to a goal.
+   *	// TODO: Figure out who owns this goal.
+   */
+  virtual Goal* getGoal(const Agents::BaseAgent* agent) const;
 
-			/*!
-			 *	@brief		Returns a pointer to the nav mesh localizer task.
-			 *
-			 *	@returns		A pointer to the nav mesh localizer task.  It is the responsibility
-			 *					of the caller to free the memory of the provided task by
-			 *					calling its destroy method.
-			 */
-			virtual BFSM::Task * getTask();
+  /*!
+   *	@brief		Returns a pointer to the nav mesh localizer task.
+   *
+   *	@returns		A pointer to the nav mesh localizer task.  It is the responsibility
+   *					of the caller to free the memory of the provided task by
+   *					calling its destroy method.
+   */
+  virtual BFSM::Task* getTask();
 
-			/*!
-			 *	@brief		Sets the navigation mesh pointer.
-			 *
-			 *	@param		nm		The managed pointer to the navigation mesh.
-			 */
-			void setNavMesh( const NavMeshPtr & nm ) { _navMesh = nm; }
+  /*!
+   *	@brief		Sets the navigation mesh pointer.
+   *
+   *	@param		nm		The managed pointer to the navigation mesh.
+   */
+  void setNavMesh(const NavMeshPtr& nm) { _navMesh = nm; }
 
-			/*!
-			 *	@brief		Returns a resource pointer to the underlying navigation mesh
-			 *
-			 *	@returns	The navigation mesh.
-			 */
-			NavMeshPtr getNavMesh() { return _navMesh; }
+  /*!
+   *	@brief		Returns a resource pointer to the underlying navigation mesh
+   *
+   *	@returns	The navigation mesh.
+   */
+  NavMeshPtr getNavMesh() { return _navMesh; }
 
-			/*!
-			 *	@brief		Returns a resource pointer to the underlying navigation mesh localizer
-			 *
-			 *	@returns	The navigation mesh localizer.
-			 */
-			NavMeshLocalizerPtr getLocalizer() { return _localizer; }
+  /*!
+   *	@brief		Returns a resource pointer to the underlying navigation mesh localizer
+   *
+   *	@returns	The navigation mesh localizer.
+   */
+  NavMeshLocalizerPtr getLocalizer() { return _localizer; }
 
-			/*!
-			 *	@brief		Sets the navigation mesh localizer pointer.
-			 *
-			 *	@param		nml		The managed pointer to the navigation mesh localizer.
-			 */
-			void setNavMeshLocalizer( const NavMeshLocalizerPtr & nml ) { _localizer = nml; }
+  /*!
+   *	@brief		Sets the navigation mesh localizer pointer.
+   *
+   *	@param		nml		The managed pointer to the navigation mesh localizer.
+   */
+  void setNavMeshLocalizer(const NavMeshLocalizerPtr& nml) { _localizer = nml; }
 
-		protected:
-			/*!
-			 *	@brief		The navigation mesh.
-			 */
-			NavMeshPtr	_navMesh;
+ protected:
+  /*!
+   *	@brief		The navigation mesh.
+   */
+  NavMeshPtr _navMesh;
 
-			/*!
-			 *	@brief		The localizer for the navigation mesh.
-			 */
-			NavMeshLocalizerPtr _localizer;
-			
-		};
+  /*!
+   *	@brief		The localizer for the navigation mesh.
+   */
+  NavMeshLocalizerPtr _localizer;
+};
 
-		/*!
-		 *	@brief		Factory for the FarthestNMGoalSelector.
-		 */
-		class MENGE_API FarthestNMGoalSelectorFactory : public SetGoalSelectorFactory { 
-		public:
-			/*!
-			 *	@brief		Constructor.
-			 */
-			FarthestNMGoalSelectorFactory();
+/*!
+ *	@brief		Factory for the FarthestNMGoalSelector.
+ */
+class MENGE_API FarthestNMGoalSelectorFactory : public SetGoalSelectorFactory {
+ public:
+  /*!
+   *	@brief		Constructor.
+   */
+  FarthestNMGoalSelectorFactory();
 
-			/*!
-			 *	@brief		The name of the goal selector type.
-			 *
-			 *	The goal selector's name must be unique among all registered goal selectors.
-			 *	Each goal selector factory must override this function.
-			 *
-			 *	@returns	A string containing the unique goal selector name.
-			 */
-			virtual const char * name() const { return "farthest_nav_mesh"; }
+  /*!
+   *	@brief		The name of the goal selector type.
+   *
+   *	The goal selector's name must be unique among all registered goal selectors.
+   *	Each goal selector factory must override this function.
+   *
+   *	@returns	A string containing the unique goal selector name.
+   */
+  virtual const char* name() const { return "farthest_nav_mesh"; }
 
-			/*!
-			 *	@brief		A description of the goal selector.
-			 *
-			 *	Each goal selector factory must override this function.
-			 *
-			 *	@returns	A string containing the goal selector description.
-			 */
-			virtual const char * description() const {
-				return  "A goal selector.  Assigns the agent the goal in the given " \
-						"goal set that is *farthest* from the agent based on shortest paths " \
-						"through the navigation mesh.";
-			};
+  /*!
+   *	@brief		A description of the goal selector.
+   *
+   *	Each goal selector factory must override this function.
+   *
+   *	@returns	A string containing the goal selector description.
+   */
+  virtual const char* description() const {
+    return "A goal selector.  Assigns the agent the goal in the given "
+           "goal set that is *farthest* from the agent based on shortest paths "
+           "through the navigation mesh.";
+  };
 
-		protected:
-			/*!
-			 *	@brief		Create an instance of this class's goal selector.
-			 *
-			 *	@returns		A pointer to a newly instantiated GoalSelector class.
-			 */
-			GoalSelector * instance() const { return new FarthestNMGoalSelector(); }	
+ protected:
+  /*!
+   *	@brief		Create an instance of this class's goal selector.
+   *
+   *	@returns		A pointer to a newly instantiated GoalSelector class.
+   */
+  GoalSelector* instance() const { return new FarthestNMGoalSelector(); }
 
-			/*!
-			 *	@brief		Given a pointer to a GoalSelector instance, sets the appropriate fields
-			 *				from the provided XML node.
-			 *
-			 *	@param		selector	A pointer to the goal whose attributes are to be set.
-			 *	@param		node		The XML node containing the goal selector attributes.
-			 *	@param		behaveFldr	The path to the behavior file.  If the goal selector
-			 *							references resources in the file system, it should be
-			 *							defined relative to the behavior file location.  This is
-			 *							the folder containing that path. 
-			 *	@returns	A boolean reporting success (true) or failure (false).
-			 */
-			virtual bool setFromXML( GoalSelector * selector, TiXmlElement * node,
-									 const std::string & behaveFldr ) const;
-		
-			/*!
-			 *	@brief		The identifier for the "file_name" string attribute.
-			 */
-			size_t	_fileNameID;
-		};
-	}	// namespace BFSM
-}	// namespace Menge
+  /*!
+   *	@brief		Given a pointer to a GoalSelector instance, sets the appropriate fields
+   *				from the provided XML node.
+   *
+   *	@param		selector	A pointer to the goal whose attributes are to be set.
+   *	@param		node		The XML node containing the goal selector attributes.
+   *	@param		behaveFldr	The path to the behavior file.  If the goal selector
+   *							references resources in the file system, it should
+   *be defined relative to the behavior file location.  This is the folder containing that path.
+   *	@returns	A boolean reporting success (true) or failure (false).
+   */
+  virtual bool setFromXML(GoalSelector* selector, TiXmlElement* node,
+                          const std::string& behaveFldr) const;
 
-#endif // __GOAL_SELECTOR_FARTHEST_NM_H__
+  /*!
+   *	@brief		The identifier for the "file_name" string attribute.
+   */
+  size_t _fileNameID;
+};
+}  // namespace BFSM
+}  // namespace Menge
+
+#endif  // __GOAL_SELECTOR_FARTHEST_NM_H__

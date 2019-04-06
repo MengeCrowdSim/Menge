@@ -24,35 +24,37 @@
 #ifndef __GOAL_DATABASE_H__
 #define __GOAL_DATABASE_H__
 
-#include "MengeCore/PluginEngine/ElementDatabase.h"
-#include "MengeCore/BFSM/Goals/GoalFactory.h"
 #include "MengeCore/BFSM/Goals/Goal.h"
+#include "MengeCore/BFSM/Goals/GoalFactory.h"
+#include "MengeCore/PluginEngine/ElementDatabase.h"
 
 namespace Menge {
 
-	namespace BFSM {
-		
-		/*!
-		 *	@brief		The database of registered goal implementations.
-		 */
-		typedef ElementDB< GoalFactory, Goal > GoalDB;
+namespace BFSM {
 
-	}	// namespace BFSM
+/*!
+ *	@brief		The database of registered goal implementations.
+ */
+typedef ElementDB<GoalFactory, Goal> GoalDB;
+
+}  // namespace BFSM
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
-	/*!
-	 *	@brief		Explicit specialization of addBuiltins for the Goal Database
-	 */
-	template<> void ElementDB< BFSM::GoalFactory, BFSM::Goal >::addBuiltins();
+/*!
+ *	@brief		Explicit specialization of addBuiltins for the Goal Database
+ */
+template <>
+void ElementDB<BFSM::GoalFactory, BFSM::Goal>::addBuiltins();
 
-	/*!
-	 *	@brief		Explicit specialization of getElementName for the Goal Database
-	 */
-	template<> std::string ElementDB< BFSM::GoalFactory, BFSM::Goal >::getElementName();
+/*!
+ *	@brief		Explicit specialization of getElementName for the Goal Database
+ */
+template <>
+std::string ElementDB<BFSM::GoalFactory, BFSM::Goal>::getElementName();
 
-#endif	// DOXYGEN_SHOULD_SKIP_THIS
+#endif  // DOXYGEN_SHOULD_SKIP_THIS
 
-}	// namespace Menge
+}  // namespace Menge
 
-#endif	// __GOAL_DATABASE_H__
+#endif  // __GOAL_DATABASE_H__

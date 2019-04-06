@@ -24,325 +24,312 @@
 #ifndef __SCB_WRITER_H__
 #define __SCB_WRITER_H__
 
-#include "MengeCore/mengeCommon.h"
 #include "MengeCore/Agents/BaseAgent.h"
 #include "MengeCore/BFSM/FSM.h"
+#include "MengeCore/mengeCommon.h"
 
-#include <string>
 #include <fstream>
+#include <string>
 
 namespace Menge {
 
-	namespace Agents {
+namespace Agents {
 
-		/////////////////////////////////////////////////////////////////////
-		
-		/*!
-		 *	@brief		Base exception class for scb writers
-		 */
-		class MENGE_API SCBException : public virtual Menge::MengeException {
-		public:
-			/*!
-			 *	@brief		Default constructor.
-			 */
-			SCBException() : Menge::MengeException() {}		
+/////////////////////////////////////////////////////////////////////
 
-			/*!
-			 *	@brief		Constructor with message.
-			 *
-			 *	@param		s		The exception-specific message.
-			 */
-			SCBException( const std::string & s ): Menge::MengeException(s) {}
-		};
+/*!
+ *	@brief		Base exception class for scb writers
+ */
+class MENGE_API SCBException : public virtual Menge::MengeException {
+ public:
+  /*!
+   *	@brief		Default constructor.
+   */
+  SCBException() : Menge::MengeException() {}
 
-		/*!
-		 *	@brief		The fatal scb writers exception.
-		 */
-		class MENGE_API SCBFatalException : public SCBException,
-											public Menge::MengeFatalException {
-		public:
-			/*!
-			 *	@brief		Default constructor.
-			 */
-			SCBFatalException() : Menge::MengeException(), SCBException(),
-								  Menge::MengeFatalException() {}
+  /*!
+   *	@brief		Constructor with message.
+   *
+   *	@param		s		The exception-specific message.
+   */
+  SCBException(const std::string& s) : Menge::MengeException(s) {}
+};
 
-			/*!
-			 *	@brief		Constructor with message.
-			 *
-			 *	@param		s		The exception-specific message.
-			 */
-			SCBFatalException( const std::string & s ) : Menge::MengeException(s), SCBException(),
-														 Menge::MengeFatalException() {}
-		};
+/*!
+ *	@brief		The fatal scb writers exception.
+ */
+class MENGE_API SCBFatalException : public SCBException, public Menge::MengeFatalException {
+ public:
+  /*!
+   *	@brief		Default constructor.
+   */
+  SCBFatalException() : Menge::MengeException(), SCBException(), Menge::MengeFatalException() {}
 
-		/////////////////////////////////////////////////////////////////////
-		
-		/*!
-		 *	@brief		Exception raised for invalid scb version.
-		 */
-		class MENGE_API SCBVersionException : public SCBFatalException {
-		public:
-			/*!
-			 *	@brief		Default constructor.
-			 */
-			SCBVersionException() : SCBFatalException() {}		
+  /*!
+   *	@brief		Constructor with message.
+   *
+   *	@param		s		The exception-specific message.
+   */
+  SCBFatalException(const std::string& s)
+      : Menge::MengeException(s), SCBException(), Menge::MengeFatalException() {}
+};
 
-			/*!
-			 *	@brief		Constructor with message.
-			 *
-			 *	@param		s		The exception-specific message.
-			 */
-			SCBVersionException( const std::string & s ): SCBFatalException(s) {}
-		};
+/////////////////////////////////////////////////////////////////////
 
-		/////////////////////////////////////////////////////////////////////
-		
-		/*!
-		 *	@brief		Exception raised for file I/O errors
-		 */
-		class MENGE_API SCBFileException : public SCBException {
-		public:
-			/*!
-			 *	@brief		Default constructor.
-			 */
-			SCBFileException() : SCBException() {}		
+/*!
+ *	@brief		Exception raised for invalid scb version.
+ */
+class MENGE_API SCBVersionException : public SCBFatalException {
+ public:
+  /*!
+   *	@brief		Default constructor.
+   */
+  SCBVersionException() : SCBFatalException() {}
 
-			/*!
-			 *	@brief		Constructor with message.
-			 *
-			 *	@param		s		The exception-specific message.
-			 */
-			SCBFileException( const std::string & s ): SCBException(s) {}
-		};
+  /*!
+   *	@brief		Constructor with message.
+   *
+   *	@param		s		The exception-specific message.
+   */
+  SCBVersionException(const std::string& s) : SCBFatalException(s) {}
+};
 
-		// Forward declaration
-		class SCBFrameWriter;
-		class SimulatorInterface;
+/////////////////////////////////////////////////////////////////////
 
-		/////////////////////////////////////////////////////////////////////
-		
-		/*!
-		 *	@brief		Class responsible for writing the agent state of the simulator and
-		 *				fsm into a file.
-		 */
-		class SCBWriter {
-		public:
-			/*!
-			 *	@brief		Constructor for SCBWriter
-			 *
-			 *	@param		pathName		The path for the desired output file.
-			 *	@param		version			A string representing the version to write out.
-			 *	@param		sim				A pointer to the simulator to process
-			 *	@throws		SCBVersionException		If the version string is not considered to be
-			 *										a valid version.
-			 *	@throws		SCBFileException		If there is a problem opening the given path
-			 *										for writing.
-			 */
-			SCBWriter( const std::string & pathName, const std::string & version,
-					   SimulatorInterface * sim );
+/*!
+ *	@brief		Exception raised for file I/O errors
+ */
+class MENGE_API SCBFileException : public SCBException {
+ public:
+  /*!
+   *	@brief		Default constructor.
+   */
+  SCBFileException() : SCBException() {}
 
-			/*!
-			 *	@brief		Destructor.
-			 */
-			~SCBWriter();
+  /*!
+   *	@brief		Constructor with message.
+   *
+   *	@param		s		The exception-specific message.
+   */
+  SCBFileException(const std::string& s) : SCBException(s) {}
+};
 
-			/*!
-			 *	@brief		Writes the current frame of the stored simulator to the file.
-			 *
-			 *	@param		fsm		A pointer to the simulator's fsm
-			 */
-			void writeFrame( BFSM::FSM * fsm );
-			
-		protected:
-			/*!
-			 *	@brief		The frame writer -- defines the format of the frame's data.
-			 */
-			SCBFrameWriter * _frameWriter;
+// Forward declaration
+class SCBFrameWriter;
+class SimulatorInterface;
 
-			/*!
-			 *	@brief		The version of the scb file to be written.  
-			 *				Version is represented by the integer _verstion[0]._version[1]
-			 */
-			int	_version[2];	
+/////////////////////////////////////////////////////////////////////
 
-			/*!
-			 *	@brief		A pointer to the simulator to write to the file
-			 */
-			SimulatorInterface * _sim;
+/*!
+ *	@brief		Class responsible for writing the agent state of the simulator and
+ *				fsm into a file.
+ */
+class SCBWriter {
+ public:
+  /*!
+   *	@brief		Constructor for SCBWriter
+   *
+   *	@param		pathName		The path for the desired output file.
+   *	@param		version			A string representing the version to write out.
+   *	@param		sim				A pointer to the simulator to process
+   *	@throws		SCBVersionException		If the version string is not considered to
+   *be a valid version.
+   *	@throws		SCBFileException		If there is a problem opening the given path
+   *										for writing.
+   */
+  SCBWriter(const std::string& pathName, const std::string& version, SimulatorInterface* sim);
 
-			/*!
-			 *	@brief	The file object for the scb stream to be written to.
-			 */
-			std::ofstream _file;
+  /*!
+   *	@brief		Destructor.
+   */
+  ~SCBWriter();
 
-			/*!
-			 *	@brief		Confirms that the given version is valid.
-			 *				Function has side-effects.  This must be called for the SCBWriter to
-			 *				work.
-			 *
-			 *	@param		version		A string of the format "major"."minor" (e.g., 2.1)
-			 *							for the desired output format.
-			 *	@returns	A boolean reporting if the version is valid (true) or invalid (false).
-			 */
-			bool validateVersion( const std::string & version );
+  /*!
+   *	@brief		Writes the current frame of the stored simulator to the file.
+   *
+   *	@param		fsm		A pointer to the simulator's fsm
+   */
+  void writeFrame(BFSM::FSM* fsm);
 
-			/*!
-			 *	@brief		Writes the appropriate header to the open file.
-			 */
-			void writeHeader();
+ protected:
+  /*!
+   *	@brief		The frame writer -- defines the format of the frame's data.
+   */
+  SCBFrameWriter* _frameWriter;
 
-			/*!
-			 *	@brief		Writes the header appropriate to major version 1 formats.
-			 */
-			void writeHeader1_0();
+  /*!
+   *	@brief		The version of the scb file to be written.
+   *				Version is represented by the integer _verstion[0]._version[1]
+   */
+  int _version[2];
 
-			/*!
-			 *	@brief		Writes the header appropriate to major version 2 formats.
-			 */
-			void writeHeader2_0();
-		};
+  /*!
+   *	@brief		A pointer to the simulator to write to the file
+   */
+  SimulatorInterface* _sim;
 
-		/////////////////////////////////////////////////////////////////////
-		//                   Implementation of SCBFrameWriters
-		/////////////////////////////////////////////////////////////////////
+  /*!
+   *	@brief	The file object for the scb stream to be written to.
+   */
+  std::ofstream _file;
 
-		/*!
-		 *	@brief		This base class for writing a single frame of simulation data
-		 *				to the scb file.
-		 */
-		class SCBFrameWriter {
-		public:
-			/*!
-			 *	@brief		Simple static variable for writing binary zeros to the file.
-			 */
-			static const int ZERO;
+  /*!
+   *	@brief		Confirms that the given version is valid.
+   *				Function has side-effects.  This must be called for the SCBWriter to
+   *				work.
+   *
+   *	@param		version		A string of the format "major"."minor" (e.g., 2.1)
+   *							for the desired output format.
+   *	@returns	A boolean reporting if the version is valid (true) or invalid (false).
+   */
+  bool validateVersion(const std::string& version);
 
-			/*!
-			 *  @brief    Virtual destructor.
-			 */
-			virtual ~SCBFrameWriter() {}
+  /*!
+   *	@brief		Writes the appropriate header to the open file.
+   */
+  void writeHeader();
 
-			/*!
-			 *	@brief		Function to write current frame's state to the file.
-			 *
-			 *	@param		file		The file object to write to.
-			 *	@param		sim			A pointer to the simulator.
-			 *	@param		fsm			A pointer to the behavior fsm for the simulator.
-			 */
-			virtual void writeFrame( std::ofstream & file, SimulatorInterface * sim,
-									 BFSM::FSM * fsm ) = 0;
-		};
+  /*!
+   *	@brief		Writes the header appropriate to major version 1 formats.
+   */
+  void writeHeader1_0();
 
-		
-		/////////////////////////////////////////////////////////////////////
-		
-		/*!
-		 *	@brief		Writer for version 1.0
-		 *
-		 *				The data for an agent consists of: 
-		 *					4-byte float x-pos
-		 *					4-byte float y-pos
-		 *					4-byte float orientation (radians)
-		 */
-		class SCBFrameWriter1_0 : public SCBFrameWriter{
-		public:
-			virtual void writeFrame( std::ofstream & file, SimulatorInterface * sim,
-									 BFSM::FSM * fsm );
-		};
+  /*!
+   *	@brief		Writes the header appropriate to major version 2 formats.
+   */
+  void writeHeader2_0();
+};
 
-		/////////////////////////////////////////////////////////////////////
-		
-		/*!
-		 *	@brief		Writer for version 2.0
-		 *
-		 *				The data for an agent consists of: 
-		 *					4-byte float x-pos
-		 *					4-byte float y-pos
-		 *					4-byte float orientation (radians)
-		 */
-		class SCBFrameWriter2_0 : public SCBFrameWriter {
-		public:
-			virtual void writeFrame( std::ofstream & file, SimulatorInterface * sim,
-									 BFSM::FSM * fsm );
-		};
+/////////////////////////////////////////////////////////////////////
+//                   Implementation of SCBFrameWriters
+/////////////////////////////////////////////////////////////////////
 
-		/////////////////////////////////////////////////////////////////////
-		
-		/*!
-		 *	@brief		Writer for version 2.1
-		 *
-		 *				The data for an agent consists of: 
-		 *					4-byte float x-pos
-		 *					4-byte float y-pos
-		 *					4-byte float orientation (radians)
-		 *					4-byte float stateID - although stored as a float, the value will be
-		 *						an integer value.
-		 */
-		class SCBFrameWriter2_1 : public SCBFrameWriter {
-		public:
-			virtual void writeFrame( std::ofstream & file, SimulatorInterface * sim,
-									 BFSM::FSM * fsm );
-		};
+/*!
+ *	@brief		This base class for writing a single frame of simulation data
+ *				to the scb file.
+ */
+class SCBFrameWriter {
+ public:
+  /*!
+   *	@brief		Simple static variable for writing binary zeros to the file.
+   */
+  static const int ZERO;
 
-		/////////////////////////////////////////////////////////////////////
-		
-		/*!
-		 *	@brief		Writer for version 2.2
-		 *
-		 *				The data for an agent consists of: 
-		 *					4-byte float x-pos
-		 *					4-byte float y-pos
-		 *					4-byte float orientation (radians)
-		 *					4-byte float stateID - although stored as a float, the value will be
-		 *						an integer value.
-		 *					4-byte float x-vPref (the x-component of the agent's pref. velocity).
-		 *					4-byte float y-vPref (the y-component of the agent's pref. velocity).
-		 *					4-byte float x-vel (the x-component of the agent's current velocity).
-		 *					4-byte float y-vel (the y-component of the agent's current velocity).
-		 */
-		class SCBFrameWriter2_2 : public SCBFrameWriter {
-		public:
-			virtual void writeFrame( std::ofstream & file, SimulatorInterface * sim,
-									 BFSM::FSM * fsm );
-		};
+  /*!
+   *  @brief    Virtual destructor.
+   */
+  virtual ~SCBFrameWriter() {}
 
-		/////////////////////////////////////////////////////////////////////
-		
-		/*!
-		 *	@brief		Writer for version 2.3
-		 *
-		 *				The data for an agent consists of: 
-		 *					4-byte float x-pos
-		 *					4-byte float y-pos
-		 *					4-byte float x-direction - the x-component of the unit vector
-		 *						pointing in the direction of orientation.
-		 *					4-byte float y-direction - the y-component of the unit vector
-		 *						pointing in the direction of orientation.
-		 */
-		class SCBFrameWriter2_3 : public SCBFrameWriter {
-		public:
-			virtual void writeFrame( std::ofstream & file, SimulatorInterface * sim,
-									 BFSM::FSM * fsm );
-		};
+  /*!
+   *	@brief		Function to write current frame's state to the file.
+   *
+   *	@param		file		The file object to write to.
+   *	@param		sim			A pointer to the simulator.
+   *	@param		fsm			A pointer to the behavior fsm for the simulator.
+   */
+  virtual void writeFrame(std::ofstream& file, SimulatorInterface* sim, BFSM::FSM* fsm) = 0;
+};
 
-		/////////////////////////////////////////////////////////////////////
-		
-		/*!
-		 *	@brief		Writer for version 2.4
-		 *
-		 *				The data for an agent consists of: 
-		 *					4-byte float x-pos 
-		 *					4-byte float y-pos (elevation)
-		 *					4-byte float z-pos
-		 *					4-byte float orientation (radians)
-		 */
-		class SCBFrameWriter2_4 : public SCBFrameWriter {
-		public:
-			virtual void writeFrame( std::ofstream & file, SimulatorInterface * sim,
-									 BFSM::FSM * fsm );
-		};
+/////////////////////////////////////////////////////////////////////
 
-	}	// namespace Agents
-}	// namespace Menge
-#endif // __SCB_WRITER_H__
+/*!
+ *	@brief		Writer for version 1.0
+ *
+ *				The data for an agent consists of:
+ *					4-byte float x-pos
+ *					4-byte float y-pos
+ *					4-byte float orientation (radians)
+ */
+class SCBFrameWriter1_0 : public SCBFrameWriter {
+ public:
+  virtual void writeFrame(std::ofstream& file, SimulatorInterface* sim, BFSM::FSM* fsm);
+};
+
+/////////////////////////////////////////////////////////////////////
+
+/*!
+ *	@brief		Writer for version 2.0
+ *
+ *				The data for an agent consists of:
+ *					4-byte float x-pos
+ *					4-byte float y-pos
+ *					4-byte float orientation (radians)
+ */
+class SCBFrameWriter2_0 : public SCBFrameWriter {
+ public:
+  virtual void writeFrame(std::ofstream& file, SimulatorInterface* sim, BFSM::FSM* fsm);
+};
+
+/////////////////////////////////////////////////////////////////////
+
+/*!
+ *	@brief		Writer for version 2.1
+ *
+ *				The data for an agent consists of:
+ *					4-byte float x-pos
+ *					4-byte float y-pos
+ *					4-byte float orientation (radians)
+ *					4-byte float stateID - although stored as a float, the value will
+ *be an integer value.
+ */
+class SCBFrameWriter2_1 : public SCBFrameWriter {
+ public:
+  virtual void writeFrame(std::ofstream& file, SimulatorInterface* sim, BFSM::FSM* fsm);
+};
+
+/////////////////////////////////////////////////////////////////////
+
+/*!
+ *	@brief		Writer for version 2.2
+ *
+ *				The data for an agent consists of:
+ *					4-byte float x-pos
+ *					4-byte float y-pos
+ *					4-byte float orientation (radians)
+ *					4-byte float stateID - although stored as a float, the value will
+ *be an integer value. 4-byte float x-vPref (the x-component of the agent's pref. velocity). 4-byte
+ *float y-vPref (the y-component of the agent's pref. velocity). 4-byte float x-vel (the x-component
+ *of the agent's current velocity). 4-byte float y-vel (the y-component of the agent's current
+ *velocity).
+ */
+class SCBFrameWriter2_2 : public SCBFrameWriter {
+ public:
+  virtual void writeFrame(std::ofstream& file, SimulatorInterface* sim, BFSM::FSM* fsm);
+};
+
+/////////////////////////////////////////////////////////////////////
+
+/*!
+ *	@brief		Writer for version 2.3
+ *
+ *				The data for an agent consists of:
+ *					4-byte float x-pos
+ *					4-byte float y-pos
+ *					4-byte float x-direction - the x-component of the unit
+ *vector pointing in the direction of orientation. 4-byte float y-direction - the y-component of the
+ *unit vector pointing in the direction of orientation.
+ */
+class SCBFrameWriter2_3 : public SCBFrameWriter {
+ public:
+  virtual void writeFrame(std::ofstream& file, SimulatorInterface* sim, BFSM::FSM* fsm);
+};
+
+/////////////////////////////////////////////////////////////////////
+
+/*!
+ *	@brief		Writer for version 2.4
+ *
+ *				The data for an agent consists of:
+ *					4-byte float x-pos
+ *					4-byte float y-pos (elevation)
+ *					4-byte float z-pos
+ *					4-byte float orientation (radians)
+ */
+class SCBFrameWriter2_4 : public SCBFrameWriter {
+ public:
+  virtual void writeFrame(std::ofstream& file, SimulatorInterface* sim, BFSM::FSM* fsm);
+};
+
+}  // namespace Agents
+}  // namespace Menge
+#endif  // __SCB_WRITER_H__

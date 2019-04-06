@@ -82,9 +82,9 @@ StatePopulationTriggerFactory::StatePopulationTriggerFactory() : StateEvtTrigger
 
 /////////////////////////////////////////////////////////////////////
 
-bool StatePopulationTriggerFactory::setFromXML(EventTrigger * trigger, TiXmlElement * node,
-                                               const std::string & specFldr) const {
-  StatePopulationTrigger * sTrigger = dynamic_cast<StatePopulationTrigger *>(trigger);
+bool StatePopulationTriggerFactory::setFromXML(EventTrigger* trigger, TiXmlElement* node,
+                                               const std::string& specFldr) const {
+  StatePopulationTrigger* sTrigger = dynamic_cast<StatePopulationTrigger*>(trigger);
   assert(sTrigger != 0x0 &&
          "Trying to set attributes of a state event trigger on an incompatible object");
 
@@ -95,7 +95,7 @@ bool StatePopulationTriggerFactory::setFromXML(EventTrigger * trigger, TiXmlElem
     int value = _attrSet.getInt(_thresholdID);
     if (value < 0) {
       throw EventException(
-        "Missing or invalid threshold value for 'state_population' event trigger");
+          "Missing or invalid threshold value for 'state_population' event trigger");
     }
     sTrigger->set_threshold(value);
   }

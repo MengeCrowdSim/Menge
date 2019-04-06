@@ -28,62 +28,59 @@
 #include "MengeCore/Agents/Events/EventEffect.h"
 #include "MengeCore/Agents/Events/EventEffectFactory.h"
 
-
 namespace Menge {
-	// forward declaration
-	class AgentEventTarget;
+// forward declaration
+class AgentEventTarget;
 
-	namespace Agents {
-		class BaseAgent;
-	}
-	
-	/*!
-	 *	@brief		The *abstract* event effect class that operates on sets of agents.
-	 *
-	 *	This event effect operates on agents. It provides an interface to confirm it is combined
-	 *	with a compatible target type (AgentEventTarget). It also provides an implementation that
-	 *	iterates through the target set of operand agents. Sub-classes must implement the 
-	 *	agentEffect() method to provide the details of its *specific* effect.
-	 */
-	class MENGE_API AgentEventEffect : public EventEffect {
-	public:
+namespace Agents {
+class BaseAgent;
+}
 
-		/*!
-		 *	@brief		Reports if the given target is compatible with this effect.
-		 *
-		 *	Each effect can only work on certain types of targets.  This function 
-		 *	reports if the given target works with this effect.
-		 *
-		 *	@param		target		The target instance to test.
-		 *	@returns	True if the target is a valid argument to EventEffect::apply,
-		 *				false, otherwise.
-		 */
-		virtual bool isCompatible( EventTarget * target );
+/*!
+ *	@brief		The *abstract* event effect class that operates on sets of agents.
+ *
+ *	This event effect operates on agents. It provides an interface to confirm it is combined
+ *	with a compatible target type (AgentEventTarget). It also provides an implementation that
+ *	iterates through the target set of operand agents. Sub-classes must implement the
+ *	agentEffect() method to provide the details of its *specific* effect.
+ */
+class MENGE_API AgentEventEffect : public EventEffect {
+ public:
+  /*!
+   *	@brief		Reports if the given target is compatible with this effect.
+   *
+   *	Each effect can only work on certain types of targets.  This function
+   *	reports if the given target works with this effect.
+   *
+   *	@param		target		The target instance to test.
+   *	@returns	True if the target is a valid argument to EventEffect::apply,
+   *				false, otherwise.
+   */
+  virtual bool isCompatible(EventTarget* target);
 
-		/*!
-		 *	@brief		Applies the effect to the simulation target.
-		 *
-		 *	Not all targets work with all effects.  The target passed here
-		 *	must have previously passed the EventEffect::isCompatible test to
-		 *	work.
-		 *
-		 *	@param		target		The target to apply the event to.
-		 */
-		virtual void apply( EventTarget * target );
-		
-	protected:
+  /*!
+   *	@brief		Applies the effect to the simulation target.
+   *
+   *	Not all targets work with all effects.  The target passed here
+   *	must have previously passed the EventEffect::isCompatible test to
+   *	work.
+   *
+   *	@param		target		The target to apply the event to.
+   */
+  virtual void apply(EventTarget* target);
 
-		/*!
-		 *	@brief		The actual work of the effect.
-		 *
-		 *	Sub-classes should implement this.  It is the action to be taken for each
-		 *	agent.
-		 *
-		 *	@param		agent		The agent to operate on.
-		 */
-		virtual void agentEffect( Agents::BaseAgent * agent ) = 0;
-	};
-	
-}	// namespace Menge
+ protected:
+  /*!
+   *	@brief		The actual work of the effect.
+   *
+   *	Sub-classes should implement this.  It is the action to be taken for each
+   *	agent.
+   *
+   *	@param		agent		The agent to operate on.
+   */
+  virtual void agentEffect(Agents::BaseAgent* agent) = 0;
+};
 
-#endif	// __AGENT_EVENT_EFFECT_H__
+}  // namespace Menge
+
+#endif  // __AGENT_EVENT_EFFECT_H__

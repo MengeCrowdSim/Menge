@@ -20,34 +20,35 @@
  *	@file		ElevationDatabase.h
  *	@brief		Central database for querying available elevation implementations.
  *
- *	For elevations to be used in simulation, they must register 
+ *	For elevations to be used in simulation, they must register
  *	themselves into the ElevationDatabase.  This is done via the PluginEngine.
  */
 
 #ifndef __ELEVATION_DATABASE_H__
 #define __ELEVATION_DATABASE_H__
 
-#include "MengeCore/PluginEngine/ElementDatabase.h"
-#include "MengeCore/Agents/Elevations/ElevationFactory.h"
 #include "MengeCore/Agents/Elevations/Elevation.h"
+#include "MengeCore/Agents/Elevations/ElevationFactory.h"
+#include "MengeCore/PluginEngine/ElementDatabase.h"
 
 namespace Menge {
 
-	namespace Agents {
-		/*!
-		 *	@brief		The database of registered elevation implementations.
-		 */
-		typedef ElementDB< ElevationFactory, Elevation > ElevationDB;
+namespace Agents {
+/*!
+ *	@brief		The database of registered elevation implementations.
+ */
+typedef ElementDB<ElevationFactory, Elevation> ElevationDB;
 
-	}	// namespace Agents
+}  // namespace Agents
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
-	template<> void ElementDB< Agents::ElevationFactory, Agents::Elevation >::addBuiltins();
-	template<> 
-	std::string ElementDB< Agents::ElevationFactory, Agents::Elevation >::getElementName();
+template <>
+void ElementDB<Agents::ElevationFactory, Agents::Elevation>::addBuiltins();
+template <>
+std::string ElementDB<Agents::ElevationFactory, Agents::Elevation>::getElementName();
 
-#endif // DOXYGEN_SHOULD_SKIP_THIS
-}	// namespace Menge
+#endif  // DOXYGEN_SHOULD_SKIP_THIS
+}  // namespace Menge
 
-#endif	// __ELEVATION_DATABASE_H__
+#endif  // __ELEVATION_DATABASE_H__

@@ -28,40 +28,40 @@
 
 namespace Menge {
 
-	namespace BFSM {
-		/*!
-		 *	@brief		The set of properties on which a PropertyAction can be used.
-		 */
-		enum PropertyOperand {
-			NO_PROPERTY,	///< The "NULL" property - indicating no valid property.
-			MAX_SPEED,		///< The agent's maximum speed.
-			MAX_ACCEL,		///< The agent's maximum, isotropic acceleration.
-			PREF_SPEED,		///< The agent's preferred speed.
-			MAX_ANGLE_VEL,	///< The agent's maximum angular velocity
-			NEIGHBOR_DIST,	///< The agent's neighbor distance
-			PRIORITY,		///< The agent's priority
-			RADIUS			///< The agent's radius
-		};
+namespace BFSM {
+/*!
+ *	@brief		The set of properties on which a PropertyAction can be used.
+ */
+enum PropertyOperand {
+  NO_PROPERTY,    ///< The "NULL" property - indicating no valid property.
+  MAX_SPEED,      ///< The agent's maximum speed.
+  MAX_ACCEL,      ///< The agent's maximum, isotropic acceleration.
+  PREF_SPEED,     ///< The agent's preferred speed.
+  MAX_ANGLE_VEL,  ///< The agent's maximum angular velocity
+  NEIGHBOR_DIST,  ///< The agent's neighbor distance
+  PRIORITY,       ///< The agent's priority
+  RADIUS          ///< The agent's radius
+};
 
-		/*!
-		 *	@brief		An enumeration for defining inital velocity for agents
-		 */
-		enum InitVelEnum {
-			ZERO_INIT_VEL,		///< The agents will start with the zero velocity
-			PREF_INIT_VEL		///< The agents will start with their preferred velocity
-		};
+/*!
+ *	@brief		An enumeration for defining inital velocity for agents
+ */
+enum InitVelEnum {
+  ZERO_INIT_VEL,  ///< The agents will start with the zero velocity
+  PREF_INIT_VEL   ///< The agents will start with their preferred velocity
+};
 
-	}   // namespace BFSM
+}  // namespace BFSM
 
-	/*!
-	 *	@brief		Friend function for printing string versions of the PropertyOperand enum
-	 *
-	 *	@param		out		The stream to write the string to.
-	 *	@param		op		The ProperyOperand to write.
-	 *	@returns	A reference to the output stream.
-	 */
-	Logger & operator<<( Logger & out, const BFSM::PropertyOperand op );
+/*!
+ *	@brief		Friend function for printing string versions of the PropertyOperand enum
+ *
+ *	@param		out		The stream to write the string to.
+ *	@param		op		The ProperyOperand to write.
+ *	@returns	A reference to the output stream.
+ */
+Logger& operator<<(Logger& out, const BFSM::PropertyOperand op);
 
-}	// namespace Menge
+}  // namespace Menge
 
-#endif   // __STATE_ENUM_H__
+#endif  // __STATE_ENUM_H__

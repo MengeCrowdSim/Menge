@@ -24,7 +24,7 @@
 #ifndef __PEDVO_H__
 #define __PEDVO_H__
 
-#include "MengeCore/PedVO/PedVOSimulator.h"
 #include "MengeCore/PedVO/PedVOAgent.h"
+#include "MengeCore/PedVO/PedVOSimulator.h"
 
 #endif
