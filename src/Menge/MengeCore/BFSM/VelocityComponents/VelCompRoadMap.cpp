@@ -107,8 +107,11 @@ namespace Menge {
 				_lock.releaseRead();
 				// compute the path and add it to the map
 				//	Create path for the agent
-				Vector2 goalPoint = goal->getCentroid();
-				path = _roadmap->getPath( agent, goal ); 
+				path = _roadmap->getPath( agent, goal );
+        if (path == nullptr) {
+          throw VelCompFatalException("Agent " + std::to_string(agent->_id) + 
+                                      " was unable to find a path to its goal");
+        }
 				_lock.lockWrite();
 				_paths[ agent->_id ] = path;
 				_lock.releaseWrite();
@@ -123,8 +126,12 @@ namespace Menge {
 				delete path;
 				Vector2 goalPoint = goal->getCentroid();
 				path = _roadmap->getPath(agent, goal);
-				// While this operation doesn't change the structure of the map (agent->_id is already a key),
-				// we lock it to prevent any *other* write operation from interfering.
+        if (path == nullptr) {
+          throw VelCompFatalException("Agent " + std::to_string(agent->_id) + 
+                                      " lost roadmap path and was unable to create a new path");
+        }
+				// While this operation doesn't change the structure of the map (agent->_id is already a
+        // key), we lock it to prevent any *other* write operation from interfering.
 				_lock.lockWrite();
 				_paths[agent->_id] = path;
 				_lock.releaseWrite();

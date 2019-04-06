@@ -83,6 +83,13 @@ namespace Menge {
 			queryTreeRecursive(filter, filter->getQueryPoint(), range, _tree );
 		}
 
+    /////////////////////////////////////////////////////////////////////////////
+
+    bool ObstacleKDTree::linkIsTraversible(const Vector2& q1, const Vector2& q2, 
+                                           float radius) const {
+      return linkIsTraversibleRecursive(q1, q2, radius, _tree);
+    }
+
 		/////////////////////////////////////////////////////////////////////////////
 
 		bool ObstacleKDTree::queryVisibility(const Vector2& q1, const Vector2& q2,
@@ -262,11 +269,80 @@ namespace Menge {
 			}
 		}
 
-		/////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////
 
-		bool ObstacleKDTree::queryVisibilityRecursive(const Vector2& q1, const Vector2& q2,
+    bool ObstacleKDTree::linkIsTraversibleRecursive(
+      const Vector2& q1, const Vector2& q2, float radius, const ObstacleTreeNode* node) const {
+      if (node == nullptr) {
+        return true;
+      } else {
+        const Obstacle* const obstacle1 = node->_obstacle;
+        const Obstacle* const obstacle2 = obstacle1->_nextObstacle;
+
+        // Scaled signed distance to the obstacle's line; positive values are on the left of the
+        // obstacle. The distance is scaled by the obstacle's length.
+        const float q1LeftOfObst = leftOf(obstacle1->_point, obstacle2->_point, q1);
+        const float q2LeftOfObst = leftOf(obstacle1->_point, obstacle2->_point, q2);
+        const float invObstLengthSqd = 1.0f / absSq(obstacle2->_point - obstacle1->_point);
+        const float rad_sqd = sqr(radius);
+
+        // In all of these tests we hope for a proof of non-traversibility -- such a proof is
+        // sufficient to return without evaluating any more of the tree.
+
+        if (q1LeftOfObst >= 0.0f && q2LeftOfObst >= 0.0f) {
+          // The link lies completely on the "left" side of the obstacle. To be traversible, it must
+          //   - be traversible w.r.t. all the obstacles on the left side AND
+          //   - be at least radius distance away from the obstacle's *line* OR
+          //     be traversible w.r.t. all the obstacles on the right side.
+          //     The "at least radius distance away from the line" is merely a performance
+          //     optimization.
+          // TODO(curds01): Neither this, nor the "completely-on-the-right" case do further tests
+          // against *this* obstacle and it is not clear why. Confirm in testing that this is
+          // correct.
+          return linkIsTraversibleRecursive(q1, q2, radius, node->_left) &&
+              ((sqr(q1LeftOfObst) * invObstLengthSqd >= rad_sqd &&
+                sqr(q2LeftOfObst) * invObstLengthSqd >= rad_sqd) ||
+               linkIsTraversibleRecursive(q1, q2, radius, node->_right));
+        } else if (q1LeftOfObst <= 0.0f && q2LeftOfObst <= 0.0f) {
+          // The link lies completely on the "right" side of the obstacle. See note on the
+          // "completely-on-the-left-side" case.
+          return linkIsTraversibleRecursive(q1, q2, radius, node->_right) &&
+            ((sqr(q1LeftOfObst) * invObstLengthSqd >= rad_sqd &&
+              sqr(q2LeftOfObst) * invObstLengthSqd >= rad_sqd) ||
+             linkIsTraversibleRecursive(q1, q2, radius, node->_left));
+        } else if (q1LeftOfObst >= 0.0f && q2LeftOfObst <= 0.0f) {
+          // One can traverse through obstacle from left to right.
+          return linkIsTraversibleRecursive(q1, q2, radius, node->_left) &&
+            linkIsTraversibleRecursive(q1, q2, radius, node->_right);
+        } else {
+          // q1 on right, q2 on left. This crosses the *line* from outside to inside. Now it depends
+          // on where on the line the obstacle lies -- with radius of the crossing point?
+          const float point1LeftOfQ = leftOf(q1, q2, obstacle1->_point);
+          const float point2LeftOfQ = leftOf(q1, q2, obstacle2->_point);
+          const float invQLengthSqd = 1.0f / absSq(q2 - q1);
+
+          // Several conditions which make this traversible:
+          //  1. If the obstacle lies entirely on one side of the query link's line AND
+          //  2. The obstacle lies at least radius distance away from the line OR
+          //     q1 is closer than radius to the obstacle and q2 is greater than radius distance AND
+          //  3. It's traversible w.r.t. the right- and left-hand sides of the tree.
+          return (point1LeftOfQ * point2LeftOfQ >= 0.0f &&                     // test condition 1
+                  ((sqr(point1LeftOfQ) * invQLengthSqd > rad_sqd &&            // test condition 2
+                    sqr(point2LeftOfQ) * invQLengthSqd > rad_sqd) ||           //        |
+                   (sqr(q1LeftOfObst) * invObstLengthSqd <= rad_sqd &&         //        |
+                    sqr(q2LeftOfObst) * invObstLengthSqd >= rad_sqd)) &&       //        |
+                  linkIsTraversibleRecursive(q1, q2, radius, node->_left) &&   // test condition 3
+                  linkIsTraversibleRecursive(q1, q2, radius, node->_right));   //        |
+        }
+      }
+    }
+
+    /////////////////////////////////////////////////////////////////////////////
+
+    bool ObstacleKDTree::queryVisibilityRecursive(const Vector2& q1, const Vector2& q2,
 										  float radius, 
 										  const ObstacleTreeNode* node) const {
+      // NOTE: See linkIsTraversible for explanation of this code.
 			if (node == 0) {
 				return true;
 			} else {
