@@ -107,8 +107,7 @@ Steps to follow in order to get `Menge` compiled:
 ```bash
 - cd Menge/projects/g++
 - mkdir `build` # optional, but handy
-- cmake -D CMAKE_MACOSX_RPATH=1 .. 
-- make
+- make -e CMAKE_MACOSX_RPATH=1
 ```
 
 ### Building Documentation
