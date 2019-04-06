@@ -22,9 +22,9 @@
  */
 
 #ifndef __DUMMY_H__
-#define __DUMMY_H__	
+#define __DUMMY_H__
 
-#include "DummySimulator.h"
 #include "DummyAgent.h"
+#include "DummySimulator.h"
 
-#endif	// __DUMMY_H__
+#endif  // __DUMMY_H__

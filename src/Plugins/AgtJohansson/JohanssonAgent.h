@@ -22,48 +22,48 @@
  */
 
 #ifndef __JOHANSSON_AGENT_H__
-#define	__JOHANSSON_AGENT_H__
+#define __JOHANSSON_AGENT_H__
 
 #include "MengeCore/Agents/BaseAgent.h"
 
 namespace Johansson {
-	/*!
-	 *	@brief		Definition of Johansson 2007 agent.
-	 *
-	 *	A social-force agent model. This assumes that all agents
-	 *	have unit-weight.
-	 */
-	class Agent : public Menge::Agents::BaseAgent {
-	public:
-		/*!
-		 *	@brief		Default constructor.
-		 */
-		Agent();
+/*!
+ *	@brief		Definition of Johansson 2007 agent.
+ *
+ *	A social-force agent model. This assumes that all agents
+ *	have unit-weight.
+ */
+class Agent : public Menge::Agents::BaseAgent {
+ public:
+  /*!
+   *	@brief		Default constructor.
+   */
+  Agent();
 
-		/*!
-		 *  @brief      Destroys this agent instance.
-		 */
-		~Agent();
+  /*!
+   *  @brief      Destroys this agent instance.
+   */
+  ~Agent();
 
-		/*!
-		 *  @brief      Computes the new velocity of this agent.
-		 */
-		void computeNewVelocity();
+  /*!
+   *  @brief      Computes the new velocity of this agent.
+   */
+  void computeNewVelocity();
 
-		/*!
-		 *	@brief		Used by the plugin system to know what artifacts to associate with
-		 *				agents of this type.  Every sub-class of must return a globally
-		 *				unique value if it should be associated with unique artifacts.
-		 */
-		virtual std::string getStringId() const { return NAME; }
+  /*!
+   *	@brief		Used by the plugin system to know what artifacts to associate with
+   *				agents of this type.  Every sub-class of must return a globally
+   *				unique value if it should be associated with unique artifacts.
+   */
+  virtual std::string getStringId() const { return NAME; }
 
-		/*! @brief	The name identifier for this agent type. */
-		static const std::string NAME;
+  /*! @brief	The name identifier for this agent type. */
+  static const std::string NAME;
 
-		/*!
-		 *	@brief		The directional weight - repulsive force depends on direction to agent
-		 */
-		float		_dirWeight;
-	};
-}	// namespace Johansson
-#endif	// __JOHANSSON_AGENT_H__
+  /*!
+   *	@brief		The directional weight - repulsive force depends on direction to agent
+   */
+  float _dirWeight;
+};
+}  // namespace Johansson
+#endif  // __JOHANSSON_AGENT_H__

@@ -27,4 +27,4 @@
 #include "KaramouzasAgent.h"
 #include "KaramouzasSimulator.h"
 
-#endif	// __KARAMOUZAS_H__
+#endif  // __KARAMOUZAS_H__

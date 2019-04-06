@@ -27,4 +27,4 @@
 #include "JohanssonAgent.h"
 #include "JohanssonSimulator.h"
 
-#endif	//__JOHANSSON_H__
+#endif  //__JOHANSSON_H__

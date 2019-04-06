@@ -27,4 +27,4 @@
 #include "HelbingAgent.h"
 #include "HelbingSimulator.h"
 
-#endif	//__HELBING_H__
+#endif  //__HELBING_H__

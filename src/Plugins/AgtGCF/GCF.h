@@ -46,4 +46,4 @@
 #include "GCFAgent.h"
 #include "GCFSimulator.h"
 
-#endif	//__GCF_H__
+#endif  //__GCF_H__
