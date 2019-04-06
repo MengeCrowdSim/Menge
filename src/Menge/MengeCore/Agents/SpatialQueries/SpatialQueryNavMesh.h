@@ -98,6 +98,9 @@ namespace Menge {
 			 */
 			virtual void obstacleQuery( ProximityQuery *query, float rangeSq) const;
 
+      /*! @brief  Implementation of SpatialQuery::linkIsTraversible().  */
+      bool linkIsTraversible(const Math::Vector2& q1, const Vector2& q2, float radius) const
+        override;
 
 			/*!
 			 *  @brief      Queries the visibility between two points within a

@@ -325,6 +325,12 @@ namespace Menge {
 			}	
 		}
 
+    bool NavMeshSpatialQuery::linkIsTraversible(const Math::Vector2& q1, const Vector2& q2,
+                                                float radius) const {
+      // TODO(curds01): Not implemented.
+      return true;
+    }
+
 		////////////////////////////////////////////////////////////////
 
 		bool NavMeshSpatialQuery::queryVisibility(const Vector2& q1, const Vector2& q2,
