@@ -27,10 +27,10 @@
 #include "MengeCore/mengeCommon.h"
 
 namespace Menge {
-	// Forward declartion
-	namespace Agents {
-		class BaseAgent;
-		class Obstacle;
-	}
-}	// namespace Menge
-#endif	// __FSM_COMMON_H__
+// Forward declartion
+namespace Agents {
+class BaseAgent;
+class Obstacle;
+}  // namespace Agents
+}  // namespace Menge
+#endif  // __FSM_COMMON_H__

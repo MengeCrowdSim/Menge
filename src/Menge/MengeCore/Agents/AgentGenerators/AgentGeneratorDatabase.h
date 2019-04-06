@@ -20,35 +20,35 @@
  *	@file		AgentGeneratorDatabase.h
  *	@brief		Central database for querying available agent generator implementations.
  *
- *	For agent generators to be used in simulation, they must register 
+ *	For agent generators to be used in simulation, they must register
  *	themselves into the AgentGeneratorDatabase.  This is done via the PluginEngine.
  */
 
 #ifndef __AGENT_GENERATOR_DATABASE_H__
 #define __AGENT_GENERATOR_DATABASE_H__
 
-#include "MengeCore/PluginEngine/ElementDatabase.h"
-#include "MengeCore/Agents/AgentGenerators/AgentGeneratorFactory.h"
 #include "MengeCore/Agents/AgentGenerators/AgentGenerator.h"
+#include "MengeCore/Agents/AgentGenerators/AgentGeneratorFactory.h"
+#include "MengeCore/PluginEngine/ElementDatabase.h"
 
 namespace Menge {
 
-	namespace Agents {
-		/*!
-		 *	@brief		The database of registered agent generator implementations.
-		 */
-		typedef ElementDB< AgentGeneratorFactory, AgentGenerator > AgentGeneratorDB;
+namespace Agents {
+/*!
+ *	@brief		The database of registered agent generator implementations.
+ */
+typedef ElementDB<AgentGeneratorFactory, AgentGenerator> AgentGeneratorDB;
 
-	}	// namespace Agents
+}  // namespace Agents
 
-	// Declarations of explicit specialization
+// Declarations of explicit specialization
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-	template<> void 
-		ElementDB< Agents::AgentGeneratorFactory, Agents::AgentGenerator >::addBuiltins();
-	
-	template<> std::string 
-		ElementDB< Agents::AgentGeneratorFactory, Agents::AgentGenerator >::getElementName();
-#endif	// DOXYGEN_SHOULD_SKIP_THIS
-}	 // namespace Menge
+template <>
+void ElementDB<Agents::AgentGeneratorFactory, Agents::AgentGenerator>::addBuiltins();
 
-#endif	// __AGENT_GENERATOR_DATABASE_H__
+template <>
+std::string ElementDB<Agents::AgentGeneratorFactory, Agents::AgentGenerator>::getElementName();
+#endif  // DOXYGEN_SHOULD_SKIP_THIS
+}  // namespace Menge
+
+#endif  // __AGENT_GENERATOR_DATABASE_H__

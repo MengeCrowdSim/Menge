@@ -25,21 +25,20 @@
 #ifndef __TASK_FACTORY_H__
 #define __TASK_FACTORY_H__
 
-#include "MengeCore/CoreConfig.h"
 #include "MengeCore/BFSM/Tasks/Task.h"
+#include "MengeCore/CoreConfig.h"
 #include "MengeCore/PluginEngine/ElementFactory.h"
 
 #include <string>
 
 namespace Menge {
 
-	namespace BFSM {
-		/*!
-		 *	@brief		A class for parsing the xml description of a task
-		 *				and instantiating particular instances.
-		 */
-		class MENGE_API TaskFactory : public ElementFactory< Task >  {
-		};
-	}	// namespace BFSM
-}	// namespace Menge
-#endif // __TASK_FACTORY_H__
+namespace BFSM {
+/*!
+ *	@brief		A class for parsing the xml description of a task
+ *				and instantiating particular instances.
+ */
+class MENGE_API TaskFactory : public ElementFactory<Task> {};
+}  // namespace BFSM
+}  // namespace Menge
+#endif  // __TASK_FACTORY_H__

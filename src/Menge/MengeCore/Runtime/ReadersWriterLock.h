@@ -31,64 +31,64 @@
 
 namespace Menge {
 
-	/*! 
-	 *	@brief		The definition of a readers-writer lock.
-	 *
-	 *	A readers-writer lock can be used to secure a resource for concurrent
-	 *	usage such that multiple readers can safely utilize the resource but
-	 *	writing tasks must have sole access.
-	 *
-	 */
-	class MENGE_API ReadersWriterLock {
-	public:
-		/*!
-		 *	@brief		Constructor.
-		 */
-		ReadersWriterLock();
+/*!
+ *	@brief		The definition of a readers-writer lock.
+ *
+ *	A readers-writer lock can be used to secure a resource for concurrent
+ *	usage such that multiple readers can safely utilize the resource but
+ *	writing tasks must have sole access.
+ *
+ */
+class MENGE_API ReadersWriterLock {
+ public:
+  /*!
+   *	@brief		Constructor.
+   */
+  ReadersWriterLock();
 
-		/*!
-		 *	@brief		Destructor.
-		 */
-		virtual ~ReadersWriterLock();
+  /*!
+   *	@brief		Destructor.
+   */
+  virtual ~ReadersWriterLock();
 
-		/*!
-		 *	@brief		Requests access to read a resource.  When this function
-		 *				returns, the resource will be safe to read.
-		 *				The calling thread *must* call releaseRead otherwise
-		 *				deadlocks may occur.
-		 */
-		void lockRead() const;
+  /*!
+   *	@brief		Requests access to read a resource.  When this function
+   *				returns, the resource will be safe to read.
+   *				The calling thread *must* call releaseRead otherwise
+   *				deadlocks may occur.
+   */
+  void lockRead() const;
 
-		/*!
-		 *	@brief		Releases the lock for reading.  This must only be called
-		 *				by threads which had previously successfully called lockRead.
-		 */
-		void releaseRead() const;
+  /*!
+   *	@brief		Releases the lock for reading.  This must only be called
+   *				by threads which had previously successfully called lockRead.
+   */
+  void releaseRead() const;
 
-		/*!
-		 *	@brief		Requests access to write a resource.  When this function
-		 *				returns, the resource will be safe to write.
-		 *				The calling thread *must* call releaseWrite otherwise
-		 *				deadlocks *will* occur.
-		 */
-		void lockWrite() const;
+  /*!
+   *	@brief		Requests access to write a resource.  When this function
+   *				returns, the resource will be safe to write.
+   *				The calling thread *must* call releaseWrite otherwise
+   *				deadlocks *will* occur.
+   */
+  void lockWrite() const;
 
-		/*!
-		 *	@brief		Releases the lock for writing.  This must only be called
-		 *				by threads which had previously successfully called lockWrite.
-		 */
-		void releaseWrite() const;
+  /*!
+   *	@brief		Releases the lock for writing.  This must only be called
+   *				by threads which had previously successfully called lockWrite.
+   */
+  void releaseWrite() const;
 
-	#ifdef _OPENMP
-	private:
-		/*!
-		 *	@brief		The openmp lock used for synchronization.
-		 *	
-		 *	This is mutable so the corresponding functions can be called in a const
-		 *	context.
-		 */
-		mutable omp_lock_t _lock;
-	#endif	// _OPENMP
-	};
-}	// namespace Menge
+#ifdef _OPENMP
+ private:
+  /*!
+   *	@brief		The openmp lock used for synchronization.
+   *
+   *	This is mutable so the corresponding functions can be called in a const
+   *	context.
+   */
+  mutable omp_lock_t _lock;
+#endif  // _OPENMP
+};
+}  // namespace Menge
 #endif

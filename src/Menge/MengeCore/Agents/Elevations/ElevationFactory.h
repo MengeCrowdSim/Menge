@@ -25,18 +25,18 @@
 #ifndef __ELEVATION_FACTORY_H__
 #define __ELEVATION_FACTORY_H__
 
+#include "MengeCore/Agents/Elevations/Elevation.h"
 #include "MengeCore/CoreConfig.h"
 #include "MengeCore/PluginEngine/ElementFactory.h"
-#include "MengeCore/Agents/Elevations/Elevation.h"
 
 namespace Menge {
 
-	namespace Agents {
-		/*!
-		 *	@brief		A class for parsing the xml description of an action
-		 *				and instantiating particular instances.
-		 */
-		class MENGE_API ElevationFactory : public ElementFactory< Elevation > {};
-	}	// namespace Agents
-}	// namespace Menge
-#endif // __ELEVATION_FACTORY_H__
+namespace Agents {
+/*!
+ *	@brief		A class for parsing the xml description of an action
+ *				and instantiating particular instances.
+ */
+class MENGE_API ElevationFactory : public ElementFactory<Elevation> {};
+}  // namespace Agents
+}  // namespace Menge
+#endif  // __ELEVATION_FACTORY_H__

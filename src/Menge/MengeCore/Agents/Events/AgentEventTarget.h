@@ -18,51 +18,49 @@
 
 /*!
  *	@file		AgentEventTarget.h
- *	@brief		The definition of the event target for agents. 
+ *	@brief		The definition of the event target for agents.
  */
 
 #ifndef __AGENT_EVENT_TARGET_H__
-#define	__AGENT_EVENT_TARGET_H__
+#define __AGENT_EVENT_TARGET_H__
 
+#include <vector>
 #include "MengeCore/Agents/Events/EventTarget.h"
 #include "MengeCore/Agents/Events/EventTargetFactory.h"
-#include <vector>
 
 namespace Menge {
-	/*!
-	 *	@brief		The base class for all event targets which target agents.
-	 *			
-	 *	Event targets are fundamentally defined by what the target of the
-	 *	effect is.  Each event target specifies a single kind of target.
-	 *	This event target produces a set of one or more agents to effect.
-	 */
-	class MENGE_API AgentEventTarget : public EventTarget {
-	public:
-		
-		/*!
-		 *	@brief		Returns an iterator to the beginning of the target's elements.
-		 */
-		std::vector< Agents::BaseAgent * >::iterator begin() { return _elements.begin(); }
+/*!
+ *	@brief		The base class for all event targets which target agents.
+ *
+ *	Event targets are fundamentally defined by what the target of the
+ *	effect is.  Each event target specifies a single kind of target.
+ *	This event target produces a set of one or more agents to effect.
+ */
+class MENGE_API AgentEventTarget : public EventTarget {
+ public:
+  /*!
+   *	@brief		Returns an iterator to the beginning of the target's elements.
+   */
+  std::vector<Agents::BaseAgent*>::iterator begin() { return _elements.begin(); }
 
-		/*!
-		 *	@brief		Returns an iterator to the end of the target's elements.
-		 */
-		std::vector< Agents::BaseAgent * >::iterator end() { return _elements.end(); }
+  /*!
+   *	@brief		Returns an iterator to the end of the target's elements.
+   */
+  std::vector<Agents::BaseAgent*>::iterator end() { return _elements.end(); }
 
-	protected:
-		/*!
-		 *	@brief		The agents targeted by the event effect.
-		 */
-		std::vector< Agents::BaseAgent * >	_elements;
-	};
+ protected:
+  /*!
+   *	@brief		The agents targeted by the event effect.
+   */
+  std::vector<Agents::BaseAgent*> _elements;
+};
 
-	/////////////////////////////////////////////////////////////////////
-	
-	/*!
-	 *	@brief		Factory for the AgentEventTarget.
-	 */
-	class MENGE_API AgentEventTargetFactory : public EventTargetFactory {
-	};
-	
-}	// namespace Menge
-#endif	// __AGENT_EVENT_TARGET_H__
+/////////////////////////////////////////////////////////////////////
+
+/*!
+ *	@brief		Factory for the AgentEventTarget.
+ */
+class MENGE_API AgentEventTargetFactory : public EventTargetFactory {};
+
+}  // namespace Menge
+#endif  // __AGENT_EVENT_TARGET_H__

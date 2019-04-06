@@ -10,64 +10,58 @@
 #include "MengeVis/Runtime/VisAgent/VisAgentDatabase.h"
 
 namespace MengeVis {
-	namespace PluginEngine {
+namespace PluginEngine {
 
-		using Menge::PluginEngine::BasePluginEngine;
-		using Menge::PluginEngine::Plugin;
-		using MengeVis::Runtime::AgentContextDB;
-		using MengeVis::Runtime::BaseAgentContext;
-		using MengeVis::Runtime::VCContextDB;
-		using MengeVis::Runtime::VCContext::VelCompContext;
-		using MengeVis::Runtime::GoalRendererDB;
-		using MengeVis::Runtime::GoalVis::GoalRenderer;
-		using MengeVis::Runtime::VisAgent;
-		using MengeVis::Runtime::VisAgentDB;
+using Menge::PluginEngine::BasePluginEngine;
+using Menge::PluginEngine::Plugin;
+using MengeVis::Runtime::AgentContextDB;
+using MengeVis::Runtime::BaseAgentContext;
+using MengeVis::Runtime::GoalRendererDB;
+using MengeVis::Runtime::VCContextDB;
+using MengeVis::Runtime::VisAgent;
+using MengeVis::Runtime::VisAgentDB;
+using MengeVis::Runtime::GoalVis::GoalRenderer;
+using MengeVis::Runtime::VCContext::VelCompContext;
 
-		/////////////////////////////////////////////////////////////////////
-		//					Implementation of VisPluginEngine
-		/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+//					Implementation of VisPluginEngine
+/////////////////////////////////////////////////////////////////////
 
-		VisPluginEngine::VisPluginEngine() : 
-			BasePluginEngine<VisPluginEngine, Plugin<VisPluginEngine> >() {
-			AgentContextDB::initialize();
-			VCContextDB::initialize();
-			GoalRendererDB::initialize();
-			VisAgentDB::initialize();
-		}
+VisPluginEngine::VisPluginEngine() : BasePluginEngine<VisPluginEngine, Plugin<VisPluginEngine> >() {
+  AgentContextDB::initialize();
+  VCContextDB::initialize();
+  GoalRendererDB::initialize();
+  VisAgentDB::initialize();
+}
 
-		/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
 
-		VisPluginEngine::~VisPluginEngine() {
-		}
+VisPluginEngine::~VisPluginEngine() {}
 
-		/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
 
-		void VisPluginEngine::registerAgentContext( BaseAgentContext * context ) {
-			AgentContextDB::addVisElement( context );
-		}
+void VisPluginEngine::registerAgentContext(BaseAgentContext* context) {
+  AgentContextDB::addVisElement(context);
+}
 
-		/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
 
-		void VisPluginEngine::registerVCContext( VelCompContext * context ) {
-			VCContextDB::addVisElement( context );
-		}
-		
-		/////////////////////////////////////////////////////////////////////
+void VisPluginEngine::registerVCContext(VelCompContext* context) {
+  VCContextDB::addVisElement(context);
+}
 
-		void VisPluginEngine::registerGoalRenderer( GoalRenderer * renderer ) {
-			GoalRendererDB::addVisElement( renderer );
-		}
+/////////////////////////////////////////////////////////////////////
 
-		/////////////////////////////////////////////////////////////////////
+void VisPluginEngine::registerGoalRenderer(GoalRenderer* renderer) {
+  GoalRendererDB::addVisElement(renderer);
+}
 
-		void VisPluginEngine::registerVisAgent( VisAgent * visAgent ) {
-			VisAgentDB::addVisElement( visAgent );
-		}
+/////////////////////////////////////////////////////////////////////
 
-		/////////////////////////////////////////////////////////////////////
+void VisPluginEngine::registerVisAgent(VisAgent* visAgent) { VisAgentDB::addVisElement(visAgent); }
 
-		std::string VisPluginEngine::getIntroMessage() {
-			return "Loading Menge visualization plugins...";
-		}
-	}
-}	// namespace Menge
+/////////////////////////////////////////////////////////////////////
+
+std::string VisPluginEngine::getIntroMessage() { return "Loading Menge visualization plugins..."; }
+}  // namespace PluginEngine
+}  // namespace MengeVis

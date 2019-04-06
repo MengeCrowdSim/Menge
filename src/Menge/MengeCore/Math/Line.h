@@ -17,7 +17,7 @@
 */
 
 #ifndef __LINE_H__
-#define	__LINE_H__
+#define __LINE_H__
 
 /*!
  *  @file       Line.h
@@ -29,47 +29,47 @@
 
 namespace Menge {
 
-	namespace Math {
+namespace Math {
 
-		/*!
-		 *  @brief      Defines a directed line.
-		 */
-		class MENGE_API Line {	
-		public:
-			/*!
-			 *	@brief		Default constructor.
-			 */
-			Line();
+/*!
+ *  @brief      Defines a directed line.
+ */
+class MENGE_API Line {
+ public:
+  /*!
+   *	@brief		Default constructor.
+   */
+  Line();
 
-			/*!
-			 *	@brief		Explicit constructor.
-			 *
-			 *	@param		p		A point on the line.
-			 *	@param		d		A unit-length vector defining the direction of the line.
-			 *						the line is defined by p + dt, where t in the range
-			 *						[-infinity, infinity].
-			 */
-			Line( const Vector2 & p, const Vector2 & d );
+  /*!
+   *	@brief		Explicit constructor.
+   *
+   *	@param		p		A point on the line.
+   *	@param		d		A unit-length vector defining the direction of the line.
+   *						the line is defined by p + dt, where t in the range
+   *						[-infinity, infinity].
+   */
+  Line(const Vector2& p, const Vector2& d);
 
-			/*!
-			 *	@brief		Returns the nearest point on the line to p
-			 *
-			 *	@param		p			The point to which we want to find
-			 *							the nearest point.
-			 *	@returns	A point on the line that is closest to p.
-			 */
-			Vector2 nearestPt( const Vector2 & p ) const;
-			
-			/*!
-			 *  @brief		A point on the directed line.
-			 */
-			Vector2 _point;
+  /*!
+   *	@brief		Returns the nearest point on the line to p
+   *
+   *	@param		p			The point to which we want to find
+   *							the nearest point.
+   *	@returns	A point on the line that is closest to p.
+   */
+  Vector2 nearestPt(const Vector2& p) const;
 
-			/*!
-			 *  @brief		The direction of the directed line.
-			 */
-			Vector2 _direction;
-		};
-	}	// namespace Math
-}	// namespace Menge
-#endif	 // __LINE_H__
+  /*!
+   *  @brief		A point on the directed line.
+   */
+  Vector2 _point;
+
+  /*!
+   *  @brief		The direction of the directed line.
+   */
+  Vector2 _direction;
+};
+}  // namespace Math
+}  // namespace Menge
+#endif  // __LINE_H__

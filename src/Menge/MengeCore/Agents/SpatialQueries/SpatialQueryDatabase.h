@@ -20,7 +20,7 @@
  *	@file		SpatialQueryDatabase.h
  *	@brief		Central database for querying available spatial query implementations.
  *
- *	For spatial queries to be used in simulation, they must register 
+ *	For spatial queries to be used in simulation, they must register
  *	themselves into the SpatialQueryDatabase.  This is done via the PluginEngine.
  */
 
@@ -33,23 +33,23 @@
 
 namespace Menge {
 
-	namespace Agents {
-		/*!
-		 *	@brief		The database of registered spatial query implementations.
-		 */
-		typedef ElementDB< SpatialQueryFactory, SpatialQuery > SpatialQueryDB;
+namespace Agents {
+/*!
+ *	@brief		The database of registered spatial query implementations.
+ */
+typedef ElementDB<SpatialQueryFactory, SpatialQuery> SpatialQueryDB;
 
-	}	// namespace Agents
+}  // namespace Agents
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
-	template<> void 
-		ElementDB< Agents::SpatialQueryFactory, Agents::SpatialQuery>::addBuiltins();
-	template<> std::string 
-		ElementDB< Agents::SpatialQueryFactory, Agents::SpatialQuery >::getElementName();
+template <>
+void ElementDB<Agents::SpatialQueryFactory, Agents::SpatialQuery>::addBuiltins();
+template <>
+std::string ElementDB<Agents::SpatialQueryFactory, Agents::SpatialQuery>::getElementName();
 
-#endif	// DOXYGEN_SHOULD_SKIP_THIS
+#endif  // DOXYGEN_SHOULD_SKIP_THIS
 
-}	// namespace Menge
+}  // namespace Menge
 
-#endif	// __SPATIAL_QUERY_DATABASE_H__
+#endif  // __SPATIAL_QUERY_DATABASE_H__

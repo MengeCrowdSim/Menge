@@ -20,7 +20,7 @@
  *	@file		StateSelectorDatabase.h
  *	@brief		Central database for querying available profile selector implementations.
  *
- *	For profile selectors to be used in simulation, they must register 
+ *	For profile selectors to be used in simulation, they must register
  *	themselves into the ProfileSelectorDatabase.  This is done via the PluginEngine.
  */
 
@@ -33,22 +33,22 @@
 
 namespace Menge {
 
-	namespace Agents {
-		/*!
-		 *	@brief		The database of registered state selector implementations.
-		 */
-		typedef ElementDB< StateSelectorFactory, StateSelector > StateSelectorDB;
+namespace Agents {
+/*!
+ *	@brief		The database of registered state selector implementations.
+ */
+typedef ElementDB<StateSelectorFactory, StateSelector> StateSelectorDB;
 
-	}	// namespace Agents
+}  // namespace Agents
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
-	template<> 
-	void ElementDB< Agents::StateSelectorFactory, Agents::StateSelector >::addBuiltins();
-	template<> std::string 
-		ElementDB< Agents::StateSelectorFactory, Agents::StateSelector >::getElementName();
+template <>
+void ElementDB<Agents::StateSelectorFactory, Agents::StateSelector>::addBuiltins();
+template <>
+std::string ElementDB<Agents::StateSelectorFactory, Agents::StateSelector>::getElementName();
 
-#endif	 // DOXYGEN_SHOULD_SKIP_THIS
+#endif  // DOXYGEN_SHOULD_SKIP_THIS
 
-}	// namespace Menge
-#endif	// __STATE_SELECTOR_DATABASE_H__
+}  // namespace Menge
+#endif  // __STATE_SELECTOR_DATABASE_H__

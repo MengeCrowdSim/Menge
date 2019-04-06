@@ -22,27 +22,26 @@
  */
 
 #ifndef __MENGE_COMMON_H__
-#define	__MENGE_COMMON_H__
-
+#define __MENGE_COMMON_H__
 
 #ifdef _MSC_VER
-	// Visual Studio does not properly support exception specifciation
-	//	 i.e. void func() throw(x)
-	//	This prevents it from spewing warnings.
-	#pragma warning( disable : 4290 )
+// Visual Studio does not properly support exception specifciation
+//	 i.e. void func() throw(x)
+//	This prevents it from spewing warnings.
+#pragma warning(disable : 4290)
 #endif
 
 // core configuration
 #include "MengeCore/CoreConfig.h"
-#include "MengeCore/MengeException.h"
-#include "MengeCore/Math/vector.h"
 #include "MengeCore/Math/RandGenerator.h"
 #include "MengeCore/Math/consts.h"
+#include "MengeCore/Math/vector.h"
+#include "MengeCore/MengeException.h"
 #include "MengeCore/Runtime/Logger.h"
 
 #include "macros.h"
 
-#include <iostream>
 #include <cassert>
+#include <iostream>
 
-#endif	// __MENGE_COMMON_H__
+#endif  // __MENGE_COMMON_H__

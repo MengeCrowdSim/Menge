@@ -24,44 +24,45 @@
  *	@brief		The node for visualizing a simulation obstacle.
  */
 #include "MengeCore/Math/Vector3.h"
-#include "MengeVis/VisConfig.h"
 #include "MengeVis/SceneGraph/GLNode.h"
+#include "MengeVis/VisConfig.h"
 
 namespace MengeVis {
-	namespace Runtime {
-		/*!
-		 *	@brief		A simple class for drawing a simulation obstacle (line segment).
-		 *				The obstacle is drawn with lines in 3D space.
-		 */
-		class MENGEVIS_API VisObstacle : public SceneGraph::GLNode {
-		public:
-			/*!
-			 *	@brief		Constructor.
-			 *
-			 *	@param		p0		The first end point of the line segment.
-			 *	@param		p1		The second end point of the line segment.
-			 */
-			VisObstacle( const Menge::Math::Vector3 & p0, const Menge::Math::Vector3 & p1 );
+namespace Runtime {
+/*!
+ *	@brief		A simple class for drawing a simulation obstacle (line segment).
+ *				The obstacle is drawn with lines in 3D space.
+ */
+class MENGEVIS_API VisObstacle : public SceneGraph::GLNode {
+ public:
+  /*!
+   *	@brief		Constructor.
+   *
+   *	@param		p0		The first end point of the line segment.
+   *	@param		p1		The second end point of the line segment.
+   */
+  VisObstacle(const Menge::Math::Vector3& p0, const Menge::Math::Vector3& p1);
 
-			/*!
-			 *	@brief		Draws the object into the OpenGL context.
-			 *
-			 *	@param		select		Determines if the object is being drawn
-			 *							in a selection context (true) or visualization (false).
-			 */
-			void drawGL( bool select = false );
+  /*!
+   *	@brief		Draws the object into the OpenGL context.
+   *
+   *	@param		select		Determines if the object is being drawn
+   *							in a selection context (true) or visualization
+   *(false).
+   */
+  void drawGL(bool select = false);
 
-		protected:
-			/*!
-			 *	@brief		The line segment's first end point.
-			 */
-			Menge::Math::Vector3 _p0;
+ protected:
+  /*!
+   *	@brief		The line segment's first end point.
+   */
+  Menge::Math::Vector3 _p0;
 
-			/*!
-			 *	@brief		The line segment's second end point.
-			 */
-			Menge::Math::Vector3 _p1;
-		};
-	}	// namespace Runtime
-}	// namespace Menge
-#endif	//__VIS_OBSTACLE_H__
+  /*!
+   *	@brief		The line segment's second end point.
+   */
+  Menge::Math::Vector3 _p1;
+};
+}  // namespace Runtime
+}  // namespace MengeVis
+#endif  //__VIS_OBSTACLE_H__

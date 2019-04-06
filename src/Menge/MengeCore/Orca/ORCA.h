@@ -24,7 +24,7 @@
 #ifndef __ORCA_H__
 #define __ORCA_H__
 
-#include "MengeCore/Orca/ORCASimulator.h"
 #include "MengeCore/Orca/ORCAAgent.h"
+#include "MengeCore/Orca/ORCASimulator.h"
 
 #endif

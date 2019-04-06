@@ -20,7 +20,7 @@
  *	@file		EventTargetDB.h
  *	@brief		Central database for querying available event target implementations.
  *
- *	For event targets to be used in simulation, they must register 
+ *	For event targets to be used in simulation, they must register
  *	themselves into the EventTargetDB.  This is done via the PluginEngine.
  */
 
@@ -32,18 +32,20 @@
 #include "MengeCore/PluginEngine/ElementDatabase.h"
 
 namespace Menge {
-	/*!
-	 *	@brief		The database of registered event targets implementations.
-	 */
-	typedef ElementDB< EventTargetFactory, EventTarget > EventTargetDB;
+/*!
+ *	@brief		The database of registered event targets implementations.
+ */
+typedef ElementDB<EventTargetFactory, EventTarget> EventTargetDB;
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
-	template<> void ElementDB< EventTargetFactory, EventTarget >::addBuiltins();
-	template<> std::string ElementDB< EventTargetFactory, EventTarget >::getElementName();
+template <>
+void ElementDB<EventTargetFactory, EventTarget>::addBuiltins();
+template <>
+std::string ElementDB<EventTargetFactory, EventTarget>::getElementName();
 
-#endif //DOXYGEN_SHOULD_SKIP_THIS
+#endif  // DOXYGEN_SHOULD_SKIP_THIS
 
-}	// namespace Menge
+}  // namespace Menge
 
-#endif	// __EVENT_TARGET_DATABASE_H__
+#endif  // __EVENT_TARGET_DATABASE_H__

@@ -20,40 +20,42 @@
  *	@file		ConditionDatabase.h
  *	@brief		Central database for querying available behavior conditions.
  *
- *	For conditions to be used in the finite state machine, they must register 
+ *	For conditions to be used in the finite state machine, they must register
  *	themselves into the ConditionDatabase.  This is done via the PluginEngine.
  */
 
 #ifndef __CONDITION_DATABASE_H__
 #define __CONDITION_DATABASE_H__
 
-#include "MengeCore/PluginEngine/ElementDatabase.h"
-#include "MengeCore/BFSM/Transitions/ConditionFactory.h"
 #include "MengeCore/BFSM/Transitions/Condition.h"
+#include "MengeCore/BFSM/Transitions/ConditionFactory.h"
+#include "MengeCore/PluginEngine/ElementDatabase.h"
 
 namespace Menge {
 
-	namespace BFSM {
-		/*!
-		 *	@brief		The database of registered condition implementations.
-		 */
-		typedef ElementDB< ConditionFactory, Condition > ConditionDB;
+namespace BFSM {
+/*!
+ *	@brief		The database of registered condition implementations.
+ */
+typedef ElementDB<ConditionFactory, Condition> ConditionDB;
 
-	}	// namespace BFSM
+}  // namespace BFSM
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
-	/*!
-	 *	@brief		Explicit specialization of addBuiltins for the Condition Database
-	 */
-	template<> void ElementDB< BFSM::ConditionFactory, BFSM::Condition>::addBuiltins();
-	
-	/*!
-	 *	@brief		Explicit specialization of getElementName for the Condition Database
-	 */
-	template<> std::string ElementDB< BFSM::ConditionFactory, BFSM::Condition >::getElementName();
+/*!
+ *	@brief		Explicit specialization of addBuiltins for the Condition Database
+ */
+template <>
+void ElementDB<BFSM::ConditionFactory, BFSM::Condition>::addBuiltins();
 
-#endif	// DOXYGEN_SHOULD_SKIP_THIS
+/*!
+ *	@brief		Explicit specialization of getElementName for the Condition Database
+ */
+template <>
+std::string ElementDB<BFSM::ConditionFactory, BFSM::Condition>::getElementName();
 
-}	// namespace Menge
-#endif	// __CONDITION_DATABASE_H__
+#endif  // DOXYGEN_SHOULD_SKIP_THIS
+
+}  // namespace Menge
+#endif  // __CONDITION_DATABASE_H__

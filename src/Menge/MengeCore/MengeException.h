@@ -26,74 +26,71 @@
 #ifndef __MENGE_EXCEPTION_H__
 #define __MENGE_EXCEPTION_H__
 
-#include "MengeCore/CoreConfig.h"
-#include <string>
 #include <exception>
+#include <string>
+#include "MengeCore/CoreConfig.h"
 
-#pragma warning(disable:4275)
+#pragma warning(disable : 4275)
 namespace Menge {
 
-	/*!
-	 *	@brief		Base exception class for menge operations.
-	 */
-	class MENGE_API MengeException : public std::exception {
-	public:
+/*!
+ *	@brief		Base exception class for menge operations.
+ */
+class MENGE_API MengeException : public std::exception {
+ public:
+  /*!
+   *	@brief		Default constructor.
+   */
+  MengeException() : std::exception() {}
 
-		/*!
-		 *	@brief		Default constructor.
-		 */
-		MengeException() : std::exception() {}
+  /*!
+   *	@brief		Constructor with message.
+   *
+   *	@param		s		The exception-specific message.
+   */
+  MengeException(const std::string& s) : std::exception(), _msg(s) {}
 
-		/*!
-		 *	@brief		Constructor with message.
-		 *
-		 *	@param		s		The exception-specific message.
-		 */
-		MengeException( const std::string & s ):std::exception(), _msg(s) {}
+  /*!
+   *	@brief		Destructor.
+   */
+  ~MengeException() throw() {}
 
-		/*!
-		 *	@brief		Destructor.
-		 */
-		~MengeException() throw(){}
+  /*!
+   *	@brief		Provides the exception message.
+   *
+   *	@returns	A pointer to the exception message.
+   */
+  virtual const char* what() const throw() { return _msg.c_str(); }
 
-		/*!
-		 *	@brief		Provides the exception message.
-		 *
-		 *	@returns	A pointer to the exception message.
-		 */
-		virtual const char * what() const throw() {
-			return _msg.c_str();
-		}
+  /*!
+   *	@brief		The exception message.
+   */
+  std::string _msg;
+};
 
-		/*!
-		 *	@brief		The exception message.
-		 */
-		std::string _msg;
-	};
+#pragma warning(default : 4275)
 
-#pragma warning(default:4275)
+/*!
+ *	@brief		Base class for *fatal* exceptions.
+ *
+ *	A fatal exception is one that requires the simulator to stop because
+ *	it has achieved an inoperable state.
+ */
+class MENGE_API MengeFatalException : public virtual MengeException {
+ public:
+  /*!
+   *	@brief		Default constructor.
+   */
+  MengeFatalException() : MengeException() {}
 
-	/*!
-	 *	@brief		Base class for *fatal* exceptions.
-	 *
-	 *	A fatal exception is one that requires the simulator to stop because
-	 *	it has achieved an inoperable state.
-	 */
-	class MENGE_API MengeFatalException : public virtual MengeException {
-	public:
-		/*!
-		 *	@brief		Default constructor.
-		 */
-		MengeFatalException(): MengeException() {}
+  /*!
+   *	@brief		Constructor with message.
+   *
+   *	@param		s		The exception-specific message.
+   */
+  MengeFatalException(const std::string& s) : MengeException(s) {}
+};
 
-		/*!
-		 *	@brief		Constructor with message.
-		 *
-		 *	@param		s		The exception-specific message.
-		 */
-		MengeFatalException( const std::string & s ):MengeException(s) {}
-	};
+}  // namespace Menge
 
-}	// namespace Menge
-
-#endif // __MENGE_EXCEPTION_H__
+#endif  // __MENGE_EXCEPTION_H__

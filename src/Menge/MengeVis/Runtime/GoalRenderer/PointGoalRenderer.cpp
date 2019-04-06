@@ -3,19 +3,17 @@
 #include "MengeCore/BFSM/Goals/GoalPoint.h"
 
 namespace MengeVis {
-	namespace Runtime {
-		namespace GoalVis {
+namespace Runtime {
+namespace GoalVis {
 
-			using Menge::BFSM::PointGoal;
+using Menge::BFSM::PointGoal;
 
-			/////////////////////////////////////////////////////////////////////
-			//					Implementation of PointGoalRenderer
-			/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+//					Implementation of PointGoalRenderer
+/////////////////////////////////////////////////////////////////////
 
-			std::string PointGoalRenderer::getElementName() const {
-				return PointGoal::NAME;
-			}
+std::string PointGoalRenderer::getElementName() const { return PointGoal::NAME; }
 
-		}	// namespace GoalVis
-	}	// namespace Runtime
-}	// namespace MengeVis
+}  // namespace GoalVis
+}  // namespace Runtime
+}  // namespace MengeVis

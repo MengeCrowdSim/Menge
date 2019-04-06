@@ -9,32 +9,31 @@
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 namespace MengeVis {
 
-	namespace {
-		// TODO: Make it so this works despite the fact that I can't use "delete" on this global
-		//	member.
-		Runtime::GoalVis::GoalRenderer _defaulRenderer;
-	}	// namespace
+namespace {
+// TODO: Make it so this works despite the fact that I can't use "delete" on this global
+//	member.
+Runtime::GoalVis::GoalRenderer _defaulRenderer;
+}  // namespace
 
-	// Specialization
-	template<> Runtime::GoalVis::GoalRenderer *
-		Runtime::VisElementDB<Runtime::GoalVis::GoalRenderer,
-							  Menge::BFSM::Goal>::getDefaultElement() {
-		return &_defaulRenderer;
-	}
-
-	template<> void
-		Runtime::VisElementDB<Runtime::GoalVis::GoalRenderer,
-		                      Menge::BFSM::Goal>::addBuiltins() {
-		addVisElement( new Runtime::GoalVis::AABBGoalRenderer() );
-		addVisElement( new Runtime::GoalVis::PointGoalRenderer() );
-		addVisElement( new Runtime::GoalVis::OBBGoalRenderer() );
-		addVisElement( new Runtime::GoalVis::CircleGoalRenderer() );
-	}
-
-	template<> std::string
-		Runtime::VisElementDB<Runtime::GoalVis::GoalRenderer,
-							  Menge::BFSM::Goal>::getElementName() {
-		return "goal_renderer";
-	}
+// Specialization
+template <>
+Runtime::GoalVis::GoalRenderer*
+Runtime::VisElementDB<Runtime::GoalVis::GoalRenderer, Menge::BFSM::Goal>::getDefaultElement() {
+  return &_defaulRenderer;
 }
-#endif	// DOXYGEN_SHOULD_SKIP_THIS
+
+template <>
+void Runtime::VisElementDB<Runtime::GoalVis::GoalRenderer, Menge::BFSM::Goal>::addBuiltins() {
+  addVisElement(new Runtime::GoalVis::AABBGoalRenderer());
+  addVisElement(new Runtime::GoalVis::PointGoalRenderer());
+  addVisElement(new Runtime::GoalVis::OBBGoalRenderer());
+  addVisElement(new Runtime::GoalVis::CircleGoalRenderer());
+}
+
+template <>
+std::string
+Runtime::VisElementDB<Runtime::GoalVis::GoalRenderer, Menge::BFSM::Goal>::getElementName() {
+  return "goal_renderer";
+}
+}  // namespace MengeVis
+#endif  // DOXYGEN_SHOULD_SKIP_THIS

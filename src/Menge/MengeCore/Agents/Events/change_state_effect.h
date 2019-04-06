@@ -41,13 +41,13 @@ class State;
 /** @brief  An event effect that moves the target agents to the effect's associated state.
  */
 class MENGE_API ChangeStateEffect : public AgentEventEffect {
-public:
+ public:
   /** @brief  Implementation of EventEffect::finalize().  */
   void finalize() override;
 
   friend class ChangeStateEffectFactory;
 
-protected:
+ protected:
   /** @brief  Implements AgentEventEffect::agentEffect().  */
   void agentEffect(Agents::BaseAgent* agent) override;
 
@@ -66,7 +66,7 @@ protected:
 
 /** @brief  The factory for ChangeStateEffect event effects.  */
 class MENGE_API ChangeStateEffectFactory final : public EventEffectFactory {
-public:
+ public:
   /** @brief  Constructor.  */
   ChangeStateEffectFactory();
 
@@ -78,10 +78,10 @@ public:
     return "Event effect that moves the target agents to the specified state.";
   };
 
-protected:
+ protected:
   /** @brief  Implements EventEffectFactory::setFromXML().  */
-  bool setFromXML(EventEffect* effect, TiXmlElement* node, 
-                  const std::string & behaveFldr) const override;
+  bool setFromXML(EventEffect* effect, TiXmlElement* node,
+                  const std::string& behaveFldr) const override;
 
   /** @brief  Implements EventEffectFactory::instance().  */
   EventEffect* instance() const override { return new ChangeStateEffect(); }

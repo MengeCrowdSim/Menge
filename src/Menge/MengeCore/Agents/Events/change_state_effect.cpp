@@ -2,10 +2,10 @@
 
 #include <sstream>
 
-#include "MengeCore/Core.h"
 #include "MengeCore/Agents/Events/EventSystem.h"
 #include "MengeCore/BFSM/FSM.h"
 #include "MengeCore/BFSM/State.h"
+#include "MengeCore/Core.h"
 
 namespace Menge {
 
@@ -39,9 +39,9 @@ ChangeStateEffectFactory::ChangeStateEffectFactory() : EventEffectFactory() {
 
 /////////////////////////////////////////////////////////////////////
 
-bool ChangeStateEffectFactory::setFromXML(EventEffect * effect, TiXmlElement * node,
-                                          const std::string & behaveFldr) const {
-  ChangeStateEffect * sEffect = dynamic_cast<ChangeStateEffect*>(effect);
+bool ChangeStateEffectFactory::setFromXML(EventEffect* effect, TiXmlElement* node,
+                                          const std::string& behaveFldr) const {
+  ChangeStateEffect* sEffect = dynamic_cast<ChangeStateEffect*>(effect);
   assert(sEffect != 0x0 &&
          "Trying to set attributes of a state event effect on an incompatible object");
 

@@ -18,123 +18,122 @@
 
 /*!
  *	@file		ContextSwitcher.h
- *	@brief		The definition of a context which allows the ability to select between 
+ *	@brief		The definition of a context which allows the ability to select between
  *				multiple contexts.
  */
 
 #ifndef __CONTEXT_SWITCHER_H__
 #define __CONTEXT_SWITCHER_H__
 
-#include "MengeVis/SceneGraph/Context.h"
 #include <map>
+#include "MengeVis/SceneGraph/Context.h"
 
 namespace MengeVis {
-	namespace SceneGraph {
-		/*!
-		 *	@brief		A mapping from a SDL key value and a context
-		 */
-		typedef std::map< SDL_Keycode, Context * > KeyContextMap;
+namespace SceneGraph {
+/*!
+ *	@brief		A mapping from a SDL key value and a context
+ */
+typedef std::map<SDL_Keycode, Context*> KeyContextMap;
 
-		/*!
-		 *	@brief		Special context for switching between multiple contexts.
-		 *				Each context tied to a keyboard shortcut.
-		 */
-		class MENGEVIS_API ContextSwitcher : public Context {
-		public:
-			/*!
-			 *	@brief		Constructor.
-			 */
-			ContextSwitcher();
+/*!
+ *	@brief		Special context for switching between multiple contexts.
+ *				Each context tied to a keyboard shortcut.
+ */
+class MENGEVIS_API ContextSwitcher : public Context {
+ public:
+  /*!
+   *	@brief		Constructor.
+   */
+  ContextSwitcher();
 
-			/*!
-			 *	@brief		Destructor.
-			 */
-			virtual ~ContextSwitcher();
+  /*!
+   *	@brief		Destructor.
+   */
+  virtual ~ContextSwitcher();
 
-			/*!
-			 *	@brief		Add a context and it's "hotkey"
-			 *
-			 *	@param		context		The context to add.
-			 *	@param		key			The key which activates the context.
-			 */
-			void addContext( Context * context, SDL_Keycode key );
+  /*!
+   *	@brief		Add a context and it's "hotkey"
+   *
+   *	@param		context		The context to add.
+   *	@param		key			The key which activates the context.
+   */
+  void addContext(Context* context, SDL_Keycode key);
 
-			/*!
-			 *	@brief		Switch to the indicated context.
-			 *
-			 *	@param		context		The newly active context.
-			 *	@returns	A boolean reporting if a change is actually made (true)
-			 *				or not (false).
-			 */
-			bool switchContexts( Context * context );
+  /*!
+   *	@brief		Switch to the indicated context.
+   *
+   *	@param		context		The newly active context.
+   *	@returns	A boolean reporting if a change is actually made (true)
+   *				or not (false).
+   */
+  bool switchContexts(Context* context);
 
-			/*!
-			 *	@brief		Allow the context to update its time-dependent state to
-			 *				the given global time.
-			 */
-			virtual void update();
+  /*!
+   *	@brief		Allow the context to update its time-dependent state to
+   *				the given global time.
+   */
+  virtual void update();
 
-			/*!
-			 *	@brief		The draw function for the context.
-			 *
-			 *	@param		vWidth		The width of the viewport (in pixels).
-			 *	@param		vHeight		The height of the viewport (in pixels).
-			 */
-			virtual void drawGL( int vWidth, int vHeight );
-			
-			/*!
-			 *	@brief		Performs selection based on a click on screen space.
-			 *				Uses the OpenGL selection mechanism.
-			 *
-			 *	@param		scene			The scene to select in.
-			 *	@param		camera			The camera.
-			 *	@param		vWidth			The width of the viewport.
-			 *	@param		vHeight			The height of the viewport.
-			 *	@param		selectPoint		The point (in screen space) at which object selection
-			 *								should take place.
-			 *	@returns	A boolean indicating whether a redraw needs to take place.
-			 */
-			virtual bool selectGL( const GLScene * scene, const GLCamera & camera, int vWidth,
-								   int vHeight, int * selectPoint );
+  /*!
+   *	@brief		The draw function for the context.
+   *
+   *	@param		vWidth		The width of the viewport (in pixels).
+   *	@param		vHeight		The height of the viewport (in pixels).
+   */
+  virtual void drawGL(int vWidth, int vHeight);
 
-			/*!
-			 *	@brief		Callback for when the OpenGL context is changed.
-			 */
-			virtual void newGLContext();
-		
-			/*!
-			 *	@brief		Give the context the opportunity to respond to a mouse
-			 *				event.
-			 *
-			 *	@param		e		The SDL event with the mouse event data.
-			 *	@returns	A ContextResult instance reporting if the event was handled and
-			 *				if redrawing is necessary.
-			 */
-			virtual ContextResult handleMouse( SDL_Event & e );
-			
-			/*!
-			 *	@brief		Give the context the opportunity to respond to a keyboard
-			 *				event.
-			 *
-			 *	@param		e		The SDL event with the keyboard event data.
-			 *	@returns	A ContextResult instance reporting if the event was handled and
-			 *				if redrawing is necessary.
-			 */
-			virtual ContextResult handleKeyboard( SDL_Event & e );
+  /*!
+   *	@brief		Performs selection based on a click on screen space.
+   *				Uses the OpenGL selection mechanism.
+   *
+   *	@param		scene			The scene to select in.
+   *	@param		camera			The camera.
+   *	@param		vWidth			The width of the viewport.
+   *	@param		vHeight			The height of the viewport.
+   *	@param		selectPoint		The point (in screen space) at which object
+   *selection should take place.
+   *	@returns	A boolean indicating whether a redraw needs to take place.
+   */
+  virtual bool selectGL(const GLScene* scene, const GLCamera& camera, int vWidth, int vHeight,
+                        int* selectPoint);
 
-		protected:
+  /*!
+   *	@brief		Callback for when the OpenGL context is changed.
+   */
+  virtual void newGLContext();
 
-			/*!
-			 *	@brief		The currently active context
-			 */
-			Context *	_activeContext;
+  /*!
+   *	@brief		Give the context the opportunity to respond to a mouse
+   *				event.
+   *
+   *	@param		e		The SDL event with the mouse event data.
+   *	@returns	A ContextResult instance reporting if the event was handled and
+   *				if redrawing is necessary.
+   */
+  virtual ContextResult handleMouse(SDL_Event& e);
 
-			/*! 
-			 *	@brief		A mapping for key to context.
-			 */
-			KeyContextMap	_contexts;
-		};
-	}	// namespace SceneGraph
-}	// namespace MengeVis
+  /*!
+   *	@brief		Give the context the opportunity to respond to a keyboard
+   *				event.
+   *
+   *	@param		e		The SDL event with the keyboard event data.
+   *	@returns	A ContextResult instance reporting if the event was handled and
+   *				if redrawing is necessary.
+   */
+  virtual ContextResult handleKeyboard(SDL_Event& e);
 
-#endif	// __CONTEXT_SWITCHER_H__
+ protected:
+  /*!
+   *	@brief		The currently active context
+   */
+  Context* _activeContext;
+
+  /*!
+   *	@brief		A mapping for key to context.
+   */
+  KeyContextMap _contexts;
+};
+}  // namespace SceneGraph
+}  // namespace MengeVis
+
+#endif  // __CONTEXT_SWITCHER_H__

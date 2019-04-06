@@ -28,61 +28,61 @@
 
 namespace Menge {
 
-	// forward declarations
-	class EventEffect;
-	class EventTarget;
+// forward declarations
+class EventEffect;
+class EventTarget;
 
-	/*!
-	 *	@brief		A response to an event trigger.  It combines an effect with
-	 *				a target.
-	 */
-	class EventResponse {
-	public:
-		/*!
-		 *	@brief		Constructor.
-		 */
-		EventResponse();
+/*!
+ *	@brief		A response to an event trigger.  It combines an effect with
+ *				a target.
+ */
+class EventResponse {
+ public:
+  /*!
+   *	@brief		Constructor.
+   */
+  EventResponse();
 
-		/*!
-		 *	@brief		Constructor.
-		 *
-		 *	@param		effect		The name of the effect for this response.
-		 *	@param		target		The name of the target for this response.
-		 */
-		EventResponse( const std::string & effect, const std::string & target );
+  /*!
+   *	@brief		Constructor.
+   *
+   *	@param		effect		The name of the effect for this response.
+   *	@param		target		The name of the target for this response.
+   */
+  EventResponse(const std::string& effect, const std::string& target);
 
-		/*!
-		 *	@brief		Finalizes the response.
-		 */
-		void finalize();
+  /*!
+   *	@brief		Finalizes the response.
+   */
+  void finalize();
 
-		/*!
-		 *	@brief		Applies the response to the simulation.
-		 */
-		void apply();
+  /*!
+   *	@brief		Applies the response to the simulation.
+   */
+  void apply();
 
-	protected:
-		/*!
-		 *	@brief		The name of the effect.
-		 */
-		std::string		_effectName;
+ protected:
+  /*!
+   *	@brief		The name of the effect.
+   */
+  std::string _effectName;
 
-		/*!
-		 *	@brief		The effect in this response.
-		 */
-		EventEffect *	_effect;
+  /*!
+   *	@brief		The effect in this response.
+   */
+  EventEffect* _effect;
 
-		/*!
-		 *	@brief		The name of the target.
-		 */
-		std::string		_targetName;
+  /*!
+   *	@brief		The name of the target.
+   */
+  std::string _targetName;
 
-		/*!
-		 *	@brief		The target for this response.
-		 */
-		EventTarget *	_target;
-	};
+  /*!
+   *	@brief		The target for this response.
+   */
+  EventTarget* _target;
+};
 
-}	// namespace Menge
+}  // namespace Menge
 
-#endif	// __EVENT_RESPONSE_H__
+#endif  // __EVENT_RESPONSE_H__

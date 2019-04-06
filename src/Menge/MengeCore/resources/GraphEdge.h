@@ -23,70 +23,70 @@
  */
 
 #ifndef __GRAPH_EDGE_H__
-#define	__GRAPH_EDGE_H__
+#define __GRAPH_EDGE_H__
 
 #include "MengeCore/mengeCommon.h"
 
 namespace Menge {
 
-	// forward declaration
-	class GraphVertex;
+// forward declaration
+class GraphVertex;
 
-	/*!
-	 *	@brief		A graph edge.
-	 */
-	class MENGE_API GraphEdge {
-	public:
-		/*!
-		 *	@brief		Constructor.
-		 */
-		GraphEdge();
+/*!
+ *	@brief		A graph edge.
+ */
+class MENGE_API GraphEdge {
+ public:
+  /*!
+   *	@brief		Constructor.
+   */
+  GraphEdge();
 
-		/*!
-		 *	@brief		Destructor
-		 */
-		~GraphEdge();
+  /*!
+   *	@brief		Destructor
+   */
+  ~GraphEdge();
 
-		/*!
-		 *	@brief		Set's the neighboring vertex
-		 *
-		 *	@param		v		The first connected vertex.
-		 */
-		void setNeighbor( GraphVertex * v ) { _nbr = v; }
+  /*!
+   *	@brief		Set's the neighboring vertex
+   *
+   *	@param		v		The first connected vertex.
+   */
+  void setNeighbor(GraphVertex* v) { _nbr = v; }
 
-		/*!
-		 *	@brief		Sets the distance between the vertices
-		 *
-		 *	@param		d		The distance between the two vertices.
-		 */
-		void setDistance( float d ) { _distance = d; }
+  /*!
+   *	@brief		Sets the distance between the vertices
+   *
+   *	@param		d		The distance between the two vertices.
+   */
+  void setDistance(float d) { _distance = d; }
 
-		/*!
-		 *	@brief		Reports the distance between the vertices connected
-		 *				by this edge.
-		 *
-		 *	@returns	The length of this edge.
-		 */
-		inline float getDistance() const { return _distance; }
+  /*!
+   *	@brief		Reports the distance between the vertices connected
+   *				by this edge.
+   *
+   *	@returns	The length of this edge.
+   */
+  inline float getDistance() const { return _distance; }
 
-		/*!
-		 *	@brief		Returns the first attached GraphVertex
-		 *
-		 *	@returns	A pointer to the first graph vertex.
-		 */
-		GraphVertex * getNeighbor() const { return _nbr; }
+  /*!
+   *	@brief		Returns the first attached GraphVertex
+   *
+   *	@returns	A pointer to the first graph vertex.
+   */
+  GraphVertex* getNeighbor() const { return _nbr; }
 
-	protected:		
-		/*!
-		 *	@brief		The distance between the two vertices connected by this edge.
-		 */
-		float	_distance;
+ protected:
+  /*!
+   *	@brief		The distance between the two vertices connected by this edge.
+   */
+  float _distance;
 
-		/*!
-		 *	@brief		A pointer to the first graph vertex connected by
-		 *				this edge.  
-		 */
-		GraphVertex *	_nbr;
-	};
-}	// namespace Menge
-#endif	// __GRAPH_EDGE_H__
+  /*!
+   *	@brief		A pointer to the first graph vertex connected by
+   *				this edge.
+   */
+  GraphVertex* _nbr;
+};
+}  // namespace Menge
+#endif  // __GRAPH_EDGE_H__

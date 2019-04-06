@@ -29,28 +29,28 @@
 #include "MengeVis/Runtime/AgentContext/ORCATypeAgentContext.h"
 
 namespace MengeVis {
-	namespace Runtime {
-		/*!
-		 *	@brief		Specialization of the ORCA context for ORCA::Agent.
-		 */
-		typedef ORCATypeAgentContext< ORCA::Agent > OrcaAgentContext;
+namespace Runtime {
+/*!
+ *	@brief		Specialization of the ORCA context for ORCA::Agent.
+ */
+typedef ORCATypeAgentContext<ORCA::Agent> OrcaAgentContext;
 
-		////////////////////////////////////////////////////////////////
-		//			Implementation of ORCAAgentContext
-		////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////
+//			Implementation of ORCAAgentContext
+////////////////////////////////////////////////////////////////
 
-		// Specialization
-		template <>
-		inline std::string ORCATypeAgentContext< ORCA::Agent >::contextName() const {
-			return "ORCA";
-		}
-
-		////////////////////////////////////////////////////////////////
-
-		template <>
-		std::string ORCATypeAgentContext< ORCA::Agent >::getElementName() const {
-			return ORCA::Agent::NAME;
-		}
-	}
+// Specialization
+template <>
+inline std::string ORCATypeAgentContext<ORCA::Agent>::contextName() const {
+  return "ORCA";
 }
-#endif	// __ORCA_AGENT_CONTEXT_H__
+
+////////////////////////////////////////////////////////////////
+
+template <>
+std::string ORCATypeAgentContext<ORCA::Agent>::getElementName() const {
+  return ORCA::Agent::NAME;
+}
+}  // namespace Runtime
+}  // namespace MengeVis
+#endif  // __ORCA_AGENT_CONTEXT_H__

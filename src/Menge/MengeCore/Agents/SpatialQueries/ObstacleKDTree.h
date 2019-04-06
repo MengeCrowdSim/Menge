@@ -25,167 +25,164 @@
  *				Performs spatial queries for Obstacles
  */
 
-#include "MengeCore/CoreConfig.h"
 #include "MengeCore/Agents/Obstacle.h"
 #include "MengeCore/Agents/SpatialQueries/ProximityQuery.h"
+#include "MengeCore/CoreConfig.h"
 #include "MengeCore/Math/Vector2.h"
 
 #include <vector>
 
 namespace Menge {
 
-	namespace Agents {
+namespace Agents {
 
-		// FORWARD DECLARATIONS
-		class BaseAgent;
+// FORWARD DECLARATIONS
+class BaseAgent;
 
-		// Forward declarations
+// Forward declarations
 
-		// TODO: This chops up obstacles for the kd-tree.  I need to be able to reconstruct them
-		//		i.e. if a piece is close to the agent, I'd like to be able to provide the full
-		//		original line obstacle.
+// TODO: This chops up obstacles for the kd-tree.  I need to be able to reconstruct them
+//		i.e. if a piece is close to the agent, I'd like to be able to provide the full
+//		original line obstacle.
 
-		/*!
-		 *  @brief      Defines an obstacle <i>k</i>d-tree node.
-		 */
-		struct ObstacleTreeNode {
-			  /*!
-			   *  @brief      The left obstacle tree node.
-			   */
-			  ObstacleTreeNode* _left;
-		      
-			  /*!
-			   *  @brief      The obstacle number.
-			   */
-			  const Obstacle* _obstacle;
-		      
-			  /*!
-			   *  @brief      The right obstacle tree node.
-			   */
-			  ObstacleTreeNode* _right;
-			};
+/*!
+ *  @brief      Defines an obstacle <i>k</i>d-tree node.
+ */
+struct ObstacleTreeNode {
+  /*!
+   *  @brief      The left obstacle tree node.
+   */
+  ObstacleTreeNode* _left;
 
-		/*!
-		 *  @brief      Defines an obstacle <i>k</i>d-tree.
-		 *
-		 *	This structure will create a static <i>k</i>d-tree node on the provided
-		 *	set of obstacles.  It will modify the obstacles in that some obstacles
-		 *	may be cut.
-		 */
-		class MENGE_API ObstacleKDTree {
-		public:
-			/*!
-			 *  @brief      Constructs an Obstacle <i>k</i>d-tree instance.
-			 */
-			explicit ObstacleKDTree();
-			
-			/*!
-			 *  @brief      Destroys this kd-tree instance.
-			 */
-			~ObstacleKDTree();
+  /*!
+   *  @brief      The obstacle number.
+   */
+  const Obstacle* _obstacle;
 
-			/*!
-			 *  @brief      Builds an obstacle <i>k</i>d-tree on the given set of obstacles.
-			 */
-			void buildTree( const std::vector< Obstacle * > obstacles );	
+  /*!
+   *  @brief      The right obstacle tree node.
+   */
+  ObstacleTreeNode* _right;
+};
 
-			/*!
-			 *  @brief      Computes the obstacles within range square of a point
-			 *  @param      query          a pointer for the query to be performed
-			
-			 */
-			void obstacleQuery( ProximityQuery *query) const;
+/*!
+ *  @brief      Defines an obstacle <i>k</i>d-tree.
+ *
+ *	This structure will create a static <i>k</i>d-tree node on the provided
+ *	set of obstacles.  It will modify the obstacles in that some obstacles
+ *	may be cut.
+ */
+class MENGE_API ObstacleKDTree {
+ public:
+  /*!
+   *  @brief      Constructs an Obstacle <i>k</i>d-tree instance.
+   */
+  explicit ObstacleKDTree();
 
-      /*! @brief  Implementation of SpatialQuery::linkIsTraversible().  */
-      bool linkIsTraversible(const Math::Vector2& q1, const Math::Vector2& q2,
-                             float radius) const;
+  /*!
+   *  @brief      Destroys this kd-tree instance.
+   */
+  ~ObstacleKDTree();
 
-			/*!
-			 *  @brief      Queries the visibility between two points within a
-			 *              specified radius.
-			 *
-			 *  @param      q1              The first point between which visibility is
-			 *                              to be tested.
-			 *  @param      q2              The second point between which visibility is
-			 *                              to be tested.
-			 *  @param      radius          The radius within which visibility is to be
-			 *                              tested.
-			 *  @returns    True if q1 and q2 are mutually visible within the radius;
-			 *              false otherwise.
-			 */
-			bool queryVisibility( const Math::Vector2& q1, const Math::Vector2& q2,
-								  float radius ) const;
+  /*!
+   *  @brief      Builds an obstacle <i>k</i>d-tree on the given set of obstacles.
+   */
+  void buildTree(const std::vector<Obstacle*> obstacles);
 
-		protected:
-			/*!
-			 *  @brief      Does the full work of constructing the <i>k</i>d-tree.
-			 *
-			 *	@param		obstacles		The set of obstacles to construct this tree around
-			 *	@returns	The root of the ObstacleKDTree for this set of obstacles
-			 */
-			ObstacleTreeNode* buildTreeRecursive( const std::vector<Obstacle*>& obstacles );
+  /*!
+   *  @brief      Computes the obstacles within range square of a point
+   *  @param      query          a pointer for the query to be performed
+  
+   */
+  void obstacleQuery(ProximityQuery* query) const;
 
-			/*!
-			 *  @brief      Computes the obstacle neighbors of the specified point by doing a
-			 *				recursive search.
-			 *
-			 *  @param      query           a pointer to the query being performed.
-			 *	@param		pt				the starting point from the query
-			 *  @param      rangeSq         The squared range around the agent.
-			 *  @param      node	        The current node in the obstacle tree
-			 
-			 */
-			void queryTreeRecursive( ProximityQuery *query, Math::Vector2 pt, float& rangeSq,
-									 const ObstacleTreeNode* node ) const;
+  /*! @brief  Implementation of SpatialQuery::linkIsTraversible().  */
+  bool linkIsTraversible(const Math::Vector2& q1, const Math::Vector2& q2, float radius) const;
 
-      /*! @brief  Implementation of linkIsTraversible() via recursion.  */
-      bool linkIsTraversibleRecursive(const Math::Vector2& q1, const Math::Vector2& q2,
-                                      float radius, const ObstacleTreeNode* node) const;
-			/*!
-			 *	@brief		Perform the work, recursively, to determine if q1 can see q2, w.r.t.
-			 *				the obstacles.
-			 *
-			 *	@param		q1				The originating position.
-			 *	@param		q2				The target position.
-			 *	@param		radius			The radius within which visibility is to be tested.
-			 *	@param		node			The root of the tree to recursively search.
-			 *	@returns	True if q1 and q2 are mutually visible within the radius.
-			 */
-			bool queryVisibilityRecursive( const Math::Vector2& q1, const Math::Vector2& q2,
-										  float radius, 
-										  const ObstacleTreeNode* node) const;
+  /*!
+   *  @brief      Queries the visibility between two points within a
+   *              specified radius.
+   *
+   *  @param      q1              The first point between which visibility is
+   *                              to be tested.
+   *  @param      q2              The second point between which visibility is
+   *                              to be tested.
+   *  @param      radius          The radius within which visibility is to be
+   *                              tested.
+   *  @returns    True if q1 and q2 are mutually visible within the radius;
+   *              false otherwise.
+   */
+  bool queryVisibility(const Math::Vector2& q1, const Math::Vector2& q2, float radius) const;
 
-			/*!
-			 *	@brief			Recursively deletes the obstacle tree.
-			 */
-			void deleteTree();
+ protected:
+  /*!
+   *  @brief      Does the full work of constructing the <i>k</i>d-tree.
+   *
+   *	@param		obstacles		The set of obstacles to construct this tree around
+   *	@returns	The root of the ObstacleKDTree for this set of obstacles
+   */
+  ObstacleTreeNode* buildTreeRecursive(const std::vector<Obstacle*>& obstacles);
 
-			/*!
-			 *	@brief			Recursively deletes an obstacle sub-tree.
-			 *	@param			node		The root of the tree to delete.
-			 */
-			void deleteSubTree( ObstacleTreeNode * node );
+  /*!
+   *  @brief      Computes the obstacle neighbors of the specified point by doing a
+   *				recursive search.
+   *
+   *  @param      query           a pointer to the query being performed.
+   *	@param		pt				the starting point from the query
+   *  @param      rangeSq         The squared range around the agent.
+   *  @param      node	        The current node in the obstacle tree
+   
+   */
+  void queryTreeRecursive(ProximityQuery* query, Math::Vector2 pt, float& rangeSq,
+                          const ObstacleTreeNode* node) const;
 
-			/*!
-			 *	@brief			The set of obstacles managed by this query structure.
-			 *	
-			 *	This is *not* necessarily the same as the obstacles assigned.
-			 *	The set of obstacles can change as some obstacles may be sub-divided
-			 *	during the spatial decomposition.  This needs to be corrected.
-			 */
-			std::vector<Obstacle*> _obstacles;
+  /*! @brief  Implementation of linkIsTraversible() via recursion.  */
+  bool linkIsTraversibleRecursive(const Math::Vector2& q1, const Math::Vector2& q2, float radius,
+                                  const ObstacleTreeNode* node) const;
+  /*!
+   *	@brief		Perform the work, recursively, to determine if q1 can see q2, w.r.t.
+   *				the obstacles.
+   *
+   *	@param		q1				The originating position.
+   *	@param		q2				The target position.
+   *	@param		radius			The radius within which visibility is to be tested.
+   *	@param		node			The root of the tree to recursively search.
+   *	@returns	True if q1 and q2 are mutually visible within the radius.
+   */
+  bool queryVisibilityRecursive(const Math::Vector2& q1, const Math::Vector2& q2, float radius,
+                                const ObstacleTreeNode* node) const;
 
-			/*!
-			 *	@brief			The query tree root.
-			 */
-			ObstacleTreeNode* _tree;
-			
-			/*!
-			 *	@brief			The maximum number of obstacles allowed in a tree leaf node.
-			 */
-			static const size_t MAX_LEAF_SIZE = 10;
-		};
-	}	// namespace Agents
-}	// namespace Menge
+  /*!
+   *	@brief			Recursively deletes the obstacle tree.
+   */
+  void deleteTree();
 
-#endif	 // __OBSTACLE_KD_TREE_H__
+  /*!
+   *	@brief			Recursively deletes an obstacle sub-tree.
+   *	@param			node		The root of the tree to delete.
+   */
+  void deleteSubTree(ObstacleTreeNode* node);
+
+  /*!
+   *	@brief			The set of obstacles managed by this query structure.
+   *
+   *	This is *not* necessarily the same as the obstacles assigned.
+   *	The set of obstacles can change as some obstacles may be sub-divided
+   *	during the spatial decomposition.  This needs to be corrected.
+   */
+  std::vector<Obstacle*> _obstacles;
+
+  /*!
+   *	@brief			The query tree root.
+   */
+  ObstacleTreeNode* _tree;
+
+  /*!
+   *	@brief			The maximum number of obstacles allowed in a tree leaf node.
+   */
+  static const size_t MAX_LEAF_SIZE = 10;
+};
+}  // namespace Agents
+}  // namespace Menge
+
+#endif  // __OBSTACLE_KD_TREE_H__

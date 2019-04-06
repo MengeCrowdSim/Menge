@@ -24,49 +24,49 @@
 #ifndef __EVENT_TRIGGER_FACTORY_H__
 #define __EVENT_TRIGGER_FACTORY_H__
 
+#include "MengeCore/Agents/Events/EventTrigger.h"
 #include "MengeCore/CoreConfig.h"
 #include "MengeCore/PluginEngine/ElementFactory.h"
-#include "MengeCore/Agents/Events/EventTrigger.h"
 
 namespace Menge {
 
-	/*!
-	 *	@brief		The base class for generating event triggers.
-	 */
-	class MENGE_API EventTriggerFactory : public ElementFactory< EventTrigger > {
-	public:
-		/*!
-		*	@brief		Constructor.
-		*/
-		EventTriggerFactory();
+/*!
+ *	@brief		The base class for generating event triggers.
+ */
+class MENGE_API EventTriggerFactory : public ElementFactory<EventTrigger> {
+ public:
+  /*!
+   *	@brief		Constructor.
+   */
+  EventTriggerFactory();
 
-	protected:
-		/*!
-		*	@brief		Given a pointer to an EventTrigger instance, sets the appropriate fields
-		*				from the provided XML node.
-		*
-		*	It is assumed that the value of the `type` attribute is this EventTrigger's type.
-		*	(i.e. EventTrigger::thisFactory has already been called and returned true.)
-		*	If sub-classes of EventTriggerFactory introduce *new* EventTrigger parameters, then the
-		*	sub-class should override this method but explicitly call the parent class's
-		*	version.
-		*
-		*	@param		trigger		A pointer to the event trigger whose attributes are to be set.
-		*	@param		node		The XML node containing the event trigger attributes.
-		*	@param		specFldr	The path to the specification file.  If the EventTrigger
-		*							references resources in the file system, it should be defined
-		*							relative to the specification file location.  This is the
-		*							folder containing that path.
-		*	@returns	A boolean reporting success (true) or failure (false).
-		*/
-		virtual bool setFromXML(EventTrigger * trigger, TiXmlElement * node,
-			const std::string & specFldr) const;
+ protected:
+  /*!
+   *	@brief		Given a pointer to an EventTrigger instance, sets the appropriate fields
+   *				from the provided XML node.
+   *
+   *	It is assumed that the value of the `type` attribute is this EventTrigger's type.
+   *	(i.e. EventTrigger::thisFactory has already been called and returned true.)
+   *	If sub-classes of EventTriggerFactory introduce *new* EventTrigger parameters, then the
+   *	sub-class should override this method but explicitly call the parent class's
+   *	version.
+   *
+   *	@param		trigger		A pointer to the event trigger whose attributes are to be
+   *set.
+   *	@param		node		The XML node containing the event trigger attributes.
+   *	@param		specFldr	The path to the specification file.  If the EventTrigger
+   *							references resources in the file system, it should be
+   *defined relative to the specification file location.  This is the folder containing that path.
+   *	@returns	A boolean reporting success (true) or failure (false).
+   */
+  virtual bool setFromXML(EventTrigger* trigger, TiXmlElement* node,
+                          const std::string& specFldr) const;
 
-		/*!
-		*	@brief		The identifier for the "name" string attribute.
-		*/
-		size_t	_nameID;
-	};
+  /*!
+   *	@brief		The identifier for the "name" string attribute.
+   */
+  size_t _nameID;
+};
 
-}	// namespace Menge
-#endif	// __EVENT_TRIGGER_FACTORY_H__
+}  // namespace Menge
+#endif  // __EVENT_TRIGGER_FACTORY_H__

@@ -24,47 +24,47 @@
 #ifndef __EVENT_EXCEPTION_H__
 #define __EVENT_EXCEPTION_H__
 
-#include "MengeCore/MengeException.h"
 #include <string>
+#include "MengeCore/MengeException.h"
 
 namespace Menge {
-	/*!
-	 *	@brief		The base event exception.
-	 */
-	class MENGE_API EventException : public virtual MengeException {
-	public:
-		/*!
-		 *	@brief		Default constructor.
-		 */
-		EventException() : MengeException() {}		
+/*!
+ *	@brief		The base event exception.
+ */
+class MENGE_API EventException : public virtual MengeException {
+ public:
+  /*!
+   *	@brief		Default constructor.
+   */
+  EventException() : MengeException() {}
 
-		/*!
-		 *	@brief		Constructor with message.
-		 *
-		 *	@param		s		The exception-specific message.
-		 */
-		EventException( const std::string & s ): MengeException(s) {}
-	};
+  /*!
+   *	@brief		Constructor with message.
+   *
+   *	@param		s		The exception-specific message.
+   */
+  EventException(const std::string& s) : MengeException(s) {}
+};
 
-	/*!
-	 *	@brief		The fatal event exception.
-	 */
-	class MENGE_API EventFatalException : public EventException, public MengeFatalException {
-	public:
-		/*!
-		 *	@brief		Default constructor.
-		 */
-		EventFatalException() : MengeException(), EventException(), MengeFatalException() {}
+/*!
+ *	@brief		The fatal event exception.
+ */
+class MENGE_API EventFatalException : public EventException, public MengeFatalException {
+ public:
+  /*!
+   *	@brief		Default constructor.
+   */
+  EventFatalException() : MengeException(), EventException(), MengeFatalException() {}
 
-		/*!
-		 *	@brief		Constructor with message.
-		 *
-		 *	@param		s		The exception-specific message.
-		 */
-		EventFatalException( const std::string & s ) : MengeException(s), EventException(),
-													  MengeFatalException() {}
-	};
+  /*!
+   *	@brief		Constructor with message.
+   *
+   *	@param		s		The exception-specific message.
+   */
+  EventFatalException(const std::string& s)
+      : MengeException(s), EventException(), MengeFatalException() {}
+};
 
-}	// namespace Menge
+}  // namespace Menge
 
-#endif	 // __EVENT_EXCEPTION_H__
+#endif  // __EVENT_EXCEPTION_H__

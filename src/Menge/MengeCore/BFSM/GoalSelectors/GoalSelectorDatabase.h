@@ -24,35 +24,36 @@
 #ifndef __GOAL_SELECTOR_DATABASE_H__
 #define __GOAL_SELECTOR_DATABASE_H__
 
-#include "MengeCore/PluginEngine/ElementDatabase.h"
 #include "MengeCore/BFSM/GoalSelectors/GoalSelector.h"
 #include "MengeCore/BFSM/GoalSelectors/GoalSelectorFactory.h"
+#include "MengeCore/PluginEngine/ElementDatabase.h"
 
 namespace Menge {
 
-	namespace BFSM {
-		/*!
-		 * @brief   The element database for GoalSelectors
-		 */
-		typedef ElementDB< GoalSelectorFactory, GoalSelector > GoalSelectorDB;
+namespace BFSM {
+/*!
+ * @brief   The element database for GoalSelectors
+ */
+typedef ElementDB<GoalSelectorFactory, GoalSelector> GoalSelectorDB;
 
-	}	// namespace BFSM
+}  // namespace BFSM
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
-	/*!
-	 *	@brief		Explicit specialization of addBuiltins for the GoalSelector Database
-	 */
-	template<> void ElementDB< BFSM::GoalSelectorFactory, BFSM::GoalSelector >::addBuiltins();
-	
-	/*!
-	 *	@brief		Explicit specialization of getElementName for the GoalSelector Database
-	 */
-	template<> std::string
-		ElementDB< BFSM::GoalSelectorFactory, BFSM::GoalSelector >::getElementName();
+/*!
+ *	@brief		Explicit specialization of addBuiltins for the GoalSelector Database
+ */
+template <>
+void ElementDB<BFSM::GoalSelectorFactory, BFSM::GoalSelector>::addBuiltins();
 
-#endif	// DOXYGEN_SHOULD_SKIP_THIS
+/*!
+ *	@brief		Explicit specialization of getElementName for the GoalSelector Database
+ */
+template <>
+std::string ElementDB<BFSM::GoalSelectorFactory, BFSM::GoalSelector>::getElementName();
 
-}	// namespace Menge
+#endif  // DOXYGEN_SHOULD_SKIP_THIS
 
-#endif	// __GOAL_SELECTOR_DATABASE_H__
+}  // namespace Menge
+
+#endif  // __GOAL_SELECTOR_DATABASE_H__

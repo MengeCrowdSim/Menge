@@ -23,145 +23,144 @@
 #ifndef __VEL_COMPONENT_H__
 #define __VEL_COMPONENT_H__
 
-#include "MengeCore/MengeException.h"
 #include "MengeCore/Agents/PrefVelocity.h"
 #include "MengeCore/BFSM/fsmCommon.h"
+#include "MengeCore/MengeException.h"
 #include "MengeCore/PluginEngine/Element.h"
 
 #include <vector>
 
 namespace Menge {
 
-	// forward declaration
-	template < class Element >
-	class ElementFactory;
-		
-	namespace BFSM {
+// forward declaration
+template <class Element>
+class ElementFactory;
 
-		// FORWARD DECLARATIONS
-		class Goal;
+namespace BFSM {
 
-		/*!
-		 *	@brief		Base exception class for preferred velocity computation.
-		 */
-		class MENGE_API VelCompException : public virtual MengeException {
-		public:
-			/*!
-			 *	@brief		Default constructor.
-			 */
-			VelCompException() : MengeException() {}		
+// FORWARD DECLARATIONS
+class Goal;
 
-			/*!
-			 *	@brief		Constructor with message.
-			 *
-			 *	@param		s		The exception-specific message.
-			 */
-			VelCompException( const std::string & s ): MengeException(s) {}
+/*!
+ *	@brief		Base exception class for preferred velocity computation.
+ */
+class MENGE_API VelCompException : public virtual MengeException {
+ public:
+  /*!
+   *	@brief		Default constructor.
+   */
+  VelCompException() : MengeException() {}
 
-		};
-		
-		/*!
-		 *	@brief		Exception thrown when the velocity component has an error which cannot be
-		 *				recovered from.
-		 */
-		class VelCompFatalException : public VelCompException, public MengeFatalException {
-		public:
-			/*!
-			 *	@brief		Default constructor.
-			 */
-			VelCompFatalException() : MengeException(), VelCompException(),
-									  MengeFatalException() {}
+  /*!
+   *	@brief		Constructor with message.
+   *
+   *	@param		s		The exception-specific message.
+   */
+  VelCompException(const std::string& s) : MengeException(s) {}
+};
 
-			/*!
-			 *	@brief		Constructor with message.
-			 *
-			 *	@param		s		The exception-specific message.
-			 */
-			VelCompFatalException( const std::string & s ) : MengeException(s), VelCompException(),
-															 MengeFatalException() {}
-		};
+/*!
+ *	@brief		Exception thrown when the velocity component has an error which cannot be
+ *				recovered from.
+ */
+class VelCompFatalException : public VelCompException, public MengeFatalException {
+ public:
+  /*!
+   *	@brief		Default constructor.
+   */
+  VelCompFatalException() : MengeException(), VelCompException(), MengeFatalException() {}
 
-		/*!
-		 *	@brief		The base class for computing an agent's preferred velocity.
-		 *
-		 *	Velocity components each have weights.  The relative weights determine
-		 *	how multiple velocity components combine inside a single state.  Their
-		 *	share is its own weight divided by the summed weight of all velocity
-		 *	components.
-		 */
-		class MENGE_API VelComponent : public Element {
-		public:
-			/*!
-			 *	@brief		Default constructor.
-			 */
-			VelComponent() : Element() {}
+  /*!
+   *	@brief		Constructor with message.
+   *
+   *	@param		s		The exception-specific message.
+   */
+  VelCompFatalException(const std::string& s)
+      : MengeException(s), VelCompException(), MengeFatalException() {}
+};
 
-		protected:
-			/*!
-			 *	@brief		Virtual destructor.
-			 */
-			virtual ~VelComponent(){}
+/*!
+ *	@brief		The base class for computing an agent's preferred velocity.
+ *
+ *	Velocity components each have weights.  The relative weights determine
+ *	how multiple velocity components combine inside a single state.  Their
+ *	share is its own weight divided by the summed weight of all velocity
+ *	components.
+ */
+class MENGE_API VelComponent : public Element {
+ public:
+  /*!
+   *	@brief		Default constructor.
+   */
+  VelComponent() : Element() {}
 
-		public:
-			/*!
-			 *	@brief		Called when the agent enters the state which possesses this velocity
-			 *				component.
-			 *
-			 *	Gives the velocity component to intialize any agent-specific data.
-			 *
-			 *	@param		agent		The agent who entered the state.
-			 */
-			virtual void onEnter( Agents::BaseAgent * agent ) {}
+ protected:
+  /*!
+   *	@brief		Virtual destructor.
+   */
+  virtual ~VelComponent() {}
 
-			/*!
-			 *	@brief		Called when the agent leaves the state which possesses this velocity
-			 *				component.
-			 *
-			 *	Gives the velocity component to restore any agent-specific data it might have
-			 *	changed.
-			 *
-			 *	@param		agent		The agent who left the state.
-			 */
-			virtual void onExit( Agents::BaseAgent * agent ) {}
+ public:
+  /*!
+   *	@brief		Called when the agent enters the state which possesses this velocity
+   *				component.
+   *
+   *	Gives the velocity component to intialize any agent-specific data.
+   *
+   *	@param		agent		The agent who entered the state.
+   */
+  virtual void onEnter(Agents::BaseAgent* agent) {}
 
-			/*!
-			 *	@brief		Computes and sets the agent's preferred velocity.
-			 *
-			 *	The velocity component directly sets preferred velocity values in the
-			 *	the provided preferred velocity instance.  See Agents::PrefVelocity for details.
-			 *	Rather than setting the agent's preferred velocity value directly, a reference
-			 *	to a preferred velocity instance is passed in to make the use more general.
-			 *	This allows the computation of the preferred velocity for the agent, without
-			 *	necessarily making changes to it.
-			 *
-			 *	@param		agent		The agent for which a preferred velocity is computed.
-			 *	@param		goal		The agent's goal (although this may be ignored).
-			 *	@param		pVel		The instance of Agents::PrefVelocity to set.
-			 */
-			virtual void setPrefVelocity( const Agents::BaseAgent * agent, const Goal * goal,
-										  Agents::PrefVelocity & pVel ) const = 0;
+  /*!
+   *	@brief		Called when the agent leaves the state which possesses this velocity
+   *				component.
+   *
+   *	Gives the velocity component to restore any agent-specific data it might have
+   *	changed.
+   *
+   *	@param		agent		The agent who left the state.
+   */
+  virtual void onExit(Agents::BaseAgent* agent) {}
 
-			/*!
-			 *	@brief		Used by the plugin system to know what artifacts to associate with
-			 *				agents of this type.  Every sub-class of must return a globally
-			 *				unique value if it should be associated with unique artifacts.
-			 */
-			virtual std::string getStringId() const = 0;
+  /*!
+   *	@brief		Computes and sets the agent's preferred velocity.
+   *
+   *	The velocity component directly sets preferred velocity values in the
+   *	the provided preferred velocity instance.  See Agents::PrefVelocity for details.
+   *	Rather than setting the agent's preferred velocity value directly, a reference
+   *	to a preferred velocity instance is passed in to make the use more general.
+   *	This allows the computation of the preferred velocity for the agent, without
+   *	necessarily making changes to it.
+   *
+   *	@param		agent		The agent for which a preferred velocity is computed.
+   *	@param		goal		The agent's goal (although this may be ignored).
+   *	@param		pVel		The instance of Agents::PrefVelocity to set.
+   */
+  virtual void setPrefVelocity(const Agents::BaseAgent* agent, const Goal* goal,
+                               Agents::PrefVelocity& pVel) const = 0;
 
-			friend class ElementFactory< VelComponent >;
-		};
+  /*!
+   *	@brief		Used by the plugin system to know what artifacts to associate with
+   *				agents of this type.  Every sub-class of must return a globally
+   *				unique value if it should be associated with unique artifacts.
+   */
+  virtual std::string getStringId() const = 0;
 
-		/*!
-		 *	@brief		Parses a TinyXML element containing a velocity component specification
-		 *
-		 *	@param		node			The TinyXML element
-		 *	@param		behaveFldr		The folder in which the behavior is defined -- all
-		 *								resources are defined relative to this folder.
-		 *	@returns	A pointer to the new velocity component implementation (NULL if no valid
-		 *				instance could be created).
-		 */
-		VelComponent * parseVelComponent( TiXmlElement * node, const std::string & behaveFldr );
+  friend class ElementFactory<VelComponent>;
+};
 
-	}	// namespace BFSM
-}	// namespace Menge
-#endif	// __VEL_COMPONENT_H__
+/*!
+ *	@brief		Parses a TinyXML element containing a velocity component specification
+ *
+ *	@param		node			The TinyXML element
+ *	@param		behaveFldr		The folder in which the behavior is defined -- all
+ *								resources are defined relative to this
+ *folder.
+ *	@returns	A pointer to the new velocity component implementation (NULL if no valid
+ *				instance could be created).
+ */
+VelComponent* parseVelComponent(TiXmlElement* node, const std::string& behaveFldr);
+
+}  // namespace BFSM
+}  // namespace Menge
+#endif  // __VEL_COMPONENT_H__
