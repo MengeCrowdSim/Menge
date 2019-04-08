@@ -821,12 +821,12 @@
     <ClInclude Include="$(SrcDir)\mengeCore\Agents\Events\StateMemberTarget.h">
       <Filter>Header Files\Agents\Events</Filter>
     </ClInclude>
-    <ClCompile Include="$(SrcDir)\mengeCore\Agents\Events\state_population_trigger.h">
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\Events\state_population_trigger.h">
       <Filter>Header Files\Agents\Events</Filter>
-    </ClCompile>
-    <ClCompile Include="$(SrcDir)\mengeCore\Agents\Events\change_state_effect.h">
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\mengeCore\Agents\Events\change_state_effect.h">
       <Filter>Header Files\Agents\Events</Filter>
-    </ClCompile>
+    </ClInclude>
     <ClInclude Include="$(SrcDir)\mengeCore\Agents\ObstacleSets\ExplicitObstacleSet.h">
       <Filter>Header Files\Agents\ObstacleSets</Filter>
     </ClInclude>
