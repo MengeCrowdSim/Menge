@@ -138,6 +138,35 @@ void RoadMapVelComponent::setPrefVelocity(const Agents::BaseAgent* agent, const 
 }
 
 /////////////////////////////////////////////////////////////////////
+
+void RoadMapVelComponent::doUpdateGoal(const Agents::BaseAgent* agent, const Goal* goal) {
+  // The only way to get to this point is to have successfully updated agent preferred velocities,
+  // so there *must* already exist a path for this agent.
+  if (goal->moves()) {
+    _lock.lockRead();
+    RoadMapPath* path = _paths.at(agent->_id);
+    _lock.releaseRead();
+
+    assert(path->getGoal() == goal &&
+           "Trying to update an agent, goal pair for which I have a conflicting goal");
+
+    RoadMapPath* update_path = _roadmap->updatePathForGoal(agent, path);
+    if (update_path == nullptr) {
+      logger << Logger::ERR_MSG << "Agent " << agent->_id
+             << " is working toward a moving goal that can no longer be accessed from the "
+                "roadmap.\n";
+      throw VelCompFatalException("Moving goal can no longer be connected to the road map");
+    }
+    if (path != update_path) {
+      delete path;
+      _lock.lockWrite();
+      _paths[agent->_id] = update_path;
+      _lock.releaseWrite();
+    }
+  }
+}
+
+/////////////////////////////////////////////////////////////////////
 //                   Implementation of RoadMapVCFactory
 /////////////////////////////////////////////////////////////////////
 

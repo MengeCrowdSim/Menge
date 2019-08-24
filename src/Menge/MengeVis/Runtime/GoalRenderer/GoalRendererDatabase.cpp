@@ -4,6 +4,7 @@
 #include "MengeVis/Runtime/GoalRenderer/CircleGoalRenderer.h"
 #include "MengeVis/Runtime/GoalRenderer/GoalRenderer.h"
 #include "MengeVis/Runtime/GoalRenderer/OBBGoalRenderer.h"
+#include "MengeVis/Runtime/GoalRenderer/PathGoalRenderer.h"
 #include "MengeVis/Runtime/GoalRenderer/PointGoalRenderer.h"
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
@@ -28,6 +29,7 @@ void Runtime::VisElementDB<Runtime::GoalVis::GoalRenderer, Menge::BFSM::Goal>::a
   addVisElement(new Runtime::GoalVis::PointGoalRenderer());
   addVisElement(new Runtime::GoalVis::OBBGoalRenderer());
   addVisElement(new Runtime::GoalVis::CircleGoalRenderer());
+  addVisElement(new Runtime::GoalVis::PathGoalRenderer());
 }
 
 template <>

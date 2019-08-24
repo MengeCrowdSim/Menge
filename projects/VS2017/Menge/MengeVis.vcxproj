@@ -62,6 +62,8 @@
     <ClCompile Include="$(SrcDir)\MengeVis\Runtime\VisAgent\VisAgent.cpp" />
     <ClCompile Include="$(SrcDir)\MengeVis\Runtime\VisAgent\VisAgentDatabase.cpp" />
     <ClCompile Include="$(SrcDir)\MengeVis\Runtime\EventInjectContext.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\GoalRenderer\DrawGeometry.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\GoalRenderer\PathGoalRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(SrcDir)\MengeVis\Runtime\SimSystem.h" />
@@ -116,6 +118,8 @@
     <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VisAgent\VisAgent.h" />
     <ClInclude Include="$(SrcDir)\MengeVis\Runtime\VisAgent\VisAgentDatabase.h" />
     <ClInclude Include="$(SrcDir)\MengeVis\Runtime\EventInjectContext.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\GoalRenderer\DrawGeometry.h" />
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\GoalRenderer\PathGoalRenderer.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{57FA5E04-F7D0-47B7-900D-CA2BA94E9D52}</ProjectGuid>

@@ -38,6 +38,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 #include "MengeCore/BFSM/VelocityComponents/VelComponent.h"
 
+#include "MengeCore/BFSM/Goals/Goal.h"
 #include "MengeCore/Agents/BaseAgent.h"
 #include "MengeCore/BFSM/VelocityComponents/VelComponentDatabase.h"
 
@@ -48,6 +49,12 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 namespace Menge {
 
 namespace BFSM {
+
+void VelComponent::updateGoal(const Agents::BaseAgent* agent, const Goal* goal) {
+  if (goal->moves()) {
+    doUpdateGoal(agent, goal);
+  }
+}
 
 /////////////////////////////////////////////////////////////////////
 //                   Implementation of VelComponent

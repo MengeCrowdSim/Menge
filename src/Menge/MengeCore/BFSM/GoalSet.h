@@ -67,6 +67,13 @@ class MENGE_API GoalSet {
   bool addGoal(size_t id, Goal* goal);
 
   /*!
+   @brief   Gives any moving goals a chance to update their position.
+
+   @param time_step  The amount of time to advance the goals' positions.
+   */
+  void moveGoals(float time_step);
+
+  /*!
    @brief    Returns the goal with the given user-defined identifier.
 
    This is the identifier given the behavior specification. This operation is not thread-safe. It

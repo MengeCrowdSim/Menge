@@ -38,6 +38,8 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 #include "MengeCore/resources/PortalPath.h"
 
+#include <algorithm>
+
 #include "MengeCore/Agents/BaseAgent.h"
 #include "MengeCore/BFSM/Goals/Goal.h"
 #include "MengeCore/BFSM/fsmCommon.h"
@@ -285,6 +287,13 @@ unsigned int PortalPath::updateLocation(const Agents::BaseAgent* agent, const Na
 
 /////////////////////////////////////////////////////////////////////
 
+void PortalPath::updateGoalLocation(const Agents::BaseAgent* agent, unsigned int goal_node,
+                                    PathPlanner* planner) {
+  replan(agent->_pos, getNode(), goal_node, agent->_radius, planner);
+}
+
+/////////////////////////////////////////////////////////////////////
+
 unsigned int PortalPath::getNode() const {
   if (_currPortal == _route->getPortalCount()) {
     return _route->getEndNode();
@@ -311,7 +320,7 @@ void PortalPath::computeCrossing(const Vector2& startPos, float agentRadius) {
 
 void PortalPath::replan(const Vector2& startPos, unsigned int startNode, unsigned int endNode,
                         float agentRadius, PathPlanner* planner) {
-  PortalRoute* route = planner->getRoute(startNode, _route->getEndNode(), agentRadius * 2.f);
+  PortalRoute* route = planner->getRoute(startNode, endNode, agentRadius * 2.f);
   if (_waypoints != 0x0) {
     delete[] _waypoints;
     _waypoints = 0x0;
@@ -352,4 +361,82 @@ void PortalPath::setWaypoints(size_t start, size_t end, const Vector2& p0, const
     _headings[i].set(dir);
   }
 }
+
+/////////////////////////////////////////////////////////////////////
+
+void PortalPath::updateCrossingFromMovingGoal(const Agents::BaseAgent& agent) {
+  const size_t portal_count = _route->getPortalCount();
+  const size_t last_portal_idx = portal_count - 1;
+  if (portal_count > 0 && _currPortal <= last_portal_idx) {
+    // There's only work to be done if the agent is *not* in the same node as the goal; in other
+    // words, if _currPortal is still heading to a valid portal.
+    const BFSM::Goal& goal = *getGoal();
+    const WayPortal& last_portal = *_route->getPortal(last_portal_idx);
+    const Vector2& last_waypoint = _waypoints[last_portal_idx];
+    // NOTE: This purely local operation is not globally optimal. If there was originally a straight
+    //  line from the last waypoint through *multiple* prevous way portals, this won't update all
+    //  of those portals (i.e., instead of a *new* straight line, I put a kink in the straight
+    //  line). I considered using the _heading vectors to determine if sequential crossings are all
+    //  co-linear. However, this as well is insufficient. What I *really* need to do, for the
+    //  general solution, is a reverse Funnel algorithm. The goal is to only work my way backwards
+    //  until I've converged to the path already there.
+    const Vector2& prev_waypoint =
+        last_portal_idx > 0 ? _waypoints[last_portal_idx - 1] : agent._pos;
+
+    // The parameterization of the current crossing point w.r.t. the crossable extent of the
+    // wayportal.
+    const float s_wp = last_portal.clearanceParameter(last_waypoint, agent._radius);
+    // A similar parameterization of the crossing point for connecting current goal position with
+    // the penultimate way point position w.r.t. the crossable extent of the wayportal.
+    const float s_new =
+        last_portal.clearanceParameter(goal.getCentroid(), prev_waypoint, agent._radius);
+    float s = 0;
+
+    if (s_wp <= 0) {
+      if (s_new <= 0) return;
+      if (s_new > 0) s = std::min(s_new, 1.f);
+    } else if (s_wp >= 1) {
+      if (s_new >= 1) return;
+      if (s_new < 1) s = std::max(s_new, 0.f);
+    } else {
+      s = std::max(std::min(s_new, 1.f), 0.f);
+    }
+
+    Vector2 new_way_point = last_portal.clearPoint(s, agent._radius);
+    _waypoints[last_portal_idx] = new_way_point;
+    _headings[last_portal_idx] = (new_way_point - prev_waypoint);
+    _headings[last_portal_idx].normalize();
+
+  // Description
+  //  Cases:
+  //   1: current crossing point is all the way left (symmetrically for all the way right). Depends
+  //      on the position of goal:
+  //      a. Projects onto the portal "left" of "all the way left"
+  //         X no change to funnel!
+  //      b. Projects onto the portal "right" of all the way left"
+  //         O Compute new crossing point from goal to penultimate waypoint.
+  //   2: current crossing point is on the "interior"
+  //      a. Goal projects all the way left (or beyond)
+  //         X crossing point all the way left (or right)
+  //      b. Goal projects on "interior" of portal
+  //         Set the last waypoint crossing based on goal position and penultimate waypoint
+
+  // To accomplish the above, I need the following:
+  //  1. I need the current waypoint categorized from [0-1] based on the radius-truncated portal
+  //     length.
+  //  2. I need the parameterization of the crossing point of goal -> penultimate point vis a vis
+  //     the clearance portal.
+  //  3. Following cases
+  //     Waypoint  | New Waypoint  | Action
+  //    -----------+---------------+--------------
+  //       <= 0    |      <= 0     |  Pick s = 0 (no change)
+  //       <= 0    |      > 0      |  Pick min(new s, 1)
+  //      > 0, < 1 |       <= 0    |  Pick s = 0 end
+  //      > 0, < 1 |       >= 1    |  Pick s = 1 end
+  //      > 0, < 1 |    > 0, < 1   |  Pick new waypoint s
+  //       >= 1    |     < 1       |  Pick max(new s, 0)
+  //       >= 1    |      >= 1     |  Pick s = 1 (no change)
+  }
+}
+
 }  // namespace Menge

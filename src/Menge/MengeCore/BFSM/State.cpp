@@ -113,9 +113,6 @@ void State::getPrefVelocity(Agents::BaseAgent* agent, Agents::PrefVelocity& velo
   goal = _goals[agent->_id];
   _goalLock.releaseRead();
 
-  // this needs to get changed. Create a copy of the VelPref. Pass that in, and then pass
-  // it back
-
   _velComponent->setPrefVelocity(agent, goal, velocity);
 
   // apply my velocity modifiers now
@@ -123,6 +120,19 @@ void State::getPrefVelocity(Agents::BaseAgent* agent, Agents::PrefVelocity& velo
   for (; vItr != velModifiers_.end(); ++vItr) {
     (*vItr)->adaptPrefVelocity(agent, velocity);
   }
+}
+
+/////////////////////////////////////////////////////////////////////
+
+void State::updateVelCompForMovingGoals(Agents::BaseAgent* agent) {
+  Goal* goal;
+  // NOTE: Strictly speaking, this shouldn't be necessary because this function should only be
+  //  called with read-only access on the goals; we're locking it just to be safe.
+  _goalLock.lockRead();
+  goal = _goals[agent->_id];
+  _goalLock.releaseRead();
+
+  _velComponent->updateGoal(agent, goal);
 }
 
 /////////////////////////////////////////////////////////////////////

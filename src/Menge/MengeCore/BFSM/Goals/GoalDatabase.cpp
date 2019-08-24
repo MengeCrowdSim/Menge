@@ -38,6 +38,7 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 #include "MengeCore/BFSM/Goals/GoalDatabase.h"
 
+#include "MengeCore/BFSM/Goals/GoalPath.h"
 #include "MengeCore/BFSM/Goals/GoalAABB.h"
 #include "MengeCore/BFSM/Goals/GoalCircle.h"
 #include "MengeCore/BFSM/Goals/GoalOBB.h"
@@ -59,6 +60,7 @@ void ElementDB<BFSM::GoalFactory, BFSM::Goal>::addBuiltins() {
   addFactory(new BFSM::CircleGoalFactory());
   addFactory(new BFSM::AABBGoalFactory());
   addFactory(new BFSM::OBBGoalFactory());
+  addFactory(new BFSM::PathGoalFactory());
 }
 }  // namespace Menge
 

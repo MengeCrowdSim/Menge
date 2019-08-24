@@ -107,6 +107,25 @@ BFSM::Task* NavMeshVelComponent::getTask() {
 }
 
 /////////////////////////////////////////////////////////////////////
+
+void NavMeshVelComponent::doUpdateGoal(const Agents::BaseAgent* agent, const Goal* goal) {
+  if (goal->moves()) {
+    PortalPath* path = _localizer->getPath(agent->_id);
+    assert(path != nullptr &&
+           "Somehow updating a moving goal for an agent that doesn't have a path");
+    assert(path->getGoal() == goal &&
+           "Trying to update an (agent, goal) pair for which I have a conflicting goal");
+    PortalPath* update_path = _localizer->updatePathForGoal(agent, path);
+    if (update_path == nullptr) {
+      logger << Logger::ERR_MSG << "Agent " << agent->_id
+             << " is working toward a moving goal that can no longer be accessed from the "
+                "navigation mesh.\n";
+      throw VelCompFatalException("Moving goal can no longer be connected to the nav mesh");
+    }
+  }
+}
+
+/////////////////////////////////////////////////////////////////////
 //                   Implementation of NavMeshVCFactory
 /////////////////////////////////////////////////////////////////////
 

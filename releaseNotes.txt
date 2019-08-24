@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
 Release 0.9.3
-    ???? ??, 2018
+    ???? ??, 2019
 
     Bug fixes
         OBBShape had inconsistent definitions for getXBasis() and getYBasis().
@@ -13,6 +13,11 @@ Release 0.9.3
 			- replace old, single-behavior trigger with single multi-behavior trigger.
 			- Update examples (organization and invocation) for new trigger.
 		Change state event effect - the result of an event moves target agents into a target state.
+		Moving goals
+		    - Goals can now move w.r.t. time.
+			- Infrastructure in BFSM and VelComponents now support the abstract idea of moving
+			  goals.
+			- Added an example of a moving goal the PathGoal.
 		
 	Miscellaneous
 		Introduce clang-format specification and clang-format everything.
