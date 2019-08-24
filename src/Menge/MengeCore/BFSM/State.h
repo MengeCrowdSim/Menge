@@ -139,6 +139,12 @@ class State {
   void getPrefVelocity(Agents::BaseAgent* agent, Agents::PrefVelocity& velocity);
 
   /*!
+   @brief   Attempts to update `this` State's velocity component for the given `agent` (e.g., 
+            `agent` is following a moving goal).
+   */
+  void updateVelCompForMovingGoals(Agents::BaseAgent* agent);
+
+  /*!
    @brief    Set whether the state is final or not.
 
    @param    isFinal    If true, the state is set to be final, if false, not.

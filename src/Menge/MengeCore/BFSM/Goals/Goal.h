@@ -24,6 +24,7 @@
 #ifndef __GOALS_H__
 #define __GOALS_H__
 
+#include "MengeCore/Agents/PrefVelocity.h"
 #include "MengeCore/BFSM/fsmCommon.h"
 #include "MengeCore/CoreConfig.h"
 #include "MengeCore/Math/Geometry2D.h"
@@ -85,7 +86,26 @@ class GoalFatalException : public GoalException, public MengeFatalException {
 /////////////////////////////////////////////////////////////////////////////////////
 
 /*!
- @brief    The base, abstract class defining goals
+ @brief    The base, abstract class defining goals.
+
+ A goal defines a region in space that an agent should attempt to reach. The goal can be stationary
+ or can move.
+
+ The geometry associated with the region (e.g., point, sphere, AABB, OBB, etc.) is defined in
+ the frame G. Typically, to express it in the world frame, it must be transformed to the world
+ frame by X_WG. In the case of stationary goals, it is assumed that X_WG = I. However, if the goal
+ can move, X_WG will not be the identity. Specifically, moving goals define the location of the
+ *origin* of frame G measured and expressed in the world frame W. There is an important implication
+ of this that we will illustrate.
+
+ Assume we have a moving circle goal whose center C is defined to be at (10, 10). That is measured
+ and expressed in the geometry frame, p_GC. The goal's movement logic places the origin of the G
+ frame at the position p_WQ = (-1, -1). In the world frame, the center of the sphere will actually
+ be located at (9, 9) in the world frame. Therefore, if a goal is to move along a path, *centered*
+ on that path, it must be defined as being centered on the origin of frame G.
+
+ @warning moving goals can only experience *translational* movement. For now, attempting to rotate a
+ moving goal will lead to unintended and unexpected results.
  */
 class MENGE_API Goal : public Element {
  public:
@@ -118,12 +138,31 @@ class MENGE_API Goal : public Element {
   virtual std::string getStringId() const = 0;
 
   /*!
-   @brief    Reports the *squared* distance from the given point to the goal.
+   @brief  Returns true if this goal moves w.r.t. time.  Sub-classes for moving goals should
+   override this.
+   */
+  virtual bool moves() const { return false; }
 
-   @param    pt      The query point.
+  // TODO(curds01): Have this method return a boolean indicating if actualy movement has taken
+  //  place. This is merely an optimization for those velocity components that can save the effort
+  //  if there exists a moving goal that hasn't actually moved.
+  /*!
+   @brief  Gives the goal the chance to update its position. This shouldn't do anything if 
+           moves() return false.
+
+   @param  time_step      The amount of time to advance the goal's position.
+   */
+  virtual void move(float time_step) {}
+
+  /*!
+   @brief    Reports the *squared* distance from a point Q to the goal.
+
+   @param    p_WQ      The query point Q, measured and expressed in the world frame.
    @returns  The squared distance from the point to the goal.
    */
-  float squaredDistance(const Math::Vector2& pt) const { return _geometry->squaredDistance(pt); }
+  float squaredDistance(const Math::Vector2& p_WQ) const {
+    return _geometry->squaredDistance(worldToGeometry(p_WQ));
+  }
 
   /*!
    @brief    Set the preferred velocity directions w.r.t. the goal: left, right, and preferred.
@@ -145,12 +184,17 @@ class MENGE_API Goal : public Element {
    -# The three directions (left, right, and preferred) are all valid unit vectors).
    -# The target point is `q`.
 
-   @param    q             The query point.
+   @param    p_WQ          The query point measured and expressed in the world frame.
    @param    r             The radius of clearance.
    @param    directions    An instance of Agents::PrefVelocity.
    */
-  void setDirections(const Math::Vector2& q, float r, Agents::PrefVelocity& directions) const {
-    return _geometry->setDirections(q, r, directions);
+  void setDirections(const Math::Vector2& p_WQ, float r, Agents::PrefVelocity& directions) const {
+    // Currently assuming that moving goals don't turn -- so, I don't need to transform the
+    // direction vectors from the G frame to the W frame.
+    _geometry->setDirections(worldToGeometry(p_WQ), r, directions);
+    // TODO(curds01): Right now the pref velocity also has its *target* point T set. This is being
+    // set as p_GT and I need it as p_WT. Handle this more gracefully.
+    directions.setTarget(geometryToWorld(directions.getTarget()));
   }
 
   // TODO: Delete this function= transition uses it determine distance to goal
@@ -165,18 +209,18 @@ class MENGE_API Goal : public Element {
    In the case where the goal region is too small to hold the agent, then the "deepest" point in the
    region is a good approximation.
 
-   @param    q    The query point.
-   @param    r    The radius of clearance.
+   @param    p_WQ     The query point measured and expressed in the world frame.
+   @param    r        The radius of clearance.
    @returns  A 2D position representing the target point.
    */
-  Math::Vector2 getTargetPoint(const Math::Vector2& q, float r) const {
-    return _geometry->getTargetPoint(q, r);
+  Math::Vector2 getTargetPoint(const Math::Vector2& p_WQ, float r) const {
+    return geometryToWorld(_geometry->getTargetPoint(worldToGeometry(p_WQ), r));
   }
 
   /*!
    @brief    Return the centroid of the goal.
    */
-  Math::Vector2 getCentroid() const { return _geometry->getCentroid(); }
+  Math::Vector2 getCentroid() const { return geometryToWorld(_geometry->getCentroid()); }
 
   /*!
    @brief    Reports if the goal still has capacity.
@@ -292,6 +336,16 @@ class MENGE_API Goal : public Element {
   friend class GoalSet;
 
  protected:
+  // For a point Q, maps the position vector measured and expressed in the world frame (p_WQ) to the
+  // geometry frame (p_GQ). For goals that are stationary (i.e., moves() return false)
+  // the transform X_WG is the identity. For moving goals, they need to apply this transform.
+  virtual Math::Vector2 worldToGeometry(const Math::Vector2& p_WQ) const { return p_WQ; }
+
+  // For a point Q, maps the position vector measured and expressed in the geometry frame (p_GQ) to
+  // the world frame (p_WQ). For goals that are stationary (i.e., moves() return false)
+  // the transform X_GW is the identity. For moving goals, they need to apply this transform.
+  virtual Math::Vector2 geometryToWorld(const Math::Vector2& p_GQ) const { return p_GQ; }
+
   /*!
    @brief    The relative weight of this goal.
    */

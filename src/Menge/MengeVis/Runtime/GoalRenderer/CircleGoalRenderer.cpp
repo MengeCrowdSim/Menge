@@ -2,9 +2,8 @@
 
 #include "MengeCore/BFSM/Goals/GoalCircle.h"
 #include "MengeCore/Math/Geometry2D.h"
+#include "MengeVis/Runtime/GoalRenderer/DrawGeometry.h"
 #include "MengeVis/Runtime/VisElementException.h"
-#include "MengeVis/SceneGraph/graphCommon.h"
-#include "MengeVis/SceneGraph/shapes.h"
 
 namespace MengeVis {
 namespace Runtime {
@@ -28,14 +27,8 @@ void CircleGoalRenderer::doDrawGeometry() const {
     throw VisElementException("Attempting to draw goal of type " + _goal->getStringId() +
                               " with circle goal renderer.");
   }
-  const CircleShape* shape = static_cast<const CircleShape*>(goal->getGeometry());
-  glPushMatrix();
-  const Vector2& pos = shape->getCenter();
-  float radius = shape->getRadius();
-  glTranslatef(pos.x(), pos.y(), 0.f);
-  glScalef(radius, radius, radius);
-  SceneGraph::Circle::drawUnit();
-  glPopMatrix();
+  const CircleShape& shape = *static_cast<const CircleShape*>(goal->getGeometry());
+  drawGeometry(shape, RigidTransform2());
 }
 }  // namespace GoalVis
 }  // namespace Runtime

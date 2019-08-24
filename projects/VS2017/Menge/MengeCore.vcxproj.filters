@@ -636,6 +636,9 @@
     <ClCompile Include="$(SrcDir)\MengeCore\Agents\Events\change_state_effect.cpp">
       <Filter>Source Files\Agents\Events</Filter>
     </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeCore\BFSM\Goals\GoalPath.cpp">
+      <Filter>Source Files\BFSM\Goals</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(SrcDir)\mengeCore\Core.h">
@@ -1243,6 +1246,9 @@
     </ClInclude>
     <ClInclude Include="$(SrcDir)\MengeCore\Agents\Events\change_state_effect.h">
       <Filter>Header Files\Agents\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeCore\BFSM\Goals\GoalPath.h">
+      <Filter>Header Files\BFSM\Goals</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

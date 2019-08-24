@@ -723,9 +723,8 @@ Geometry2D* createGeometry(TiXmlElement* node, const std::string& prefix) {
       return createOBB(node, prefix);
     } else {
       logger << Logger::ERR_MSG
-             << "Attemtped to read shape attributes from a tag "
-                "but the shape type was not recognized: "
-             << val << ".\n";
+             << "Attemtped to read shape attributes from a tag but the shape type was not "
+             << "recognized: '" << val << "' on line " << node->Row() << ".\n";
     }
   } else {
     logger << Logger::ERR_MSG

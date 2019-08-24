@@ -192,6 +192,12 @@
     <ClCompile Include="$(SrcDir)\MengeVis\Runtime\EventInjectContext.cpp">
       <Filter>Source Files\Runtime</Filter>
     </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\GoalRenderer\PathGoalRenderer.cpp">
+      <Filter>Source Files\Runtime\GoalRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SrcDir)\MengeVis\Runtime\GoalRenderer\DrawGeometry.cpp">
+      <Filter>Source Files\Runtime\GoalRenderer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(SrcDir)\MengeVis\Runtime\SimSystem.h">
@@ -349,6 +355,12 @@
     </ClInclude>
     <ClInclude Include="$(SrcDir)\MengeVis\Runtime\EventInjectContext.h">
       <Filter>Header Files\Runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\GoalRenderer\PathGoalRenderer.h">
+      <Filter>Header Files\Runtime\GoalRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SrcDir)\MengeVis\Runtime\GoalRenderer\DrawGeometry.h">
+      <Filter>Header Files\Runtime\GoalRenderer</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

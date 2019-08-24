@@ -67,7 +67,7 @@ VFVelComponent::VFVelComponent(VectorFieldPtr& vf, bool useNearest)
 
 /////////////////////////////////////////////////////////////////////
 
-void VFVelComponent::setPrefVelocity(const Agents::BaseAgent* agent, const Goal* goal,
+void VFVelComponent::setPrefVelocity(const Agents::BaseAgent* agent, const Goal*,
                                      Agents::PrefVelocity& pVel) const {
   Vector2 dir;
   if (_nearest) {

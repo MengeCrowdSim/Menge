@@ -218,6 +218,22 @@ RoadMapPath* Graph::getPath(const Agents::BaseAgent* agent, const BFSM::Goal* go
 
 //////////////////////////////////////////////////////////////////////////////////////
 
+RoadMapPath* Graph::updatePathForGoal(const Agents::BaseAgent* agent, RoadMapPath* path) {
+  assert(path->getGoal()->moves() &&
+         "Graph::updatePathForGoal() should only be called on mobile goals");
+  const BFSM::Goal& goal = *path->getGoal();
+  // Confirm that the goal position is still visible to the last node in the path. 
+  const Vector2& goal_pos = goal.getCentroid();
+  const size_t num_way_point = path->getWayPointCount();
+  const Vector2& last_way_point = path->getWayPoint(num_way_point - 1);
+  if (!Menge::SPATIAL_QUERY->queryVisibility(last_way_point, goal_pos, agent->_radius)) {
+    return getPath(agent, &goal);
+  }
+  return path;
+}
+
+//////////////////////////////////////////////////////////////////////////////////////
+
 const GraphVertex* Graph::getVertex(size_t i) const {
   assert(i < _vCount && "Indexing invalid graph vertex");
   return &_vertices[i];

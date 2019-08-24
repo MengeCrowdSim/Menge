@@ -98,6 +98,7 @@ bool SimulatorInterface::step() {
           _isRunning = !_fsm->doStep();
           doStep();
           _fsm->doTasks();
+          _fsm->moveGoals(TIME_STEP);
         } catch (BFSM::FSMFatalException& e) {
           logger << Logger::ERR_MSG << "Error in updating the finite state ";
           logger << "machine -- stopping!\n";

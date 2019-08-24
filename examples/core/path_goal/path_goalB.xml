@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+
+<BFSM>
+  <GoalSet id="0">
+    <Goal type="path" id="0" closed="1" speed="1.4" shape="circle" x="0" y="0" radius="0.5">
+      <Point x="-5" y="-5"/>
+      <Point x="5" y="-5"/>
+      <Point x="5" y="5"/>
+      <Point x="-5" y="5"/>
+    </Goal>
+    <Goal type="path" id="1" closed="1" speed="2" shape="aabb" min_x="-0.5" min_y="-0.5" max_x="0.5" max_y="0.5">
+      <Point x="-4" y="-4"/>
+      <Point x="4" y="-4"/>
+    </Goal>
+    <Goal type="path" id="2" closed="1" speed="0.75" shape="circle" x="0" y="0" radius="0.5">
+      <Point x="10.642087" y="3.729908" />
+      <Point x="10.903722" y="7.026506" />
+      <Point x="14.932898" y="7.131160" />
+      <Point x="15.168369" y="-4.171463" />
+      <Point x="10.877558" y="-4.197626" />
+      <Point x="10.642087" y="-0.587066" />
+      <Point x="10.511270" y="-4.197626" />
+      <Point x="6.246623" y="-4.249953" />
+      <Point x="6.115805" y="6.921853" />
+      <Point x="10.406616" y="7.000343" />
+    </Goal>
+  </GoalSet>
+
+  <State name="WalkLoop" final="0" >
+    <GoalSelector type="explicit" goal_set="0" goal="0"/>
+    <VelComponent type="goal" />
+  </State>
+  <State name="WalkOscillate" final="0" >
+    <GoalSelector type="explicit" goal_set="0" goal="1"/>
+    <VelComponent type="goal" />
+  </State>
+  <State name="Stop" final="1" >
+    <GoalSelector type="identity" />
+    <VelComponent type="goal" />
+  </State>
+  <State name="WalkRoadMap" final="0">
+    <GoalSelector type="explicit" goal_set="0" goal="2"/>
+    <VelComponent type="road_map" file_name="graph.txt" />
+  </State>
+  <State name="WalkNavMesh" final="0">
+    <GoalSelector type="explicit" goal_set="0" goal="2"/>
+    <VelComponent type="nav_mesh" file_name="nav_mesh.nav" />
+  </State>
+
+  <Transition from="WalkLoop" to="Stop" >
+    <Condition type="goal_reached" distance="0.05" />
+  </Transition>
+  <Transition from="WalkOscillate" to="Stop" >
+    <Condition type="goal_reached" distance="0.05" />
+  </Transition>
+  <Transition from="WalkRoadMap" to="Stop" >
+    <Condition type="goal_reached" distance="0.05" />
+  </Transition>
+  <Transition from="WalkNavMesh" to="Stop" >
+    <Condition type="goal_reached" distance="0.05" />
+  </Transition>
+
+</BFSM>
