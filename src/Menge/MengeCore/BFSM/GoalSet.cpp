@@ -82,6 +82,15 @@ bool GoalSet::addGoal(size_t id, Goal* goal) {
 
 /////////////////////////////////////////////////////////////////////
 
+void GoalSet::moveGoals(float time_step) {
+  for (auto& id_goal_pair : _goals) {
+    Goal& goal = *id_goal_pair.second;
+    if (goal.moves()) goal.move(time_step);
+  }
+}
+
+/////////////////////////////////////////////////////////////////////
+
 Goal* GoalSet::getGoalByID(size_t id) {
   Goal* goal = 0x0;
   std::map<size_t, Goal*>::const_iterator itr = _goals.find(id);

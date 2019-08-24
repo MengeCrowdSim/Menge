@@ -100,6 +100,51 @@ class MENGE_API WayPortal {
   Math::Vector2 intersectionPoint(const Math::Vector2& point, const Math::Vector2& dir) const;
 
   /*!
+   @brief   Given a point A, finds the parameter s, that maps a point A' onto the domain of the
+            truncated way portal.
+
+   The way portal is defined by two points: (p0, p1). A' is the projection of A onto the line
+   spanned by (p0, p1). If A is already on the line, A = A'. The truncated wayportal is the
+   line segment that lies on (p0, p1) but has `clearance` distance trimmed off of each end.
+   In other words, p0' is `clearance` units in the direction twoards p1 from p0 (and similiarly
+   p1' towards p0).
+
+   The value returned is the parameter such that A' = p0' + s * (p1' = p0').
+
+   @param p_WA        The query point A, measured and expressed in the world frame.
+   @param clearance   The amount of required clearance.
+   @returns  The relative position of A' on the truncated way portal. A value in the range [0, 1]
+             implies that A' lies on the trucanted portal.
+   @pre  The length of this wayportal must be greater than 2 * clearance.
+   */
+  float clearanceParameter(const Math::Vector2& p_WA, float clearance) const;
+
+  /*!
+   @brief   Similar to clearanceParameter(const Math::Vector2&, float) except the point A' is
+            defined as the intersection of the way portal's line with the line spanned by the points
+            A and B.
+
+   @param   p_WA      The first point on the line, measured and expressed in the world frame.
+   @param   p_WB      The second point on the line, measured and expressed in the world frame.
+   @param clearance   The amount of required clearance.
+   @returns  The relative position of A' on the truncated way portal. A value in the range [0, 1]
+             implies that A' lies on the trucanted portal.
+   @pre  The length of this wayportal must be greater than 2 * clearance.
+   */
+  float clearanceParameter(const Math::Vector2& p_WA, const Math::Vector2& p_WB,
+                           float clearance) const;
+
+  /*!
+   @brief   Computes the point on the clearance-truncated portal given the parameter `s`.
+
+   @param   s           The fraction between the way points.
+   @param   clearance   The amount of clearance from this way portal's end points.
+   @returns The point on the truncated edge.
+   @pre   The length of this wayportal must be greater than 2 * `clearance`.
+  */
+  Math::Vector2 clearPoint(float s, float clearance) const;
+
+  /*!
    @brief    Sets the directions on the preferred velocity based on the wayportal.
 
    @param    pos        The position of the agent.

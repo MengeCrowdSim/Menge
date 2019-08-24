@@ -84,6 +84,8 @@ class VelCompFatalException : public VelCompException, public MengeFatalExceptio
  Velocity components each have weights. The relative weights determine how multiple velocity
  components combine inside a single state. Their share is its own weight divided by the summed
  weight of all velocity components.
+
+ @todo Document the %VelComponent's responsiblity vis a vis *moving* goals.
  */
 class MENGE_API VelComponent : public Element {
  public:
@@ -126,7 +128,13 @@ class MENGE_API VelComponent : public Element {
    make the use more general. This allows the computation of the preferred velocity for the agent,
    without necessarily making changes to it.
 
-   @param    agent    The agent for which a preferred velocity is computed.
+   Although preliminary work can be done to facilitate computing an instantaneous preferred
+   velocity during onEnter(), if the goal is mobile (i.e., goal->moves() return `true`), then static
+   computation may quickly become invalid. When computing a preferred velocity, it is important
+   to account for moving goals such that the preferred velocity always reflects the goal's
+   instantaneous position.
+
+   @param    agent   The agent for which a preferred velocity is computed.
    @param    goal    The agent's goal (although this may be ignored).
    @param    pVel    The instance of Agents::PrefVelocity to set.
    */
@@ -134,14 +142,25 @@ class MENGE_API VelComponent : public Element {
                                Agents::PrefVelocity& pVel) const = 0;
 
   /*!
+   @brief   Gives the velocity component the chance to update its internal state based on the
+            properties of the given goal (e.g.,, it moves).
+   */
+  void updateGoal(const Agents::BaseAgent* agent, const Goal* goal);
+
+  /*!
    @brief    Used by the plugin system to know what artifacts to associate with agents of this type.
-   
    Every sub-class of must return a globally unique value if it should be associated with unique
    artifacts.
    */
   virtual std::string getStringId() const = 0;
 
   friend class ElementFactory<VelComponent>;
+
+ protected:
+  // The method invoked to give the velocity component the chance to adapt to moving goals. This
+  // will only be invoked if goal->moves() reports true. This will be called in a threaded context
+  // so accesses to underlying data structures must be protected.
+  virtual void doUpdateGoal(const Agents::BaseAgent* agent, const Goal* goal){};
 };
 
 /*!
@@ -150,8 +169,8 @@ class MENGE_API VelComponent : public Element {
  @param    node          The TinyXML element
  @param    behaveFldr    The folder in which the behavior is defined -- all resources are defined
                         relative to this folder.
- @returns  A pointer to the new velocity component implementation (NULL if no valid instance could be
-          created).
+ @returns  A pointer to the new velocity component implementation (NULL if no valid instance could
+ be created).
  */
 VelComponent* parseVelComponent(TiXmlElement* node, const std::string& behaveFldr);
 

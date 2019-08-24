@@ -1,6 +1,7 @@
 #include "MengeVis/Runtime/GoalRenderer/GoalRenderer.h"
 
 #include "MengeCore/BFSM/Goals/Goal.h"
+#include "MengeVis/Runtime/GoalRenderer/DrawGeometry.h"
 #include "MengeVis/SceneGraph/graphCommon.h"
 
 namespace MengeVis {
@@ -34,10 +35,7 @@ void GoalRenderer::drawGL() const {
 /////////////////////////////////////////////////////////////////////
 
 void GoalRenderer::doDrawGeometry() const {
-  glBegin(GL_POINTS);
-  const Vector2 p = _goal->getCentroid();
-  glVertex3f(p.x(), p.y(), 0.f);
-  glEnd();
+  drawPoint(_goal->getCentroid(), RigidTransform2());
 }
 }  // namespace GoalVis
 }  // namespace Runtime

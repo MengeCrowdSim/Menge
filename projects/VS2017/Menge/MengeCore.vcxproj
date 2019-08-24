@@ -367,6 +367,7 @@ xcopy /y $(TargetPath) $(ExeDir)
     <ClCompile Include="$(SrcDir)\MengeCore\Agents\ProfileSelectors\profile_selector_weighted.cpp" />
     <ClCompile Include="$(SrcDir)\MengeCore\Agents\Events\change_state_effect.cpp" />
     <ClCompile Include="$(SrcDir)\MengeCore\Agents\Events\state_population_trigger.cpp" />
+    <ClCompile Include="$(SrcDir)\MengeCore\BFSM\Goals\GoalPath.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(SrcDir)\mengeCore\Core.h" />
@@ -571,6 +572,7 @@ xcopy /y $(TargetPath) $(ExeDir)
     <ClInclude Include="$(SrcDir)\MengeCore\data_set_selector.h" />
     <ClInclude Include="$(SrcDir)\MengeCore\Agents\Events\change_state_effect.h" />
     <ClInclude Include="$(SrcDir)\MengeCore\Agents\Events\state_population_trigger.h" />
+    <ClInclude Include="$(SrcDir)\MengeCore\BFSM\Goals\GoalPath.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="tinyxml_lib.vcxproj">

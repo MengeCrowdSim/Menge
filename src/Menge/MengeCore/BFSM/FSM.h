@@ -295,6 +295,13 @@ class MENGE_API FSM {
   void doTasks();
 
   /*!
+   @brief    Gives every moving a goal a chance to update its position.
+
+   @param  time_step  The amount of time to advance the goal's position.
+   */
+  void moveGoals(float time_step);
+
+  /*!
    @brief    Returns the number of registered tasks.
    */
   size_t getTaskCount() const { return _tasks.size(); }

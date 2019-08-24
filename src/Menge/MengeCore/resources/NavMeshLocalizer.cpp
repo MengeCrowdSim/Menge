@@ -135,6 +135,30 @@ void NavMeshLocalizer::clearPath(size_t agentID) {
 
 /////////////////////////////////////////////////////////////////////
 
+PortalPath* NavMeshLocalizer::updatePathForGoal(const Agents::BaseAgent* agent, PortalPath* path) {
+  assert(path->getGoal()->moves() &&
+         "NavMeshLocalizer::updatePathForGoal() should only be called on mobile goals");
+  const BFSM::Goal& goal = *path->getGoal();
+  
+  unsigned int goal_node = path->getEndNode();
+  const NavMeshNode& node = _navMesh->getNode(goal_node);
+
+  if (node.containsPoint(goal.getCentroid())) {
+    // The path *envelope* doesn't change (i.e., node-to-node), but the funnel path *may* have to
+    // change. Give the path a chance to update the end of the path based on goal position.
+    path->updateCrossingFromMovingGoal(*agent);
+    return path;
+  }
+
+  goal_node = getNode(goal.getCentroid());
+  if (goal_node == NavMeshLocation::NO_NODE) return nullptr;
+
+  path->updateGoalLocation(agent, goal_node, _planner);
+  return path;
+}
+
+/////////////////////////////////////////////////////////////////////
+
 unsigned int NavMeshLocalizer::getNode(const Agents::BaseAgent* agent) const {
   unsigned int node = NavMeshLocation::NO_NODE;
   _locLock.lockRead();

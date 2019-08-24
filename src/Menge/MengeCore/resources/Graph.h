@@ -91,10 +91,21 @@ class MENGE_API Graph : public Resource {
    @brief    Compute path
 
    @param    agent    The agent for whom to compute the path.
-   @param    goal    The agent's goal.
+   @param    goal     The agent's goal.
    @returns  A pointer to a RoadMapPath. If there is an error, the pointer will be NULL.
    */
   RoadMapPath* getPath(const Agents::BaseAgent* agent, const BFSM::Goal* goal);
+
+  /*! @brief    Allows the roadmap to update the path for the given `agent` based on the fact that
+                the goal for the given `path` *moves*.
+
+   @param   agent   The agent whose path is to be potentially updated.
+   @param   path    The path that should connect agent to its goal.
+   @returns  A path from agent to goal. This may be the old path if no change is necessary and
+             may be nullptr if no path is possible.
+   @pre goal->moves() returns true.
+   */
+  RoadMapPath* updatePathForGoal(const Agents::BaseAgent* agent, RoadMapPath* path);
 
   /*!
    @brief    Return the number of vertices in the graph.
@@ -148,7 +159,7 @@ class MENGE_API Graph : public Resource {
 
   /*!
    @brief    Compute's "h" for the A* algorithm.
-   
+
    H is the estimate of the cost of a node to a goal point. In this case, simply Euclidian distance.
 
    @param    v       The vertex to estimate the cost.

@@ -243,6 +243,17 @@ class MENGE_API NavMeshLocalizer : public Resource {
    */
   void clearPath(size_t agentID);
 
+  /*! @brief    Allows the nav mesh to update the path for the given `agent` based on the fact that
+                the goal for the given `path` *moves*.
+
+   @param   agent   The agent whose path is to be potentially updated.
+   @param   path    The path that should connect agent to its goal.
+   @returns  A path from agent to goal. This may be the old path if no change is necessary and
+             may be nullptr if no path is possible.
+   @pre goal->moves() returns true.
+   */
+  PortalPath* updatePathForGoal(const Agents::BaseAgent* agent, PortalPath* path);
+
   /*!
    @brief    Sets the location of the agent to be anode
 

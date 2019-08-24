@@ -2,8 +2,8 @@
 
 #include "MengeCore/BFSM/Goals/GoalAABB.h"
 #include "MengeCore/Math/Geometry2D.h"
+#include "MengeVis/Runtime/GoalRenderer/DrawGeometry.h"
 #include "MengeVis/Runtime/VisElementException.h"
-#include "MengeVis/SceneGraph/graphCommon.h"
 
 namespace MengeVis {
 namespace Runtime {
@@ -27,17 +27,8 @@ void AABBGoalRenderer::doDrawGeometry() const {
     throw VisElementException("Attempting to draw goal of type " + _goal->getStringId() +
                               " with AABB goal renderer.");
   }
-  const AABBShape* shape = static_cast<const AABBShape*>(goal->getGeometry());
-  const Vector2& minPt = shape->getMinPoint();
-  const Vector2& size = shape->getSize();
-  ;
-  glBegin(GL_POLYGON);
-  glVertex3f(minPt.x(), minPt.y(), 0.f);
-  glVertex3f(minPt.x() + size.x(), minPt.y(), 0.f);
-  glVertex3f(minPt.x() + size.x(), minPt.y() + size.y(), 0.f);
-  glVertex3f(minPt.x(), minPt.y() + size.y(), 0.f);
-  glVertex3f(minPt.x(), minPt.y(), 0.f);
-  glEnd();
+  const AABBShape& shape = *static_cast<const AABBShape*>(goal->getGeometry());
+  drawGeometry(shape, RigidTransform2());
 }
 }  // namespace GoalVis
 }  // namespace Runtime

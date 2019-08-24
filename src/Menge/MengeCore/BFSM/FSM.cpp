@@ -305,6 +305,24 @@ void FSM::doTasks() {
 
 /////////////////////////////////////////////////////////////////////
 
+void FSM::moveGoals(float time_step) {
+  // TODO(curds01): This only works if I'm guaranteed that every goal is in a goal set -- what
+  //  happens with agent goals? I need to consider this carefully.
+  for (auto& id_goal_set_pair : _goalSets) {
+    GoalSet& goal_set = *id_goal_set_pair.second;
+    goal_set.moveGoals(time_step);
+  }
+
+  const int agent_count = static_cast<int>(_sim->getNumAgents());
+#pragma omp parallel for
+  for (int i = 0; i < agent_count; ++i) {
+    Agents::BaseAgent* agent = _sim->getAgent(i);
+    _currNode[agent->_id]->updateVelCompForMovingGoals(agent);
+  }
+}
+
+/////////////////////////////////////////////////////////////////////
+
 void FSM::finalize() {
   EVENT_SYSTEM->finalize();
   doTasks();
