@@ -30,6 +30,7 @@
 #include "macros.h"
 
 #include <list>
+#include <set>
 #include <string>
 
 namespace MengeVis {
@@ -68,11 +69,14 @@ class VisElementDB {
     if (itr != _visElements.end()) {
       vElement = itr->second;
     } else {
-      Menge::logger << Menge::Logger::WARN_MSG << "Unable to find a ";
-      Menge::logger << getElementName() << " vis element for the selected element: ";
-      Menge::logger << stringId << ". Using default visualization element.";
+      if (_element_types_queried.count(stringId) == 0) {
+        Menge::logger << Menge::Logger::WARN_MSG << "Unable to find a '";
+        Menge::logger << getElementName() << "' vis element for the selected element: '";
+        Menge::logger << stringId << "'. Using default visualization element.";
+      }
       vElement = getDefaultElement();
     }
+    _element_types_queried.insert(stringId);
     vElement->setElement(element);
     return vElement;
   }
@@ -157,6 +161,11 @@ class VisElementDB {
             corresponding visualization element.
    */
   static HASH_MAP<std::string, VisElement*> _visElements;
+
+  /*!
+   @brief  When getInstance is called, the string id gets registered with this databse. It means if
+           a particular type is unsupported, only a single warning message is dispatched.  */
+  static std::set<std::string> _element_types_queried;
 };
 
 // The two functions, addBuiltins and getElementName are *not* defined in-line
@@ -177,6 +186,9 @@ bool VisElementDB<VisElement, SimElement>::_initialized = false;
 
 template <class VisElement, class SimElement>
 HASH_MAP<std::string, VisElement*> VisElementDB<VisElement, SimElement>::_visElements;
+
+template <class VisElement, class SimElement>
+std::set<std::string> VisElementDB<VisElement, SimElement>::_element_types_queried;
 
 template <class VisElement, class SimElement>
 VisElement* VisElementDB<VisElement, SimElement>::getDefaultElement() {

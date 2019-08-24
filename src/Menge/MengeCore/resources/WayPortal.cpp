@@ -75,4 +75,36 @@ Vector2 WayPortal::intersectionPoint(const Vector2& point, const Vector2& dir) c
 }
 
 /////////////////////////////////////////////////////////////////////
+
+float WayPortal::clearanceParameter(const Math::Vector2& p_WA, float clearance) const {
+  assert(_edge->getWidth() > 2 * clearance && "Clearance is too large for the way portal");
+  const Vector2 p_P0A_W = p_WA - _edge->getP0();
+  const float s =
+      ((p_P0A_W * _edge->getDirection()) - clearance) / (_edge->getWidth() - 2 * clearance);
+  return s;
+}
+
+/////////////////////////////////////////////////////////////////////
+
+float WayPortal::clearanceParameter(const Math::Vector2& p_WA, const Math::Vector2& p_WB,
+                                    float clearance) const {
+  assert(_edge->getWidth() > 2 * clearance && "Clearance is too large for the way portal");
+
+  const Vector2 p_AB_W = p_WB - p_WA;
+  const Vector2 pDir = _edge->getDirection();
+  const Vector2 p0 = _edge->getP0();
+  float denom = det(pDir, p_AB_W);
+  assert(fabs(denom) > EPS && "Parallel lines don't intersect");
+  float num = det(p_AB_W, p0 - p_WA);
+  float s = num / denom;
+  return (s - clearance) / (_edge->getWidth() - 2 * clearance);
+}
+
+/////////////////////////////////////////////////////////////////////
+
+Vector2 WayPortal::clearPoint(float s, float clearance) const {
+  const float t = s * (_edge->getWidth() - 2 * clearance) + clearance;
+  return _edge->getP0() + t * _edge->getDirection();
+}
+
 }  // namespace Menge

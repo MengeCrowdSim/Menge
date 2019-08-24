@@ -88,6 +88,16 @@ class MENGE_API PortalPath {
                               const NavMeshLocalizer* localizer, PathPlanner* planner);
 
   /*!
+  @brief    Updates the path based on a goal position that *may* have moved. 
+
+  @param    agent       The agent to update that path for.
+  @param    goal_node   The id of the node in which the goal lies.
+  @param    planner     The nav mesh path planner for creating new routes.
+  */
+  void updateGoalLocation(const Agents::BaseAgent* agent, unsigned int goal_node,
+                          PathPlanner* planner);
+
+  /*!
    @brief    Reports the node the agent is currently in.
 
    @returns  The index of the node associated with this location. If the location is not on a node,
@@ -174,6 +184,13 @@ class MENGE_API PortalPath {
    */
   void setWaypoints(size_t start, size_t end, const Math::Vector2& p0, const Math::Vector2& dir);
 
+  /*!
+   @brief   Updates the crossings based on a moving goal.
+
+   @param  agent   The agent to whom this path belongs.
+   */
+  void updateCrossingFromMovingGoal(const Agents::BaseAgent& agent);
+
  protected:
   /*!
    @brief    The route to follow.
@@ -212,10 +229,10 @@ class MENGE_API PortalPath {
   /*!
    @brief    Something has changed and the path has to replan.
 
-   @param    startPos    The starting position.
+   @param    startPos     The starting position.
    @param    startNode    The starting node (startPos should lie on this node.)
    @param    endNode      The ending node.
-   @param    minWidth    The minimum width required for clearance.
+   @param    minWidth     The minimum width required for clearance.
    @param    planner      The planner.
    */
   void replan(const Math::Vector2& startPos, unsigned int startNode, unsigned int endNode,

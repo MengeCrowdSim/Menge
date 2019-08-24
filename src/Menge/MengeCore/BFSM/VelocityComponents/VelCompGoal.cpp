@@ -64,6 +64,11 @@ GoalVelComponent::GoalVelComponent() : VelComponent() {}
 
 void GoalVelComponent::setPrefVelocity(const Agents::BaseAgent* agent, const Goal* goal,
                                        Agents::PrefVelocity& pVel) const {
+  // TODO(curds01): Now that goals can *move*; it might be better to pick a velocity based on an
+  // estimated *future* position of the goal rather than it's instantaneous position. At the very
+  // least it should be a flag that I can set. Then I'll do a better job of following mobile
+  // goals.
+
   // directions
   goal->setDirections(agent->_pos, agent->_radius, pVel);
 

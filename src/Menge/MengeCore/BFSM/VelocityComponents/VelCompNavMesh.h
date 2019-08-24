@@ -135,6 +135,8 @@ class MENGE_API NavMeshVelComponent : public VelComponent {
   virtual Task* getTask();
 
  protected:
+  void doUpdateGoal(const Agents::BaseAgent* agent, const Goal* goal) override;
+
   /*!
    @brief    The cosine of the heading deviation angular threshold.
    

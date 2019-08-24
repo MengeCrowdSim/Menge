@@ -63,7 +63,7 @@ ConstVelComponent::ConstVelComponent(const Vector2& vel) : VelComponent() { setV
 
 /////////////////////////////////////////////////////////////////////
 
-void ConstVelComponent::setPrefVelocity(const Agents::BaseAgent* agent, const Goal* goal,
+void ConstVelComponent::setPrefVelocity(const Agents::BaseAgent* agent, const Goal*,
                                         Agents::PrefVelocity& pVel) const {
   pVel.setSingle(_dir);
   pVel.setSpeed(_speed);

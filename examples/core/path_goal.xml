@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<Project 
+	scene="path_goal/path_goalS.xml" 
+	behavior="path_goal/path_goalB.xml" 
+	view="path_goal/path_goalV.xml" 
+	model="orca"
+	dumpPath="images/path_goal"
+/>

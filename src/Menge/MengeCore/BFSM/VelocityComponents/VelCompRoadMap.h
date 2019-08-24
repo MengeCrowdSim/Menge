@@ -138,6 +138,8 @@ class MENGE_API RoadMapVelComponent : public VelComponent {
   static const std::string NAME;
 
  protected:
+  void doUpdateGoal(const Agents::BaseAgent* agent, const Goal* goal) override;
+
   /*!
    @brief    The roadmap.
    */
