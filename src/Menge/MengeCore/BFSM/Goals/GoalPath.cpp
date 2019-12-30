@@ -56,8 +56,6 @@ const std::string PathGoal::NAME = "path";
 /////////////////////////////////////////////////////////////////////
 
 void PathGoal::move(float time_step) {
-  // TODO(curds01): Implement this.
-  const Vector2 p_QP = _way_points[_current_waypoint] - _p_WGo;
   const float step_len = time_step * _speed;
   const float dist_sq = _p_WGo.distanceSq(_way_points[_current_waypoint]);
   if (dist_sq >= step_len * step_len) {
@@ -75,8 +73,9 @@ void PathGoal::move(float time_step) {
       } else {
         // Reverse direction.
         _path_direction = -_path_direction;
-        // I subtract go in the opposite direction twice; once to undo the advance off the end and
-        // once to move to the next way point in from the end.
+        // _current_waypoint has been incremented once in the *old* path direction (see above). So,
+        // we increment it *twice* in the new path direction; once to undo the previous, mistaken
+        // increment and once to advanc in the new direction.
         _current_waypoint += 2 * _path_direction;
       }
     }
@@ -106,11 +105,10 @@ void PathGoal::configure(float speed, bool closed, Geometry2D* geometry, vector<
 void PathGoal::set_velocity() {
   Vector2 p_GoP_W = _way_points[_current_waypoint] - _p_WGo;
   const float len = p_GoP_W.Length();
-  if (len > 1e-5) {
-    _v_W = p_GoP_W * (_speed / len);
-  } else {
-    _v_W.set(0, 0);
-  }
+  assert(len >= 1e-5 &&
+         "PathGoal::set_velocity has been called with the goal position coincident "
+         "with the target waypoint");
+  _v_W = p_GoP_W * (_speed / len);
 }
 
 /////////////////////////////////////////////////////////////////////

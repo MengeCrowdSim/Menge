@@ -95,7 +95,8 @@ class GoalFatalException : public GoalException, public MengeFatalException {
  the frame G. Typically, to express it in the world frame, it must be transformed to the world
  frame by X_WG. In the case of stationary goals, it is assumed that X_WG = I. However, if the goal
  can move, X_WG will not be the identity. Specifically, moving goals define the location of the
- *origin* of frame G. There is an important implication of this that we will illustrate.
+ *origin* of frame G measured and expressed in the world frame W. There is an important implication
+ of this that we will illustrate.
 
  Assume we have a moving circle goal whose center C is defined to be at (10, 10). That is measured
  and expressed in the geometry frame, p_GC. The goal's movement logic places the origin of the G
@@ -103,7 +104,7 @@ class GoalFatalException : public GoalException, public MengeFatalException {
  be located at (9, 9) in the world frame. Therefore, if a goal is to move along a path, *centered*
  on that path, it must be defined as being centered on the origin of frame G.
 
- @note moving goals can only experience *translational* movement. For now, attempting to rotate a
+ @warning moving goals can only experience *translational* movement. For now, attempting to rotate a
  moving goal will lead to unintended and unexpected results.
  */
 class MENGE_API Goal : public Element {
@@ -142,6 +143,9 @@ class MENGE_API Goal : public Element {
    */
   virtual bool moves() const { return false; }
 
+  // TODO(curds01): Have this method return a boolean indicating if actualy movement has taken
+  //  place. This is merely an optimization for those velocity components that can save the effort
+  //  if there exists a moving goal that hasn't actually moved.
   /*!
    @brief  Gives the goal the chance to update its position. This shouldn't do anything if 
            moves() return false.

@@ -295,7 +295,7 @@ class MENGE_API FSM {
   void doTasks();
 
   /*!
-   @brief    Gives every moving a goal a chance to update its position.
+   @brief    Gives every moving goal a chance to update its position.
 
    @param  time_step  The amount of time to advance the goal's position.
    */

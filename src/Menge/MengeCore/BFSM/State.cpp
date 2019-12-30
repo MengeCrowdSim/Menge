@@ -126,12 +126,16 @@ void State::getPrefVelocity(Agents::BaseAgent* agent, Agents::PrefVelocity& velo
 
 void State::updateVelCompForMovingGoals(Agents::BaseAgent* agent) {
   Goal* goal;
-  // NOTE: Strictly speaking, this shouldn't be necessary because this function should only be
-  //  called with read-only access on the goals; we're locking it just to be safe.
+  // TODO: Strictly speaking, this shouldn't be necessary because this function should only be
+  //  called at t time where there is *strictly* read-only access on the goals. We don't currently
+  //  have that assurance, so we're locking it just to be safe. We need to make that assurance so
+  //  that we don't have to pay this expensive serialization on a per-agent, per-time-step basis.
   _goalLock.lockRead();
   goal = _goals[agent->_id];
   _goalLock.releaseRead();
 
+  // State relies on the VelocityComponent to efficiently handle the case where the goal doesn't
+  // move and requires no updates.
   _velComponent->updateGoal(agent, goal);
 }
 

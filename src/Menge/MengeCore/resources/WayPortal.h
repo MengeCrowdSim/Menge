@@ -100,21 +100,24 @@ class MENGE_API WayPortal {
   Math::Vector2 intersectionPoint(const Math::Vector2& point, const Math::Vector2& dir) const;
 
   /*!
-   @brief   Given a point A, finds the parameter s, that maps a point A' onto the domain of the
-            truncated way portal.
+   @brief   Computes the parameterized projection of the point A onto the portal's edge.
 
-   The way portal is defined by two points: (p0, p1). A' is the projection of A onto the line
-   spanned by (p0, p1). If A is already on the line, A = A'. The truncated wayportal is the
-   line segment that lies on (p0, p1) but has `clearance` distance trimmed off of each end.
-   In other words, p0' is `clearance` units in the direction towards p1 from p0 (and similarly
-   p1' towards p0).
+   The edge of the way portal is defined by two points: (p0, p1). This edges likewise defines a
+   line. The point A' is the projection of A onto that line. A' represnted by a single scalar
+   parameter s.
 
-   The value returned is the parameter such that A' = p0' + s * (p1' - p0').
+   The *truncated* way portal is defined by points (p0', p1') such that p0' and p1' are inset from
+   p0 and p1 toward the interior of the edge `clearance` units. The parameter s is defined w.r.t.
+   these points:
+
+      `A' = p0' + s * (p1' - p0')`
+
+   The value s can range from negative infinity to positive infinity. A value in the range [0, 1]
+   indicates that the point A projects to the interior of the *truncated* edge.
 
    @param p_WA        The query point A, measured and expressed in the world frame.
    @param clearance   The amount of required clearance.
-   @returns  The relative position of A' on the truncated way portal. A value in the range [0, 1]
-             implies that A' lies on the truncated portal.
+   @returns  The parameterization of A's projection relative to the truncated edge.
    @pre  The length of this wayportal must be greater than 2 * clearance.
    */
   float clearanceParameter(const Math::Vector2& p_WA, float clearance) const;

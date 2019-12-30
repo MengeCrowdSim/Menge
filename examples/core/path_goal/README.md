@@ -2,7 +2,7 @@
 
 This provides an example of four different moving goals (with particular emphasis of non-trivial
 VelComponent implementations handling moving goals). In this example, there are four agents, each
-in with a different class.
+a different class.
 
 ## Class 1
 
@@ -22,7 +22,7 @@ using an *open* path.
 ## Class 3 and Class 4
 
 The agents in "group 3" and "group 4", respectively, operate in an environment with obstacles which
-form concave regions. The agent with class 3 uses a navigation mesh to traverse the region and
+form concave regions. The agent with class 3 uses a road map to traverse the region and
 the agent with class 4 uses a navigation mesh to traverse the region. They start near each other
 and are moving toward the same "path" Goal (which moves in a closed loop around the obstacle). These
 two agents showcase how the "road_map" and "nav_mesh" VeclComponent implementations correctly handle

@@ -32,10 +32,10 @@ namespace Menge {
 namespace BFSM {
 
 /*!
- @brief    A goal that moves regularly over a pre-determined path.
+ @brief    A goal that moves with constant speed over a pre-determined path.
 
  The %PathGoal is similar to other goals in that it has a geometric region. However, that region
- goals with a constant speed a long a piecewise linear trajectory. The geometry, speed, and
+ moves with a constant speed a long a piecewise-linear trajectory. The geometry, speed, and
  trajectory are defined in the behavior specification. The path doesn't re-orient while following
  the path -- it slides along the path with a fixed orientation with respect to the world frame.
 
@@ -76,10 +76,10 @@ class MENGE_API PathGoal final : public Goal {
   // Inherits docs from Goal::move().
   void move(float time_step) final;
 
-  /** @brief  Reports the current position of the origin of the geometry frame, Go, measured and
+  /** @brief  Reports the position of the origin of the geometry frame, Go, measured and
               expressed in the world frame.
    */
-  const Math::Vector2& current_position() const { return _p_WGo; }
+  const Math::Vector2& origin() const { return _p_WGo; }
 
   /*! The unique identifier used to register this type with run-time components. */
   static const std::string NAME;
@@ -90,7 +90,8 @@ class MENGE_API PathGoal final : public Goal {
   // Configures the path goal. The goal takes ownership of the given geometry.
   void configure(float speed, bool closed, Geometry2D* geometry, std::vector<Math::Vector2>&& path);
 
-  // Set velocity based on current position and current waypoint.
+  // Set velocity based on current position and current waypoint. Assumes a non-trivial distance
+  // between current way point position and current goal position.
   void set_velocity();
 
   // See documentation in Goal::worldToGeometry();
@@ -105,6 +106,8 @@ class MENGE_API PathGoal final : public Goal {
     return p_GQ + _p_WGo;
   }
 
+  // A sequence of points (each measured and expressed in the world frame) which defines the
+  // piecewise-linear goal path.
   std::vector<Math::Vector2> _way_points;
   // The "position" (or origin) of the geometry's frame measured and expressed in the world frame.
   Math::Vector2 _p_WGo;

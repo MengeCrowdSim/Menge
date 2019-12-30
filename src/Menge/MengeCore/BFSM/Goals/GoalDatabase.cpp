@@ -38,10 +38,10 @@ Any questions or comments should be sent to the authors {menge,geom}@cs.unc.edu
 
 #include "MengeCore/BFSM/Goals/GoalDatabase.h"
 
-#include "MengeCore/BFSM/Goals/GoalPath.h"
 #include "MengeCore/BFSM/Goals/GoalAABB.h"
 #include "MengeCore/BFSM/Goals/GoalCircle.h"
 #include "MengeCore/BFSM/Goals/GoalOBB.h"
+#include "MengeCore/BFSM/Goals/GoalPath.h"
 #include "MengeCore/BFSM/Goals/GoalPoint.h"
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
@@ -56,11 +56,11 @@ std::string ElementDB<BFSM::GoalFactory, BFSM::Goal>::getElementName() {
 
 template <>
 void ElementDB<BFSM::GoalFactory, BFSM::Goal>::addBuiltins() {
-  addFactory(new BFSM::PointGoalFactory());
-  addFactory(new BFSM::CircleGoalFactory());
   addFactory(new BFSM::AABBGoalFactory());
+  addFactory(new BFSM::CircleGoalFactory());
   addFactory(new BFSM::OBBGoalFactory());
   addFactory(new BFSM::PathGoalFactory());
+  addFactory(new BFSM::PointGoalFactory());
 }
 }  // namespace Menge
 

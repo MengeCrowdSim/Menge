@@ -65,7 +65,7 @@ void drawGeometry(const CircleShape& circle, const RigidTransform2& X_WG) {
 void drawGeometry(const AABBShape& aabb, const RigidTransform2& X_WG) {
   const Vector2& minPt = X_WG * aabb.getMinPoint();
   const Vector2& size = aabb.getSize();
-  
+
   glBegin(GL_POLYGON);
   glVertex3f(minPt.x(), minPt.y(), 0.f);
   glVertex3f(minPt.x() + size.x(), minPt.y(), 0.f);

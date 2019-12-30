@@ -101,8 +101,8 @@ class MENGE_API Graph : public Resource {
 
    @param   agent   The agent whose path is to be potentially updated.
    @param   path    The path that should connect agent to its goal.
-   @returns  A path from agent to goal. This may be the old path if no change is necessary and
-             may be nullptr if no path is possible.
+   @returns  A path from agent to goal. Equal to the input `path` pointer if there is no change to
+             the path. Equal to `nullptr` if no path is possible.
    @pre goal->moves() returns true.
    */
   RoadMapPath* updatePathForGoal(const Agents::BaseAgent* agent, RoadMapPath* path);

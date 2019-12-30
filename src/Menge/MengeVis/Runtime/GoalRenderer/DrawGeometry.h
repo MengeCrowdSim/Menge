@@ -35,9 +35,9 @@ class RigidTransform2 {
   /** @brief Constructs a strictly translation transform.  */
   RigidTransform2(Menge::Math::Vector2 pos);
 
-  /** @brief  Transforms the given point C, measured and expressed in frame B. This presumes that 
-              transform is a transform between frame B and some other frame A: i.e., X_AB.
-   @retval p_AC.
+  /** @brief  Right multiplies this transform (X_AB) by the point `p_BC` producing the value p_AC --
+              the point C measured and expressed in frame A.
+   @retval p_AC
    */
   Menge::Math::Vector2 operator*(const Menge::Math::Vector2& p_BC) const;
 

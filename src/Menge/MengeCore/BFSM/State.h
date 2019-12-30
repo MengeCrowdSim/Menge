@@ -139,8 +139,8 @@ class State {
   void getPrefVelocity(Agents::BaseAgent* agent, Agents::PrefVelocity& velocity);
 
   /*!
-   @brief   Gives the state the given `agent` is in a chance to update its velocity component based
-            on the possibility that this agent's goal has moved.
+   @brief   Attempts to update `this` State's velocity component for the given `agent` (e.g., 
+            `agent` is following a moving goal).
    */
   void updateVelCompForMovingGoals(Agents::BaseAgent* agent);
 

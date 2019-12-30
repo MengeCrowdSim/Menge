@@ -13,7 +13,7 @@ using Menge::BFSM::PathGoal;
 using Menge::Math::Vector2;
 
 /////////////////////////////////////////////////////////////////////
-//					Implementation of PathGoalRenderer
+//          Implementation of PathGoalRenderer
 /////////////////////////////////////////////////////////////////////
 
 std::string PathGoalRenderer::getElementName() const { return PathGoal::NAME; }
@@ -27,7 +27,7 @@ void PathGoalRenderer::doDrawGeometry() const {
                               "' with path goal renderer.");
   }
 
-  const Vector2& p_WGo = goal->current_position();
+  const Vector2& p_WGo = goal->origin();
   drawGeometry(*goal->getGeometry(), RigidTransform2(p_WGo));
 }
 
