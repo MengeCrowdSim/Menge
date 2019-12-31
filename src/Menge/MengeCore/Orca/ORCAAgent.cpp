@@ -1,9 +1,9 @@
-/*
+﻿/*
 
 License
 
 Menge
-Copyright � and trademark � 2012-14 University of North Carolina at Chapel Hill.
+Copyright © and trademark ™ 2012-14 University of North Carolina at Chapel Hill.
 All rights reserved.
 
 Permission to use, copy, modify, and distribute this software and its documentation
@@ -439,27 +439,53 @@ std::string Agent::getStringId() const { return "orca"; }
 
 bool linearProgram1(const std::vector<Menge::Math::Line>& lines, size_t lineNo, float radius,
                     const Vector2& optVelocity, bool directionOpt, Vector2& result) {
+  // First, evaluate the circular constraint; if there is no intersection between circle and line
+  // then the optimization is infeasible.
+  //
+  // If the line lines[lineNo] is L(t) = p + dt, then this line intersects a circle (centered at the
+  // origin with radius r) where ‖p + dt‖₂ = r or, equivalently, ‖p + dt‖₂² = r². This expands to
+  // the quadratic equation: d⋅d⋅t² + 2⋅p⋅d⋅t + p⋅p - r² = 0.
+  // However, d is unit length, so it simplifies to: t² + 2⋅p⋅d⋅t + p⋅p - r² = 0.
+  // For there to be *no* intersection, the descriminant must be < 0. I.e.,
+  //               b² - 4ac < 0
+  //   4(p⋅d)² - 4(p⋅p - r²) < 0
+  //     (p⋅d)² - (p⋅p - r²) < 0
   const float dotProduct = lines[lineNo]._point * lines[lineNo]._direction;
   const float discriminant = sqr(dotProduct) + sqr(radius) - absSq(lines[lineNo]._point);
 
   if (discriminant < 0.0f) {
-    /* Max speed circle fully invalidates line lineNo. */
+    // No intersection; there is no solution.
     return false;
   }
 
+  // There is an intersection; find the extents of the intersection.
   const float sqrtDiscriminant = std::sqrt(discriminant);
   float tLeft = -dotProduct - sqrtDiscriminant;
   float tRight = -dotProduct + sqrtDiscriminant;
 
+  // For each *previous* line, find where it intersects the optimization line. Then, based on the
+  // direction of the constraint line, clip the optimization line as appropriate.
+  // First, some notation.
+  //   L(t) = p + dt is the optimization line.
+  //   Lᵢ(t) = pᵢ + t⋅dᵢ is boundary of a constraining halfspace.
+  //   Given vector v = <xᵥ, yᵥ>, we define v⟂ = <yᵥ, -xᵥ> as a vector perpendicular to v such that
+  //   v⋅v⟂ = 0.
+  //
+  // Line L intersects line Lᵢ at t if and only if dᵢ⟂⋅(p + dt) - dᵢ⟂⋅ pᵢ = 0.
+  // With some algebraic manipulation, that becomes: t = (dᵢ⟂⋅(pᵢ - p)) / (dᵢ⟂⋅d).
+  // Calling the det(u, v) method is equivalent to evaluating u⋅v⟂
   for (size_t i = 0; i < lineNo; ++i) {
+    // The denominator and nuemrator of t = (dᵢ⟂⋅(pᵢ - p)) / (dᵢ⟂⋅d), respectively.
     const float denominator = det(lines[lineNo]._direction, lines[i]._direction);
     const float numerator = det(lines[i]._direction, lines[lineNo]._point - lines[i]._point);
 
     if (std::fabs(denominator) <= Menge::EPS) {
-      /* Lines lineNo and i are (almost) parallel. */
+      // Lines L and i are Lᵢ functionally parallel.
       if (numerator < 0.0f) {
+        // Line L lies completely outside the halfspace bounded by Lᵢ; problem infeasible.
         return false;
       } else {
+        // Line L lies completely inside the halfspace bounded by Lᵢ; no clipping required.
         continue;
       }
     }
@@ -467,29 +493,30 @@ bool linearProgram1(const std::vector<Menge::Math::Line>& lines, size_t lineNo, 
     const float t = numerator / denominator;
 
     if (denominator >= 0.0f) {
-      /* Line i bounds line lineNo on the right. */
+      // Line Lᵢ bounds line L on the right.
       tRight = std::min(tRight, t);
     } else {
-      /* Line i bounds line lineNo on the left. */
+      // Line Lᵢ bounds line L on the left.
       tLeft = std::max(tLeft, t);
     }
 
+    // Test to see if there still a line segment left over.
     if (tLeft > tRight) {
       return false;
     }
   }
 
   if (directionOpt) {
-    /* Optimize direction. */
+    // Optimize direction.
     if (optVelocity * lines[lineNo]._direction > 0.0f) {
-      /* Take right extreme. */
+      // Take right extreme.
       result = lines[lineNo]._point + tRight * lines[lineNo]._direction;
     } else {
-      /* Take left extreme. */
+      // Take left extreme.
       result = lines[lineNo]._point + tLeft * lines[lineNo]._direction;
     }
   } else {
-    /* Optimize closest point. */
+    // Optimize closest point.
     const float t = lines[lineNo]._direction * (optVelocity - lines[lineNo]._point);
 
     if (t < tLeft) {

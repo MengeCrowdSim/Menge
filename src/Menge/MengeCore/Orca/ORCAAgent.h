@@ -1,4 +1,4 @@
-/*
+﻿/*
  Menge Crowd Simulation Framework
 
  Copyright and trademark 2012-17 University of North Carolina at Chapel Hill
@@ -110,18 +110,33 @@ class MENGE_API Agent : public Menge::Agents::BaseAgent {
   void obstacleLine(size_t obstNbrID, const float invTau, bool flip);
 };
 
-/*!
- @brief      Solves a one-dimensional linear program on a specified line subject to linear
-             constraints defined by lines and a circular constraint.
+  /*! @brief  Finds the optimal solution on a *line*, subject to a set of constraints, relative to
+              a given optimization velocity.
 
- @param      lines         Lines defining the linear constraints.
- @param      lineNo        The specified line constraint.
- @param      radius        The radius of the circular constraint.
- @param      optVelocity   The optimization velocity.
- @param      directionOpt  True if the direction should be optimized.
- @param      result        A reference to the result of the linear program.
- @returns    True if successful.
- */
+   THe line being optimized is given by index `lineNo`, drawn from the collection of `lines`. The
+   constraints include a circle, centered on the origin with the given `radius`. Furthermore, it
+   includes all half spaces represented by the `lines` index by `0 ≤ i < lineNo`. It is assumed that
+   the constraints (circle and previous half spaces) are consistent with respect to the optimization
+   point (`optVelocity`).
+
+   Essentially, the line gets clipped by all of the constraints to a finite domain (it must be
+   finite, otherwise it hasn't actually intersected the circle). Once the clipped domain has been
+   calculated, one of two optimizations will be run (based on `directionOpt`).
+
+   If `directionOpt` is true, the optimal solution is the end of the clipped segement most in the
+   same direction (relative to the line direction) as `optVelocity`. If `directionOpt` is false,
+   it returns the nearest point of the line segment to `optVelocity`. If there is no actual solution
+   (typically because the constraints are infeasible), the function returns false.
+
+   @param   lines           The collection of lines defining the halfspace constraints and
+                            optimizaiton line.
+   @param   lineNo          The index of the line to optimize on. All lines in the range [0, lineNo)
+                            will serve as halfspace constraints.
+   @param   radius          The radius of the circular constraint.
+   @param   optVelocity     The optimization velocity.
+   @param   directionOpt    True if the direction should be optimized, false if nearest point.
+   @param   result[out]     The optimized result is returned here -- if one is found.
+   @returns True if successful (and `result` is meaningful). */
 bool linearProgram1(const std::vector<Menge::Math::Line>& lines, size_t lineNo, float radius,
                     const Menge::Math::Vector2& optVelocity, bool directionOpt,
                     Menge::Math::Vector2& result);
