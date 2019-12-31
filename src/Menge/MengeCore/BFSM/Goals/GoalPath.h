@@ -1,7 +1,7 @@
 /*
  Menge Crowd Simulation Framework
 
- Copyright and trademark 2012-17 University of North Carolina at Chapel Hill
+ Copyright and trademark 2019 Sean Curtis
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
