@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<Project 
+	scene="MidPlan/MidPlanS.xml" 
+	behavior="MidPlan/MidPlanB.xml" 
+	view="MidPlan/MidPlanV.xml" 
+	model="orca"
+	dumpPath="images/test"
+/>

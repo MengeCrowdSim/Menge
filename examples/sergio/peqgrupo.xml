@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<Project 
+	scene="peqgrupo/S.xml" 
+	behavior="peqgrupo/B.xml" 
+	view="peqgrupo/V.xml" 
+	model="orca"
+	dumpPath="images/test"
+/>

@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+
+<BFSM>
+	<GoalSet id="0">
+		<Goal id="0" type="point" x="-63.59" y="6.37"/>
+        	<Goal id="1" type="point" x="-81.65" y="1.33"/>
+        	<Goal id="2" type="point" x="-77.57" y="11.03"/>
+        	<Goal id="3" type="point" x="-84.76" y="6.50"/>
+	</GoalSet>
+		<State name="WalkOut1" final="0" >
+			<GoalSelector type="explicit" goal_set="0" goal="0" per_agent="0" />
+			<VelComponent type="goal" />
+		</State>
+		<State name="WalkOut2" final="0" >
+			<GoalSelector type="explicit" goal_set="0" goal="1" per_agent="0" />
+			<VelComponent type="goal" />
+		</State>
+		<State name="WalkOut3" final="0" >
+			<GoalSelector type="explicit" goal_set="0" goal="2" per_agent="0" />
+			<VelComponent type="goal" />
+		</State>
+		<State name="WalkOut4" final="0" >
+			<GoalSelector type="explicit" goal_set="0" goal="3" per_agent="0" />
+			<VelComponent type="goal" />
+		</State>
+		<State name="Stop1" final="1" >
+			<GoalSelector type="explicit" goal_set="0" goal="0" per_agent="0" />
+			<VelComponent type="zero" />
+		</State>
+		<State name="Stop2" final="1" >
+			<GoalSelector type="explicit" goal_set="0" goal="1" per_agent="0" />
+			<VelComponent type="zero" />
+		</State>
+		<State name="Stop3" final="1" >
+			<GoalSelector type="explicit" goal_set="0" goal="2" per_agent="0" />
+			<VelComponent type="zero" />
+		</State>
+		<State name="Stop4" final="1" >
+			<GoalSelector type="explicit" goal_set="0" goal="3" per_agent="0" />
+			<VelComponent type="zero" />
+		</State>
+		
+        <Transition from="WalkOut1" to="Stop1" >
+            <Condition type="goal_reached" distance="1.5" />
+        </Transition>
+<Transition from="WalkOut2" to="Stop2" >
+            <Condition type="goal_reached" distance="1.5" />
+        </Transition>
+<Transition from="WalkOut3" to="Stop3" >
+            <Condition type="goal_reached" distance="1.5" />
+        </Transition>
+<Transition from="WalkOut4" to="Stop4" >
+            <Condition type="goal_reached" distance="1.5" />
+        </Transition>
+</BFSM>

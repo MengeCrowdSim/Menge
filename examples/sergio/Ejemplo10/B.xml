@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+
+<BFSM>
+	<GoalSet id="0">
+		<Goal capacity="1000000" id="0" type="point" weight="1.00" x="11.27" y="0"/>
+        	<Goal capacity="1000000" id="1" max_x="-20" max_y="-20" min_x="-40" min_y="-40" type="AABB" weight="1.00"/>
+        	<Goal id="2" type="point" x="-77.57" y="11.03"/>
+        	<Goal id="3" type="point" x="-84.76" y="6.50"/>
+	</GoalSet>
+		<State name="WalkOut1" final="0" >
+			<GoalSelector type="explicit" goal_set="0" goal="0" per_agent="0" />
+			<VelComponent type="goal" />
+		</State>
+		<State name="WalkOut2" final="0" >
+			<GoalSelector type="explicit" goal_set="0" goal="1" per_agent="0" />
+			<VelComponent type="goal" />
+		</State>
+	
+		<State name="Stop" final="1" >
+			<GoalSelector type="explicit" goal_set="0" goal="0" per_agent="0" />
+			<VelComponent type="zero" />
+		</State>
+		
+        <Transition from="WalkOut1" to="Stop" >
+            <Condition type="goal_reached" distance="1.5" />
+        </Transition>
+
+	<Transition from="WalkOut2" to="Stop" >
+            <Condition type="goal_reached" distance="1.5" />
+        </Transition>
+
+</BFSM>

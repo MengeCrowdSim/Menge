@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<Project 
+	scene="seguimiento/seguimientoS.xml" 
+	behavior="seguimiento/seguimientoB.xml" 
+	view="seguimiento/seguimientoV.xml" 
+	model="orca"
+	dumpPath="seguimiento/imagenes"
+/>

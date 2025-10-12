@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<Project 
+	scene="Ejemplo8/Ejemplo8S.xml" 
+	behavior="Ejemplo8/Ejemplo8B.xml" 
+	view="Ejemplo8/Ejemplo8V.xml" 
+	model="orca"
+	dumpPath="images/test"
+/>

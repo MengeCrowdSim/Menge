@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<Project 
+	scene="puerta/puertaS.xml" 
+	behavior="puerta/puertaB.xml" 
+	view="puerta/puertaV.xml" 
+	model="orca"
+	dumpPath="puerta/imagenes"
+/>
