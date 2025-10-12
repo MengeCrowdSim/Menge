@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+
+<View width="640" height="480" z_up="1" >
+    <Camera name="top (ortho)" xpos="0" ypos="-0.01" zpos="20.1723" xtgt="0" ytgt="-0" ztgt="0" far="400" near="0.01" fov="0" orthoScale="0.838912"/>
+    <Camera name="perspective" xpos="6.49623" ypos="-12.9487" zpos="6.2586" xtgt="0" ytgt="-0" ztgt="0" far="400" near="0.01" fov="45" orthoScale="1"/>
+    <Light x="1" y="0" z="-1" type="directional" space="camera" diffR="1" diffG="0.8" diffB="0.8"/>
+    <Light x="-1" y="0" z="-1" type="directional" space="camera" diffR="0.8" diffG="0.8" diffB="1"/>
+    <Light x="0" y="0" z="1" type="directional" space="world" diffR="0.8" diffG="0.8" diffB="0.8"/>
+    <Watermark file_name="../../mengeLogo.png" alignment="bottom_right" scale="0.5" opacity="0.25"/>
+</View>

@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<Experiment version="2.0">
+	<SpatialQuery type="kd-tree" test_visibility="true" />
+	
+	<OpenSteer max_force="8" leak_through="0.1" reaction_time="0.5" />
+    <Common time_step="0.1"  />
+    <GCF reaction_time="0.5" max_agent_dist="2" max_agent_force="3" agent_interp_width="0.1" agent_force_strength="0.35" />
+    <Helbing agent_scale="2000" obstacle_scale="4000" reaction_time="0.5" body_force="1200" friction="2400" force_distance="0.015" />
+    <Johansson agent_scale="25" obstacle_scale="35" reaction_time="0.5" force_distance="0.15" stride_time="0.5" />
+    <Karamouzas orient_weight="0.8" fov="200" reaction_time="0.4" wall_steepness="2" wall_distance="2" colliding_count="5" d_min="1" d_mid="8" d_max="10" agent_force="4" />
+    <Zanlungo agent_scale="2000" obstacle_scale="4000" reaction_time="0.5" force_distance="0.005" />
+	<Dummy stddev="1.0" />
+
+    <AgentProfile name="group1">
+        <OpenSteer tau="3" tauObst="6" />
+        <Common max_angle_vel="360" max_neighbors="10" obstacleSet="1" neighbor_dist="10" r="0.3" class="1" pref_speed="1.04" max_speed="2" max_accel="5" />
+        <PedVO factor="1.57" buffer="0.9" tau="3" tauObst="0.1" turningBias="1.0" />
+        <GCF stand_depth="0.18" move_scale="0.53" slow_width="0.25" sway_change="0.05" />
+        <Helbing mass="80" />
+        <Johansson fov_weight="0.16" />
+        <Karamouzas personal_space="0.69" anticipation="8" />
+        <ORCA tau="3" tauObst="0.1" />
+        <Zanlungo mass="80" orient_weight="0.75" />
+
+	<VelModifier type="midterm_planning"
+			trace="0" 
+			 />
+
+	
+	</AgentProfile>
+
+    	<AgentProfile name="group2" inherits="group1" >
+		<Common class="2" priority="1" pref_speed="0.9"/>
+		<Helbing mass="320"/>
+	</AgentProfile>
+	<AgentProfile name="group3" inherits="group1" >
+		<Common class="3" priority="1" />
+		<Helbing mass="320"/>
+	</AgentProfile>
+	<AgentProfile name="group4" inherits="group1" >
+		<Common class="4" priority="1" />
+		<Helbing mass="320"/>
+	</AgentProfile>
+
+	<AgentGroup>
+        	<ProfileSelector type="const" name="group1" />
+		<StateSelector type="const" name="WalkOut1" />
+		<Generator type="explicit" >
+
+		<Agent p_x="-10.0" p_y="0.0" />
+        	<Agent p_x="-9.65344572944" p_y="-0.931692649323" />
+        	<Agent p_x="-9.34002943028" p_y="-0.290689715535" />
+        	<Agent p_x="-8.50008878468" p_y="-0.387605943873" />
+        	<Agent p_x="-8.83929558386" p_y="-1.08217224697" />
+        	<Agent p_x="-8.12857657605" p_y="-1.25985199892" />
+        	<Agent p_x="-7.80552248159" p_y="-0.678354628888" />
+        	<Agent p_x="-7.43401027296" p_y="-1.32446281781" />
+        	<Agent p_x="-7.01403995016" p_y="-0.339147829704" />
+        	<Agent p_x="-7.80552248159" p_y="0.177738721434" />
+        	<Agent p_x="-8.87160099331" p_y="0.290807654496" />
+        	<Agent p_x="-9.67923622946" p_y="0.549250930065" />
+        	<Agent p_x="-9.22696049722" p_y="1.17920641426" />
+        	<Agent p_x="-8.59700501302" p_y="0.807694205634" />
+        	<Agent p_x="-7.98320223354" p_y="1.21151182371" />
+        	<Agent p_x="-7.40170486351" p_y="0.743083386741" />
+        	<Agent p_x="-6.73944396986" p_y="1.00152666231" />
+        	<Agent p_x="-6.64252774153" p_y="0.306960359219" />
+        	<Agent p_x="-10.0345957334" p_y="1.32458075677" />
+        	<Agent p_x="-10.3414971231" p_y="-1.74443314061" />
+        	<Agent p_x="-9.24311320194" p_y="-1.74443314061" />
+		
+		</Generator>
+    	</AgentGroup>
+
+	<AgentGroup>
+        	<ProfileSelector type="const" name="group2" />
+		<StateSelector type="const" name="WalkOut2" />
+		<Generator type="explicit" >
+        	
+        	<Agent p_x="10.0" p_y="0.0" />
+        	<Agent p_x="9.53794584401" p_y="0.402100110916" />
+        	<Agent p_x="8.93766263086" p_y="0.779420987751" />
+        	<Agent p_x="8.85190788613" p_y="0.0762320809213" />
+        	<Agent p_x="9.43504015033" p_y="-0.318239744861" />
+        	<Agent p_x="9.46934204822" p_y="-1.19293814116" />
+        	<Agent p_x="8.4402851114" p_y="-0.832768213273" />
+        	<Agent p_x="8.13156803035" p_y="-0.249635949073" />
+        	<Agent p_x="8.30307751982" p_y="0.470703906704" />
+        	<Agent p_x="7.59988861299" p_y="0.72796814091" />
+        	<Agent p_x="8.04581328561" p_y="1.31110040511" />
+        	<Agent p_x="8.71470029455" p_y="1.31110040511" />
+        	<Agent p_x="7.15396394037" p_y="1.39685514985" />
+        	<Agent p_x="6.99960539984" p_y="0.264892519339" />
+        	<Agent p_x="7.41122817457" p_y="-0.301088795914" />
+        	<Agent p_x="7.29117153194" p_y="-0.867070111168" />
+        	<Agent p_x="6.6565864209" p_y="-0.626956825909" />
+        	<Agent p_x="7.84000189825" p_y="-1.29584383484" />
+        	<Agent p_x="8.6975493456" p_y="-1.60456091589" />
+        	<Agent p_x="6.19351079933" p_y="-0.0609755106553" />
+        	<Agent p_x="6.46792598248" p_y="0.642213396175" />
+		</Generator>
+	</AgentGroup>
+
+	
+
+	
+</Experiment>

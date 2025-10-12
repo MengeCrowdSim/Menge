@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<Project 
+	scene="parado/S.xml" 
+	behavior="parado/B.xml" 
+	view="parado/V.xml" 
+	model="orca"
+	dumpPath="images/test"
+/>

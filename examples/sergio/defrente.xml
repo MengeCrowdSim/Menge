@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<Project 
+	scene="defrente/defrenteS.xml" 
+	behavior="defrente/defrenteB.xml" 
+	view="defrente/defrenteV.xml" 
+	model="orca"
+	dumpPath="puerta/imagenes"
+/>

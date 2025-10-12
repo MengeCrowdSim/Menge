@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<Project 
+	scene="pruebaMid/pruebaMidS.xml" 
+	behavior="pruebaMid/pruebaMidB.xml" 
+	view="pruebaMid/pruebaMidV.xml" 
+	model="orca"
+	dumpPath="images/test"
+/>

@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<Experiment version="2.0">
+	<SpatialQuery type="kd-tree" test_visibility="true" />
+	
+	<OpenSteer max_force="8" leak_through="0.1" reaction_time="0.5" />
+    <Common time_step="0.1"  />
+    <GCF reaction_time="0.5" max_agent_dist="2" max_agent_force="3" agent_interp_width="0.1" agent_force_strength="0.35" />
+    <Helbing agent_scale="2000" obstacle_scale="4000" reaction_time="0.5" body_force="1200" friction="2400" force_distance="0.015" />
+    <Johansson agent_scale="25" obstacle_scale="35" reaction_time="0.5" force_distance="0.15" stride_time="0.5" />
+    <Karamouzas orient_weight="0.8" fov="200" reaction_time="0.4" wall_steepness="2" wall_distance="2" colliding_count="5" d_min="1" d_mid="8" d_max="10" agent_force="4" />
+    <Zanlungo agent_scale="2000" obstacle_scale="4000" reaction_time="0.5" force_distance="0.005" />
+	<Dummy stddev="1.0" />
+
+    <AgentProfile name="group1">
+        <OpenSteer tau="3" tauObst="6" />
+        <Common max_angle_vel="360" max_neighbors="10" obstacleSet="1" neighbor_dist="10" r="0.3" class="1" pref_speed="1.04" max_speed="2" max_accel="5" />
+        <PedVO factor="1.57" buffer="0.9" tau="3" tauObst="0.1" turningBias="1.0" />
+        <GCF stand_depth="0.18" move_scale="0.53" slow_width="0.25" sway_change="0.05" />
+        <Helbing mass="80" />
+        <Johansson fov_weight="0.16" />
+        <Karamouzas personal_space="0.69" anticipation="8" />
+        <ORCA tau="3" tauObst="0.1" />
+        <Zanlungo mass="80" orient_weight="0.75" />
+
+	<VelModifier type="midterm_planning" 
+			trace="0"
+			 />
+
+	
+	</AgentProfile>
+
+    	<AgentProfile name="group2" inherits="group1" >
+		<Common class="2" priority="1" />
+		<Helbing mass="320"/>
+	</AgentProfile>
+	<AgentProfile name="group3" inherits="group1" >
+		<Common class="3" priority="1" />
+		<Helbing mass="320"/>
+	</AgentProfile>
+	<AgentProfile name="group4" inherits="group1" >
+		<Common class="4" priority="1" />
+		<Helbing mass="320"/>
+	</AgentProfile>
+
+	<AgentGroup>
+        	<ProfileSelector type="const" name="group1" />
+		<StateSelector type="const" name="WalkOut1" />
+		<Generator type="explicit" >
+			<Agent p_x="-12.9" p_y="0.05" />
+		</Generator>
+    	</AgentGroup>
+
+	<AgentGroup>
+        	<ProfileSelector type="const" name="group2" />
+		<StateSelector type="const" name="WalkOut2" />
+		<Generator type="explicit" >
+        	<Agent p_x="0.3" p_y="5.55" />
+        	<Agent p_x="1.5" p_y="5.05" />
+        	<Agent p_x="2.7" p_y="5.45" />
+        	<Agent p_x="3.85" p_y="5.25" />
+        	<Agent p_x="4.85" p_y="4.9" />
+        	<Agent p_x="5.85" p_y="5.4" />
+        	<Agent p_x="6.75" p_y="4.95" />
+        	<Agent p_x="7.25" p_y="4.3" />
+        	<Agent p_x="7.6" p_y="3.6" />
+        	<Agent p_x="6.55" p_y="2.95" />
+        	<Agent p_x="7.55" p_y="2.4" />
+        	<Agent p_x="5.2172" p_y="1.92615" />
+        	<Agent p_x="6.7481" p_y="1.5981" />
+        	<Agent p_x="7.22195" p_y="0.68685" />
+        	<Agent p_x="6.2378" p_y="0.83265" />
+        	<Agent p_x="6.49295" p_y="-0.2973" />
+        	<Agent p_x="5.2172" p_y="0.83265" />
+        	<Agent p_x="5.6546" p_y="-0.1515" />
+        	<Agent p_x="4.4153" p_y="0.1401" />
+        	<Agent p_x="5.1443" p_y="-1.245" />
+        	<Agent p_x="3.7592" p_y="-0.39175" />
+        	<Agent p_x="2.8844" p_y="-1.06275" />
+        	<Agent p_x="1.718" p_y="-1.35435" />
+        	<Agent p_x="0.9161" p_y="-2.0469" />
+        	<Agent p_x="0.58805" p_y="-1.13565" />
+        	<Agent p_x="0.7703" p_y="1.19715" />
+        	<Agent p_x="0.7703" p_y="2.43645" />
+        	<Agent p_x="1.60865" p_y="1.70745" />
+        	<Agent p_x="1.7909" p_y="3.129" />
+        	<Agent p_x="2.41055" p_y="0.83265" />
+		</Generator>
+	</AgentGroup>
+<!---
+	<ObstacleSet type="explicit" class="1">
+	<Obstacle closed="1" >
+			<Vertex p_x="-76.790615" p_y="-0.286537" />
+			<Vertex p_x="-76.858158" p_y="5.994923" />
+			<Vertex p_x="-76.081418" p_y="5.994923" />
+			<Vertex p_x="-76.115189" p_y="-0.218995" />
+		</Obstacle>
+	</ObstacleSet>
+--->
+	
+</Experiment>
